@@ -1,0 +1,6 @@
+1/28/2019 8:43:46 AM: Failed to find IOKTile for cell graphic [ /. ]
+1/28/2019 8:43:46 AM: Failed to find SpinelTileDefinition for cell graphic [ /. ]
+1/28/2019 9:17:21 AM: {Exception} Object reference not set to an instance of an object. Stack:    at Microsoft.Xna.Framework.Audio.XactSound.Play(Single volume, AudioEngine engine)
+   at Microsoft.Xna.Framework.Audio.Cue.Play()
+   at Yuusha.Sound.Play(String[] soundInfo) in C:\Users\mikec\Desktop\YuushaMG\utility\Sound.cs:line 156
+1/28/2019 12:30:28 PM: lammasu has no visualKey information.

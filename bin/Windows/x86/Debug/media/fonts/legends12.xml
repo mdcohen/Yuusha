@@ -1,0 +1,668 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<font name="legends12" base="15" height="19" face="Legends" size="12">
+<bitmaps>
+<bitmap id="0" name="legends12-0.png" size="256x256" />
+</bitmaps>
+<glyphs>
+<glyph ch=" " code="0020" bm="0" origin="0,0" size="0x0" aw="4" lsb="0" />
+<glyph ch="!" code="0021" bm="0" origin="0,0" size="4x20" aw="3" lsb="0" />
+<glyph ch="&quot;" code="0022" bm="0" origin="4,0" size="4x20" aw="4" lsb="0" />
+<glyph ch="#" code="0023" bm="0" origin="8,0" size="10x20" aw="9" lsb="0" />
+<glyph ch="$" code="0024" bm="0" origin="18,0" size="8x20" aw="7" lsb="0" />
+<glyph ch="%" code="0025" bm="0" origin="26,0" size="12x20" aw="11" lsb="0" />
+<glyph ch="&amp;" code="0026" bm="0" origin="38,0" size="10x20" aw="9" lsb="0" />
+<glyph ch="'" code="0027" bm="0" origin="48,0" size="3x20" aw="2" lsb="0" />
+<glyph ch="(" code="0028" bm="0" origin="51,0" size="4x20" aw="4" lsb="0" />
+<glyph ch=")" code="0029" bm="0" origin="55,0" size="6x20" aw="5" lsb="0" />
+<glyph ch="*" code="002a" bm="0" origin="61,0" size="7x20" aw="6" lsb="0" />
+<glyph ch="+" code="002b" bm="0" origin="68,0" size="9x20" aw="8" lsb="0" />
+<glyph ch="," code="002c" bm="0" origin="77,0" size="3x20" aw="3" lsb="0" />
+<glyph ch="-" code="002d" bm="0" origin="80,0" size="5x20" aw="4" lsb="0" />
+<glyph ch="." code="002e" bm="0" origin="85,0" size="3x20" aw="2" lsb="0" />
+<glyph ch="/" code="002f" bm="0" origin="88,0" size="5x20" aw="4" lsb="0" />
+<glyph ch="0" code="0030" bm="0" origin="93,0" size="9x20" aw="8" lsb="0" />
+<glyph ch="1" code="0031" bm="0" origin="102,0" size="8x20" aw="7" lsb="0" />
+<glyph ch="2" code="0032" bm="0" origin="110,0" size="9x20" aw="8" lsb="0" />
+<glyph ch="3" code="0033" bm="0" origin="119,0" size="9x20" aw="8" lsb="0" />
+<glyph ch="4" code="0034" bm="0" origin="128,0" size="10x20" aw="9" lsb="0" />
+<glyph ch="5" code="0035" bm="0" origin="138,0" size="9x20" aw="8" lsb="0" />
+<glyph ch="6" code="0036" bm="0" origin="147,0" size="9x20" aw="8" lsb="0" />
+<glyph ch="7" code="0037" bm="0" origin="156,0" size="9x20" aw="8" lsb="0" />
+<glyph ch="8" code="0038" bm="0" origin="165,0" size="9x20" aw="8" lsb="0" />
+<glyph ch="9" code="0039" bm="0" origin="174,0" size="9x20" aw="8" lsb="0" />
+<glyph ch=":" code="003a" bm="0" origin="183,0" size="4x20" aw="3" lsb="0" />
+<glyph ch=";" code="003b" bm="0" origin="187,0" size="4x20" aw="3" lsb="0" />
+<glyph ch="&lt;" code="003c" bm="0" origin="191,0" size="9x20" aw="8" lsb="0" />
+<glyph ch="=" code="003d" bm="0" origin="200,0" size="9x20" aw="8" lsb="0" />
+<glyph ch="&gt;" code="003e" bm="0" origin="209,0" size="8x20" aw="8" lsb="0" />
+<glyph ch="?" code="003f" bm="0" origin="217,0" size="5x20" aw="5" lsb="0" />
+<glyph ch="@" code="0040" bm="0" origin="222,0" size="12x20" aw="11" lsb="0" />
+<glyph ch="A" code="0041" bm="0" origin="234,0" size="10x20" aw="9" lsb="0" />
+<glyph ch="B" code="0042" bm="0" origin="244,0" size="10x20" aw="9" lsb="0" />
+<glyph ch="C" code="0043" bm="0" origin="0,20" size="9x20" aw="8" lsb="0" />
+<glyph ch="D" code="0044" bm="0" origin="9,20" size="11x20" aw="10" lsb="0" />
+<glyph ch="E" code="0045" bm="0" origin="20,20" size="8x20" aw="7" lsb="0" />
+<glyph ch="F" code="0046" bm="0" origin="28,20" size="7x20" aw="6" lsb="0" />
+<glyph ch="G" code="0047" bm="0" origin="35,20" size="10x20" aw="9" lsb="0" />
+<glyph ch="H" code="0048" bm="0" origin="45,20" size="10x20" aw="9" lsb="0" />
+<glyph ch="I" code="0049" bm="0" origin="55,20" size="4x20" aw="3" lsb="0" />
+<glyph ch="J" code="004a" bm="0" origin="59,20" size="6x20" aw="5" lsb="0" />
+<glyph ch="K" code="004b" bm="0" origin="65,20" size="9x20" aw="8" lsb="0" />
+<glyph ch="L" code="004c" bm="0" origin="74,20" size="7x20" aw="6" lsb="0" />
+<glyph ch="M" code="004d" bm="0" origin="81,20" size="13x20" aw="12" lsb="0" />
+<glyph ch="N" code="004e" bm="0" origin="94,20" size="9x20" aw="9" lsb="0" />
+<glyph ch="O" code="004f" bm="0" origin="103,20" size="10x20" aw="9" lsb="0" />
+<glyph ch="P" code="0050" bm="0" origin="113,20" size="8x20" aw="8" lsb="0" />
+<glyph ch="Q" code="0051" bm="0" origin="121,20" size="10x20" aw="9" lsb="0" />
+<glyph ch="R" code="0052" bm="0" origin="131,20" size="9x20" aw="8" lsb="0" />
+<glyph ch="S" code="0053" bm="0" origin="140,20" size="8x20" aw="7" lsb="0" />
+<glyph ch="T" code="0054" bm="0" origin="148,20" size="7x20" aw="7" lsb="0" />
+<glyph ch="U" code="0055" bm="0" origin="155,20" size="10x20" aw="9" lsb="0" />
+<glyph ch="V" code="0056" bm="0" origin="165,20" size="9x20" aw="8" lsb="0" />
+<glyph ch="W" code="0057" bm="0" origin="174,20" size="13x20" aw="12" lsb="0" />
+<glyph ch="X" code="0058" bm="0" origin="187,20" size="9x20" aw="8" lsb="0" />
+<glyph ch="Y" code="0059" bm="0" origin="196,20" size="8x20" aw="7" lsb="0" />
+<glyph ch="Z" code="005a" bm="0" origin="204,20" size="8x20" aw="8" lsb="0" />
+<glyph ch="[" code="005b" bm="0" origin="212,20" size="4x20" aw="4" lsb="0" />
+<glyph ch="\" code="005c" bm="0" origin="216,20" size="5x20" aw="4" lsb="0" />
+<glyph ch="]" code="005d" bm="0" origin="221,20" size="5x20" aw="4" lsb="0" />
+<glyph ch="^" code="005e" bm="0" origin="226,20" size="9x20" aw="8" lsb="0" />
+<glyph ch="_" code="005f" bm="0" origin="235,20" size="8x20" aw="7" lsb="0" />
+<glyph ch="`" code="0060" bm="0" origin="243,20" size="7x20" aw="6" lsb="0" />
+<glyph ch="a" code="0061" bm="0" origin="0,40" size="10x20" aw="9" lsb="0" />
+<glyph ch="b" code="0062" bm="0" origin="10,40" size="9x20" aw="8" lsb="0" />
+<glyph ch="c" code="0063" bm="0" origin="19,40" size="8x20" aw="7" lsb="0" />
+<glyph ch="d" code="0064" bm="0" origin="27,40" size="10x20" aw="9" lsb="0" />
+<glyph ch="e" code="0065" bm="0" origin="37,40" size="8x20" aw="7" lsb="0" />
+<glyph ch="f" code="0066" bm="0" origin="45,40" size="5x20" aw="5" lsb="0" />
+<glyph ch="g" code="0067" bm="0" origin="50,40" size="10x20" aw="9" lsb="0" />
+<glyph ch="h" code="0068" bm="0" origin="60,40" size="9x20" aw="8" lsb="0" />
+<glyph ch="i" code="0069" bm="0" origin="69,40" size="3x20" aw="3" lsb="0" />
+<glyph ch="j" code="006a" bm="0" origin="72,40" size="4x20" aw="3" lsb="0" />
+<glyph ch="k" code="006b" bm="0" origin="76,40" size="8x20" aw="8" lsb="0" />
+<glyph ch="l" code="006c" bm="0" origin="84,40" size="4x20" aw="3" lsb="0" />
+<glyph ch="m" code="006d" bm="0" origin="88,40" size="12x20" aw="11" lsb="0" />
+<glyph ch="n" code="006e" bm="0" origin="100,40" size="9x20" aw="8" lsb="0" />
+<glyph ch="o" code="006f" bm="0" origin="109,40" size="10x20" aw="9" lsb="0" />
+<glyph ch="p" code="0070" bm="0" origin="119,40" size="10x20" aw="9" lsb="0" />
+<glyph ch="q" code="0071" bm="0" origin="129,40" size="9x20" aw="9" lsb="0" />
+<glyph ch="r" code="0072" bm="0" origin="138,40" size="7x20" aw="6" lsb="0" />
+<glyph ch="s" code="0073" bm="0" origin="145,40" size="7x20" aw="6" lsb="0" />
+<glyph ch="t" code="0074" bm="0" origin="152,40" size="5x20" aw="4" lsb="0" />
+<glyph ch="u" code="0075" bm="0" origin="157,40" size="9x20" aw="8" lsb="0" />
+<glyph ch="v" code="0076" bm="0" origin="166,40" size="8x20" aw="7" lsb="0" />
+<glyph ch="w" code="0077" bm="0" origin="174,40" size="12x20" aw="11" lsb="0" />
+<glyph ch="x" code="0078" bm="0" origin="186,40" size="8x20" aw="7" lsb="0" />
+<glyph ch="y" code="0079" bm="0" origin="194,40" size="9x20" aw="8" lsb="0" />
+<glyph ch="z" code="007a" bm="0" origin="203,40" size="7x20" aw="7" lsb="0" />
+<glyph ch="{" code="007b" bm="0" origin="210,40" size="4x20" aw="4" lsb="0" />
+<glyph ch="|" code="007c" bm="0" origin="214,40" size="6x20" aw="5" lsb="0" />
+<glyph ch="}" code="007d" bm="0" origin="220,40" size="5x20" aw="5" lsb="0" />
+<glyph ch="~" code="007e" bm="0" origin="225,40" size="10x20" aw="9" lsb="0" />
+</glyphs>
+<kernpairs>
+<kernpair left="!" right="/" adjust="-3" />
+<kernpair left="!" right="1" adjust="-3" />
+<kernpair left="!" right="2" adjust="-1" />
+<kernpair left="!" right="3" adjust="-2" />
+<kernpair left="!" right="7" adjust="-1" />
+<kernpair left="!" right=":" adjust="-1" />
+<kernpair left="!" right="j" adjust="-2" />
+<kernpair left="&quot;" right="," adjust="-3" />
+<kernpair left="&quot;" right="-" adjust="-3" />
+<kernpair left="&quot;" right="." adjust="-2" />
+<kernpair left="&quot;" right="1" adjust="-2" />
+<kernpair left="&quot;" right="3" adjust="-2" />
+<kernpair left="&quot;" right="4" adjust="-4" />
+<kernpair left="&quot;" right="8" adjust="-1" />
+<kernpair left="&quot;" right="A" adjust="-3" />
+<kernpair left="&quot;" right="]" adjust="-3" />
+<kernpair left="&quot;" right="a" adjust="-4" />
+<kernpair left="&quot;" right="d" adjust="-4" />
+<kernpair left="&quot;" right="g" adjust="-4" />
+<kernpair left="&quot;" right="o" adjust="-4" />
+<kernpair left="&quot;" right="q" adjust="-4" />
+<kernpair left="#" right="," adjust="-2" />
+<kernpair left="#" right="." adjust="-2" />
+<kernpair left="#" right="1" adjust="-3" />
+<kernpair left="#" right="2" adjust="-2" />
+<kernpair left="#" right="3" adjust="-2" />
+<kernpair left="#" right="5" adjust="-1" />
+<kernpair left="#" right="7" adjust="-2" />
+<kernpair left="#" right="]" adjust="-1" />
+<kernpair left="'" right="#" adjust="-2" />
+<kernpair left="'" right=")" adjust="-2" />
+<kernpair left="'" right="," adjust="-2" />
+<kernpair left="'" right="-" adjust="-1" />
+<kernpair left="'" right="." adjust="-2" />
+<kernpair left="'" right="/" adjust="-2" />
+<kernpair left="'" right="0" adjust="-2" />
+<kernpair left="'" right="1" adjust="-2" />
+<kernpair left="'" right="3" adjust="-3" />
+<kernpair left="'" right="4" adjust="-3" />
+<kernpair left="'" right="5" adjust="-2" />
+<kernpair left="'" right="6" adjust="-3" />
+<kernpair left="'" right="8" adjust="-3" />
+<kernpair left="'" right=";" adjust="-3" />
+<kernpair left="'" right="A" adjust="-2" />
+<kernpair left="'" right="C" adjust="-2" />
+<kernpair left="'" right="E" adjust="-2" />
+<kernpair left="'" right="F" adjust="-2" />
+<kernpair left="'" right="G" adjust="-2" />
+<kernpair left="'" right="H" adjust="-2" />
+<kernpair left="'" right="M" adjust="-2" />
+<kernpair left="'" right="O" adjust="-2" />
+<kernpair left="'" right="Q" adjust="-2" />
+<kernpair left="'" right="S" adjust="-1" />
+<kernpair left="'" right="Z" adjust="-2" />
+<kernpair left="'" right="]" adjust="-2" />
+<kernpair left="'" right="a" adjust="-2" />
+<kernpair left="'" right="c" adjust="-2" />
+<kernpair left="'" right="d" adjust="-3" />
+<kernpair left="'" right="e" adjust="-2" />
+<kernpair left="'" right="g" adjust="-2" />
+<kernpair left="'" right="j" adjust="-2" />
+<kernpair left="'" right="o" adjust="-3" />
+<kernpair left="'" right="q" adjust="-2" />
+<kernpair left="'" right="s" adjust="-2" />
+<kernpair left="'" right="z" adjust="-1" />
+<kernpair left="(" right="1" adjust="-3" />
+<kernpair left="(" right="2" adjust="-1" />
+<kernpair left="(" right="3" adjust="-1" />
+<kernpair left="(" right="4" adjust="-2" />
+<kernpair left="(" right="6" adjust="-2" />
+<kernpair left="(" right="8" adjust="-1" />
+<kernpair left="(" right=":" adjust="-2" />
+<kernpair left=")" right=")" adjust="-1" />
+<kernpair left=")" right="1" adjust="-3" />
+<kernpair left=")" right="2" adjust="-2" />
+<kernpair left=")" right="3" adjust="-2" />
+<kernpair left=")" right="7" adjust="-2" />
+<kernpair left=")" right="]" adjust="-1" />
+<kernpair left="," right="&quot;" adjust="-3" />
+<kernpair left="," right="#" adjust="-3" />
+<kernpair left="," right="'" adjust="-2" />
+<kernpair left="," right=")" adjust="-3" />
+<kernpair left="," right="-" adjust="-2" />
+<kernpair left="," right="1" adjust="-6" />
+<kernpair left="," right="3" adjust="-1" />
+<kernpair left="," right="4" adjust="-4" />
+<kernpair left="," right="7" adjust="-1" />
+<kernpair left="," right="T" adjust="-3" />
+<kernpair left="," right="V" adjust="-3" />
+<kernpair left="," right="Y" adjust="-2" />
+<kernpair left="," right="\" adjust="-3" />
+<kernpair left="," right="]" adjust="-3" />
+<kernpair left="," right="j" adjust="-3" />
+<kernpair left="," right="v" adjust="-2" />
+<kernpair left="-" right="&quot;" adjust="-4" />
+<kernpair left="-" right="'" adjust="-2" />
+<kernpair left="-" right=")" adjust="-2" />
+<kernpair left="-" right="," adjust="-3" />
+<kernpair left="-" right="." adjust="-2" />
+<kernpair left="-" right="1" adjust="-4" />
+<kernpair left="-" right="2" adjust="-3" />
+<kernpair left="-" right="3" adjust="-6" />
+<kernpair left="-" right="5" adjust="-6" />
+<kernpair left="-" right="7" adjust="-3" />
+<kernpair left="-" right=":" adjust="-3" />
+<kernpair left="-" right=";" adjust="-3" />
+<kernpair left="-" right="J" adjust="-2" />
+<kernpair left="-" right="S" adjust="-5" />
+<kernpair left="-" right="T" adjust="-2" />
+<kernpair left="-" right="X" adjust="-1" />
+<kernpair left="-" right="Y" adjust="-2" />
+<kernpair left="-" right="s" adjust="-2" />
+<kernpair left="-" right="z" adjust="-1" />
+<kernpair left="." right="&quot;" adjust="-2" />
+<kernpair left="." right="#" adjust="-2" />
+<kernpair left="." right="'" adjust="-2" />
+<kernpair left="." right=")" adjust="-2" />
+<kernpair left="." right="-" adjust="-1" />
+<kernpair left="." right="/" adjust="-2" />
+<kernpair left="." right="1" adjust="-5" />
+<kernpair left="." right="4" adjust="-3" />
+<kernpair left="." right="7" adjust="-3" />
+<kernpair left="." right="9" adjust="-3" />
+<kernpair left="." right="?" adjust="-2" />
+<kernpair left="." right="E" adjust="-2" />
+<kernpair left="." right="F" adjust="-2" />
+<kernpair left="." right="H" adjust="-2" />
+<kernpair left="." right="T" adjust="-2" />
+<kernpair left="." right="V" adjust="-2" />
+<kernpair left="." right="W" adjust="-2" />
+<kernpair left="." right="Y" adjust="-1" />
+<kernpair left="." right="\" adjust="-2" />
+<kernpair left="." right="]" adjust="-2" />
+<kernpair left="." right="f" adjust="-2" />
+<kernpair left="." right="j" adjust="-2" />
+<kernpair left="." right="t" adjust="-1" />
+<kernpair left="." right="v" adjust="-1" />
+<kernpair left="." right="w" adjust="-2" />
+<kernpair left="/" right="1" adjust="-2" />
+<kernpair left="/" right="3" adjust="-2" />
+<kernpair left="/" right="5" adjust="-1" />
+<kernpair left="0" right="," adjust="-1" />
+<kernpair left="0" right="." adjust="-1" />
+<kernpair left="0" right="Y" adjust="1" />
+<kernpair left="1" right=":" adjust="-1" />
+<kernpair left="1" right="]" adjust="-2" />
+<kernpair left="2" right="]" adjust="-1" />
+<kernpair left="3" right=")" adjust="-1" />
+<kernpair left="3" right="]" adjust="-1" />
+<kernpair left="4" right=")" adjust="-2" />
+<kernpair left="4" right="." adjust="-1" />
+<kernpair left="4" right=":" adjust="-3" />
+<kernpair left="4" right=";" adjust="-3" />
+<kernpair left="4" right="]" adjust="-1" />
+<kernpair left="5" right=":" adjust="-1" />
+<kernpair left="5" right=";" adjust="-1" />
+<kernpair left="6" right="]" adjust="-1" />
+<kernpair left="7" right="," adjust="-3" />
+<kernpair left="7" right="." adjust="-2" />
+<kernpair left="7" right="/" adjust="-2" />
+<kernpair left="7" right=":" adjust="-2" />
+<kernpair left="7" right=";" adjust="-2" />
+<kernpair left="7" right="A" adjust="-2" />
+<kernpair left="7" right="]" adjust="-1" />
+<kernpair left="7" right="a" adjust="-2" />
+<kernpair left="7" right="c" adjust="-1" />
+<kernpair left="7" right="d" adjust="-2" />
+<kernpair left="7" right="e" adjust="-1" />
+<kernpair left="7" right="g" adjust="-2" />
+<kernpair left="7" right="o" adjust="-2" />
+<kernpair left="7" right="q" adjust="-2" />
+<kernpair left="8" right="]" adjust="-1" />
+<kernpair left="9" right="," adjust="-1" />
+<kernpair left="9" right="]" adjust="-1" />
+<kernpair left=":" right=")" adjust="-2" />
+<kernpair left=":" right="-" adjust="-1" />
+<kernpair left=":" right="/" adjust="-2" />
+<kernpair left=":" right="1" adjust="-2" />
+<kernpair left=":" right="3" adjust="-1" />
+<kernpair left=":" right="4" adjust="-2" />
+<kernpair left=":" right="7" adjust="-3" />
+<kernpair left=":" right="?" adjust="-2" />
+<kernpair left=":" right="S" adjust="-2" />
+<kernpair left=":" right="T" adjust="-2" />
+<kernpair left=":" right="V" adjust="-2" />
+<kernpair left=":" right="Y" adjust="-2" />
+<kernpair left=":" right="\" adjust="-2" />
+<kernpair left=":" right="]" adjust="-2" />
+<kernpair left=":" right="j" adjust="-2" />
+<kernpair left=";" right=")" adjust="-3" />
+<kernpair left=";" right="-" adjust="-2" />
+<kernpair left=";" right="1" adjust="-2" />
+<kernpair left=";" right="2" adjust="-1" />
+<kernpair left=";" right="3" adjust="-2" />
+<kernpair left=";" right="7" adjust="-2" />
+<kernpair left=";" right="T" adjust="-3" />
+<kernpair left=";" right="]" adjust="-3" />
+<kernpair left=";" right="j" adjust="-3" />
+<kernpair left="?" right="." adjust="-2" />
+<kernpair left="?" right="1" adjust="-2" />
+<kernpair left="?" right="3" adjust="-2" />
+<kernpair left="?" right="4" adjust="-2" />
+<kernpair left="?" right="5" adjust="-2" />
+<kernpair left="?" right="6" adjust="-1" />
+<kernpair left="?" right="d" adjust="-1" />
+<kernpair left="@" right=")" adjust="-2" />
+<kernpair left="@" right="1" adjust="-3" />
+<kernpair left="@" right="2" adjust="-2" />
+<kernpair left="@" right="3" adjust="-2" />
+<kernpair left="@" right="7" adjust="-3" />
+<kernpair left="@" right="J" adjust="-1" />
+<kernpair left="@" right="]" adjust="-1" />
+<kernpair left="A" right="&quot;" adjust="-2" />
+<kernpair left="A" right="'" adjust="-2" />
+<kernpair left="A" right="1" adjust="-4" />
+<kernpair left="A" right="7" adjust="-1" />
+<kernpair left="A" right="T" adjust="-2" />
+<kernpair left="A" right="V" adjust="-1" />
+<kernpair left="A" right="]" adjust="-1" />
+<kernpair left="B" right=")" adjust="-2" />
+<kernpair left="B" right="1" adjust="-3" />
+<kernpair left="B" right="2" adjust="-2" />
+<kernpair left="B" right="3" adjust="-2" />
+<kernpair left="B" right="5" adjust="-2" />
+<kernpair left="B" right="7" adjust="-2" />
+<kernpair left="B" right="]" adjust="-1" />
+<kernpair left="C" right="-" adjust="-5" />
+<kernpair left="C" right="1" adjust="-2" />
+<kernpair left="C" right="3" adjust="-2" />
+<kernpair left="C" right="4" adjust="-3" />
+<kernpair left="D" right=")" adjust="-1" />
+<kernpair left="D" right="," adjust="-1" />
+<kernpair left="D" right="." adjust="-1" />
+<kernpair left="D" right="1" adjust="-2" />
+<kernpair left="D" right="2" adjust="-2" />
+<kernpair left="D" right="3" adjust="-2" />
+<kernpair left="D" right="7" adjust="-2" />
+<kernpair left="D" right="]" adjust="-1" />
+<kernpair left="E" right="-" adjust="-2" />
+<kernpair left="E" right="1" adjust="-4" />
+<kernpair left="E" right="7" adjust="-1" />
+<kernpair left="E" right="]" adjust="-1" />
+<kernpair left="F" right="#" adjust="-2" />
+<kernpair left="F" right="," adjust="-3" />
+<kernpair left="F" right="-" adjust="-2" />
+<kernpair left="F" right="." adjust="-3" />
+<kernpair left="F" right="1" adjust="-3" />
+<kernpair left="F" right="2" adjust="-2" />
+<kernpair left="F" right="3" adjust="-2" />
+<kernpair left="F" right="5" adjust="-2" />
+<kernpair left="F" right="8" adjust="-1" />
+<kernpair left="F" right="]" adjust="-1" />
+<kernpair left="F" right="z" adjust="-2" />
+<kernpair left="G" right="1" adjust="-3" />
+<kernpair left="G" right="7" adjust="-1" />
+<kernpair left="G" right="]" adjust="-1" />
+<kernpair left="H" right="1" adjust="-3" />
+<kernpair left="H" right="2" adjust="-2" />
+<kernpair left="H" right="3" adjust="-2" />
+<kernpair left="H" right="7" adjust="-2" />
+<kernpair left="H" right="]" adjust="-1" />
+<kernpair left="I" right=")" adjust="-2" />
+<kernpair left="I" right="/" adjust="-3" />
+<kernpair left="I" right="1" adjust="-3" />
+<kernpair left="I" right="2" adjust="-1" />
+<kernpair left="I" right="3" adjust="-2" />
+<kernpair left="I" right="7" adjust="-2" />
+<kernpair left="I" right=":" adjust="-1" />
+<kernpair left="I" right="]" adjust="-3" />
+<kernpair left="I" right="j" adjust="-2" />
+<kernpair left="J" right="1" adjust="-2" />
+<kernpair left="J" right="3" adjust="-2" />
+<kernpair left="J" right="]" adjust="-1" />
+<kernpair left="K" right="1" adjust="-3" />
+<kernpair left="K" right="4" adjust="-2" />
+<kernpair left="L" right="&quot;" adjust="-3" />
+<kernpair left="L" right="'" adjust="-3" />
+<kernpair left="L" right="-" adjust="-2" />
+<kernpair left="L" right="1" adjust="-4" />
+<kernpair left="L" right="3" adjust="-1" />
+<kernpair left="L" right="4" adjust="-3" />
+<kernpair left="L" right="7" adjust="-2" />
+<kernpair left="L" right="@" adjust="-1" />
+<kernpair left="L" right="T" adjust="-2" />
+<kernpair left="L" right="V" adjust="-2" />
+<kernpair left="L" right="\" adjust="-1" />
+<kernpair left="L" right="]" adjust="-1" />
+<kernpair left="M" right="1" adjust="-3" />
+<kernpair left="M" right="7" adjust="-1" />
+<kernpair left="M" right="\" adjust="-1" />
+<kernpair left="M" right="]" adjust="-1" />
+<kernpair left="N" right="1" adjust="-2" />
+<kernpair left="N" right="]" adjust="-1" />
+<kernpair left="O" right="," adjust="-1" />
+<kernpair left="O" right="." adjust="-1" />
+<kernpair left="O" right="1" adjust="-2" />
+<kernpair left="O" right="Y" adjust="1" />
+<kernpair left="P" right="," adjust="-4" />
+<kernpair left="P" right="." adjust="-5" />
+<kernpair left="P" right="1" adjust="-2" />
+<kernpair left="P" right="3" adjust="-2" />
+<kernpair left="P" right="7" adjust="-1" />
+<kernpair left="P" right="A" adjust="-1" />
+<kernpair left="P" right="a" adjust="-1" />
+<kernpair left="P" right="o" adjust="-1" />
+<kernpair left="Q" right="1" adjust="-2" />
+<kernpair left="Q" right="2" adjust="-1" />
+<kernpair left="Q" right="3" adjust="-2" />
+<kernpair left="Q" right="7" adjust="-2" />
+<kernpair left="R" right="-" adjust="-2" />
+<kernpair left="R" right="1" adjust="-3" />
+<kernpair left="R" right="4" adjust="-2" />
+<kernpair left="S" right="1" adjust="-4" />
+<kernpair left="S" right="2" adjust="-2" />
+<kernpair left="S" right="3" adjust="-3" />
+<kernpair left="S" right="5" adjust="-2" />
+<kernpair left="S" right="7" adjust="-2" />
+<kernpair left="S" right="]" adjust="-1" />
+<kernpair left="T" right="#" adjust="-2" />
+<kernpair left="T" right="," adjust="-2" />
+<kernpair left="T" right="-" adjust="-1" />
+<kernpair left="T" right="." adjust="-2" />
+<kernpair left="T" right="/" adjust="-1" />
+<kernpair left="T" right="1" adjust="-3" />
+<kernpair left="T" right="2" adjust="-2" />
+<kernpair left="T" right="3" adjust="-2" />
+<kernpair left="T" right="4" adjust="-2" />
+<kernpair left="T" right="5" adjust="-2" />
+<kernpair left="T" right="6" adjust="-2" />
+<kernpair left="T" right="8" adjust="-2" />
+<kernpair left="T" right="9" adjust="-1" />
+<kernpair left="T" right=":" adjust="-3" />
+<kernpair left="T" right=";" adjust="-2" />
+<kernpair left="T" right="@" adjust="-2" />
+<kernpair left="T" right="A" adjust="-1" />
+<kernpair left="T" right="C" adjust="-1" />
+<kernpair left="T" right="G" adjust="-1" />
+<kernpair left="T" right="O" adjust="-2" />
+<kernpair left="T" right="Q" adjust="-1" />
+<kernpair left="T" right="]" adjust="-1" />
+<kernpair left="T" right="a" adjust="-2" />
+<kernpair left="T" right="c" adjust="-1" />
+<kernpair left="T" right="d" adjust="-2" />
+<kernpair left="T" right="e" adjust="-1" />
+<kernpair left="T" right="g" adjust="-2" />
+<kernpair left="T" right="m" adjust="-2" />
+<kernpair left="T" right="n" adjust="-2" />
+<kernpair left="T" right="o" adjust="-2" />
+<kernpair left="T" right="p" adjust="-2" />
+<kernpair left="T" right="q" adjust="-2" />
+<kernpair left="T" right="r" adjust="-2" />
+<kernpair left="T" right="s" adjust="-2" />
+<kernpair left="T" right="u" adjust="-2" />
+<kernpair left="T" right="w" adjust="-1" />
+<kernpair left="T" right="y" adjust="-2" />
+<kernpair left="T" right="z" adjust="-1" />
+<kernpair left="U" right="1" adjust="-3" />
+<kernpair left="U" right="2" adjust="-1" />
+<kernpair left="U" right="3" adjust="-2" />
+<kernpair left="U" right="7" adjust="-2" />
+<kernpair left="U" right=":" adjust="-1" />
+<kernpair left="U" right="]" adjust="-2" />
+<kernpair left="U" right="j" adjust="-1" />
+<kernpair left="V" right="," adjust="-2" />
+<kernpair left="V" right="." adjust="-2" />
+<kernpair left="V" right="1" adjust="-2" />
+<kernpair left="V" right="3" adjust="-2" />
+<kernpair left="V" right="4" adjust="-1" />
+<kernpair left="V" right="5" adjust="-2" />
+<kernpair left="V" right=":" adjust="-1" />
+<kernpair left="V" right=";" adjust="-1" />
+<kernpair left="V" right="A" adjust="-2" />
+<kernpair left="V" right="a" adjust="-1" />
+<kernpair left="V" right="e" adjust="-1" />
+<kernpair left="V" right="o" adjust="-1" />
+<kernpair left="W" right="," adjust="-1" />
+<kernpair left="W" right="." adjust="-1" />
+<kernpair left="W" right="/" adjust="-1" />
+<kernpair left="W" right="1" adjust="-2" />
+<kernpair left="W" right="3" adjust="-2" />
+<kernpair left="W" right="5" adjust="-1" />
+<kernpair left="W" right=":" adjust="-1" />
+<kernpair left="W" right=";" adjust="-1" />
+<kernpair left="X" right="1" adjust="-3" />
+<kernpair left="X" right="4" adjust="-2" />
+<kernpair left="Y" right="," adjust="-3" />
+<kernpair left="Y" right="-" adjust="-1" />
+<kernpair left="Y" right="." adjust="-2" />
+<kernpair left="Y" right="1" adjust="-2" />
+<kernpair left="Y" right="4" adjust="-2" />
+<kernpair left="Y" right="6" adjust="-1" />
+<kernpair left="Y" right=":" adjust="-1" />
+<kernpair left="Y" right=";" adjust="-1" />
+<kernpair left="Y" right="A" adjust="-1" />
+<kernpair left="Y" right="Y" adjust="1" />
+<kernpair left="Y" right="a" adjust="-1" />
+<kernpair left="Y" right="d" adjust="-1" />
+<kernpair left="Y" right="e" adjust="-1" />
+<kernpair left="Y" right="o" adjust="-1" />
+<kernpair left="Z" right="-" adjust="-2" />
+<kernpair left="Z" right="1" adjust="-4" />
+<kernpair left="Z" right="4" adjust="-3" />
+<kernpair left="Z" right="7" adjust="-1" />
+<kernpair left="Z" right="@" adjust="-1" />
+<kernpair left="\" right="1" adjust="-3" />
+<kernpair left="\" right="\" adjust="-1" />
+<kernpair left="]" right="1" adjust="-2" />
+<kernpair left="a" right=")" adjust="-1" />
+<kernpair left="a" right="1" adjust="-2" />
+<kernpair left="a" right="2" adjust="-2" />
+<kernpair left="a" right="3" adjust="-2" />
+<kernpair left="a" right="7" adjust="-2" />
+<kernpair left="a" right="]" adjust="-1" />
+<kernpair left="b" right="&quot;" adjust="-3" />
+<kernpair left="b" right="'" adjust="-5" />
+<kernpair left="b" right=")" adjust="-2" />
+<kernpair left="b" right="1" adjust="-4" />
+<kernpair left="b" right="2" adjust="-2" />
+<kernpair left="b" right="3" adjust="-2" />
+<kernpair left="b" right="7" adjust="-2" />
+<kernpair left="b" right="\" adjust="-1" />
+<kernpair left="b" right="]" adjust="-2" />
+<kernpair left="c" right=")" adjust="-2" />
+<kernpair left="c" right="-" adjust="-3" />
+<kernpair left="c" right="1" adjust="-3" />
+<kernpair left="c" right="2" adjust="-2" />
+<kernpair left="c" right="3" adjust="-2" />
+<kernpair left="c" right="7" adjust="-2" />
+<kernpair left="c" right="]" adjust="-1" />
+<kernpair left="d" right="1" adjust="-3" />
+<kernpair left="d" right="2" adjust="-1" />
+<kernpair left="d" right="3" adjust="-2" />
+<kernpair left="d" right="7" adjust="-2" />
+<kernpair left="d" right=":" adjust="-1" />
+<kernpair left="d" right="j" adjust="-1" />
+<kernpair left="e" right=")" adjust="-2" />
+<kernpair left="e" right="1" adjust="-3" />
+<kernpair left="e" right="2" adjust="-2" />
+<kernpair left="e" right="3" adjust="-2" />
+<kernpair left="e" right="7" adjust="-2" />
+<kernpair left="e" right="]" adjust="-1" />
+<kernpair left="f" right="#" adjust="-2" />
+<kernpair left="f" right="," adjust="-1" />
+<kernpair left="f" right="." adjust="-2" />
+<kernpair left="f" right="1" adjust="-2" />
+<kernpair left="f" right="2" adjust="-3" />
+<kernpair left="f" right="3" adjust="-3" />
+<kernpair left="f" right="4" adjust="-2" />
+<kernpair left="f" right="5" adjust="-2" />
+<kernpair left="f" right="6" adjust="-1" />
+<kernpair left="f" right="7" adjust="-3" />
+<kernpair left="f" right="a" adjust="-1" />
+<kernpair left="f" right="d" adjust="-2" />
+<kernpair left="f" right="e" adjust="-1" />
+<kernpair left="f" right="g" adjust="-1" />
+<kernpair left="f" right="o" adjust="-1" />
+<kernpair left="f" right="q" adjust="-1" />
+<kernpair left="g" right="1" adjust="-2" />
+<kernpair left="g" right="2" adjust="-1" />
+<kernpair left="g" right="3" adjust="-2" />
+<kernpair left="g" right="7" adjust="-2" />
+<kernpair left="h" right="1" adjust="-3" />
+<kernpair left="h" right="7" adjust="-2" />
+<kernpair left="i" right="/" adjust="-2" />
+<kernpair left="i" right="1" adjust="-2" />
+<kernpair left="i" right="3" adjust="-1" />
+<kernpair left="i" right="j" adjust="-2" />
+<kernpair left="j" right="1" adjust="-2" />
+<kernpair left="k" right="1" adjust="-3" />
+<kernpair left="l" right="/" adjust="-3" />
+<kernpair left="l" right="1" adjust="-3" />
+<kernpair left="l" right="2" adjust="-1" />
+<kernpair left="l" right="3" adjust="-2" />
+<kernpair left="l" right="7" adjust="-2" />
+<kernpair left="l" right=":" adjust="-1" />
+<kernpair left="l" right="j" adjust="-2" />
+<kernpair left="m" right=")" adjust="-2" />
+<kernpair left="m" right="1" adjust="-3" />
+<kernpair left="m" right="2" adjust="-1" />
+<kernpair left="m" right="3" adjust="-2" />
+<kernpair left="m" right="7" adjust="-2" />
+<kernpair left="m" right=":" adjust="-1" />
+<kernpair left="m" right="]" adjust="-2" />
+<kernpair left="n" right=")" adjust="-2" />
+<kernpair left="n" right="1" adjust="-3" />
+<kernpair left="n" right="2" adjust="-1" />
+<kernpair left="n" right="3" adjust="-2" />
+<kernpair left="n" right="7" adjust="-2" />
+<kernpair left="n" right=":" adjust="-1" />
+<kernpair left="n" right="]" adjust="-2" />
+<kernpair left="o" right=")" adjust="-2" />
+<kernpair left="o" right="1" adjust="-2" />
+<kernpair left="o" right="2" adjust="-3" />
+<kernpair left="o" right="3" adjust="-3" />
+<kernpair left="o" right="5" adjust="-2" />
+<kernpair left="o" right="7" adjust="-3" />
+<kernpair left="o" right="]" adjust="-1" />
+<kernpair left="p" right=")" adjust="-2" />
+<kernpair left="p" right="1" adjust="-3" />
+<kernpair left="p" right="2" adjust="-3" />
+<kernpair left="p" right="3" adjust="-3" />
+<kernpair left="p" right="5" adjust="-1" />
+<kernpair left="p" right="7" adjust="-3" />
+<kernpair left="p" right="]" adjust="-2" />
+<kernpair left="q" right="1" adjust="-2" />
+<kernpair left="q" right="2" adjust="-1" />
+<kernpair left="q" right="3" adjust="-2" />
+<kernpair left="q" right="7" adjust="-1" />
+<kernpair left="r" right=")" adjust="-2" />
+<kernpair left="r" right="," adjust="-3" />
+<kernpair left="r" right="-" adjust="-1" />
+<kernpair left="r" right="." adjust="-2" />
+<kernpair left="r" right="1" adjust="-3" />
+<kernpair left="r" right="2" adjust="-4" />
+<kernpair left="r" right="3" adjust="-2" />
+<kernpair left="r" right="7" adjust="-3" />
+<kernpair left="r" right="8" adjust="-2" />
+<kernpair left="r" right="]" adjust="-1" />
+<kernpair left="r" right="d" adjust="-1" />
+<kernpair left="s" right=")" adjust="-2" />
+<kernpair left="s" right="1" adjust="-3" />
+<kernpair left="s" right="2" adjust="-2" />
+<kernpair left="s" right="3" adjust="-3" />
+<kernpair left="s" right="5" adjust="-2" />
+<kernpair left="s" right="7" adjust="-2" />
+<kernpair left="s" right="]" adjust="-2" />
+<kernpair left="t" right="2" adjust="-2" />
+<kernpair left="t" right="3" adjust="-2" />
+<kernpair left="t" right="7" adjust="-2" />
+<kernpair left="t" right="v" adjust="1" />
+<kernpair left="u" right=")" adjust="-2" />
+<kernpair left="u" right="1" adjust="-3" />
+<kernpair left="u" right="2" adjust="-1" />
+<kernpair left="u" right="3" adjust="-2" />
+<kernpair left="u" right="7" adjust="-2" />
+<kernpair left="u" right=":" adjust="-1" />
+<kernpair left="u" right="]" adjust="-2" />
+<kernpair left="u" right="j" adjust="-1" />
+<kernpair left="v" right=")" adjust="-1" />
+<kernpair left="v" right="," adjust="-1" />
+<kernpair left="v" right="." adjust="-1" />
+<kernpair left="v" right="1" adjust="-2" />
+<kernpair left="v" right="2" adjust="-3" />
+<kernpair left="v" right="3" adjust="-2" />
+<kernpair left="v" right="7" adjust="-3" />
+<kernpair left="w" right=")" adjust="-1" />
+<kernpair left="w" right="," adjust="-1" />
+<kernpair left="w" right="." adjust="-1" />
+<kernpair left="w" right="1" adjust="-2" />
+<kernpair left="w" right="2" adjust="-3" />
+<kernpair left="w" right="3" adjust="-2" />
+<kernpair left="w" right="7" adjust="-3" />
+<kernpair left="w" right="]" adjust="-1" />
+<kernpair left="x" right="-" adjust="-1" />
+<kernpair left="x" right="1" adjust="-2" />
+<kernpair left="x" right="4" adjust="-2" />
+<kernpair left="x" right="7" adjust="-1" />
+<kernpair left="x" right="]" adjust="-1" />
+<kernpair left="y" right="1" adjust="-2" />
+<kernpair left="z" right="1" adjust="-2" />
+<kernpair left="z" right="4" adjust="-2" />
+<kernpair left="z" right="7" adjust="-1" />
+<kernpair left="z" right="]" adjust="-1" />
+</kernpairs>
+</font>

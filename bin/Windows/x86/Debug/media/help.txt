@@ -1,0 +1,13 @@
+ALT + Enter: Toggle Fullscreen Mode
+ALT + G: Switch Game Mode
+ALT + H: Help Window
+ALT + I: Toggle Vertical Hot Button Window
+ALT + K: Toggle Horizontal Hot Button Window
+ALT + L: Enable/Disable Logging
+ALT + M: Macros Window
+ALT + N: Server News Window
+ALT + O: Options Window
+ALT + R: Reload Current GUI
+ALT + S: Toggle Sound Effects
+ALT + T: Reload Tiles (Game Only)
+~ : Take and Save Screenshot

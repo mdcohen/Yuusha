@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VisualsIndex>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_altar1" X="0" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_counter1" X="40" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_dock" X="80" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_schooner" X="120" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_dock3" X="160" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_down1" X="200" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_grate1" X="240" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ground1" X="280" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ground2" X="320" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ground3" X="360" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ground4" X="400" Y="0" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ground5" X="440" Y="0" Width="40" Height="40"></Visual>
+	
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_sand" X="0" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ground7" X="40" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ground8" X="80" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ground9" X="120" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ground10" X="160" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ground11" X="200" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_mountain1" X="240" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_mountain2" X="280" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_mountain3" X="320" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_mountain4" X="360" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ice1" X="400" Y="40" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ice2" X="440" Y="40" Width="40" Height="40"></Visual>
+	
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_portal1" X="0" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_portal2" X="40" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_portal3" X="80" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_portal4" X="120" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_portal5" X="160" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_boxingring1" X="200" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_ruin1" X="240" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_trashcan1" X="280" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_empty1" X="320" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_unknown1" X="360" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_unknown2" X="400" Y="80" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_up1" X="440" Y="80" Width="40" Height="40"></Visual>
+
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_wall1" X="0" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_wall2" X="40" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_wall3" X="80" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_wall4" X="120" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_wall5" X="160" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_wall6" X="200" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_wall7" X="240" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_wall8" X="280" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_wall9" X="320" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_wall10" X="360" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_web" X="400" Y="120" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_tree1" X="440" Y="120" Width="40" Height="40"></Visual>
+
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_tree2" X="0" Y="160" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_tree3" X="40" Y="160" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_loot2" X="120" Y="160" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_closeddoor1" X="160" Y="160" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_opendoor1" X="200" Y="160" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_loot1" X="240" Y="160" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="sptile_loot3" X="545" Y="410" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_air" X="360" Y="160" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_water" X="400" Y="160" Width="40" Height="40"></Visual>
+	<Visual ParentTexture="spinel_tiles.png" Name="sptile_fire" X="440" Y="160" Width="40" Height="40"></Visual>
+
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_left_tree" X="0" Y="200" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_right_tree" X="40" Y="200" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_double_tree" X="80" Y="200" Width="40" Height="40"></Visual>
+
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_left_tree_frost" X="0" Y="240" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_right_tree_frost" X="40" Y="240" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_double_tree_frost" X="80" Y="240" Width="40" Height="40"></Visual>
+
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_left_tree_dead" X="0" Y="280" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_right_tree_dead" X="40" Y="280" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_double_tree_dead" X="80" Y="280" Width="40" Height="40"></Visual>
+</VisualsIndex>

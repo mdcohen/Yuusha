@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sheet Name="Menu"
+	   Description="Menu GUI" 
+	   Font="courier16"
+	   Cursor="Normal"
+	   PreferredWidth="1024"
+	   PreferredHeight="768"
+	   DeviceClearColor="Black"
+	   AllowFullScreen="true">
+  
+  <!-- Green Tile Background -->
+	<Background
+		Font="courier16"
+		VisualKey="GreenTileBackground"
+		IsCentered="false"
+		IsTiled="true"
+		TintColor="White"
+		VisualAlpha="185">
+	</Background>
+  
+  <!-- Elvish City Background -->
+  <!--<Background
+		Font="courier16"
+		VisualKey="ElvishCityBackground"
+		IsCentered="true"
+		IsTiled="false"
+		TintColor="White"
+		VisualAlpha="255">
+  </Background>-->
+
+  <!-- Blank Background
+  <Background
+		Font="courier16"
+		VisualKey="WhiteSpace"
+		IsCentered="true"
+		IsTiled="false"
+		TintColor="Black"
+		VisualAlpha="65">
+  </Background> -->
+  
+	<Control
+		Type="Label"
+		Text="" 
+		Name="CurrentNameLabel"
+		X="570"
+		Y="510"
+		Width="200"
+		Height="30"
+		TextColor="White"
+		IsVisible="true"
+		Font="courier16"
+		TextAlignment="Center">
+	</Control>
+  
+	<Control
+		Type="Label"
+		Text=""
+		Name="CurrentLevelLabel"
+		X="570"
+		Y="535"
+		Width="200"
+		Height="30"
+		TextColor="White"
+		IsVisible="true"
+		Font="courier16"
+		TextAlignment="Center">
+	</Control>
+  
+	<Control
+		Type="Label"
+		Text=""
+		Name="CurrentLocationLabel"
+		X="570"
+		Y="560"
+		Width="200"
+		Height="30"
+		TextColor="White"
+		IsVisible="true"
+		Font="courier16"
+		TextAlignment="Center">
+	</Control>
+  
+	<Control
+		Type="Label"
+		Name="CurrentPictureLabel"
+		X="635"
+		Y="440"
+		Width="60"
+		Height="60"
+		IsVisible="true"
+		VisualKey="">
+	</Control>
+  
+	<Control
+		Type="Button"
+		Text=""
+		Name="SwitchCharacterNextButton"
+		X="725"
+		Y="465"
+		Width="20"
+		Height="20"
+		IsVisible="true"
+		IsDisabled="false" 
+		Font="courier16"
+		VisualKey="BrownRightArrowButton"
+		VisualKeyDown="BrownRightArrowButtonDown"
+		TintColor="White"
+		OnMouseDown="switch_character_next"
+		TextAlignment="Center">
+	</Control>
+  
+	<Control
+		Type="Button"
+		Text=""
+		Name="SwitchCharacterBackButton"
+		X="595"
+		Y="465"
+		Width="20"
+		Height="20"
+		IsVisible="true"
+		IsDisabled="false" 
+		Font="courier16"
+		VisualKey="BrownLeftArrowButton"
+		VisualKeyDown="BrownLeftArrowButtonDown"
+		TintColor="White"
+		OnMouseDown="switch_character_back"
+		TextAlignment="Center">
+	</Control>
+  
+	<Control
+		Type="Button"
+		Text="Play"
+		Name="PlayButton"
+		X="200"
+		Y="300"
+		Width="150"
+		Height="40"
+		YTextOffset="8" 
+		IsVisible="true"
+		IsDisabled="false" 
+		Font="courier16"
+		TextColor="White"
+		TextOverColor="Chartreuse" 
+		VisualKey="RoundedButton"
+		TintColor="DarkMagenta"
+		OnMouseDown="goto_game"
+		TextAlignment="Center"
+		DropShadow="true"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		AnchorTop="true"
+		AnchorLeft="true">
+	</Control>
+  
+	<Control
+		Type="Button"
+		Text="Conference"
+		Name="EnterConfButton"
+		X="200"
+		Y="350"
+		Width="150"
+		Height="40"
+		YTextOffset="8" 
+		IsVisible="true"
+		IsDisabled="false" 
+		Font="courier16"
+		TextColor="White"
+		TextOverColor="Chartreuse" 
+		VisualKey="RoundedButton"
+		TintColor="DarkMagenta"
+		OnMouseDown="goto_conf"
+		TextAlignment="Center"
+		DropShadow="true"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		AnchorTop="true"
+		AnchorLeft="true">
+	</Control>
+	<Control
+		Type="Button"
+		Text="New Character"
+		Name="CharGenButton"
+		X="200"
+		Y="400"
+		Width="150"
+		Height="40"
+		YTextOffset="8" 
+		IsVisible="true"
+		IsDisabled="false" 
+		Font="courier16"
+		TextColor="White"
+		TextOverColor="Chartreuse" 
+		VisualKey="RoundedButton"
+		TintColor="DarkMagenta"
+		OnMouseDown=""
+		TextAlignment="Center"
+		DropShadow="true"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		AnchorTop="true"
+		AnchorLeft="true">
+	</Control>
+</Sheet>

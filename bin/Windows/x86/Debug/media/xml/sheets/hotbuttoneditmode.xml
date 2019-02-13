@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sheet Name="HotButtonEditMode"
+	   Description="Click on an image to select it for HotButton editing."
+	   Font="legends16"
+	   Cursor="Normal"
+	   PreferredWidth="1024"
+	   PreferredHeight="768"
+	   DeviceClearColor="Transparent"
+	   AllowFullScreen="true">
+
+  <!-- Background -->
+  <Background
+		Font="legends16"
+		VisualKey="BlackTileBackground"
+		IsCentered="false"
+		IsTiled="true"
+		TintColor="White"
+		VisualAlpha="255">
+	</Background>
+
+  <!-- Elvish City Background
+  <Background
+		Font="legends16"
+		VisualKey="ElvishCityBackground"
+		IsCentered="true"
+		IsTiled="false"
+		TintColor="White"
+		VisualAlpha="255">
+  </Background> -->
+
+  <!--START HotButton Edit Window-->
+  <Control
+		Type="HotButtonEditWindow"
+		Name="HotButtonEditWindow"
+		X="40"
+		Y="40"
+	  Width="400"
+		Height="400"
+		IsVisible="true"
+		IsLocked="false"
+		Font="courier12"
+		VisualKey="WhiteSpace"
+		TintColor="DarkSlateGray"
+		DropShadow="false"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		CursorOnDrag="Dragging"
+    AnchorTop="true"
+		AnchorBottom="true"
+		AnchorLeft="true"
+		AnchorRight="true">
+  </Control>
+
+  <!-- HotButton Edit Window Title -->
+  <Control
+		Type="WindowTitle"
+		Name="HotButtonEditWindowTitle"
+		Owner="HotButtonEditWindow"
+		Font="courier12"
+		TintColor="Gray"
+		VisualKey="WhiteSpace"
+		CloseBoxVisualKey="WindowCloseBox"
+		CloseBoxVisualKeyDown="WindowCloseBoxDown"
+		CloseBoxDistanceFromRight="18"
+		CloseBoxDistanceFromTop="1"
+		CloseBoxWidth="17"
+		CloseBoxHeight="17"
+		Text="Hotbutton Edit"
+		TextColor="White"
+		TextAlignment="Center">
+  </Control>
+  
+  <!-- SELECTED -->
+  <Control
+    Type="Label"
+    Name="HotButtonEditWindowSelectedIconTextLabel"
+    Owner="HotButtonEditWindow"
+    X="6"
+    Y="22"
+    Width="128"
+    Height="20"
+    TextColor="White"
+    Text="Selected"
+    IsVisible="true"
+    Font="courier12"
+    TintColor="Transparent"
+    VisualKey="WhiteSpace"
+    VisualAlpha="0"
+    BorderAlpha="255"
+    TextAlpha="255"
+    TextAlignment="Center"
+    AnchorTop="true"
+    AnchorLeft="true">
+  </Control>
+    
+  <Control
+    Type="Label"
+    Name="HotButtonEditWindowSelectedIconLabel"
+    Owner="HotButtonEditWindow"
+    X="6"
+    Y="42"
+    Width="128"
+    Height="128"
+    TextColor="White"
+    IsVisible="true"
+    Font="courier12"
+    TintColor="White"
+    VisualKey="hotbuttonicon_0"
+    VisualAlpha="255"
+    BorderAlpha="255"
+    TextAlpha="255"
+    TextAlignment="Left"
+    AnchorTop="true"
+    AnchorLeft="true">
+  </Control>
+  
+<!-- PREVIEW -->
+<Control
+    Type="Label"
+    Name="HotButtonEditWindowPreviewIconTextLabel"
+    Owner="HotButtonEditWindow"
+    X="140"
+    Y="22"
+    Width="128"
+    Height="20"
+    TextColor="White"
+    Text="Preview"
+    IsVisible="true"
+    Font="courier12"
+    TintColor="Transparent"
+    VisualKey="WhiteSpace"
+    VisualAlpha="0"
+    BorderAlpha="255"
+    TextAlpha="255"
+    TextAlignment="Center"
+    AnchorTop="true"
+    AnchorLeft="true">
+  </Control>
+    
+  <Control
+    Type="Label"
+    Name="HotButtonEditWindowPreviewIconLabel"
+    Owner="HotButtonEditWindow"
+    X="140"
+    Y="42"
+    Width="128"
+    Height="128"
+    TextColor="White"
+    IsVisible="true"
+    Font="courier12"
+    TintColor="White"
+    VisualKey="hotbuttonicon_0"
+    VisualAlpha="255"
+    BorderAlpha="255"
+    TextAlpha="255"
+    TextAlignment="Left"
+    AnchorTop="true"
+    AnchorLeft="true">
+  </Control>
+
+  <Control
+    Type="Label"
+    Name="HotButtonEditWindowTextBoxLabel"
+    Owner="HotButtonEditWindow"
+    X="278"
+    Y="22"
+    Width="200"
+    Height="20"
+    TextColor="White"
+    Text="Hot Button Text"
+    IsVisible="true"
+    Font="courier12"
+    TintColor="Transparent"
+    VisualKey="WhiteSpace"
+    VisualAlpha="0"
+    BorderAlpha="255"
+    TextAlpha="255"
+    TextAlignment="Left"
+    AnchorTop="true"
+    AnchorLeft="true">
+  </Control>
+    
+<Control
+		Type="TextBox"
+		Text=""
+		Name="HotButtonEditWindowTextBox"
+		Owner="HotButtonEditWindow"
+		X="278"
+		Y="42"
+		Width="600"
+		Height="20"
+		XTextOffset="0"
+		YTextOffset="0"
+		TextColor="White"
+		IsVisible="true"
+		IsEditable="true"
+		Font="courier12"
+		VisualKey="WhiteSpace"
+		TintColor="DarkSlateGray"
+		VisualAlpha="200"
+		BorderAlpha="255"
+		TextAlpha="255"
+		MaxLength="100"
+		IsPasswordBox="false"
+		HasBlinkingCursor="true"
+		CursorColor="White"
+    AnchorTop="true"
+    AnchorLeft="true">
+  </Control>
+  
+  <Control
+		Type="SquareBorder"
+		Name="HotButtonEditWindowTextBoxBorder"
+		Owner="HotButtonEditWindowTextBox"
+		Width="1"
+		VisualKey="WhiteSpace"
+    VisualAlpha="255"
+		TintColor="AliceBlue">
+  </Control>
+  
+  <Control
+		Type="Button"
+		Text="Save"
+		Name="HotButtonEditWindowSaveButton"
+		Owner="HotButtonEditWindow"
+		X="415"
+		Y="82"
+		Width="80"
+		Height="35"
+		XTextOffset="0"
+		YTextOffset="5"
+		TextColor="Black"
+		IsVisible="true"
+		IsDisabled="false"
+		Font="courier16"
+    VisualKey="RoundedButton"
+		VisualKeyDown=""
+		VisualKeyOver=""
+		VisualKeyDisabled=""
+    TintColor="DarkGray"
+    VisualAlpha="255"
+		OnMouseDown="Save_Character_Settings"
+		TextAlignment="Center"
+		TextOverColor="Lime"
+    AnchorTop="true"
+    AnchorLeft="true">      
+    </Control>
+</Sheet>

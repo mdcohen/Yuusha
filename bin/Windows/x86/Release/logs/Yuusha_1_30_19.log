@@ -1,0 +1,45 @@
+1/30/2019 10:14:27 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:27 AM: Failed OnMouseDown event for Button [ CreateNewAccountButton ] of Sheet [ Login ]
+1/30/2019 10:14:27 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:28 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:28 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:28 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:28 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:28 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:29 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:29 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:29 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:29 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:29 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:29 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 10:14:29 AM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 113
+1/30/2019 11:31:53 AM: Uiila has no visualKey information.
+1/30/2019 11:34:21 AM: 3 bugbears has no visualKey information.

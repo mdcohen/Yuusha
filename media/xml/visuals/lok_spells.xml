@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VisualsIndex>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_banish_demon" X="0" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_blind" X="45" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_bonfire" X="90" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_breathe_water" X="135" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_concussion" X="180" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_cure" X="225" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_curse" X="270" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_death" X="315" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_1" X="360" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_open_close_door" X="405" Y="0" Width="45" Height="45"></Visual>
+
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_disintegrate" X="0" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_darkness" X="45" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_enchant" X="90" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_featherfall" X="135" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_cure_blindness" X="180" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_find_secret_doors" X="225" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_create_snake" X="270" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_summon_demon" X="315" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_fireball" X="360" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_firebolt" X="405" Y="45" Width="45" Height="45"></Visual>
+
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_firestorm" X="0" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_firewall" X="45" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_hide_door" X="90" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_hide_in_shadows" X="135" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_icespear" X="180" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_icestorm" X="225" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_lava" X="270" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_light" X="315" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_lightning" X="360" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_lightning_chain" X="405" Y="90" Width="45" Height="45"></Visual>
+	
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_lightning_storm" X="0" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_identify" X="45" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_magicmissile" X="90" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_makerecall" X="135" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_neutralize_poison" X="180" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_nightvision" X="225" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_peek" X="270" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_phantasm" X="315" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_poison_cloud" X="360" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_portal" X="405" Y="135" Width="45" Height="45"></Visual>
+
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_protection_blind_death" X="0" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_protection_cold" X="45" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_protection_fire" X="90" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_protection_fire_ice" X="135" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_protection_stun_death" X="180" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_raisedead" X="225" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_resist_blindness" X="270" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_resist_death" X="315" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_resist_poison" X="360" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_resist_lightning" X="405" Y="180" Width="45" Height="45"></Visual>
+	
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_resist_stun" X="0" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_resist_unknown" X="45" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_strength" X="90" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_stun" X="135" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_turn_undead" X="180" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_web" X="225" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_whirlwind" X="270" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_wizardeye" X="315" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_illusion_wall" X="360" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_illusion_empty" X="405" Y="225" Width="45" Height="45"></Visual>
+
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_illusion_fire" X="0" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_illusion_ice" X="45" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_illusion_water" X="90" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_illusion_ruins" X="135" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_illusion_bridge" X="180" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_dragonbreath_lightning" X="225" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_dragonbreath_fire" X="270" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_dragonbreath_ice" X="315" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_2" X="360" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_3" X="405" Y="270" Width="45" Height="45"></Visual>
+	
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_4" X="0" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_5" X="45" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_speed" X="90" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_6" X="135" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_7" X="180" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_8" X="225" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_9" X="270" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_10" X="315" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_11" X="360" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_12" X="405" Y="315" Width="45" Height="45"></Visual>
+
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_13" X="0" Y="360" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_14" X="45" Y="360" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="lok_spells.png" Name="lokspell_unknown_15" X="90" Y="360" Width="45" Height="45"></Visual>
+</VisualsIndex>

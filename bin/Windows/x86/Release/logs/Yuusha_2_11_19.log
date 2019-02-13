@@ -1,0 +1,18 @@
+2/11/2019 8:33:47 PM: merrow has no visualKey information.
+2/11/2019 8:33:47 PM: Sea.Hag has no visualKey information.
+2/11/2019 8:45:54 PM: merrow has no visualKey information.
+2/11/2019 8:45:54 PM: Sea.Hag has no visualKey information.
+2/11/2019 8:45:59 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+2/11/2019 8:45:59 PM: golem has no visualKey information.
+2/11/2019 8:45:59 PM: Drow.Master has no visualKey information.
+2/11/2019 8:45:59 PM: Failed to find IOKTile for cell graphic [ D/ ]
+2/11/2019 8:45:59 PM: Failed to find SpinelTileDefinition for cell graphic [ D/ ]
+2/11/2019 8:45:59 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+2/11/2019 8:46:22 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+2/11/2019 8:46:37 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+2/11/2019 8:46:41 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+2/11/2019 8:46:41 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+2/11/2019 8:46:42 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+2/11/2019 8:47:00 PM: Failed to find IOKTile for cell graphic [ \/ ]
+2/11/2019 8:47:00 PM: Failed to find SpinelTileDefinition for cell graphic [ \/ ]
+2/11/2019 8:47:12 PM: drow.mage has no visualKey information.

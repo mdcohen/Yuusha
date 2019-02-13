@@ -1,0 +1,29 @@
+2/4/2019 2:52:51 PM: hellhound has no visualKey information.
+2/4/2019 2:52:51 PM: Failed to find visual key [ hellhound ] for Control [ Tile16 ]
+2/4/2019 2:52:54 PM: Failed to find visual key [ hellhound ] for Control [ Tile18 ]
+2/4/2019 2:52:58 PM: Failed to find visual key [ hellhound ] for Control [ Tile17 ]
+2/4/2019 2:53:04 PM: Failed to find visual key [ hellhound ] for Control [ Tile23 ]
+2/4/2019 2:53:04 PM: Failed to find visual key [ hellhound ] for Control [ Tile22 ]
+2/4/2019 2:53:08 PM: Failed to find visual key [ hellhound ] for Control [ Tile25 ]
+2/4/2019 2:53:09 PM: Failed to find visual key [ male_wizard_npc ] for Control [ Tile15 ]
+2/4/2019 2:53:11 PM: Failed to find visual key [ male_wizard_npc ] for Control [ Tile17 ]
+2/4/2019 2:53:13 PM: Failed to find visual key [ male_wizard_npc ] for Control [ Tile24 ]
+2/4/2019 2:53:59 PM: {Exception} Input string was not in a correct format. Stack:    at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int16.Parse(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Convert.ToInt16(String value)
+   at Yuusha.Cell..ctor(String info) in C:\Users\mikec\Desktop\YuushaMG\game classes\Cell.cs:line 104
+2/4/2019 2:53:59 PM: {Exception} Input string was not in a correct format. Stack:    at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int16.Parse(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Convert.ToInt16(String value)
+   at Yuusha.Cell..ctor(String info) in C:\Users\mikec\Desktop\YuushaMG\game classes\Cell.cs:line 104
+2/4/2019 2:54:00 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.BuildCritterList() in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 458
+2/4/2019 2:54:00 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.BuildMap() in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 556
+2/4/2019 2:54:00 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.SpinelMode.BuildCritterList() in C:\Users\mikec\Desktop\YuushaMG\gui\SpinelMode.cs:line 464
+2/4/2019 2:54:00 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.SpinelMode.BuildMap() in C:\Users\mikec\Desktop\YuushaMG\gui\SpinelMode.cs:line 586
+2/4/2019 2:54:14 PM: Failed to find visual key [ male_wizard_npc ] for Control [ Tile16 ]
+2/4/2019 2:54:18 PM: Failed to find visual key [ hellhound ] for Control [ Tile27 ]
+2/4/2019 2:54:18 PM: Failed to find visual key [ male_wizard_npc ] for Control [ Tile14 ]
+2/4/2019 2:54:21 PM: Failed to find visual key [ hellhound ] for Control [ Tile24 ]
+2/4/2019 7:02:02 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.BuildCritterList() in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 375

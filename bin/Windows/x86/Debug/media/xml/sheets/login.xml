@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- The login screen.
+Mandatory Controls:
+AccountTextBox
+PasswordTextBox
+ConnectButton
+-->
+<Sheet Name="Login" 
+	   Description="Login Screen GUI" 
+	   Font="courier16"
+	   Cursor="Normal"
+	   PreferredWidth="1024"
+	   PreferredHeight="768"
+	   DeviceClearColor="Black"
+	   AllowFullScreen="true">
+  
+  <!-- Background Visual -->
+	<Background
+		Font="courier16"
+		VisualKey="DragonOverIslandBackground"
+		IsCentered="false"
+		IsTiled="false"
+		TintColor="White"
+		VisualAlpha="255">
+	</Background>
+
+  <LoginWindow>
+    <!-- Login Window -->
+    <Control
+      Type="Window"
+      Name="LoginWindow"
+      X="313"
+      Y="165"
+      Width="397"
+      Height="437"
+      IsVisible="true"
+      IsLocked="false"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      VisualAlpha="115"
+      BorderAlpha="115"
+      TintColor="Black"
+      DropShadow="false"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      AnchorCenter="true">
+    </Control>
+
+    <!-- Login Window Border -->
+    <Control
+      Type="SquareBorder"
+      Name="LoginWindowBorder"
+      Owner="LoginWindow"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="115"
+      TintColor="SlateGray">
+    </Control>
+
+    <!-- Logo -->
+    <Control
+      Type="Label"
+      Text=""
+      Owner="LoginWindow"
+      Name="LogoLabel"
+      X="140"
+      Y="53"
+      Width="115"
+      Height="120"
+      VisualKey="GoldDragonLogo"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Center">
+    </Control>
+
+    <!-- Account Label -->
+    <Control
+      Type="Label"
+      Text="Account:"
+      Name="AccountLabel"
+      Owner="LoginWindow"
+      X="114"
+      Y="199"
+      Width="110"
+      Height="25"
+      TextColor="DeepSkyBlue"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- Account Text Box -->
+    <Control
+      Type="TextBox"
+      Text=""
+      Name="AccountTextBox"
+      Owner="LoginWindow"
+      X="114"
+      Y="220"
+      Width="172"
+      Height="28"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="235"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="14"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="White">
+    </Control>
+
+    <!-- Account TextBox Border -->
+    <Control
+      Type="SquareBorder"
+      Name="AccountTextBoxBorder"
+      Owner="AccountTextBox"
+      Width="2"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="SlateGray">
+    </Control>
+
+    <!-- Password Label -->
+    <Control
+      Type="Label"
+      Text="Password:"
+      Name="PasswordLabel"
+      Owner="LoginWindow"
+      X="114"
+      Y="254"
+      Width="110"
+      Height="25"
+      TextColor="DeepSkyBlue"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- Password Text Box -->
+    <Control
+      Type="TextBox"
+      Text=""
+      Name="PasswordTextBox"
+      Owner="LoginWindow"
+      X="114"
+      Y="275"
+      Width="172"
+      Height="28"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="235"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="14"
+      IsPasswordBox="true"
+      HasBlinkingCursor="true"
+      CursorColor="White">
+    </Control>
+
+    <!-- Password TextBox Border -->
+    <Control
+      Type="SquareBorder"
+      Name="PasswordTextBoxBorder"
+      Owner="PasswordTextBox"
+      Width="2"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="SlateGray">
+    </Control>
+    
+    <!-- Server Host Label -->
+    <Control
+      Type="Label"
+      Text="Server Host:"
+      Name="ServerHostLabel"
+      Owner="LoginWindow"
+      X="36"
+      Y="309"
+      Width="332"
+      Height="25"
+      TextColor="DeepSkyBlue"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- Server Host Text Box -->
+    <Control
+      Type="TextBox"
+      Text=""
+      Name="ServerHostTextBox"
+      Owner="LoginWindow"
+      X="37"
+      Y="330"
+      Width="320"
+      Height="28"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsEditable="false"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="235"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="28"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="White">
+    </Control>
+
+    <!-- Server Host TextBox Border -->
+    <Control
+      Type="SquareBorder"
+      Name="ServerHostTextBoxBorder"
+      Owner="ServerHostTextBox"
+      Width="2"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="SlateGray">
+    </Control>
+
+    <!-- Connect Button -->
+    <Control
+      Type="Button"
+      Text="Login"
+      Name="ConnectButton"
+      Owner="LoginWindow"
+      X="117"
+      Y="380"
+      Width="160"
+      Height="35"
+      XTextOffset="0"
+      YTextOffset="5"
+      TextColor="Black"
+      IsVisible="false"
+      IsDisabled="false"
+      Font="courier16"
+      VisualKey="RoundedButton"
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="DarkGray"
+      VisualAlpha="235"
+      OnMouseDown="Connect"
+      TextAlignment="Center"
+      TextOverColor="White">
+    </Control>
+
+    <!-- Create New Account Button -->
+    <Control
+      Type="Button"
+      Text="Click here to create a new account."
+      Name="CreateNewAccountButton"
+      Owner="LoginWindow"
+      X="38"
+      Y="383"
+      Width="320"
+      Height="20"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier12"
+      VisualKey="WhiteSpace"
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="Transparent"
+      VisualAlpha="0"
+      OnMouseDown="CreateNewAccount"
+      TextAlignment="Center"
+      TextOverColor="MediumSpringGreen">
+    </Control>
+  </LoginWindow>
+
+  <CreateNewAccountWindow>
+    <Control
+      Type="Window"
+      Name="CreateNewAccountWindow"
+      X="313"
+      Y="165"
+      Width="397"
+      Height="437"
+      IsVisible="false"
+      IsLocked="false"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      VisualAlpha="115"
+      BorderAlpha="115"
+      TintColor="Black"
+      DropShadow="false"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      AnchorCenter="true">
+    </Control>
+
+    <!-- Login Window Border -->
+    <Control
+      Type="SquareBorder"
+      Name="CreateNewAccountWindowBorder"
+      Owner="CreateNewAccountWindow"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="115"
+      TintColor="SlateGray">
+    </Control>
+
+    <!-- Logo -->
+    <Control
+      Type="Label"
+      Text=""
+      Owner="CreateNewAccountWindow"
+      Name="CreateNewAccountLogoLabel"
+      X="140"
+      Y="53"
+      Width="115"
+      Height="120"
+      VisualKey="GoldDragonLogo"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Center">
+    </Control>
+
+    <!-- New Account Label -->
+    <Control
+      Type="Label"
+      Text="Account Name:"
+      Name="CreateNewAccountLabel"
+      Owner="CreateNewAccountWindow"
+      X="73"
+      Y="199"
+      Width="172"
+      Height="25"
+      TextColor="DeepSkyBlue"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- New Account Text Box -->
+    <Control
+      Type="TextBox"
+      Text=""
+      Name="CreateNewAccountTextBox"
+      Owner="CreateNewAccountWindow"
+      X="73"
+      Y="220"
+      Width="254"
+      Height="28"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="235"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="14"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="White">
+    </Control>
+
+    <!-- New Account TextBox Border -->
+    <Control
+      Type="SquareBorder"
+      Name="CreateNewAccountTextBoxBorder"
+      Owner="CreateNewAccountTextBox"
+      Width="2"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="SlateGray">
+    </Control>
+
+    <!-- Password Label -->
+    <Control
+      Type="Label"
+      Text="Password:"
+      Name="CreateNewAccountPasswordLabel"
+      Owner="CreateNewAccountWindow"
+      X="73"
+      Y="254"
+      Width="110"
+      Height="25"
+      TextColor="DeepSkyBlue"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- Password Text Box -->
+    <Control
+      Type="TextBox"
+      Text=""
+      Name="CreateNewAccountPasswordTextBox"
+      Owner="CreateNewAccountWindow"
+      X="73"
+      Y="275"
+      Width="254"
+      Height="28"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="235"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="14"
+      IsPasswordBox="true"
+      HasBlinkingCursor="true"
+      CursorColor="White">
+    </Control>
+
+    <!-- New Account Password TextBox Border -->
+    <Control
+      Type="SquareBorder"
+      Name="CreateNewAccountPasswordTextBoxBorder"
+      Owner="CreateNewAccountPasswordTextBox"
+      Width="2"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="SlateGray">
+    </Control>
+
+    <!-- New Account Password Confirm Password Label -->
+    <Control
+      Type="Label"
+      Text="Confirm Password:"
+      Name="CreateNewAccountConfirmPasswordLabel"
+      Owner="CreateNewAccountWindow"
+      X="73"
+      Y="309"
+      Width="250"
+      Height="25"
+      TextColor="DeepSkyBlue"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- New Account Password Confirm Password Text Box -->
+    <Control
+      Type="TextBox"
+      Text=""
+      Name="CreateNewAccountConfirmPasswordTextBox"
+      Owner="CreateNewAccountWindow"
+      X="73"
+      Y="330"
+      Width="254"
+      Height="28"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="235"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="14"
+      IsPasswordBox="true"
+      HasBlinkingCursor="true"
+      CursorColor="White">
+    </Control>
+
+    <!-- New Account Confirm Password TextBox Border -->
+    <Control
+      Type="SquareBorder"
+      Name="CreateNewAccountConfirmPasswordTextBoxBorder"
+      Owner="CreateNewAccountConfirmPasswordTextBox"
+      Width="2"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="SlateGray">
+    </Control>
+
+    <!-- Cancel New Account Creation Button -->
+    <Control
+      Type="Button"
+      Text="Cancel"
+      Name="CancelCreateNewAccountButton"
+      Owner="CreateNewAccountWindow"
+      X="250"
+      Y="400"
+      Width="100"
+      Height="20"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier12"
+      VisualKey=""
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="DarkGrey"
+      VisualAlpha="255"
+      OnMouseDown="Disconnect"
+      TextAlignment="Center"
+      TextOverColor="MediumSpringGreen">
+    </Control>
+  </CreateNewAccountWindow>
+
+  <!-- Login Status Label -->
+  <Control
+		Type="Label"
+		Text="" 
+		Name="LoginStatusLabel"
+		X="0"
+		Y="625"
+		Width="1024"
+		Height="30"
+		TextColor="White"
+		IsVisible="true"
+		Font="courier16"
+		TextAlignment="Center">
+	</Control>
+</Sheet>

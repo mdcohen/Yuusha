@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VisualsIndex>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_gray_stone" X="0" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_marble_tile" X="100" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_floor_horizontal" X="200" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_floor_vertical" X="300" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_temple_floor" X="400" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_burnt" X="500" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_darkness" X="600" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wooden_pit" X="700" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_clouds" X="800" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_orange_floor" X="900" Y="0" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_dirt1" X="0" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_grass" X="100" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_wood_horizontal" X="200" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_wood_vertical" X="300" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_dirt2" X="400" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_snow" X="500" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_sand" X="600" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_reef" X="700" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_ice" X="800" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_swamp" X="900" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_water" X="1000" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_dirt3" X="1100" Y="100" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_wall_horizontal" X="0" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_wall_vertical" X="100" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_rock_wall_horitzontal" X="200" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_rock_wall_vertical" X="300" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_rock_wall_horizontal" X="400" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_rock_wall_vertical" X="500" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_solid_rock" X="600" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_wall_post" X="700" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_rock_wall_post" X="800" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_rock_wall_post" X="900" Y="200" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_wall_ruin_horizontal" X="0" Y="300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_wall_ruin_vertical" X="100" Y="300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_rock_wall_ruinhorizontal" X="200" Y="300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_rock_wall_ruin_vertical" X="300" Y="300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_rock_wall_ruin_horizontal" X="400" Y="300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_rock_wall_ruin_vertical" X="500" Y="300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_wall_ruin_complete" X="600" Y="300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_rock_ruin_complete" X="700" Y="300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_rock_ruin_complete" X="800" Y="300" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_door_post_horizontal" X="0" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_door_post_vertical" X="100" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_door_post_horizontal" X="200" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_door_post_vertical" X="300" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_door_post_horitonzal" X="400" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_door_post_vertical" X="500" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_door_post_ruin_horizontal" X="600" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_door_post_ruin_vertical" X="700" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_door_post_ruin_horizontal" X="800" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_door_post_ruin_vertical" X="900" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_door_post_ruin_horizontal" X="600" Y="400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_door_post_ruin_vertical" X="700" Y="400" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_door_closed_horizontal" X="0" Y="500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_door_closed_vertical" X="100" Y="500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_door_closed_horizontal" X="200" Y="500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_door_closed_vertical" X="300" Y="500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_door_closed_horitonzal" X="400" Y="500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_door_closed_vertical" X="500" Y="500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_unknown1" X="600" Y="500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_unknown2" X="700" Y="500" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_door_open_horizontal" X="0" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_door_open_vertical" X="100" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_door_open_horizontal" X="200" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_door_open_vertical" X="300" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_door_open_horitonzal" X="400" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_door_open_vertical" X="500" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_door_ruin_horizontal" X="600" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_rock_door_ruin_vertical" X="700" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_door_ruin_horizontal" X="800" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_door_ruin_vertical" X="900" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_door_ruin_horizontal" X="600" Y="600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_door_ruin_vertical" X="700" Y="600" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_counter_horizontal" X="0" Y="700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_counter_vertical" X="100" Y="700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_trash_barrel" X="200" Y="700" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_large_tree" X="0" Y="800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_medium_tree" X="100" Y="800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_small_tree" X="200" Y="800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_large_burnt_tree" X="300" Y="800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_medium_burnt_tree" X="400" Y="800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_small_burnt_tree" X="500" Y="800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_monolith" X="600" Y="800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wheat1" X="700" Y="800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wheat2" X="800" Y="800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wheat3" X="900" Y="800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wheat4" X="600" Y="800" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_red_berry" X="0" Y="900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_yellow_berry" X="100" Y="900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_stone_altar" X="200" Y="900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_boxing_ring" X="300" Y="900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood_dock_horizontal" X="400" Y="900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wall_dock_vertical" X="500" Y="900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wall_mirror_horizontal" X="600" Y="900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wall_mirror_vertical" X="700" Y="900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wall_locker_horizontal" X="800" Y="900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wall_locker_vertical" X="900" Y="900" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_stairs_down_south" X="0" Y="1000" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_stairs_down_east" X="100" Y="1000" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_stairs_down_west" X="200" Y="1000" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_stairs_down_north" X="300" Y="1000" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_stairs_up_north" X="400" Y="1000" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_stairs_up_west" X="500" Y="1000" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_stairs_up_east" X="600" Y="1000" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_stairs_up_south" X="700" Y="1000" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_web" X="0" Y="1100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_whirlwind1" X="100" Y="1100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_whirlwind2" X="200" Y="1100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_icestorm1" X="300" Y="1100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_flames1" X="400" Y="1100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_flames2" X="500" Y="1100" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_granite_wall_horizontal" X="0" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_granite_wall_vertical" X="100" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_granite_wall_ruin_horizontal" X="200" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_granite_wall_ruin_vertical" X="300" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_granite_door_post_horitonzal" X="400" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_granite_door_post_ruin" X="500" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_log_wall_horizontal" X="600" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_log_wall_vertical" X="700" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_log_wall_ruin_horizontal" X="800" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_log_wall_ruin_vertical" X="900" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_log_wall_post" X="600" Y="1200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_log_wall_post_ruin" X="700" Y="1200" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_glyph_wall_horizontal" X="0" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_glyph_wall_vertical" X="100" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_glyph_wall_ruin_horizontal" X="200" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_glyph_wall_ruin_vertical" X="300" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_glyph_wall_post" X="400" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_glyph_wall_post_ruin" X="500" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_basalt_wall_horizontal" X="600" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_basalt_wall_vertical" X="700" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_basalt_wall_post" X="800" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_basalt_wall_ruin_horizontal" X="900" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_basalt_wall_ruin_vertical" X="600" Y="1300" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_basalt_wall_post_ruin" X="700" Y="1300" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_basalt_altar" X="0" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_anvil" X="100" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_portcullis_horizontal" X="200" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_portcullis_vertical" X="300" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_blood_stain" X="400" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_column" X="500" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_skull_altar" X="600" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_altar_ruin" X="700" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_hanging_tapestry_horizontal" X="800" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_hanging_tapestry_vertical" X="900" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_skull_crossbones" X="600" Y="1400" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_underworld_altar" X="700" Y="1400" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_wood2_floor_horizontal" X="0" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_granite_floor" X="100" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_thin_ice" X="200" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_marble_tile2" X="300" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_smooth_basalt_floor" X="400" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_marshland" X="500" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_pit" X="600" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_leng_dungeon" X="700" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_mossy_stone" X="800" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_pebbles" X="900" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_brown_sand" X="600" Y="1500" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_yellow_texture" X="700" Y="1500" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_poison_cloud" X="0" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_lightning_bolt" X="100" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_beetlegeuse_trim_horizontal" X="200" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_beetlegeuse_trim_vertical" X="0" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_frozen_waterfall_horizontal" X="100" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_frozen_waterfall_vertical" X="200" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_solid_fog" X="300" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_shimmering_door_horizontal" X="400" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_shimmering_door_vertical" X="500" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_red_yellow_texture" X="600" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_hanging_tapestry2_horizontal" X="700" Y="1600" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_hanging_tapestry3_horizontal" X="800" Y="1600" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_large_pine_tree" X="0" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_medium_pine_tree" X="100" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_small_pine_tree" X="200" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_large_pine_tree_snow" X="300" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_medium_pine_tree_snow" X="400" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_small_pine_tree_snow" X="500" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_tropical_bush" X="600" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_red_flowers" X="700" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_yellow_flowers" X="800" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_tree_stump" X="900" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_enclosed_pool" X="800" Y="1700" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_gargoyle_fountain" X="900" Y="1700" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_skeleton_wall_horizontal" X="0" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_skeleton_wall_vertical" X="100" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_tombstone1" X="200" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_tombstone2" X="300" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_tombstone3" X="400" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_grave_mound1" X="500" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_grave_mound2" X="600" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_loose_stones" X="700" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_stone_throne" X="800" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_shackled_skeleton_horizontal" X="900" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_shackled_skeleton_vertical" X="800" Y="1800" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_dragon_throne" X="900" Y="1800" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_ivy_wall_horizontal" X="0" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_ivy_wall_vertical" X="100" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_ivy_door_post" X="200" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_ivy_wall_ruin_horizontal" X="300" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_ivy_wall_ruin_vertical" X="400" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_ivy_door_post_ruin" X="500" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_torii_door_closed_horizontal" X="600" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_torii_door_closed_vertical" X="700" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_torii_door_open_horizontal" X="800" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_torii_door_open_vertical" X="900" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_torii_door_ruin_horizontal" X="800" Y="1900" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles1.png" Name="loktile_torii_door_ruin_vertical" X="900" Y="1900" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_small_puddle" X="0" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_tattered_red_carpet" X="100" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_rope_climb_up_horizontal" X="200" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_rope_climb_up_vertical" X="300" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_rope_bridge_horizontal" X="400" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_rope_bridge_vertical" X="500" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_rope_climb_down_horizontal" X="600" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_medium_puddle" X="700" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_bookshelf_horizontal" X="800" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_bookshelf_vertical" X="900" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_wizard_glyphs_horizontal" X="800" Y="0" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_wizard_glyphs_vertical" X="900" Y="0" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_gold_counter_horizontal" X="0" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_gold_counter_vertical" X="100" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_tanner_scraps" X="200" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_royal_throne" X="300" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_stone_bridge_horizontal" X="400" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_circular_stairs_up" X="500" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_circular_stairs_down" X="600" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_rope_down1" X="700" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_rope_down2" X="800" Y="100" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_rope_down3" X="900" Y="100" Width="100" Height="100"></Visual>
+
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_underworld_wall_horizontal" X="0" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_underworld_wall_vertical" X="100" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_underworld_wall_ruin_horizontal" X="200" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_underworld_wall_ruin_vertical" X="300" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_underworld_door_post" X="400" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_underworld_door_post_ruin" X="500" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_underworld_gravel" X="600" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_underworld_cobblestone" X="700" Y="200" Width="100" Height="100"></Visual>
+	<Visual ParentTexture="lok_tiles2.png" Name="loktile_impassable_tree" X="800" Y="200" Width="100" Height="100"></Visual>
+</VisualsIndex>
+

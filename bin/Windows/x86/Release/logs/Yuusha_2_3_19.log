@@ -1,0 +1,4 @@
+2/3/2019 3:16:21 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+2/3/2019 3:16:22 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+2/3/2019 3:16:25 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+2/3/2019 4:51:39 PM: lammasu has no visualKey information.

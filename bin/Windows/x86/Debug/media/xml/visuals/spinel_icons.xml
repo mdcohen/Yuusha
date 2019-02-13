@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VisualsIndex>
+  <AutoVisuals ParentTexture="spinel_spells.png" StartName="spinelspells_" StartCounter="0" Columns="10" Rows="9" Width="45" Height="45"></AutoVisuals>  
+	<!--<Visual ParentTexture="spinel_icons.png" Name="spinelicon_1" X="0" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_2" X="45" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_3" X="90" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_4" X="135" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_5" X="180" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_6" X="225" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_7" X="270" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_8" X="315" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_9" X="360" Y="0" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_10" X="405" Y="0" Width="45" Height="45"></Visual>
+
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_11" X="0" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_12" X="45" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_13" X="90" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_14" X="135" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_15" X="180" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_16" X="225" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_17" X="270" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_18" X="315" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_19" X="360" Y="45" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_20" X="405" Y="45" Width="45" Height="45"></Visual>
+
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_21" X="0" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_22" X="45" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_23" X="90" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_24" X="135" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_25" X="180" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_26" X="225" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_27" X="270" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_28" X="315" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_29" X="360" Y="90" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_30" X="405" Y="90" Width="45" Height="45"></Visual>
+	
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_31" X="0" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_32" X="45" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_33" X="90" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_34" X="135" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_35" X="180" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_36" X="225" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_37" X="270" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_38" X="315" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_39" X="360" Y="135" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_40" X="405" Y="135" Width="45" Height="45"></Visual>
+
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_41" X="0" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_42" X="45" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_43" X="90" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_44" X="135" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_45" X="180" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_46" X="225" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_47" X="270" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_48" X="315" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_49" X="360" Y="180" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_50" X="405" Y="180" Width="45" Height="45"></Visual>
+	
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_51" X="0" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_52" X="45" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_53" X="90" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_54" X="135" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_55" X="180" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_56" X="225" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_57" X="270" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_58" X="315" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_59" X="360" Y="225" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_60" X="405" Y="225" Width="45" Height="45"></Visual>
+
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_61" X="0" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_62" X="45" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_63" X="90" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_64" X="135" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_65" X="180" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_66" X="225" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_67" X="270" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_68" X="315" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_69" X="360" Y="270" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_70" X="405" Y="270" Width="45" Height="45"></Visual>
+	
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_71" X="0" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_72" X="45" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_73" X="90" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_74" X="135" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_75" X="180" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_76" X="225" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_77" X="270" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_78" X="315" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_79" X="360" Y="315" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_80" X="405" Y="315" Width="45" Height="45"></Visual>
+
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_81" X="0" Y="360" Width="45" Height="45"></Visual>
+	<Visual ParentTexture="spinel_icons.png" Name="spinelicon_82" X="45" Y="360" Width="45" Height="45"></Visual>-->
+</VisualsIndex>

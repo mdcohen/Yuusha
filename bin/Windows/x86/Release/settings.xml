@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ClientSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ServerName>Dragon's Spine</ServerName>
+  <ServerHost>www.dragonsspine.com</ServerHost>
+  <ServerPort>3000</ServerPort>
+  <ShowSplash>false</ShowSplash>
+  <DefaultFont>legends16</DefaultFont>
+  <DefaultPopUpColor>Cyan</DefaultPopUpColor>
+  <DefaultDropDownMenuFont>courier12</DefaultDropDownMenuFont>
+  <DisplayChantingTextCue>true</DisplayChantingTextCue>
+  <OptionsWindowX>50</OptionsWindowX>
+  <OptionsWindowY>50</OptionsWindowY>
+  <MacrosWindowX>300</MacrosWindowX>
+  <MacrosWindowY>60</MacrosWindowY>
+  <NewsWindowX>500</NewsWindowX>
+  <NewsWindowY>50</NewsWindowY>
+</ClientSettings>

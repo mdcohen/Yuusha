@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VisualsIndex>
+  <AutoVisuals ParentTexture="hotbutton_icons.png" StartName="hotbuttonicon_" Columns="31" Rows="16" Width="128" Height="128"></AutoVisuals>
+</VisualsIndex>

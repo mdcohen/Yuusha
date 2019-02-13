@@ -1,0 +1,34 @@
+2/7/2019 10:31:19 AM: Drow.Matriarch has no visualKey information.
+2/7/2019 10:31:19 AM: drow.anathema has no visualKey information.
+2/7/2019 10:43:07 AM: {Exception} Object reference not set to an instance of an object. Stack:    at Microsoft.Xna.Framework.Audio.XactSound.Play(Single volume, AudioEngine engine)
+   at Microsoft.Xna.Framework.Audio.Cue.Play()
+   at Yuusha.Sound.Play(String[] soundInfo) in C:\Users\mikec\Desktop\YuushaMG\utility\Sound.cs:line 156
+2/7/2019 12:16:17 PM: kraken has no visualKey information.
+2/7/2019 12:16:17 PM: Failed to find visual key [ kraken ] for Control [ Tile24 ]
+2/7/2019 12:16:32 PM: Failed to find visual key [ kraken ] for Control [ Tile32 ]
+2/7/2019 12:16:38 PM: mammoth has no visualKey information.
+2/7/2019 12:16:38 PM: sabertooth has no visualKey information.
+2/7/2019 12:16:38 PM: 3 dire.wolves has no visualKey information.
+2/7/2019 12:16:38 PM: 3 barbarians has no visualKey information.
+2/7/2019 12:16:39 PM: Failed to find visual key [ 3 barbarians ] for Control [ Tile33 ]
+2/7/2019 12:16:39 PM: Failed to find visual key [ 3 dire_wolves ] for Control [ Tile31 ]
+2/7/2019 12:16:41 PM: dire.wolf has no visualKey information.
+2/7/2019 1:51:40 PM: golem has no visualKey information.
+2/7/2019 1:52:18 PM: mammoth has no visualKey information.
+2/7/2019 1:52:18 PM: sabertooth has no visualKey information.
+2/7/2019 1:52:18 PM: 3 dire.wolves has no visualKey information.
+2/7/2019 1:52:22 PM: dire.wolf has no visualKey information.
+2/7/2019 1:52:27 PM: savage.cultist has no visualKey information.
+2/7/2019 7:19:06 PM: Failed to find visual key [ black_wolf ] for Control [ Tile31 ]
+2/7/2019 7:19:11 PM: Failed to find visual key [ black_wolf ] for Control [ Tile38 ]
+2/7/2019 7:19:21 PM: Failed to find visual key [ black_wolf ] for Control [ Tile25 ]
+2/7/2019 7:19:26 PM: Failed to find visual key [ black_wolf ] for Control [ Tile24 ]
+2/7/2019 7:19:44 PM: Failed to find visual key [ black_wolf ] for Control [ Tile18 ]
+2/7/2019 7:19:51 PM: Failed to find visual key [ black_wolf ] for Control [ Tile12 ]
+2/7/2019 7:19:57 PM: Failed to find visual key [ black_wolf ] for Control [ Tile5 ]
+2/7/2019 7:20:11 PM: Failed to find visual key [ black_wolf ] for Control [ Tile11 ]
+2/7/2019 7:20:43 PM: Failed to find visual key [ black_wolf ] for Control [ Tile17 ]
+2/7/2019 7:20:46 PM: Failed to find visual key [ black_wolf ] for Control [ Tile23 ]
+2/7/2019 8:11:02 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Microsoft.Xna.Framework.Audio.XactSound.Play(Single volume, AudioEngine engine)
+   at Microsoft.Xna.Framework.Audio.Cue.Play()
+   at Yuusha.Sound.Play(String[] soundInfo) in C:\Users\mikec\Desktop\YuushaMG\utility\Sound.cs:line 156

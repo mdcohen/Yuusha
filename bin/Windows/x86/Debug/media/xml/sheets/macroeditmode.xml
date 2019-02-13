@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sheet Name="MacroEditMode"
+	   Description="Click on an image to select it for a hotkey/macro button."
+	   Font="legends16"
+	   Cursor="Normal"
+	   PreferredWidth="1024"
+	   PreferredHeight="768"
+	   DeviceClearColor="CornflowerBlue"
+	   AllowFullScreen="true">
+
+  <!-- Background -->
+  <!--<Background
+		Font="legends16"
+		VisualKey="GreenTileBackground"
+		IsCentered="false"
+		IsTiled="true"
+		TintColor="White"
+		VisualAlpha="255">
+	</Background>-->
+
+  <!-- Elvish City Background
+  <Background
+		Font="legends16"
+		VisualKey="ElvishCityBackground"
+		IsCentered="true"
+		IsTiled="false"
+		TintColor="White"
+		VisualAlpha="255">
+  </Background> -->
+
+  <Control
+		Type="Label"
+		Name="HighlightedIconLabel"
+		X="20"
+		Y="20"
+		Width="128"
+		Height="128"
+		TextColor="White"
+		IsVisible="true"
+		Font="courier12"
+		TintColor="Black"
+		VisualKey="spellicon_0"
+		VisualAlpha="255"
+		BorderAlpha="255"
+		TextAlpha="255"
+		TextAlignment="Left"
+		AnchorTop="true"
+		AnchorLeft="true">
+  </Control>
+</Sheet>

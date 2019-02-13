@@ -1,0 +1,352 @@
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\courier12-0.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\courier12.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\courier16-0.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\courier16.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28-0.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28-1.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\legends12-0.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\legends12.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\legends14-0.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\legends14.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\legends16-0.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\legends16.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20-0.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20-1.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\times-0.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\times-1.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\fonts\times.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\help.txt
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\index.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\dragon_over_island.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\druidic_revival.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\effects\blue.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\effects\circle.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\effects\diamond.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\effects\green.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\effects\red.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\effects\star.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\elvish_city.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\green_weave.gif
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\green_weave_single.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\hotbutton_icons.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\island.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\lok_deadpeople.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\lok_items.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\lok_people.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\lok_spells.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles1.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles2.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\scroll.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\spell_icons.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\spinel_spells.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\spinel_tiles.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\splash1.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\splash2.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\splash3.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\tile_black1.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\tile_green1.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\tile_purple1.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\ui.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\textures\ui_helpers.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\cursors.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\ioktiledefs.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\loktiledefs.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\spineltiledefs.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\fonts.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\conf.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\game.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\generic.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\hotbuttoneditmode.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\iokgame.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\login.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\lokgame.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\lokmapeditor.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\macroeditmode.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\menu.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\spinelgame.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\splash.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\textures.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\gui_visuals.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\hotbutton_icons.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_items.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_people.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_spells.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_tiles.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spell_icons.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spinel_icons.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spinel_tiles.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\YuushaMG.exe.config
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\YuushaMG.exe
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\YuushaMG.pdb
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\MonoGame.Framework.dll
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.MediaFoundation.dll
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.dll
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.XAudio2.dll
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.DXGI.dll
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D11.dll
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct2D1.dll
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.XInput.dll
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D9.dll
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\MonoGame.Framework.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.MediaFoundation.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.XAudio2.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.DXGI.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D11.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct2D1.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.XInput.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D9.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\obj\x86\Release\YuushaMG.csproj.CoreCompileInputs.cache
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\obj\x86\Release\YuushaMG.csproj.CopyComplete
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\obj\x86\Release\YuushaMG.exe
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\obj\x86\Release\YuushaMG.pdb
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\dragon.ico
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\dragon.png
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\obj\x86\Release\YuushaMG.csprojAssemblyReference.cache
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\Content\Sound Bank.xsb
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\Content\Wave Bank.xwb
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\Content\Yuusha.xgs
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Sound Bank.xsb
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Wave Bank.xwb
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Yuusha.xgs
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\media\sounds\Yuusha.xap
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\YuushaMG.exe.CodeAnalysisLog.xml
+C:\Users\MDC\Desktop\YuushaMG\YuushaMG\bin\Windows\x86\Release\YuushaMG.exe.lastcodeanalysissucceeded
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\dragon.ico
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\dragon.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\courier12-0.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\courier12.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\courier16-0.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\courier16.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28-0.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28-1.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\legends12-0.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\legends12.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\legends14-0.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\legends14.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\legends16-0.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\legends16.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20-0.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20-1.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\times-0.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\times-1.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\fonts\times.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\help.txt
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\index.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\dragon_over_island.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\druidic_revival.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\effects\blue.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\effects\circle.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\effects\diamond.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\effects\green.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\effects\red.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\effects\star.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\elvish_city.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\green_weave.gif
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\green_weave_single.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\hotbutton_icons.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\island.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\lok_deadpeople.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\lok_items.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\lok_people.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\lok_spells.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles1.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles2.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\scroll.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\spell_icons.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\spinel_spells.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\spinel_tiles.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\splash1.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\splash2.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\splash3.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\tile_black1.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\tile_green1.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\tile_purple1.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\ui.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\textures\ui_helpers.png
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\cursors.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\ioktiledefs.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\loktiledefs.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\spineltiledefs.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\fonts.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\conf.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\game.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\generic.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\hotbuttoneditmode.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\iokgame.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\login.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\lokgame.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\lokmapeditor.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\macroeditmode.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\menu.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\spinelgame.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\splash.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\textures.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\gui_visuals.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\hotbutton_icons.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_items.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_people.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_spells.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_tiles.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spell_icons.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spinel_icons.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spinel_tiles.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\Content\Sound Bank.xsb
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\Content\Wave Bank.xwb
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\Content\Yuusha.xgs
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Sound Bank.xsb
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Wave Bank.xwb
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Yuusha.xgs
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\media\sounds\Yuusha.xap
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\YuushaMG.exe.config
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\YuushaMG.exe
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\YuushaMG.pdb
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\MonoGame.Framework.dll
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.MediaFoundation.dll
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.dll
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.XAudio2.dll
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.DXGI.dll
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D11.dll
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct2D1.dll
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.XInput.dll
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D9.dll
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\MonoGame.Framework.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.MediaFoundation.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.XAudio2.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.DXGI.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D11.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct2D1.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.XInput.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D9.xml
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Release\YuushaMG.csproj.CoreCompileInputs.cache
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Release\YuushaMG.csproj.CopyComplete
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Release\YuushaMG.exe
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Release\YuushaMG.pdb
+C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Release\YuushaMG.csprojAssemblyReference.cache
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\dragon.ico
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\dragon.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier12-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier12.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier16-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier16.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28-1.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends12-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends12.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends14-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends14.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends16-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends16.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20-1.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\times-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\times-1.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\times.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\help.txt
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\index.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\dragon_over_island.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\druidic_revival.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\effects\blue.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\effects\circle.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\effects\diamond.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\effects\green.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\effects\red.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\effects\star.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\elvish_city.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\green_weave.gif
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\green_weave_single.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\hotbutton_icons.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\island.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\lok_deadpeople.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\lok_items.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\lok_people.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\lok_spells.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles1.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles2.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\scroll.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\spell_icons.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\spinel_spells.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\spinel_tiles.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\splash1.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\splash2.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\splash3.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\tile_black1.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\tile_green1.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\tile_purple1.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\ui.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\ui_helpers.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\cursors.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\ioktiledefs.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\loktiledefs.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\spineltiledefs.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\fonts.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\conf.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\game.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\generic.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\iokgame.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\login.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\lokgame.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\lokmapeditor.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\macroeditmode.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\menu.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\spinelgame.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\splash.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\textures.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\gui_visuals.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\hotbutton_icons.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_items.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_people.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_spells.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_tiles.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spell_icons.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spinel_icons.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spinel_tiles.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Sound Bank.xsb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Wave Bank.xwb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Yuusha.xgs
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Sound Bank.xsb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Wave Bank.xwb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Yuusha.xgs
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\sounds\Yuusha.xap
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\hotbuttoneditmode.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\YuushaMG.exe.config
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\YuushaMG.exe
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\YuushaMG.pdb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\MonoGame.Framework.dll
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.MediaFoundation.dll
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.dll
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.XAudio2.dll
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.DXGI.dll
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D11.dll
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct2D1.dll
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.XInput.dll
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D9.dll
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\MonoGame.Framework.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.MediaFoundation.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.XAudio2.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.DXGI.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D11.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct2D1.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.XInput.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D9.xml
+C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csprojAssemblyReference.cache
+C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csproj.CoreCompileInputs.cache
+C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csproj.CopyComplete
+C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.exe
+C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.pdb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\damage_fog_skulls.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\gui\effects\GraphicalEffect.cs
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\charactergeneration.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\effects\heartrate.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\gold_dragon.png

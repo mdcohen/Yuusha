@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<IOKTileDefinitions>
+	<!-- <IOKTile Graphic="" Name="" DisplayGraphic="" ForeColor="" BackColor="" ForeAlpha="255" BackAlpha="255"></IOKTile> -->
+	<!-- Graphic and Name attributes must be unique. -->
+  <!-- List of colors: http://www.flounder.com/csharp_color_table.htm#A -->
+	<IOKTileDef Graphic="  " Name="Empty" DisplayGraphic="  " ForeColor="DimGray" BackColor="40 40 40" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic=". " Name="Room" DisplayGraphic=". " ForeColor="Gray" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="??" Name="Darkness" DisplayGraphic="  " ForeColor="DimGray" BackColor="DimGray" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="TT" Name="ImpassableTree" DisplayGraphic="TT" ForeColor="DarkGray" BackColor="DarkGreen" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="WW" Name="Reef" DisplayGraphic="WW" ForeColor="DarkGray" BackColor="Blue" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="wb" Name="Web" DisplayGraphic="ww" ForeColor="White" BackColor="DarkGray" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="ww" Name="Web" DisplayGraphic="ww" ForeColor="White" BackColor="DarkGray" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="[]" Name="Wall" DisplayGraphic="[]" ForeColor="Yellow" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="[_" Name="RuinRight" DisplayGraphic="[_" ForeColor="Purple" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="_]" Name="RuinLeft" DisplayGraphic="_]" ForeColor="Purple" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="@@" Name="TreeDense" DisplayGraphic="@@" ForeColor="LawnGreen" BackColor="ForestGreen" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="@ " Name="TreeLeft" DisplayGraphic="@ " ForeColor="LawnGreen" BackColor="ForestGreen" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic=" @" Name="TreeRight" DisplayGraphic=" @" ForeColor="LawnGreen" BackColor="ForestGreen" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="tt" Name="BurntTreeDense" DisplayGraphic="tt" ForeColor="DimGray" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="t " Name="BurntTreeLeft" DisplayGraphic="t " ForeColor="DimGray" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic=" t" Name="BurntTreeRight" DisplayGraphic=" t" ForeColor="DimGray" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="::" Name="Dock" DisplayGraphic="::" ForeColor="Brown" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="%%" Name="Air" DisplayGraphic="%%" ForeColor="White" BackColor="DarkSlateBlue" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic=".\" Name="Sand" DisplayGraphic=".\" ForeColor="Khaki" BackColor="DarkKhaki" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="~~" Name="Water" DisplayGraphic="~~" ForeColor="White" BackColor="Blue" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="\ " Name="DoorOpenVertical" DisplayGraphic="\ " ForeColor="Brown" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="| " Name="DoorClosedVertical" DisplayGraphic="| " ForeColor="Brown" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="/ " Name="DoorOpenHorizontal" DisplayGraphic="/ " ForeColor="Brown" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="--" Name="DoorClosedHorizontal" DisplayGraphic="--" ForeColor="Brown" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="**" Name="Fire" DisplayGraphic="**" ForeColor="Yellow" BackColor="Red" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="~." Name="Ice" DisplayGraphic="~." ForeColor="Cyan" BackColor="DarkCyan" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="mm" Name="Altar" DisplayGraphic="mm" ForeColor="Purple" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="MM" Name="AltarReal" DisplayGraphic="mm" ForeColor="Purple" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="##" Name="Grate" DisplayGraphic="##" ForeColor="Gray" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="/\" Name="Mountain" DisplayGraphic="/\" ForeColor="Gray" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="==" Name="Counter" DisplayGraphic="==" ForeColor="Brown" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="dn" Name="StairsDown" DisplayGraphic="dn" ForeColor="Cyan" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="up" Name="StairsUp" DisplayGraphic="up" ForeColor="Cyan" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="BR" Name="BoxingRing" DisplayGraphic="()" ForeColor="Purple" BackColor="Orange" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="()" Name="Pit" DisplayGraphic="()" ForeColor="Cyan" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic='""' Name="ThickGrass" DisplayGraphic='""' ForeColor="LimeGreen" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="''" Name="LightGrass" DisplayGraphic="''" ForeColor="LimeGreen" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+	<IOKTileDef Graphic="o " Name="Trash" DisplayGraphic="o " ForeColor="Gray" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic=")(" Name="BoxingRing2" DisplayGraphic="()" ForeColor="Purple" BackColor="Orange" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic="`," Name="IceStorm" DisplayGraphic="`," ForeColor="White" BackColor="DeepSkyBlue" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic="ff" Name="FrostedTreeDense" DisplayGraphic="@@" ForeColor="AliceBlue" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic="f " Name="FrostedTreeLeft" DisplayGraphic="@ " ForeColor="AliceBlue" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic=" f" Name="FrostedTreeRight" DisplayGraphic=" @" ForeColor="AliceBlue" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic=":%" Name="PoisonCloud" DisplayGraphic=":%" ForeColor="Orange" BackColor="Green" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic="%;" Name="Whirlwind" DisplayGraphic="%;" ForeColor="White" BackColor="Yellow" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic="``" Name="AcidRain" DisplayGraphic="``" ForeColor="Chartreuse" BackColor="DarkGray" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic=",," Name="BarrenFull" DisplayGraphic=",," ForeColor="DarkGray" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic=", " Name="BarrenLeft" DisplayGraphic=", " ForeColor="DarkGray" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic=" ," Name="BarrenRight" DisplayGraphic=" ," ForeColor="DarkGray" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic="-." Name="LocustSwarm" DisplayGraphic="-." ForeColor="LightGreen" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic="ud" Name="UpDownStairs" DisplayGraphic="ud" ForeColor="Cyan" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic="++" Name="Lightning" DisplayGraphic="++" ForeColor="OldLace" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+</IOKTileDefinitions>
