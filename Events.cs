@@ -218,7 +218,7 @@ namespace Yuusha
                             }
                             else
                             {
-                                RegisterEvent(EventName.Set_Login_Status_Label, "Failed to connect.", "Red");
+                                RegisterEvent(EventName.Set_Login_Status_Label, "Failed to connect. Check internet connection.", "Red");
                             }
                         }
                         break;

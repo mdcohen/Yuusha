@@ -19,7 +19,7 @@ namespace Yuusha
 	/// <summary>
 	/// Bitmap font class for XNA
 	/// </summary>
-	public class BitmapFont
+	public class BitmapFont : IDisposable
 	{
 		public enum TextAlignment
 		{
@@ -149,9 +149,8 @@ namespace Yuusha
 			{
 				// look in the assembly resources
 				bool fFoundResource = false;
-				string strEmbeddedPath, strEmbeddedName;
-				ConvertFilePath2EmbeddedPath(strFontFilename, out strEmbeddedPath, out strEmbeddedName);
-				System.IO.Stream ios = Assembly.GetExecutingAssembly().GetManifestResourceStream(strEmbeddedPath + strEmbeddedName);
+                ConvertFilePath2EmbeddedPath(strFontFilename, out string strEmbeddedPath, out string strEmbeddedName);
+                System.IO.Stream ios = Assembly.GetExecutingAssembly().GetManifestResourceStream(strEmbeddedPath + strEmbeddedName);
 				if (ios != null)
 				{
 					m_strPath = strEmbeddedPath;		// path to resource
@@ -645,17 +644,15 @@ namespace Yuusha
 		{
 			string str = string.Format(strFormat, args);
 
-			int nChars;
-			int pxWidth;
-			Vector2 vAt = new Vector2(r.Left, r.Top);
+            Vector2 vAt = new Vector2(r.Left, r.Top);
 
-			while (str.Length != 0)
+            while (str.Length != 0)
 			{
 				// stop drawing if there isn't room for this line
 				if (vAt.Y + m_nHeight > r.Bottom)
 					return;
 
-				CountCharWidth(r.Width, str, out nChars, out pxWidth);
+				CountCharWidth(r.Width, str, out int nChars, out int pxWidth);
 
 				switch (m_eAlign)
 				{
@@ -816,16 +813,18 @@ namespace Yuusha
 					string[] aLoc = strLoc.Split(',');
 					string[] aSize = strSize.Split('x');
 
-					GlyphInfo ginfo = new GlyphInfo();
-					ginfo.nBitmapID = UInt16.Parse(strBitmapID);
-					ginfo.pxLocX = Byte.Parse(aLoc[0]);
-					ginfo.pxLocY = Byte.Parse(aLoc[1]);
-					ginfo.pxWidth = Byte.Parse(aSize[0]);
-					ginfo.pxHeight = Byte.Parse(aSize[1]);
-					ginfo.pxAdvanceWidth = Byte.Parse(strAW);
-					ginfo.pxLeftSideBearing = SByte.Parse(strLSB);
-					ginfo.nFlags = 0;
-					ginfo.nFlags |= (strForceWhite == "true" ? GlyphFlags.ForceWhite : GlyphFlags.None);
+                    GlyphInfo ginfo = new GlyphInfo
+                    {
+                        nBitmapID = UInt16.Parse(strBitmapID),
+                        pxLocX = Byte.Parse(aLoc[0]),
+                        pxLocY = Byte.Parse(aLoc[1]),
+                        pxWidth = Byte.Parse(aSize[0]),
+                        pxHeight = Byte.Parse(aSize[1]),
+                        pxAdvanceWidth = Byte.Parse(strAW),
+                        pxLeftSideBearing = SByte.Parse(strLSB),
+                        nFlags = 0
+                    };
+                    ginfo.nFlags |= (strForceWhite == "true" ? GlyphFlags.ForceWhite : GlyphFlags.None);
 
 					m_dictUnicode2GlyphInfo[strChar[0]] = ginfo;
 				}
@@ -868,10 +867,9 @@ namespace Yuusha
 		/// <returns>Attribute value, or the empty string if the attribute doesn't exist</returns>
 		private static string GetXMLAttribute(XmlNode n, string strAttr)
 		{
-			XmlAttribute attr = n.Attributes.GetNamedItem(strAttr) as XmlAttribute;
-			if (attr != null)
-				return attr.Value;
-			return "";
+            if (n.Attributes.GetNamedItem(strAttr) is XmlAttribute attr)
+                return attr.Value;
+            return "";
 		}
 
 		#endregion

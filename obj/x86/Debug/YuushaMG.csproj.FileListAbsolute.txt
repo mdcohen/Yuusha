@@ -328,7 +328,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.DXGI.dll
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.XInput.dll
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.Direct3D9.dll
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\MonoGame.Framework.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.xml
@@ -337,7 +336,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.DXGI.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.XInput.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Debug\YuushaMG.csprojAssemblyReference.cache
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Debug\YuushaMG.csproj.CoreCompileInputs.cache
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Debug\YuushaMG.csproj.CopyComplete
@@ -348,3 +346,7 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\sheets\character
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\gui\effects\GraphicalEffect.cs
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\effects\heartrate.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\gold_dragon.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\YuushaMG.exe.manifest
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\YuushaMG.application
+C:\Users\mikec\Desktop\YuushaMG\obj\x86\Debug\YuushaMG.exe.manifest
+C:\Users\mikec\Desktop\YuushaMG\obj\x86\Debug\YuushaMG.application

@@ -101,10 +101,9 @@ namespace Yuusha
             System.Reflection.Assembly executingAssembly = System.Reflection.Assembly.GetExecutingAssembly();
             string exeName = Path.GetFileNameWithoutExtension( executingAssembly.Location );
             string exeFolder = Path.GetDirectoryName( executingAssembly.Location );
-            string filePath;
 
             // Search all the folders in searchFolders
-            if ( SearchFolders( file, exeFolder, exeName, out filePath ) )
+            if ( SearchFolders( file, exeFolder, exeName, out string filePath ) )
             {
                 return filePath;
             }

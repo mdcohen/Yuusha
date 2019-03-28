@@ -104,8 +104,28 @@ namespace Yuusha
             IO.Run();
         }
 
+        /// <summary>
+        /// Tests internet connectivity.
+        /// </summary>
+        /// <returns>False if not connected or exception.</returns>
+        private static bool TestConnection()
+        {
+            try
+            {
+                IPHostEntry ipHe = Dns.GetHostEntry("www.google.com");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool Connect()
         {
+            if (!TestConnection())
+                return false;
+
             try
             {
                 m_TcpClient = new TcpClient();
