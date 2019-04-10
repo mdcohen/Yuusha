@@ -201,6 +201,23 @@ namespace Yuusha
                             }
                             #endregion
 
+                            #region ALT + R  Reload Current GUI Sheet
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.R))
+                            {
+                                Program.Client.GUIManager.LoadSheet(gui.GuiManager.GenericSheet.FilePath);
+                                Program.Client.GUIManager.LoadSheet(gui.GuiManager.CurrentSheet.FilePath);
+                                if (Client.IsFullScreen)
+                                {
+                                    GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                                    GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                                }
+
+                                gui.TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
+
+                                result = true;
+                            }
+                            #endregion
+
                             if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))
                             {
                                 if (!IsAltKeyDown(ks))
@@ -471,12 +488,12 @@ namespace Yuusha
                             #endregion
 #endif
 
-#region Tilde Saves a Screenshot
-                                                        if (ks.IsKeyDown(Keys.OemTilde))
-                                                        {
-                                                            Utils.SaveScreenshot();
-                                                        }
-#endregion
+                            #region Tilde Saves a Screenshot
+                            if (ks.IsKeyDown(Keys.OemTilde))
+                            {
+                                Utils.SaveScreenshot();
+                            }
+                            #endregion
 
                         }
                     }

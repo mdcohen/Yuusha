@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!-- The login screen.
-Mandatory Controls:
-AccountTextBox
-PasswordTextBox
-ConnectButton
--->
+
 <Sheet Name="Login" 
 	   Description="Login Screen GUI" 
 	   Font="courier16"
@@ -84,7 +79,7 @@ ConnectButton
       Y="199"
       Width="110"
       Height="25"
-      TextColor="DeepSkyBlue"
+      TextColor="Aquamarine"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
@@ -108,7 +103,7 @@ ConnectButton
       Font="courier16"
       VisualKey="WhiteSpace"
       TintColor="Black"
-      VisualAlpha="235"
+      VisualAlpha="150"
       BorderAlpha="255"
       TextAlpha="255"
       MaxLength="14"
@@ -139,7 +134,7 @@ ConnectButton
       Y="254"
       Width="110"
       Height="25"
-      TextColor="DeepSkyBlue"
+      TextColor="Aquamarine"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
@@ -163,7 +158,7 @@ ConnectButton
       Font="courier16"
       VisualKey="WhiteSpace"
       TintColor="Black"
-      VisualAlpha="235"
+      VisualAlpha="150"
       BorderAlpha="255"
       TextAlpha="255"
       MaxLength="14"
@@ -194,7 +189,7 @@ ConnectButton
       Y="309"
       Width="332"
       Height="25"
-      TextColor="DeepSkyBlue"
+      TextColor="Aquamarine"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
@@ -218,7 +213,7 @@ ConnectButton
       Font="courier16"
       VisualKey="WhiteSpace"
       TintColor="Black"
-      VisualAlpha="235"
+      VisualAlpha="150"
       BorderAlpha="255"
       TextAlpha="255"
       MaxLength="28"
@@ -259,10 +254,10 @@ ConnectButton
       VisualKeyOver=""
       VisualKeyDisabled=""
       TintColor="DarkGray"
-      VisualAlpha="235"
+      VisualAlpha="150"
       OnMouseDown="Connect"
       TextAlignment="Center"
-      TextOverColor="White"
+      TextOverColor="Aquamarine"
       TabOrder="3">
     </Control>
 
@@ -312,7 +307,7 @@ ConnectButton
       AnchorCenter="true">
     </Control>
 
-    <!-- Login Window Border -->
+    <!-- Create New Account Window Border -->
     <Control
       Type="SquareBorder"
       Name="CreateNewAccountWindowBorder"
@@ -341,7 +336,7 @@ ConnectButton
       TextAlignment="Center">
     </Control>
 
-    <!-- New Account Label -->
+    <!-- Create New Account Label -->
     <Control
       Type="Label"
       Text="Account Name:"
@@ -351,13 +346,13 @@ ConnectButton
       Y="90"
       Width="172"
       Height="25"
-      TextColor="DeepSkyBlue"
+      TextColor="Aquamarine"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
     </Control>
 
-    <!-- New Account Text Box -->
+    <!-- Create New Account Text Box -->
     <Control
       Type="TextBox"
       Text=""
@@ -375,7 +370,7 @@ ConnectButton
       Font="courier16"
       VisualKey="WhiteSpace"
       TintColor="Black"
-      VisualAlpha="235"
+      VisualAlpha="150"
       BorderAlpha="255"
       TextAlpha="255"
       MaxLength="14"
@@ -406,7 +401,7 @@ ConnectButton
       Y="145"
       Width="110"
       Height="25"
-      TextColor="DeepSkyBlue"
+      TextColor="Aquamarine"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
@@ -430,10 +425,10 @@ ConnectButton
       Font="courier16"
       VisualKey="WhiteSpace"
       TintColor="Black"
-      VisualAlpha="235"
+      VisualAlpha="150"
       BorderAlpha="255"
       TextAlpha="255"
-      MaxLength="14"
+      MaxLength="20"
       IsPasswordBox="true"
       HasBlinkingCursor="true"
       CursorColor="White"
@@ -461,7 +456,7 @@ ConnectButton
       Y="200"
       Width="250"
       Height="25"
-      TextColor="DeepSkyBlue"
+      TextColor="Aquamarine"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
@@ -485,10 +480,10 @@ ConnectButton
       Font="courier16"
       VisualKey="WhiteSpace"
       TintColor="Black"
-      VisualAlpha="235"
+      VisualAlpha="150"
       BorderAlpha="255"
       TextAlpha="255"
-      MaxLength="14"
+      MaxLength="20"
       IsPasswordBox="true"
       HasBlinkingCursor="true"
       CursorColor="White"
@@ -516,7 +511,7 @@ ConnectButton
       Y="255"
       Width="250"
       Height="25"
-      TextColor="DeepSkyBlue"
+      TextColor="Aquamarine"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
@@ -540,7 +535,7 @@ ConnectButton
       Font="courier16"
       VisualKey="WhiteSpace"
       TintColor="Black"
-      VisualAlpha="235"
+      VisualAlpha="150"
       BorderAlpha="255"
       TextAlpha="255"
       MaxLength="14"
@@ -571,7 +566,7 @@ ConnectButton
       Y="310"
       Width="250"
       Height="25"
-      TextColor="DeepSkyBlue"
+      TextColor="Aquamarine"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
@@ -595,7 +590,7 @@ ConnectButton
       Font="courier16"
       VisualKey="WhiteSpace"
       TintColor="Black"
-      VisualAlpha="235"
+      VisualAlpha="150"
       BorderAlpha="255"
       TextAlpha="255"
       MaxLength="14"
@@ -616,14 +611,42 @@ ConnectButton
       TintColor="SlateGray">
     </Control>
 
+    <!-- Create New Account Submit Button -->
+    <Control
+      Type="Button"
+      Text="Submit"
+      Name="CreateNewAccountSubmitButton"
+      Owner="CreateNewAccountWindow"
+      X="120"
+      Y="375"
+      Width="160"
+      Height="35"
+      XTextOffset="0"
+      YTextOffset="5"
+      TextColor="White"
+      IsVisible="true"
+      IsDisabled="true"
+      Font="courier16"
+      VisualKey="RoundedButton"
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="DarkGray"
+      VisualAlpha="255"
+      OnMouseDown="Connect"
+      TextAlignment="Center"
+      TextOverColor="Aquamarine"
+      TabOrder="3">
+    </Control>
+
     <!-- Cancel New Account Creation Button -->
     <Control
       Type="Button"
       Text="Cancel"
       Name="CancelCreateNewAccountButton"
       Owner="CreateNewAccountWindow"
-      X="270"
-      Y="400"
+      X="330"
+      Y="415"
       Width="60"
       Height="20"
       TextColor="White"
@@ -637,7 +660,7 @@ ConnectButton
       VisualAlpha="255"
       OnMouseDown="Disconnect"
       TextAlignment="Center"
-      TextOverColor="MediumSpringGreen">
+      TextOverColor="OrangeRed">
     </Control>
   </CreateNewAccountWindow>
 
@@ -652,7 +675,7 @@ ConnectButton
     Width="115"
     Height="120"
     VisualKey="GoldDragonLogo"
-    VisualAlpha="80"
+    VisualAlpha="120"
     TextColor="White"
     IsVisible="true"
     Font="courier16"

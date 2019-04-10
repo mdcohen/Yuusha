@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0263.WAV</SourceFile>
+  <SourceTime>2019-04-10T18:34:06.5534228+02:00</SourceTime>
+  <DestFile>C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSND0263.xnb</DestFile>
+  <DestTime>2019-04-10T19:01:56.5299552+02:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2018-12-08T17:35:54+01:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
