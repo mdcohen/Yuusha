@@ -9,8 +9,8 @@ available in any game state. -->
 	   PreferredHeight="768"
 	   DeviceClearColor="Transparent"
 	   AllowFullScreen="true">
-  
-  <!--START Options Window-->
+
+  <OptionsWindow>
   <Control
 		Type="Window"
 		Name="OptionsWindow"
@@ -755,7 +755,7 @@ available in any game state. -->
 		TextAlignment="Center"
 		TextOverColor="Lime">
   </Control>
-  <!--END Options Window-->
+</OptionsWindow>
 
   <!-- Log Activity Indicator -->
   <Control
@@ -793,7 +793,7 @@ available in any game state. -->
 		AnchorLeft="true">
   </Control>-->
 
-  <!-- Help Window -->
+ <HelpWindow>
   <Control
 		Type="Window"
 		Name="HelpWindow"
@@ -867,8 +867,9 @@ available in any game state. -->
     AnchorBottom="true"
 		Trim="true">
   </Control>
+</HelpWindow>
 
-  <!-- News Window -->
+ <NewsWindow>
   <Control
 		Type="Window"
 		Name="NewsWindow"
@@ -949,8 +950,9 @@ available in any game state. -->
 		TextAlignment="Left"
 		Trim="true">
   </Control>
+ </NewsWindow>
 
-  <!-- Macros Window -->
+ <MacrosWindow>
   <Control
 		Type="Window"
 		Name="MacrosWindow"
@@ -1653,6 +1655,7 @@ available in any game state. -->
     TextOverColor="MediumSpringGreen"
     OnMouseDown="Send_Text">
   </Control>
+ </MacrosWindow>
 
   <!-- VisualKeyWindow Window -->
   <Control

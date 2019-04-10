@@ -90,9 +90,7 @@ namespace Yuusha.gui
         {
             if (m_controlState == Enums.EControlState.Down)
             {
-                Window window = GuiManager.GetControl(m_owner) as Window;
-
-                if (window != null)
+                if (GuiManager.GetControl(m_owner) is Window window)
                 {
                     switch (m_controlBoxType)
                     {

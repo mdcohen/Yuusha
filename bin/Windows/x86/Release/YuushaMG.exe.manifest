@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
   <asmv1:assemblyIdentity name="YuushaMG.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
-  <description asmv2:iconFile="dragon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <description asmv2:iconFile="gold+dragon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
     <assemblyIdentity name="YuushaMG" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
@@ -139,14 +139,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YuushaMG.exe" size="223712">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YuushaMG.exe" size="581600">
       <assemblyIdentity name="YuushaMG" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>zgxIHbfDa6WycsPaK83wramAPjwodDOUzEIUPpO4ozA=</dsig:DigestValue>
+        <dsig:DigestValue>7Kopu0uwpdNmd/ROEOUfY/dt0OCKKZRpWlj56eH6r5Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -175,6 +175,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>PNLPysk8Og3MXOq2OtV+O1r9Ch3MciQo5mxRAx150O0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="gold+dragon.ico" size="357332">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ARdADx3mujRVXgBjpXK+KGVpzm9LZ1TO51glQtGRaVM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\fonts\courier12.xml" size="8052" writeableType="applicationData">
@@ -762,13 +771,13 @@
       <dsig:DigestValue>WYpn+c0B53nL1hYrz09v34QijEu3DCmnev5b7NxVQYA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\generic.xml" size="54399" writeableType="applicationData">
+  <file name="media\xml\sheets\generic.xml" size="54396" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>RjhMtDwnXqQymn7JnKlGsC3EPqoZVLuMueG5K5Zagvo=</dsig:DigestValue>
+      <dsig:DigestValue>vr0gPQGUcWkkhxJfL6nwBBwjJOC98O5PeAylt9Bo9aw=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\sheets\hotbuttoneditmode.xml" size="5428" writeableType="applicationData">
@@ -789,13 +798,13 @@
       <dsig:DigestValue>OcZXyeP748GBKQIQAFI9rvPSPregIlmPBsw813cSmhI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\login.xml" size="12556" writeableType="applicationData">
+  <file name="media\xml\sheets\login.xml" size="15872" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>yXI7ysqBhSyBNbmkdXuIiJr7L3FSoZoqHyKWURgrBO4=</dsig:DigestValue>
+      <dsig:DigestValue>Lp4GQGS77fuNF9zMeLaXjzZPC9lipkXgK94V5pzQy18=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\sheets\lokgame.xml" size="2173" writeableType="applicationData">

@@ -24,6 +24,7 @@ namespace Yuusha.gui
         protected bool m_allowFullScreen;
         protected List<Control> m_controls;
         protected List<TextCue> m_textCues;
+        protected int m_currentTabOrder;
         #endregion
 
         #region Public Properties
@@ -73,9 +74,13 @@ namespace Yuusha.gui
         {
             get { return m_allowFullScreen; }
         }
+        public int CurrentTabOrder
+        {
+            get; set;
+        }
         #endregion
 
-        #region Constructors
+        #region Constructor
         public Sheet(string filePath, System.Xml.XmlReader reader)
         {
             m_name = "";
@@ -92,6 +97,7 @@ namespace Yuusha.gui
             m_allowFullScreen = false;
             m_controls = new List<Control>();
             m_textCues = new List<TextCue>();
+            m_currentTabOrder = -1;
 
             m_filePath = filePath;
 
@@ -275,6 +281,10 @@ namespace Yuusha.gui
 
                 // Always stop dragging if the left mouse button is not pressed.
                 if (GuiManager.Dragging && ms.LeftButton != ButtonState.Pressed)
+                    GuiManager.Dragging = false;
+
+                // Always stop dragging if the moust pointer is not positioned in the dragged control.
+                if (GuiManager.Dragging && !(GuiManager.DraggedControl.Contains(ms.Position)))
                     GuiManager.Dragging = false;
 
                 int numControls = m_controls.Count;
@@ -473,6 +483,10 @@ namespace Yuusha.gui
                 if (m_controls.Count > 0)
                     c.ZDepth = m_controls[0].ZDepth + 1;
                 else c.ZDepth = 1;
+
+                if (c.TabOrder >= 0)
+                    m_currentTabOrder = 0;
+
                 m_controls.Add(c);
                 SortControls();
             }
@@ -539,6 +553,9 @@ namespace Yuusha.gui
                 c.ZDepth = 1;
             }
 
+            if (c.TabOrder >= 0)
+                (w as Window).CurrentTabOrder = 0;
+
             // add the control to the Window's list of controls
             (w as Window).Controls.Add(c);
 
@@ -567,6 +584,159 @@ namespace Yuusha.gui
         {
             foreach (Control control in m_controls)
                 control.OnClientResize(prev, now, false);
+        }
+
+        /// <summary>
+        /// Handles all actions when tabbing forward through controls with a TabOrder > -1.
+        /// </summary>
+        public void HandleTabOrderForward()
+        {
+            Control currentFocus = GuiManager.ControlWithFocus;
+
+            //TextCue.AddClientInfoTextCue(currentFocus != null ? currentFocus.Name : "null", TextCue.TextCueTag.None, Color.Red, Color.Black, 1500, false, false, true);
+
+            #region This sheet has a tab order.
+            if (CurrentTabOrder >= 0)
+            {
+                var tabOrdered = new List<Control>();
+                Controls.ForEach(x => { if (x.TabOrder >= 0 && x.IsVisible && !x.IsDisabled) tabOrdered.Add(x); }); // all the controls in the tab order collection
+
+                if (tabOrdered.Count > 1)
+                {
+                    tabOrdered.Sort((s1, s2) => s1.TabOrder.CompareTo(s2.TabOrder)); // ascending numerical sort by tab order
+
+                    if (currentFocus != null && currentFocus.TabOrder > tabOrdered.Count - 1)
+                    {
+                        currentFocus.HasFocus = false;
+                        tabOrdered[0].HasFocus = true;
+                        CurrentTabOrder = tabOrdered[0].TabOrder;
+                    }
+
+                    foreach (Control c in tabOrdered)
+                    {
+                        if (c.TabOrder > CurrentTabOrder)
+                        {
+                            c.HasFocus = true;
+                            CurrentTabOrder = c.TabOrder;
+                            break;
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            // Iterate through controls of this sheet. Currently only checks Windows that are visible and have a tab order.
+            foreach (Control c in this.Controls)
+            {
+                if (c is Window && c.IsVisible && (c as Window).CurrentTabOrder > -1)
+                {
+                    var tabOrdered = new List<Control>();
+
+                    (c as Window).Controls.ForEach(x => { if (x.TabOrder >= 0 && x.IsVisible && !x.IsDisabled) tabOrdered.Add(x); });
+
+                    tabOrdered.Sort((s1, s2) => s1.TabOrder.CompareTo(s2.TabOrder)); // numerical sort by tab order
+
+                    if (currentFocus != null && currentFocus.TabOrder == tabOrdered.Count - 1)
+                    {
+                        currentFocus.HasFocus = false;
+                        tabOrdered[0].HasFocus = true;
+                        (c as Window).CurrentTabOrder = tabOrdered[0].TabOrder; break;
+                    }
+
+                    if (tabOrdered.Count > 1)
+                    {
+                        foreach (Control c2 in tabOrdered)
+                        {
+                            if (c2.TabOrder > (c as Window).CurrentTabOrder)
+                            {
+                                c2.HasFocus = true;
+                                (c as Window).CurrentTabOrder = c2.TabOrder;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles all actions when tabbing in reverse through controls with a TabOrder > -1.
+        /// </summary>
+        public void HandleTabOrderReverse()
+        {
+            Control currentFocus = GuiManager.ControlWithFocus;
+
+            //TextCue.AddClientInfoTextCue(currentFocus != null ? currentFocus.Name : "null", TextCue.TextCueTag.None, Color.Red, Color.Black, 1500, false, false, true);
+
+            #region This sheet has a tab order.
+            if (CurrentTabOrder >= 0)
+            {
+                var tabOrdered = new List<Control>();
+                Controls.ForEach(x => { if (x.TabOrder >= 0 && x.IsVisible && !x.IsDisabled) tabOrdered.Add(x); }); // all the controls in the tab order collection
+
+                if (tabOrdered.Count > 1)
+                {
+                    tabOrdered.Sort((s1, s2) => s1.TabOrder.CompareTo(s2.TabOrder)); // ascending numerical sort by tab order
+                    tabOrdered.Reverse();
+
+                    if (currentFocus != null && currentFocus.TabOrder == 0 && tabOrdered.Count > 1)
+                    {
+                        currentFocus.HasFocus = false;
+                        tabOrdered[tabOrdered.Count - 1].HasFocus = true;
+                        CurrentTabOrder = tabOrdered[tabOrdered.Count - 1].TabOrder;
+                    }
+                    else
+                    {
+                        foreach (Control c in tabOrdered)
+                        {
+                            if (c.TabOrder < CurrentTabOrder)
+                            {
+                                c.HasFocus = true;
+                                CurrentTabOrder = c.TabOrder;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            // Iterate through controls of this sheet. Currently only checks Windows that are visible and have a tab order.
+            foreach (Control c in this.Controls)
+            {
+                if (c is Window && c.IsVisible && (c as Window).CurrentTabOrder > -1)
+                {
+                    var tabOrdered = new List<Control>();
+
+                    (c as Window).Controls.ForEach(x => { if (x.TabOrder >= 0 && x.IsVisible && !x.IsDisabled) tabOrdered.Add(x); });
+
+                    tabOrdered.Sort((s1, s2) => s1.TabOrder.CompareTo(s2.TabOrder)); // numerical sort by tab order
+
+                    tabOrdered.Reverse();
+
+                    if (currentFocus != null && currentFocus.TabOrder == 0 && tabOrdered.Count > 1)
+                    {
+                        currentFocus.HasFocus = false;
+                        tabOrdered[tabOrdered.Count - 1].HasFocus = true;
+                        (c as Window).CurrentTabOrder = tabOrdered[tabOrdered.Count - 1].TabOrder; break;
+                    }
+                    else
+                    {
+                        if (tabOrdered.Count > 1)
+                        {
+                            foreach (Control c2 in tabOrdered)
+                            {
+                                if (c2.TabOrder < (c as Window).CurrentTabOrder)
+                                {
+                                    c2.HasFocus = true;
+                                    (c as Window).CurrentTabOrder = c2.TabOrder;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         #region Create Controls
@@ -609,11 +779,11 @@ namespace Yuusha.gui
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
             bool editable, int maxLength, bool passwordBox, bool blinkingCursor, Color cursorColor,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, int xTextOffset,
-            int yTextOffset, string onKeyboardEnter, Color selectionColor, List<Enums.EAnchorType> anchors)
+            int yTextOffset, string onKeyboardEnter, Color selectionColor, List<Enums.EAnchorType> anchors, int tabOrder)
         {
             AddControl(new TextBox(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                 borderAlpha, textAlpha, editable, maxLength, passwordBox, blinkingCursor, cursorColor, visualKeyOver,
-                visualKeyDown, visualKeyDisabled, xTextOffset, yTextOffset, onKeyboardEnter, selectionColor, anchors));
+                visualKeyDown, visualKeyDisabled, xTextOffset, yTextOffset, onKeyboardEnter, selectionColor, anchors, tabOrder));
         }
 
         public void CreateButton(string type, string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
@@ -728,6 +898,10 @@ namespace Yuusha.gui
         }
         #endregion
 
+        /// <summary>
+        /// As of 4/9/2019 this is never referenced.
+        /// </summary>
+        /// <param name="name"></param>
         public void DestroyControl(string name)
         {
             Control c = this[name];

@@ -1130,7 +1130,14 @@ namespace Yuusha
                         }
 
                         if (sheet["CreateNewAccountWindow"] is gui.Window cnaw)
+                        {
                             cnaw.IsVisible = false;
+                            foreach(Control c in cnaw.Controls)
+                            {
+                                if (c is TextBox)
+                                    (c as TextBox).Clear();
+                            }
+                        }
 
                         wi.IsVisible = true;
                     }

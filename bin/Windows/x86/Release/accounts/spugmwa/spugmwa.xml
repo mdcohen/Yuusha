@@ -37,7 +37,7 @@
   <VerticalHotButtonVisualKey12>hotbuttonicon_476</VerticalHotButtonVisualKey12>
   <VerticalHotButtonVisualKey13>hotbuttonicon_147</VerticalHotButtonVisualKey13>
   <VerticalHotButtonVisualKey14>hotbuttonicon_266</VerticalHotButtonVisualKey14>
-  <VerticalHotButtonVisualKey15>hotbuttonicon_247</VerticalHotButtonVisualKey15>
+  <VerticalHotButtonVisualKey15>hotbuttonicon_245</VerticalHotButtonVisualKey15>
   <VerticalHotButtonVisualKey16>hotbuttonicon_314</VerticalHotButtonVisualKey16>
   <VerticalHotButtonVisualKey17>hotbuttonicon_247</VerticalHotButtonVisualKey17>
   <VerticalHotButtonVisualKey18>hotbuttonicon_247</VerticalHotButtonVisualKey18>
@@ -57,7 +57,7 @@
   <VerticalHotButtonText12>gallu cuthalu dingir na/turnundead</VerticalHotButtonText12>
   <VerticalHotButtonText13>utuk shammash dingir muxxisha/resblind</VerticalHotButtonText13>
   <VerticalHotButtonText14>uhddil kia yu kia/death</VerticalHotButtonText14>
-  <VerticalHotButtonText15 />
+  <VerticalHotButtonText15>kanpa idpa telal anna/prfireice</VerticalHotButtonText15>
   <VerticalHotButtonText16>annunna utuk zumri limutuma/Ghod's hooks</VerticalHotButtonText16>
   <VerticalHotButtonText17 />
   <VerticalHotButtonText18 />
@@ -84,8 +84,8 @@
   <HorizontalHotButtonText4 />
   <HorizontalHotButtonText5 />
   <HorizontalHotButtonText6 />
-  <HorizontalHotButtonText7>dingir aazag shurrim urruku/createsnake</HorizontalHotButtonText7>
-  <HorizontalHotButtonText8>namtar igigi enn baad/summonphantasm</HorizontalHotButtonText8>
+  <HorizontalHotButtonText7>dingir aazag shurrim urruku</HorizontalHotButtonText7>
+  <HorizontalHotButtonText8>namtar igigi enn baad</HorizontalHotButtonText8>
   <HorizontalHotButtonText9 />
   <HorizontalHotButtonText10>ashtug ninda anghizidda arrflug/portal chant</HorizontalHotButtonText10>
   <HorizontalHotButtonText11 />

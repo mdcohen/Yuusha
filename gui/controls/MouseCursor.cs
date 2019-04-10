@@ -7,16 +7,10 @@ namespace Yuusha.gui
 {
     public class MouseCursor : Control
     {
-        private List<TextCue> m_textCues;
         private int m_xDrawOffset;
         private int m_yDrawOffset;
-        //private Point m_PreviousPosition;
-        //private GameTime m_lastActivity;
 
-        public List<TextCue> TextCues
-        {
-            get { return m_textCues; }
-        }
+        public List<TextCue> TextCues { get; }
 
         public MouseCursor(System.Xml.XmlTextReader reader)
         {
@@ -41,13 +35,13 @@ namespace Yuusha.gui
             m_visible = true;
             VisualInfo vi = GuiManager.Visuals[m_visualKey.Key];
             m_rectangle = new Rectangle(0, 0, vi.Width, vi.Height);
-            m_textCues = new List<TextCue>();
+            TextCues = new List<TextCue>();
         }
 
         public override void Update(GameTime gameTime)
         {
             MouseState ms = GuiManager.MouseState;
-            
+
             if (GuiManager.Dragging)
             {
                 // this is used to compensate for fast dragging
@@ -62,11 +56,11 @@ namespace Yuusha.gui
             base.Update(gameTime);
 
             // update text
-            for (int a = m_textCues.Count - 1; a >= 0; a--)
+            for (int a = TextCues.Count - 1; a >= 0; a--)
             {
-                TextCue tc = m_textCues[a];
-                tc.Update(gameTime, m_textCues);
-                if (m_textCues.Contains(tc))
+                TextCue tc = TextCues[a];
+                tc.Update(gameTime, TextCues);
+                if (TextCues.Contains(tc))
                 {
                     if (BitmapFont.ActiveFonts.ContainsKey(tc.Font))
                     {
@@ -119,7 +113,7 @@ namespace Yuusha.gui
             }
 
             // Draw text last.
-            foreach (TextCue tc in m_textCues)
+            foreach (TextCue tc in TextCues)
                 tc.Draw(gameTime);
         }
     }

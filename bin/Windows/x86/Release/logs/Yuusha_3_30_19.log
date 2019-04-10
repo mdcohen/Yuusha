@@ -1,0 +1,11 @@
+3/30/2019 7:42:00 PM: EXCEPTION: ScrollableTextBox.FormatLine( 40059 | UniqueNPCID: -2147479833] wraith [Chaotic, Status
+3/30/2019 7:42:00 PM: {Exception} Index was outside the bounds of the array. Stack:    at System.Collections.Generic.List`1.RemoveAt(Int32 index)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 359
+3/30/2019 7:47:12 PM: 2 wraiths has no visualKey information.
+3/30/2019 7:47:14 PM: wraith has no visualKey information.
+3/30/2019 7:47:17 PM: Boojajoz has no visualKey information.
+3/30/2019 7:48:22 PM: Yaroeaia has no visualKey information.
+3/30/2019 7:48:22 PM: Euazla has no visualKey information.
+3/30/2019 7:49:04 PM: 3 wraiths has no visualKey information.
+3/30/2019 7:49:11 PM: spectre has no visualKey information.
+3/30/2019 7:49:26 PM: troglodyte has no visualKey information.

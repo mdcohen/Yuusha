@@ -4,3 +4,4 @@
 3/28/2019 12:12:17 PM: Failed to find visual key [ goblin_seer ] for Control [ Tile16 ]
 3/28/2019 12:12:17 PM: Failed to find visual key [ goblin_mystic_female ] for Control [ Tile2 ]
 3/28/2019 5:32:50 PM: spectre has no visualKey information.
+3/28/2019 8:40:02 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.Character.GatherCharacterData(String info, EPlayerUpdate update) in C:\Users\mikec\Desktop\YuushaMG\game classes\Character.cs:line 455

@@ -81,7 +81,7 @@ namespace Yuusha.gui
             byte borderAlpha, byte textAlpha, bool editable, int maxLength, bool passwordBox,
             bool blinkingCursor, Color cursorColor, VisualKey visualKeyOver, VisualKey visualKeyDown,
             VisualKey visualKeyDisabled, int xTextOffset, int yTextOffset, string onKeyboardEnter,
-            Color selectionColor, System.Collections.Generic.List<Enums.EAnchorType> anchors)
+            Color selectionColor, System.Collections.Generic.List<Enums.EAnchorType> anchors, int tabOrder)
             : base()
         {
             m_name = name;
@@ -121,6 +121,7 @@ namespace Yuusha.gui
             m_previousBlink = new TimeSpan();
             m_selectionStart = 0;
             m_selectionLength = 0;
+            m_tabOrder = tabOrder;
         }
         #endregion
 
@@ -686,6 +687,9 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
+            if (GuiManager.ControlWithFocus != this) this.HasFocus = false;
+            if (GuiManager.ActiveTextBox == Name) this.HasFocus = true;
+
             #region Determine Cursor Visibility
             if (m_blinkingCursor)
             {
@@ -796,6 +800,8 @@ namespace Yuusha.gui
         {
             if (!Client.HasFocus) return;
 
+            m_hasFocus = true;
+            
             m_cursorVisible = true;
 
             base.OnMouseDown(ms);

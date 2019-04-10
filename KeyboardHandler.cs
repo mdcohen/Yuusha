@@ -22,121 +22,112 @@ namespace Yuusha
 
             //if (Client.GameState != Enums.eGameState.Splash)
             //{
-                // ALT + Enter
-                // toggle full screen if sheet allows full screen
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.Enter))
-                {
-                    return true;
-                }
+            // ALT + Enter
+            // toggle full screen if sheet allows full screen
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter))
+            {
+                return true;
+            }
 
-                // ALT + G
-                // toggle client mode
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.G))
-                {
-                    return true;
-                }
+            // ALT + G
+            // toggle client mode
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.G))
+            {
+                return true;
+            }
 
-                // ALT + H
-                // help window
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.H))
-                {
-                    return true;
-                }
+            // ALT + H
+            // help window
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.H))
+            {
+                return true;
+            }
 
-                // ALT + I
-                // icons window
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.I))
-                {
-                    return true;
-                }
+            // ALT + I
+            // icons window
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.I))
+            {
+                return true;
+            }
 
-                // ALT + K
-                // hotkeys window
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.K))
-                {
-                    return true;
-                }
+            // ALT + K
+            // hotkeys window
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.K))
+            {
+                return true;
+            }
 
-                // ALT + L
-                // logging toggle
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.L))
-                {
-                    return true;
-                }
+            // ALT + L
+            // logging toggle
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.L))
+            {
+                return true;
+            }
 
-                // ALT + M
-                // macros window
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.M))
-                {
-                    return true;
-                }
+            // ALT + M
+            // macros window
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.M))
+            {
+                return true;
+            }
 
-                // ALT + N
-                // news window
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.N))
-                {
-                    return true;
-                }
+            // ALT + N
+            // news window
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.N))
+            {
+                return true;
+            }
 
-                // ALT + O
-                // options window
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.O))
-                {
-                    return true;
-                }
+            // ALT + O
+            // options window
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.O))
+            {
+                return true;
+            }
 
-                // ALT + P
-                // ping response label
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.P))
-                {
-                    return true;
-                }
+            // ALT + P
+            // ping response label
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.P))
+            {
+                return true;
+            }
 
-                // ALT + R
-                // reload the current sheet
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.R))
-                {
-                    return true;
-                }
+            // ALT + R
+            // reload the current sheet
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.R))
+            {
+                return true;
+            }
 
-                // ALT + S
-                // sound effects
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.S))
-                {
-                    return true;
-                }
+            // ALT + S
+            // sound effects
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.S))
+            {
+                return true;
+            }
 
-                // ALT + T
-                // reload IOK tiles
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.T))
-                {
-                    return true;
-                }
+            // ALT + T
+            // reload IOK tiles
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.T))
+            {
+                return true;
+            }
 
-                // ALT + V
-                // toggle client mode
-                if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.V))
-                {
-                    return true;
-                }
+            // ALT + V
+            // toggle client mode
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.V))
+            {
+                return true;
+            }
 
-            //}
-            //else if (ks.IsKeyDown(Keys.Escape))
-            //{ 
-            //    return true;
-            //}
-            //else if (ks.IsKeyDown(Keys.PrintScreen))
-            //{
-            //    return true;
-            //}
             return false;
-        }        
+        }
 
         public static bool HandleKeyboard()
         {
             if (!Client.HasFocus) return false;
 
-            KeyboardState ks = gui.GuiManager.KeyboardState;
+            KeyboardState ks = GuiManager.KeyboardState;
 
             bool result = false;
 
@@ -164,7 +155,7 @@ namespace Yuusha
                         if (Client.GameState == Enums.EGameState.Login)
                         {
                             #region ALT + N  News Window
-                            if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.N))
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.N))
                             {
                                 gui.Window newsWindow = gui.GuiManager.GenericSheet["NewsWindow"] as gui.Window;
                                 if (newsWindow != null)
@@ -203,116 +194,27 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + Enter  Full Screen Toggle
-                            if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.Enter))
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter))
                             {
                                 Program.Client.ToggleFullScreen();
                                 result = true;
                             }
-#endregion
+                            #endregion
+
+                            if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))
+                            {
+                                if (!IsAltKeyDown(ks))
+                                {
+                                    if (!IsShiftKeyDown(ks))
+                                        GuiManager.CurrentSheet.HandleTabOrderForward();
+                                    else GuiManager.CurrentSheet.HandleTabOrderReverse();
+                                }
+                            }
 
                             Sheet sheet = GuiManager.Sheets["Login"];
                             TextBox accountTextBox = (sheet["LoginWindow"] as Window)["AccountTextBox"] as TextBox;
                             TextBox passwordTextBox = (sheet["LoginWindow"] as Window)["PasswordTextBox"] as TextBox;
                             TextBox serverHostTextBox = (sheet["LoginWindow"] as Window)["ServerHostTextBox"] as TextBox;
-
-                            // Client was deactivated while loading. Textboxes lose focus.
-                            if (accountTextBox != null && accountTextBox.Text == "" && passwordTextBox != null && passwordTextBox.Text == "")
-                                accountTextBox.HasFocus = true;
-
-                            #region Tab between textboxes, or use enter key.
-                            if (ks.IsKeyDown(Keys.Tab) || (ks.IsKeyDown(Keys.Enter) && !IsClientKeyboardHandled()))
-                            {
-                                if (sheet != null)
-                                {
-                                    Button connectButton = (sheet["LoginWindow"] as Window)["ConnectButton"] as Button;
-
-                                    if (passwordTextBox.HasFocus && passwordTextBox.Text.Length > 0 && accountTextBox.Text.Length > 0)
-                                    {
-                                        accountTextBox.HasFocus = false;
-                                        passwordTextBox.HasFocus = false;
-                                        connectButton.IsDisabled = false;
-                                        connectButton.HasFocus = true;
-                                        connectButton.Click();
-                                        return true;
-                                    }
-
-                                    bool gavePasswordTextBoxFocus = false;
-
-                                    if (serverHostTextBox != null)
-                                    {
-                                        if (serverHostTextBox.HasFocus)
-                                        {
-                                            accountTextBox.HasFocus = true;
-                                            accountTextBox.IsCursorVisible = true;
-
-                                            serverHostTextBox.IsCursorVisible = false;
-                                            serverHostTextBox.HasFocus = false;
-                                        }
-                                    }
-
-                                    if (accountTextBox != null)
-                                    {
-                                        if (accountTextBox.HasFocus && passwordTextBox != null)
-                                        {
-                                            accountTextBox.HasFocus = false;
-                                            accountTextBox.IsCursorVisible = false;
-
-                                            passwordTextBox.IsCursorVisible = true;
-                                            passwordTextBox.HasFocus = true;
-
-                                            gavePasswordTextBoxFocus = true;
-
-                                            if (connectButton != null)
-                                            {
-                                                connectButton.HasFocus = false;
-                                            }
-
-                                            result = true;
-                                        }
-                                    }
-
-                                    if (passwordTextBox != null && !gavePasswordTextBoxFocus)
-                                    {
-                                        passwordTextBox.HasFocus = false;
-                                        passwordTextBox.IsCursorVisible = false;
-
-                                        if (connectButton != null && connectButton.IsVisible)
-                                        {
-                                            connectButton.HasFocus = true;
-                                        }
-                                        else if (accountTextBox != null)
-                                        {
-                                            accountTextBox.IsCursorVisible = true;
-                                            accountTextBox.HasFocus = true;
-                                            connectButton.HasFocus = false;
-                                        }
-
-                                        result = true;
-                                    }
-
-                                    if (connectButton != null && !gavePasswordTextBoxFocus && connectButton.IsVisible)
-                                    {
-                                        // if enter key is pressed when connect button has focus
-                                        if (ks.IsKeyDown(Keys.Enter) && connectButton.HasFocus)
-                                        {
-                                            connectButton.Click();
-                                            return true;
-                                        }
-
-                                        // hitting the tab key while password text box is focused
-                                        if (accountTextBox != null)
-                                        {
-                                            connectButton.HasFocus = false;
-
-                                            accountTextBox.IsCursorVisible = true;
-                                            accountTextBox.HasFocus = true;
-
-                                            result = true;
-                                        }
-                                    }
-                                }
-                            }
-#endregion
 
                             if ((ks.IsKeyDown(Keys.LeftControl) || ks.IsKeyDown(Keys.RightControl)) && ks.IsKeyDown(Keys.V))
                             {
@@ -333,11 +235,21 @@ namespace Yuusha
                         }
                         #endregion
 
-                        else
+                        else // outside login mode
                         {
+                            if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))
+                            {
+                                if (!ks.IsKeyDown(Keys.LeftAlt) && !ks.IsKeyDown(Keys.RightAlt))
+                                {
+                                    //GuiManager.CurrentSheet.HandleTabOrder(ks.IsKeyDown(Keys.LeftShift) || ks.IsKeyDown(Keys.RightShift));
+                                    if (!ks.IsKeyDown(Keys.LeftShift) && !ks.IsKeyDown(Keys.RightShift))
+                                        GuiManager.CurrentSheet.HandleTabOrderForward();
+                                    else GuiManager.CurrentSheet.HandleTabOrderReverse();
+                                }
+                            }
 
                             #region ALT + Enter  Full Screen Toggle
-                            if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.Enter))
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter))
                             {
                                 Program.Client.ToggleFullScreen();
                                 result = true;
@@ -345,25 +257,25 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + G  Toggle Game Mode
-                                                        if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.G))
-                                                        {
-                                                            if (Client.GameDisplayMode == Enums.EGameDisplayMode.IOK)
-                                                            {
-                                                                Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.Spinel);
-                                                            }
-                                                            else if (Client.GameDisplayMode == Enums.EGameDisplayMode.Spinel)
-                                                            {
-                                                                Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.IOK);
-                                                            }
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.G))
+                            {
+                                if (Client.GameDisplayMode == Enums.EGameDisplayMode.IOK)
+                                {
+                                    Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.Spinel);
+                                }
+                                else if (Client.GameDisplayMode == Enums.EGameDisplayMode.Spinel)
+                                {
+                                    Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.IOK);
+                                }
 
-                                                            gui.TextCue.AddClientInfoTextCue(Client.GameDisplayMode.ToString() + " Mode", TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
+                                gui.TextCue.AddClientInfoTextCue(Client.GameDisplayMode.ToString() + " Mode", TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
 
-                                                            result = true;
-                                                        }
+                                result = true;
+                            }
                             #endregion
 
                             #region ALT + H  Help Window
-                                                        if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.H))
+                                                        if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.H))
                                                         {
                                                             gui.Window helpWindow = gui.GuiManager.GenericSheet["HelpWindow"] as gui.Window;
 
@@ -427,7 +339,7 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + L  Toggle Logging of Scrollable Text Boxes
-                                                        if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.L))
+                                                        if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.L))
                                                         {
                                                             GuiManager.LoggingRequested = !GuiManager.LoggingRequested;
                                                             string onoff = "Enabled";
@@ -450,7 +362,7 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + N  News Window
-                                                        if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.N))
+                                                        if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.N))
                                                         {
                                                             gui.Window newsWindow = gui.GuiManager.GenericSheet["NewsWindow"] as gui.Window;
                                                             if (newsWindow != null)
@@ -482,42 +394,45 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + O  Options Window
-                                                        if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.O))
-                                                        {
-                                                            gui.Window optWindow = gui.GuiManager.GenericSheet["OptionsWindow"] as gui.Window;
-                                                            if (optWindow != null)
-                                                            {
-                                                                if (!optWindow.IsVisible)
-                                                                    Events.RegisterEvent(Events.EventName.Load_Character_Settings);
-                                                                optWindow.IsVisible = !optWindow.IsVisible;
-                                                                optWindow.HasFocus = optWindow.IsVisible;
-                                                                result = true;
-                                                            }
-                                                        }
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.O))
+                            {
+                                gui.Window optWindow = gui.GuiManager.GenericSheet["OptionsWindow"] as gui.Window;
+                                if (optWindow != null)
+                                {
+                                    if (!optWindow.IsVisible)
+                                        Events.RegisterEvent(Events.EventName.Load_Character_Settings);
+                                    optWindow.IsVisible = !optWindow.IsVisible;
+                                    optWindow.HasFocus = optWindow.IsVisible;
+                                    result = true;
+                                }
+                            }
                             #endregion
 
                             #region ALT + R  Reload Current GUI Sheet
-                                                        if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.R))
-                                                        {
-                                                            Program.Client.GUIManager.LoadSheet(gui.GuiManager.GenericSheet.FilePath);
-                                                            Program.Client.GUIManager.LoadSheet(gui.GuiManager.CurrentSheet.FilePath);
-                                                            if (Client.IsFullScreen)
-                                                            {
-                                                                GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
-                                                                GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
-                                                            }
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.R))
+                            {
+                                Program.Client.GUIManager.LoadSheet(gui.GuiManager.GenericSheet.FilePath);
+                                Program.Client.GUIManager.LoadSheet(gui.GuiManager.CurrentSheet.FilePath);
+                                if (Client.IsFullScreen)
+                                {
+                                    GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                                    GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                                }
 
-                                                            gui.TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
+                                gui.TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
 
-                                                            result = true;
+                                result = true;
 
-                                                            if (Client.GameState.ToString().EndsWith("Game"))
-                                                                IO.Send("redraw");
-                                                        }
+                                if (Client.GameState.ToString().EndsWith("Game"))
+                                    IO.Send("redraw");
+
+                                Character.LoadSettings();
+                                gui.GenericSheet.LoadMacros();
+                            }
                             #endregion
 
                             #region ALT + T  Reload Game Tiles (Mode Dependent)
-                                                        if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.T))
+                                                        if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.T))
                                                         {
                                                             if (Client.GameDisplayMode == Enums.EGameDisplayMode.IOK)
                                                             {
@@ -529,7 +444,7 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + S  Toggle Sound
-                                                        if ((ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt)) && ks.IsKeyDown(Keys.S))
+                                                        if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.S))
                                                         {
                                                             Client.UserSettings.SoundEffects = !Client.UserSettings.SoundEffects;
                                                             string onoff = "Enabled";
@@ -570,6 +485,16 @@ namespace Yuusha
 
             PressedKeys = newKeys;
             return result;
+        }
+
+        public static bool IsAltKeyDown(KeyboardState ks)
+        {
+            return ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt);
+        }
+
+        public static bool IsShiftKeyDown(KeyboardState ks)
+        {
+            return ks.IsKeyDown(Keys.LeftShift) || ks.IsKeyDown(Keys.RightShift);
         }
     }
 }

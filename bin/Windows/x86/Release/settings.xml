@@ -8,6 +8,7 @@
   <DefaultPopUpColor>Cyan</DefaultPopUpColor>
   <DefaultDropDownMenuFont>courier12</DefaultDropDownMenuFont>
   <DisplayChantingTextCue>true</DisplayChantingTextCue>
+  <StartFullScreen>false</StartFullScreen>
   <OptionsWindowX>50</OptionsWindowX>
   <OptionsWindowY>50</OptionsWindowY>
   <MacrosWindowX>300</MacrosWindowX>

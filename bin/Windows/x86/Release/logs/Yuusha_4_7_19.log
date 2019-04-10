@@ -1,0 +1,188 @@
+4/7/2019 12:54:11 PM: EXCEPTION: ScrollableTextBox.FormatLine(Asiihaya:, Default
+4/7/2019 12:54:11 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:11 PM: EXCEPTION: ScrollableTextBox.FormatLine(Eut:, Default
+4/7/2019 12:54:11 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:11 PM: EXCEPTION: ScrollableTextBox.FormatLine(Putuiu:, Default
+4/7/2019 12:54:11 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:11 PM: EXCEPTION: ScrollableTextBox.FormatLine(Ryamejoko:, Default
+4/7/2019 12:54:11 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:11 PM: EXCEPTION: ScrollableTextBox.FormatLine(Asiihaya:, Default
+4/7/2019 12:54:11 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:11 PM: EXCEPTION: ScrollableTextBox.FormatLine(Eut:, Default
+4/7/2019 12:54:11 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:11 PM: EXCEPTION: ScrollableTextBox.FormatLine(Putuiu:, Default
+4/7/2019 12:54:11 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:11 PM: EXCEPTION: ScrollableTextBox.FormatLine(Ryamejoko:, Default
+4/7/2019 12:54:11 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Asiihaya:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Eut:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Putuiu:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Ryamejoko:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Eut:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Asiihaya:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Ryamejoko:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Putuiu:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(You, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(In, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Known, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Acid, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Shield, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Asiihaya:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Eut:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Putuiu:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Ryamejoko:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Eut:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Asiihaya:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Ryamejoko:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Putuiu:, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(You, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(In, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Known, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Acid, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 12:54:55 PM: EXCEPTION: ScrollableTextBox.FormatLine(Shield, Default
+4/7/2019 12:54:55 PM: {Exception} StartIndex cannot be less than zero.
+Parameter name: startIndex Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.gui.ScrollableTextBox.FormatLine(String line, ETextType textType, Color textColor) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\ScrollableTextBox.cs:line 350
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^0^139^40^. ^. ^False^False^FalseG3G4G5GCGD
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^0^140^40^[]^[]^False^False^FalseG3G4G5GCGD
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^0^138^41^. ^. ^False^False^FalseG3G4G5GCGD
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^0^139^41^. ^. ^False^False^FalseG3G4G5GCGD
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^0^140^41^MM^mm^False^False^FalseG3G4G5GCGD
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^0^138^42^[]^[]^False^False^FalseG3G4G5GCGD
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^0^139^42^up^up^False^False^FalseG3G4G5GCGD
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^0^140^42^[]^[]^False^False^FalseG3G4G5GCGD
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/7/2019 5:38:30 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/7/2019 5:38:40 PM: {Exception} Input string was not in a correct format. Stack:    at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Convert.ToInt32(String value)
+   at Yuusha.Item..ctor(String info) in C:\Users\mikec\Desktop\YuushaMG\game classes\Item.cs:line 121
+4/7/2019 5:39:21 PM: Failure at GetProtoInfoFromString(info, startProto, endProto)
+4/7/2019 5:39:21 PM: InData = eG3G4G5GCGD
+4/7/2019 5:39:21 PM: STARTPROTO = G2
+4/7/2019 5:39:21 PM: ENDPROTO = G3
+4/7/2019 5:39:21 PM: {Exception} Length cannot be less than zero.
+Parameter name: length Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.Protocol.GetProtoInfoFromString(String inData, String startProto, String endProto) in C:\Users\mikec\Desktop\YuushaMG\utility\Protocol.cs:line 199
+4/7/2019 5:39:21 PM: {Exception} Input string was not in a correct format. Stack:    at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int16.Parse(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Convert.ToInt16(String value)
+   at Yuusha.Cell..ctor(String info) in C:\Users\mikec\Desktop\YuushaMG\game classes\Cell.cs:line 102
+4/7/2019 5:39:21 PM: Failure at GetProtoInfoFromString(info, startProto, endProto)
+4/7/2019 5:39:21 PM: {Exception} Length cannot be less than zero.
+Parameter name: length Stack:    at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuusha.Protocol.GetProtoInfoFromString(String inData, String startProto, String endProto) in C:\Users\mikec\Desktop\YuushaMG\utility\Protocol.cs:line 199
+4/7/2019 5:39:21 PM: {Exception} Input string was not in a correct format. Stack:    at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int16.Parse(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Convert.ToInt16(String value)
+   at Yuusha.Cell..ctor(String info) in C:\Users\mikec\Desktop\YuushaMG\game classes\Cell.cs:line 102
+4/7/2019 5:39:21 PM: {Exception} Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index Stack:    at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   at Yuusha.gui.IOKMode.BuildCritterList() in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 379
+4/7/2019 5:39:21 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.BuildMap() in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 556
+4/7/2019 5:39:21 PM: {Exception} Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index Stack:    at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   at Yuusha.gui.SpinelMode.BuildCritterList() in C:\Users\mikec\Desktop\YuushaMG\gui\SpinelMode.cs:line 386
+4/7/2019 5:39:21 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.SpinelMode.BuildMap() in C:\Users\mikec\Desktop\YuushaMG\gui\SpinelMode.cs:line 586
+4/7/2019 5:53:37 PM: lammasu has no visualKey information.

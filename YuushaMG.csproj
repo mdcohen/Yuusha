@@ -54,7 +54,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>dragon.ico</ApplicationIcon>
+    <ApplicationIcon>gold+dragon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -95,6 +95,7 @@
     <Compile Include="gui\controls\buttons\SaveCharacterSettingsButton.cs" />
     <Compile Include="gui\controls\ComboBox.cs" />
     <Compile Include="gui\controls\Control.cs" />
+    <Compile Include="gui\controls\ControlSorter.cs" />
     <Compile Include="gui\controls\DropDownMenu.cs" />
     <Compile Include="gui\controls\DropDownMenuItem.cs" />
     <Compile Include="gui\controls\labels\CritterListLabel.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="gui\controls\Slider.cs" />
     <Compile Include="gui\controls\StatusBar.cs" />
     <Compile Include="gui\controls\TextBox.cs" />
-    <Compile Include="gui\controls\windows\GridWindow.cs" />
     <Compile Include="gui\controls\windows\HotButtonEditWindow.cs" />
     <Compile Include="gui\controls\windows\MacroButtonEditWindow.cs" />
     <Compile Include="gui\controls\windows\Window.cs" />
@@ -175,6 +175,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameThumbnail.png" />
+    <Content Include="gold+dragon.ico" />
     <Content Include="media\fonts\courier12-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -417,6 +418,7 @@
     </Content>
     <Content Include="media\xml\visuals\lok_people.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="media\xml\visuals\lok_spells.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

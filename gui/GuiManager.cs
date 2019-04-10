@@ -69,7 +69,10 @@ namespace Yuusha.gui
         public static Control ControlWithFocus
         {
             get { return m_controlWithFocus; }
-            set { m_controlWithFocus = value; }
+            set
+            {
+                if(!(value is Window)) m_controlWithFocus = value;
+            }
         }
         public static Control DraggedControl
         {
@@ -426,6 +429,7 @@ namespace Yuusha.gui
                                 int cropBoxHeight = 0; // WindowTitle (WindowControlBox)
                                 string shortcut = ""; // used for HotButtons -- not currently implemented in XML 2/18/2017
                                 string command = ""; // used for buttons and other click components to send text
+                                int tabOrder = -1; // used for tabOrder, currently (4/9/2019) only TextBoxes have these. Tab Order is handled by owner/sheet
 
                                 List<Enums.EAnchorType> anchors = new List<Enums.EAnchorType>();
                                 // used for generic sheet controls to limit visibility
@@ -615,6 +619,8 @@ namespace Yuusha.gui
                                             shortcut = reader.Value;
                                         else if (reader.Name == "Command")
                                             command = reader.Value;
+                                        else if (reader.Name == "TabOrder")
+                                            tabOrder = reader.ReadContentAsInt();
                                     }
                                     #endregion
                                 }
@@ -648,7 +654,7 @@ namespace Yuusha.gui
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
                                             textAlpha, editable, maxLength, passwordBox, blinkingCursor, Utils.GetColor(cursorColor),
                                             new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
-                                            xTextOffset, yTextOffset, onKeyboardEnter, Utils.GetColor(selectionColor), anchors);
+                                            xTextOffset, yTextOffset, onKeyboardEnter, Utils.GetColor(selectionColor), anchors, tabOrder);
                                         break;
                                     case "Button":
                                     case "HotButton":

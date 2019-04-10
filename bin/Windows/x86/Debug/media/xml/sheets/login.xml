@@ -34,7 +34,7 @@ ConnectButton
       Width="397"
       Height="437"
       IsVisible="true"
-      IsLocked="false"
+      IsLocked="true"
       Font="courier16"
       VisualKey="WhiteSpace"
       VisualAlpha="115"
@@ -114,7 +114,8 @@ ConnectButton
       MaxLength="14"
       IsPasswordBox="false"
       HasBlinkingCursor="true"
-      CursorColor="White">
+      CursorColor="White"
+      TabOrder="0">
     </Control>
 
     <!-- Account TextBox Border -->
@@ -168,7 +169,8 @@ ConnectButton
       MaxLength="14"
       IsPasswordBox="true"
       HasBlinkingCursor="true"
-      CursorColor="White">
+      CursorColor="White"
+      TabOrder="1">
     </Control>
 
     <!-- Password TextBox Border -->
@@ -260,7 +262,8 @@ ConnectButton
       VisualAlpha="235"
       OnMouseDown="Connect"
       TextAlignment="Center"
-      TextOverColor="White">
+      TextOverColor="White"
+      TabOrder="3">
     </Control>
 
     <!-- Create New Account Button -->
@@ -297,7 +300,7 @@ ConnectButton
       Width="397"
       Height="437"
       IsVisible="false"
-      IsLocked="false"
+      IsLocked="true"
       Font="courier16"
       VisualKey="WhiteSpace"
       VisualAlpha="115"
@@ -320,19 +323,20 @@ ConnectButton
       TintColor="SlateGray">
     </Control>
 
-    <!-- Logo -->
+    <!-- Create New Account Text Label -->
     <Control
       Type="Label"
-      Text=""
+      Text="Create New Account"
       Owner="CreateNewAccountWindow"
-      Name="CreateNewAccountLogoLabel"
-      X="140"
-      Y="53"
-      Width="115"
-      Height="120"
-      VisualKey="GoldDragonLogo"
+      Name="CreateNewAccountTextLabel"
+      X="0"
+      Y="30"
+      Width="397"
+      Height="50"
+      VisualKey=""
       TextColor="White"
       IsVisible="true"
+      TintColor="Transparent"
       Font="courier16"
       TextAlignment="Center">
     </Control>
@@ -344,7 +348,7 @@ ConnectButton
       Name="CreateNewAccountLabel"
       Owner="CreateNewAccountWindow"
       X="73"
-      Y="199"
+      Y="90"
       Width="172"
       Height="25"
       TextColor="DeepSkyBlue"
@@ -360,7 +364,7 @@ ConnectButton
       Name="CreateNewAccountTextBox"
       Owner="CreateNewAccountWindow"
       X="73"
-      Y="220"
+      Y="111"
       Width="254"
       Height="28"
       XTextOffset="0"
@@ -377,10 +381,11 @@ ConnectButton
       MaxLength="14"
       IsPasswordBox="false"
       HasBlinkingCursor="true"
-      CursorColor="White">
+      CursorColor="White"
+      TabOrder="0">
     </Control>
 
-    <!-- New Account TextBox Border -->
+    <!-- Create New Account TextBox Border -->
     <Control
       Type="SquareBorder"
       Name="CreateNewAccountTextBoxBorder"
@@ -391,14 +396,14 @@ ConnectButton
       TintColor="SlateGray">
     </Control>
 
-    <!-- Password Label -->
+    <!-- Create New Account Password Label -->
     <Control
       Type="Label"
       Text="Password:"
       Name="CreateNewAccountPasswordLabel"
       Owner="CreateNewAccountWindow"
       X="73"
-      Y="254"
+      Y="145"
       Width="110"
       Height="25"
       TextColor="DeepSkyBlue"
@@ -407,14 +412,14 @@ ConnectButton
       TextAlignment="Left">
     </Control>
 
-    <!-- Password Text Box -->
+    <!-- Create New Account Password Text Box -->
     <Control
       Type="TextBox"
       Text=""
       Name="CreateNewAccountPasswordTextBox"
       Owner="CreateNewAccountWindow"
       X="73"
-      Y="275"
+      Y="166"
       Width="254"
       Height="28"
       XTextOffset="0"
@@ -431,7 +436,8 @@ ConnectButton
       MaxLength="14"
       IsPasswordBox="true"
       HasBlinkingCursor="true"
-      CursorColor="White">
+      CursorColor="White"
+      TabOrder="1">
     </Control>
 
     <!-- New Account Password TextBox Border -->
@@ -452,7 +458,7 @@ ConnectButton
       Name="CreateNewAccountConfirmPasswordLabel"
       Owner="CreateNewAccountWindow"
       X="73"
-      Y="309"
+      Y="200"
       Width="250"
       Height="25"
       TextColor="DeepSkyBlue"
@@ -468,7 +474,7 @@ ConnectButton
       Name="CreateNewAccountConfirmPasswordTextBox"
       Owner="CreateNewAccountWindow"
       X="73"
-      Y="330"
+      Y="221"
       Width="254"
       Height="28"
       XTextOffset="0"
@@ -485,7 +491,8 @@ ConnectButton
       MaxLength="14"
       IsPasswordBox="true"
       HasBlinkingCursor="true"
-      CursorColor="White">
+      CursorColor="White"
+      TabOrder="2">
     </Control>
 
     <!-- New Account Confirm Password TextBox Border -->
@@ -493,6 +500,116 @@ ConnectButton
       Type="SquareBorder"
       Name="CreateNewAccountConfirmPasswordTextBoxBorder"
       Owner="CreateNewAccountConfirmPasswordTextBox"
+      Width="2"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="SlateGray">
+    </Control>
+    
+    <!-- New Account Email Label -->
+    <Control
+      Type="Label"
+      Text="Email:"
+      Name="CreateNewAccountEmailLabel"
+      Owner="CreateNewAccountWindow"
+      X="73"
+      Y="255"
+      Width="250"
+      Height="25"
+      TextColor="DeepSkyBlue"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- New Account Email Text Box -->
+    <Control
+      Type="TextBox"
+      Text=""
+      Name="CreateNewAccountEmailTextBox"
+      Owner="CreateNewAccountWindow"
+      X="73"
+      Y="276"
+      Width="254"
+      Height="28"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="235"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="14"
+      IsPasswordBox="true"
+      HasBlinkingCursor="true"
+      CursorColor="White"
+      TabOrder="3">
+    </Control>
+
+    <!-- New Account Email TextBox Border -->
+    <Control
+      Type="SquareBorder"
+      Name="CreateNewAccountEmailTextBoxBorder"
+      Owner="CreateNewAccountEmailTextBox"
+      Width="2"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="SlateGray">
+    </Control>
+
+    <!-- New Account Confirm Email Label -->
+    <Control
+      Type="Label"
+      Text="Confirm Email:"
+      Name="CreateNewAccountConfirmEmailLabel"
+      Owner="CreateNewAccountWindow"
+      X="73"
+      Y="310"
+      Width="250"
+      Height="25"
+      TextColor="DeepSkyBlue"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- New Account Confirm Email Text Box -->
+    <Control
+      Type="TextBox"
+      Text=""
+      Name="CreateNewAccountConfirmEmailTextBox"
+      Owner="CreateNewAccountWindow"
+      X="73"
+      Y="331"
+      Width="254"
+      Height="28"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="235"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="14"
+      IsPasswordBox="true"
+      HasBlinkingCursor="true"
+      CursorColor="White"
+      TabOrder="4">
+    </Control>
+
+    <!-- New Account Confirm Email TextBox Border -->
+    <Control
+      Type="SquareBorder"
+      Name="CreateNewAccountConfirmEmailTextBoxBorder"
+      Owner="CreateNewAccountConfirmEmailTextBox"
       Width="2"
       VisualKey="WhiteSpace"
       VisualAlpha="255"
@@ -523,6 +640,25 @@ ConnectButton
       TextOverColor="MediumSpringGreen">
     </Control>
   </CreateNewAccountWindow>
+
+  <!-- Logo -->
+  <Control
+    Type="Label"
+    Text=""
+    Owner="CreateNewAccountWindow"
+    Name="CreateNewAccountLogoLabel"
+    X="140"
+    Y="53"
+    Width="115"
+    Height="120"
+    VisualKey="GoldDragonLogo"
+    VisualAlpha="80"
+    TextColor="White"
+    IsVisible="true"
+    Font="courier16"
+    TextAlignment="Center"
+    IsLocked="True">
+  </Control>
 
   <!-- Login Status Label -->
   <Control

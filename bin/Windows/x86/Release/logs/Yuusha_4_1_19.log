@@ -1,0 +1,133 @@
+4/1/2019 11:17:08 AM: spectre has no visualKey information.
+4/1/2019 11:17:59 AM: 2 wraiths has no visualKey information.
+4/1/2019 11:18:05 AM: wraith has no visualKey information.
+4/1/2019 11:18:52 AM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+4/1/2019 11:18:52 AM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+4/1/2019 11:18:53 AM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+4/1/2019 11:20:52 AM: troglodyte has no visualKey information.
+4/1/2019 11:30:48 AM: Boojajoz has no visualKey information.
+4/1/2019 3:06:29 PM: troglodyte has no visualKey information.
+4/1/2019 3:09:05 PM: spectre has no visualKey information.
+4/1/2019 3:12:10 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+4/1/2019 3:12:10 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+4/1/2019 3:12:10 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.gui.IOKMode.FormatCellCritter(String inData) in C:\Users\mikec\Desktop\YuushaMG\gui\IOKMode.cs:line 320
+4/1/2019 3:18:48 PM: wraith has no visualKey information.
+4/1/2019 8:58:29 PM: 3 wraiths has no visualKey information.
+4/1/2019 8:58:42 PM: spectre has no visualKey information.
+4/1/2019 8:59:12 PM: 2 wraiths has no visualKey information.
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^5^73^--^--^False^False^FalseG3G4G5GCGD
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^6^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^7^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^8^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^9^73^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:00:47 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^2^69^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^3^69^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^69^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^2^70^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^3^70^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^70^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^2^71^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^3^71^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^71^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^5^71^--^--^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^6^71^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^2^72^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^3^72^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^72^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^5^72^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^6^72^. ^. ^False^False^TrueG3G4G8-2147479876~hobgoblin~hobgoblin_female~3~23000~hammer~unknown~~~~chainG9G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^2^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^3^73^. ^. ^False^False^TrueG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^5^73^--^--^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^6^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^2^74^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^3^74^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^74^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^2^75^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^3^75^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^75^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:01:57 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^69^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^5^69^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^70^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^5^70^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^3^71^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^71^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^5^71^\ ^\ ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^6^71^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^7^71^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^8^71^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^9^71^""^""^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^3^72^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^72^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^5^72^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^6^72^. ^. ^False^False^TrueG3G4G8-2147479929~goblin.seer~goblin_seer_female~3~25000~katana~unknown~~~~robeG9G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^7^72^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^8^72^/ ^/ ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^9^72^. ^. ^False^False^FalseG3G4G8-2147479879~goblin.mystic~goblin_mystic~3~23000~hammer~unknown~~~~robeG9G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^3^73^. ^. ^False^False^TrueG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^4^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^5^73^--^--^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^6^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^7^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^8^73^[]^[]^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: G20^2^9^73^. ^. ^False^False^FalseG3G4G5GCGD
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 
+4/1/2019 9:02:22 PM: Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: 50 inData: 

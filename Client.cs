@@ -150,6 +150,8 @@ namespace Yuusha
             //Components.Add(m_splashScreen);
             Deactivated += new EventHandler<EventArgs>(Client_Deactivated);
             Activated += new EventHandler<EventArgs>(Client_Activated);
+
+            Content.RootDirectory = "Content";
         }
 
         void Client_Activated(object sender, EventArgs e)

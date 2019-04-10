@@ -11,11 +11,8 @@ namespace Yuusha
         /// </summary>
         static void Main(string[] args)
         {
-            using (Client client = new Client())
-            {
-                Client = client;
-                client.Run();
-            }
+            Client = new Client();
+            Client.Run();
         }
     }
 }

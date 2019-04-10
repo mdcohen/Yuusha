@@ -22,6 +22,7 @@ namespace Yuusha.gui
         protected Rectangle m_maximizeAtRect;
         protected WindowTitle m_windowTitle;
         protected Border m_windowBorder;
+        protected int m_currentTabOrder;
         #endregion
 
         #region Public Properties
@@ -72,6 +73,12 @@ namespace Yuusha.gui
         {
             get { return m_maximized; }
         }
+
+        public int CurrentTabOrder
+        {
+            get { return m_currentTabOrder; }
+            set { m_currentTabOrder = value; }
+        }
         #endregion
 
         #region Constructor
@@ -104,6 +111,8 @@ namespace Yuusha.gui
             m_minimized = false;
             m_minimizeAtRect = new Rectangle();
             m_maximizeAtRect = new Rectangle();
+
+            m_currentTabOrder = -1;
         }
         #endregion
 
@@ -130,10 +139,8 @@ namespace Yuusha.gui
             foreach (Control control in m_controls)
             {
                 if (!m_cropped || ((control is WindowControlBox) || (control is WindowTitle)))
-                {
                     control.IsDisabled = m_disabled; // disabled
-                }
-                //control.VisualAlpha = m_visualAlpha; // visual alpha HEREITIS << TODO: controls should have separate alpha attribute, whereas windows have a masterAlpha attribute
+                
                 control.Update(gameTime);
             }
         }
@@ -404,14 +411,14 @@ namespace Yuusha.gui
                 {
                     GuiManager.Dragging = false;
                     GuiManager.DraggedControl = null;
-                    return;
+                    break;
                 }
                 else if(control.ControlState == Enums.EControlState.Down && (control is WindowTitle) &&
                     (control as WindowTitle).ControlBoxContains(new Point(ms.X, ms.Y)))
                 {
-                    GuiManager.Dragging = false;
-                    GuiManager.DraggedControl = null;
-                    return;
+                    GuiManager.Dragging = true;
+                    GuiManager.DraggedControl = this;
+                    break;
                 }
             }
 
@@ -428,19 +435,6 @@ namespace Yuusha.gui
                 return;
             }
 
-            if (m_cursorOverride == "")
-            {
-                GuiManager.Dragging = false;
-                GuiManager.DraggedControl = null;
-                return;
-            }
-            else if (m_cursorOverride != "")
-            {
-                GuiManager.CurrentSheet.CursorOverride = m_cursorOverride;
-                if (GuiManager.Dragging && GuiManager.CurrentSheet.CursorOverride.ToLower() == "dragging")
-                    m_cursorOverride = "";
-            }
-
             m_xOffset = ms.X - m_touchDownPoint.X;
             m_yOffset = ms.Y - m_touchDownPoint.Y;
             m_rectangle.X += m_xOffset;
@@ -449,13 +443,13 @@ namespace Yuusha.gui
             m_touchDownPoint.Y += m_yOffset;
             
             // window is being dragged, move it's controls with it
-            for (int j = this.Controls.Count - 1; j >= 0; j--)
+            for (int j = Controls.Count - 1; j >= 0; j--)
             {
                 Point position = this.Controls[j].Position;
                 position.X += this.XOffset;
                 position.Y += this.YOffset;
-                this.Controls[j].Position = position;
-                if (this.Controls[j] is WindowTitle)
+                Controls[j].Position = position;
+                if (Controls[j] is WindowTitle)
                 {
                     WindowTitle wt = this.Controls[j] as WindowTitle;
                     if (wt.CloseBox != null)

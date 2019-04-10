@@ -15,6 +15,7 @@ namespace Yuusha.Utility.Settings
         public string DefaultPopUpColor = "Cyan";
         public string DefaultDropDownMenuFont = "courier12";
         public bool DisplayChantingTextCue = true;
+        public bool StartFullScreen = false;
 
         // Window positions.
         public int OptionsWindowX = 50;

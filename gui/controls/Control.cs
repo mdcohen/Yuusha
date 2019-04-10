@@ -54,6 +54,7 @@ namespace Yuusha.gui
         protected List<Enums.EGameState> m_lockoutStates; // for generic windows, states that this window is not available
         protected string m_popUpText;
         protected System.Timers.Timer m_doubleClickTimer;
+        protected int m_tabOrder;
         #endregion
 
         public event GuiManager.ControlDelegate OnControl;
@@ -158,11 +159,18 @@ namespace Yuusha.gui
             {
                 m_hasFocus = value;
 
-                if (m_hasFocus && GuiManager.ControlWithFocus != this)
+                if (m_hasFocus)// && GuiManager.ControlWithFocus != this)
+                {
+                    //if (GuiManager.ControlWithFocus != null)
+                    //    GuiManager.ControlWithFocus.HasFocus = false;
                     GuiManager.ControlWithFocus = this;
+                }
 
                 //if (this is TextBox)
+                //{
                 //    GuiManager.ActiveTextBox = this.Name;
+                //    (this as TextBox).IsCursorVisible = true;
+                //}
             }
         }
 
@@ -194,6 +202,12 @@ namespace Yuusha.gui
         {
             get { return m_lockoutStates; }
             set { m_lockoutStates = value; }
+        }
+
+        public virtual int TabOrder
+        {
+            get { return m_tabOrder; }
+            set { m_tabOrder = value; }
         }
         #endregion
 
@@ -240,6 +254,7 @@ namespace Yuusha.gui
             m_doubleClickTimer = new System.Timers.Timer(800);
             m_doubleClickTimer.Elapsed += new System.Timers.ElapsedEventHandler(DoubleClickTimer_Elapsed);
             m_doubleClickTimer.AutoReset = true;
+            m_tabOrder = -1;
         }
         #endregion
 
@@ -362,7 +377,7 @@ namespace Yuusha.gui
             }
 
             // current sheet only (excludes generic sheet)
-            if (this.Sheet == GuiManager.CurrentSheet.Name)
+            if (Sheet == GuiManager.CurrentSheet.Name)
             {
                 foreach (Control c in GuiManager.GenericSheet.Controls)
                 {
@@ -392,8 +407,6 @@ namespace Yuusha.gui
             // Textbox and contains mouse cursor.
             if ((!(this is TextBox) && (Contains(mousePointer) || HasFocus)) || ((this is TextBox) && Contains(mousePointer)))
             {
-                //m_containsCursor = true;
-
                 // there was a change in scroll wheel values since last MouseHandler
                 if (GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
                 {
@@ -442,7 +455,7 @@ namespace Yuusha.gui
                 }
 
                 if ((ms.LeftButton == ButtonState.Pressed || ms.RightButton == ButtonState.Pressed) && m_hasTouchDownPoint &&
-                    Contains(m_touchDownPoint) && Client.HasFocus || this.HasFocus)
+                    Contains(m_touchDownPoint) && Client.HasFocus || HasFocus)
                 {
                     ControlState = Enums.EControlState.Down;
                     OnMouseDown(ms);
@@ -453,24 +466,6 @@ namespace Yuusha.gui
                     HasFocus = true;
                     return true;
                 }
-
-                //if(ms.LeftButton != ButtonState.Pressed && m_mouseLeftDown)
-                //{
-                //    m_mouseLeftDown = false;
-                //    ControlState = Enums.eControlState.Normal;
-                //    m_hasTouchDownPoint = false;
-                //    OnMouseRelease(ms);
-                //    return true;
-                //}
-
-                //if (ms.RightButton != ButtonState.Pressed && m_mouseRightDown)
-                //{
-                //    m_mouseRightDown = false;
-                //    ControlState = Enums.eControlState.Normal;
-                //    m_hasTouchDownPoint = false;
-                //    OnMouseRelease(ms);
-                //    return true;
-                //}
             }
             else if (this is Button && ControlState != Enums.EControlState.Normal)
             //else if ((!Contains(mousePointer) || (this is Button)) && ControlState != Enums.eControlState.Normal)
@@ -505,7 +500,13 @@ namespace Yuusha.gui
 
         protected virtual void OnMouseDown(MouseState ms)
         {
-            // empty
+            if (TabOrder > -1)
+            {
+                if (Owner == "")
+                    GuiManager.CurrentSheet.CurrentTabOrder = TabOrder;
+                else if (GuiManager.GetControl(Owner) is Window)
+                    (GuiManager.GetControl(Owner) as Window).CurrentTabOrder = TabOrder;
+            }
         }
 
         protected virtual void OnMouseOver(MouseState ms)
@@ -685,82 +686,6 @@ namespace Yuusha.gui
                 default:
                     return 0;
             }
-        }
-    }
-
-    /// <summary>Sorts Controls by Z Depth</summary>
-    public class ControlSorter : IComparer<Control>
-    {
-        /// <summary>IComparer implementation</summary>
-        /// <param name="x">Control 1</param>
-        /// <param name="y">Control 2</param>
-        public int Compare(Control x, Control y)
-        {
-            if (x.ZDepth < y.ZDepth)
-            {
-                return 1;
-            }
-
-            if (x.ZDepth == y.ZDepth)
-            {
-                // DropDownMenus always go on top.
-                if (x is DropDownMenu && !(y is DropDownMenu))
-                    return 1;
-                else if (y is DropDownMenu && !(x is DropDownMenu))
-                    return -1;
-
-                // the currently dragged control gets highest z order
-                if((x == GuiManager.DraggedControl) && !(y == GuiManager.DraggedControl))
-                {
-                    return 1;
-                }
-                else if (!(x == GuiManager.DraggedControl) && (y == GuiManager.DraggedControl))
-                {
-                    return -1;
-                }
-
-                // window goes underneath its controls
-                if ((x is Window) && !(y is Window))
-                {
-                    return -1;
-                }
-                else if ((y is Window) && !(x is Window))
-                {
-                    return 1;
-                }
-
-                // border goes underneath all other controls
-                if ((x is Border) && !(y is Border))
-                {
-                    return -1;
-                }
-                else if ((y is Border) && !(x is Border))
-                {
-                    return 1;
-                }
-
-                // window title goes above all other window controls
-                if ((x is WindowTitle) && !(y is WindowTitle))
-                {
-                    return 1;
-                }
-                else if ((y is WindowTitle) && !(x is WindowTitle))
-                {
-                    return -1;
-                }
-
-                // for controls on same window, sort bottom to top
-                if (x.Position.Y < y.Position.Y)
-                {
-                    return 1;
-                }
-                if (x.Position.Y > y.Position.Y)
-                {
-                    return -1;
-                }
-                return 0;
-            }
-            return -1;
         }
     }
 }
