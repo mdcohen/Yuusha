@@ -154,6 +154,11 @@ namespace Yuusha
             HotButtonEditMode,
         }
 
+        public enum ECharGenState
+        {
+
+        }
+
         public enum ELoginState
         {
             Disconnected,
@@ -161,7 +166,7 @@ namespace Yuusha
             VerifyAccount,
             VerifyPassword,
             WorldInformation,
-            NewAccount,
+            NewAccount, // all steps of account creation are verified in this login state
             LoggedIn
         }
 

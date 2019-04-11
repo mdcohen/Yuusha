@@ -8,6 +8,15 @@ namespace Yuusha
 {
     public class CharGen
     {
+        public const int ACCOUNT_MIN_LENGTH = 5;
+        public const int ACCOUNT_MAX_LENGTH = 12;
+        public const int PASSWORD_MIN_LENGTH = 6;
+        public const int PASSWORD_MAX_LENGTH = 20;
+
+        public static string NewAccountName = "";
+        public static string NewAccountPassword = "";
+        public static string NewAccountEmail = "";
+
         private static int m_sendAttempts = 0;
         private static int m_totalRolls = 0;
         private static int m_totalAutoRolls = 0;

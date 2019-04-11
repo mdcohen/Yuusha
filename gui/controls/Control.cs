@@ -159,18 +159,12 @@ namespace Yuusha.gui
             {
                 m_hasFocus = value;
 
-                if (m_hasFocus)// && GuiManager.ControlWithFocus != this)
+                if (m_hasFocus)
                 {
-                    //if (GuiManager.ControlWithFocus != null)
-                    //    GuiManager.ControlWithFocus.HasFocus = false;
+                    //TextCue.AddClientInfoTextCue(this.Name + " has focus.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 3000, false, true, true);
+
                     GuiManager.ControlWithFocus = this;
                 }
-
-                //if (this is TextBox)
-                //{
-                //    GuiManager.ActiveTextBox = this.Name;
-                //    (this as TextBox).IsCursorVisible = true;
-                //}
             }
         }
 

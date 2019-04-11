@@ -29,9 +29,7 @@ namespace Yuusha
             Next_Visual,
             CreateNewAccount,
             None,
-            SaveLOKMap,
             Send_Account_Name,
-            Send_Macro,
             Send_Password,
             Send_Text,
             Set_Client_Mode,
@@ -184,45 +182,118 @@ namespace Yuusha
                     #endregion
                     case EventName.Connect:
                         #region Connect
-
-                        // TEMPORARY ?? Why is/was this temporary? (10/27/11 -MDC)
-                        if ((GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["AccountTextBox"].Text.Length > 0 &&
-                            (GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["PasswordTextBox"].Text.Length > 0)
+                        if (IO.LoginState != Enums.ELoginState.NewAccount)
                         {
-                            TextBox serverHostTextBox =
-                                (GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["ServerHostTextBox"] as TextBox;
-
-                            string serverHostAddress = Client.ClientSettings.ServerHost;
-
-                            if (serverHostTextBox != null)
+                            #region Not in new account creation mode.
+                            // TEMPORARY ?? Why is/was this temporary? (10/27/11 -MDC)
+                            if ((GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["AccountTextBox"].Text.Length > 0 &&
+                                (GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["PasswordTextBox"].Text.Length > 0)
                             {
-                                if (serverHostTextBox.Text != Client.ClientSettings.ServerHost)
+                                string serverHostAddress = Client.ClientSettings.ServerHost;
+
+                                if ((GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["ServerHostTextBox"] is TextBox serverHostTextBox)
                                 {
-                                    Client.ClientSettings.ServerHost = serverHostTextBox.Text;
+                                    if (serverHostTextBox.Text != Client.ClientSettings.ServerHost)
+                                    {
+                                        Client.ClientSettings.ServerHost = serverHostTextBox.Text;
+                                    }
+                                }
+
+                                if (IO.Connect())
+                                {
+                                    RegisterEvent(EventName.Set_Login_Status_Label,
+                                                  "Connecting to " + Client.ClientSettings.ServerName + "...", "Lime");
+                                    RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Connected);
+
+                                    // connected to another host address, save the setting
+                                    if (serverHostAddress != Client.ClientSettings.ServerHost)
+                                    {
+                                        Events.RegisterEvent(EventName.Client_Settings_Changed);
+                                    }
+                                }
+                                else
+                                {
+                                    RegisterEvent(EventName.Set_Login_Status_Label, "Failed to connect. Check internet connection.", "Red");
                                 }
                             }
+                            #endregion
+                        }
+                        else
+                        {
+                            #region Creating a new account.
+                            var newAccountTextBox = (GuiManager.CurrentSheet["CreateNewAccountWindow"] as Window)["CreateNewAccountTextBox"] as TextBox;
+                            var newAccountPasswordTextBox = (GuiManager.CurrentSheet["CreateNewAccountWindow"] as Window)["CreateNewAccountPasswordTextBox"] as TextBox;
+                            var newAccountEmailTextBox = (GuiManager.CurrentSheet["CreateNewAccountWindow"] as Window)["CreateNewAccountEmailTextBox"] as TextBox;
 
-                            //gui.TextCue.AddClientInfoTextCue("Connect", "", Color.Red, Color.Transparent, 5000, false, false, true);
+                            if (newAccountTextBox.Text.Length == 0 || newAccountPasswordTextBox.Text.Length == 0 ||
+                                newAccountEmailTextBox.Text.Length == 0)
+                            {
+                                newAccountTextBox.HasFocus = true;
+                                return;
+                            }
+
+                            // Check account name length.
+                            if (newAccountTextBox.Text.Length < CharGen.ACCOUNT_MIN_LENGTH || newAccountTextBox.Text.Length > CharGen.ACCOUNT_MAX_LENGTH)
+                            {
+                                TextCue.AddClientInfoTextCue("Account name must be between " + CharGen.ACCOUNT_MIN_LENGTH + " and " + CharGen.ACCOUNT_MAX_LENGTH + " characters in length.",
+                                    TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 10000, false, true, true);
+
+                                newAccountTextBox.HasFocus = true;
+                                return;
+                            }
+                            else CharGen.NewAccountName = newAccountTextBox.Text;
+
+                            // Check password lenth.
+                            if (newAccountPasswordTextBox.Text.Length < CharGen.PASSWORD_MIN_LENGTH || newAccountPasswordTextBox.Text.Length > CharGen.PASSWORD_MAX_LENGTH)
+                            {
+                                TextCue.AddClientInfoTextCue("Password must be between " + CharGen.PASSWORD_MIN_LENGTH + " and " + CharGen.PASSWORD_MAX_LENGTH + " characters in length.",
+                                    TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 10000, false, true, true);
+
+                                newAccountPasswordTextBox.HasFocus = true;
+                                return;
+                            }
+                            else if ((GuiManager.CurrentSheet["CreateNewAccountWindow"] as gui.Window)["CreateNewAccountConfirmPasswordTextBox"].Text != newAccountPasswordTextBox.Text)
+                            {
+                                TextCue.AddClientInfoTextCue("Passwords do not match.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 10000, false, true, true);
+                                newAccountPasswordTextBox.HasFocus = true;
+                                return;
+                            }
+                            else CharGen.NewAccountPassword = newAccountPasswordTextBox.Text;
+
+                            try
+                            {
+                                System.Net.Mail.MailAddress email = new System.Net.Mail.MailAddress(newAccountEmailTextBox.Text);
+                            }
+                            catch
+                            {
+                                TextCue.AddClientInfoTextCue("Invalid email address.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 10000, false, true, true);
+                                newAccountEmailTextBox.HasFocus = true;
+                                return;
+                            }
+
+                            if ((GuiManager.CurrentSheet["CreateNewAccountWindow"] as gui.Window)["CreateNewAccountConfirmEmailTextBox"].Text != newAccountEmailTextBox.Text)
+                            {
+                                TextCue.AddClientInfoTextCue("Email addresses do not match.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 10000, false, true, true);
+                                newAccountEmailTextBox.HasFocus = true;
+                                return;
+                            }
+                            else CharGen.NewAccountEmail = newAccountEmailTextBox.Text;
+
+                            // Checks complete. Let's sign in and attempt to create the account. Then on to CharGen.
 
                             if (IO.Connect())
                             {
                                 RegisterEvent(EventName.Set_Login_Status_Label,
                                               "Connecting to " + Client.ClientSettings.ServerName + "...", "LimeGreen");
                                 RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Connected);
-
-                                // connected to another host address, save the setting
-                                if (serverHostAddress != Client.ClientSettings.ServerHost)
-                                {
-                                    Events.RegisterEvent(EventName.Client_Settings_Changed);
-                                }
                             }
                             else
                             {
                                 RegisterEvent(EventName.Set_Login_Status_Label, "Failed to connect. Check internet connection.", "Red");
-                            }
+                            } 
+                            #endregion
                         }
                         break;
-
                     #endregion
                     case EventName.CreateNewAccount:
                         if(GuiManager.GetControl("CreateNewAccountWindow") is Window cnaw)
@@ -231,12 +302,12 @@ namespace Yuusha
                             {
                                 loginWindow.IsVisible = false;
                                 cnaw.IsVisible = true;
+                                RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.NewAccount); // set state
                             }
                         }
                         break;
                     case EventName.Disconnect:
                         #region Disconnect
-
                         {
                             IO.Send(Protocol.LOGOUT); // send logout if connected
                             IO.Disconnect(); // clean up the connection
@@ -250,15 +321,12 @@ namespace Yuusha
                             RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Login);
                         }
                         break;
-
                         #endregion
                     case EventName.Display_Conference_Text:
                         #region Display Conference Text
-
                         (GuiManager.CurrentSheet["ConfScrollableTextBox"] as gui.ScrollableTextBox).AddLine(
                             (string) args[0], (Enums.ETextType) args[1]);
                         break;
-
                         #endregion
                     case EventName.Display_Game_Text:
                         #region Display Game Text
@@ -466,19 +534,14 @@ namespace Yuusha
                             break;
                         } 
                     #endregion
-                    case EventName.SaveLOKMap:
-                        break;
                     case EventName.Send_Account_Name:
                         IO.Send((GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["AccountTextBox"].Text);
-                        break;
-                    case EventName.Send_Macro:
                         break;
                     case EventName.Send_Password:
                         IO.Send((GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["PasswordTextBox"].Text);
                         break;
                     case EventName.Send_Text:
                         #region Send Text
-
                         {
                             string textToSend = (args[0] as Control).Text;
                             if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
@@ -504,12 +567,7 @@ namespace Yuusha
                         RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Game);
                         break;
                     case EventName.Set_Game_State:
-
                         #region Set Game State
-
-                        //if (Client.GameState == (Enums.eGameState)args[0])
-                        //    break;
-
                         OnSwitchGameState(Client.GameState, (Enums.EGameState)args[0]);
 
                         if ((Enums.EGameState) args[0] == Enums.EGameState.Game)
@@ -541,30 +599,17 @@ namespace Yuusha
                                 ResetLoginGUI();
                         }
                         break;
-
                         #endregion
-
                     case EventName.Set_Login_State:
                         IO.LoginState = (Enums.ELoginState) args[0];
-                        if(IO.LoginState == Enums.ELoginState.NewAccount)
-                        {
-                            var loginWindow = GuiManager.GetControl("LoginWindow");
-                            if (loginWindow != null) loginWindow.IsVisible = false;
-                            var createNewAccountCreationWindow = GuiManager.GetControl("CreateNewAccountWindow");
-                            if (createNewAccountCreationWindow != null) createNewAccountCreationWindow.IsVisible = true;
-                        }
                         break;
                     case EventName.Set_Login_Status_Label:
                         #region Set Login Status Label
-
                         GuiManager.CurrentSheet["LoginStatusLabel"].Text = (string) args[0];
                         GuiManager.CurrentSheet["LoginStatusLabel"].TextColor = Utils.GetColor((string) args[1]);
                         if (args.Length >= 3)
-                        {
                             GuiManager.CurrentSheet["LoginStatusLabel"].IsVisible = (bool) args[2];
-                        }
                         break;
-
                         #endregion
                     case EventName.Switch_Character_Back:
                         Character.Settings.Save();

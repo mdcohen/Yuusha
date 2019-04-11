@@ -266,13 +266,13 @@ namespace Yuusha.gui
             }
 
             TextCue tc = new TextCue(text, x, y, (!fadeIn ? (byte)255 : (byte)1), color, backgroundColor, GuiManager.CurrentSheet.Font, lifeCycle,
-                true, 2, Map.Direction.Southeast, centered, fadeIn, fadeOut, tag);
+                true, 2, Map.Direction.None, centered, fadeIn, fadeOut, tag);
 
             // disable multiple text cues for the time being
-            //if (GuiManager.TextCues.Count >= 3)
-            //    GuiManager.TextCues.RemoveAt(0);
+            if (GuiManager.TextCues.Count >= 10)
+                GuiManager.TextCues.RemoveAt(0);
 
-            if(!centered)
+            if (!centered)
                 GuiManager.TextCues.Clear();
 
             GuiManager.TextCues.Add(tc);

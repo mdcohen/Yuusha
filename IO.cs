@@ -345,12 +345,64 @@ namespace Yuusha
                     {
                         case Enums.ELoginState.Disconnected:
                             break;
+                        case Enums.ELoginState.NewAccount:
+                            #region NewAccount -- All steps to verify new account here. Next is CharGen.
+                            // Enter "new"
+                            if (inData.ToLower().IndexOf("login:") != -1)
+                            {
+                                IO.Send("new");
+                                return true;
+                            }
+                            // Enter a login name for your account: 
+                            if (inData.IndexOf("Enter a login name for your account: ") != -1)
+                            {
+                                IO.Send(CharGen.NewAccountName);
+                                return true;
+                            }
+                            // Please enter your email address: 
+                            if (inData.IndexOf("Please enter your email address: ") != -1 || inData.IndexOf("Please verify your email address: ") != -1)
+                            {
+                                IO.Send(CharGen.NewAccountEmail);
+                                return true;
+                            }
+                            // Please enter a password for your account (minimum 4 chars, maximum 12): 
+                            if (inData.IndexOf("Please enter a password for your account (minimum 4 chars, maximum 12): ") != -1 || inData.IndexOf("Please retype your password: ") != -1)
+                            {
+                                IO.Send(CharGen.NewAccountPassword);
+                                return true;
+                            }
+                            // PROBLEMS
+                            // That name is invalid.
+                            if (inData.IndexOf("That name is invalid.") != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account name is invalid. It may already be in use.", "Tomato");
+                                Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.NewAccount);
+                                return true;
+                            }
+                            // That password is invalid.
+                            if (inData.IndexOf("That password is invalid.") != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Please use a different password.", "Tomato");
+                                Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.NewAccount);
+                                return true;
+                            }
+                            // CHARGEN
+                            // "Welcome to the character generator."
+                            if (inData.IndexOf("Welcome to the character generator.") != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Welcome to the character generator.", "Lime");
+                                Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.LoggedIn);
+                                Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
+                                return true;
+                            }
+                            break;
+                        #endregion
                         case Enums.ELoginState.Connected:
                             #region Connected
                             if (inData.ToLower().IndexOf("login:") != -1)
                             {
                                 Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.VerifyAccount);
-                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Sending account information...", "White");
+                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Verifying account information...", "White");
                                 Events.RegisterEvent(Events.EventName.Send_Account_Name);
                                 return true;
                             }
@@ -367,7 +419,7 @@ namespace Yuusha
                             else if (inData.IndexOf("That account name was not found") != -1)
                             {
                                 Events.RegisterEvent(Events.EventName.Disconnect);
-                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Invalid account.", "Red");
+                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account does not exist.", "Red");
                                 return true;
                             }
                             break;
@@ -442,8 +494,6 @@ namespace Yuusha
                             }
                             catch (Exception e)
                             { Utils.LogException(e); }
-                            break;
-                        case Enums.ELoginState.NewAccount:
                             break;
                     }
                     #endregion

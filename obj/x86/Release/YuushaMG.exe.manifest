@@ -139,14 +139,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YuushaMG.exe" size="581600">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YuushaMG.exe" size="584672">
       <assemblyIdentity name="YuushaMG" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>cE04WqpYIyYyQtW9ELd2AHjBGlet1R7yiqbl+eoKPjA=</dsig:DigestValue>
+        <dsig:DigestValue>SdHm8oRnYLibPDxXLL7ZBD0Kwxnn3yFwE6eQKdRMG84=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -3279,7 +3279,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>9O2dKeX5WmB4SU0Myx9Z8MrudoNAXtzeG0OH4U0M7Q4=</dsig:DigestValue>
+      <dsig:DigestValue>/7pF+khYYG1D/7+hDQFoF41GG6b4S8oQi55lt3NVVig=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\sheets\lokgame.xml" size="2173" writeableType="applicationData">
