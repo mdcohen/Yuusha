@@ -239,12 +239,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier16.xm
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28-0.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28-1.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends12-0.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends12.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends14-0.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends14.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends16-0.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\legends16.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20-0.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20-1.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20.xml

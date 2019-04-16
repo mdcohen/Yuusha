@@ -9,5 +9,5 @@ ALT + N: Server News Window
 ALT + O: Options Window
 ALT + R: Reload Current GUI
 ALT + S: Toggle Sound Effects
-ALT + T: Reload Tiles (Game Only)
+ALT + T: Reload Tiles (Game Mode Only)
 ~ : Take and Save Screenshot

@@ -26,9 +26,8 @@ namespace Yuusha.gui
             Events.RegisterEvent(Events.EventName.Set_Game_State, GameHUD.PreviousGameState);
 
             // Make the Icons Window visible again. It was right clicked to reach this HotButtonEditWindow.
-            Window iconWindow = GuiManager.GetControl(OriginatingWindow) as Window;
 
-            if(iconWindow != null)
+            if (GuiManager.GetControl(OriginatingWindow) is Window iconWindow)
                 iconWindow.IsVisible = true;
         }
 

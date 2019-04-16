@@ -1,4 +1,0 @@
-2/16/2019 2:47:30 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Microsoft.Xna.Framework.Audio.XactSound.Play(Single volume, AudioEngine engine)
-   at Microsoft.Xna.Framework.Audio.Cue.Play()
-   at Yuusha.Sound.Play(String[] soundInfo) in C:\Users\mikec\Desktop\YuushaMG\utility\Sound.cs:line 156
-2/16/2019 2:50:30 PM: Isodekaya has no visualKey information.

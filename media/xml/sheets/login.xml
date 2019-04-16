@@ -209,7 +209,7 @@
       YTextOffset="0"
       TextColor="White"
       IsVisible="true"
-      IsEditable="false"
+      IsEditable="true"
       Font="courier16"
       VisualKey="WhiteSpace"
       TintColor="Black"
@@ -680,6 +680,7 @@
     IsVisible="true"
     Font="courier16"
     TextAlignment="Center"
+    OnMouseDown="nothing"
     IsLocked="true">
   </Control>
 
@@ -694,6 +695,8 @@
 		Height="30"
 		TextColor="White"
 		IsVisible="true"
+    VisualAlpha="115"
+    BorderAlpha="115"
 		Font="courier16"
 		TextAlignment="Center">
 	</Control>

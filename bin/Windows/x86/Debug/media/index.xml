@@ -32,6 +32,8 @@
 	<File Name="xml\sheets\login.xml"></File>
 	<!-- Menu GUI -->
 	<File Name="xml\sheets\menu.xml"></File>
+  <!-- Character Generation GUI -->
+  <File Name="xml\sheets\charactergeneration.xml"></File>
 	<!-- Conference GUI -->
 	<File Name="xml\sheets\conf.xml"></File>
 	<!-- Game GUI (Normal Mode) -->

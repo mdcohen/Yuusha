@@ -1,5 +1,0 @@
-2/17/2019 12:06:44 PM: Sidois has no visualKey information.
-2/17/2019 12:23:54 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Microsoft.Xna.Framework.Audio.XactSound.Play(Single volume, AudioEngine engine)
-   at Microsoft.Xna.Framework.Audio.Cue.Play()
-   at Yuusha.Sound.Play(String[] soundInfo) in C:\Users\mikec\Desktop\YuushaMG\utility\Sound.cs:line 156
-2/17/2019 9:15:56 PM: eagle has no visualKey information.

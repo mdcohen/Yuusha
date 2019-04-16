@@ -164,7 +164,6 @@ namespace Yuusha
             if (IO.IsAlive)
             {
                 outData = outData + "\r"; // add a carriage return to outbound data
-
                 try
                 {
                     if(!Client.RoundDelay)
@@ -192,6 +191,11 @@ namespace Yuusha
 
         public static bool CaptureInput(string inData)
         {
+            Utils.Log(IO.LoginState.ToString() + ":" + Client.GameState.ToString() + ": " + inData);
+
+            if (inData == "\x1b[2J\x1b[1;1f")
+                return true;
+
             #region Detect Logout
             if (inData.IndexOf(Protocol.LOGOUT) != -1)
             {
@@ -265,8 +269,10 @@ namespace Yuusha
             #region Detect CharGen Enter
             else if (inData.IndexOf(Protocol.CHARGEN_ENTER) != -1)
             {
-                Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.LoggedIn);
-                Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
+                if(IO.LoginState != Enums.ELoginState.LoggedIn)
+                    Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.LoggedIn);
+                if (Client.GameState != Enums.EGameState.CharacterGeneration)
+                    Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
                 return true;
             }
             #endregion
@@ -345,29 +351,17 @@ namespace Yuusha
                     {
                         case Enums.ELoginState.Disconnected:
                             break;
-                        case Enums.ELoginState.NewAccount:
+                        case Enums.ELoginState.NewAccount:                            
                             #region NewAccount -- All steps to verify new account here. Next is CharGen.
                             // Enter "new"
                             if (inData.ToLower().IndexOf("login:") != -1)
                             {
+                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Setting up your new account...", "White");
                                 IO.Send("new");
-                                return true;
-                            }
-                            // Enter a login name for your account: 
-                            if (inData.IndexOf("Enter a login name for your account: ") != -1)
-                            {
                                 IO.Send(CharGen.NewAccountName);
-                                return true;
-                            }
-                            // Please enter your email address: 
-                            if (inData.IndexOf("Please enter your email address: ") != -1 || inData.IndexOf("Please verify your email address: ") != -1)
-                            {
                                 IO.Send(CharGen.NewAccountEmail);
-                                return true;
-                            }
-                            // Please enter a password for your account (minimum 4 chars, maximum 12): 
-                            if (inData.IndexOf("Please enter a password for your account (minimum 4 chars, maximum 12): ") != -1 || inData.IndexOf("Please retype your password: ") != -1)
-                            {
+                                IO.Send(CharGen.NewAccountEmail);
+                                IO.Send(CharGen.NewAccountPassword);
                                 IO.Send(CharGen.NewAccountPassword);
                                 return true;
                             }
@@ -375,15 +369,13 @@ namespace Yuusha
                             // That name is invalid.
                             if (inData.IndexOf("That name is invalid.") != -1)
                             {
-                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account name is invalid. It may already be in use.", "Tomato");
-                                Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.NewAccount);
+                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account name is invalid. It may already be in use.", "Red");
                                 return true;
                             }
                             // That password is invalid.
                             if (inData.IndexOf("That password is invalid.") != -1)
                             {
-                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Please use a different password.", "Tomato");
-                                Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.NewAccount);
+                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Please use a different password.", "Red");
                                 return true;
                             }
                             // CHARGEN
@@ -454,6 +446,24 @@ namespace Yuusha
                                 Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.WorldInformation);
                                 return true;
                             }
+                            // "Welcome to the character generator."
+                            else if (inData.IndexOf("There are no characters presently on this account") != -1)
+                            {
+                                CharGen.FirstCharacter = true;
+                                if (IO.LoginState != Enums.ELoginState.LoggedIn)
+                                    Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.LoggedIn);
+                                if (Client.GameState != Enums.EGameState.CharacterGeneration)
+                                    Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);                                
+                                return true;
+                            }
+                            else if (inData.IndexOf("Welcome to the character generator.") != -1)
+                            {
+                                if(IO.LoginState != Enums.ELoginState.LoggedIn)
+                                    Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.LoggedIn);
+                                if(Client.GameState != Enums.EGameState.CharacterGeneration)
+                                    Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);                                
+                                return true;
+                            }
                             break;
                             #endregion
                         case Enums.ELoginState.WorldInformation:
@@ -506,26 +516,29 @@ namespace Yuusha
                             break;
                         case Enums.EGameState.CharacterGeneration:
                             #region CharGen
-                            if (inData.IndexOf(Protocol.CHARGEN_ROLLER_RESULTS_END) != -1)
-                            {
-                                //Essence.client.chargen.ParseRollerResults(Protocol.GetProtoInfoFromString(inData, Protocol.CHARGEN_ROLLER_RESULTS, Protocol.CHARGEN_ROLLER_RESULTS_END));
-                                return true;
-                            }
-                            else if (inData.IndexOf(Protocol.CHARGEN_ACCEPTED) != -1)
-                            {
-                                //Essence.client.chargen.AcceptStepOne();
-                                return true;
-                            }
-                            else if (inData.IndexOf(Protocol.CHARGEN_ERROR) != -1)
-                            {
-                                //Essence.client.chargen.sendCharGenInfo();
-                                return true;
-                            }
-                            else if (inData.IndexOf(Protocol.CHARGEN_INVALIDNAME) != -1)
-                            {
-                                //Essence.client.chargen.DenyStepOne();
-                                return true;
-                            }
+                            Events.RegisterEvent(Events.EventName.Display_CharacterGeneration_Text, inData);
+
+                            Utils.Log(inData);
+                            //if (inData.IndexOf(Protocol.CHARGEN_ROLLER_RESULTS_END) != -1)
+                            //{
+                            //    //Essence.client.chargen.ParseRollerResults(Protocol.GetProtoInfoFromString(inData, Protocol.CHARGEN_ROLLER_RESULTS, Protocol.CHARGEN_ROLLER_RESULTS_END));
+                            //    return true;
+                            //}
+                            //else if (inData.IndexOf(Protocol.CHARGEN_ACCEPTED) != -1)
+                            //{
+                            //    //Essence.client.chargen.AcceptStepOne();
+                            //    return true;
+                            //}
+                            //else if (inData.IndexOf(Protocol.CHARGEN_ERROR) != -1)
+                            //{
+                            //    //Essence.client.chargen.sendCharGenInfo();
+                            //    return true;
+                            //}
+                            //else if (inData.IndexOf(Protocol.CHARGEN_INVALIDNAME) != -1)
+                            //{
+                            //    //Essence.client.chargen.DenyStepOne();
+                            //    return true;
+                            //}
                             break;
                             #endregion
                         case Enums.EGameState.Conference:
@@ -534,9 +547,6 @@ namespace Yuusha
                             if (inData.IndexOf(Protocol.CONF_INFO_END) != -1)
                             {
                                 string[] info = Protocol.GetProtoInfoFromString(inData, Protocol.CONF_INFO, Protocol.CONF_INFO_END).Split(Protocol.ISPLIT.ToCharArray());
-                                //Essence.client.conf.SetRoomTitle(info[0], Convert.ToInt32(info[1]));
-                                //Essence.m_currentCharacter.Location = info[0];
-                                //Essence.client.conf.RoomsList = info[2].Split(Protocol.VSPLIT.ToCharArray());
                                 return true;
                             }
                             // header

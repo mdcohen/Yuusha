@@ -29,6 +29,13 @@ namespace Yuusha
                 return true;
             }
 
+            // ALT + C
+            // toggle sheet (testing purposes)
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
+            {
+                return true;
+            }
+
             // ALT + G
             // toggle client mode
             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.G))
@@ -154,6 +161,12 @@ namespace Yuusha
                         #region Login Game State
                         if (Client.GameState == Enums.EGameState.Login)
                         {
+                            // Testing purposes
+                            if(IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
+                            }
+
                             #region ALT + N  News Window
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.N))
                             {
@@ -254,6 +267,12 @@ namespace Yuusha
 
                         else // outside login mode
                         {
+                            // Testing purposes
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
+                            }
+
                             if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))
                             {
                                 if (!ks.IsKeyDown(Keys.LeftAlt) && !ks.IsKeyDown(Keys.RightAlt))

@@ -11,10 +11,10 @@
   <!-- Green Tile Background -->
 	<Background
 		Font="courier16"
-		VisualKey="GreenTileBackground"
+		VisualKey="BlackTileBackground"
 		IsCentered="false"
 		IsTiled="true"
-		TintColor="White"
+		TintColor="Chartreuse"
 		VisualAlpha="185">
 	</Background>
   

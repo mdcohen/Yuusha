@@ -16,6 +16,7 @@ namespace Yuusha
             Attack_Critter,
             Connect,
             Disconnect,
+            Display_CharacterGeneration_Text,
             Display_Conference_Text,
             Display_Game_Text,
             End_Game_Round,
@@ -60,7 +61,6 @@ namespace Yuusha
                 {
                     case EventName.Attack_Critter:
                         #region Attack_Critter
-
                         {
                             if (args.Length >= 1 && args[0] is Control)
                             {
@@ -284,8 +284,11 @@ namespace Yuusha
                             if (IO.Connect())
                             {
                                 RegisterEvent(EventName.Set_Login_Status_Label,
-                                              "Connecting to " + Client.ClientSettings.ServerName + "...", "LimeGreen");
+                                              "Connecting to " + Client.ClientSettings.ServerName + "...", "Lime");
                                 RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Connected);
+                                RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.NewAccount);
+                                //if (IO.LoginState != Enums.ELoginState.NewAccount)
+                                //    RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Connected);
                             }
                             else
                             {
@@ -321,7 +324,13 @@ namespace Yuusha
                             RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Login);
                         }
                         break;
-                        #endregion
+                    #endregion
+                    case EventName.Display_CharacterGeneration_Text:
+                        #region Display CharGen Text
+                        (GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine(
+                            (string)args[0], (Enums.ETextType)args[1]);
+                        break;
+                    #endregion
                     case EventName.Display_Conference_Text:
                         #region Display Conference Text
                         (GuiManager.CurrentSheet["ConfScrollableTextBox"] as gui.ScrollableTextBox).AddLine(
@@ -420,11 +429,9 @@ namespace Yuusha
                         #endregion
                     case EventName.Goto_Conf:
                         #region Goto Conf
-
                         IO.Send(Protocol.GOTO_CONFERENCE);
                         RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Conference);
                         break;
-
                         #endregion
                     case EventName.Goto_Game:
                         #region Goto Game
@@ -592,6 +599,16 @@ namespace Yuusha
                         {
                             Client.GameState = (Enums.EGameState) args[0];
 
+                            if(Client.GameState == Enums.EGameState.CharacterGeneration)
+                            {
+                                if(CharGen.FirstCharacter)
+                                {
+                                    TextCue.AddClientInfoTextCue("There are currently no characters on your account. Please create one.", gui.TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3500, false, false, true);
+                                }
+
+                                TextCue.AddClientInfoTextCue("Welcome to the character generator.", gui.TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3500, false, false, true);
+                            }
+
                             if (Client.GameState.ToString().EndsWith("Game"))
                                 Events.RegisterEvent(EventName.Target_Cleared, null);
 
@@ -601,6 +618,7 @@ namespace Yuusha
                         break;
                         #endregion
                     case EventName.Set_Login_State:
+                        //TextCue.AddClientInfoTextCue(args[0].ToString(), TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3000, false, false, false);
                         IO.LoginState = (Enums.ELoginState) args[0];
                         break;
                     case EventName.Set_Login_Status_Label:
@@ -1189,13 +1207,13 @@ namespace Yuusha
                 }
 
                 // Hide some windows.
-                gui.Window macrosWindow = gui.GuiManager.GenericSheet["MacrosWindow"] as gui.Window;
+                Window macrosWindow = gui.GuiManager.GenericSheet["MacrosWindow"] as gui.Window;
                 if (macrosWindow != null && macrosWindow.IsVisible)
                     macrosWindow.IsVisible = false;
-                gui.Window optionsWindow = gui.GuiManager.GenericSheet["OptionsWindow"] as gui.Window;
+                Window optionsWindow = gui.GuiManager.GenericSheet["OptionsWindow"] as gui.Window;
                 if (optionsWindow != null && optionsWindow.IsVisible)
                     optionsWindow.IsVisible = false;
-                gui.Window helpWindow = gui.GuiManager.GenericSheet["HelpWindow"] as gui.Window;
+                Window helpWindow = gui.GuiManager.GenericSheet["HelpWindow"] as gui.Window;
                 if (helpWindow != null && helpWindow.IsVisible)
                     helpWindow.IsVisible = false;
             }
@@ -1217,8 +1235,6 @@ namespace Yuusha
             {
                 switch (currGameState)
                 {
-                    case Enums.EGameState.CharacterGeneration:
-                        break;
                     case Enums.EGameState.Conference:
                         if (!GameHUD.OverrideDisplayStates.Contains(newGameState))
                         {
@@ -1235,9 +1251,7 @@ namespace Yuusha
                         break;
                     case Enums.EGameState.IOKGame:
                         if (newGameState == Enums.EGameState.SpinelGame)
-                        {
                             gui.SpinelMode.UpdateGUI(Program.Client.ClientGameTime, GuiManager.Sheets[newGameState.ToString()]);
-                        }
                         else
                         {
                             control = GuiManager.GetControl(Globals.GAMEINPUTTEXTBOX);
@@ -1258,7 +1272,6 @@ namespace Yuusha
                         GuiManager.TextCues.Clear();
                         break;
                     case Enums.EGameState.HotButtonEditMode:
-                        //GameHUD.PreviousGameState = currGameState; // remember what game state we were in when HUD took control
                         break;
                     case Enums.EGameState.Menu:
                         break;
@@ -1281,13 +1294,13 @@ namespace Yuusha
                         break;
                     //case Enums.eGameState.Splash:
                     //    Events.ResetLoginGUI();
-                        //break;
+                    //break;
+                    default:
+                        break;
                 }
 
                 if(currGameState != Enums.EGameState.HotButtonEditMode)
-                {
                     GameHUD.PreviousGameState = currGameState;
-                }
             }
             catch (Exception e)
             {

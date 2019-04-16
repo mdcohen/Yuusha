@@ -17,6 +17,8 @@ namespace Yuusha
         public static string NewAccountPassword = "";
         public static string NewAccountEmail = "";
 
+        public static bool FirstCharacter = false;
+
         private static int m_sendAttempts = 0;
         private static int m_totalRolls = 0;
         private static int m_totalAutoRolls = 0;

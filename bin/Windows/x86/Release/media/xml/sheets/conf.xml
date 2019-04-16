@@ -11,10 +11,10 @@
   <!-- Backgrounds -->
 	<Background
 		Font="courier16"
-		VisualKey="GreenTileBackground"
+		VisualKey="BlackTileBackground"
 		IsCentered="false"
 		IsTiled="true"
-		TintColor="White"
+    TintColor="Chartreuse"
 		VisualAlpha="185">
 	</Background>
 
@@ -65,7 +65,7 @@
 		Type="TextBox"
 		Name="ConfInputTextBox"
 		X="10"
-		Y="733"
+		Y="735"
 		Width="1004"
 		Height="25"
 		XTextOffset="0"
@@ -87,33 +87,8 @@
 		OnKeyboardEnter="send_text"
 		AnchorBottom="true"
 		AnchorLeft="true"
-		AnchorRight="true">>
+		AnchorRight="true">
 	</Control>
-	<!--
-	<Control
-		Type="TextBox"
-		Text="A"
-		Name="ConfRoomTextBox"
-		X="940"
-		Y="697"
-		Width="30"
-		Height="30"
-		XTextOffset="0"
-		YTextOffset="0"
-		TextColor="White"
-		IsVisible="true"
-		IsEditable="true"
-		Font="courier16"
-		TintColor="White"
-		VisualAlpha="255"
-		BorderAlpha="255"
-		TextAlpha="255"
-		MaxLength="1"
-		IsPasswordBox="false"
-		HasBlinkingCursor="true"
-		CursorColor="Gray"
-		TextAlignment="Center">
-	</Control> -->
 	<Control
 		Type="Label"
 		Text="" 

@@ -7,14 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="YuushaMG.exe.manifest" size="46397">
+    <dependentAssembly dependencyType="install" codebase="YuushaMG.exe.manifest" size="153568">
       <assemblyIdentity name="YuushaMG.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9aP/6wG2FEgfVU1QFPqT/ATEjLCc7dd0pFvBdnib3U0=</dsig:DigestValue>
+        <dsig:DigestValue>cOXFgm1xD4RTHVOhf3tClS3Corc55BN3zf4ifVMjhZg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

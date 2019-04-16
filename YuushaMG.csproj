@@ -197,24 +197,6 @@
     <Content Include="media\fonts\courier28.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\legends12-0.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\legends12.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\legends14-0.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\legends14.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\legends16-0.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\legends16.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="media\fonts\levRunes20-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -238,6 +220,7 @@
     </Content>
     <Content Include="media\index.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="media\maps\Island of Kesmai.txt" />
     <Content Include="media\textures\damage_fog_skulls.png">
@@ -397,6 +380,7 @@
     </Content>
     <Content Include="media\xml\sheets\menu.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="media\xml\sheets\spinelgame.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
