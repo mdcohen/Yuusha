@@ -191,11 +191,6 @@ namespace Yuusha
 
         public static bool CaptureInput(string inData)
         {
-            Utils.Log(IO.LoginState.ToString() + ":" + Client.GameState.ToString() + ": " + inData);
-
-            if (inData == "\x1b[2J\x1b[1;1f")
-                return true;
-
             #region Detect Logout
             if (inData.IndexOf(Protocol.LOGOUT) != -1)
             {
