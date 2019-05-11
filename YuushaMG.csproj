@@ -28,7 +28,7 @@
     <ProductName>Yuusha</ProductName>
     <PublisherName>Michael Cohen</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -168,12 +168,6 @@
     <Folder Include="media\sounds\Xbox\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dragon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="dragon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="GameThumbnail.png" />
     <Content Include="gold+dragon.ico" />
     <Content Include="media\fonts\courier12-0.png">
@@ -222,7 +216,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="media\maps\Island of Kesmai.txt" />
     <Content Include="media\textures\damage_fog_skulls.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

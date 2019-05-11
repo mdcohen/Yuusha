@@ -161,7 +161,7 @@ namespace Yuusha
                         #region Login Game State
                         if (Client.GameState == Enums.EGameState.Login)
                         {
-                            // Testing purposes
+                            // Testing purposes ALT + C
                             if(IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
                             {
                                 Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);

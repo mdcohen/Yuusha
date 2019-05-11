@@ -332,7 +332,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.DXGI.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct3D11.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.Direct2D1.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\SharpDX.XInput.xml
-C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csprojAssemblyReference.cache
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csproj.CoreCompileInputs.cache
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csproj.CopyComplete
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.exe
@@ -621,3 +620,4 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0272.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSNDint1.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSNDint2.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSNDint3.xnb
+C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csprojAssemblyReference.cache

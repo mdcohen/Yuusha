@@ -1806,7 +1806,7 @@ available in any game state. -->
 		Type="SquareBorder"
 		Name="VerticalHotButtonWindowBorder"
 		Owner="VerticalHotButtonWindow"
-		Width="1"
+		Width="2"
 		VisualKey="WhiteSpace"
     VisualAlpha ="200"
 		TintColor="Gray">
@@ -2219,7 +2219,7 @@ available in any game state. -->
 		X="189"
 		Y="708"
 	  Width="516"
-		Height="38"
+		Height="40"
 		IsVisible="false"
 		IsLocked="false"
 		Font="courier12"
@@ -2239,8 +2239,8 @@ available in any game state. -->
   <!-- Hotkeys Window Title
   <Control
 		Type="WindowTitle"
-		Name="HotkeysWindowTitle"
-		Owner="HotkeysWindow"
+		Name="HorizontalHotButtonWindowTitle"
+		Owner="HorizontalHotButtonWindow"
 		Font="courier12"
 		VisualKey="WhiteSpace"
 		TintColor="Gray"
@@ -2272,7 +2272,7 @@ available in any game state. -->
 		Type="SquareBorder"
 		Name="HorizontalHotButtonWindowBorder"
 		Owner="HorizontalHotButtonWindow"
-		Width="1"
+		Width="3"
 		VisualKey="WhiteSpace"
     VisualAlpha ="200"
 		TintColor="Gray">

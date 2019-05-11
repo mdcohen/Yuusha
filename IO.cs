@@ -1,8 +1,8 @@
 using System;
-using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace Yuusha
 {
@@ -93,8 +93,10 @@ namespace Yuusha
                 NetworkStream socketStream = m_TcpClient.GetStream();
 
                 m_StreamReader = new StreamReader(socketStream);
-                m_StreamWriter = new StreamWriter(socketStream);
-                m_StreamWriter.AutoFlush = true;
+                m_StreamWriter = new StreamWriter(socketStream)
+                {
+                    AutoFlush = true
+                };
             }
             catch
             {
@@ -511,9 +513,46 @@ namespace Yuusha
                             break;
                         case Enums.EGameState.CharacterGeneration:
                             #region CharGen
-                            Events.RegisterEvent(Events.EventName.Display_CharacterGeneration_Text, inData);
+                            if(inData.ToLower().IndexOf("that was not an option") != -1)
+                            {
+                                gui.TextCue.AddClientInfoTextCue("That was not an option.", gui.TextCue.TextCueTag.None, Color.Tomato, Color.Black, 1500, false, false, true);
+                                return true;
+                            }
+                            else if(inData.ToLower().IndexOf("please select a gender:") != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
+                                return true;
+                            }
+                            else if(inData.ToLower().IndexOf("please select a race:") != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.ChooseHomeland);
+                                return true;
+                            }
+                            else if(inData.ToLower().IndexOf("select a character class:") != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.ChooseProfession);
+                                return true;
+                            }
+                            else if(inData.ToLower().IndexOf("roll again? (y,n):") != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.ReviewStats, inData);
+                                return true;
+                            }
+                            else if(inData.ToLower().IndexOf("please enter a name for your character:") != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.ChooseName);
+                                return true;
+                            }
+                            //else if(inData.ToLower().IndexOf("a character with the name you have chosen already exists") != -1)
+                            //{
 
-                            Utils.Log(inData);
+                            //}
+                            else if(inData.ToLower().IndexOf("that name is invalid.") != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.ChooseName);
+                                return true;
+                            }
+                            //Events.RegisterEvent(Events.EventName.Display_CharGen_Text, inData);
                             //if (inData.IndexOf(Protocol.CHARGEN_ROLLER_RESULTS_END) != -1)
                             //{
                             //    //Essence.client.chargen.ParseRollerResults(Protocol.GetProtoInfoFromString(inData, Protocol.CHARGEN_ROLLER_RESULTS, Protocol.CHARGEN_ROLLER_RESULTS_END));
@@ -541,7 +580,7 @@ namespace Yuusha
                             // conference information
                             if (inData.IndexOf(Protocol.CONF_INFO_END) != -1)
                             {
-                                string[] info = Protocol.GetProtoInfoFromString(inData, Protocol.CONF_INFO, Protocol.CONF_INFO_END).Split(Protocol.ISPLIT.ToCharArray());
+                                //string[] info = Protocol.GetProtoInfoFromString(inData, Protocol.CONF_INFO, Protocol.CONF_INFO_END).Split(Protocol.ISPLIT.ToCharArray());
                                 return true;
                             }
                             // header

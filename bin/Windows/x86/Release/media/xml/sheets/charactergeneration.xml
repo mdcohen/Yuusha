@@ -11,10 +11,10 @@
   <!-- Background Visual -->
   <Background
 		Font="courier16"
-		VisualKey="BlackTileBackground"
+		VisualKey="GreenTileBackground"
 		IsCentered="false"
 		IsTiled="true"
-		TintColor="Chartreuse"
+		TintColor="White"
 		VisualAlpha="255">
   </Background>
 
@@ -24,7 +24,7 @@
 		X="10"
 		Y="10"
 		Width="665"
-		Height="715"
+		Height="695"
 		XTextOffset="0"
 		YTextOffset="0"
 		TextColor="White"
@@ -75,7 +75,7 @@
 		Text="Toggle Auto Roller On"
 		Name="CharGenToggleAutoRollerButton"
 		X="700"
-		Y="100"
+		Y="50"
 		Width="310"
 		Height="40"
 		YTextOffset="8"
@@ -94,7 +94,58 @@
 		AnchorTop="true"
 		AnchorRight="true">
   </Control>
-  <Control
+
+  <AutoRollerWindow>
+    <Control
+      Type="Window"
+      Name="AutoRollerWindow"
+      X="700"
+      Y="105"
+      Width="300"
+      Height="300"
+      IsVisible="true"
+      IsLocked="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      VisualAlpha="150"
+      TintColor="Black"
+      DropShadow="true"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      CursorOnDrag="Dragging">
+    </Control>
+
+    <!-- Options Window Title -->
+    <Control
+      Type="WindowTitle"
+      Name="AutoRollerWindowTitle"
+      Owner="AutoRollerWindow"
+      Font="courier12"
+      TintColor="Gray"
+      VisualKey="WhiteSpace"
+      CloseBoxVisualKey="WindowCloseBox"
+      CloseBoxVisualKeyDown="WindowCloseBoxDown"
+      CloseBoxDistanceFromRight="14"
+      CloseBoxDistanceFromTop="3"
+      CloseBoxWidth="12"
+      CloseBoxHeight="12"
+      Text="Auto Roller Settings"
+      TextColor="White"
+      TextAlignment="Center">
+    </Control>
+
+    <!-- Options Window Border -->
+    <Control
+      Type="SquareBorder"
+      Name="AutoRollerWindowBorder"
+      Owner="AutoRollerWindow"
+      Width="2"
+      VisualKey="WhiteSpace"
+      TintColor="Gray">
+    </Control>
+  </AutoRollerWindow>
+  
+  <!--<Control
 		Type="Label"
 		Text="Auto Roller Stats"
 		Name="AutoRollerLabel"
@@ -102,7 +153,7 @@
 		Y="150"
 		Width="300"
 		Height="35"
-		YTextOffset="0"
+		YTextOffset="6"
 		IsVisible="true"
 		IsDisabled="false"
 		Font="courier16"
@@ -117,8 +168,8 @@
 		ShadowDirection="Northwest"
 		AnchorTop="true"
 		AnchorRight="true">
-  </Control>
-  <!-- Auto Roller Label Border -->
+  </Control> -->
+  <!-- Auto Roller Label Border
   <Control
     Type="SquareBorder"
     Name="AutoRollerLabelBorder"
@@ -127,5 +178,5 @@
     VisualKey="WhiteSpace"
     VisualAlpha="150"
     TintColor="SlateGray">
-  </Control>
+  </Control> -->
 </Sheet>

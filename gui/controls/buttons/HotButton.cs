@@ -9,7 +9,7 @@ namespace Yuusha.gui
     {
         public int FadeIncrement = 10;
         public double FadeDelay = .035;
-        int m_originalVisualAlpha = 255;
+        readonly int m_originalVisualAlpha = 255;
         private SquareBorder m_border;
         public string ShortName;
 
@@ -112,11 +112,8 @@ namespace Yuusha.gui
                     Sheet sheet = GuiManager.Sheets["HotButtonEditMode"];
 
                     if (sheet != null)
-
                     {
-                        HotButtonEditWindow window = sheet["HotButtonEditWindow"] as HotButtonEditWindow;
-
-                        if (window != null)
+                        if (sheet["HotButtonEditWindow"] is HotButtonEditWindow window)
                         {
                             // Register game state change event.
                             Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.HotButtonEditMode);
@@ -144,7 +141,7 @@ namespace Yuusha.gui
 
                             // Create labels for choosing a macro icon.
                             window.CreateIconSelectionButtons();
-                                              
+
                             window.ForceMaximize(); // fill the screen
 
                             // macros and hotkeys are part of the generic sheet, always visible -- hide them when in edit mode

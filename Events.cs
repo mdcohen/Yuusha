@@ -16,7 +16,7 @@ namespace Yuusha
             Attack_Critter,
             Connect,
             Disconnect,
-            Display_CharacterGeneration_Text,
+            Display_CharGen_Text,
             Display_Conference_Text,
             Display_Game_Text,
             End_Game_Round,
@@ -33,6 +33,7 @@ namespace Yuusha
             Send_Account_Name,
             Send_Password,
             Send_Text,
+            Set_CharGen_State,
             Set_Client_Mode,
             Set_Game_State,
             Set_Login_State,
@@ -170,8 +171,7 @@ namespace Yuusha
                     case EventName.Character_Death:
                         #region Character Death
                         {
-                            int id = 0;
-                            if (Int32.TryParse(args[0].ToString(), out id))
+                            if (Int32.TryParse(args[0].ToString(), out int id))
                             {
                                 // currently just clear target
                                 if (GameHUD.CurrentTarget != null && GameHUD.CurrentTarget.ID == id)
@@ -325,10 +325,10 @@ namespace Yuusha
                         }
                         break;
                     #endregion
-                    case EventName.Display_CharacterGeneration_Text:
+                    case EventName.Display_CharGen_Text:
                         #region Display CharGen Text
                         (GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine(
-                            (string)args[0], (Enums.ETextType)args[1]);
+                            (string)args[0], Enums.ETextType.Default);
                         break;
                     #endregion
                     case EventName.Display_Conference_Text:
@@ -477,8 +477,7 @@ namespace Yuusha
                             if (visualName.StartsWith("hotbuttonicon_"))
                             {
                                 visualName = visualName.Replace("hotbuttonicon_", "");
-                                int currentNum = 0;
-                                if (Int32.TryParse(visualName, out currentNum))
+                                if (Int32.TryParse(visualName, out int currentNum))
                                     currentNum = currentNum + 1;
 
                                 if (GuiManager.Visuals.ContainsKey("hotbuttonicon_" + currentNum))
@@ -493,8 +492,7 @@ namespace Yuusha
                             else if (visualName.StartsWith("spinelspells_"))
                             {
                                 visualName = visualName.Replace("spinelspells_", "");
-                                int currentNum = 0;
-                                if (Int32.TryParse(visualName, out currentNum))
+                                if (Int32.TryParse(visualName, out int currentNum))
                                     currentNum = currentNum + 1;
 
                                 if (GuiManager.Visuals.ContainsKey("spinelspells_" + currentNum))
@@ -569,6 +567,28 @@ namespace Yuusha
                             IO.Send((args[0] as Button).Command);
                         }
                         break;
+                    case EventName.Set_CharGen_State:
+                        //if (CharGen.CharGenState == (Enums.ECharGenState)args[0]) break;
+                        CharGen.CharGenState = (Enums.ECharGenState)args[0];
+                        switch(CharGen.CharGenState)
+                        {
+                            case Enums.ECharGenState.ChooseGender:
+                                CharGen.ChooseGender();
+                                break;
+                            case Enums.ECharGenState.ChooseHomeland:
+                                CharGen.ChooseHomeland();
+                                break;
+                            case Enums.ECharGenState.ChooseProfession:
+                                CharGen.ChooseProfession();
+                                break;
+                            case Enums.ECharGenState.ChooseName:
+                                CharGen.ChooseName();
+                                break;
+                            case Enums.ECharGenState.ReviewStats:
+                                CharGen.ReviewStats((string)args[1]);
+                                break;
+                        }
+                        break;
                     case EventName.Set_Client_Mode:
                         Client.GameDisplayMode = (Enums.EGameDisplayMode) args[0];
                         RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Game);
@@ -607,6 +627,8 @@ namespace Yuusha
                                 }
 
                                 TextCue.AddClientInfoTextCue("Welcome to the character generator.", gui.TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3500, false, false, true);
+
+                                RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
                             }
 
                             if (Client.GameState.ToString().EndsWith("Game"))
@@ -618,7 +640,6 @@ namespace Yuusha
                         break;
                         #endregion
                     case EventName.Set_Login_State:
-                        //TextCue.AddClientInfoTextCue(args[0].ToString(), TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3000, false, false, false);
                         IO.LoginState = (Enums.ELoginState) args[0];
                         break;
                     case EventName.Set_Login_Status_Label:
@@ -653,8 +674,7 @@ namespace Yuusha
                                 if (GuiManager.GenericSheet["OptionsWindow"] is Window optionsWindow && optionsWindow.IsVisible)
                                 {
                                     #region Options Window
-                                    TextBox tbx = optionsWindow["DoubleLeftClickNearbyTargetTextBox"] as TextBox;
-                                    if (tbx != null)
+                                    if (optionsWindow["DoubleLeftClickNearbyTargetTextBox"] is TextBox tbx)
                                         Character.Settings.DoubleLeftClickNearbyTarget = tbx.Text;
                                     tbx = optionsWindow["DoubleLeftClickDistantTargetTextBox"] as TextBox;
                                     if (tbx != null)
@@ -825,9 +845,7 @@ namespace Yuusha
                         }
                         break;
                     case EventName.Save_Character_Settings:
-                        //Events.RegisterEvent(EventName.Client_Settings_Changed);
-                        //Events.RegisterEvent(EventName.User_Settings_Changed);
-                        Events.RegisterEvent(EventName.Character_Settings_Changed);
+                        RegisterEvent(EventName.Character_Settings_Changed);
                         break;
                     case EventName.Target_Cleared:
                         GameHUD.CurrentTarget = null;
@@ -859,12 +877,10 @@ namespace Yuusha
                         if (Character.Settings != null)
                         {
                             #region Options Window
-                            Window optionsWindow = GuiManager.GenericSheet["OptionsWindow"] as Window;
 
-                            if (optionsWindow != null)
+                            if (GuiManager.GenericSheet["OptionsWindow"] is Window optionsWindow)
                             {
-                                TextBox tbx = optionsWindow["DoubleLeftClickNearbyTargetTextBox"] as TextBox;
-                                if (tbx != null)
+                                if (optionsWindow["DoubleLeftClickNearbyTargetTextBox"] is TextBox tbx)
                                     tbx.Text = Character.Settings.DoubleLeftClickNearbyTarget;
                                 tbx = optionsWindow["DoubleLeftClickDistantTargetTextBox"] as TextBox;
                                 if (tbx != null)
@@ -906,12 +922,14 @@ namespace Yuusha
                                 if (tbx != null)
                                     tbx.Text = Character.Settings.CritterListDropDownMenuItem5;
                             }
+
+                            #endregion
+                            #region Vertical Hot Buttons
                             #endregion
 
                             #region Vertical Hot Buttons
-                            Window verticalHotButtonWindow = GuiManager.GenericSheet["VerticalHotButtonWindow"] as Window;
 
-                            if (verticalHotButtonWindow != null)
+                            if (GuiManager.GenericSheet["VerticalHotButtonWindow"] is Window verticalHotButtonWindow)
                             {
                                 verticalHotButtonWindow["VerticalHBWindowHotButton0"].VisualKey = Character.Settings.VerticalHotButtonVisualKey0;
                                 verticalHotButtonWindow["VerticalHBWindowHotButton1"].VisualKey = Character.Settings.VerticalHotButtonVisualKey1;
@@ -955,12 +973,14 @@ namespace Yuusha
                                 verticalHotButtonWindow["VerticalHBWindowHotButton18"].Text = Character.Settings.VerticalHotButtonText18;
                                 verticalHotButtonWindow["VerticalHBWindowHotButton19"].Text = Character.Settings.VerticalHotButtonText19;
                             }
+
+                            #endregion
+                            #region Horizontal Hot Buttons
                             #endregion
 
                             #region Horizontal Hot Buttons
-                            Window horizontalHotButtonWindow = GuiManager.GenericSheet["HorizontalHotButtonWindow"] as Window;
 
-                            if (horizontalHotButtonWindow != null)
+                            if (GuiManager.GenericSheet["HorizontalHotButtonWindow"] is Window horizontalHotButtonWindow)
                             {
                                 horizontalHotButtonWindow["HorizontalHBWindowHotButton0"].VisualKey = Character.Settings.HorizontalHotButtonVisualKey0;
                                 horizontalHotButtonWindow["HorizontalHBWindowHotButton1"].VisualKey = Character.Settings.HorizontalHotButtonVisualKey1;
@@ -993,7 +1013,7 @@ namespace Yuusha
                                 horizontalHotButtonWindow["HorizontalHBWindowHotButton12"].Text = Character.Settings.HorizontalHotButtonText12;
                                 horizontalHotButtonWindow["HorizontalHBWindowHotButton13"].Text = Character.Settings.HorizontalHotButtonText13;
                                 horizontalHotButtonWindow["HorizontalHBWindowHotButton14"].Text = Character.Settings.HorizontalHotButtonText14;
-                            } 
+                            }
                             #endregion
                         }
                         break;
@@ -1090,8 +1110,28 @@ namespace Yuusha
                             if (sheet["CurrentLocationLabel"] != null)
                                 sheet["CurrentLocationLabel"].Text = chr.MapName;
                         }
+                        break;
+                    #endregion
+                    case Enums.EGameState.CharacterGeneration:
+                        #region Character Generation
+                        if (sheet["CharGenInputTextBox"] != null)
+                        {
+                            if (Client.HasFocus)
+                            {
+                                Control w = GuiManager.GetControl("OptionsWindow");
+                                if (w != null && !w.HasFocus)
+                                {
+                                    sheet["CharGenInputTextBox"].HasFocus = true;
+                                    GuiManager.ActiveTextBox = "CharGenInputTextBox";
+                                }
+                            }
+                            else
+                            {
+                                sheet["CharGenInputTextBox"].HasFocus = false;
+                            }
+                        }
                         break; 
-                        #endregion
+                    #endregion
                     case Enums.EGameState.Conference:
                         #region Conference
                         if (chr != null)
@@ -1133,10 +1173,6 @@ namespace Yuusha
                     case Enums.EGameState.IOKGame:
                         gui.IOKMode.UpdateGUI(gameTime, sheet);
                         break;
-                    case Enums.EGameState.LOKGame:
-                        break;
-                    case Enums.EGameState.HotButtonEditMode:
-                        break;
                 }
             }
         }
@@ -1158,36 +1194,31 @@ namespace Yuusha
 
                     if (sheet["LoginWindow"] is gui.Window wi)
                     {
-                        var sl = sheet["LoginStatusLabel"] as TextBox;
-                        var at = wi["AccountTextBox"] as TextBox;
-                        var pt = wi["PasswordTextBox"] as TextBox;
-                        var sh = wi["ServerHostTextBox"] as TextBox;
-                        var cna = wi["CreateNewAccountButton"] as Button;
 
-                        if (at != null)
+                        if (wi["AccountTextBox"] is TextBox at)
                         {
                             at.Clear();
                             at.IsCursorVisible = true;
                             at.HasFocus = true;
                         }
-                        if (pt != null)
+                        if (wi["PasswordTextBox"] is TextBox pt)
                         {
                             pt.Clear();
                             pt.IsCursorVisible = false;
                             pt.HasFocus = false;
                         }
-                        if (sh != null)
+                        if (wi["ServerHostTextBox"] is TextBox sh)
                         {
                             sh.Clear();
                             sh.AddText(Client.ClientSettings.ServerHost);
                             sh.SelectAll();
                         }
-                        if (sl != null)
+                        if (sheet["LoginStatusLabel"] is TextBox sl)
                         {
                             sl.Clear();
                             sl.TextColor = Color.White;
                         }
-                        if(cna != null)
+                        if (wi["CreateNewAccountButton"] is Button cna)
                         {
                             cna.IsVisible = true;
                         }
@@ -1207,14 +1238,11 @@ namespace Yuusha
                 }
 
                 // Hide some windows.
-                Window macrosWindow = gui.GuiManager.GenericSheet["MacrosWindow"] as gui.Window;
-                if (macrosWindow != null && macrosWindow.IsVisible)
+                if (gui.GuiManager.GenericSheet["MacrosWindow"] is gui.Window macrosWindow && macrosWindow.IsVisible)
                     macrosWindow.IsVisible = false;
-                Window optionsWindow = gui.GuiManager.GenericSheet["OptionsWindow"] as gui.Window;
-                if (optionsWindow != null && optionsWindow.IsVisible)
+                if (gui.GuiManager.GenericSheet["OptionsWindow"] is gui.Window optionsWindow && optionsWindow.IsVisible)
                     optionsWindow.IsVisible = false;
-                Window helpWindow = gui.GuiManager.GenericSheet["HelpWindow"] as gui.Window;
-                if (helpWindow != null && helpWindow.IsVisible)
+                if (gui.GuiManager.GenericSheet["HelpWindow"] is gui.Window helpWindow && helpWindow.IsVisible)
                     helpWindow.IsVisible = false;
             }
             catch (Exception e)

@@ -154,9 +154,19 @@ namespace Yuusha
             HotButtonEditMode,
         }
 
+        public enum ECharGenGUIMode
+        {
+            Text,
+            Graphical,
+        }
+
         public enum ECharGenState
         {
-
+            ChooseGender,
+            ChooseHomeland,
+            ChooseProfession,
+            ReviewStats,
+            ChooseName,
         }
 
         public enum ELoginState

@@ -29,8 +29,8 @@ namespace Yuusha
         private static ClientSettings m_clientSettings = new ClientSettings();
         private static int m_preferredWindowWidth = 1280;
         private static int m_preferredWindowHeight = 720;
-        private static SurfaceFormat m_preferredSurfaceFormat = SurfaceFormat.Color;
-        private static DepthFormat m_preferredDepthFormat = DepthFormat.Depth24;
+        private static readonly SurfaceFormat m_preferredSurfaceFormat = SurfaceFormat.Color;
+        private static readonly DepthFormat m_preferredDepthFormat = DepthFormat.Depth24;
         private static Color m_deviceClearColor = Color.Black;
         private static bool m_isFullScreen = false;
         private static Rectangle m_prevClientBounds;
@@ -40,7 +40,7 @@ namespace Yuusha
         private static TimeSpan m_totalGameTime;
 
         GraphicsDeviceManager m_graphics;
-        ContentManager m_content;
+        readonly ContentManager m_content;
         Yuusha.gui.GuiManager m_guiManager;
         //Yuusha.gui.SplashScreen m_splashScreen;
         #endregion

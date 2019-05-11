@@ -3,7 +3,7 @@ ALT + G: Switch Game Mode
 ALT + H: Help Window
 ALT + I: Toggle Vertical Hot Button Window
 ALT + K: Toggle Horizontal Hot Button Window
-ALT + L: Enable/Disable Logging
+ALT + L: Enable/Disable Text Logging
 ALT + M: Macros Window
 ALT + N: Server News Window
 ALT + O: Options Window

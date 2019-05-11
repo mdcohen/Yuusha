@@ -228,8 +228,6 @@ C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Debug\YuushaMG.csproj.Core
 C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Debug\YuushaMG.csproj.CopyComplete
 C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Debug\YuushaMG.exe
 C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Debug\YuushaMG.pdb
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\dragon.ico
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\dragon.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier12-0.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier12.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier16-0.png
@@ -619,5 +617,3 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0272.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSNDint1.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSNDint2.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSNDint3.xnb
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\YuushaMG.exe.CodeAnalysisLog.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\YuushaMG.exe.lastcodeanalysissucceeded
