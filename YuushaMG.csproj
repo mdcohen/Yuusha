@@ -28,7 +28,7 @@
     <ProductName>Yuusha</ProductName>
     <PublisherName>Michael Cohen</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -92,7 +92,6 @@
     <Compile Include="gui\controls\buttons\HotButton.cs" />
     <Compile Include="gui\controls\buttons\IconImageSelectionButton.cs" />
     <Compile Include="gui\controls\buttons\MacroButton.cs" />
-    <Compile Include="gui\controls\buttons\SaveCharacterSettingsButton.cs" />
     <Compile Include="gui\controls\ComboBox.cs" />
     <Compile Include="gui\controls\Control.cs" />
     <Compile Include="gui\controls\ControlSorter.cs" />
@@ -116,9 +115,7 @@
     <Compile Include="gui\controls\windows\Window.cs" />
     <Compile Include="gui\controls\windows\WindowControlBox.cs" />
     <Compile Include="gui\controls\windows\WindowTitle.cs" />
-    <Compile Include="gui\effects\GraphicalEffect.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    <Compile Include="gui\effects\GraphicalEffect.cs" />
     <Compile Include="gui\effects\Particle.cs" />
     <Compile Include="gui\effects\ParticleEngine.cs" />
     <Compile Include="gui\GameHUD.cs" />
@@ -437,9 +434,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="YuushaMG_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

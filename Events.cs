@@ -21,6 +21,7 @@ namespace Yuusha
             Display_Game_Text,
             End_Game_Round,
             Format_Cell,
+            Goto_CharGen,
             Goto_Conf,
             Goto_Game,
             Goto_Menu,
@@ -426,7 +427,13 @@ namespace Yuusha
                         }
                         break;
 
-                        #endregion
+                    #endregion
+                    case EventName.Goto_CharGen:
+                        #region Goto CharGen
+                        IO.Send(Protocol.GOTO_CHARGEN);
+                        //RegisterEvent(EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
+                        break;
+                    #endregion
                     case EventName.Goto_Conf:
                         #region Goto Conf
                         IO.Send(Protocol.GOTO_CONFERENCE);

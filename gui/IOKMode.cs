@@ -610,6 +610,10 @@ namespace Yuusha.gui
 
         public static void AddBufferedCommand(string text)
         {
+            // Don't add if the command is already the last one sent.
+            if (m_bufferedCommands.Count >= 1 && m_bufferedCommands[m_bufferedCommands.Count - 1] == text)
+                return;
+
             if (m_bufferedCommands.Count == m_maxBufferedCommands)
                 m_bufferedCommands.RemoveAt(0);
 

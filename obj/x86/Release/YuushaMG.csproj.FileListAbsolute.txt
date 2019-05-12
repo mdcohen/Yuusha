@@ -230,8 +230,6 @@ C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Release\YuushaMG.csproj.Co
 C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Release\YuushaMG.exe
 C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Release\YuushaMG.pdb
 C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Release\YuushaMG.csprojAssemblyReference.cache
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\dragon.ico
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\dragon.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier12-0.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier12.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier16-0.png
@@ -337,7 +335,6 @@ C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csproj.CopyComplete
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.exe
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.pdb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\damage_fog_skulls.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\gui\effects\GraphicalEffect.cs
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\charactergeneration.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\effects\heartrate.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\gold_dragon.png

@@ -335,7 +335,6 @@ C:\Users\mikec\Desktop\YuushaMG\obj\x86\Debug\YuushaMG.exe
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Debug\YuushaMG.pdb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\damage_fog_skulls.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\sheets\charactergeneration.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\gui\effects\GraphicalEffect.cs
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\effects\heartrate.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\gold_dragon.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\YuushaMG.exe.manifest
