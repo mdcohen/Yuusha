@@ -11,7 +11,7 @@ namespace Yuusha.Utility.Settings
         public string ServerHost = "www.dragonsspine.com";
         public int ServerPort = 3000;
         public bool ShowSplash = false;
-        public string DefaultFont = "legends16";
+        public string DefaultFont = "courier16";
         public string DefaultPopUpColor = "Cyan";
         public string DefaultDropDownMenuFont = "courier12";
         public bool DisplayChantingTextCue = true;

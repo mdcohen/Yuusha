@@ -61,7 +61,7 @@ namespace Yuusha
             {"You are now a level ", Color.Gold },
 
             // Looking around
-            {"You are looking at ", Color.DeepSkyBlue },
+            {"You are looking at ", Color.CornflowerBlue },
             {"On the ground you see ", Color.LightGreen },
             {"In your pouch you see ", Color.MediumSpringGreen },
             {"In your sack you see ", Color.MediumSeaGreen },
