@@ -430,8 +430,9 @@ namespace Yuusha
                     #endregion
                     case EventName.Goto_CharGen:
                         #region Goto CharGen
-                        IO.Send(Protocol.GOTO_CHARGEN);
-                        //RegisterEvent(EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
+                        IO.Send("6");
+                        IO.Send("1");
+                        RegisterEvent(EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
                         break;
                     #endregion
                     case EventName.Goto_Conf:

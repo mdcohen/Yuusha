@@ -103,6 +103,7 @@
     <Compile Include="gui\controls\labels\SpinelTileLabel.cs" />
     <Compile Include="gui\controls\ListBox.cs" />
     <Compile Include="gui\controls\MouseCursor.cs" />
+    <Compile Include="gui\controls\NumericTextBox.cs" />
     <Compile Include="gui\controls\RadioButton.cs" />
     <Compile Include="gui\controls\ScrollableTextBox.cs" />
     <Compile Include="gui\controls\Scrollbar.cs" />

@@ -143,6 +143,7 @@
 		Height="60"
 		IsVisible="true"
 		VisualKey=""
+    Font="courier16"
 		AnchorBottom="true"
 		AnchorRight="true">
 	</Control>

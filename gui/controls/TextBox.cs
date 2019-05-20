@@ -1,13 +1,12 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Yuusha.gui
 {
     public class TextBox : Control
     {
-        private static System.Collections.Generic.List<Keys> DoNothingKeys = new System.Collections.Generic.List<Keys>()
+        private static readonly System.Collections.Generic.List<Keys> DoNothingKeys = new System.Collections.Generic.List<Keys>()
         {
             Keys.LeftShift,
             Keys.RightShift,
@@ -38,12 +37,11 @@ namespace Yuusha.gui
         protected bool m_blinkingCursor;
         protected Color m_cursorColor;
         protected Color m_selectionColor;
-        private Keys[] pressedKeys;
+        protected Keys[] pressedKeys;
         private TimeSpan m_previousBlink;
-        private string m_onKeyboardEnter;
+        private readonly string m_onKeyboardEnter;
         private int m_selectionStart;
         private int m_selectionLength;
-        private Border m_border;
         #endregion
 
         public bool IsCursorVisible
@@ -52,11 +50,7 @@ namespace Yuusha.gui
             set { m_cursorVisible = value; }
         }
 
-        public Border Border
-        {
-            get { return m_border; }
-            set { m_border = value; }
-        }
+        public Border Border { get; set; }
 
         #region Constructors (2)
         public TextBox()
@@ -135,9 +129,9 @@ namespace Yuusha.gui
                 && GuiManager.GenericSheet["OptionsWindow"] != null && GuiManager.GenericSheet["OptionsWindow"].HasFocus)
                 return false;
 
-            bool controlPressed = (ks.IsKeyDown(Keys.LeftControl) || ks.IsKeyDown(Keys.RightControl));
-            bool shiftPressed = (ks.IsKeyDown(Keys.LeftShift) || ks.IsKeyDown(Keys.RightShift));
-            bool altPressed = (ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt));
+            bool controlPressed = ks.IsKeyDown(Keys.LeftControl) || ks.IsKeyDown(Keys.RightControl);
+            bool shiftPressed = ks.IsKeyDown(Keys.LeftShift) || ks.IsKeyDown(Keys.RightShift);
+            bool altPressed = ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt);
             bool capsLock = (((ushort)Yuusha.KeyboardHandler.GetKeyState(0x14)) & 0xffff) != 0;
             bool numLock = (((ushort)Yuusha.KeyboardHandler.GetKeyState(0x90)) & 0xffff) != 0;
 
@@ -711,7 +705,7 @@ namespace Yuusha.gui
 
             base.Update(gameTime);
 
-            if (m_border != null) m_border.Update(gameTime);
+            if (Border != null) Border.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -728,17 +722,17 @@ namespace Yuusha.gui
                 textColor = new Color(Control.s_disabledColor.R, Control.s_disabledColor.G, Control.s_disabledColor.B, m_textAlpha);
             }
 
-            if (m_border != null) m_border.Draw(gameTime);
+            if (Border != null) Border.Draw(gameTime);
 
             // difference between lineheight and this height / 2
 
             int rectX = m_rectangle.X + m_xTextOffset; // used for selection rectangle, cursor and text
             int rectY = m_rectangle.Y + m_yTextOffset; // used for selection rectangle, cursor and text
 
-            if (m_border != null && m_border is SquareBorder)
+            if (Border != null && Border is SquareBorder)
             {
-                rectX += (m_border as SquareBorder).BorderWidth;
-                rectY += (m_border as SquareBorder).BorderWidth;
+                rectX += (Border as SquareBorder).BorderWidth;
+                rectY += (Border as SquareBorder).BorderWidth;
             }
 
             // draw selection color if text is selected
