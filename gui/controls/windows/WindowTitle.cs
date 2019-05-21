@@ -43,7 +43,8 @@ namespace Yuusha.gui
             int closeBoxDistanceFromRight, int closeBoxDistanceFromTop, int closeBoxWidth, int closeBoxHeight,
             int maxBoxDistanceFromRight, int maxBoxDistanceFromTop, int maxBoxWidth, int maxBoxHeight,
             int minBoxDistanceFromRight, int minBoxDistanceFromTop, int minBoxWidth, int minBoxHeight,
-            int cropBoxDistanceFromRight, int cropBoxDistanceFromTop, int cropBoxWidth, int cropBoxHeight)
+            int cropBoxDistanceFromRight, int cropBoxDistanceFromTop, int cropBoxWidth, int cropBoxHeight,
+            Color closeBoxTintColor, Color maximizeBoxTintColor, Color minimizeBoxTintColor, Color cropBoxTintColor)
             : base()
         {
             m_name = name;
@@ -60,19 +61,19 @@ namespace Yuusha.gui
             m_height = DEFAULT_WINDOW_TITLE_HEIGHT;
             if (closeBoxVisualKey.Key != "")
                 m_closeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Close, closeBoxDistanceFromRight,
-                    closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, closeBoxVisualKey, closeBoxVisualKeyDown);
+                    closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, closeBoxVisualKey, closeBoxVisualKeyDown, closeBoxTintColor);
             else m_closeBox = null;
             if (maxBoxVisualKey.Key != "")
                 m_maximizeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Maximize, maxBoxDistanceFromRight,
-                    maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight, maxBoxVisualKey, maxBoxVisualKeyDown);
+                    maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight, maxBoxVisualKey, maxBoxVisualKeyDown, maximizeBoxTintColor);
             else m_maximizeBox = null;
             if (minBoxVisualKey.Key != "")
                 m_minimizeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Minimize, minBoxDistanceFromRight,
-                    minBoxDistanceFromTop, minBoxWidth, minBoxHeight, minBoxVisualKey, minBoxVisualKeyDown);
+                    minBoxDistanceFromTop, minBoxWidth, minBoxHeight, minBoxVisualKey, minBoxVisualKeyDown, minimizeBoxTintColor);
             else m_minimizeBox = null;
             if (cropBoxVisualKey.Key != "")
                 m_cropBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Crop, cropBoxDistanceFromRight,
-                    cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight, cropBoxVisualKey, cropBoxVisualKeyDown);
+                    cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight, cropBoxVisualKey, cropBoxVisualKeyDown, cropBoxTintColor);
             else m_cropBox = null;
         } 
         #endregion

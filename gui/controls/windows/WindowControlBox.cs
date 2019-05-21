@@ -12,7 +12,7 @@ namespace Yuusha.gui
 
         public WindowControlBox(string owner, Enums.EWindowControlBoxType controlBoxType,
             int distanceFromRight, int distanceFromTop, int width, int height, VisualKey visualKey,
-            VisualKey visualKeyDown)
+            VisualKey visualKeyDown, Color tintColor)
             : base()
         {
             m_owner = owner; // the Window this control box belongs to
@@ -23,6 +23,7 @@ namespace Yuusha.gui
             m_visualKey = visualKey;
             m_visuals.Add(Enums.EControlState.Normal, visualKey);
             m_visuals.Add(Enums.EControlState.Down, visualKeyDown);
+            m_tintColor = tintColor;
         }
 
         public override void Update(GameTime gameTime)

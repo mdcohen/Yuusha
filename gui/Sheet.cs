@@ -605,7 +605,7 @@ namespace Yuusha.gui
                 {
                     tabOrdered.Sort((s1, s2) => s1.TabOrder.CompareTo(s2.TabOrder)); // ascending numerical sort by tab order
 
-                    if (currentFocus != null && currentFocus.TabOrder > tabOrdered.Count - 1)
+                    if (currentFocus != null && currentFocus.TabOrder == tabOrdered.Count - 1)
                     {
                         currentFocus.HasFocus = false;
                         tabOrdered[0].HasFocus = true;
@@ -761,13 +761,15 @@ namespace Yuusha.gui
             int closeBoxDistanceFromRight, int closeBoxDistanceFromTop, int closeBoxWidth, int closeBoxHeight,
             int maxBoxDistanceFromRight, int maxBoxDistanceFromTop, int maxBoxWidth, int maxBoxHeight,
             int minBoxDistanceFromRight, int minBoxDistanceFromTop, int minBoxWidth, int minBoxHeight,
-            int cropBoxDistanceFromRight, int cropBoxDistanceFromTop, int cropBoxWidth, int cropBoxHeight)
+            int cropBoxDistanceFromRight, int cropBoxDistanceFromTop, int cropBoxWidth, int cropBoxHeight,
+            Color closeBoxTintColor, Color maximizeBoxTintColor, Color minimizeBoxTintColor, Color cropBoxTintColor)
         {
             AddControl(new WindowTitle(name, owner, font, text, textColor, tintColor, textAlignment, visualKey, visualTiled, closeBoxVisualKey,
                 maxBoxVisualKey, minBoxVisualKey, cropBoxVisualKey, closeBoxVisualKeyDown, maxBoxVisualKeyDown, minBoxVisualKeyDown,
                 cropBoxVisualKeyDown, closeBoxDistanceFromRight, closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, maxBoxDistanceFromRight,
                 maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight, minBoxDistanceFromRight, minBoxDistanceFromTop, minBoxWidth,
-                minBoxHeight, cropBoxDistanceFromRight, cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight));
+                minBoxHeight, cropBoxDistanceFromRight, cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight,
+                closeBoxTintColor, maximizeBoxTintColor, minimizeBoxTintColor, cropBoxTintColor));
         }
 
         public void CreateSquareBorder(string name, string owner, int width, VisualKey visualKey, bool visualTiled, Color tintColor)
@@ -775,13 +777,25 @@ namespace Yuusha.gui
             AddControl(new SquareBorder(name, owner, width, visualKey, visualTiled, tintColor));
         }
 
-        public void CreateTextBox(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
+        public void CreateNumericTextBox(string name, string owner, Rectangle rectangle, string text, Color textColor,
+            BitmapFont.TextAlignment textAlignment, bool visible,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool editable, int maxLength, bool passwordBox, bool blinkingCursor, Color cursorColor,
+            VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, int xTextOffset,
+            int yTextOffset, string onKeyboardEnter, Color selectionColor, List<Enums.EAnchorType> anchors, int tabOrder, int maxValue, int minValue)
+        {
+            AddControl(new NumericTextBox(name, owner, rectangle, text, textColor, textAlignment, visible, disabled, font, visualKey, tintColor, visualAlpha,
+                borderAlpha, textAlpha, editable, maxLength, passwordBox, blinkingCursor, cursorColor, visualKeyOver,
+                visualKeyDown, visualKeyDisabled, xTextOffset, yTextOffset, onKeyboardEnter, selectionColor, anchors, tabOrder, maxValue, minValue));
+        }
+
+        public void CreateTextBox(string name, string owner, Rectangle rectangle, string text, Color textColor, BitmapFont.TextAlignment textAlignment, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
             bool editable, int maxLength, bool passwordBox, bool blinkingCursor, Color cursorColor,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, int xTextOffset,
             int yTextOffset, string onKeyboardEnter, Color selectionColor, List<Enums.EAnchorType> anchors, int tabOrder)
         {
-            AddControl(new TextBox(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
+            AddControl(new TextBox(name, owner, rectangle, text, textColor, textAlignment, visible, disabled, font, visualKey, tintColor, visualAlpha,
                 borderAlpha, textAlpha, editable, maxLength, passwordBox, blinkingCursor, cursorColor, visualKeyOver,
                 visualKeyDown, visualKeyDisabled, xTextOffset, yTextOffset, onKeyboardEnter, selectionColor, anchors, tabOrder));
         }

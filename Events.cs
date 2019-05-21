@@ -50,7 +50,8 @@ namespace Yuusha
             Load_Character_Settings,
             Load_Client_Settings,
             Character_Death,
-            Send_Command
+            Send_Command,
+            Toggle_AutoRoller,
         }
 
         public static void RegisterEvent(EventName name, params object[] args)
@@ -576,21 +577,24 @@ namespace Yuusha
                         }
                         break;
                     case EventName.Set_CharGen_State:
-                        //if (CharGen.CharGenState == (Enums.ECharGenState)args[0]) break;
                         CharGen.CharGenState = (Enums.ECharGenState)args[0];
                         switch(CharGen.CharGenState)
                         {
                             case Enums.ECharGenState.ChooseGender:
                                 CharGen.ChooseGender();
+                                (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                                 break;
                             case Enums.ECharGenState.ChooseHomeland:
                                 CharGen.ChooseHomeland();
+                                (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                                 break;
                             case Enums.ECharGenState.ChooseProfession:
                                 CharGen.ChooseProfession();
+                                (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                                 break;
                             case Enums.ECharGenState.ChooseName:
                                 CharGen.ChooseName();
+                                (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                                 break;
                             case Enums.ECharGenState.ReviewStats:
                                 CharGen.ReviewStats((string)args[1]);
@@ -637,6 +641,8 @@ namespace Yuusha
                                 TextCue.AddClientInfoTextCue("Welcome to the character generator.", gui.TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3500, false, false, true);
 
                                 RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
+
+                                (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                             }
 
                             if (Client.GameState.ToString().EndsWith("Game"))
@@ -667,6 +673,20 @@ namespace Yuusha
                         Character.Settings.Save();
                         Character.CurrentCharacter = Account.GetNextCharacter();
                         IO.Send(Protocol.SWITCH_CHARACTER + " " + Character.CurrentCharacter.ID);
+                        break;
+                    case EventName.Toggle_AutoRoller:
+                        if(CharGen.CharGenState != Enums.ECharGenState.ReviewStats)
+                        {
+                            TextCue.AddClientInfoTextCue("Auto roller may be enabled when reviewing your first stats roll.", 4000);
+                            return;
+                        }
+                        CharGen.AutoRollerEnabled = !CharGen.AutoRollerEnabled;
+                        (GuiManager.CurrentSheet["CharGenToggleAutoRollerButton"] as Button).Text = "Toggle Auto Roller " + (CharGen.AutoRollerEnabled ? "Off" : "On");
+                        if(CharGen.AutoRollerEnabled && CharGen.CharGenState == Enums.ECharGenState.ReviewStats && !CharGen.DesiredStatsAchieved())
+                        {
+                            CharGen.AutoRollerStartTime = DateTime.Now;
+                            IO.Send("y");
+                        }
                         break;
                     case EventName.Client_Settings_Changed:
                         Client.ClientSettings.Save();
@@ -1124,19 +1144,19 @@ namespace Yuusha
                         #region Character Generation
                         if (sheet["CharGenInputTextBox"] != null)
                         {
-                            if (Client.HasFocus)
-                            {
-                                Control w = GuiManager.GetControl("OptionsWindow");
-                                if (w != null && !w.HasFocus)
-                                {
-                                    sheet["CharGenInputTextBox"].HasFocus = true;
-                                    GuiManager.ActiveTextBox = "CharGenInputTextBox";
-                                }
-                            }
-                            else
-                            {
-                                sheet["CharGenInputTextBox"].HasFocus = false;
-                            }
+                            //if (Client.HasFocus)
+                            //{
+                            //    Control w = GuiManager.GetControl("AutoRollerWindow");
+                            //    if (w != null && !w.HasFocus)
+                            //    {
+                            //        sheet["CharGenInputTextBox"].HasFocus = true;
+                            //        GuiManager.ActiveTextBox = "CharGenInputTextBox";
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    sheet["CharGenInputTextBox"].HasFocus = false;
+                            //}
                         }
                         break; 
                     #endregion

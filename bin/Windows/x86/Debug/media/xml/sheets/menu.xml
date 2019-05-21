@@ -88,6 +88,7 @@
 		Width="60"
 		Height="60"
 		IsVisible="true"
+    Font="courier16"
 		VisualKey="">
 	</Control>
   

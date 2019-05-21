@@ -236,6 +236,16 @@ namespace Yuusha.gui
             }
         }
 
+        public static void AddClientInfoTextCue(string text)
+        {
+            AddClientInfoTextCue(text, TextCueTag.None, Color.Yellow, Color.Black, 3500, false, false, true);
+        }
+
+        public static void AddClientInfoTextCue(string text, double lifeCycle)
+        {
+            AddClientInfoTextCue(text, TextCueTag.None, Color.Yellow, Color.Black, lifeCycle, false, false, true);
+        }
+
         public static void AddClientInfoTextCue(string text, TextCueTag tag, Color color, Color backgroundColor, double lifeCycle, bool fadeIn, bool fadeOut, bool addOnce)
         {
             if (addOnce)

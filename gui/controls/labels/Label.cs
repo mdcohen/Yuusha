@@ -91,7 +91,7 @@ namespace Yuusha.gui
                 BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
                 // set font alignment
                 BitmapFont.ActiveFonts[Font].Alignment = m_textAlignment;
-                // draw string in textbox
+                // draw string
                 Rectangle rect = new Rectangle(m_textRectangle.X + m_xTextOffset, m_textRectangle.Y + m_yTextOffset, m_textRectangle.Width, m_textRectangle.Height);
                 // change color of text if mouse over text color is not null
                 if (m_text != null && m_text.Length > 0)

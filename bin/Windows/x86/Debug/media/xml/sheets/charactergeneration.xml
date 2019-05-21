@@ -115,7 +115,7 @@
       CursorOnDrag="Dragging">
     </Control>
 
-    <!-- Options Window Title -->
+    <!-- AutoRoller Window Title -->
     <Control
       Type="WindowTitle"
       Name="AutoRollerWindowTitle"
@@ -134,7 +134,7 @@
       TextAlignment="Center">
     </Control>
 
-    <!-- Options Window Border -->
+    <!-- AutoRoller Window Border -->
     <Control
       Type="SquareBorder"
       Name="AutoRollerWindowBorder"
@@ -142,6 +142,321 @@
       Width="2"
       VisualKey="WhiteSpace"
       TintColor="Gray">
+    </Control>
+
+    <!-- Strength -->
+    <Control
+      Type="Label"
+      Text="Strength:"
+      Name="StrengthLabel"
+      Owner="AutoRollerWindow"
+      X="10"
+      Y="30"
+      Width="110"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="18"
+      Name="StrengthRollLabel"
+      Owner="AutoRollerWindow"
+      X="175"
+      Y="30"
+      Width="30"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="NumericTextBox"
+      Text="15"
+      Name="StrengthDesiredTextBox"
+      Owner="AutoRollerWindow"
+      X="210"
+      Y="30"
+      Width="28"
+      Height="25"
+      XTextOffset="0"
+      YTextOffset="-1"
+      TextColor="White"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="150"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="2"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="Gray"
+      TabOrder="0"
+      MaxValue="18"
+      MinValue="3">
+    </Control>
+
+    <Control
+      Type="SquareBorder"
+      Name="StrengthDesiredTextBoxBorder"
+      Owner="StrengthDesiredTextBox"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="BlueViolet">
+    </Control>
+    
+    <!-- Dexterity -->
+    <Control
+      Type="Label"
+      Text="Dexterity:"
+      Name="DexterityLabel"
+      Owner="AutoRollerWindow"
+      X="10"
+      Y="55"
+      Width="120"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="18"
+      Name="DexterityRollLabel"
+      Owner="AutoRollerWindow"
+      X="175"
+      Y="55"
+      Width="30"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- Intelligence -->
+    <Control
+      Type="Label"
+      Text="Intelligence:"
+      Name="IntelligenceLabel"
+      Owner="AutoRollerWindow"
+      X="10"
+      Y="80"
+      Width="170"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="18"
+      Name="IntelligenceRollLabel"
+      Owner="AutoRollerWindow"
+      X="175"
+      Y="80"
+      Width="30"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- Wisdom -->
+    <Control
+      Type="Label"
+      Text="Wisdom:"
+      Name="WisdomLabel"
+      Owner="AutoRollerWindow"
+      X="10"
+      Y="105"
+      Width="170"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="18"
+      Name="WisdomRollLabel"
+      Owner="AutoRollerWindow"
+      X="175"
+      Y="105"
+      Width="30"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- Constitution -->
+    <Control
+      Type="Label"
+      Text="Constitution:"
+      Name="ConstitutionLabel"
+      Owner="AutoRollerWindow"
+      X="10"
+      Y="130"
+      Width="170"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="18"
+      Name="ConstitutionRollLabel"
+      Owner="AutoRollerWindow"
+      X="175"
+      Y="130"
+      Width="30"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <!-- Charisma -->
+    <Control
+      Type="Label"
+      Text="Charisma:"
+      Name="CharismaLabel"
+      Owner="AutoRollerWindow"
+      X="10"
+      Y="155"
+      Width="170"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="18"
+      Name="CharismaRollLabel"
+      Owner="AutoRollerWindow"
+      X="175"
+      Y="155"
+      Width="30"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="Hits:"
+      Name="HitsLabel"
+      Owner="AutoRollerWindow"
+      X="10"
+      Y="190"
+      Width="170"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="60"
+      Name="HitsRollLabel"
+      Owner="AutoRollerWindow"
+      X="175"
+      Y="190"
+      Width="30"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="Stamina:"
+      Name="StaminaLabel"
+      Owner="AutoRollerWindow"
+      X="10"
+      Y="215"
+      Width="170"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="10"
+      Name="StaminaRollLabel"
+      Owner="AutoRollerWindow"
+      X="175"
+      Y="215"
+      Width="30"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="Mana:"
+      Name="ManaLabel"
+      Owner="AutoRollerWindow"
+      X="10"
+      Y="240"
+      Width="170"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="Label"
+      Text="10"
+      Name="ManaRollLabel"
+      Owner="AutoRollerWindow"
+      X="175"
+      Y="240"
+      Width="30"
+      Height="25"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Left">
     </Control>
   </AutoRollerWindow>
   

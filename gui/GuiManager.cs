@@ -396,7 +396,7 @@ namespace Yuusha.gui
                                 string onMouseDown = "";
                                 string onKeyboardEnter = "";
                                 string onDoubleClick = "";
-                                BitmapFont.TextAlignment textAlignment = BitmapFont.TextAlignment.Center;
+                                BitmapFont.TextAlignment textAlignment = BitmapFont.TextAlignment.Left;
 
                                 bool hasTextOverColor = false;
                                 string textOverColor = "White";
@@ -427,9 +427,15 @@ namespace Yuusha.gui
                                 int minBoxHeight = 0; // WindowTitle (WindowControlBox)
                                 int cropBoxWidth = 0; // WindowTitle (WindowControlBox)
                                 int cropBoxHeight = 0; // WindowTitle (WindowControlBox)
+                                string closeBoxTintColor = "White";
+                                string minBoxTintColor = "White";
+                                string maxBoxTintColor = "White";
+                                string cropBoxTintColor = "White";
                                 string shortcut = ""; // used for HotButtons -- not currently implemented in XML 2/18/2017
                                 string command = ""; // used for buttons and other click components to send text
                                 int tabOrder = -1; // used for tabOrder, currently (4/9/2019) only TextBoxes have these. Tab Order is handled by owner/sheet
+                                int maxValue = 18;
+                                int minValue = 3;
 
                                 List<Enums.EAnchorType> anchors = new List<Enums.EAnchorType>();
                                 // used for generic sheet controls to limit visibility
@@ -560,7 +566,7 @@ namespace Yuusha.gui
                                             lockoutStates.Add((Enums.EGameState)Enum.Parse(typeof(Enums.EGameState), reader.Value, true));
                                         else if (reader.Name == "PopUpText")
                                             popUpText = reader.Value;
-
+                                        // window titles
                                         else if (reader.Name == "CloseBoxVisualKey")
                                             closeBoxVisualKey = reader.Value;
                                         else if (reader.Name == "MaximizeBoxVisualKey")
@@ -597,18 +603,27 @@ namespace Yuusha.gui
                                             closeBoxWidth = reader.ReadContentAsInt();
                                         else if (reader.Name == "CloseBoxHeight")
                                             closeBoxHeight = reader.ReadContentAsInt();
+                                        else if (reader.Name == "CloseBoxTintColor")
+                                            closeBoxTintColor = reader.Value;
                                         else if (reader.Name == "MaximizeBoxWidth")
                                             maxBoxWidth = reader.ReadContentAsInt();
                                         else if (reader.Name == "MaximizeBoxHeight")
                                             maxBoxHeight = reader.ReadContentAsInt();
+                                        else if (reader.Name == "MaximizeBoxTintColor")
+                                            maxBoxTintColor = reader.Value;
                                         else if (reader.Name == "MinimizeBoxWidth")
                                             minBoxWidth = reader.ReadContentAsInt();
                                         else if (reader.Name == "MinimizeBoxHeight")
                                             minBoxHeight = reader.ReadContentAsInt();
+                                        else if (reader.Name == "MinimizeBoxTintColor")
+                                            minBoxTintColor = reader.Value;
                                         else if (reader.Name == "CropBoxWidth")
                                             cropBoxWidth = reader.ReadContentAsInt();
                                         else if (reader.Name == "CropBoxHeight")
                                             cropBoxHeight = reader.ReadContentAsInt();
+                                        else if (reader.Name == "CropBoxTintColor")
+                                            cropBoxTintColor = reader.Value;
+                                        // end window titles
                                         else if (reader.Name == "CursorOnDrag")
                                             cursorOnDrag = reader.Value;
                                         else if (reader.Name == "CursorOnOver")
@@ -621,6 +636,10 @@ namespace Yuusha.gui
                                             command = reader.Value;
                                         else if (reader.Name == "TabOrder")
                                             tabOrder = reader.ReadContentAsInt();
+                                        else if (reader.Name == "MaxValue")
+                                            maxValue = reader.ReadContentAsInt();
+                                        else if (reader.Name == "MinValue")
+                                            minValue = reader.ReadContentAsInt();
                                     }
                                     #endregion
                                 }
@@ -642,15 +661,24 @@ namespace Yuusha.gui
                                             closeBoxDistanceFromRight, closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight,
                                             maxBoxDistanceFromRight, maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight,
                                             minBoxDistanceFromRight, minBoxDistanceFromTop, minBoxWidth, minBoxHeight,
-                                            cropBoxDistanceFromRight, cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight);
+                                            cropBoxDistanceFromRight, cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight,
+                                            Utils.GetColor(closeBoxTintColor), Utils.GetColor(maxBoxTintColor), Utils.GetColor(minBoxTintColor),
+                                            Utils.GetColor(cropBoxTintColor));
                                         break;
                                     case "TexturedBorder":
                                         break;
                                     case "SquareBorder":
                                         sheet.CreateSquareBorder(name, owner, width, new VisualKey(visualKey), visualTiled, Utils.GetColor(tintColor));
                                         break;
+                                    case "NumericTextBox":
+                                        sheet.CreateNumericTextBox(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
+                                            textAlignment, visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
+                                            textAlpha, editable, maxLength, passwordBox, blinkingCursor, Utils.GetColor(cursorColor),
+                                            new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
+                                            xTextOffset, yTextOffset, onKeyboardEnter, Utils.GetColor(selectionColor), anchors, tabOrder, maxValue, minValue);
+                                        break;
                                     case "TextBox":
-                                        sheet.CreateTextBox(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
+                                        sheet.CreateTextBox(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor), textAlignment,
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
                                             textAlpha, editable, maxLength, passwordBox, blinkingCursor, Utils.GetColor(cursorColor),
                                             new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),

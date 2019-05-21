@@ -94,7 +94,7 @@ namespace Yuusha.gui
                     }
                     else
                     {
-                        BitmapFont.ActiveFonts[Font].TextBox(rect, Control.s_disabledColor, m_text);
+                        BitmapFont.ActiveFonts[Font].TextBox(rect, s_disabledColor, m_text);
                     }
                 }
                 else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Button [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");

@@ -1,83 +1,106 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
 {
+    /// <summary>
+    /// Textbox that accepts only numeric values.
+    /// </summary>
     public class NumericTextBox : TextBox
     {
-        private static readonly List<Keys> NumberKeys = new System.Collections.Generic.List<Keys>()
+        protected int m_maxValue = 100;
+        protected int m_minValue = 1;
+
+        public int CurrentValue { get; set; }
+
+        public NumericTextBox(
+            string name, string owner, Rectangle rectangle, string text, Color textColor, BitmapFont.TextAlignment textAlignment, bool visible, bool disabled, string font,
+            VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha, bool editable, int maxLength,
+            bool passwordBox, bool blinkingCursor, Color cursorColor, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled,
+            int xTextOffset, int yTextOffset, string onKeyboardEnter, Color selectionColor, List<Enums.EAnchorType> anchors, int tabOrder, int maxValue, int minValue) : base()
         {
-            Keys.D0,
-            Keys.D1,
-            Keys.D2,
-            Keys.D3,
-            Keys.D4,
-            Keys.D5,
-            Keys.D6,
-            Keys.D7,
-            Keys.D8,
-            Keys.D9,
-        };
+            m_name = name;
+            m_owner = owner;
+            m_rectangle = rectangle;
+            m_text = text;
+            m_cursorPosition = m_text.Length;
+            m_textColor = textColor;
+            m_textAlignment = textAlignment;
+            m_visible = visible;
+            m_disabled = disabled;
+            m_font = font;
+            m_visualKey = visualKey;
+            m_tintColor = tintColor;
+            m_visualAlpha = visualAlpha;
+            m_borderAlpha = borderAlpha;
+            m_textAlpha = textAlpha;
+            m_editable = editable;
+            m_maxLength = maxLength;
+            m_passwordBox = passwordBox;
+            m_blinkingCursor = blinkingCursor;
+            m_cursorColor = cursorColor;
+            m_xTextOffset = xTextOffset;
+            m_yTextOffset = yTextOffset;
+            m_onKeyboardEnter = onKeyboardEnter;
+            m_selectionColor = selectionColor;
+            m_anchors = anchors;
 
-        private static readonly List<Keys> NumberPadKeys = new System.Collections.Generic.List<Keys>()
+            if (m_visualKey.Key != "" && !m_visuals.ContainsKey(Enums.EControlState.Normal))
+                m_visuals.Add(Enums.EControlState.Normal, m_visualKey);
+            if (visualKeyOver.Key != "" && !m_visuals.ContainsKey(Enums.EControlState.Over))
+                m_visuals.Add(Enums.EControlState.Over, visualKeyOver);
+            if (visualKeyDown.Key != "" && !m_visuals.ContainsKey(Enums.EControlState.Down))
+                m_visuals.Add(Enums.EControlState.Down, visualKeyDown);
+            if (visualKeyDisabled.Key != "" && !m_visuals.ContainsKey(Enums.EControlState.Disabled))
+                m_visuals.Add(Enums.EControlState.Disabled, visualKeyDisabled);
+
+            m_previousBlink = new System.TimeSpan();
+            m_selectionStart = 0;
+            m_selectionLength = 0;
+            m_tabOrder = tabOrder;
+
+            m_maxValue = maxValue;
+            m_minValue = minValue;
+        }
+
+        public override void Update(GameTime gameTime)
         {
-            Keys.NumPad0,
-            Keys.NumPad1,
-            Keys.NumPad2,
-            Keys.NumPad3,
-            Keys.NumPad4,
-            Keys.NumPad5,
-            Keys.NumPad6,
-            Keys.NumPad7,
-            Keys.NumPad8,
-            Keys.NumPad9,
-        };
-
-        protected override bool OnKeyDown(KeyboardState ks)
-        {
-            if (!Client.HasFocus || !HasFocus || !m_editable)
-                return false;
-
-            Keys[] newKeys = ks.GetPressedKeys();
-
-            if (pressedKeys != null)
+            if(!int.TryParse(Text, out int CurrentValue))
             {
-                foreach (Keys k in newKeys)
+                Clear();
+                AddText(m_maxValue.ToString());
+                CurrentValue = m_maxValue;
+            }
+
+            if (!this.HasFocus)
+            {
+                if (CurrentValue > m_maxValue)
                 {
-                    bool bFound = false;
-
-                    foreach (Keys k2 in pressedKeys)
-                    {
-                        if (k == k2)
-                        {
-                            bFound = true;
-                            break;
-                        }
-                    }
-
-                    if (!bFound)
-                    {
-                        if(NumberKeys.Contains(k))
-                        {
-                            return base.OnKeyDown(ks);
-                        }
-
-                        // NumLock
-                        if ((((ushort)Yuusha.KeyboardHandler.GetKeyState(0x90)) & 0xffff) != 0 && NumberPadKeys.Contains(k))
-                        {
-                            return base.OnKeyDown(ks);
-                        }
-                        else
-                        {
-                            // do nothing
-                        }
-                    }
+                    Clear();
+                    AddText(m_maxValue.ToString());
+                    CurrentValue = m_maxValue;
+                }
+                else if (CurrentValue < m_minValue)
+                {
+                    Clear();
+                    AddText(m_minValue.ToString());
+                    CurrentValue = m_minValue;
                 }
             }
 
-            return base.OnKeyDown(ks);
+            base.Update(gameTime);
+        }
+
+        public override void AddText(string text)
+        {
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (!char.IsDigit(text, i))
+                    return;
+            }
+
+            base.AddText(text);
         }
     }
 }

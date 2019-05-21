@@ -165,6 +165,13 @@ namespace Yuusha
 
             if (IO.IsAlive)
             {
+                switch(Client.GameState)
+                {
+                    case Enums.EGameState.CharacterGeneration:
+                        CharGen.OnSend(outData);
+                        break;
+                }
+
                 outData = outData + "\r"; // add a carriage return to outbound data
                 try
                 {

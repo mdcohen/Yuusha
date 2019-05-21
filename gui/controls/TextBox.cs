@@ -38,10 +38,10 @@ namespace Yuusha.gui
         protected Color m_cursorColor;
         protected Color m_selectionColor;
         protected Keys[] pressedKeys;
-        private TimeSpan m_previousBlink;
-        private readonly string m_onKeyboardEnter;
-        private int m_selectionStart;
-        private int m_selectionLength;
+        protected TimeSpan m_previousBlink;
+        protected string m_onKeyboardEnter;
+        protected int m_selectionStart;
+        protected int m_selectionLength;
         #endregion
 
         public bool IsCursorVisible
@@ -70,7 +70,7 @@ namespace Yuusha.gui
             m_selectionStart = 0;
         }
 
-        public TextBox(string name, string owner, Rectangle rectangle, string text, Color textColor,
+        public TextBox(string name, string owner, Rectangle rectangle, string text, Color textColor, BitmapFont.TextAlignment textAlignment,
             bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha,
             byte borderAlpha, byte textAlpha, bool editable, int maxLength, bool passwordBox,
             bool blinkingCursor, Color cursorColor, VisualKey visualKeyOver, VisualKey visualKeyDown,
@@ -84,6 +84,7 @@ namespace Yuusha.gui
             m_text = text;
             m_cursorPosition = m_text.Length;
             m_textColor = textColor;
+            m_textAlignment = textAlignment;
             m_visible = visible;
             m_disabled = disabled;
             m_font = font;
@@ -170,6 +171,10 @@ namespace Yuusha.gui
                             else if (m_cursorPosition > 0)
                             {
                                 m_cursorPosition--;
+                                m_text = m_text.Remove(m_cursorPosition, 1);
+                            }
+                            else if (m_cursorPosition < m_text.Length) // Backspace on cursor position 0 will delete first character
+                            {
                                 m_text = m_text.Remove(m_cursorPosition, 1);
                             }
                         }
@@ -684,7 +689,7 @@ namespace Yuusha.gui
             if (GuiManager.ControlWithFocus != this) this.HasFocus = false;
             if (GuiManager.ActiveTextBox == Name) this.HasFocus = true;
 
-            #region Determine Cursor Visibility
+            #region Cursor
             if (m_blinkingCursor)
             {
                 if (m_previousBlink == new TimeSpan() || gameTime.TotalGameTime - m_previousBlink >= TimeSpan.FromSeconds(.75))
@@ -698,6 +703,8 @@ namespace Yuusha.gui
                 }
             }
             else m_cursorVisible = true;
+
+            if (m_cursorPosition > (m_maxLength - 1)) m_cursorPosition = m_maxLength - 1;
 
             if (!HasFocus)
                 m_cursorVisible = false;
@@ -741,6 +748,15 @@ namespace Yuusha.gui
                 BitmapFont bmf = BitmapFont.ActiveFonts[Font];
                 Rectangle selRect = new Rectangle(rectX + bmf.MeasureString(m_text.Substring(0, m_selectionStart)), rectY,
                     bmf.MeasureString(m_text.Substring(m_selectionStart, m_selectionLength)), bmf.LineHeight);
+
+                //if (m_textAlignment == BitmapFont.TextAlignment.Right)
+                //    selRect.X += Width - (BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)) * m_text.Length);
+                //else if (m_textAlignment == BitmapFont.TextAlignment.Center)
+                //    selRect.X = (Width / 2) - (BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)) * (m_text.Length / 2));
+
+                //if (Border != null)
+                //    selRect.Y += Border.Width;
+
                 VisualInfo vi = GuiManager.Visuals["WhiteSpace"];
                 Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], selRect, vi.Rectangle, m_selectionColor);
 
@@ -748,11 +764,17 @@ namespace Yuusha.gui
 
             // override BitmapFont sprite batch
             BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
-            
+
+            // set font alignment
+            BitmapFont.ActiveFonts[Font].Alignment = m_textAlignment;
+
             // draw text if not password box, password characters if otherwise
             if (!m_passwordBox)
             {
-                BitmapFont.ActiveFonts[Font].DrawString(rectX, rectY, textColor, m_text);
+                if (Border != null && Border is SquareBorder && m_textAlignment == BitmapFont.TextAlignment.Right)
+                    rectY -= (Border as SquareBorder).BorderWidth;
+                BitmapFont.ActiveFonts[Font].TextBox(new Rectangle(rectX, rectY, m_rectangle.Width - 1, m_rectangle.Height - 1), textColor, m_text);
+                //BitmapFont.ActiveFonts[Font].DrawString(rectX, rectY, textColor, m_text);
             }
             else
             {
@@ -761,7 +783,11 @@ namespace Yuusha.gui
                 for (int i = 0; i < m_text.Length; i++)
                     password += GuiManager.PASSWORDCHAR;
 
-                BitmapFont.ActiveFonts[Font].DrawString(rectX, rectY, textColor, password);
+                if (Border != null && Border is SquareBorder && m_textAlignment == BitmapFont.TextAlignment.Right)
+                    rectY -= (Border as SquareBorder).BorderWidth;
+
+                BitmapFont.ActiveFonts[Font].TextBox(new Rectangle(rectX, rectY, m_rectangle.Width - 1, m_rectangle.Height - 1), textColor, password);
+                //BitmapFont.ActiveFonts[Font].DrawString(rectX, rectY, textColor, password);
             }
 
             // draw the cursor if cursor is visible, control has focus and control is not disabled
@@ -771,10 +797,20 @@ namespace Yuusha.gui
                 int cursorHeight = BitmapFont.ActiveFonts[Font].LineHeight;
 
                 VisualInfo cursorVisual = GuiManager.Visuals["WhiteSpace"];
-                
+
+                // automatically reduce alpha of cursor
+                if (m_cursorPosition < Text.Length)
+                    m_cursorColor = new Color(m_cursorColor, 130);
+                else m_cursorColor = new Color(m_cursorColor, 255);
+
+                //if (m_textAlignment == BitmapFont.TextAlignment.Right)
+                //    rectX += BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)) * m_text.Length;
+                //else if (m_textAlignment == BitmapFont.TextAlignment.Center)
+                //    rectX = (Width / 2) - (BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)) / 2);
+
                 if (!m_passwordBox)
                 {
-                    Rectangle cursorRectangle = new Rectangle(rectX + BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)), rectY + 1, cursorWidth, cursorHeight);
+                    Rectangle cursorRectangle = new Rectangle(rectX + BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)), rectY, cursorWidth, cursorHeight);
                     Client.SpriteBatch.Draw(GuiManager.Textures[cursorVisual.ParentTexture], cursorRectangle, cursorVisual.Rectangle, m_cursorColor);
                 }
                 else
@@ -784,7 +820,7 @@ namespace Yuusha.gui
                     for (int i = 0; i < m_text.Length; i++)
                         password += GuiManager.PASSWORDCHAR;
 
-                    Rectangle cursorRectangle = new Rectangle(rectX + BitmapFont.ActiveFonts[Font].MeasureString(password.Substring(0, m_cursorPosition)), rectY + 1, cursorWidth, cursorHeight);
+                    Rectangle cursorRectangle = new Rectangle(rectX + BitmapFont.ActiveFonts[Font].MeasureString(password.Substring(0, m_cursorPosition)), rectY, cursorWidth, cursorHeight);
                     Client.SpriteBatch.Draw(GuiManager.Textures[cursorVisual.ParentTexture], cursorRectangle, cursorVisual.Rectangle, m_cursorColor);
                 }
             }
@@ -805,7 +841,9 @@ namespace Yuusha.gui
         {
             if (!Client.HasFocus) return;
 
-            SelectAll();
+            if (m_selectionLength > 0)
+                DeselectText();
+            else SelectAll();
         }
 
         public void Clear()
