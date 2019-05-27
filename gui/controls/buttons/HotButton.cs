@@ -11,11 +11,6 @@ namespace Yuusha.gui
         public double FadeDelay = .035;
         readonly int m_originalVisualAlpha = 255;
         private SquareBorder m_border;
-        public string ShortName;
-
-        //editable
-        //private string m_shortName;
-        // m_text (corresponds to server side macro)
         
         public SquareBorder Border { get { return m_border; } set { m_border = value; } }
 
@@ -66,7 +61,7 @@ namespace Yuusha.gui
             base.OnMouseOver(ms);
 
             if (Border == null)
-                GuiManager.GenericSheet.CreateSquareBorder(this.Name + "SquareBorder", this.Name, 1, new VisualKey("WhiteSpace"), false, Color.OldLace);
+                GuiManager.GenericSheet.CreateSquareBorder(this.Name + "SquareBorder", this.Name, 1, new VisualKey("WhiteSpace"), false, Color.OldLace, 255);
 
             this.m_borderAlpha = 255;
 
@@ -96,7 +91,7 @@ namespace Yuusha.gui
                 if (this.Text.Length <= 0)
                     return;
 
-                m_visualAlpha = 20;
+                m_visualAlpha = 40;
             }
             else if(ms.RightButton == ButtonState.Pressed)
             {

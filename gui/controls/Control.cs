@@ -405,7 +405,9 @@ namespace Yuusha.gui
                 if (GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
                 {
                     if (this is ScrollableTextBox)
+                    {
                         OnZDelta(ms);
+                    }
                 }
 
                 // to send message, mouse must have been pressed and released over the hotspot
@@ -424,8 +426,8 @@ namespace Yuusha.gui
                         if (Contains(mousePointer))
                         {
                             OnMouseRelease(ms);
-                            if (OnControl != null && !(this is Window) && (!(this is ListBox) ||
-                                ((this is ListBox) && (this as ListBox).HasNewData)))
+                            if (OnControl != null && !(this is Window) && (!(this is GridBox) ||
+                                ((this is GridBox) && (this as GridBox).HasNewData)))
                             {
                                 OnControl(m_name, Data);
                             }
@@ -436,7 +438,7 @@ namespace Yuusha.gui
 
                     // ListBoxes need to continuously check mouse since it has sub parts that change on mouse over
                     // Mouseover on Windows should be able to reset over state on back controls.
-                    if (ControlState == Enums.EControlState.Over && !(this is ListBox) && !(this is Window))
+                    if (ControlState == Enums.EControlState.Over && !(this is GridBox) && !(this is Window))
                     {
                         // state is already over
                         result = false;
@@ -451,14 +453,17 @@ namespace Yuusha.gui
                 if ((ms.LeftButton == ButtonState.Pressed || ms.RightButton == ButtonState.Pressed) && m_hasTouchDownPoint &&
                     Contains(m_touchDownPoint) && Client.HasFocus || HasFocus)
                 {
-                    ControlState = Enums.EControlState.Down;
-                    OnMouseDown(ms);
+                    //if (this.Owner != "" && GuiManager.GetControl(this.Owner) is Window)
+                    //{
+                        ControlState = Enums.EControlState.Down;
+                        OnMouseDown(ms);
 
-                    // slider sends data while mouse is down
-                    if ((this is Slider) && OnControl != null)
-                        OnControl(m_name, Data);
-                    HasFocus = true;
-                    return true;
+                        // slider sends data while mouse is down
+                        if ((this is Slider) && OnControl != null)
+                            OnControl(m_name, Data);
+                        HasFocus = true;
+                        return true;
+                    //}
                 }
             }
             else if (this is Button && ControlState != Enums.EControlState.Normal)

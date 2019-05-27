@@ -12,6 +12,7 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <Visual ParentTexture="elvish_city.png" Name="ElvishCityBackground" X="0" Y="0" Width="1920" Height="1200"></Visual>
   <!-- Druidic Revival Background (introduction of Druid and Ranger professions)-->
   <Visual ParentTexture="druidic_revival.png" Name="DruidicRevivalBackground" X="0" Y="0" Width="1889" Height="1196"></Visual>
+  <Visual ParentTexture="worldmap.png" Name="WorldMapBackground" X="0" Y="0" Width="1920" Height="1080"></Visual>
   
 	<!-- LOK GUI Stat Bars -->
 	<Visual ParentTexture="ui_helpers.png" Name="LOKHealthBar" X="467" Y="816" Width="23" Height="74"></Visual>

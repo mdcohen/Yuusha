@@ -114,13 +114,6 @@
     <A>255</A>
     <PackedValue>4289390830</PackedValue>
   </Color_Gui_Spell_Warming_TextCue>
-  <ColorTargetBorder>
-    <B>245</B>
-    <G>245</G>
-    <R>245</R>
-    <A>255</A>
-    <PackedValue>4294309365</PackedValue>
-  </ColorTargetBorder>
   <ColorDropDownMenuBorder>
     <B>255</B>
     <G>255</G>
@@ -136,11 +129,11 @@
     <PackedValue>4286611584</PackedValue>
   </ColorDropDownMenu>
   <ColorDropDownMenuItemBackground>
-    <B>128</B>
-    <G>128</G>
-    <R>128</R>
+    <B>0</B>
+    <G>0</G>
+    <R>0</R>
     <A>255</A>
-    <PackedValue>4286611584</PackedValue>
+    <PackedValue>4278190080</PackedValue>
   </ColorDropDownMenuItemBackground>
   <ColorDropDownMenuTitleText>
     <B>255</B>
@@ -150,19 +143,71 @@
     <PackedValue>4294967264</PackedValue>
   </ColorDropDownMenuTitleText>
   <ColorDropDownMenuItemText>
+    <B>144</B>
+    <G>238</G>
+    <R>144</R>
+    <A>255</A>
+    <PackedValue>4287688336</PackedValue>
+  </ColorDropDownMenuItemText>
+  <ColorDropDownMenuItemHighlight>
+    <B>79</B>
+    <G>79</G>
+    <R>47</R>
+    <A>255</A>
+    <PackedValue>4283387695</PackedValue>
+  </ColorDropDownMenuItemHighlight>
+  <GridBoxWindowVisualKeyAlpha>255</GridBoxWindowVisualKeyAlpha>
+  <GridBoxWindowBorderAlpha>255</GridBoxWindowBorderAlpha>
+  <GridBoxWindowFont>courier16</GridBoxWindowFont>
+  <ColorGridBoxWindowTintColor>
+    <B>79</B>
+    <G>79</G>
+    <R>47</R>
+    <A>255</A>
+    <PackedValue>4283387695</PackedValue>
+  </ColorGridBoxWindowTintColor>
+  <GridBoxTitleTextColor>
     <B>255</B>
     <G>255</G>
     <R>255</R>
     <A>255</A>
     <PackedValue>4294967295</PackedValue>
-  </ColorDropDownMenuItemText>
-  <ColorDropDownMenuItemHighlight>
-    <B>211</B>
-    <G>211</G>
-    <R>211</R>
+  </GridBoxTitleTextColor>
+  <GridBoxTitleTintColor>
+    <B>128</B>
+    <G>128</G>
+    <R>128</R>
     <A>255</A>
-    <PackedValue>4292072403</PackedValue>
-  </ColorDropDownMenuItemHighlight>
+    <PackedValue>4286611584</PackedValue>
+  </GridBoxTitleTintColor>
+  <GridBoxTitleCloseBoxTintColor>
+    <B>153</B>
+    <G>136</G>
+    <R>119</R>
+    <A>255</A>
+    <PackedValue>4288252023</PackedValue>
+  </GridBoxTitleCloseBoxTintColor>
+  <GridBoxTitleCloseBoxDistanceFromRight>20</GridBoxTitleCloseBoxDistanceFromRight>
+  <GridBoxTitleCloseBoxDistanceFromTop>5</GridBoxTitleCloseBoxDistanceFromTop>
+  <GridBoxTitleCloseBoxWidth>18</GridBoxTitleCloseBoxWidth>
+  <GridBoxTitleCloseBoxHeight>18</GridBoxTitleCloseBoxHeight>
+  <GridBoxTitleHeight>26</GridBoxTitleHeight>
+  <GridBoxBorderTintColor>
+    <B>128</B>
+    <G>128</G>
+    <R>128</R>
+    <A>255</A>
+    <PackedValue>4286611584</PackedValue>
+  </GridBoxBorderTintColor>
+  <GridBoxBorderWidth>2</GridBoxBorderWidth>
+  <GridBoxButtonsBorderWidth>1</GridBoxButtonsBorderWidth>
+  <ColorDefaultMouseCursorTextCue>
+    <B>0</B>
+    <G>215</G>
+    <R>255</R>
+    <A>255</A>
+    <PackedValue>4278245375</PackedValue>
+  </ColorDefaultMouseCursorTextCue>
   <ColorHotButtonText_Fore>
     <B>0</B>
     <G>255</G>
@@ -177,159 +222,21 @@
     <A>255</A>
     <PackedValue>4286578816</PackedValue>
   </ColorHotButtonText_Back>
-  <ColorTextType_Default>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
+  <ColorTargetBorder>
+    <B>245</B>
+    <G>245</G>
+    <R>245</R>
     <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_Default>
-  <ColorTextType_PlayerChat>
-    <B>238</B>
-    <G>104</G>
-    <R>123</R>
-    <A>255</A>
-    <PackedValue>4293814395</PackedValue>
-  </ColorTextType_PlayerChat>
-  <ColorTextType_Enter>
-    <B>0</B>
-    <G>255</G>
-    <R>0</R>
-    <A>255</A>
-    <PackedValue>4278255360</PackedValue>
-  </ColorTextType_Enter>
-  <ColorTextType_Exit>
-    <B>50</B>
-    <G>205</G>
-    <R>50</R>
-    <A>255</A>
-    <PackedValue>4281519410</PackedValue>
-  </ColorTextType_Exit>
-  <ColorTextType_Header>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_Header>
-  <ColorTextType_Status>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_Status>
-  <ColorTextType_System>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_System>
-  <ColorTextType_Help>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_Help>
-  <ColorTextType_Private>
-    <B>212</B>
-    <G>255</G>
-    <R>127</R>
-    <A>255</A>
-    <PackedValue>4292149119</PackedValue>
-  </ColorTextType_Private>
-  <ColorTextType_Listing>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_Listing>
-  <ColorTextType_Error>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_Error>
-  <ColorTextType_Friend>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_Friend>
-  <ColorTextType_Page>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_Page>
-  <ColorTextType_Attuned>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_Attuned>
-  <ColorTextType_NPCChat>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_NPCChat>
-  <ColorTextType_Death>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_Death>
-  <ColorTextType_SpellCast>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_SpellCast>
-  <ColorTextType_SpellWarm>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_SpellWarm>
-  <ColorTextType_CombatHit>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_CombatHit>
-  <ColorTextType_CombatMiss>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_CombatMiss>
-  <ColorTextType_SpellHit>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_SpellHit>
-  <ColorTextType_SpellMiss>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </ColorTextType_SpellMiss>
+    <PackedValue>4294309365</PackedValue>
+  </ColorTargetBorder>
   <TargetBorderSize>1</TargetBorderSize>
+  <MapTileBorderSize>1</MapTileBorderSize>
+  <ColorMapTileBorder>
+    <B>32</B>
+    <G>165</G>
+    <R>218</R>
+    <A>255</A>
+    <PackedValue>4280329690</PackedValue>
+  </ColorMapTileBorder>
+  <DefaultWindowTitleHeight>18</DefaultWindowTitleHeight>
 </UserSettings>

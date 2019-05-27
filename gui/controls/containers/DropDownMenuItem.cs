@@ -59,7 +59,11 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
-            if (this.Text == "") return;
+            if (this.Text == "" || this.Text.Length <= 0)
+            {
+                this.IsVisible = false;
+                return;
+            }
 
             base.Update(gameTime);
 

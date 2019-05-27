@@ -40,7 +40,7 @@ namespace Yuusha.gui
             this.m_shadowDistance = shadowDistance;
             this.m_menuItems = new List<DropDownMenuItem>();
 
-            this.Border = new SquareBorder(this.Name + "SquareBorder", this.Name, 1, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorDropDownMenuBorder);
+            this.Border = new SquareBorder(this.Name + "SquareBorder", this.Name, 1, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorDropDownMenuBorder, visualAlpha);
             this.Border.IsVisible = true;
         }
 
@@ -62,7 +62,10 @@ namespace Yuusha.gui
             }
 
             foreach (DropDownMenuItem menuItem in m_menuItems)
-                menuItem.Draw(gameTime);
+            {
+                if(menuItem.IsVisible)
+                    menuItem.Draw(gameTime);
+            }
         }
 
         public override void Update(GameTime gameTime)

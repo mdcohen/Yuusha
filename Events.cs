@@ -52,6 +52,7 @@ namespace Yuusha
             Character_Death,
             Send_Command,
             Toggle_AutoRoller,
+            CharGen_Lore,
         }
 
         public static void RegisterEvent(EventName name, params object[] args)
@@ -67,7 +68,7 @@ namespace Yuusha
                         {
                             if (args.Length >= 1 && args[0] is Control)
                             {
-                                Control control = (Control) args[0];
+                                Control control = (Control)args[0];
 
                                 if (control != null)
                                 {
@@ -98,9 +99,9 @@ namespace Yuusha
                                             if (Char.IsDigit(targetName[0]))
                                             {
                                                 targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
-                                                    // remove the digit and space for grouped critters
+                                                // remove the digit and space for grouped critters
                                                 targetName = targetName.Substring(0, targetName.Length - 1);
-                                                    // remove the s
+                                                // remove the s
                                             }
 
                                             control.Text = GameHUD.TextSendOverride.Replace(
@@ -149,9 +150,9 @@ namespace Yuusha
                                                 if (Char.IsDigit(targetName[0]))
                                                 {
                                                     targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
-                                                        // remove the digit and space for grouped critters
+                                                    // remove the digit and space for grouped critters
                                                     targetName = targetName.Substring(0, targetName.Length - 1);
-                                                        // remove the s
+                                                    // remove the s
                                                 }
 
                                                 control.Text =
@@ -169,7 +170,7 @@ namespace Yuusha
                             break;
                         }
 
-                        #endregion
+                    #endregion
                     case EventName.Character_Death:
                         #region Character Death
                         {
@@ -180,8 +181,27 @@ namespace Yuusha
                                     Events.RegisterEvent(EventName.Target_Cleared, null);
                             }
                         }
-                        break; 
+                        break;
                     #endregion
+                    case EventName.CharGen_Lore:
+                        Dictionary<string, string> dictionaryInfo = new Dictionary<string, string>();
+                        switch(CharGen.CharGenState)
+                        {
+                            case Enums.ECharGenState.ChooseHomeland:
+                                CharGen.SelectedHomeland = (args[0] as Button).Text;
+                                dictionaryInfo = CharGen.Homelands;
+                                break;
+                            case Enums.ECharGenState.ChooseProfession:
+                                CharGen.SelectedProfession = (args[0] as Button).Text;
+                                dictionaryInfo = CharGen.Professions;
+                                break;
+                        }
+                        (gui.GuiManager.CurrentSheet["CharGenSelectionButton"] as gui.Button).Text = "Select: " + (args[0] as Button).Text;
+                        (gui.GuiManager.CurrentSheet["CharGenSelectionButton"] as gui.Button).Command = CharGen.CommandsToSend[(args[0] as Button).Text];
+                        System.Threading.Tasks.Task task = new System.Threading.Tasks.Task(() => CharGen.PopulateInfoTextBox((args[0] as Button).Text, dictionaryInfo));
+                        task.Start();
+                        task.Wait();
+                        break;
                     case EventName.Connect:
                         #region Connect
                         if (IO.LoginState != Enums.ELoginState.NewAccount)
@@ -346,8 +366,10 @@ namespace Yuusha
                         {
                             case Enums.EGameDisplayMode.Spinel:
                                 gui.SpinelMode.DisplayGameText((string) args[0], Enums.ETextType.Default);
+
                                 if ((string) args[0] == TextManager.YOU_ARE_STUNNED)
                                     gui.TextCue.AddPromptStateTextCue(Protocol.PromptStates.Stunned);
+
                                 if (Client.ClientSettings.DisplayChantingTextCue)
                                 {
                                     if (args[0].ToString().StartsWith("You warm the spell "))
@@ -431,6 +453,8 @@ namespace Yuusha
                     #endregion
                     case EventName.Goto_CharGen:
                         #region Goto CharGen
+                        if (Client.GameState == Enums.EGameState.Conference)
+                            IO.Send("/menu");
                         IO.Send("6");
                         IO.Send("1");
                         RegisterEvent(EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
@@ -514,7 +538,7 @@ namespace Yuusha
                                 }
                             }
 
-                            TextCue.AddCursorTextCue(VisualKeyWindowButton.VisualKey, Color.Yellow, "courier16");
+                            TextCue.AddMouseCursorTextCue(VisualKeyWindowButton.VisualKey, Color.Yellow, "courier16");
                         }
                         break; 
                     #endregion
@@ -586,11 +610,9 @@ namespace Yuusha
                                 break;
                             case Enums.ECharGenState.ChooseHomeland:
                                 CharGen.ChooseHomeland();
-                                (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                                 break;
                             case Enums.ECharGenState.ChooseProfession:
                                 CharGen.ChooseProfession();
-                                (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                                 break;
                             case Enums.ECharGenState.ChooseName:
                                 CharGen.ChooseName();
@@ -640,7 +662,7 @@ namespace Yuusha
 
                                 TextCue.AddClientInfoTextCue("Welcome to the character generator.", gui.TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3500, false, false, true);
 
-                                RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
+                                RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseHomeland);
 
                                 (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                             }
@@ -658,8 +680,9 @@ namespace Yuusha
                         break;
                     case EventName.Set_Login_Status_Label:
                         #region Set Login Status Label
-                        GuiManager.CurrentSheet["LoginStatusLabel"].Text = (string) args[0];
-                        GuiManager.CurrentSheet["LoginStatusLabel"].TextColor = Utils.GetColor((string) args[1]);
+                        Label loginLabel = GuiManager.CurrentSheet["LoginStatusLabel"] as Label;
+                        loginLabel.Text = (string) args[0];
+                        loginLabel.TextColor = Utils.GetColor((string) args[1]);
                         if (args.Length >= 3)
                             GuiManager.CurrentSheet["LoginStatusLabel"].IsVisible = (bool) args[2];
                         break;
@@ -1142,24 +1165,8 @@ namespace Yuusha
                     #endregion
                     case Enums.EGameState.CharacterGeneration:
                         #region Character Generation
-                        if (sheet["CharGenInputTextBox"] != null)
-                        {
-                            //if (Client.HasFocus)
-                            //{
-                            //    Control w = GuiManager.GetControl("AutoRollerWindow");
-                            //    if (w != null && !w.HasFocus)
-                            //    {
-                            //        sheet["CharGenInputTextBox"].HasFocus = true;
-                            //        GuiManager.ActiveTextBox = "CharGenInputTextBox";
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    sheet["CharGenInputTextBox"].HasFocus = false;
-                            //}
-                        }
                         break; 
-                    #endregion
+                        #endregion
                     case Enums.EGameState.Conference:
                         #region Conference
                         if (chr != null)
@@ -1228,6 +1235,7 @@ namespace Yuusha
                             at.Clear();
                             at.IsCursorVisible = true;
                             at.HasFocus = true;
+                            if (sheet.CurrentTabOrder >= 0) sheet.CurrentTabOrder = at.TabOrder;
                         }
                         if (wi["PasswordTextBox"] is TextBox pt)
                         {

@@ -3,23 +3,23 @@
 	<Cursor
 		Name="Normal"
 		VisualKey="NormalCursor"
-		Font="courier12">
+		Font="courier16">
 	</Cursor>
 	<Cursor
 		Name="Question"
 		VisualKey="QuestionCursor"
-		Font="courier12">
+		Font="courier16">
 	</Cursor>
 	<Cursor
 		Name="Dragging"
 		VisualKey="DraggingCursor"
-		Font="courier12"
+		Font="courier16"
 		XDrawOffset="-4"
 		YDrawOffset="-4">
 	</Cursor>
 	<Cursor
 		Name="Wait"
 		VisualKey="WaitCursor"
-		Font="courier12">
+		Font="courier16">
 	</Cursor>
 </CursorsIndex>

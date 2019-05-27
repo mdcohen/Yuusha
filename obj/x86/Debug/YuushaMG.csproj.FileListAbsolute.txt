@@ -235,12 +235,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier16.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier28-0.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier28-1.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier28.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\levRunes20-0.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\levRunes20-1.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\levRunes20.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\times-0.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\times-1.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\times.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\help.txt
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\index.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\dragon_over_island.png
@@ -616,3 +610,9 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0272.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSNDint1.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSNDint2.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSNDint3.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier18-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier18.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier20-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier20.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\worldmap.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\lore.xml

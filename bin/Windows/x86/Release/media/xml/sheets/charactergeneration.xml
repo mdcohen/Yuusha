@@ -11,20 +11,82 @@
   <!-- Background Visual -->
   <Background
 		Font="courier16"
-		VisualKey="GreenTileBackground"
+		VisualKey="WorldMapBackground"
 		IsCentered="false"
 		IsTiled="true"
 		TintColor="White"
 		VisualAlpha="255">
   </Background>
 
+  <CharacterGenerationWindow>
   <Control
-		Type="ScrollableTextBox"
-		Name="CharGenScrollableTextBox"
+		Type="Window"
+		Name="CharacterGenerationWindow"
 		X="10"
 		Y="10"
 		Width="665"
 		Height="375"
+		IsVisible="true"
+		IsLocked="true"
+		Font="courier16"
+		VisualKey="WhiteSpace"
+    VisualAlpha="150"
+		TintColor="Black"
+		DropShadow="false"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		CursorOnDrag="Dragging"
+    AnchorTop="true"
+		AnchorBottom="false"
+		AnchorLeft="true"
+		AnchorRight="false">
+  </Control>
+  <!-- Character Generation Window Title -->
+  <Control
+		Type="WindowTitle"
+		Name="CharacterGenerationWindowTitle"
+		Owner="CharacterGenerationWindow"
+		Font="courier12"
+		VisualKey="WhiteSpace"
+		TintColor="Black"
+    VisualAlpha="75"
+    MinimizeBoxVisualKey="WindowMinimizeBox"
+		MinimizeBoxVisualKeyDown="WindowMinimizeBoxDown"
+		MinimizeBoxDistanceFromRight="17"
+		MinimizeBoxDistanceFromTop="2"
+		MinimizeBoxWidth="15"
+		MinimizeBoxHeight="15"
+    MinimizeBoxTintColor="LightSteelBlue"
+		CropBoxVisualKey="WindowCropBox"
+		CropBoxVisualKeyDown="WindowCropBoxDown"
+		CropBoxDistanceFromRight="34"
+		CropBoxDistanceFromTop="2"
+		CropBoxWidth="17"
+		CropBoxHeight="17"
+    CropBoxTintColor="LightSteelBlue"
+	  Text=""
+	  TextColor="PaleGreen"
+	  TextAlignment="Center">
+  </Control>
+  <!-- Character Generation Window Border -->
+  <Control
+		Type="SquareBorder"
+		Name="CharacterGenerationWindowBorder"
+		Owner="CharacterGenerationWindow"
+		Width="1"
+		VisualKey="WhiteSpace"
+    VisualAlpha="150"
+		TintColor="DarkMagenta">
+  </Control>
+  <!-- Character Generation Scrollable TextBox -->
+  <Control
+		Type="ScrollableTextBox"
+		Name="CharGenScrollableTextBox"
+    Owner="CharacterGenerationWindow"
+		X="5"
+		Y="18"
+		Width="660"
+		Height="100"
 		XTextOffset="0"
 		YTextOffset="0"
 		TextColor="White"
@@ -32,22 +94,118 @@
 		Font="courier16"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
-		VisualAlpha="95"
-		BorderAlpha="255"
+		VisualAlpha="0"
+		BorderAlpha="0"
 		TextAlpha="255"
 		TextAlignment="Left"
 		AnchorTop="true"
-		AnchorBottom="false"
+		AnchorBottom="true"
 		AnchorLeft="true"
 		AnchorRight="true">
   </Control>
+
+    <Control
+		Type="Button"
+		Text="Select: Barbarian"
+		Name="CharGenSelectionButton"
+    Owner="CharacterGenerationWindow"
+		X="10"
+		Y="313"
+		Width="290"
+		Height="40"
+		YTextOffset="8"
+    XTextOffset="-3"
+		IsVisible="true"
+		IsDisabled="false"
+		Font="courier16"
+		TextColor="White"
+		TextOverColor="Chartreuse"
+		VisualKey="RoundedButton"
+		TintColor="DarkMagenta"
+		OnMouseDown="send_command"
+		TextAlignment="Center"
+		DropShadow="true"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		AnchorTop="true"
+		AnchorRight="true"
+    Command="b">
+    </Control>
+</CharacterGenerationWindow>
+
+<CharacterGenerationInfoWindow>
+  <Control
+		Type="Window"
+		Name="CharacterGenerationInfoWindow"
+		X="10"
+		Y="390"
+		Width="665"
+		Height="338"
+		IsVisible="true"
+		IsLocked="true"
+		Font="courier16"
+		VisualKey="WhiteSpace"
+    VisualAlpha="0"
+		TintColor="Black"
+		DropShadow="false"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		CursorOnDrag="Dragging"
+    AnchorTop="true"
+		AnchorBottom="true"
+		AnchorLeft="true"
+		AnchorRight="true">>
+  </Control>
+  <!-- Character Generation Window Title -->
+  <Control
+		Type="WindowTitle"
+		Name="CharacterGenerationInfoWindowTitle"
+		Owner="CharacterGenerationInfoWindow"
+		Font="courier12"
+		VisualKey="WhiteSpace"
+		TintColor="Black"
+    VisualAlpha="150"
+		MinimizeBoxVisualKey="WindowMinimizeBox"
+		MinimizeBoxVisualKeyDown="WindowMinimizeBoxDown"
+		MinimizeBoxDistanceFromRight="17"
+		MinimizeBoxDistanceFromTop="2"
+		MinimizeBoxWidth="15"
+		MinimizeBoxHeight="15"
+    MinimizeBoxTintColor="LightSteelBlue"
+		CropBoxVisualKey="WindowCropBox"
+		CropBoxVisualKeyDown="WindowCropBoxDown"
+		CropBoxDistanceFromRight="34"
+		CropBoxDistanceFromTop="2"
+		CropBoxWidth="17"
+		CropBoxHeight="17"
+    CropBoxTintColor="LightSteelBlue"
+	  Text=""
+	  TextColor="PaleGreen"
+	  TextAlignment="Center"
+    AnchorTop="true"
+		AnchorBottom="true"
+		AnchorLeft="true"
+		AnchorRight="true">
+  </Control>
+  <!-- Character Generation Window Border -->
+  <Control
+		Type="SquareBorder"
+		Name="CharacterGenerationInfoWindowBorder"
+		Owner="CharacterGenerationInfoWindow"
+		Width="1"
+		VisualKey="WhiteSpace"
+    VisualAlpha="150"
+		TintColor="DarkMagenta">
+  </Control>
+  <!-- CharGen Info Scrollable TextBox -->
   <Control
 		Type="ScrollableTextBox"
 		Name="CharGenInfoScrollableTextBox"
-		X="10"
-		Y="425"
+    Owner="CharacterGenerationInfoWindow"
+		X="0"
+		Y="18"
 		Width="665"
-		Height="300"
+		Height="320"
 		XTextOffset="0"
 		YTextOffset="0"
 		TextColor="White"
@@ -55,7 +213,7 @@
 		Font="courier16"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
-		VisualAlpha="95"
+		VisualAlpha="150"
 		BorderAlpha="255"
 		TextAlpha="255"
 		TextAlignment="Left"
@@ -64,6 +222,8 @@
 		AnchorLeft="true"
 		AnchorRight="true">
   </Control>
+</CharacterGenerationInfoWindow>
+  
   <Control
 		Type="TextBox"
 		Name="CharGenInputTextBox"
@@ -79,7 +239,7 @@
 		Font="courier16"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
-		VisualAlpha="95"
+		VisualAlpha="55"
 		BorderAlpha="255"
 		TextAlpha="255"
 		MaxLength="100"
@@ -88,6 +248,7 @@
 		CursorColor="Gray"
 		SelectionColor="Navy"
 		OnKeyboardEnter="send_text"
+    ANchorTop="false"
 		AnchorBottom="true"
 		AnchorLeft="true"
 		AnchorRight="true">
@@ -130,7 +291,7 @@
       IsLocked="true"
       Font="courier16"
       VisualKey="WhiteSpace"
-      VisualAlpha="150"
+      VisualAlpha="85"
       TintColor="Black"
       DropShadow="true"
       ShadowDistance="5"
@@ -820,7 +981,7 @@
       IsLocked="true"
       Font="courier16"
       VisualKey="WhiteSpace"
-      VisualAlpha="150"
+      VisualAlpha="85"
       TintColor="Black"
       DropShadow="true"
       ShadowDistance="5"

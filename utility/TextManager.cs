@@ -61,11 +61,11 @@ namespace Yuusha
             {"You are now a level ", Color.Gold },
 
             // Looking around
-            {"You are looking at ", Color.CornflowerBlue },
+            {"You are looking at ", Color.LightSkyBlue },
             {"On the ground you see ", Color.LightGreen },
             {"In your pouch you see ", Color.MediumSpringGreen },
-            {"In your sack you see ", Color.MediumSeaGreen },
-            {"On the counter you see ", Color.MediumSeaGreen },
+            {"In your sack you see ", Color.MediumSpringGreen },
+            {"On the counter you see ", Color.MediumSpringGreen },
 
             // Combat: self
             {"Swing hits with ", Color.PeachPuff },

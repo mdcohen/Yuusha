@@ -237,12 +237,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier16.xm
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28-0.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28-1.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier28.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20-0.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20-1.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\levRunes20.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\times-0.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\times-1.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\times.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\help.txt
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\index.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\dragon_over_island.png
@@ -618,3 +612,9 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSNDint1.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSNDint2.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSNDint3.xnb
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csprojAssemblyReference.cache
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier18-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier18.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier20-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier20.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\worldmap.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\lore.xml

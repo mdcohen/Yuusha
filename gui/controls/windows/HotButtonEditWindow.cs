@@ -40,8 +40,8 @@ namespace Yuusha.gui
                 List<string> IconVisualKeys = new List<string>();
                 int x = 6;
                 int y = 180;
-                int width = 34;
-                int height = 34;
+                int width = 48; // 34
+                int height = 48; // 34
                 int padding = 2;
 
                 foreach (string visualName in GuiManager.Visuals.Keys)

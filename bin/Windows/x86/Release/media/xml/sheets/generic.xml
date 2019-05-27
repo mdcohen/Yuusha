@@ -114,7 +114,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -163,7 +163,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -227,7 +227,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -276,7 +276,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -325,7 +325,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -374,7 +374,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -423,7 +423,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -472,7 +472,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -521,7 +521,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -571,7 +571,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -606,7 +606,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -641,7 +641,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -676,7 +676,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -711,7 +711,7 @@ available in any game state. -->
 		IsEditable="true"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="DarkGray"
+		TintColor="DimGray"
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
@@ -741,7 +741,7 @@ available in any game state. -->
 		Height="35"
 		XTextOffset="0"
 		YTextOffset="5"
-		TextColor="Black"
+		TextColor="White"
 		IsVisible="true"
 		IsDisabled="false"
 		Font="courier16"
@@ -941,7 +941,7 @@ available in any game state. -->
   </Control>
  </NewsWindow>
 
-<MacrosWindow>
+ <MacrosWindow>
   <Control
 		Type="Window"
 		Name="MacrosWindow"
@@ -952,8 +952,9 @@ available in any game state. -->
 		IsVisible="false"
 		IsLocked="false"
 		Font="courier12"
-		VisualKey="PurpleTileBackground"
-		TintColor="White"
+		VisualKey="WhiteSpace"
+    VisualAlpha="85"
+		TintColor="Black"
 		DropShadow="true"
 		ShadowDistance="5"
 		ShadowDirection="Northwest"
@@ -965,34 +966,38 @@ available in any game state. -->
 		Name="MacrosWindowTitle"
 		Owner="MacrosWindow"
 		Font="courier12"
-		VisualKey="GreenWeave"
-		TintColor="White"
+		VisualKey="WhiteSpace"
+		TintColor="DarkMagenta"
 		CloseBoxVisualKey="WindowCloseBox"
 		CloseBoxVisualKeyDown="WindowCloseBoxDown"
-		CloseBoxDistanceFromRight="14"
-		CloseBoxDistanceFromTop="3"
-		CloseBoxWidth="12"
-		CloseBoxHeight="12"
+		CloseBoxDistanceFromRight="17"
+		CloseBoxDistanceFromTop="2"
+		CloseBoxWidth="15"
+		CloseBoxHeight="15"
+    CloseBoxTintColor="LightSteelBlue"
 		MaximizeBoxVisualKey="WindowMaximizeBox"
 		MaximizeBoxVisualKeyDown="WindowMaximizeBoxDown"
-		MaximizeBoxDistanceFromRight="28"
-		MaximizeBoxDistanceFromTop="3"
-		MaximizeBoxWidth="12"
-		MaximizeBoxHeight="12"
+		MaximizeBoxDistanceFromRight="34"
+		MaximizeBoxDistanceFromTop="2"
+		MaximizeBoxWidth="15"
+		MaximizeBoxHeight="15"
+    MaximizeBoxTintColor="LightSteelBlue"
 		MinimizeBoxVisualKey="WindowMinimizeBox"
 		MinimizeBoxVisualKeyDown="WindowMinimizeBoxDown"
-		MinimizeBoxDistanceFromRight="40"
-		MinimizeBoxDistanceFromTop="3"
-		MinimizeBoxWidth="12"
-		MinimizeBoxHeight="12"
+		MinimizeBoxDistanceFromRight="51"
+		MinimizeBoxDistanceFromTop="2"
+		MinimizeBoxWidth="15"
+		MinimizeBoxHeight="15"
+    MinimizeBoxTintColor="LightSteelBlue"
 		CropBoxVisualKey="WindowCropBox"
 		CropBoxVisualKeyDown="WindowCropBoxDown"
-		CropBoxDistanceFromRight="52"
-		CropBoxDistanceFromTop="3"
-		CropBoxWidth="12"
-		CropBoxHeight="12"
-		Text=""
-		TextColor="White"
+		CropBoxDistanceFromRight="67"
+		CropBoxDistanceFromTop="2"
+		CropBoxWidth="17"
+		CropBoxHeight="17"
+    CropBoxTintColor="LightSteelBlue"
+		Text="Macros"
+		TextColor="PaleGreen"
 		TextAlignment="Center">
   </Control>
   <!-- Macros Window Border -->
@@ -1646,7 +1651,7 @@ available in any game state. -->
   </Control>
  </MacrosWindow>
 
-<VisualKeyWindow>
+ <VisualKeyWindow>
   <!-- VisualKeyWindow Window -->
   <Control
 		Type="Window"
@@ -2201,7 +2206,7 @@ available in any game state. -->
   </Control>
 </VerticalHotButtonWindow>
 
-<HorizontalHotButtonWindow>
+<HorizontalHotButtonWindowWithNoTitle>
   <!-- Horizontal HotButton Window -->
   <Control
 		Type="Window"
@@ -2240,29 +2245,17 @@ available in any game state. -->
 		CloseBoxDistanceFromTop="1"
 		CloseBoxWidth="17"
 		CloseBoxHeight="17"
-    MinimizeBoxVisualKey="WindowMinimizeBox"
-		MinimizeBoxVisualKeyDown="WindowMinimizeBoxDown"
-		MinimizeBoxDistanceFromRight="37"
-		MinimizeBoxDistanceFromTop="1"
-		MinimizeBoxWidth="17"
-		MinimizeBoxHeight="17"
-		CropBoxVisualKey="WindowCropBox"
-		CropBoxVisualKeyDown="WindowCropBoxDown"
-		CropBoxDistanceFromRight="57"
-		CropBoxDistanceFromTop="1"
-    CropBoxWidth="17"
-		CropBoxHeight="17"
 		Text=""
 		TextColor="Black"
 		TextAlignment="Center">
-  </Control> -->
+  </Control>  -->
 
   <!-- Hotkeys Window Border -->
   <Control
 		Type="SquareBorder"
 		Name="HorizontalHotButtonWindowBorder"
 		Owner="HorizontalHotButtonWindow"
-		Width="3"
+		Width="2"
 		VisualKey="WhiteSpace"
     VisualAlpha ="200"
 		TintColor="Gray">
@@ -2567,5 +2560,6 @@ available in any game state. -->
     TextOverColor="SlateGray"
     OnMouseDown="Send_Text">
   </Control>
-</HorizontalHotButtonWindow>
+</HorizontalHotButtonWindowWithNoTitle>
+
 </GenericSheet>

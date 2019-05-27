@@ -11,20 +11,82 @@
   <!-- Background Visual -->
   <Background
 		Font="courier16"
-		VisualKey="GreenTileBackground"
+		VisualKey="WorldMapBackground"
 		IsCentered="false"
 		IsTiled="true"
 		TintColor="White"
 		VisualAlpha="255">
   </Background>
 
+  <CharacterGenerationWindow>
   <Control
-		Type="ScrollableTextBox"
-		Name="CharGenScrollableTextBox"
+		Type="Window"
+		Name="CharacterGenerationWindow"
 		X="10"
 		Y="10"
 		Width="665"
-		Height="695"
+		Height="375"
+		IsVisible="true"
+		IsLocked="true"
+		Font="courier16"
+		VisualKey="WhiteSpace"
+    VisualAlpha="150"
+		TintColor="Black"
+		DropShadow="false"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		CursorOnDrag="Dragging"
+    AnchorTop="true"
+		AnchorBottom="false"
+		AnchorLeft="true"
+		AnchorRight="false">
+  </Control>
+  <!-- Character Generation Window Title -->
+  <Control
+		Type="WindowTitle"
+		Name="CharacterGenerationWindowTitle"
+		Owner="CharacterGenerationWindow"
+		Font="courier12"
+		VisualKey="WhiteSpace"
+		TintColor="Black"
+    VisualAlpha="75"
+    MinimizeBoxVisualKey="WindowMinimizeBox"
+		MinimizeBoxVisualKeyDown="WindowMinimizeBoxDown"
+		MinimizeBoxDistanceFromRight="17"
+		MinimizeBoxDistanceFromTop="2"
+		MinimizeBoxWidth="15"
+		MinimizeBoxHeight="15"
+    MinimizeBoxTintColor="LightSteelBlue"
+		CropBoxVisualKey="WindowCropBox"
+		CropBoxVisualKeyDown="WindowCropBoxDown"
+		CropBoxDistanceFromRight="34"
+		CropBoxDistanceFromTop="2"
+		CropBoxWidth="17"
+		CropBoxHeight="17"
+    CropBoxTintColor="LightSteelBlue"
+	  Text=""
+	  TextColor="PaleGreen"
+	  TextAlignment="Center">
+  </Control>
+  <!-- Character Generation Window Border -->
+  <Control
+		Type="SquareBorder"
+		Name="CharacterGenerationWindowBorder"
+		Owner="CharacterGenerationWindow"
+		Width="1"
+		VisualKey="WhiteSpace"
+    VisualAlpha="150"
+		TintColor="DarkMagenta">
+  </Control>
+  <!-- Character Generation Scrollable TextBox -->
+  <Control
+		Type="ScrollableTextBox"
+		Name="CharGenScrollableTextBox"
+    Owner="CharacterGenerationWindow"
+		X="5"
+		Y="18"
+		Width="660"
+		Height="100"
 		XTextOffset="0"
 		YTextOffset="0"
 		TextColor="White"
@@ -32,7 +94,98 @@
 		Font="courier16"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
-		VisualAlpha="95"
+		VisualAlpha="0"
+		BorderAlpha="0"
+		TextAlpha="255"
+		TextAlignment="Left"
+		AnchorTop="true"
+		AnchorBottom="true"
+		AnchorLeft="true"
+		AnchorRight="true">
+  </Control>
+</CharacterGenerationWindow>
+
+<CharacterGenerationInfoWindow>
+  <Control
+		Type="Window"
+		Name="CharacterGenerationInfoWindow"
+		X="10"
+		Y="390"
+		Width="665"
+		Height="338"
+		IsVisible="true"
+		IsLocked="true"
+		Font="courier16"
+		VisualKey="WhiteSpace"
+    VisualAlpha="0"
+		TintColor="Black"
+		DropShadow="false"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		CursorOnDrag="Dragging"
+    AnchorTop="true"
+		AnchorBottom="true"
+		AnchorLeft="true"
+		AnchorRight="true">>
+  </Control>
+  <!-- Character Generation Window Title -->
+  <Control
+		Type="WindowTitle"
+		Name="CharacterGenerationInfoWindowTitle"
+		Owner="CharacterGenerationInfoWindow"
+		Font="courier12"
+		VisualKey="WhiteSpace"
+		TintColor="Black"
+    VisualAlpha="150"
+		MinimizeBoxVisualKey="WindowMinimizeBox"
+		MinimizeBoxVisualKeyDown="WindowMinimizeBoxDown"
+		MinimizeBoxDistanceFromRight="17"
+		MinimizeBoxDistanceFromTop="2"
+		MinimizeBoxWidth="15"
+		MinimizeBoxHeight="15"
+    MinimizeBoxTintColor="LightSteelBlue"
+		CropBoxVisualKey="WindowCropBox"
+		CropBoxVisualKeyDown="WindowCropBoxDown"
+		CropBoxDistanceFromRight="34"
+		CropBoxDistanceFromTop="2"
+		CropBoxWidth="17"
+		CropBoxHeight="17"
+    CropBoxTintColor="LightSteelBlue"
+	  Text=""
+	  TextColor="PaleGreen"
+	  TextAlignment="Center"
+    AnchorTop="true"
+		AnchorBottom="true"
+		AnchorLeft="true"
+		AnchorRight="true">
+  </Control>
+  <!-- Character Generation Window Border -->
+  <Control
+		Type="SquareBorder"
+		Name="CharacterGenerationInfoWindowBorder"
+		Owner="CharacterGenerationInfoWindow"
+		Width="1"
+		VisualKey="WhiteSpace"
+    VisualAlpha="150"
+		TintColor="DarkMagenta">
+  </Control>
+  <!-- CharGen Info Scrollable TextBox -->
+  <Control
+		Type="ScrollableTextBox"
+		Name="CharGenInfoScrollableTextBox"
+    Owner="CharacterGenerationInfoWindow"
+		X="0"
+		Y="18"
+		Width="665"
+		Height="320"
+		XTextOffset="0"
+		YTextOffset="0"
+		TextColor="White"
+		IsVisible="true"
+		Font="courier16"
+		TintColor="Black"
+		VisualKey="WhiteSpace"
+		VisualAlpha="150"
 		BorderAlpha="255"
 		TextAlpha="255"
 		TextAlignment="Left"
@@ -41,6 +194,8 @@
 		AnchorLeft="true"
 		AnchorRight="true">
   </Control>
+</CharacterGenerationInfoWindow>
+  
   <Control
 		Type="TextBox"
 		Name="CharGenInputTextBox"
@@ -53,10 +208,10 @@
 		TextColor="White"
 		IsVisible="true"
 		IsEditable="true"
-		Font="courier16"
+		Font="courier14"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
-		VisualAlpha="95"
+		VisualAlpha="55"
 		BorderAlpha="255"
 		TextAlpha="255"
 		MaxLength="100"
@@ -65,6 +220,7 @@
 		CursorColor="Gray"
 		SelectionColor="Navy"
 		OnKeyboardEnter="send_text"
+    ANchorTop="false"
 		AnchorBottom="true"
 		AnchorLeft="true"
 		AnchorRight="true">
@@ -74,7 +230,7 @@
 		Type="Button"
 		Text="Toggle Auto Roller On"
 		Name="CharGenToggleAutoRollerButton"
-		X="700"
+		X="698"
 		Y="50"
 		Width="310"
 		Height="40"
@@ -99,15 +255,15 @@
     <Control
       Type="Window"
       Name="AutoRollerWindow"
-      X="700"
+      X="725"
       Y="105"
-      Width="300"
-      Height="300"
+      Width="250"
+      Height="305"
       IsVisible="true"
       IsLocked="true"
       Font="courier16"
       VisualKey="WhiteSpace"
-      VisualAlpha="150"
+      VisualAlpha="85"
       TintColor="Black"
       DropShadow="true"
       ShadowDistance="5"
@@ -123,15 +279,16 @@
       Font="courier12"
       TintColor="Gray"
       VisualKey="WhiteSpace"
-      CloseBoxVisualKey="WindowCloseBox"
-      CloseBoxVisualKeyDown="WindowCloseBoxDown"
-      CloseBoxDistanceFromRight="14"
-      CloseBoxDistanceFromTop="3"
-      CloseBoxWidth="12"
-      CloseBoxHeight="12"
       Text="Auto Roller Settings"
       TextColor="White"
-      TextAlignment="Center">
+      TextAlignment="Center"
+      CropBoxVisualKey="WindowCropBox"
+		  CropBoxVisualKeyDown="WindowCropBoxDown"
+		  CropBoxDistanceFromRight="18"
+		  CropBoxDistanceFromTop="0"
+      CropBoxWidth="20"
+		  CropBoxHeight="20"
+      CropBoxTintColor="LightSteelBlue">
     </Control>
 
     <!-- AutoRoller Window Border -->
@@ -181,12 +338,13 @@
       Name="StrengthDesiredTextBox"
       Owner="AutoRollerWindow"
       X="210"
-      Y="30"
-      Width="28"
+      Y="29"
+      Width="26"
       Height="25"
       XTextOffset="0"
-      YTextOffset="-1"
-      TextColor="White"
+      YTextOffset="0"
+      TextColor="SpringGreen"
+      TextAlignment="Left"
       IsVisible="true"
       IsEditable="true"
       Font="courier16"
@@ -199,7 +357,7 @@
       IsPasswordBox="false"
       HasBlinkingCursor="true"
       CursorColor="Gray"
-      TabOrder="0"
+      TabOrder="1"
       MaxValue="18"
       MinValue="3">
     </Control>
@@ -221,7 +379,7 @@
       Name="DexterityLabel"
       Owner="AutoRollerWindow"
       X="10"
-      Y="55"
+      Y="60"
       Width="120"
       Height="25"
       TextColor="White"
@@ -236,13 +394,53 @@
       Name="DexterityRollLabel"
       Owner="AutoRollerWindow"
       X="175"
-      Y="55"
+      Y="60"
       Width="30"
       Height="25"
       TextColor="White"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="NumericTextBox"
+      Text="15"
+      Name="DexterityDesiredTextBox"
+      Owner="AutoRollerWindow"
+      X="210"
+      Y="59"
+      Width="26"
+      Height="25"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="SpringGreen"
+      TextAlignment="Left"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="150"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="2"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="Gray"
+      TabOrder="2"
+      MaxValue="18"
+      MinValue="3">
+    </Control>
+
+    <Control
+      Type="SquareBorder"
+      Name="DexterityDesiredTextBoxBorder"
+      Owner="DexterityDesiredTextBox"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="BlueViolet">
     </Control>
 
     <!-- Intelligence -->
@@ -252,7 +450,7 @@
       Name="IntelligenceLabel"
       Owner="AutoRollerWindow"
       X="10"
-      Y="80"
+      Y="90"
       Width="170"
       Height="25"
       TextColor="White"
@@ -267,13 +465,53 @@
       Name="IntelligenceRollLabel"
       Owner="AutoRollerWindow"
       X="175"
-      Y="80"
+      Y="90"
       Width="30"
       Height="25"
       TextColor="White"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="NumericTextBox"
+      Text="15"
+      Name="IntelligenceDesiredTextBox"
+      Owner="AutoRollerWindow"
+      X="210"
+      Y="89"
+      Width="26"
+      Height="25"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="SpringGreen"
+      TextAlignment="Left"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="150"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="2"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="Gray"
+      TabOrder="3"
+      MaxValue="18"
+      MinValue="3">
+    </Control>
+
+    <Control
+      Type="SquareBorder"
+      Name="IntelligenceDesiredTextBoxBorder"
+      Owner="IntelligenceDesiredTextBox"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="BlueViolet">
     </Control>
 
     <!-- Wisdom -->
@@ -283,7 +521,7 @@
       Name="WisdomLabel"
       Owner="AutoRollerWindow"
       X="10"
-      Y="105"
+      Y="120"
       Width="170"
       Height="25"
       TextColor="White"
@@ -298,13 +536,53 @@
       Name="WisdomRollLabel"
       Owner="AutoRollerWindow"
       X="175"
-      Y="105"
+      Y="120"
       Width="30"
       Height="25"
       TextColor="White"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="NumericTextBox"
+      Text="15"
+      Name="WisdomDesiredTextBox"
+      Owner="AutoRollerWindow"
+      X="210"
+      Y="119"
+      Width="26"
+      Height="25"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="SpringGreen"
+      TextAlignment="Left"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="150"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="2"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="Gray"
+      TabOrder="4"
+      MaxValue="18"
+      MinValue="3">
+    </Control>
+
+    <Control
+      Type="SquareBorder"
+      Name="WisdomDesiredTextBoxBorder"
+      Owner="WisdomDesiredTextBox"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="BlueViolet">
     </Control>
 
     <!-- Constitution -->
@@ -314,7 +592,7 @@
       Name="ConstitutionLabel"
       Owner="AutoRollerWindow"
       X="10"
-      Y="130"
+      Y="150"
       Width="170"
       Height="25"
       TextColor="White"
@@ -329,13 +607,53 @@
       Name="ConstitutionRollLabel"
       Owner="AutoRollerWindow"
       X="175"
-      Y="130"
+      Y="149"
       Width="30"
       Height="25"
       TextColor="White"
       IsVisible="true"
       Font="courier16"
       TextAlignment="Left">
+    </Control>
+
+    <Control
+      Type="NumericTextBox"
+      Text="15"
+      Name="ConstitutionDesiredTextBox"
+      Owner="AutoRollerWindow"
+      X="210"
+      Y="150"
+      Width="26"
+      Height="25"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="SpringGreen"
+      TextAlignment="Left"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="150"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="2"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="Gray"
+      TabOrder="5"
+      MaxValue="18"
+      MinValue="3">
+    </Control>
+
+    <Control
+      Type="SquareBorder"
+      Name="ConstitutionDesiredTextBoxBorder"
+      Owner="ConstitutionDesiredTextBox"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="BlueViolet">
     </Control>
 
     <!-- Charisma -->
@@ -345,7 +663,7 @@
       Name="CharismaLabel"
       Owner="AutoRollerWindow"
       X="10"
-      Y="155"
+      Y="180"
       Width="170"
       Height="25"
       TextColor="White"
@@ -360,7 +678,7 @@
       Name="CharismaRollLabel"
       Owner="AutoRollerWindow"
       X="175"
-      Y="155"
+      Y="180"
       Width="30"
       Height="25"
       TextColor="White"
@@ -370,12 +688,53 @@
     </Control>
 
     <Control
+      Type="NumericTextBox"
+      Text="15"
+      Name="CharismaDesiredTextBox"
+      Owner="AutoRollerWindow"
+      X="210"
+      Y="179"
+      Width="26"
+      Height="25"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="SpringGreen"
+      TextAlignment="Left"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="150"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="2"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="Gray"
+      TabOrder="6"
+      MaxValue="18"
+      MinValue="3">
+    </Control>
+
+    <Control
+      Type="SquareBorder"
+      Name="CharismaDesiredTextBoxBorder"
+      Owner="CharismaDesiredTextBox"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="BlueViolet">
+    </Control>
+
+    <!-- Hits -->
+    <Control
       Type="Label"
       Text="Hits:"
       Name="HitsLabel"
       Owner="AutoRollerWindow"
       X="10"
-      Y="190"
+      Y="210"
       Width="170"
       Height="25"
       TextColor="White"
@@ -386,11 +745,11 @@
 
     <Control
       Type="Label"
-      Text="60"
+      Text="40"
       Name="HitsRollLabel"
       Owner="AutoRollerWindow"
       X="175"
-      Y="190"
+      Y="210"
       Width="30"
       Height="25"
       TextColor="White"
@@ -400,12 +759,53 @@
     </Control>
 
     <Control
+      Type="NumericTextBox"
+      Text="60"
+      Name="HitsDesiredTextBox"
+      Owner="AutoRollerWindow"
+      X="210"
+      Y="209"
+      Width="26"
+      Height="25"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="SpringGreen"
+      TextAlignment="Left"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="150"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="2"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="Gray"
+      TabOrder="7"
+      MaxValue="18"
+      MinValue="3">
+    </Control>
+
+    <Control
+      Type="SquareBorder"
+      Name="HitsDesiredTextBoxBorder"
+      Owner="HitsDesiredTextBox"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="BlueViolet">
+    </Control>
+
+    <!-- Stamina -->
+    <Control
       Type="Label"
       Text="Stamina:"
       Name="StaminaLabel"
       Owner="AutoRollerWindow"
       X="10"
-      Y="215"
+      Y="240"
       Width="170"
       Height="25"
       TextColor="White"
@@ -420,7 +820,7 @@
       Name="StaminaRollLabel"
       Owner="AutoRollerWindow"
       X="175"
-      Y="215"
+      Y="240"
       Width="30"
       Height="25"
       TextColor="White"
@@ -430,12 +830,53 @@
     </Control>
 
     <Control
+      Type="NumericTextBox"
+      Text="10"
+      Name="StaminaDesiredTextBox"
+      Owner="AutoRollerWindow"
+      X="210"
+      Y="239"
+      Width="26"
+      Height="25"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="SpringGreen"
+      TextAlignment="Left"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="150"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="2"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="Gray"
+      TabOrder="8"
+      MaxValue="18"
+      MinValue="3">
+    </Control>
+
+    <Control
+      Type="SquareBorder"
+      Name="StaminaDesiredTextBoxBorder"
+      Owner="StaminaDesiredTextBox"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="BlueViolet">
+    </Control>
+
+    <!-- Mana -->
+    <Control
       Type="Label"
       Text="Mana:"
       Name="ManaLabel"
       Owner="AutoRollerWindow"
       X="10"
-      Y="240"
+      Y="270"
       Width="170"
       Height="25"
       TextColor="White"
@@ -450,7 +891,7 @@
       Name="ManaRollLabel"
       Owner="AutoRollerWindow"
       X="175"
-      Y="240"
+      Y="270"
       Width="30"
       Height="25"
       TextColor="White"
@@ -458,7 +899,175 @@
       Font="courier16"
       TextAlignment="Left">
     </Control>
+
+    <Control
+      Type="NumericTextBox"
+      Text="10"
+      Name="ManaDesiredTextBox"
+      Owner="AutoRollerWindow"
+      X="210"
+      Y="269"
+      Width="26"
+      Height="25"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="SpringGreen"
+      TextAlignment="Left"
+      IsVisible="true"
+      IsEditable="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      TintColor="Black"
+      VisualAlpha="150"
+      BorderAlpha="255"
+      TextAlpha="255"
+      MaxLength="2"
+      IsPasswordBox="false"
+      HasBlinkingCursor="true"
+      CursorColor="Gray"
+      TabOrder="9"
+      MaxValue="18"
+      MinValue="3">
+    </Control>
+
+    <Control
+      Type="SquareBorder"
+      Name="ManaDesiredTextBoxBorder"
+      Owner="ManaDesiredTextBox"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="BlueViolet">
+    </Control>
   </AutoRollerWindow>
+
+  <RollerStatsWindow>
+  <Control
+      Type="Window"
+      Name="RollerStatsWindow"
+      X="725"
+      Y="430"
+      Width="250"
+      Height="275"
+      IsVisible="true"
+      IsLocked="true"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      VisualAlpha="85"
+      TintColor="Black"
+      DropShadow="true"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      CursorOnDrag="Dragging"
+      AnchorTop="true"
+      AnchorRight="true">
+  </Control>
+
+  <!-- Roller Stats Window Title -->
+  <Control
+    Type="WindowTitle"
+    Name="RollerStatsWindowTitle"
+    Owner="RollerStatsWindow"
+    Font="courier12"
+    TintColor="Gray"
+    VisualKey="WhiteSpace"
+    Text="Roller Stats"
+    TextColor="White"
+    TextAlignment="Center"
+    CropBoxVisualKey="WindowCropBox"
+		CropBoxVisualKeyDown="WindowCropBoxDown"
+		CropBoxDistanceFromRight="18"
+		CropBoxDistanceFromTop="0"
+    CropBoxWidth="20"
+		CropBoxHeight="20"
+    CropBoxTintColor="LightSteelBlue">
+  </Control>
+
+  <!-- Roller Stats Window Border -->
+  <Control
+    Type="SquareBorder"
+    Name="RollerStatsWindowBorder"
+    Owner="RollerStatsWindow"
+    Width="2"
+    VisualKey="WhiteSpace"
+    TintColor="Gray">
+  </Control>
+
+  <Control
+    Type="Label"
+    Text="Roll Count:"
+    Name="RollsCounterLabel"
+    Owner="RollerStatsWindow"
+    X="10"
+    Y="30"
+    Width="230"
+    Height="25"
+    TextColor="White"
+    IsVisible="true"
+    Font="courier12"
+    TextAlignment="Left">
+  </Control>
+
+    <Control
+    Type="Label"
+    Text="Auto Roller Time:"
+    Name="AutoRollerTimeLabel"
+    Owner="RollerStatsWindow"
+    X="10"
+    Y="60"
+    Width="230"
+    Height="25"
+    TextColor="White"
+    IsVisible="true"
+    Font="courier12"
+    TextAlignment="Left">
+    </Control>
+
+    <Control
+    Type="Label"
+    Text="Highest Hits:"
+    Name="HighestHitsLabel"
+    Owner="RollerStatsWindow"
+    X="10"
+    Y="90"
+    Width="230"
+    Height="25"
+    TextColor="White"
+    IsVisible="true"
+    Font="courier12"
+    TextAlignment="Left">
+    </Control>
+
+    <Control
+    Type="Label"
+    Text="Highest Stamina:"
+    Name="HighestStaminaLabel"
+    Owner="RollerStatsWindow"
+    X="10"
+    Y="120"
+    Width="230"
+    Height="25"
+    TextColor="White"
+    IsVisible="true"
+    Font="courier12"
+    TextAlignment="Left">
+    </Control>
+
+    <Control
+    Type="Label"
+    Text="Highest Mana:"
+    Name="HighestManaLabel"
+    Owner="RollerStatsWindow"
+    X="10"
+    Y="150"
+    Width="230"
+    Height="25"
+    TextColor="White"
+    IsVisible="true"
+    Font="courier12"
+    TextAlignment="Left">
+    </Control>
+</RollerStatsWindow>
   
   <!--<Control
 		Type="Label"

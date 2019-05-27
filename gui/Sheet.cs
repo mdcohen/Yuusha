@@ -283,7 +283,7 @@ namespace Yuusha.gui
                 if (GuiManager.Dragging && ms.LeftButton != ButtonState.Pressed)
                     GuiManager.Dragging = false;
 
-                // Always stop dragging if the moust pointer is not positioned in the dragged control.
+                // Always stop dragging if the mouse pointer is not positioned in the dragged control.
                 if (GuiManager.Dragging && !(GuiManager.DraggedControl.Contains(ms.Position)))
                     GuiManager.Dragging = false;
 
@@ -522,6 +522,11 @@ namespace Yuusha.gui
                         if (c is SquareBorder)
                             (owner as HotButton).Border = c as SquareBorder;
                     }
+                    else if(owner is DragAndDropButton)
+                    {
+                        if (c is SquareBorder)
+                            (owner as DragAndDropButton).Border = c as SquareBorder;
+                    }
                 }
             }
         }
@@ -754,27 +759,29 @@ namespace Yuusha.gui
             }
         }
 
-        public void CreateWindowTitle(string name, string owner, string font, string text, Color textColor, Color tintColor,
+        public void CreateWindowTitle(string name, string owner, string font, string text, Color textColor, Color tintColor, byte visualAlpha,
             BitmapFont.TextAlignment textAlignment, VisualKey visualKey, bool visualTiled, VisualKey closeBoxVisualKey,
             VisualKey maxBoxVisualKey, VisualKey minBoxVisualKey, VisualKey cropBoxVisualKey, VisualKey closeBoxVisualKeyDown,
             VisualKey maxBoxVisualKeyDown, VisualKey minBoxVisualKeyDown, VisualKey cropBoxVisualKeyDown,
-            int closeBoxDistanceFromRight, int closeBoxDistanceFromTop, int closeBoxWidth, int closeBoxHeight,
-            int maxBoxDistanceFromRight, int maxBoxDistanceFromTop, int maxBoxWidth, int maxBoxHeight,
-            int minBoxDistanceFromRight, int minBoxDistanceFromTop, int minBoxWidth, int minBoxHeight,
-            int cropBoxDistanceFromRight, int cropBoxDistanceFromTop, int cropBoxWidth, int cropBoxHeight,
+            int closeBoxDistanceFromRight, int closeBoxDistanceFromTop, int closeBoxWidth, int closeBoxHeight, int closeBoxVisualAlpha,
+            int maxBoxDistanceFromRight, int maxBoxDistanceFromTop, int maxBoxWidth, int maxBoxHeight, int maxBoxVisualAlpha,
+            int minBoxDistanceFromRight, int minBoxDistanceFromTop, int minBoxWidth, int minBoxHeight, int minBoxVisualAlpha,
+            int cropBoxDistanceFromRight, int cropBoxDistanceFromTop, int cropBoxWidth, int cropBoxHeight, int cropBoxVisualAlpha,
             Color closeBoxTintColor, Color maximizeBoxTintColor, Color minimizeBoxTintColor, Color cropBoxTintColor)
         {
-            AddControl(new WindowTitle(name, owner, font, text, textColor, tintColor, textAlignment, visualKey, visualTiled, closeBoxVisualKey,
+            AddControl(new WindowTitle(name, owner, font, text, textColor, tintColor, visualAlpha,
+                textAlignment, visualKey, visualTiled, closeBoxVisualKey,
                 maxBoxVisualKey, minBoxVisualKey, cropBoxVisualKey, closeBoxVisualKeyDown, maxBoxVisualKeyDown, minBoxVisualKeyDown,
-                cropBoxVisualKeyDown, closeBoxDistanceFromRight, closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, maxBoxDistanceFromRight,
-                maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight, minBoxDistanceFromRight, minBoxDistanceFromTop, minBoxWidth,
-                minBoxHeight, cropBoxDistanceFromRight, cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight,
+                cropBoxVisualKeyDown, closeBoxDistanceFromRight, closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, closeBoxVisualAlpha,
+                maxBoxDistanceFromRight, maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight, maxBoxVisualAlpha,
+                minBoxDistanceFromRight, minBoxDistanceFromTop, minBoxWidth, minBoxHeight, minBoxVisualAlpha,
+                cropBoxDistanceFromRight, cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight, cropBoxVisualAlpha,
                 closeBoxTintColor, maximizeBoxTintColor, minimizeBoxTintColor, cropBoxTintColor));
         }
 
-        public void CreateSquareBorder(string name, string owner, int width, VisualKey visualKey, bool visualTiled, Color tintColor)
+        public void CreateSquareBorder(string name, string owner, int width, VisualKey visualKey, bool visualTiled, Color tintColor, byte visualAlpha)
         {
-            AddControl(new SquareBorder(name, owner, width, visualKey, visualTiled, tintColor));
+            AddControl(new SquareBorder(name, owner, width, visualKey, visualTiled, tintColor, visualAlpha));
         }
 
         public void CreateNumericTextBox(string name, string owner, Rectangle rectangle, string text, Color textColor,
@@ -861,7 +868,7 @@ namespace Yuusha.gui
                borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
                anchors, popUpText));
 
-            SquareBorder border = new SquareBorder(name + "SquareBorder", name, Client.UserSettings.TargetBorderSize, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorTargetBorder);
+            SquareBorder border = new SquareBorder(name + "SquareBorder", name, Client.UserSettings.TargetBorderSize, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorTargetBorder, visualAlpha);
             border.IsVisible = false;
             AddControl(border);
 

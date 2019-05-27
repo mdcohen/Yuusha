@@ -80,6 +80,7 @@
     <Compile Include="game classes\Item.cs" />
     <Compile Include="game classes\Land.cs" />
     <Compile Include="game classes\LOKMap.cs" />
+    <Compile Include="game classes\Lore.cs" />
     <Compile Include="game classes\Map.cs" />
     <Compile Include="game classes\Spell.cs" />
     <Compile Include="game classes\World.cs" />
@@ -92,25 +93,26 @@
     <Compile Include="gui\controls\buttons\HotButton.cs" />
     <Compile Include="gui\controls\buttons\IconImageSelectionButton.cs" />
     <Compile Include="gui\controls\buttons\MacroButton.cs" />
-    <Compile Include="gui\controls\ComboBox.cs" />
+    <Compile Include="gui\controls\containers\ComboBox.cs" />
     <Compile Include="gui\controls\Control.cs" />
-    <Compile Include="gui\controls\ControlSorter.cs" />
-    <Compile Include="gui\controls\DropDownMenu.cs" />
-    <Compile Include="gui\controls\DropDownMenuItem.cs" />
+    <Compile Include="gui\controls\helper classes\ControlSorter.cs" />
+    <Compile Include="gui\controls\containers\DropDownMenu.cs" />
+    <Compile Include="gui\controls\containers\DropDownMenuItem.cs" />
     <Compile Include="gui\controls\labels\CritterListLabel.cs" />
     <Compile Include="gui\controls\labels\IOKTileLabel.cs" />
     <Compile Include="gui\controls\labels\Label.cs" />
+    <Compile Include="gui\controls\labels\MapTileLabel.cs" />
     <Compile Include="gui\controls\labels\SpinelTileLabel.cs" />
-    <Compile Include="gui\controls\ListBox.cs" />
+    <Compile Include="gui\controls\windows\gridboxes\GridBox.cs" />
     <Compile Include="gui\controls\MouseCursor.cs" />
-    <Compile Include="gui\controls\NumericTextBox.cs" />
+    <Compile Include="gui\controls\textboxes\NumericTextBox.cs" />
     <Compile Include="gui\controls\RadioButton.cs" />
-    <Compile Include="gui\controls\ScrollableTextBox.cs" />
+    <Compile Include="gui\controls\textboxes\ScrollableTextBox.cs" />
     <Compile Include="gui\controls\Scrollbar.cs" />
     <Compile Include="gui\controls\ScrollbarControlBox.cs" />
     <Compile Include="gui\controls\Slider.cs" />
     <Compile Include="gui\controls\StatusBar.cs" />
-    <Compile Include="gui\controls\TextBox.cs" />
+    <Compile Include="gui\controls\textboxes\TextBox.cs" />
     <Compile Include="gui\controls\windows\HotButtonEditWindow.cs" />
     <Compile Include="gui\controls\windows\MacroButtonEditWindow.cs" />
     <Compile Include="gui\controls\windows\Window.cs" />
@@ -137,6 +139,11 @@
     <Compile Include="KeyboardHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="utility\BitmapFont.cs" />
     <Compile Include="utility\Enums.cs" />
     <Compile Include="utility\Globals.cs" />
@@ -180,6 +187,18 @@
     <Content Include="media\fonts\courier16.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="media\fonts\courier18-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\courier18.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\courier20-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\courier20.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\fonts\courier28-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -187,24 +206,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\courier28.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\levRunes20-0.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\levRunes20-1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\levRunes20.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\times-0.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\times-1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\fonts\times.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\help.txt">
@@ -319,6 +320,9 @@
     <Content Include="media\textures\ui_helpers.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="media\textures\worldmap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\xml\cursors.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -333,9 +337,15 @@
     </Content>
     <Content Include="media\xml\fonts.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="media\xml\lore.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="media\xml\sheets\charactergeneration.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="media\xml\sheets\conf.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -375,6 +385,7 @@
     </Content>
     <Content Include="media\xml\sheets\spinelgame.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="media\xml\sheets\splash.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -433,6 +444,10 @@
     </None>
     <None Include="media\sounds\Yuusha.xap">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="YuushaMG_TemporaryKey.pfx" />
   </ItemGroup>

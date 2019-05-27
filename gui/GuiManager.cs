@@ -167,8 +167,10 @@ namespace Yuusha.gui
                 return false;
             }
 
-            XmlTextReader reader = new XmlTextReader(file);
-            reader.WhitespaceHandling = WhitespaceHandling.None;
+            XmlTextReader reader = new XmlTextReader(file)
+            {
+                WhitespaceHandling = WhitespaceHandling.None
+            };
 
             while (reader.Read())
             {
@@ -427,6 +429,10 @@ namespace Yuusha.gui
                                 int minBoxHeight = 0; // WindowTitle (WindowControlBox)
                                 int cropBoxWidth = 0; // WindowTitle (WindowControlBox)
                                 int cropBoxHeight = 0; // WindowTitle (WindowControlBox)
+                                int closeBoxVisualAlpha = 255;
+                                int maxBoxVisualAlpha = 255;
+                                int minBoxVisualAlpha = 255;
+                                int cropBoxVisualAlpha = 255;
                                 string closeBoxTintColor = "White";
                                 string minBoxTintColor = "White";
                                 string maxBoxTintColor = "White";
@@ -623,6 +629,14 @@ namespace Yuusha.gui
                                             cropBoxHeight = reader.ReadContentAsInt();
                                         else if (reader.Name == "CropBoxTintColor")
                                             cropBoxTintColor = reader.Value;
+                                        else if (reader.Name == "CloseBoxVisualAlpha")
+                                            closeBoxVisualAlpha = reader.ReadContentAsInt();
+                                        else if (reader.Name == "MaximizeBoxVisualAlpha")
+                                            maxBoxVisualAlpha = reader.ReadContentAsInt();
+                                        else if (reader.Name == "MinimizeCloseBoxVisualAlpha")
+                                            minBoxVisualAlpha = reader.ReadContentAsInt();
+                                        else if (reader.Name == "CropBoxVisualAlpha")
+                                            cropBoxVisualAlpha = reader.ReadContentAsInt();
                                         // end window titles
                                         else if (reader.Name == "CursorOnDrag")
                                             cursorOnDrag = reader.Value;
@@ -654,21 +668,21 @@ namespace Yuusha.gui
                                             cursorOnDrag);
                                         break;
                                     case "WindowTitle":
-                                        sheet.CreateWindowTitle(name, owner, font, text, Utils.GetColor(textColor), Utils.GetColor(tintColor),
+                                        sheet.CreateWindowTitle(name, owner, font, text, Utils.GetColor(textColor), Utils.GetColor(tintColor), visualAlpha,
                                             textAlignment, new VisualKey(visualKey), visualTiled, new VisualKey(closeBoxVisualKey), new VisualKey(maxBoxVisualKey),
                                             new VisualKey(minBoxVisualKey), new VisualKey(cropBoxVisualKey), new VisualKey(closeBoxVisualKeyDown),
                                             new VisualKey(maxBoxVisualKeyDown), new VisualKey(minBoxVisualKeyDown), new VisualKey(cropBoxVisualKeyDown),
-                                            closeBoxDistanceFromRight, closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight,
-                                            maxBoxDistanceFromRight, maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight,
-                                            minBoxDistanceFromRight, minBoxDistanceFromTop, minBoxWidth, minBoxHeight,
-                                            cropBoxDistanceFromRight, cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight,
+                                            closeBoxDistanceFromRight, closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, closeBoxVisualAlpha,
+                                            maxBoxDistanceFromRight, maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight, maxBoxVisualAlpha,
+                                            minBoxDistanceFromRight, minBoxDistanceFromTop, minBoxWidth, minBoxHeight, minBoxVisualAlpha,
+                                            cropBoxDistanceFromRight, cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight, cropBoxVisualAlpha,
                                             Utils.GetColor(closeBoxTintColor), Utils.GetColor(maxBoxTintColor), Utils.GetColor(minBoxTintColor),
                                             Utils.GetColor(cropBoxTintColor));
                                         break;
                                     case "TexturedBorder":
                                         break;
                                     case "SquareBorder":
-                                        sheet.CreateSquareBorder(name, owner, width, new VisualKey(visualKey), visualTiled, Utils.GetColor(tintColor));
+                                        sheet.CreateSquareBorder(name, owner, width, new VisualKey(visualKey), visualTiled, Utils.GetColor(tintColor), visualAlpha);
                                         break;
                                     case "NumericTextBox":
                                         sheet.CreateNumericTextBox(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
@@ -755,37 +769,10 @@ namespace Yuusha.gui
                         }
                         #endregion
                     }
-                    //else if (reader.Name == "UserSettings")
-                    //{
-                    //    while (reader.Read())
-                    //    {
-                    //        if (reader.NodeType == XmlNodeType.Element)
-                    //        {
-                    //            if (reader.Name == "ControlSetting")
-                    //            {
-                    //                string sheetName = "";
-                    //                string controlName = "";
-                    //                for (int i = 0; i < reader.AttributeCount; i++)
-                    //                {
-                    //                    reader.MoveToAttribute(i);
-                    //                    if (reader.Name == "Sheet")
-                    //                        sheetName = reader.Value;
-                    //                    else if (reader.Name == "Control")
-                    //                        controlName = reader.Value;
-                    //                }
-                    //            }
-                    //        }
-                            
-                    //    }
-                    //    for (int i = 0; i < reader.AttributeCount; i++)
-                    //    {
-                    //        reader.MoveToAttribute(i);
-                    //        if (reader.Name == "Name")
-                    //            name = reader.Value;
-                    //        else if (reader.Name == "Path")
-                    //            path = reader.Value;
-                    //    }
-                    //}
+                    else if (reader.Name == "Lore")
+                    {
+                        if (Lore.LoreXMLFile != xmlFile) Lore.LoreXMLFile = xmlFile;
+                    }
                 }
             }
             reader.Close();

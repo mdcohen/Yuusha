@@ -172,6 +172,8 @@ namespace Yuusha.gui
                 }
 
                 WindowTitle.Draw(gameTime);
+                if (!m_minimized && !m_cropped)
+                    WindowBorder.Draw(gameTime);
             }
         }
 
@@ -520,7 +522,7 @@ namespace Yuusha.gui
                 // disable all controls in the window except the control boxes and title
                 foreach (Control ctrl in this.Controls)
                 {
-                    if (!(ctrl is WindowControlBox) && !(ctrl is WindowTitle))
+                    if (!(ctrl is WindowControlBox) && !(ctrl is WindowTitle) && (ctrl != WindowBorder))
                         ctrl.IsDisabled = m_cropped;
                 }
             }
@@ -540,7 +542,8 @@ namespace Yuusha.gui
                 m_cropped = true;
                 Position = new Point(0, Client.Height - WindowTitle.Height);
                 CheckBoundsAndAdjust();
-            }            
+            }
+            else OnMaximize();
         }
 
         public virtual void OnMaximize()

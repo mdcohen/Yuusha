@@ -264,6 +264,11 @@ namespace Yuusha.gui
             }
         }
 
+        public void ScrollToTop()
+        {
+            m_scrollbar.ScrollValue = m_formattedLines.Count;
+        }
+
         public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
         {
             base.OnClientResize(prev, now, ownerOverride);
@@ -302,11 +307,8 @@ namespace Yuusha.gui
 
                 Color lineColor = TextManager.GetTextFilteredColor(Client.GameState, line, true);
 
-                if(lineColor == Color.White && line.EndsWith("!") && !line.Contains(": "))
-                {
-                    lineColor = TextManager.GetTextFilteredColor(Client.GameState, " hits with ", true);//test
-
-                }
+                if (lineColor == TextColor && line.EndsWith("!") && !line.Contains(": "))
+                    lineColor = TextManager.GetTextFilteredColor(Client.GameState, " hits with ", true);
 
                 m_allTextColors.Add(lineColor);
 
@@ -317,6 +319,8 @@ namespace Yuusha.gui
                 Utils.Log("EXCEPTION: ScrollableTextBox.AddLine(" + line + ", " + textType.ToString());
                 Utils.LogException(e);
             }
+
+            if (Scrollbar.ScrollLocked) Scrollbar.ScrollValue = m_formattedLines.Count;
         }
 
         public void Clear()

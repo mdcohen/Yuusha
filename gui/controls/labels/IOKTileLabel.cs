@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
 {
-    public class IOKTileLabel : Label
+    public class IOKTileLabel : MapTileLabel
     {
         private string m_lootText;
         private string m_creatureText;

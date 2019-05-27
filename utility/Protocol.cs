@@ -136,6 +136,17 @@ namespace Yuusha
         public static string CHARGEN_INVALIDNAME = (char)27 + "CG4" + (char)27;
         public static string CHARGEN_ACCEPTED = (char)27 + "CG5" + (char)27;
 
+        #region Requests
+        public static string REQUEST_CHARACTER_INVENTORY = (char)27 + "R8" + (char)27;
+        public static string REQUEST_CHARACTER_SACK = (char)27 + "RA" + (char)27;
+        public static string REQUEST_CHARACTER_BELT = (char)27 + "RC" + (char)27;
+        public static string REQUEST_CHARACTER_RINGS = (char)27 + "RE" + (char)27;
+        public static string REQUEST_CHARACTER_LOCKER = (char)27 + "RG" + (char)27;
+        public static string REQUEST_CHARACTER_SPELLS = (char)27 + "RI" + (char)27;
+        public static string REQUEST_CHARACTER_EFFECTS = (char)27 + "RK" + (char)27;
+        public static string REQUEST_CHARACTER_SKILLS = (char)27 + "RO" + (char)27;
+        #endregion
+
         #region Conference Room
         public static string CONF_ENTER = (char)27 + "F0" + (char)27;
         public static string CONF_INFO = (char)27 + "F1" + (char)27;

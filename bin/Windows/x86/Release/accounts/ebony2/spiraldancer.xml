@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <CharacterSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <DoubleLeftClickNearbyTarget>fight %t;bash %t</DoubleLeftClickNearbyTarget>
-  <DoubleLeftClickDistantTarget>belt shield;throw hammer at %t</DoubleLeftClickDistantTarget>
+  <DoubleLeftClickNearbyTarget>fight %t;throw hammer at %t</DoubleLeftClickNearbyTarget>
+  <DoubleLeftClickDistantTarget>cast %t</DoubleLeftClickDistantTarget>
   <NumLock0>search all;scoop coins</NumLock0>
   <NumLock1>sw</NumLock1>
   <NumLock2>s</NumLock2>
@@ -17,11 +17,11 @@
   <NumPadSubtract>belt left;remove 2 ring from right</NumPadSubtract>
   <NumPadAdd>look in sack;quaff</NumPadAdd>
   <NumPadDelete>ashtug ninda anghizidda arrflug</NumPadDelete>
-  <CritterListDropDownMenuItem1>kick %t;look at %t</CritterListDropDownMenuItem1>
-  <CritterListDropDownMenuItem2>backstab %t;look at %t</CritterListDropDownMenuItem2>
-  <CritterListDropDownMenuItem3>steal coins from %t</CritterListDropDownMenuItem3>
-  <CritterListDropDownMenuItem4>jumpkick %t;look at %t</CritterListDropDownMenuItem4>
-  <CritterListDropDownMenuItem5>shoot %t;look at %t</CritterListDropDownMenuItem5>
+  <CritterListDropDownMenuItem1>fight %t;throw hammer at %t</CritterListDropDownMenuItem1>
+  <CritterListDropDownMenuItem2>cast at %t</CritterListDropDownMenuItem2>
+  <CritterListDropDownMenuItem3>look at %t</CritterListDropDownMenuItem3>
+  <CritterListDropDownMenuItem4 />
+  <CritterListDropDownMenuItem5 />
   <VerticalHotButtonVisualKey0>hotbuttonicon_186</VerticalHotButtonVisualKey0>
   <VerticalHotButtonVisualKey1>hotbuttonicon_146</VerticalHotButtonVisualKey1>
   <VerticalHotButtonVisualKey2>hotbuttonicon_2</VerticalHotButtonVisualKey2>
@@ -35,9 +35,9 @@
   <VerticalHotButtonVisualKey10>hotbuttonicon_331</VerticalHotButtonVisualKey10>
   <VerticalHotButtonVisualKey11>hotbuttonicon_448</VerticalHotButtonVisualKey11>
   <VerticalHotButtonVisualKey12>hotbuttonicon_476</VerticalHotButtonVisualKey12>
-  <VerticalHotButtonVisualKey13>hotbuttonicon_247</VerticalHotButtonVisualKey13>
+  <VerticalHotButtonVisualKey13>hotbuttonicon_147</VerticalHotButtonVisualKey13>
   <VerticalHotButtonVisualKey14>hotbuttonicon_266</VerticalHotButtonVisualKey14>
-  <VerticalHotButtonVisualKey15>hotbuttonicon_247</VerticalHotButtonVisualKey15>
+  <VerticalHotButtonVisualKey15>hotbuttonicon_135</VerticalHotButtonVisualKey15>
   <VerticalHotButtonVisualKey16>hotbuttonicon_91</VerticalHotButtonVisualKey16>
   <VerticalHotButtonVisualKey17>hotbuttonicon_247</VerticalHotButtonVisualKey17>
   <VerticalHotButtonVisualKey18>hotbuttonicon_247</VerticalHotButtonVisualKey18>
@@ -55,9 +55,9 @@
   <VerticalHotButtonText10>ega tamatunu shadu enaa/lightning</VerticalHotButtonText10>
   <VerticalHotButtonText11>isa nergal kanpa ninnme/resfear</VerticalHotButtonText11>
   <VerticalHotButtonText12>ilani shunu ninnme na/turnundead</VerticalHotButtonText12>
-  <VerticalHotButtonText13 />
+  <VerticalHotButtonText13>nngi ninn dingir muxxisha/resblind</VerticalHotButtonText13>
   <VerticalHotButtonText14>yu zumri khitim lalartu/death</VerticalHotButtonText14>
-  <VerticalHotButtonText15 />
+  <VerticalHotButtonText15>nenlil angarru lalartu muxxisha/prfireice</VerticalHotButtonText15>
   <VerticalHotButtonText16 />
   <VerticalHotButtonText17 />
   <VerticalHotButtonText18 />
@@ -70,8 +70,8 @@
   <HorizontalHotButtonVisualKey5>hotbuttonicon_25</HorizontalHotButtonVisualKey5>
   <HorizontalHotButtonVisualKey6>hotbuttonicon_26</HorizontalHotButtonVisualKey6>
   <HorizontalHotButtonVisualKey7>hotbuttonicon_27</HorizontalHotButtonVisualKey7>
-  <HorizontalHotButtonVisualKey8>hotbuttonicon_28</HorizontalHotButtonVisualKey8>
-  <HorizontalHotButtonVisualKey9>hotbuttonicon_29</HorizontalHotButtonVisualKey9>
+  <HorizontalHotButtonVisualKey8>hotbuttonicon_280</HorizontalHotButtonVisualKey8>
+  <HorizontalHotButtonVisualKey9>hotbuttonicon_205</HorizontalHotButtonVisualKey9>
   <HorizontalHotButtonVisualKey10>hotbuttonicon_168</HorizontalHotButtonVisualKey10>
   <HorizontalHotButtonVisualKey11>hotbuttonicon_215</HorizontalHotButtonVisualKey11>
   <HorizontalHotButtonVisualKey12>hotbuttonicon_91</HorizontalHotButtonVisualKey12>
@@ -85,8 +85,8 @@
   <HorizontalHotButtonText5 />
   <HorizontalHotButtonText6 />
   <HorizontalHotButtonText7 />
-  <HorizontalHotButtonText8 />
-  <HorizontalHotButtonText9 />
+  <HorizontalHotButtonText8>kia luubluyi anghizidda alla/phantasm</HorizontalHotButtonText8>
+  <HorizontalHotButtonText9>tamatunu qutri baad alsi/createsnake</HorizontalHotButtonText9>
   <HorizontalHotButtonText10>ashtug ninda anghizidda arrflug/portal chant</HorizontalHotButtonText10>
   <HorizontalHotButtonText11>tamatunu qutri baad alsi/create snake</HorizontalHotButtonText11>
   <HorizontalHotButtonText12>shurrim idpa nngi cuthalu/banish</HorizontalHotButtonText12>

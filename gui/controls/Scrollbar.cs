@@ -18,6 +18,7 @@ namespace Yuusha.gui
         #endregion
 
         #region Public Properties
+        public bool ScrollLocked { get; set; }
         public int ScrollValue
         {
             get { return m_scrollValue; }
@@ -75,9 +76,6 @@ namespace Yuusha.gui
                 return;
 
             base.Draw(gameTime);
-
-            //Rectangle trackRectangle = new Rectangle(m_rectangle.X, m_rectangle.Y, m_rectangle.Width, m_rectangle.Height);
-
         }
 
         public void Reset()

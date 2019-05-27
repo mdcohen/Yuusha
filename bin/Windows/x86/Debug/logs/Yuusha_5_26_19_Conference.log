@@ -1,0 +1,112 @@
+5/26/2019 6:19:43 PM: File: DS_5_26_19_ExceptionDetail.log
+5/26/2019 6:19:43 PM: 5/26/2019 3:53:18 AM: (ExceptionDetail) Failed Combat.DND_GetBaseThac0 for ClassType.Fighter at skillLevel -2147472720.
+5/26/2019 6:19:43 PM: 5/26/2019 3:53:18 AM: (ExceptionDetail) Failed Combat.DND_GetBaseThac0 for ClassType.Fighter at skillLevel -2147482350.
+5/26/2019 6:19:43 PM: 5/26/2019 3:53:19 AM: (ExceptionDetail) Failed Combat.DND_GetBaseThac0 for ClassType.Fighter at skillLevel -2147482350.
+5/26/2019 6:19:43 PM: 5/26/2019 3:53:23 AM: (ExceptionDetail) Failed Combat.DND_GetBaseThac0 for ClassType.Fighter at skillLevel -2147472720.
+5/26/2019 6:19:43 PM: 5/26/2019 3:53:23 AM: (ExceptionDetail) Failed Combat.DND_GetBaseThac0 for ClassType.Fighter at skillLevel -2147482350.
+5/26/2019 6:19:43 PM: 5/26/2019 3:53:23 AM: (ExceptionDetail) Failed Combat.DND_GetBaseThac0 for ClassType.Fighter at skillLevel -2147482350.
+5/26/2019 6:19:43 PM: 
+5/26/2019 6:21:56 PM: File: DS_5_26_19_Login.log
+5/26/2019 6:21:56 PM: 5/26/2019 2:38:17 AM: (Login) (PC) [ID: 6687] Ebony..rose [Neutral Thief(30)] (ebonyofold) ((CELL) UW - Eridu 20, 30, 0)
+5/26/2019 6:21:56 PM: 5/26/2019 3:53:12 AM: (Login) (PC) [ID: 6676] Spiral.Dancer [Lawful Thaumaturge(14)] (ebony2) ((CELL) BG - Axe Glacier 66, 125, 0)
+5/26/2019 6:21:56 PM: 5/26/2019 9:08:37 AM: (Login) (PC) [ID: 6676] Spiral.Dancer [Lawful Thaumaturge(14)] (ebony2) ((CELL) BG - Axe Glacier 23, 110, 80)
+5/26/2019 6:21:56 PM: 5/26/2019 9:12:45 AM: (Login) (PC) [ID: 6687] Ebony..rose [Neutral Thief(30)] (ebonyofold) ((CELL) UW - Eridu 20, 30, 0)
+5/26/2019 6:21:56 PM: 5/26/2019 9:14:59 AM: (Login) (PC) [ID: 6687] Ebony..rose [Neutral Thief(30)] (ebonyofold) ((CELL) BG - Axe Glacier 30, 106, 80)
+5/26/2019 6:21:56 PM: 5/26/2019 9:18:28 AM: (Login) (PC) [ID: 6687] Ebony..rose [Neutral Thief(30)] (ebonyofold) ((CELL) BG - Axe Glacier 30, 106, 80)
+5/26/2019 6:21:56 PM: 
+5/26/2019 6:26:02 PM: File: DS_5_26_19_Exception.log
+5/26/2019 6:26:02 PM: 5/26/2019 3:53:18 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Int32 DND_GetBaseTHAC0(ClassType, Int32)
+5/26/2019 6:26:02 PM: Message: Index was outside the bounds of the array.
+5/26/2019 6:26:02 PM: StackTrace:    at DragonsSpine.Combat.DND_GetBaseTHAC0(ClassType classType, Int32 skillLevel)
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 3:53:18 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Int32 DND_GetBaseTHAC0(ClassType, Int32)
+5/26/2019 6:26:02 PM: Message: Index was outside the bounds of the array.
+5/26/2019 6:26:02 PM: StackTrace:    at DragonsSpine.Combat.DND_GetBaseTHAC0(ClassType classType, Int32 skillLevel)
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 3:53:18 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Int32 DND_GetBaseTHAC0(ClassType, Int32)
+5/26/2019 6:26:02 PM: Message: Index was outside the bounds of the array.
+5/26/2019 6:26:02 PM: StackTrace:    at DragonsSpine.Combat.DND_GetBaseTHAC0(ClassType classType, Int32 skillLevel)
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 3:53:23 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Int32 DND_GetBaseTHAC0(ClassType, Int32)
+5/26/2019 6:26:02 PM: Message: Index was outside the bounds of the array.
+5/26/2019 6:26:02 PM: StackTrace:    at DragonsSpine.Combat.DND_GetBaseTHAC0(ClassType classType, Int32 skillLevel)
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 3:53:23 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Int32 DND_GetBaseTHAC0(ClassType, Int32)
+5/26/2019 6:26:02 PM: Message: Index was outside the bounds of the array.
+5/26/2019 6:26:02 PM: StackTrace:    at DragonsSpine.Combat.DND_GetBaseTHAC0(ClassType classType, Int32 skillLevel)
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 3:53:23 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Int32 DND_GetBaseTHAC0(ClassType, Int32)
+5/26/2019 6:26:02 PM: Message: Index was outside the bounds of the array.
+5/26/2019 6:26:02 PM: StackTrace:    at DragonsSpine.Combat.DND_GetBaseTHAC0(ClassType classType, Int32 skillLevel)
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 4:11:04 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Byte[] GetBytes(System.String)
+5/26/2019 6:26:02 PM: Message: String reference not set to an instance of a String.
+5/26/2019 6:26:02 PM: Parameter name: s
+5/26/2019 6:26:02 PM: StackTrace:    at System.Text.Encoding.GetBytes(String s)
+5/26/2019 6:26:02 PM:    at DragonsSpine.IO.SendOutput()
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 4:11:06 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Byte[] GetBytes(System.String)
+5/26/2019 6:26:02 PM: Message: String reference not set to an instance of a String.
+5/26/2019 6:26:02 PM: Parameter name: s
+5/26/2019 6:26:02 PM: StackTrace:    at System.Text.Encoding.GetBytes(String s)
+5/26/2019 6:26:02 PM:    at DragonsSpine.IO.SendOutput()
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 4:11:07 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Byte[] GetBytes(System.String)
+5/26/2019 6:26:02 PM: Message: String reference not set to an instance of a String.
+5/26/2019 6:26:02 PM: Parameter name: s
+5/26/2019 6:26:02 PM: StackTrace:    at System.Text.Encoding.GetBytes(String s)
+5/26/2019 6:26:02 PM:    at DragonsSpine.IO.SendOutput()
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 4:11:07 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Byte[] GetBytes(System.String)
+5/26/2019 6:26:02 PM: Message: String reference not set to an instance of a String.
+5/26/2019 6:26:02 PM: Parameter name: s
+5/26/2019 6:26:02 PM: StackTrace:    at System.Text.Encoding.GetBytes(String s)
+5/26/2019 6:26:02 PM:    at DragonsSpine.IO.SendOutput()
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 4:11:07 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Byte[] GetBytes(System.String)
+5/26/2019 6:26:02 PM: Message: String reference not set to an instance of a String.
+5/26/2019 6:26:02 PM: Parameter name: s
+5/26/2019 6:26:02 PM: StackTrace:    at System.Text.Encoding.GetBytes(String s)
+5/26/2019 6:26:02 PM:    at DragonsSpine.IO.SendOutput()
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 4:11:08 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Byte[] GetBytes(System.String)
+5/26/2019 6:26:02 PM: Message: String reference not set to an instance of a String.
+5/26/2019 6:26:02 PM: Parameter name: s
+5/26/2019 6:26:02 PM: StackTrace:    at System.Text.Encoding.GetBytes(String s)
+5/26/2019 6:26:02 PM:    at DragonsSpine.IO.SendOutput()
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 4:11:17 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Byte[] GetBytes(System.String)
+5/26/2019 6:26:02 PM: Message: String reference not set to an instance of a String.
+5/26/2019 6:26:02 PM: Parameter name: s
+5/26/2019 6:26:02 PM: StackTrace:    at System.Text.Encoding.GetBytes(String s)
+5/26/2019 6:26:02 PM:    at DragonsSpine.IO.SendOutput()
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 4:11:24 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Byte[] GetBytes(System.String)
+5/26/2019 6:26:02 PM: Message: String reference not set to an instance of a String.
+5/26/2019 6:26:02 PM: Parameter name: s
+5/26/2019 6:26:02 PM: StackTrace:    at System.Text.Encoding.GetBytes(String s)
+5/26/2019 6:26:02 PM:    at DragonsSpine.IO.SendOutput()
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 4:11:29 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Byte[] GetBytes(System.String)
+5/26/2019 6:26:02 PM: Message: String reference not set to an instance of a String.
+5/26/2019 6:26:02 PM: Parameter name: s
+5/26/2019 6:26:02 PM: StackTrace:    at System.Text.Encoding.GetBytes(String s)
+5/26/2019 6:26:02 PM:    at DragonsSpine.IO.SendOutput()
+5/26/2019 6:26:02 PM: 
+5/26/2019 6:26:02 PM: 5/26/2019 9:09:15 AM: EXCEPTION
+5/26/2019 6:26:02 PM: TargetSite: Void ThrowInvalidOperationException(System.ExceptionResource)

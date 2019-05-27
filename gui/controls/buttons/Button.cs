@@ -7,13 +7,12 @@ namespace Yuusha.gui
 {
     public class Button : Control
     {        
-        protected bool m_onMouseDownSent;
+        protected bool m_onMouseDownSent = false;
         protected bool m_textVisible;
-        protected string m_command;
 
         public string Command
         {
-            get { return m_command; }
+            get; set;
         }
 
         public Button(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
@@ -58,7 +57,7 @@ namespace Yuusha.gui
             m_dropShadow = dropShadow;
             m_shadowDirection = shadowDirection;
             m_shadowDistance = shadowDistance;
-            m_command = command;
+            Command = command;
 
             m_onMouseDownSent = false;
         }
@@ -109,7 +108,6 @@ namespace Yuusha.gui
             if (m_owner != "")
                 if (!GuiManager.GetControl(m_owner).IsVisible) return;
 
-
             if (!m_onMouseDownSent && ms.LeftButton == ButtonState.Pressed)
             {
                 try
@@ -136,11 +134,10 @@ namespace Yuusha.gui
                 m_visualKey = m_visuals[Enums.EControlState.Normal];
         }
 
-        public void Click()
-        {
-            if (m_disabled) return;
-
-            OnMouseDown(Mouse.GetState());
-        }
+        //protected override void OnMouseOver(MouseState ms)
+        //{
+        //    TextCue.AddCursorTextCue(m_hasTouchDownPoint.ToString(), Color.Yellow, Color.Transparent, Font);
+        //    base.OnMouseOver(ms);
+        //}
     }
 }

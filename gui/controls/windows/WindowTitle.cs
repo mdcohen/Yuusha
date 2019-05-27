@@ -6,8 +6,6 @@ namespace Yuusha.gui
 {
     public class WindowTitle : Control
     {
-        public const int DEFAULT_WINDOW_TITLE_HEIGHT = 18;
-
         #region Private Data
         readonly WindowControlBox m_closeBox;
         readonly WindowControlBox m_maximizeBox;
@@ -36,15 +34,13 @@ namespace Yuusha.gui
         #endregion
 
         #region Constructor
-        public WindowTitle(string name, string owner, string font, string text, Color textColor, Color tintColor,
-            BitmapFont.TextAlignment textAlignment, VisualKey visualKey, bool visualTiled, VisualKey closeBoxVisualKey,
-            VisualKey maxBoxVisualKey, VisualKey minBoxVisualKey, VisualKey cropBoxVisualKey, VisualKey closeBoxVisualKeyDown,
-            VisualKey maxBoxVisualKeyDown, VisualKey minBoxVisualKeyDown, VisualKey cropBoxVisualKeyDown,
+        /// <summary>
+        /// Instance of a WindowTitle with only a close box.
+        /// </summary>
+        public WindowTitle(string name, string owner, string font, string text, Color textColor, Color tintColor, byte visualAlpha,
+            BitmapFont.TextAlignment textAlignment, VisualKey visualKey, bool visualTiled, VisualKey closeBoxVisualKey, VisualKey closeBoxVisualKeyDown,
             int closeBoxDistanceFromRight, int closeBoxDistanceFromTop, int closeBoxWidth, int closeBoxHeight,
-            int maxBoxDistanceFromRight, int maxBoxDistanceFromTop, int maxBoxWidth, int maxBoxHeight,
-            int minBoxDistanceFromRight, int minBoxDistanceFromTop, int minBoxWidth, int minBoxHeight,
-            int cropBoxDistanceFromRight, int cropBoxDistanceFromTop, int cropBoxWidth, int cropBoxHeight,
-            Color closeBoxTintColor, Color maximizeBoxTintColor, Color minimizeBoxTintColor, Color cropBoxTintColor)
+            Color closeBoxTintColor, params object[] obj)
             : base()
         {
             m_name = name;
@@ -58,22 +54,66 @@ namespace Yuusha.gui
             m_visible = true;
             m_rectangle = new Rectangle(0, 0, 100, 14);
             m_tintColor = tintColor;
-            m_height = DEFAULT_WINDOW_TITLE_HEIGHT;
+            m_visualAlpha = visualAlpha;
+            m_height = Client.UserSettings.DefaultWindowTitleHeight;
             if (closeBoxVisualKey.Key != "")
                 m_closeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Close, closeBoxDistanceFromRight,
-                    closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, closeBoxVisualKey, closeBoxVisualKeyDown, closeBoxTintColor);
+                    closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, closeBoxVisualKey, closeBoxVisualKeyDown, closeBoxTintColor, visualAlpha);
+            else m_closeBox = null;
+            m_maximizeBox = null;
+            m_minimizeBox = null;
+            m_cropBox = null;
+
+            if (obj != null)
+                m_height = (int)obj[0];
+        }
+
+        /// <summary>
+        /// Instance of a WindowTitle with all associated boxes.
+        /// </summary>
+        public WindowTitle(string name, string owner, string font, string text, Color textColor, Color tintColor, byte visualAlpha,
+            BitmapFont.TextAlignment textAlignment, VisualKey visualKey, bool visualTiled, VisualKey closeBoxVisualKey,
+            VisualKey maxBoxVisualKey, VisualKey minBoxVisualKey, VisualKey cropBoxVisualKey, VisualKey closeBoxVisualKeyDown,
+            VisualKey maxBoxVisualKeyDown, VisualKey minBoxVisualKeyDown, VisualKey cropBoxVisualKeyDown,
+            int closeBoxDistanceFromRight, int closeBoxDistanceFromTop, int closeBoxWidth, int closeBoxHeight, int closeBoxVisualAlpha,
+            int maxBoxDistanceFromRight, int maxBoxDistanceFromTop, int maxBoxWidth, int maxBoxHeight, int maxBoxVisualAlpha,
+            int minBoxDistanceFromRight, int minBoxDistanceFromTop, int minBoxWidth, int minBoxHeight, int minBoxVisualAlpha,
+            int cropBoxDistanceFromRight, int cropBoxDistanceFromTop, int cropBoxWidth, int cropBoxHeight, int cropBoxVisualAlpha,
+            Color closeBoxTintColor, Color maximizeBoxTintColor, Color minBoxTintColor, Color cropBoxTintColor, params object[] obj)
+            : base()
+        {
+            m_name = name;
+            m_owner = owner;
+            m_text = text;
+            m_textColor = textColor;
+            m_textAlignment = textAlignment;
+            m_font = font;
+            m_visualKey = visualKey;
+            m_visualTiled = visualTiled;
+            m_visible = true;
+            m_rectangle = new Rectangle(0, 0, 100, 14);
+            m_tintColor = tintColor;
+            m_visualAlpha = visualAlpha;
+            m_height = Client.UserSettings.DefaultWindowTitleHeight;
+            if (closeBoxVisualKey.Key != "")
+                m_closeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Close, closeBoxDistanceFromRight,
+                    closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, closeBoxVisualKey, closeBoxVisualKeyDown, closeBoxTintColor,
+                    closeBoxVisualAlpha);
             else m_closeBox = null;
             if (maxBoxVisualKey.Key != "")
                 m_maximizeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Maximize, maxBoxDistanceFromRight,
-                    maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight, maxBoxVisualKey, maxBoxVisualKeyDown, maximizeBoxTintColor);
+                    maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight, maxBoxVisualKey, maxBoxVisualKeyDown, maximizeBoxTintColor,
+                    maxBoxVisualAlpha);
             else m_maximizeBox = null;
             if (minBoxVisualKey.Key != "")
                 m_minimizeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Minimize, minBoxDistanceFromRight,
-                    minBoxDistanceFromTop, minBoxWidth, minBoxHeight, minBoxVisualKey, minBoxVisualKeyDown, minimizeBoxTintColor);
+                    minBoxDistanceFromTop, minBoxWidth, minBoxHeight, minBoxVisualKey, minBoxVisualKeyDown, minBoxTintColor,
+                    minBoxVisualAlpha);
             else m_minimizeBox = null;
             if (cropBoxVisualKey.Key != "")
                 m_cropBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Crop, cropBoxDistanceFromRight,
-                    cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight, cropBoxVisualKey, cropBoxVisualKeyDown, cropBoxTintColor);
+                    cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight, cropBoxVisualKey, cropBoxVisualKeyDown, cropBoxTintColor,
+                    cropBoxVisualAlpha);
             else m_cropBox = null;
         } 
         #endregion

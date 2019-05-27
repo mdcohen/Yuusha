@@ -178,7 +178,12 @@ namespace Yuusha.gui
             }
         }
 
-        public static void AddCursorTextCue(string text, Color color, string font)
+        public static void AddMouseCursorTextCue(string text)
+        {
+            AddMouseCursorTextCue(text, Client.UserSettings.ColorDefaultMouseCursorTextCue, GuiManager.CurrentSheet.Font);
+        }
+
+        public static void AddMouseCursorTextCue(string text, Color color, string font)
         { 
             MouseState ms = GuiManager.MouseState;
 
@@ -195,7 +200,6 @@ namespace Yuusha.gui
                 cursor.TextCues.Clear();
 
                 cursor.TextCues.Add(tc);
-                //cursor.TextCues.Add(new TextCue(text, ms.X, ms.Y - BitmapFont.ActiveFonts[font].LineHeight, 255, color, Color.Transparent, font, 0, true, 2, Map.Direction.Southeast, false, false, false, TextCueTag.None));
             }
         }
 

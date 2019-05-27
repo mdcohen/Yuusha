@@ -17,7 +17,7 @@ namespace Yuusha.gui
             get { return m_borderWidth; }
         }
 
-        public SquareBorder(string name, string owner, int width, VisualKey visualKey, bool visualTiled, Color tintColor)
+        public SquareBorder(string name, string owner, int width, VisualKey visualKey, bool visualTiled, Color tintColor, int visualAlpha)
             : base()
         {
             m_name = name;
@@ -26,6 +26,7 @@ namespace Yuusha.gui
             m_visualKey = visualKey;
             m_visualTiled = visualTiled;
             m_tintColor = tintColor;
+            m_visualAlpha = visualAlpha;
             m_visible = true;
             m_topRectangle = new Rectangle();
             m_leftRectangle = new Rectangle();

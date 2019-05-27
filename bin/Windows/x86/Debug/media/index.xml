@@ -52,4 +52,6 @@
   <File Name="xml\sheets\hotbuttoneditmode.xml"></File>
   <!-- Splash Screens -->
   <File Name="xml\sheets\splash.xml"></File>
+  <!-- Lore -->
+  <File Name="xml\lore.xml"></File>
 </Index>

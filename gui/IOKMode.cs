@@ -161,13 +161,13 @@ namespace Yuusha.gui
                 if (sheet[Globals.GAMEINPUTTEXTBOX] != null)
                 {
                     // Options window is only other typing textboxes with focus while in IOK mode currently.
-                    if (GuiManager.ControlWithFocus != null && (GuiManager.ControlWithFocus.Name != "OptionsWindow" || GuiManager.ControlWithFocus.Owner != "OptionsWindow"))
+                    if (GuiManager.ControlWithFocus != null && (GuiManager.ControlWithFocus.Name != "OptionsWindow" && GuiManager.ControlWithFocus.Owner != "OptionsWindow"))
                     {
                         sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
                         GuiManager.ActiveTextBox = Globals.GAMEINPUTTEXTBOX;
                     }
 
-                    if (GuiManager.ControlWithFocus != null && GuiManager.ControlWithFocus.Owner == "OptionsWindow")
+                    if (GuiManager.ControlWithFocus != null && GuiManager.ControlWithFocus.Owner != "OptionsWindow")
                     {
                         sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
                     }
@@ -270,7 +270,12 @@ namespace Yuusha.gui
                     m_cells.Add(cell);
                 else
                 {
-                    Utils.Log("Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: " + m_cells.Count + " inData: " + inData);
+                    while (m_cells.Count > 49)
+                    {
+                        m_cells.RemoveAt(49);
+                    }
+                    //Utils.Log("Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: " + m_cells.Count + " inData: " + inData);
+                    
                 }
             }
             catch (Exception e)
@@ -321,7 +326,7 @@ namespace Yuusha.gui
                 {
                     crit.LeftHand.id = Convert.ToInt32(critterInfo[tempA + 7]);
                     crit.LeftHand.name = critterInfo[tempA + 8];
-                    crit.RightHand.visualKey = critterInfo[tempA + 9];
+                    crit.LeftHand.visualKey = critterInfo[tempA + 9];
                     //crit.LeftHand.longDesc = critterInfo[tempA + 17]; //
                 }
                 else
@@ -372,7 +377,9 @@ namespace Yuusha.gui
 
                     for (int a = 0; a < 12; a++)
                     {
-                        GuiManager.GetControl("CritterList" + a.ToString()).IsVisible = false;
+                        Control c = GuiManager.GetControl("CritterList" + a.ToString());
+                        if (c is null) continue;
+                        c.IsVisible = false;
                         m_critterListNames[a] = "";
                     }
 

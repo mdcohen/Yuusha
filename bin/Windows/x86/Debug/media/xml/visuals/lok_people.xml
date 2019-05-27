@@ -11,6 +11,7 @@
 	<Visual ParentTexture="lok_people.png" Name="male_merchant" X="480" Y="0" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="female_merchant" X="540" Y="0" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="ogre" X="600" Y="0" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="ogre_female" X="600" Y="0" Width="60" Height="60"></Visual> <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="banshee" X="660" Y="0" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="fish" X="720" Y="0" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="minor_demon" X="780" Y="0" Width="60" Height="60"></Visual>
@@ -26,6 +27,7 @@
 	<Visual ParentTexture="lok_people.png" Name="brown_duck" X="360" Y="60" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="spider" X="420" Y="60" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="gray_wolf" X="480" Y="60" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="wolf" X="480" Y="60" Width="60" Height="60"></Visual> <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="griffin" X="540" Y="60" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="eidolon" X="600" Y="60" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="hyena" X="660" Y="60" Width="60" Height="60"></Visual>

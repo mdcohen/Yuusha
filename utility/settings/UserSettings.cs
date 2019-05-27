@@ -41,65 +41,40 @@ namespace Yuusha.Utility.Settings
 
         public Color Color_Gui_Spell_Warming_TextCue = Color.PaleGoldenrod;
 
-        public Color ColorTargetBorder = Color.WhiteSmoke;
         public Color ColorDropDownMenuBorder = Color.White;
         public Color ColorDropDownMenu = Color.Gray;
-        public Color ColorDropDownMenuItemBackground = Color.Gray;
+        public Color ColorDropDownMenuItemBackground = Color.Black;
         public Color ColorDropDownMenuTitleText = Color.LightCyan;
-        public Color ColorDropDownMenuItemText = Color.White;
-        public Color ColorDropDownMenuItemHighlight = Color.LightGray;
+        public Color ColorDropDownMenuItemText = Color.LightGreen;
+        public Color ColorDropDownMenuItemHighlight = Color.DarkSlateGray;
+        
+        public byte GridBoxWindowVisualKeyAlpha = 255;
+        public byte GridBoxWindowBorderAlpha = 255;
+        public string GridBoxWindowFont = "courier16";
+        public Color ColorGridBoxWindowTintColor = Color.DarkSlateGray;
+        public Color GridBoxTitleTextColor = Color.White;
+        public Color GridBoxTitleTintColor = Color.Gray;
+        public Color GridBoxTitleCloseBoxTintColor = Color.LightSlateGray;
+        public int GridBoxTitleCloseBoxDistanceFromRight = 20;
+        public int GridBoxTitleCloseBoxDistanceFromTop = 5;
+        public int GridBoxTitleCloseBoxWidth = 18;
+        public int GridBoxTitleCloseBoxHeight = 18;
+        public int GridBoxTitleHeight = 26;
+        public Color GridBoxBorderTintColor = Color.Gray;
+        public int GridBoxBorderWidth = 2;
+        public int GridBoxButtonsBorderWidth = 1;
+
+        public Color ColorDefaultMouseCursorTextCue = Color.Gold;
 
         public Color ColorHotButtonText_Fore = Color.Lime;
         public Color ColorHotButtonText_Back = Color.Purple;
-
-        // TextTypes
-        //Default,
-        //PlayerChat,
-        //Enter,
-        //Exit,
-        //Header,
-        //Status,
-        //System,
-        //Help,
-        //Private,
-        //Listing,
-        //Error,
-        //Friend,
-        //Page,
-        //Attuned,
-        //NPCChat,
-        //Death,
-        //SpellCast,
-        //SpellWarm,
-        //CombatHit,
-        //CombatMiss,
-        //SpellHit,
-        //SpellMiss
-        public Color ColorTextType_Default = Color.White;
-        public Color ColorTextType_PlayerChat = Color.MediumSlateBlue;
-        public Color ColorTextType_Enter = Color.Lime;
-        public Color ColorTextType_Exit = Color.LimeGreen;
-        public Color ColorTextType_Header = Color.White;
-        public Color ColorTextType_Status = Color.White;
-        public Color ColorTextType_System = Color.White;
-        public Color ColorTextType_Help = Color.White;
-        public Color ColorTextType_Private = Color.Aquamarine;
-        public Color ColorTextType_Listing = Color.White;
-        public Color ColorTextType_Error = Color.White;
-        public Color ColorTextType_Friend = Color.White;
-        public Color ColorTextType_Page = Color.White;
-        public Color ColorTextType_Attuned = Color.White;
-        public Color ColorTextType_NPCChat = Color.White;
-        public Color ColorTextType_Death = Color.White;
-        public Color ColorTextType_SpellCast = Color.White;
-        public Color ColorTextType_SpellWarm = Color.White;
-        public Color ColorTextType_CombatHit = Color.White;
-        public Color ColorTextType_CombatMiss = Color.White;
-        public Color ColorTextType_SpellHit = Color.White;
-        public Color ColorTextType_SpellMiss = Color.White;
         #endregion
 
+        public Color ColorTargetBorder = Color.WhiteSmoke;
         public int TargetBorderSize = 1;
+        public int MapTileBorderSize = 1;
+        public Color ColorMapTileBorder = Color.Goldenrod;
+        public int DefaultWindowTitleHeight = 18;
 
         //public Dictionary<string, Color> DisplayTextColors = new Dictionary<string, Color>();
 

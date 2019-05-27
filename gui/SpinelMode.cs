@@ -170,13 +170,13 @@ namespace Yuusha.gui
                 if (sheet[Globals.GAMEINPUTTEXTBOX] != null)
                 {
                     // Options window is only other typing textboxes with focus while in IOK mode currently.
-                    if (GuiManager.ControlWithFocus != null && (GuiManager.ControlWithFocus.Name != "OptionsWindow" || GuiManager.ControlWithFocus.Owner != "OptionsWindow"))
+                    if (GuiManager.ControlWithFocus != null && (GuiManager.ControlWithFocus.Name != "OptionsWindow" && GuiManager.ControlWithFocus.Owner != "OptionsWindow"))
                     {
                         sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
                         GuiManager.ActiveTextBox = Globals.GAMEINPUTTEXTBOX;
                     }
 
-                    if (GuiManager.ControlWithFocus != null && GuiManager.ControlWithFocus.Owner == "OptionsWindow")
+                    if (GuiManager.ControlWithFocus != null && GuiManager.ControlWithFocus.Owner != "OptionsWindow")
                     {
                         sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
                     }
@@ -303,8 +303,10 @@ namespace Yuusha.gui
                 crit.VisualKey = critterInfo[tempA + 2];
                 if (crit.VisualKey == "")
                 {
-                    Utils.LogOnce(crit.Name + " has no visualKey information.");
                     crit.VisualKey = crit.Name.ToLower().Replace(".", "_");
+                    //Utils.LogOnce(crit.Name + " has no visualKey information.");
+                    //crit.VisualKey = crit.Gender.ToString().ToLower() + "_" + crit.Profession.ToString().ToLower() + "_npc";
+                    //crit.VisualKey = crit.Profession.Name.ToLower().Replace(".", "_");
                 }
                 //crit.Profession = (Character.ClassType)Convert.ToInt32(critterInfo[tempA + 5]);
                 // change visual key to thief if critter is a thief

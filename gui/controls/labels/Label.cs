@@ -61,7 +61,7 @@ namespace Yuusha.gui
             m_textRectangle = m_rectangle;
 
             if (m_popUpText != "" && m_controlState == Enums.EControlState.Over)
-                TextCue.AddCursorTextCue(m_popUpText, Utils.GetColor(Client.ClientSettings.DefaultPopUpColor), m_font);
+                TextCue.AddMouseCursorTextCue(m_popUpText, Utils.GetColor(Client.ClientSettings.DefaultPopUpColor), m_font);
 
             base.Update(gameTime);
 
@@ -82,8 +82,6 @@ namespace Yuusha.gui
             else
                 textColor = new Color(Control.s_disabledColor.R, Control.s_disabledColor.G,
                     Control.s_disabledColor.B, this.TextAlpha);
-
-            if (m_border != null) m_border.Draw(gameTime);
 
             if (BitmapFont.ActiveFonts.ContainsKey(Font))
             {
@@ -107,7 +105,8 @@ namespace Yuusha.gui
                 }
             }
             else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Label [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
-        
+
+            if (m_border != null) m_border.Draw(gameTime);
         }
 
         protected override void OnMouseOver(MouseState ms)

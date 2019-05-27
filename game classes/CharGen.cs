@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace Yuusha
 {
@@ -11,7 +13,7 @@ namespace Yuusha
         private const int MAX_STAT_ROLL = 18;
         private const int MIN_STAT_ROLL = 3;
 
-        public static Enums.ECharGenState CharGenState = Enums.ECharGenState.ChooseGender;
+        public static Enums.ECharGenState CharGenState = Enums.ECharGenState.ChooseHomeland;
         public static Enums.ECharGenGUIMode CharGenGUIMode = Enums.ECharGenGUIMode.Text;
 
         public static DateTime AutoRollerStartTime = new DateTime();
@@ -49,12 +51,37 @@ namespace Yuusha
         private static bool ManaUser = false;
 
         public static bool FirstCharacter = false;
+
         private static string CharacterAge = "very young";
         private static string CharacterGender = "Male";
         private static string CharacterHomeland = "the plains";
         private static string CharacterProfession = "Fighter";
 
+        public static string SelectedHomeland = "Barbarian";
+        public static string SelectedProfession = "Fighter";
+
         private static int RollNumber = 0;
+
+        public static readonly Dictionary<string, string> Homelands = Lore.GetAllHomelandLore();
+        public static readonly Dictionary<string, string> Professions = Lore.GetAllProfessionsLore();
+
+        public static readonly Dictionary<string, string> CommandsToSend = new Dictionary<string, string>()
+        {
+            {"Barbarian", "b" },
+            {"Illyria", "i" },
+            {"Mu", "m" },
+            {"Lemuria", "l" },
+            {"Leng", "lg" },
+            {"Draznia", "d" },
+            {"Hovath", "h" },
+            {"Mnar", "mn" },
+            {"Fighter", "fi" },
+            {"Thaumaturge", "th" },
+            {"Wizard", "wi" },
+            {"Martial Artist", "ma" },
+            {"Thief", "tf" },
+            {"Sorcerer", "sr" }
+        };
 
         public static void ChooseGender()
         {
@@ -69,37 +96,84 @@ namespace Yuusha
 
         public static void ChooseHomeland()
         {
+            foreach (gui.Control c in new List<gui.Control>((gui.GuiManager.CurrentSheet["CharacterGenerationWindow"] as gui.Window).Controls))
+            {
+                foreach (string profession in Professions.Keys)
+                {
+                    if (c.Name == profession + "Button")
+                    {
+                        (gui.GuiManager.CurrentSheet["CharacterGenerationWindow"] as gui.Window).Controls.Remove(c);
+                    }
+                }
+            }
+
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).Clear();
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Please select a homeland:", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("I  - Illyria", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("M  - Mu", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("L  - Lemuria", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("LG - Leng", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("D  - Draznia", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("H  - Hovath", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("MN - Mnar", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("B  - Barbarian", Enums.ETextType.Default);
+            
+            Point point = new Point(64, 111);
+            int zDepth = 30;
+            List<string> homelandsList = new List<string>(Homelands.Keys);
+            homelandsList.Sort();
+            foreach(string homeland in homelandsList)
+            {
+                AddSelectionButton(homeland, point, zDepth);
+                point.Y += 23;
+                zDepth++;
+            }
+
+            Events.RegisterEvent(Events.EventName.CharGen_Lore, gui.GuiManager.CurrentSheet["BarbarianButton"]);
         }
 
         public static void ChooseProfession()
         {
+            // Remove all buttons created in ChooseHomelands.
+            foreach(gui.Control c in new List<gui.Control>((gui.GuiManager.CurrentSheet["CharacterGenerationWindow"] as gui.Window).Controls))
+            {
+                foreach(string homeland in Homelands.Keys)
+                {
+                    if(c.Name == homeland + "Button")
+                    {
+                        (gui.GuiManager.CurrentSheet["CharacterGenerationWindow"] as gui.Window).Controls.Remove(c);
+                    }
+                }
+            }
+
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).Clear();
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Please select a character class:", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("FI - Fighter", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("TH - Thaumaturge", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("WI - Wizard", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("MA - Martial Artist", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("TF - Thief (neutral)", Enums.ETextType.Default);
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("SR - Sorcerer (evil)", Enums.ETextType.Default);
-            //(gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("DR - Druid (not available)", Enums.ETextType.Default);
-            //(gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("RA - Ranger (not available)", Enums.ETextType.Default);
-            //(gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("BE - Berserker (not available)", Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Please select a profession:", Enums.ETextType.Default);
+
+            Point point = new Point(64, 111);
+            int zDepth = 30;
+            List<string> professionsList = new List<string>(Professions.Keys);
+            professionsList.Sort();
+            foreach (string profession in professionsList)
+            {
+                AddSelectionButton(profession, point, zDepth);
+                point.Y += 23;
+                zDepth++;
+            }
+
+            Events.RegisterEvent(Events.EventName.CharGen_Lore, gui.GuiManager.CurrentSheet["FighterButton"]);
+        }
+
+        public static void AddSelectionButton(string selection, Point point, int zDepth)
+        {
+            if (gui.GuiManager.GetControl(selection + "Button") != null)
+                return;
+
+            gui.Button button = new gui.Button(selection + "Button", "CharacterGenerationWindow",
+                new Rectangle(point.X, point.Y, BitmapFont.ActiveFonts[gui.GuiManager.CurrentSheet.Font].MeasureString(selection), 23),
+                selection, true, Color.White, true, false, gui.GuiManager.CurrentSheet.Font, new gui.VisualKey("WhiteSpace"),
+                Color.Black, 0, 255, 255, new gui.VisualKey(""), new gui.VisualKey(""), new gui.VisualKey(""),
+                Events.EventName.CharGen_Lore.ToString(), BitmapFont.TextAlignment.Left, 0, 0, Color.PaleGreen, true,
+                new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top }, false, Map.Direction.Northwest, 5, "");
+
+            button.ZDepth = zDepth;
+
+            gui.GuiManager.CurrentSheet.AddControl(button);
         }
 
         public static void ChooseName()
@@ -358,6 +432,25 @@ namespace Yuusha
                 default:
                     break;
             }
+        }
+
+        public static void PopulateInfoTextBox(string info, Dictionary<string, string> dict)
+        {
+            if (info == null || dict == null) return;
+
+            (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).Clear();
+            int prevAlpha = (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).TextAlpha;
+            (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).TextAlpha = 0;
+            (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).AddLine(info, Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).AddLine(" " + dict[info], Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).ScrollToTop();
+            (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).TextAlpha = prevAlpha;
+            //(gui.GuiManager.CurrentSheet["CharGenSelectionButton"] as gui.Button).Text = "Select: " + info;
+            //(gui.GuiManager.CurrentSheet["CharGenSelectionButton"] as gui.Button).Command = CharGen.CommandsToSend[info];
+            (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).Text = CharGen.CommandsToSend[info];
+            (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).SelectAll();
+            (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
         }
     }
 }

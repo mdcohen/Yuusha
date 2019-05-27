@@ -17,6 +17,7 @@ NOTE 2: This has changed with property value adjustment to HiDef 2/10/2017 MC.
   <Texture Name="gold_dragon.png" Path="textures\gold_dragon.png"></Texture>
   <Texture Name="elvish_city.png" Path="textures\elvish_city.png"></Texture>
   <Texture Name="druidic_revival.png" Path="textures\druidic_revival.png"></Texture>
+  <Texture Name="worldmap.png" Path="textures\worldmap.png"></Texture>
   <Texture Name="damage_fog_skulls.png" Path="textures\damage_fog_skulls.png"></Texture>
   <Texture Name="island.png" Path="textures\island.png"></Texture>
 	<Texture Name="scroll.png" Path="textures\scroll.png"></Texture>

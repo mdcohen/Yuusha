@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
 {
@@ -90,7 +86,7 @@ namespace Yuusha.gui
             m_textRectangle = m_rectangle; // TODO:
 
             if (m_popUpText != "" && m_controlState == Enums.EControlState.Over)
-                TextCue.AddCursorTextCue(m_popUpText, Utils.GetColor(Client.ClientSettings.DefaultPopUpColor), m_font);
+                TextCue.AddMouseCursorTextCue(m_popUpText, Utils.GetColor(Client.ClientSettings.DefaultPopUpColor), m_font);
 
             base.Update(gameTime);
         }

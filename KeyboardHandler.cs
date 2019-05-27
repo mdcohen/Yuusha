@@ -127,6 +127,11 @@ namespace Yuusha
                 return true;
             }
 
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -161,11 +166,18 @@ namespace Yuusha
                         #region Login Game State
                         if (Client.GameState == Enums.EGameState.Login)
                         {
-                            // Testing purposes ALT + C
-                            if(IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
+                            // Testing purposes ALT + C, ALT + W
+                            #region Testing Area
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
                             {
                                 Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
                             }
+
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
+                            {
+                                GridBox.CreateGridBox(GridBox.GridBoxFunction.Sack);
+                            } 
+                            #endregion
 
                             #region ALT + N  News Window
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.N))
@@ -264,8 +276,7 @@ namespace Yuusha
                             }
                         }
                         #endregion
-
-                        else // outside login mode
+                        else if (Client.GameState == Enums.EGameState.CharacterGeneration)
                         {
                             // Testing purposes
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
@@ -273,11 +284,65 @@ namespace Yuusha
                                 Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
                             }
 
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter))
+                            {
+                                Program.Client.ToggleFullScreen();
+                                result = true;
+                            }
+
+                            #region ALT + M  Macros Window
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.M))
+                            {
+                                gui.Window macrosWindow = gui.GuiManager.GenericSheet["MacrosWindow"] as gui.Window;
+                                if (macrosWindow != null)
+                                {
+                                    macrosWindow.IsVisible = !macrosWindow.IsVisible;
+                                    result = true;
+                                }
+                            }
+                            #endregion
+
+                            #region ALT + R  Reload Current GUI Sheet
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.R))
+                            {
+                                Program.Client.GUIManager.LoadSheet(GuiManager.GenericSheet.FilePath);
+                                Program.Client.GUIManager.LoadSheet(GuiManager.CurrentSheet.FilePath);
+                                if (Client.IsFullScreen)
+                                {
+                                    GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                                    GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                                }
+
+                                gui.TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
+
+                                result = true;
+
+                                Character.LoadSettings();
+                                GenericSheet.LoadMacros();
+                            }
+                            #endregion
+                        }
+                        else if (Client.GameState == Enums.EGameState.HotButtonEditMode)
+                        {
+                            // nothing
+                        }
+                        else // outside login mode
+                        {
+                            // Testing purposes
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
+                            }
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
+                            {
+                                IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                                GridBox.CreateGridBox(GridBox.GridBoxFunction.Sack);
+                            }
+
                             if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))
                             {
                                 if (!ks.IsKeyDown(Keys.LeftAlt) && !ks.IsKeyDown(Keys.RightAlt))
                                 {
-                                    //GuiManager.CurrentSheet.HandleTabOrder(ks.IsKeyDown(Keys.LeftShift) || ks.IsKeyDown(Keys.RightShift));
                                     if (!ks.IsKeyDown(Keys.LeftShift) && !ks.IsKeyDown(Keys.RightShift))
                                         GuiManager.CurrentSheet.HandleTabOrderForward();
                                     else GuiManager.CurrentSheet.HandleTabOrderReverse();
@@ -287,6 +352,8 @@ namespace Yuusha
                             #region ALT + Enter  Full Screen Toggle
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter))
                             {
+                                if (Client.GameState == Enums.EGameState.HotButtonEditMode) return true;
+
                                 Program.Client.ToggleFullScreen();
                                 result = true;
                             }
@@ -386,15 +453,15 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + M  Macros Window
-                                                        if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.M))
-                                                        {
-                                                            gui.Window macrosWindow = gui.GuiManager.GenericSheet["MacrosWindow"] as gui.Window;
-                                                            if (macrosWindow != null)
-                                                            {
-                                                                macrosWindow.IsVisible = !macrosWindow.IsVisible;
-                                                                result = true;
-                                                            }
-                                                        }
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.M))
+                            {
+                                gui.Window macrosWindow = gui.GuiManager.GenericSheet["MacrosWindow"] as gui.Window;
+                                if (macrosWindow != null)
+                                {
+                                    macrosWindow.IsVisible = !macrosWindow.IsVisible;
+                                    result = true;
+                                }
+                            }
                             #endregion
 
                             #region ALT + N  News Window
@@ -447,8 +514,8 @@ namespace Yuusha
                             #region ALT + R  Reload Current GUI Sheet
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.R))
                             {
-                                Program.Client.GUIManager.LoadSheet(gui.GuiManager.GenericSheet.FilePath);
-                                Program.Client.GUIManager.LoadSheet(gui.GuiManager.CurrentSheet.FilePath);
+                                Program.Client.GUIManager.LoadSheet(GuiManager.GenericSheet.FilePath);
+                                Program.Client.GUIManager.LoadSheet(GuiManager.CurrentSheet.FilePath);
                                 if (Client.IsFullScreen)
                                 {
                                     GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
@@ -480,35 +547,35 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + S  Toggle Sound
-                                                        if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.S))
-                                                        {
-                                                            Client.UserSettings.SoundEffects = !Client.UserSettings.SoundEffects;
-                                                            string onoff = "Enabled";
-                                                            if (!Client.UserSettings.SoundEffects) onoff = "Disabled";
-                                                            gui.TextCue.AddClientInfoTextCue("Sound Effects " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
-                                                            result = true;
-                                                        }
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.S))
+                            {
+                                Client.UserSettings.SoundEffects = !Client.UserSettings.SoundEffects;
+                                string onoff = "Enabled";
+                                if (!Client.UserSettings.SoundEffects) onoff = "Disabled";
+                                gui.TextCue.AddClientInfoTextCue("Sound Effects " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
+                                result = true;
+                            }
                             #endregion
 
 #if DEBUG
                             #region ALT + V  Visuals Window
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.V))
-                                                        {
-                                                            gui.Window iconsWindow = gui.GuiManager.GenericSheet["VisualKeyWindow"] as gui.Window;
-                                                            if (iconsWindow != null)
-                                                            {
-                                                                //if (!iconsWindow.IsVisible)
-                                                                //    Events.RegisterEvent(Events.EventName.Load_Options);
-                                                                iconsWindow.IsVisible = !iconsWindow.IsVisible;
-                                                                //iconsWindow.HasFocus = iconsWindow.IsVisible;
-                                                                result = true;
-                                                            }
-                                                        }
+                            {
+                                gui.Window iconsWindow = gui.GuiManager.GenericSheet["VisualKeyWindow"] as gui.Window;
+                                if (iconsWindow != null)
+                                {
+                                    //if (!iconsWindow.IsVisible)
+                                    //    Events.RegisterEvent(Events.EventName.Load_Options);
+                                    iconsWindow.IsVisible = !iconsWindow.IsVisible;
+                                    //iconsWindow.HasFocus = iconsWindow.IsVisible;
+                                    result = true;
+                                }
+                            }
                             #endregion
 #endif
 
                             #region Tilde Saves a Screenshot
-                            if (ks.IsKeyDown(Keys.OemTilde))
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.OemTilde))
                             {
                                 Utils.SaveScreenshot();
                             }
