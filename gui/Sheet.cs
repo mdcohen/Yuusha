@@ -243,10 +243,20 @@ namespace Yuusha.gui
 
                                     if(c2 is Window)
                                     {
-                                        foreach (Control c3 in new List<Control>((c as Window).Controls))
+                                        foreach (Control c3 in new List<Control>((c2 as Window).Controls))
                                         {
                                             if (name == c3.Name)
                                                 return c3;
+
+                                            if (c3 is Window)
+                                            {
+                                                foreach(Control c4 in new List<Control>((c3 as Window).Controls))
+                                                {
+                                                    if (name == c4.Name)
+                                                        return c4;
+                                                }
+                                            }
+                                            
                                         }
                                     }
                                 }

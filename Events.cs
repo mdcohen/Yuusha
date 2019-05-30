@@ -729,7 +729,7 @@ namespace Yuusha
                             //TODO: use Reflection to save, where ****TextBox should be variable in CharacterSettings
                             if (!GameHUD.OverrideDisplayStates.Contains(Client.GameState))
                             {
-                                if (GuiManager.GenericSheet["FirstTabOptionsWindow"] is Window optionsWindow && optionsWindow.IsVisible)
+                                if (GuiManager.GenericSheet["OptionsWindow"] is Window optionsWindow && optionsWindow.IsVisible)
                                 {
                                     #region Options Window
                                     if (optionsWindow["DoubleLeftClickNearbyTargetTextBox"] is TextBox tbx)
@@ -949,7 +949,7 @@ namespace Yuusha
                         {
                             #region Options Window
 
-                            if (GuiManager.GenericSheet["FirstTabOptionsWindow"] is Window optionsWindow)
+                            if (GuiManager.GenericSheet["OptionsWindow"] is Window optionsWindow)
                             {
                                 if (optionsWindow["DoubleLeftClickNearbyTargetTextBox"] is TextBox tbx)
                                     tbx.Text = Character.Settings.DoubleLeftClickNearbyTarget;

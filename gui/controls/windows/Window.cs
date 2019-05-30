@@ -123,14 +123,46 @@ namespace Yuusha.gui
         {
             get
             {
-                for (int index = 0; index < m_controls.Count; index++)
+                foreach(Control c in Controls)
                 {
-                    if (name == m_controls[index].Name)
+                    if (name == c.Name)
+                        return c;
+
+                    if(c is Window)
                     {
-                        return m_controls[index];
+                        foreach(Control c2 in (c as Window).Controls)
+                        {
+                            if (name == c2.Name)
+                                return c2;
+
+                            if(c2 is Window)
+                            {
+                                foreach(Control c3 in (c2 as Window).Controls)
+                                {
+                                    if (name == c3.Name)
+                                        return c3;
+
+                                    if(c3 is Window)
+                                    {
+                                        foreach(Control c4 in (c3 as Window).Controls)
+                                        {
+                                            if (name == c4.Name)
+                                                return c4;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-                Utils.LogOnce("GUI Sheet [ " + GuiManager.CurrentSheet.Name + " ], Window [ " + m_name + " ] returned null for Control [ " + name + " ]");
+                //for (int index = 0; index < m_controls.Count; index++)
+                //{
+                //    if (name == m_controls[index].Name)
+                //    {
+                //        return m_controls[index];
+                //    }
+                //}
+                Utils.LogOnce("GUI Sheet [ " + GuiManager.CurrentSheet.Name + " ] Window [ " + m_name + " ] returned null for Control [ " + name + " ]");
                 return null;
             }
         }

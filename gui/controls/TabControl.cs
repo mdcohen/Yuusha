@@ -36,13 +36,12 @@ namespace Yuusha.gui
             try
             {
                 Window w = GuiManager.GetControl(button.TabControlledWindow) as Window;
-                Utils.Log("ConfirmOneTabWindowVisible Window: " + w.Name);
+
                 foreach (TabControlButton tabControlButton in TabButtonsList)
                 {
                     if (tabControlButton.TabControlledWindow != w.Name)
                     {
                         GuiManager.GetControl(tabControlButton.TabControlledWindow).IsVisible = false;
-                        Utils.Log(tabControlButton.TabControlledWindow + " NOT visible.");
                     }
                 }
 
