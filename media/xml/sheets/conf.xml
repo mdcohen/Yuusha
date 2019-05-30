@@ -89,103 +89,109 @@
 		AnchorLeft="true"
 		AnchorRight="true">
 	</Control>
-	<Control
-		Type="Label"
-		Text="" 
-		Name="CurrentNameLabel"
-		X="750"
-		Y="580"
-		Width="200"
-		Height="30"
-		TextColor="White"
-		IsVisible="true"
-		Font="courier16"
-		TextAlignment="Center"
-		AnchorBottom="true"
-		AnchorRight="true">
-	</Control>
-	<Control
-		Type="Label"
-		Text=""
-		Name="CurrentLevelLabel"
-		X="750"
-		Y="605"
-		Width="200"
-		Height="30"
-		TextColor="White"
-		IsVisible="true"
-		Font="courier16"
-		TextAlignment="Center"
-		AnchorBottom="true"
-		AnchorRight="true">
-	</Control>
-	<Control
-		Type="Label"
-		Text=""
-		Name="CurrentLocationLabel"
-		X="750"
-		Y="630"
-		Width="200"
-		Height="30"
-		TextColor="White"
-		IsVisible="true"
-		Font="courier16"
-		TextAlignment="Center"
-		AnchorBottom="true"
-		AnchorRight="true">
-	</Control>
-	<Control
-		Type="Label"
-		Name="CurrentPictureLabel"
-		X="810"
-		Y="510"
-		Width="60"
-		Height="60"
-		IsVisible="true"
-		VisualKey=""
-    Font="courier16"
-		AnchorBottom="true"
-		AnchorRight="true">
-	</Control>
-	<Control
-		Type="Button"
-		Text=""
-		Name="SwitchCharacterNextButton"
-		X="900"
-		Y="535"
-		Width="20"
-		Height="20"
-		IsVisible="true"
-		IsDisabled="false" 
-		Font="courier16"
-		VisualKey="BrownRightArrowButton"
-		VisualKeyDown="BrownRightArrowButtonDown"
-		TintColor="White"
-		OnMouseDown="switch_character_next"
-		TextAlignment="Center"
-		AnchorBottom="true"
-		AnchorRight="true">
-	</Control>
-	<Control
-		Type="Button"
-		Text=""
-		Name="SwitchCharacterBackButton"
-		X="770"
-		Y="535"
-		Width="20"
-		Height="20"
-		IsVisible="true"
-		IsDisabled="false" 
-		Font="courier16"
-		VisualKey="BrownLeftArrowButton"
-		VisualKeyDown="BrownLeftArrowButtonDown"
-		TintColor="White"
-		OnMouseDown="switch_character_back"
-		TextAlignment="Center"
-		AnchorBottom="true"
-		AnchorRight="true">
-	</Control>
-	<Control
+
+  <CharacterInfo>
+    <Control
+      Type="Label"
+      Text=""
+      Name="CurrentNameLabel"
+      X="750"
+      Y="580"
+      Width="200"
+      Height="30"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Center"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+    <Control
+      Type="Label"
+      Text=""
+      Name="CurrentLevelLabel"
+      X="750"
+      Y="605"
+      Width="200"
+      Height="30"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Center"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+    <Control
+      Type="Label"
+      Text=""
+      Name="CurrentLocationLabel"
+      X="750"
+      Y="630"
+      Width="200"
+      Height="30"
+      TextColor="White"
+      IsVisible="true"
+      Font="courier16"
+      TextAlignment="Center"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+    <Control
+      Type="Label"
+      Name="CurrentPictureLabel"
+      X="810"
+      Y="510"
+      Width="60"
+      Height="60"
+      IsVisible="true"
+      VisualKey=""
+      Font="courier16"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+    <Control
+      Type="Button"
+      Text=""
+      Name="SwitchCharacterNextButton"
+      X="900"
+      Y="535"
+      Width="20"
+      Height="20"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="courier16"
+      VisualKey="BrownRightArrowButton"
+      VisualKeyDown="BrownRightArrowButtonDown"
+      TintColor="Gold"
+      TintOverColor="White"
+      OnMouseDown="switch_character_next"
+      TextAlignment="Center"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+    <Control
+      Type="Button"
+      Text=""
+      Name="SwitchCharacterBackButton"
+      X="770"
+      Y="535"
+      Width="20"
+      Height="20"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="courier16"
+      VisualKey="BrownLeftArrowButton"
+      VisualKeyDown="BrownLeftArrowButtonDown"
+      TintColor="Gold"
+      TintOverColor="White"
+      OnMouseDown="switch_character_back"
+      TextAlignment="Center"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+  </CharacterInfo>
+    
+    <Control
 		Type="Button"
 		Text="Play"
 		Name="ConfPlayButton"
@@ -201,6 +207,7 @@
 		TextOverColor="Chartreuse" 
 		VisualKey="RoundedButton"
 		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
 		OnMouseDown="goto_game"
 		TextAlignment="Center"
 		DropShadow="true"
@@ -225,6 +232,7 @@
 		TextOverColor="Chartreuse" 
 		VisualKey="RoundedButton"
 		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
 		OnMouseDown="goto_menu"
 		TextAlignment="Center"
 		DropShadow="true"
@@ -249,6 +257,7 @@
 		TextOverColor="Chartreuse" 
 		VisualKey="RoundedButton"
 		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
 		OnMouseDown="goto_chargen"
 		TextAlignment="Center"
 		DropShadow="true"
@@ -259,7 +268,7 @@
 	</Control>
   <Control
 		Type="Button"
-		Text="Users List"
+		Text="User List"
 		Name="UsersListButton"
 		X="760"
 		Y="250"
@@ -273,6 +282,7 @@
 		TextOverColor="Chartreuse"
 		VisualKey="RoundedButton"
 		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
 		OnMouseDown="send_command"
 		TextAlignment="Center"
 		DropShadow="true"

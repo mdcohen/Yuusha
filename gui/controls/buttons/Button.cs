@@ -1,6 +1,5 @@
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
@@ -18,9 +17,9 @@ namespace Yuusha.gui
         public Button(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent,
-            BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor,
+            BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
             System.Collections.Generic.List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection,
-            int shadowDistance, string command)
+            int shadowDistance, string command, string tabControlledWindow)
             : base()
         {
             m_name = name;
@@ -53,6 +52,8 @@ namespace Yuusha.gui
             m_yTextOffset = yTextOffset;
             m_textOverColor = textOverColor;
             m_hasTextOverColor = hasTextOverColor;
+            m_tintOverColor = tintOverColor;
+            m_hasTintOverColor = hasTintOverColor;
             m_anchors = anchors;
             m_dropShadow = dropShadow;
             m_shadowDirection = shadowDirection;
@@ -118,7 +119,7 @@ namespace Yuusha.gui
                 catch(Exception e)
                 {
                     Utils.LogException(e);
-                    Utils.LogOnce("Failed OnMouseDown event for Button [ " + m_name + " ] of Sheet [ " + this.Sheet + " ]");
+                    Utils.LogOnce("Failed OnMouseDown event for Button [ " + m_name + " ] with Event [" + m_onMouseDown + "] of Sheet [ " + this.Sheet + " ]");
                 }
             }
         }

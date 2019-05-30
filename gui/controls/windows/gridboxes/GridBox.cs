@@ -79,7 +79,7 @@ namespace Yuusha.gui
                         DragAndDropButton button = new DragAndDropButton(purpose.ToString() + "DragAndDropButton" + i, box.Name,
                             new Rectangle(x, y, size, size), text, false, Color.White, true, false, box.Font, new VisualKey("WhiteSpace"),
                             Color.Black, 255, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "",
-                            BitmapFont.TextAlignment.Center, 0, 0, Color.PaleGreen, true, new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top },
+                            BitmapFont.TextAlignment.Center, 0, 0, Color.PaleGreen, true, Color.DarkMagenta, true, new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top },
                             false, Map.Direction.None, 0, "");
                         GuiManager.GenericSheet.AddControl(button);
                         x += size;

@@ -11,11 +11,11 @@
   <!-- Green Tile Background -->
 	<Background
 		Font="courier16"
-		VisualKey="BlackTileBackground"
+		VisualKey="GreenTileBackground"
 		IsCentered="false"
 		IsTiled="true"
-		TintColor="Chartreuse"
-		VisualAlpha="255">
+		TintColor="White"
+		VisualAlpha="200">
 	</Background>
   
   <!-- Elvish City Background -->
@@ -38,6 +38,7 @@
 		VisualAlpha="65">
   </Background> -->
   
+  <CharacterSelection>
 	<Control
 		Type="Label"
 		Text="" 
@@ -105,7 +106,8 @@
 		Font="courier16"
 		VisualKey="BrownRightArrowButton"
 		VisualKeyDown="BrownRightArrowButtonDown"
-		TintColor="White"
+		TintColor="Gold"
+    TintOverColor="White"
 		OnMouseDown="switch_character_next"
 		TextAlignment="Center">
 	</Control>
@@ -123,10 +125,12 @@
 		Font="courier16"
 		VisualKey="BrownLeftArrowButton"
 		VisualKeyDown="BrownLeftArrowButtonDown"
-		TintColor="White"
+		TintColor="Gold"
+    TintOverColor="White"
 		OnMouseDown="switch_character_back"
 		TextAlignment="Center">
 	</Control>
+  </CharacterSelection>
   
 	<Control
 		Type="Button"
@@ -141,9 +145,10 @@
 		IsDisabled="false" 
 		Font="courier16"
 		TextColor="White"
-		TextOverColor="Chartreuse" 
+		TextOverColor="Lime" 
 		VisualKey="RoundedButton"
 		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
 		OnMouseDown="goto_game"
 		TextAlignment="Center"
 		DropShadow="true"
@@ -166,9 +171,10 @@
 		IsDisabled="false" 
 		Font="courier16"
 		TextColor="White"
-		TextOverColor="Chartreuse" 
+		TextOverColor="Lime" 
 		VisualKey="RoundedButton"
 		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
 		OnMouseDown="goto_conf"
 		TextAlignment="Center"
 		DropShadow="true"
@@ -190,9 +196,10 @@
 		IsDisabled="false" 
 		Font="courier16"
 		TextColor="White"
-		TextOverColor="Chartreuse" 
+		TextOverColor="Lime" 
 		VisualKey="RoundedButton"
 		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
 		OnMouseDown="goto_chargen"
 		TextAlignment="Center"
 		DropShadow="true"

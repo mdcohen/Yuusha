@@ -28,6 +28,19 @@ namespace Yuusha.Utility.Settings
         public string NumPadAdd = "look in sack;quaff";
         public string NumPadDelete = "ashtug ninda anghizidda arrflug";
 
+        public string FunctionKey1 = "";
+        public string FunctionKey2 = "";
+        public string FunctionKey3 = "";
+        public string FunctionKey4 = "";
+        public string FunctionKey5 = "";
+        public string FunctionKey6 = "";
+        public string FunctionKey7 = "";
+        public string FunctionKey8 = "";
+        public string FunctionKey9 = "";
+        public string FunctionKey10 = "";
+        public string FunctionKey11 = "";
+        public string FunctionKey12 = "";
+
         public string CritterListDropDownMenuItem1 = "kick %t;look at %t";
         public string CritterListDropDownMenuItem2 = "backstab %t;look at %t";
         public string CritterListDropDownMenuItem3 = "steal coins from %t";
@@ -114,8 +127,6 @@ namespace Yuusha.Utility.Settings
         public string HorizontalHotButtonText13 = "$13";
         public string HorizontalHotButtonText14 = "$14";
         #endregion
-
-        // TODO: Target pop up list options.
 
         #region Load/Save code
         /// <summary>

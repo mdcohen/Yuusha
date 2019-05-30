@@ -21,7 +21,6 @@ namespace Yuusha.gui
         static Dictionary<string, Sheet> m_sheets; // gui sheets
         static Dictionary<string, VisualInfo> m_visuals; // visual information for each texture piece
         static Dictionary<string, MouseCursor> m_cursors; // cursors
-        static bool m_dragging = false;
         static Control m_draggedControl = null;
         static Control m_controlWithFocus = null;
         static string m_activeTextBox = "";
@@ -63,8 +62,7 @@ namespace Yuusha.gui
         }
         public static bool Dragging
         {
-            get { return m_dragging; }
-            set { m_dragging = value; }
+            get; set;
         }
         public static Control ControlWithFocus
         {
@@ -403,6 +401,9 @@ namespace Yuusha.gui
                                 bool hasTextOverColor = false;
                                 string textOverColor = "White";
 
+                                bool hasTintOverColor = false;
+                                string tintOverColor = "White";
+
                                 string popUpText = "";
 
                                 string closeBoxVisualKey = ""; // WindowTitle (WindowControlBox)
@@ -429,14 +430,14 @@ namespace Yuusha.gui
                                 int minBoxHeight = 0; // WindowTitle (WindowControlBox)
                                 int cropBoxWidth = 0; // WindowTitle (WindowControlBox)
                                 int cropBoxHeight = 0; // WindowTitle (WindowControlBox)
-                                int closeBoxVisualAlpha = 255;
-                                int maxBoxVisualAlpha = 255;
-                                int minBoxVisualAlpha = 255;
-                                int cropBoxVisualAlpha = 255;
-                                string closeBoxTintColor = "White";
-                                string minBoxTintColor = "White";
-                                string maxBoxTintColor = "White";
-                                string cropBoxTintColor = "White";
+                                int closeBoxVisualAlpha = 255; // WindowTitle (WindowControlBox)
+                                int maxBoxVisualAlpha = 255; // WindowTitle (WindowControlBox)
+                                int minBoxVisualAlpha = 255; // WindowTitle (WindowControlBox)
+                                int cropBoxVisualAlpha = 255; // WindowTitle (WindowControlBox)
+                                string closeBoxTintColor = "White"; // WindowTitle (WindowControlBox)
+                                string minBoxTintColor = "White"; // WindowTitle (WindowControlBox)
+                                string maxBoxTintColor = "White"; // WindowTitle (WindowControlBox)
+                                string cropBoxTintColor = "White"; // WindowTitle (WindowControlBox)
                                 string shortcut = ""; // used for HotButtons -- not currently implemented in XML 2/18/2017
                                 string command = ""; // used for buttons and other click components to send text
                                 int tabOrder = -1; // used for tabOrder, currently (4/9/2019) only TextBoxes have these. Tab Order is handled by owner/sheet
@@ -449,6 +450,8 @@ namespace Yuusha.gui
 
                                 string cursorOnDrag = ""; // cursor on mouse drag (Window)
                                 string cursorOnOver = ""; // cursor on mouse over (Label)
+
+                                string tabControlledWindow = "";
 
                                 if (reader.Name == "Background")
                                 {
@@ -530,6 +533,11 @@ namespace Yuusha.gui
                                         {
                                             textOverColor = reader.Value;
                                             hasTextOverColor = true;
+                                        }
+                                        else if (reader.Name == "TintOverColor")
+                                        {
+                                            tintOverColor = reader.Value;
+                                            hasTintOverColor = true;
                                         }
                                         else if (reader.Name == "SelectionColor")
                                             selectionColor = reader.Value;
@@ -654,6 +662,8 @@ namespace Yuusha.gui
                                             maxValue = reader.ReadContentAsInt();
                                         else if (reader.Name == "MinValue")
                                             minValue = reader.ReadContentAsInt();
+                                        else if (reader.Name == "TabControlledWindow")
+                                            tabControlledWindow = reader.Value;
                                     }
                                     #endregion
                                 }
@@ -677,7 +687,7 @@ namespace Yuusha.gui
                                             minBoxDistanceFromRight, minBoxDistanceFromTop, minBoxWidth, minBoxHeight, minBoxVisualAlpha,
                                             cropBoxDistanceFromRight, cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight, cropBoxVisualAlpha,
                                             Utils.GetColor(closeBoxTintColor), Utils.GetColor(maxBoxTintColor), Utils.GetColor(minBoxTintColor),
-                                            Utils.GetColor(cropBoxTintColor));
+                                            Utils.GetColor(cropBoxTintColor), height);
                                         break;
                                     case "TexturedBorder":
                                         break;
@@ -701,11 +711,13 @@ namespace Yuusha.gui
                                     case "Button":
                                     case "HotButton":
                                     case "MacroButton":
+                                    case "TabControlButton":
                                         sheet.CreateButton(type, name, owner, new Rectangle(x, y, width, height), text, textVisible, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
                                             textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
                                             onMouseDown, textAlignment, xTextOffset, yTextOffset, Utils.GetColor(textOverColor), hasTextOverColor,
-                                            anchors, dropShadow, shadowDirection, shadowDistance, command);
+                                            Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance,
+                                            command, tabControlledWindow);
                                         break;
                                     case "Label":
                                         sheet.CreateLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
@@ -742,6 +754,10 @@ namespace Yuusha.gui
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,
                                             borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
                                             layoutType);
+                                        break;
+                                    default:
+                                        //Utils.Log("GuiManager has no method defined for creating control of Type [" + type + "] for Sheet [" + sheet.Name + "] -- Control Name [" + name + "].");
+                                        //Utils.Log("Reader Info: " + reader.Name + ", " + reader.LocalName);
                                         break;
                                 }
 

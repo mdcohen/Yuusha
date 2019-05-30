@@ -774,7 +774,6 @@ namespace Yuusha.gui
                 if (Border != null && Border is SquareBorder && m_textAlignment == BitmapFont.TextAlignment.Right)
                     rectY -= (Border as SquareBorder).BorderWidth;
                 BitmapFont.ActiveFonts[Font].TextBox(new Rectangle(rectX, rectY, m_rectangle.Width - 1, m_rectangle.Height - 1), textColor, m_text);
-                //BitmapFont.ActiveFonts[Font].DrawString(rectX, rectY, textColor, m_text);
             }
             else
             {
@@ -787,7 +786,6 @@ namespace Yuusha.gui
                     rectY -= (Border as SquareBorder).BorderWidth;
 
                 BitmapFont.ActiveFonts[Font].TextBox(new Rectangle(rectX, rectY, m_rectangle.Width - 1, m_rectangle.Height - 1), textColor, password);
-                //BitmapFont.ActiveFonts[Font].DrawString(rectX, rectY, textColor, password);
             }
 
             // draw the cursor if cursor is visible, control has focus and control is not disabled
@@ -810,7 +808,17 @@ namespace Yuusha.gui
 
                 if (!m_passwordBox)
                 {
-                    Rectangle cursorRectangle = new Rectangle(rectX + BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)), rectY, cursorWidth, cursorHeight);
+                    Rectangle cursorRectangle = new Rectangle();
+                    // ocassional argument out of range exception when selecting a text box with saved information and text is empty
+                    try
+                    {
+                        cursorRectangle = new Rectangle(rectX + BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)), rectY, cursorWidth, cursorHeight);
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        SelectAll();
+                        cursorRectangle = new Rectangle(rectX + BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)), rectY, cursorWidth, cursorHeight);
+                    }
                     Client.SpriteBatch.Draw(GuiManager.Textures[cursorVisual.ParentTexture], cursorRectangle, cursorVisual.Rectangle, m_cursorColor);
                 }
                 else

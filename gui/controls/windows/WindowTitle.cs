@@ -11,7 +11,6 @@ namespace Yuusha.gui
         readonly WindowControlBox m_maximizeBox;
         readonly WindowControlBox m_minimizeBox;
         readonly WindowControlBox m_cropBox;
-        readonly int m_height;
         #endregion
 
         #region Public Properties
@@ -40,7 +39,7 @@ namespace Yuusha.gui
         public WindowTitle(string name, string owner, string font, string text, Color textColor, Color tintColor, byte visualAlpha,
             BitmapFont.TextAlignment textAlignment, VisualKey visualKey, bool visualTiled, VisualKey closeBoxVisualKey, VisualKey closeBoxVisualKeyDown,
             int closeBoxDistanceFromRight, int closeBoxDistanceFromTop, int closeBoxWidth, int closeBoxHeight,
-            Color closeBoxTintColor, params object[] obj)
+            Color closeBoxTintColor, int height)
             : base()
         {
             m_name = name;
@@ -55,7 +54,9 @@ namespace Yuusha.gui
             m_rectangle = new Rectangle(0, 0, 100, 14);
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
-            m_height = Client.UserSettings.DefaultWindowTitleHeight;
+            if (height <= 0)
+                Height = Client.UserSettings.DefaultWindowTitleHeight;
+            else Height = height;
             if (closeBoxVisualKey.Key != "")
                 m_closeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Close, closeBoxDistanceFromRight,
                     closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, closeBoxVisualKey, closeBoxVisualKeyDown, closeBoxTintColor, visualAlpha);
@@ -63,9 +64,6 @@ namespace Yuusha.gui
             m_maximizeBox = null;
             m_minimizeBox = null;
             m_cropBox = null;
-
-            if (obj != null)
-                m_height = (int)obj[0];
         }
 
         /// <summary>
@@ -79,7 +77,7 @@ namespace Yuusha.gui
             int maxBoxDistanceFromRight, int maxBoxDistanceFromTop, int maxBoxWidth, int maxBoxHeight, int maxBoxVisualAlpha,
             int minBoxDistanceFromRight, int minBoxDistanceFromTop, int minBoxWidth, int minBoxHeight, int minBoxVisualAlpha,
             int cropBoxDistanceFromRight, int cropBoxDistanceFromTop, int cropBoxWidth, int cropBoxHeight, int cropBoxVisualAlpha,
-            Color closeBoxTintColor, Color maximizeBoxTintColor, Color minBoxTintColor, Color cropBoxTintColor, params object[] obj)
+            Color closeBoxTintColor, Color maximizeBoxTintColor, Color minBoxTintColor, Color cropBoxTintColor, int height)
             : base()
         {
             m_name = name;
@@ -94,7 +92,9 @@ namespace Yuusha.gui
             m_rectangle = new Rectangle(0, 0, 100, 14);
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
-            m_height = Client.UserSettings.DefaultWindowTitleHeight;
+            if (height <= 0)
+                Height = Client.UserSettings.DefaultWindowTitleHeight;
+            else Height = height;
             if (closeBoxVisualKey.Key != "")
                 m_closeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Close, closeBoxDistanceFromRight,
                     closeBoxDistanceFromTop, closeBoxWidth, closeBoxHeight, closeBoxVisualKey, closeBoxVisualKeyDown, closeBoxTintColor,
@@ -127,7 +127,8 @@ namespace Yuusha.gui
             if (control != null)
             {
                 Point p = control.Position;
-                m_rectangle = new Rectangle(p.X, p.Y, control.Width, m_height);
+                m_rectangle = new Rectangle(p.X, p.Y, control.Width, Height);// m_height);
+                //m_rectangle = new Rectangle(p.X, p.Y - this.Height, control.Width, m_height);
             }
 
             if (m_closeBox != null)

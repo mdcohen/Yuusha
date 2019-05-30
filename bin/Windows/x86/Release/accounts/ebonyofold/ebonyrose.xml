@@ -17,6 +17,18 @@
   <NumPadSubtract>belt left;remove 2 ring from right</NumPadSubtract>
   <NumPadAdd>look in sack;quaff</NumPadAdd>
   <NumPadDelete>ashtug ninda anghizidda arrflug</NumPadDelete>
+  <FunctionKey1 />
+  <FunctionKey2 />
+  <FunctionKey3 />
+  <FunctionKey4 />
+  <FunctionKey5 />
+  <FunctionKey6 />
+  <FunctionKey7 />
+  <FunctionKey8 />
+  <FunctionKey9 />
+  <FunctionKey10 />
+  <FunctionKey11 />
+  <FunctionKey12 />
   <CritterListDropDownMenuItem1>kick %t;look at %t</CritterListDropDownMenuItem1>
   <CritterListDropDownMenuItem2>backstab %t;look at %t</CritterListDropDownMenuItem2>
   <CritterListDropDownMenuItem3>steal coins from %t</CritterListDropDownMenuItem3>

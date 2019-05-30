@@ -245,7 +245,7 @@
       Height="35"
       XTextOffset="0"
       YTextOffset="5"
-      TextColor="Black"
+      TextColor="White"
       IsVisible="false"
       IsDisabled="false"
       Font="courier16"
@@ -253,11 +253,12 @@
       VisualKeyDown=""
       VisualKeyOver=""
       VisualKeyDisabled=""
-      TintColor="DarkGray"
+      TintColor="Gray"
+      TintOverColor="DarkGray"
       VisualAlpha="255"
       OnMouseDown="Connect"
       TextAlignment="Center"
-      TextOverColor="Aquamarine"
+      TextOverColor="Lime"
       TabOrder="3">
     </Control>
 
@@ -631,11 +632,12 @@
       VisualKeyDown=""
       VisualKeyOver=""
       VisualKeyDisabled=""
-      TintColor="DarkGray"
+      TintColor="Gray"
+      TintOverColor="DarkGray"
       VisualAlpha="255"
       OnMouseDown="Connect"
       TextAlignment="Center"
-      TextOverColor="Aquamarine"
+      TextOverColor="Lime"
       TabOrder="3">
     </Control>
 

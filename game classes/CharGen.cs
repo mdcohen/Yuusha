@@ -53,14 +53,12 @@ namespace Yuusha
         public static bool FirstCharacter = false;
 
         private static string CharacterAge = "very young";
-        private static string CharacterGender = "Male";
-        private static string CharacterHomeland = "the plains";
-        private static string CharacterProfession = "Fighter";
-
+        private static string SelectedGender = "Male";
         public static string SelectedHomeland = "Barbarian";
         public static string SelectedProfession = "Fighter";
 
-        private static int RollNumber = 0;
+        public static int RollNumber = 0;
+        private static bool SetCharacterInfoText = false;
 
         public static readonly Dictionary<string, string> Homelands = Lore.GetAllHomelandLore();
         public static readonly Dictionary<string, string> Professions = Lore.GetAllProfessionsLore();
@@ -83,6 +81,56 @@ namespace Yuusha
             {"Sorcerer", "sr" }
         };
 
+        public static void ResetCharGen()
+        {
+            NewAccountName = "";
+            NewAccountPassword = "";
+            NewAccountEmail = "";
+
+            RolledStrength = 15;
+            RolledDexterity = 15;
+            RolledIntelligence = 15;
+            RolledWisdom = 15;
+            RolledConstitution = 15;
+            RolledCharisma = 15;
+            RolledHits = 60;
+            RolledStamina = 10;
+            RolledMana = 10;
+
+            DesiredStrength = 15;
+            DesiredDexterity = 15;
+            DesiredIntelligence = 15;
+            DesiredWisdom = 15;
+            DesiredConstitution = 15;
+            DesiredCharisma = 15;
+            DesiredHits = 60;
+            DesiredStamina = 10;
+            DesiredMana = 10;
+
+            HighestHits = 0;
+            HighestStamina = 0;
+            HighestMana = 0;
+
+            FirstCharacter = false;
+
+            CharacterAge = "very young";
+            SelectedGender = "Male";
+            SelectedHomeland = "Barbarian";
+            SelectedProfession = "Fighter";
+
+            RollNumber = 0;
+            SetCharacterInfoText = false;
+
+            Program.Client.GUIManager.LoadSheet(gui.GuiManager.GenericSheet.FilePath);
+            Program.Client.GUIManager.LoadSheet(gui.GuiManager.CurrentSheet.FilePath);
+
+            if (Client.IsFullScreen)
+            {
+               gui.GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+               gui.GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+            }
+        }
+
         public static void ChooseGender()
         {
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).Clear();
@@ -96,16 +144,7 @@ namespace Yuusha
 
         public static void ChooseHomeland()
         {
-            foreach (gui.Control c in new List<gui.Control>((gui.GuiManager.CurrentSheet["CharacterGenerationWindow"] as gui.Window).Controls))
-            {
-                foreach (string profession in Professions.Keys)
-                {
-                    if (c.Name == profession + "Button")
-                    {
-                        (gui.GuiManager.CurrentSheet["CharacterGenerationWindow"] as gui.Window).Controls.Remove(c);
-                    }
-                }
-            }
+            RemoveCharGenSelectionButtons(new List<string>(Professions.Keys));
 
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).Clear();
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
@@ -128,17 +167,7 @@ namespace Yuusha
 
         public static void ChooseProfession()
         {
-            // Remove all buttons created in ChooseHomelands.
-            foreach(gui.Control c in new List<gui.Control>((gui.GuiManager.CurrentSheet["CharacterGenerationWindow"] as gui.Window).Controls))
-            {
-                foreach(string homeland in Homelands.Keys)
-                {
-                    if(c.Name == homeland + "Button")
-                    {
-                        (gui.GuiManager.CurrentSheet["CharacterGenerationWindow"] as gui.Window).Controls.Remove(c);
-                    }
-                }
-            }
+            RemoveCharGenSelectionButtons(new List<string>(Homelands.Keys));
 
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).Clear();
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
@@ -167,9 +196,9 @@ namespace Yuusha
             gui.Button button = new gui.Button(selection + "Button", "CharacterGenerationWindow",
                 new Rectangle(point.X, point.Y, BitmapFont.ActiveFonts[gui.GuiManager.CurrentSheet.Font].MeasureString(selection), 23),
                 selection, true, Color.White, true, false, gui.GuiManager.CurrentSheet.Font, new gui.VisualKey("WhiteSpace"),
-                Color.Black, 0, 255, 255, new gui.VisualKey(""), new gui.VisualKey(""), new gui.VisualKey(""),
-                Events.EventName.CharGen_Lore.ToString(), BitmapFont.TextAlignment.Left, 0, 0, Color.PaleGreen, true,
-                new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top }, false, Map.Direction.Northwest, 5, "");
+                Color.Black, 0, 255, 255, new gui.VisualKey("WhiteSpace"), new gui.VisualKey(""), new gui.VisualKey(""),
+                Events.EventName.CharGen_Lore.ToString(), BitmapFont.TextAlignment.Left, 0, 0, Color.Lime, true, Color.DarkGray, true,
+                new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top }, false, Map.Direction.Northwest, 5, "", "");
 
             button.ZDepth = zDepth;
 
@@ -179,13 +208,16 @@ namespace Yuusha
         public static void ChooseName()
         {
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).Clear();
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
+            string description = CharacterAge.ToLower() + " " + SelectedGender.ToLower() + " " + SelectedProfession.ToLower() + " from " + SelectedHomeland;
+            (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).AddLine("You are a " + description + ".", Enums.ETextType.Default);
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Please enter a name for your character:", Enums.ETextType.Default);
         }
 
         public static void ReviewStats(string inData)
         {
+            RemoveCharGenSelectionButtons(new List<string>(Professions.Keys));
+
             RollNumber++;
 
             (gui.GuiManager.CurrentSheet["RollsCounterLabel"] as gui.Label).Text = "Roll Count: " + RollNumber;
@@ -205,11 +237,18 @@ namespace Yuusha
                 ManaUser = true;
             }
 
-            // display lines
+            if(!CharGen.SetCharacterInfoText)
+            {
+                (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).Clear();
+                (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).IsVisible = false;
+                CharGen.SetCharacterInfoText = true;
+            }
+            
+            // display stat rolls received
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).Clear();
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
-            string description = CharacterAge.ToLower() + " " + CharacterGender.ToLower() + " " + CharacterProfession.ToLower() + " from " + CharacterHomeland;
-            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("You are a " + description + ".", Enums.ETextType.Default);
+            string description = CharacterAge.ToLower() + " " + SelectedGender.ToLower() + " " + SelectedProfession.ToLower() + " from " + SelectedHomeland;
+            (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).AddLine("You are a " + description + ".", Enums.ETextType.Default);
+            // add story here
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
             string[] lines = inData.Split("\n".ToCharArray());
             for (int a = 1; a < lines.Length; a++)
@@ -223,6 +262,7 @@ namespace Yuusha
                 }
             }
 
+            // parse stat rolls
             foreach (string line in lines)
             {
                 if (line.Contains("Strength:"))
@@ -296,6 +336,7 @@ namespace Yuusha
                 }
             }
 
+            // check auto roller
             if (!AutoRollerEnabled)
             {
                 (gui.GuiManager.CurrentSheet["AutoRollerTimeLabel"] as gui.Label).Text = "Auto Roller Time: N/A";
@@ -373,36 +414,36 @@ namespace Yuusha
             {
                 case Enums.ECharGenState.ChooseGender:
                     if (text == "1")
-                        CharacterGender = "Male";
+                        SelectedGender = "Male";
                     else if (text == "2")
-                        CharacterGender = "Female";
+                        SelectedGender = "Female";
                     break;
                 case Enums.ECharGenState.ChooseHomeland:
                     switch(text.ToLower())
                     {
                         case "i":
-                            CharacterHomeland = "Illyria";
+                            SelectedHomeland = "Illyria";
                             break;
                         case "m":
-                            CharacterHomeland = "Mu";
+                            SelectedHomeland = "Mu";
                             break;
                         case "l":
-                            CharacterHomeland = "Lemuria";
+                            SelectedHomeland = "Lemuria";
                             break;
                         case "lg":
-                            CharacterHomeland = "Leng";
+                            SelectedHomeland = "Leng";
                             break;
                         case "d":
-                            CharacterHomeland = "Draznia";
+                            SelectedHomeland = "Draznia";
                             break;
                         case "h":
-                            CharacterHomeland = "Hovath";
+                            SelectedHomeland = "Hovath";
                             break;
                         case "mn":
-                            CharacterHomeland = "Mnar";
+                            SelectedHomeland = "Mnar";
                             break;
                         case "b":
-                            CharacterHomeland = "the barbarian plains";
+                            SelectedHomeland = "the barbarian plains";
                             break;
                     }
                     break;
@@ -410,22 +451,22 @@ namespace Yuusha
                     switch (text.ToLower())
                     {
                         case "fi":
-                            CharacterProfession = "Fighter";
+                            SelectedProfession = "Fighter";
                             break;
                         case "th":
-                            CharacterProfession = "Thaumaturge";
+                            SelectedProfession = "Thaumaturge";
                             break;
                         case "wi":
-                            CharacterProfession = "Wizard";
+                            SelectedProfession = "Wizard";
                             break;
                         case "ma":
-                            CharacterProfession = "Martial Artist";
+                            SelectedProfession = "Martial Artist";
                             break;
                         case "tf":
-                            CharacterProfession = "Thief";
+                            SelectedProfession = "Thief";
                             break;
                         case "sr":
-                            CharacterProfession = "Sorcerer";
+                            SelectedProfession = "Sorcerer";
                             break;
                     }
                     break;
@@ -436,8 +477,6 @@ namespace Yuusha
 
         public static void PopulateInfoTextBox(string info, Dictionary<string, string> dict)
         {
-            if (info == null || dict == null) return;
-
             (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).Clear();
             int prevAlpha = (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).TextAlpha;
             (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).TextAlpha = 0;
@@ -451,6 +490,20 @@ namespace Yuusha
             (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).Text = CharGen.CommandsToSend[info];
             (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).SelectAll();
             (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
+        }
+
+        public static void RemoveCharGenSelectionButtons(List<string> keysList)
+        {
+            foreach (gui.Control c in new List<gui.Control>((gui.GuiManager.CurrentSheet["CharacterGenerationWindow"] as gui.Window).Controls))
+            {
+                foreach (string key in keysList)
+                {
+                    if (c.Name == key + "Button")
+                    {
+                        (gui.GuiManager.CurrentSheet["CharacterGenerationWindow"] as gui.Window).Controls.Remove(c);
+                    }
+                }
+            }
         }
     }
 }

@@ -115,7 +115,7 @@
 		Height="40"
 		YTextOffset="8"
     XTextOffset="-3"
-		IsVisible="true"
+		IsVisible="false"
 		IsDisabled="false"
 		Font="courier16"
 		TextColor="White"

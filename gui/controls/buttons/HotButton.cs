@@ -18,9 +18,9 @@ namespace Yuusha.gui
             Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor,
             byte visualAlpha, byte m_borderAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown,
             VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment,
-            int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor,
-            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command)
-            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, m_borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command)
+            int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
+            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command, string tabControlledWindow)
+            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, m_borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, tabControlledWindow)
         {
             m_originalVisualAlpha = visualAlpha;
         }

@@ -139,7 +139,7 @@ namespace Yuusha.gui
                 Client.IsFullScreen = false;
 
             // keyboard handler
-            if(!Yuusha.KeyboardHandler.HandleKeyboard())
+            if (!Yuusha.KeyboardHandler.HandleKeyboard())
                 KeyboardHandler(Keyboard.GetState());
 
             // mouse handler
@@ -152,12 +152,12 @@ namespace Yuusha.gui
             m_cursorOverride = "";
 
             // update background
-            if(m_background != null)
+            if (m_background != null)
                 m_background.Update(gameTime);
 
             // update controls
             foreach (Control control in m_controls)
-                control.Update(gameTime);            
+                control.Update(gameTime);
 
             // sort controls
             SortControls();
@@ -187,7 +187,7 @@ namespace Yuusha.gui
         public virtual void Draw(GameTime gameTime)
         {
             // draw the background
-            if(m_background != null)
+            if (m_background != null)
                 m_background.Draw(gameTime);
 
             // draw controls
@@ -204,7 +204,7 @@ namespace Yuusha.gui
                 if (GuiManager.Cursors.ContainsKey(m_cursor))
                     GuiManager.Cursors[m_cursor].Draw(gameTime);
                 else Utils.LogOnce("Failed to find cursor visual key [ " + m_cursor + " ] for GUI Sheet [ " + m_name + " ]");
-                
+
             }
             else
             {
@@ -233,12 +233,22 @@ namespace Yuusha.gui
                         {
                             if (name == c.Name)
                                 return c;
+
                             if (c is Window)
                             {
-                                foreach (Control c2 in (c as Window).Controls)
+                                foreach (Control c2 in new List<Control>((c as Window).Controls))
                                 {
                                     if (name == c2.Name)
                                         return c2;
+
+                                    if(c2 is Window)
+                                    {
+                                        foreach (Control c3 in new List<Control>((c as Window).Controls))
+                                        {
+                                            if (name == c3.Name)
+                                                return c3;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -299,24 +309,23 @@ namespace Yuusha.gui
                         return;
                     }
 
-                    if ((m_controls[i].ControlState == Enums.EControlState.Down) &&
-                        !m_controls[i].IsLocked)
+                    if ((m_controls[i].ControlState == Enums.EControlState.Down) && !m_controls[i].IsLocked)
                     {
                         // start dragging, unless it is a minimized window
                         //if (!((m_controls[i] is WindowTitle) && (GuiManager.GetControl(m_controls[i].Owner) as Window).IsMinimized))
                         //{
-                            GuiManager.Dragging = true;
-                            GuiManager.DraggedControl = m_controls[i];
-                            GuiManager.DraggingXOffset = ms.X - m_controls[i].Position.X;
-                            GuiManager.DraggingYOffset = ms.Y - m_controls[i].Position.Y;
+                        GuiManager.Dragging = true;
+                        GuiManager.DraggedControl = m_controls[i];
+                        GuiManager.DraggingXOffset = ms.X - m_controls[i].Position.X;
+                        GuiManager.DraggingYOffset = ms.Y - m_controls[i].Position.Y;
                         //}
                     }
 
+                    // Close any open ComboBox when dragging.
                     if ((m_controls[i] is ComboBox) && (m_controls[i] as ComboBox).IsOpen)
                     {
                         if ((GuiManager.OpenComboBox != "") && GuiManager.OpenComboBox != m_controls[i].Name)
                         {
-                            // close any open ComboBox
                             for (int j = 0; j < m_controls.Count; j++)
                             {
                                 if (m_controls[j].Name == GuiManager.OpenComboBox)
@@ -329,11 +338,12 @@ namespace Yuusha.gui
                         GuiManager.OpenComboBox = m_controls[i].Name;
                     }
 
+                    // Remove focus from any focus from a TextBox that is not the ActiveTextBox.
                     if ((m_controls[i] is TextBox) && m_controls[i].HasFocus)
                     {
                         if (GuiManager.ActiveTextBox != "" && GuiManager.ActiveTextBox != m_controls[i].Name)
                         {
-                            if(this[GuiManager.ActiveTextBox] != null)
+                            if (this[GuiManager.ActiveTextBox] != null)
                                 this[GuiManager.ActiveTextBox].HasFocus = false;
                         }
                         GuiManager.ActiveTextBox = m_controls[i].Name;
@@ -354,7 +364,7 @@ namespace Yuusha.gui
                         }
                     }
 
-                    // if new radiobutton was selected, deselect radiobuttons of same group ID
+                    // Confirm only one RadioButton of a group is selected.
                     if ((m_controls[i] is RadioButton) && ((m_controls[i] as RadioButton).NeedToDeselectOthers))
                     {
                         (m_controls[i] as RadioButton).NeedToDeselectOthers = false;
@@ -372,7 +382,7 @@ namespace Yuusha.gui
                         }
                     }
 
-                    // may have moved from a back control to a front control so reset over states
+                    // May have moved from a back control to a front control; reset over states.
                     for (int j = 0; j < i; j++)
                     {
                         if (m_controls[j].ControlState == Enums.EControlState.Over)
@@ -382,14 +392,11 @@ namespace Yuusha.gui
                         }
                     }
 
+                    // Mouse is down over another control so close any open combobox
                     if (m_controls[i].ControlState == Enums.EControlState.Down)
                     {
-                        //result = true;
-
-                        // mouse is down over another control so close any open combobox
                         if ((GuiManager.OpenComboBox != "") && (GuiManager.OpenComboBox != m_controls[i].Name))
                         {
-                            // close the open combobox
                             for (int j = 0; j < m_controls.Count; j++)
                             {
                                 if (m_controls[j].Name == GuiManager.OpenComboBox)
@@ -401,10 +408,11 @@ namespace Yuusha.gui
                             }
                         }
 
+                        // Release TextBox Focus.
                         if ((GuiManager.ActiveTextBox != "") && (GuiManager.ActiveTextBox != m_controls[i].Name))
                         {
                             // release textbox focus
-                            if(this[GuiManager.ActiveTextBox] != null)
+                            if (this[GuiManager.ActiveTextBox] != null)
                                 this[GuiManager.ActiveTextBox].HasFocus = false;
 
                             GuiManager.ActiveTextBox = "";
@@ -463,7 +471,7 @@ namespace Yuusha.gui
                     if ((GuiManager.ActiveTextBox != "") && (GuiManager.ActiveTextBox != m_controls[i].Name))
                     {
                         // release textbox focus
-                        if(this[GuiManager.ActiveTextBox] != null)
+                        if (this[GuiManager.ActiveTextBox] != null)
                             this[GuiManager.ActiveTextBox].HasFocus = false;
 
                         GuiManager.ActiveTextBox = "";
@@ -480,6 +488,12 @@ namespace Yuusha.gui
             // control does not have an owner (Window), find highest z depth
             if (c.Owner == "")
             {
+                if(m_controls.Contains(c))
+                {
+                    Utils.Log("Attempted to add same Control [" + c.Name + "] to Sheet [" + Name + "].");
+                    return;
+                }
+
                 if (m_controls.Count > 0)
                     c.ZDepth = m_controls[0].ZDepth + 1;
                 else c.ZDepth = 1;
@@ -496,7 +510,10 @@ namespace Yuusha.gui
 
                 if (owner != null)
                 {
-                    if (owner is Window) AttachControlToWindow(c);
+                    if (owner is Window)
+                    {
+                        AttachControlToWindow(c);
+                    }
                     else if (owner is TextBox)
                     {
                         if (c is Border)
@@ -522,7 +539,7 @@ namespace Yuusha.gui
                         if (c is SquareBorder)
                             (owner as HotButton).Border = c as SquareBorder;
                     }
-                    else if(owner is DragAndDropButton)
+                    else if (owner is DragAndDropButton)
                     {
                         if (c is SquareBorder)
                             (owner as DragAndDropButton).Border = c as SquareBorder;
@@ -540,6 +557,12 @@ namespace Yuusha.gui
         public void AttachControlToWindow(Control c)
         {
             Control w = this[c.Owner];
+
+            if ((w as Window).Controls.Contains(c))
+            {
+                Utils.Log("Attempted to add same Control [" + c.Name + "] to Window [" + w.Name + "] in Sheet [" + Name + "].");
+                return;
+            }
 
             if (!(w is Window))
             {
@@ -576,7 +599,31 @@ namespace Yuusha.gui
             {
                 (w as Window).WindowBorder = c as Border;
             }
-            
+            else if (c is TabControl)
+            {
+                if ((w as Window).TabControl == null)
+                {
+                    (w as Window).TabControl = c as TabControl;
+                }
+                else
+                {
+                    Utils.Log("Attempted to add a second TabControl to Window [" + c.Name + "].");
+                }
+            }
+            else if (c is TabControlButton)
+            {
+                if ((w as Window).TabControl != null)
+                {
+                    (w as Window).TabControl.Add(c as TabControlButton);
+                }
+                else
+                {
+                    TabControl tabControl = new TabControl(w.Name + "TabControl", w.Name);
+                    AddControl(tabControl);
+                    tabControl.Add(c as TabControlButton);
+                }
+            }
+
         }
 
         public void SortControls()
@@ -767,7 +814,7 @@ namespace Yuusha.gui
             int maxBoxDistanceFromRight, int maxBoxDistanceFromTop, int maxBoxWidth, int maxBoxHeight, int maxBoxVisualAlpha,
             int minBoxDistanceFromRight, int minBoxDistanceFromTop, int minBoxWidth, int minBoxHeight, int minBoxVisualAlpha,
             int cropBoxDistanceFromRight, int cropBoxDistanceFromTop, int cropBoxWidth, int cropBoxHeight, int cropBoxVisualAlpha,
-            Color closeBoxTintColor, Color maximizeBoxTintColor, Color minimizeBoxTintColor, Color cropBoxTintColor)
+            Color closeBoxTintColor, Color maximizeBoxTintColor, Color minimizeBoxTintColor, Color cropBoxTintColor, int height)
         {
             AddControl(new WindowTitle(name, owner, font, text, textColor, tintColor, visualAlpha,
                 textAlignment, visualKey, visualTiled, closeBoxVisualKey,
@@ -776,7 +823,7 @@ namespace Yuusha.gui
                 maxBoxDistanceFromRight, maxBoxDistanceFromTop, maxBoxWidth, maxBoxHeight, maxBoxVisualAlpha,
                 minBoxDistanceFromRight, minBoxDistanceFromTop, minBoxWidth, minBoxHeight, minBoxVisualAlpha,
                 cropBoxDistanceFromRight, cropBoxDistanceFromTop, cropBoxWidth, cropBoxHeight, cropBoxVisualAlpha,
-                closeBoxTintColor, maximizeBoxTintColor, minimizeBoxTintColor, cropBoxTintColor));
+                closeBoxTintColor, maximizeBoxTintColor, minimizeBoxTintColor, cropBoxTintColor, height));
         }
 
         public void CreateSquareBorder(string name, string owner, int width, VisualKey visualKey, bool visualTiled, Color tintColor, byte visualAlpha)
@@ -810,36 +857,43 @@ namespace Yuusha.gui
         public void CreateButton(string type, string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string clickEvent,
-            BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor,
-            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command)
+            BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
+            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command, string tabControlledWindow)
         {
             if (type == "HotButton")
             {
                 AddControl(new HotButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                    borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
-                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, anchors, dropShadow, shadowDirection,
-                   shadowDistance, command));
+                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
+                   shadowDistance, command, tabControlledWindow));
             }
             else if (type == "IconImageSelectionButton")
             {
                 AddControl(new IconImageSelectionButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                    borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
-                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, anchors, dropShadow, shadowDirection,
+                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
                    shadowDistance, command));
             }
-            else if(type == "MacroButton")
+            else if (type == "MacroButton")
             {
                 AddControl(new MacroButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                    borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
-                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, anchors, dropShadow, shadowDirection,
+                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
                    shadowDistance, command));
+            }
+            else if(type == "TabControlButton")
+            {
+                AddControl(new TabControlButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
+                   borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, textAlignment,
+                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
+                   shadowDistance, tabControlledWindow));
             }
             else
             {
                 AddControl(new Button(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                     borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
-                    xTextOffset, yTextOffset, textOverColor, hasTextOverColor, anchors, dropShadow, shadowDirection,
-                    shadowDistance, command));
+                    xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
+                    shadowDistance, command, tabControlledWindow));
             }
         }
 

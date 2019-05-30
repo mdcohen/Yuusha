@@ -35,7 +35,6 @@ namespace Yuusha.gui
         public int Width
         {
             get { return m_width; }
-            set { m_width = value; }
         }
         public int Height
         {

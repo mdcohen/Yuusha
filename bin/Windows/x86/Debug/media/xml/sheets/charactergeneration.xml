@@ -103,6 +103,34 @@
 		AnchorLeft="true"
 		AnchorRight="true">
   </Control>
+
+    <Control
+		Type="Button"
+		Text="Select: Barbarian"
+		Name="CharGenSelectionButton"
+    Owner="CharacterGenerationWindow"
+		X="10"
+		Y="313"
+		Width="290"
+		Height="40"
+		YTextOffset="8"
+    XTextOffset="-3"
+		IsVisible="false"
+		IsDisabled="false"
+		Font="courier16"
+		TextColor="White"
+		TextOverColor="Chartreuse"
+		VisualKey="RoundedButton"
+		TintColor="DarkMagenta"
+		OnMouseDown="send_command"
+		TextAlignment="Center"
+		DropShadow="true"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		AnchorTop="true"
+		AnchorRight="true"
+    Command="b">
+    </Control>
 </CharacterGenerationWindow>
 
 <CharacterGenerationInfoWindow>
@@ -208,7 +236,7 @@
 		TextColor="White"
 		IsVisible="true"
 		IsEditable="true"
-		Font="courier14"
+		Font="courier16"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
 		VisualAlpha="55"

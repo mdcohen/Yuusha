@@ -44,6 +44,7 @@ namespace Yuusha
             Client_Settings_Changed,
             User_Settings_Changed,
             Character_Settings_Changed,
+            TabControl,
             Target_Cleared,
             Target_Select,
             Save_Character_Settings,
@@ -609,6 +610,7 @@ namespace Yuusha
                                 (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                                 break;
                             case Enums.ECharGenState.ChooseHomeland:
+                                (gui.GuiManager.CurrentSheet["CharGenSelectionButton"] as gui.Button).IsVisible = true;
                                 CharGen.ChooseHomeland();
                                 break;
                             case Enums.ECharGenState.ChooseProfession:
@@ -619,6 +621,9 @@ namespace Yuusha
                                 (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                                 break;
                             case Enums.ECharGenState.ReviewStats:
+                                (gui.GuiManager.CurrentSheet["CharGenSelectionButton"] as gui.Button).IsVisible = false;
+                                CharGen.RemoveCharGenSelectionButtons(new List<string>(CharGen.Professions.Keys));
+                                (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).Height = 357;
                                 CharGen.ReviewStats((string)args[1]);
                                 break;
                         }
@@ -655,6 +660,8 @@ namespace Yuusha
 
                             if(Client.GameState == Enums.EGameState.CharacterGeneration)
                             {
+                                if (CharGen.RollNumber > 0) CharGen.ResetCharGen();
+
                                 if(CharGen.FirstCharacter)
                                 {
                                     TextCue.AddClientInfoTextCue("There are currently no characters on your account. Please create one.", gui.TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3500, false, false, true);
@@ -662,7 +669,7 @@ namespace Yuusha
 
                                 TextCue.AddClientInfoTextCue("Welcome to the character generator.", gui.TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3500, false, false, true);
 
-                                RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseHomeland);
+                                RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
 
                                 (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
                             }
@@ -722,7 +729,7 @@ namespace Yuusha
                             //TODO: use Reflection to save, where ****TextBox should be variable in CharacterSettings
                             if (!GameHUD.OverrideDisplayStates.Contains(Client.GameState))
                             {
-                                if (GuiManager.GenericSheet["OptionsWindow"] is Window optionsWindow && optionsWindow.IsVisible)
+                                if (GuiManager.GenericSheet["FirstTabOptionsWindow"] is Window optionsWindow && optionsWindow.IsVisible)
                                 {
                                     #region Options Window
                                     if (optionsWindow["DoubleLeftClickNearbyTargetTextBox"] is TextBox tbx)
@@ -898,6 +905,19 @@ namespace Yuusha
                     case EventName.Save_Character_Settings:
                         RegisterEvent(EventName.Character_Settings_Changed);
                         break;
+                    case EventName.TabControl:
+                        try
+                        {
+
+                            TabControlButton button = (args[0] as TabControlButton);
+                            if (button.TabControl != null)
+                                button.TabControl.ConfirmOneTabWindowVisible(args[0] as TabControlButton);
+                        }
+                        catch(Exception e)
+                        {
+                            Utils.LogException(e);
+                        }
+                        break;
                     case EventName.Target_Cleared:
                         GameHUD.CurrentTarget = null;
                         if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
@@ -929,7 +949,7 @@ namespace Yuusha
                         {
                             #region Options Window
 
-                            if (GuiManager.GenericSheet["OptionsWindow"] is Window optionsWindow)
+                            if (GuiManager.GenericSheet["FirstTabOptionsWindow"] is Window optionsWindow)
                             {
                                 if (optionsWindow["DoubleLeftClickNearbyTargetTextBox"] is TextBox tbx)
                                     tbx.Text = Character.Settings.DoubleLeftClickNearbyTarget;
@@ -1214,74 +1234,31 @@ namespace Yuusha
 
         public static void ResetLoginGUI()
         {
-            foreach(Control c in GuiManager.GenericSheet.Controls)
-            {
-                if (c is Window)
-                    (c as Window).OnClose();
-            }
-
             try
             {
-                Sheet sheet = GuiManager.Sheets["Login"];
-
-                if (sheet != null)
+                foreach (Control c in GuiManager.GenericSheet.Controls)
                 {
-
-                    if (sheet["LoginWindow"] is gui.Window wi)
-                    {
-
-                        if (wi["AccountTextBox"] is TextBox at)
-                        {
-                            at.Clear();
-                            at.IsCursorVisible = true;
-                            at.HasFocus = true;
-                            if (sheet.CurrentTabOrder >= 0) sheet.CurrentTabOrder = at.TabOrder;
-                        }
-                        if (wi["PasswordTextBox"] is TextBox pt)
-                        {
-                            pt.Clear();
-                            pt.IsCursorVisible = false;
-                            pt.HasFocus = false;
-                        }
-                        if (wi["ServerHostTextBox"] is TextBox sh)
-                        {
-                            sh.Clear();
-                            sh.AddText(Client.ClientSettings.ServerHost);
-                            sh.SelectAll();
-                        }
-                        if (sheet["LoginStatusLabel"] is TextBox sl)
-                        {
-                            sl.Clear();
-                            sl.TextColor = Color.White;
-                        }
-                        if (wi["CreateNewAccountButton"] is Button cna)
-                        {
-                            cna.IsVisible = true;
-                        }
-
-                        if (sheet["CreateNewAccountWindow"] is gui.Window cnaw)
-                        {
-                            cnaw.IsVisible = false;
-                            foreach(Control c in cnaw.Controls)
-                            {
-                                if (c is TextBox)
-                                    (c as TextBox).Clear();
-                            }
-                        }
-
-                        wi.IsVisible = true;
-                    }
+                    if (c is Window)
+                        (c as Window).OnClose();
                 }
 
-                // Hide some windows.
-                if (gui.GuiManager.GenericSheet["MacrosWindow"] is gui.Window macrosWindow && macrosWindow.IsVisible)
-                    macrosWindow.IsVisible = false;
-                if (gui.GuiManager.GenericSheet["OptionsWindow"] is gui.Window optionsWindow && optionsWindow.IsVisible)
-                    optionsWindow.IsVisible = false;
-                if (gui.GuiManager.GenericSheet["HelpWindow"] is gui.Window helpWindow && helpWindow.IsVisible)
-                    helpWindow.IsVisible = false;
+                Program.Client.GUIManager.LoadSheet(gui.GuiManager.GenericSheet.FilePath);
+                Program.Client.GUIManager.LoadSheet(gui.GuiManager.CurrentSheet.FilePath);
+
+                if (Client.IsFullScreen)
+                {
+                    gui.GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                    gui.GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                }
+
+                GuiManager.GetControl("AccountTextBox").HasFocus = true;
+                if (GuiManager.GetControl("ServerHostTextBox") is TextBox serverHostTextBox)
+                {
+                    serverHostTextBox.Clear(); serverHostTextBox.AddText(Client.ClientSettings.ServerHost);
+                    serverHostTextBox.SelectAll();
+                }
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 Utils.LogException(e);
             }

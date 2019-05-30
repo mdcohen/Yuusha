@@ -1,0 +1,4 @@
+5/29/2019 10:34:58 PM: {Exception} Must specify valid information for parsing in the string. Stack:    at System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   at System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   at Yuusha.gui.Button.OnMouseDown(MouseState ms) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\buttons\Button.cs:line 116
+5/29/2019 10:34:58 PM: Failed OnMouseDown event for Button [ SecondTabControlButton ] of Sheet [ Generic ]

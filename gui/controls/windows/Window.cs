@@ -79,6 +79,9 @@ namespace Yuusha.gui
             get { return m_currentTabOrder; }
             set { m_currentTabOrder = value; }
         }
+
+        public TabControl TabControl
+        { get; set; }
         #endregion
 
         #region Constructor
@@ -140,7 +143,7 @@ namespace Yuusha.gui
             {
                 if (!m_cropped || ((control is WindowControlBox) || (control is WindowTitle)))
                     control.IsDisabled = m_disabled; // disabled
-                
+
                 control.Update(gameTime);
             }
         }
@@ -258,7 +261,7 @@ namespace Yuusha.gui
                             }
                         }
                         m_openComboBox = m_controls[i].Name;
-                    } 
+                    }
                     #endregion
 
                     if ((m_controls[i] is TextBox) && m_controls[i].HasFocus)
@@ -415,7 +418,7 @@ namespace Yuusha.gui
                     GuiManager.DraggedControl = null;
                     break;
                 }
-                else if(control.ControlState == Enums.EControlState.Down && (control is WindowTitle) &&
+                else if (control.ControlState == Enums.EControlState.Down && (control is WindowTitle) &&
                     (control as WindowTitle).ControlBoxContains(new Point(ms.X, ms.Y)))
                 {
                     GuiManager.Dragging = true;
@@ -443,7 +446,7 @@ namespace Yuusha.gui
             m_rectangle.Y += m_yOffset;
             m_touchDownPoint.X += m_xOffset;
             m_touchDownPoint.Y += m_yOffset;
-            
+
             // window is being dragged, move it's controls with it
             for (int j = Controls.Count - 1; j >= 0; j--)
             {
@@ -451,6 +454,19 @@ namespace Yuusha.gui
                 position.X += this.XOffset;
                 position.Y += this.YOffset;
                 Controls[j].Position = position;
+
+                // IMPORTANT: (5/29/2019) Currently only one layer of nested windows is dragged. This will need recursiveness if adding more nested windows.
+                if (Controls[j] is Window)
+                {
+                    foreach (Control winControl in (Controls[j] as Window).Controls)
+                    {
+                        position = winControl.Position;
+                        position.X += this.XOffset;
+                        position.Y += this.YOffset;
+                        winControl.Position = position;
+                    }
+                }
+
                 if (Controls[j] is WindowTitle)
                 {
                     WindowTitle wt = this.Controls[j] as WindowTitle;
@@ -485,7 +501,7 @@ namespace Yuusha.gui
                 }
             }
 
-            CheckBoundsAndAdjust();           
+            CheckBoundsAndAdjust();
         }
 
         protected override void OnMouseOver(MouseState ms)
@@ -761,7 +777,7 @@ namespace Yuusha.gui
                     position.Y += (m_rectangle.Y - oldWindowRect.Y);
                     m_controls[j].Position = position;
 
-                    if(m_controls[j] is ScrollableTextBox && this.Sheet != GuiManager.GenericSheet.Name)
+                    if (m_controls[j] is ScrollableTextBox && this.Sheet != GuiManager.GenericSheet.Name)
                         m_controls[j].OnClientResize(prev, now, true);
                 }
             }
@@ -781,7 +797,7 @@ namespace Yuusha.gui
             m_maximized = true;
             m_minimized = false;
 
-            foreach(Control control in this.Controls)
+            foreach (Control control in this.Controls)
             {
                 Point position = control.Position;
                 position.X += (m_rectangle.X - prevRect.X);

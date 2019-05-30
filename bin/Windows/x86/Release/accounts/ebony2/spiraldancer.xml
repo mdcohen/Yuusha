@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <CharacterSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DoubleLeftClickNearbyTarget>fight %t;throw hammer at %t</DoubleLeftClickNearbyTarget>
-  <DoubleLeftClickDistantTarget>cast %t</DoubleLeftClickDistantTarget>
+  <DoubleLeftClickDistantTarget>cast at %t;look at %t</DoubleLeftClickDistantTarget>
   <NumLock0>search all;scoop coins</NumLock0>
   <NumLock1>sw</NumLock1>
   <NumLock2>s</NumLock2>
@@ -17,6 +17,18 @@
   <NumPadSubtract>belt left;remove 2 ring from right</NumPadSubtract>
   <NumPadAdd>look in sack;quaff</NumPadAdd>
   <NumPadDelete>ashtug ninda anghizidda arrflug</NumPadDelete>
+  <FunctionKey1 />
+  <FunctionKey2 />
+  <FunctionKey3 />
+  <FunctionKey4 />
+  <FunctionKey5 />
+  <FunctionKey6 />
+  <FunctionKey7 />
+  <FunctionKey8 />
+  <FunctionKey9 />
+  <FunctionKey10 />
+  <FunctionKey11 />
+  <FunctionKey12 />
   <CritterListDropDownMenuItem1>fight %t;throw hammer at %t</CritterListDropDownMenuItem1>
   <CritterListDropDownMenuItem2>cast at %t</CritterListDropDownMenuItem2>
   <CritterListDropDownMenuItem3>look at %t</CritterListDropDownMenuItem3>

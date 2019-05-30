@@ -51,6 +51,8 @@ namespace Yuusha.gui
         protected BitmapFont.TextAlignment m_textAlignment;
         protected Color m_textOverColor;
         protected bool m_hasTextOverColor;
+        protected Color m_tintOverColor;
+        protected bool m_hasTintOverColor;
         protected List<Enums.EGameState> m_lockoutStates; // for generic windows, states that this window is not available
         protected string m_popUpText;
         protected System.Timers.Timer m_doubleClickTimer;
@@ -446,7 +448,7 @@ namespace Yuusha.gui
 
                     ControlState = Enums.EControlState.Over;
                     OnMouseOver(ms);
-                    return result; 
+                    return result;
                     #endregion
                 }
 
@@ -455,14 +457,14 @@ namespace Yuusha.gui
                 {
                     //if (this.Owner != "" && GuiManager.GetControl(this.Owner) is Window)
                     //{
-                        ControlState = Enums.EControlState.Down;
-                        OnMouseDown(ms);
+                    ControlState = Enums.EControlState.Down;
+                    OnMouseDown(ms);
 
-                        // slider sends data while mouse is down
-                        if ((this is Slider) && OnControl != null)
-                            OnControl(m_name, Data);
-                        HasFocus = true;
-                        return true;
+                    // slider sends data while mouse is down
+                    if ((this is Slider) && OnControl != null)
+                        OnControl(m_name, Data);
+                    HasFocus = true;
+                    return true;
                     //}
                 }
             }

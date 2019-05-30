@@ -176,7 +176,7 @@ namespace Yuusha
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             {
                                 GridBox.CreateGridBox(GridBox.GridBoxFunction.Sack);
-                            } 
+                            }
                             #endregion
 
                             #region ALT + N  News Window

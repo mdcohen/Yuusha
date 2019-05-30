@@ -550,36 +550,16 @@ namespace Yuusha
                                 Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.ChooseName);
                                 return true;
                             }
-                            //else if(inData.ToLower().IndexOf("a character with the name you have chosen already exists") != -1)
-                            //{
-
-                            //}
+                            else if (inData.ToLower().IndexOf("a character with the name you have chosen already exists") != -1)
+                            {
+                                gui.TextCue.AddClientInfoTextCue("A character with the name you have chosen already exists.", 3500);
+                                return true;
+                            }
                             else if(inData.ToLower().IndexOf("that name is invalid.") != -1)
                             {
                                 Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.ChooseName);
                                 return true;
                             }
-                            //Events.RegisterEvent(Events.EventName.Display_CharGen_Text, inData);
-                            //if (inData.IndexOf(Protocol.CHARGEN_ROLLER_RESULTS_END) != -1)
-                            //{
-                            //    //Essence.client.chargen.ParseRollerResults(Protocol.GetProtoInfoFromString(inData, Protocol.CHARGEN_ROLLER_RESULTS, Protocol.CHARGEN_ROLLER_RESULTS_END));
-                            //    return true;
-                            //}
-                            //else if (inData.IndexOf(Protocol.CHARGEN_ACCEPTED) != -1)
-                            //{
-                            //    //Essence.client.chargen.AcceptStepOne();
-                            //    return true;
-                            //}
-                            //else if (inData.IndexOf(Protocol.CHARGEN_ERROR) != -1)
-                            //{
-                            //    //Essence.client.chargen.sendCharGenInfo();
-                            //    return true;
-                            //}
-                            //else if (inData.IndexOf(Protocol.CHARGEN_INVALIDNAME) != -1)
-                            //{
-                            //    //Essence.client.chargen.DenyStepOne();
-                            //    return true;
-                            //}
                             break;
                             #endregion
                         case Enums.EGameState.Conference:

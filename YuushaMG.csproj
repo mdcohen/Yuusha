@@ -103,6 +103,8 @@
     <Compile Include="gui\controls\labels\Label.cs" />
     <Compile Include="gui\controls\labels\MapTileLabel.cs" />
     <Compile Include="gui\controls\labels\SpinelTileLabel.cs" />
+    <Compile Include="gui\controls\buttons\TabControlButton.cs" />
+    <Compile Include="gui\controls\TabControl.cs" />
     <Compile Include="gui\controls\windows\gridboxes\GridBox.cs" />
     <Compile Include="gui\controls\MouseCursor.cs" />
     <Compile Include="gui\controls\textboxes\NumericTextBox.cs" />
