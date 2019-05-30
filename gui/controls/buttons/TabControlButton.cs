@@ -8,6 +8,10 @@ namespace Yuusha.gui
     {
         public string TabControlledWindow;
         public TabControl TabControl;
+        private Rectangle m_typicalRectangle;
+        private VisualKey m_typicalVisualKey;
+        private Color m_typicalTintColor;
+
 
         public TabControlButton(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
@@ -20,6 +24,52 @@ namespace Yuusha.gui
         {
             TabControlledWindow = tabControlledWindow;
             m_onMouseDown = "TabControl";
+
+            m_typicalRectangle = rectangle;
+            m_typicalVisualKey = visualKey;
+            m_typicalTintColor = tintColor;
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            Window w = GuiManager.GetControl(TabControlledWindow) as Window;
+
+            if (w != null)
+            {
+                if (w.IsVisible)
+                {
+                    m_rectangle.Height = m_typicalRectangle.Height + 1;
+                    m_visualKey = new VisualKey(w.VisualKey);
+                    m_tintColor = w.TintColor;
+                }
+                else
+                {
+                    m_rectangle.Height = m_typicalRectangle.Height;
+                    m_visualKey = m_typicalVisualKey;
+                    m_tintColor = m_typicalTintColor;
+                }
+            }
+        }
+
+        //public void TabSelected()
+        //{
+        //    Window w = GuiManager.GetControl(TabControlledWindow) as Window;
+
+        //    if (w != null)
+        //    {
+        //        m_rectangle = new Rectangle(m_typicalRectangle.X, m_typicalRectangle.Y, m_typicalRectangle.Width, m_typicalRectangle.Height + 1);
+        //        m_visualKey = new VisualKey(w.VisualKey);
+        //        m_tintColor = w.TintColor;
+        //    }
+        //}
+
+        //public void TabDeselected()
+        //{
+        //    m_rectangle = m_typicalRectangle;
+        //    m_visualKey = m_typicalVisualKey;
+        //    m_tintColor = m_typicalTintColor;
+        //}
     }
 }

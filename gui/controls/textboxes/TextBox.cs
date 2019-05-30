@@ -1,4 +1,5 @@
 using System;
+using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -28,6 +29,16 @@ namespace Yuusha.gui
             Keys.RightWindows,
         };
 
+        private static readonly System.Collections.Generic.List<Keys> RepeatableKeys = new System.Collections.Generic.List<Keys>()
+        {
+            Keys.Back, Keys.Delete
+        };
+
+        private static readonly System.Collections.Generic.List<Keys> FunctionKeys = new System.Collections.Generic.List<Keys>()
+        {
+            Keys.F1 ,Keys.F2, Keys.F3, Keys.F4, Keys.F5, Keys.F6, Keys.F7, Keys.F8, Keys.F9, Keys.F10, Keys.F11, Keys.F12
+        };
+
         #region Private Data
         protected int m_cursorPosition;
         protected int m_maxLength;
@@ -42,6 +53,11 @@ namespace Yuusha.gui
         protected string m_onKeyboardEnter;
         protected int m_selectionStart;
         protected int m_selectionLength;
+
+        protected System.Timers.Timer m_repeatingKeyTimer;
+        protected bool m_allowRepeatingKey;
+        protected Keys m_lastKeyPressed;
+        protected int m_repeatedKeyCount;
         #endregion
 
         public bool IsCursorVisible
@@ -68,6 +84,12 @@ namespace Yuusha.gui
             m_onKeyboardEnter = "";
             m_selectionLength = 0;
             m_selectionStart = 0;
+
+            m_repeatingKeyTimer = new System.Timers.Timer(500);
+            m_repeatingKeyTimer.Elapsed += new System.Timers.ElapsedEventHandler(RepeatingKeyTimer_Elapsed);
+            m_repeatingKeyTimer.AutoReset = true;
+            m_allowRepeatingKey = true;
+            m_repeatedKeyCount = 0;
         }
 
         public TextBox(string name, string owner, Rectangle rectangle, string text, Color textColor, BitmapFont.TextAlignment textAlignment,
@@ -117,6 +139,13 @@ namespace Yuusha.gui
             m_selectionStart = 0;
             m_selectionLength = 0;
             m_tabOrder = tabOrder;
+
+            m_repeatingKeyTimer = new System.Timers.Timer(800);
+            m_repeatingKeyTimer.Elapsed += new System.Timers.ElapsedEventHandler(RepeatingKeyTimer_Elapsed);
+            m_repeatingKeyTimer.AutoReset = true;
+
+            m_allowRepeatingKey = true;
+            m_repeatedKeyCount = 0;
         }
         #endregion
 
@@ -149,6 +178,22 @@ namespace Yuusha.gui
                         if (k == k2)
                         {
                             bFound = true;
+                            //m_lastKeyPressed = k2;
+                            //if (m_lastKeyPressed == k2 && m_allowRepeatingKey && RepeatableKeys.Contains(k2))
+                            //{
+                            //    bFound = false;
+                            //    m_allowRepeatingKey = false;
+                            //    m_repeatedKeyCount++;
+                            //    if (m_repeatedKeyCount >= 2)
+                            //        m_repeatingKeyTimer.Interval = 200;
+                            //    m_repeatingKeyTimer.Start();
+                            //}
+                            //else
+                            //{
+                            //    m_repeatingKeyTimer.Interval = 500;
+                            //    m_allowRepeatingKey = true;
+                            //    m_repeatedKeyCount = 0;
+                            //}
                             break;
                         }
                     }
@@ -461,55 +506,94 @@ namespace Yuusha.gui
                                     if (this.Name == Globals.GAMEINPUTTEXTBOX && numLock) // overrides for numpad keys in a game input text box
                                     {
                                         #region NumLock and Number Pad Keys
-                                        if (numLock)
+                                        switch (k)
                                         {
-                                            switch (k)
-                                            {
-                                                case Keys.NumPad1:
-                                                    textToAdd = Character.Settings.NumLock1 + " ";
-                                                    break;
-                                                case Keys.NumPad2:
-                                                    textToAdd = Character.Settings.NumLock2 + " ";
-                                                    break;
-                                                case Keys.NumPad3:
-                                                    textToAdd = Character.Settings.NumLock3 + " ";
-                                                    break;
-                                                case Keys.NumPad4:
-                                                    textToAdd = Character.Settings.NumLock4 + " ";
-                                                    break;
-                                                case Keys.NumPad5:
-                                                    textToAdd = Character.Settings.NumLock5 + " ";
-                                                    break;
-                                                case Keys.NumPad6:
-                                                    textToAdd = Character.Settings.NumLock6 + " ";
-                                                    break;
-                                                case Keys.NumPad7:
-                                                    textToAdd = Character.Settings.NumLock7 + " ";
-                                                    break;
-                                                case Keys.NumPad8:
-                                                    textToAdd = Character.Settings.NumLock8 + " ";
-                                                    break;
-                                                case Keys.NumPad9:
-                                                    textToAdd = Character.Settings.NumLock9 + " ";
-                                                    break;
-                                                case Keys.Divide:
-                                                    textToAdd = Character.Settings.NumPadDivide + " ";
-                                                    break;
-                                                case Keys.Multiply:
-                                                    textToAdd = Character.Settings.NumPadMultiply + " ";
-                                                    break;
-                                                case Keys.Subtract:
-                                                    textToAdd = Character.Settings.NumPadSubtract + " ";
-                                                    break;
-                                                case Keys.Add:
-                                                    textToAdd = Character.Settings.NumPadAdd + " ";
-                                                    break;
-                                                case Keys.Delete:
-                                                    textToAdd = Character.Settings.NumPadDelete + " ";
-                                                    break;
-                                            }
-                                        } 
+                                            case Keys.NumPad1:
+                                                textToAdd = Character.Settings.NumLock1 + " ";
+                                                break;
+                                            case Keys.NumPad2:
+                                                textToAdd = Character.Settings.NumLock2 + " ";
+                                                break;
+                                            case Keys.NumPad3:
+                                                textToAdd = Character.Settings.NumLock3 + " ";
+                                                break;
+                                            case Keys.NumPad4:
+                                                textToAdd = Character.Settings.NumLock4 + " ";
+                                                break;
+                                            case Keys.NumPad5:
+                                                textToAdd = Character.Settings.NumLock5 + " ";
+                                                break;
+                                            case Keys.NumPad6:
+                                                textToAdd = Character.Settings.NumLock6 + " ";
+                                                break;
+                                            case Keys.NumPad7:
+                                                textToAdd = Character.Settings.NumLock7 + " ";
+                                                break;
+                                            case Keys.NumPad8:
+                                                textToAdd = Character.Settings.NumLock8 + " ";
+                                                break;
+                                            case Keys.NumPad9:
+                                                textToAdd = Character.Settings.NumLock9 + " ";
+                                                break;
+                                            case Keys.Divide:
+                                                textToAdd = Character.Settings.NumPadDivide + " ";
+                                                break;
+                                            case Keys.Multiply:
+                                                textToAdd = Character.Settings.NumPadMultiply + " ";
+                                                break;
+                                            case Keys.Subtract:
+                                                textToAdd = Character.Settings.NumPadSubtract + " ";
+                                                break;
+                                            case Keys.Add:
+                                                textToAdd = Character.Settings.NumPadAdd + " ";
+                                                break;
+                                            case Keys.Delete:
+                                                textToAdd = Character.Settings.NumPadDelete + " ";
+                                                break;
+                                        }
                                         #endregion
+                                    }
+                                    else if(Name == Globals.GAMEINPUTTEXTBOX && FunctionKeys.Contains(k))
+                                    {
+                                        switch(k)
+                                        {
+                                            case Keys.F1:
+                                                textToAdd = Character.Settings.FunctionKey1;
+                                                break;
+                                            case Keys.F2:
+                                                textToAdd = Character.Settings.FunctionKey2;
+                                                break;
+                                            case Keys.F3:
+                                                textToAdd = Character.Settings.FunctionKey3;
+                                                break;
+                                            case Keys.F4:
+                                                textToAdd = Character.Settings.FunctionKey4;
+                                                break;
+                                            case Keys.F5:
+                                                textToAdd = Character.Settings.FunctionKey5;
+                                                break;
+                                            case Keys.F6:
+                                                textToAdd = Character.Settings.FunctionKey6;
+                                                break;
+                                            case Keys.F7:
+                                                textToAdd = Character.Settings.FunctionKey7;
+                                                break;
+                                            case Keys.F8:
+                                                textToAdd = Character.Settings.FunctionKey8;
+                                                break;
+                                            case Keys.F9:
+                                                textToAdd = Character.Settings.FunctionKey9;
+                                                break;
+                                            case Keys.F10:
+                                                textToAdd = Character.Settings.FunctionKey10;
+                                                break;
+                                            case Keys.F11:
+                                                textToAdd = Character.Settings.FunctionKey11;
+                                                break;
+                                            case Keys.F12:
+                                                textToAdd = Character.Settings.FunctionKey12;
+                                                break;
+                                        }
                                     }
                                     else if (k.ToString().StartsWith("NumPad")) // text is numbers
                                     {
@@ -634,6 +718,13 @@ namespace Yuusha.gui
 
             pressedKeys = newKeys;
             return true;
+        }
+
+        private void RepeatingKeyTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            m_allowRepeatingKey = true;
+            m_repeatingKeyTimer.Stop();
+            TextCue.AddMouseCursorTextCue("Stopped.", Color.Yellow, Color.Black, this.Font);
         }
 
         public virtual void AddText(string text)

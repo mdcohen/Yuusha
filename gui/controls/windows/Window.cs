@@ -693,9 +693,7 @@ namespace Yuusha.gui
             {
                 Sheet sheet = GuiManager.Sheets[Client.GameState.ToString()];
 
-                Window owner = sheet[m_owner] as Window;
-
-                if (owner == null)
+                if (!(sheet[m_owner] is Window owner))
                 {
                     owner = sheet[(sheet[m_owner] as Window).Owner] as Window;
                 }

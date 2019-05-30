@@ -134,11 +134,5 @@ namespace Yuusha.gui
             if (m_visuals.ContainsKey(Enums.EControlState.Normal))
                 m_visualKey = m_visuals[Enums.EControlState.Normal];
         }
-
-        //protected override void OnMouseOver(MouseState ms)
-        //{
-        //    TextCue.AddCursorTextCue(m_hasTouchDownPoint.ToString(), Color.Yellow, Color.Transparent, Font);
-        //    base.OnMouseOver(ms);
-        //}
     }
 }

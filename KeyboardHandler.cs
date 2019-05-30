@@ -173,10 +173,56 @@ namespace Yuusha
                                 Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
                             }
 
+                            if(IsAltKeyDown(ks) && ks.IsKeyDown(Keys.F))
+                            {
+                                System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
+                                
+                                colorDialog.ShowDialog();
+                            }
+
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             {
                                 GridBox.CreateGridBox(GridBox.GridBoxFunction.Sack);
                             }
+
+                            #region ALT + O  Options Window
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.O))
+                            {
+                                gui.Window optWindow = gui.GuiManager.GenericSheet["OptionsWindow"] as gui.Window;
+                                if (optWindow != null)
+                                {
+                                    if (!optWindow.IsVisible)
+                                        Events.RegisterEvent(Events.EventName.Load_Character_Settings);
+                                    optWindow.IsVisible = !optWindow.IsVisible;
+                                    optWindow.HasFocus = optWindow.IsVisible;
+                                    result = true;
+                                }
+                            }
+                            #endregion
+
+                            #region ALT + I  Vertical Hot Button Window
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
+                            {
+                                gui.Window verticalHotButtonWindow = gui.GuiManager.GenericSheet["VerticalHotButtonWindow"] as gui.Window;
+                                if (verticalHotButtonWindow != null)
+                                {
+                                    verticalHotButtonWindow.IsVisible = !verticalHotButtonWindow.IsVisible;
+                                    result = true;
+                                }
+                            }
+                            #endregion
+
+                            #region ALT + K  Horizontal Hot Button Window
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
+                            {
+                                gui.Window horizontalHotButtonWindow = gui.GuiManager.GenericSheet["HorizontalHotButtonWindow"] as gui.Window;
+                                if (horizontalHotButtonWindow != null)
+                                {
+                                    horizontalHotButtonWindow.IsVisible = !horizontalHotButtonWindow.IsVisible;
+                                    result = true;
+                                }
+                            }
+                            #endregion
                             #endregion
 
                             #region ALT + N  News Window
@@ -411,34 +457,28 @@ namespace Yuusha
                                                         }
                             #endregion
 
-                            #region ALT + I  Macro Icons Window
-                                                        if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
-                                                        {
-                                                            gui.Window verticalHotButtonWindow = gui.GuiManager.GenericSheet["VerticalHotButtonWindow"] as gui.Window;
-                                                            if (verticalHotButtonWindow != null)
-                                                            {
-                                                                //if (!iconsWindow.IsVisible)
-                                                                //    Events.RegisterEvent(Events.EventName.Load_Options);
-                                                                verticalHotButtonWindow.IsVisible = !verticalHotButtonWindow.IsVisible;
-                                                                //iconsWindow.HasFocus = iconsWindow.IsVisible;
-                                                                result = true;
-                                                            }
-                                                        }
+                            #region ALT + I  Vertical Hot Button Window
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
+                            {
+                                gui.Window verticalHotButtonWindow = gui.GuiManager.GenericSheet["VerticalHotButtonWindow"] as gui.Window;
+                                if (verticalHotButtonWindow != null)
+                                {
+                                    verticalHotButtonWindow.IsVisible = !verticalHotButtonWindow.IsVisible;
+                                    result = true;
+                                }
+                            }
                             #endregion
 
                             #region ALT + K  Horizontal Hot Button Window
-                                                        if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
-                                                        {
-                                                            gui.Window horizontalHotButtonWindow = gui.GuiManager.GenericSheet["HorizontalHotButtonWindow"] as gui.Window;
-                                                            if (horizontalHotButtonWindow != null)
-                                                            {
-                                                                //if (!iconsWindow.IsVisible)
-                                                                //    Events.RegisterEvent(Events.EventName.Load_Options);
-                                                                horizontalHotButtonWindow.IsVisible = !horizontalHotButtonWindow.IsVisible;
-                                                                //iconsWindow.HasFocus = iconsWindow.IsVisible;
-                                                                result = true;
-                                                            }
-                                                        }
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
+                            {
+                                gui.Window horizontalHotButtonWindow = gui.GuiManager.GenericSheet["HorizontalHotButtonWindow"] as gui.Window;
+                                if (horizontalHotButtonWindow != null)
+                                {
+                                    horizontalHotButtonWindow.IsVisible = !horizontalHotButtonWindow.IsVisible;
+                                    result = true;
+                                }
+                            }
                             #endregion
 
                             #region ALT + L  Toggle Logging of Scrollable Text Boxes

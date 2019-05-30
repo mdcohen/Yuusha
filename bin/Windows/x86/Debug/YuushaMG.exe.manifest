@@ -139,14 +139,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YuushaMG.exe" size="636384">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YuushaMG.exe" size="636896">
       <assemblyIdentity name="YuushaMG" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>oUL7VMqPooyBWK3F0JNAOGwhzmuOKsBCEyAS8byA3CI=</dsig:DigestValue>
+        <dsig:DigestValue>TlltoLENGn9UU1eNt+bquLM2/ooL63f6iFnV+sjFv+Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -3165,13 +3165,13 @@
       <dsig:DigestValue>WYpn+c0B53nL1hYrz09v34QijEu3DCmnev5b7NxVQYA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\generic.xml" size="65292" writeableType="applicationData">
+  <file name="media\xml\sheets\generic.xml" size="65355" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>svMzaQHqGGVEWoJdVMbqTwqbsfzkivri8Fw8FLoaqFg=</dsig:DigestValue>
+      <dsig:DigestValue>pzQLskyklsrCJfH2B84XF0JHCSlIN8evB3hjFN5AVjU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\sheets\hotbuttoneditmode.xml" size="5428" writeableType="applicationData">

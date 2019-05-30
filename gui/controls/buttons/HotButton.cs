@@ -36,7 +36,7 @@ namespace Yuusha.gui
                 if ((controlDown || altDown) && ms.LeftButton != ButtonState.Pressed)
                 {
                     if(this.Text.Length > 0)
-                        TextCue.AddCursorTextCue(this.Text, Client.UserSettings.ColorHotButtonText_Fore, Client.UserSettings.ColorHotButtonText_Back, this.Font);
+                        TextCue.AddMouseCursorTextCue(this.Text, Client.UserSettings.ColorHotButtonText_Fore, Client.UserSettings.ColorHotButtonText_Back, this.Font);
                     return true;
                 }
                 else if(controlDown && altDown && ms.LeftButton == ButtonState.Pressed)

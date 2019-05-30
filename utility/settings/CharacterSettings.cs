@@ -28,7 +28,7 @@ namespace Yuusha.Utility.Settings
         public string NumPadAdd = "look in sack;quaff";
         public string NumPadDelete = "ashtug ninda anghizidda arrflug";
 
-        public string FunctionKey1 = "";
+        public string FunctionKey1 = "test";
         public string FunctionKey2 = "";
         public string FunctionKey3 = "";
         public string FunctionKey4 = "";

@@ -300,10 +300,13 @@ namespace Yuusha.gui
 
                 VisualInfo vi = GuiManager.Visuals[m_visualKey.Key];
 
-                Color color = new Color(m_tintColor.R, m_tintColor.G, m_tintColor.B, this.VisualAlpha);
+                Color color = new Color(m_tintColor.R, m_tintColor.G, m_tintColor.B, VisualAlpha);
+
+                if (m_hasTintOverColor && ControlState == Enums.EControlState.Over)
+                    color = new Color(m_tintOverColor.R, m_tintOverColor.G, m_tintOverColor.B, VisualAlpha);
 
                 if (m_disabled)
-                    color = new Color(s_disabledColor.R, s_disabledColor.G, s_disabledColor.B, this.VisualAlpha);
+                    color = new Color(s_disabledColor.R, s_disabledColor.G, s_disabledColor.B, VisualAlpha);
 
                 if (m_dropShadow)
                 {

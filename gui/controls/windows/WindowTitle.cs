@@ -126,9 +126,10 @@ namespace Yuusha.gui
 
             if (control != null)
             {
+                // Decision should be made here to have the WindowTitle draw above the Window Rectangle or within.
                 Point p = control.Position;
                 m_rectangle = new Rectangle(p.X, p.Y, control.Width, Height);// m_height);
-                //m_rectangle = new Rectangle(p.X, p.Y - this.Height, control.Width, m_height);
+                //m_rectangle = new Rectangle(p.X, p.Y - this.Height, control.Width, Height);
             }
 
             if (m_closeBox != null)

@@ -908,7 +908,6 @@ namespace Yuusha
                     case EventName.TabControl:
                         try
                         {
-
                             TabControlButton button = (args[0] as TabControlButton);
                             if (button.TabControl != null)
                                 button.TabControl.ConfirmOneTabWindowVisible(args[0] as TabControlButton);
@@ -948,7 +947,6 @@ namespace Yuusha
                         if (Character.Settings != null)
                         {
                             #region Options Window
-
                             if (GuiManager.GenericSheet["OptionsWindow"] is Window optionsWindow)
                             {
                                 if (optionsWindow["DoubleLeftClickNearbyTargetTextBox"] is TextBox tbx)
@@ -956,6 +954,7 @@ namespace Yuusha
                                 tbx = optionsWindow["DoubleLeftClickDistantTargetTextBox"] as TextBox;
                                 if (tbx != null)
                                     tbx.Text = Character.Settings.DoubleLeftClickDistantTarget;
+                                // Number Pad Keyboard Mapping
                                 tbx = optionsWindow["OptionsNumPadDivideTextBox"] as TextBox;
                                 if (tbx != null)
                                     tbx.Text = Character.Settings.NumPadDivide;
@@ -992,14 +991,48 @@ namespace Yuusha
                                 tbx = optionsWindow["OptionsCritterDropDownTextBox5"] as TextBox;
                                 if (tbx != null)
                                     tbx.Text = Character.Settings.CritterListDropDownMenuItem5;
+                                // Function Key Mapping
+                                tbx = optionsWindow["OptionsFunctionKey1TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey1;
+                                tbx = optionsWindow["OptionsFunctionKey2TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey2;
+                                tbx = optionsWindow["OptionsFunctionKey3TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey3;
+                                tbx = optionsWindow["OptionsFunctionKey4TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey4;
+                                tbx = optionsWindow["OptionsFunctionKey5TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey5;
+                                tbx = optionsWindow["OptionsFunctionKey6TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey6;
+                                tbx = optionsWindow["OptionsFunctionKey7TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey7;
+                                tbx = optionsWindow["OptionsFunctionKey8TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey8;
+                                tbx = optionsWindow["OptionsFunctionKey9TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey9;
+                                tbx = optionsWindow["OptionsFunctionKey10TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey10;
+                                tbx = optionsWindow["OptionsFunctionKey11TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey11;
+                                tbx = optionsWindow["OptionsFunctionKey12TextBox"] as TextBox;
+                                if (tbx != null)
+                                    tbx.Text = Character.Settings.FunctionKey12;
                             }
 
                             #endregion
-                            #region Vertical Hot Buttons
-                            #endregion
 
                             #region Vertical Hot Buttons
-
                             if (GuiManager.GenericSheet["VerticalHotButtonWindow"] is Window verticalHotButtonWindow)
                             {
                                 verticalHotButtonWindow["VerticalHBWindowHotButton0"].VisualKey = Character.Settings.VerticalHotButtonVisualKey0;
@@ -1044,13 +1077,9 @@ namespace Yuusha
                                 verticalHotButtonWindow["VerticalHBWindowHotButton18"].Text = Character.Settings.VerticalHotButtonText18;
                                 verticalHotButtonWindow["VerticalHBWindowHotButton19"].Text = Character.Settings.VerticalHotButtonText19;
                             }
-
-                            #endregion
-                            #region Horizontal Hot Buttons
                             #endregion
 
                             #region Horizontal Hot Buttons
-
                             if (GuiManager.GenericSheet["HorizontalHotButtonWindow"] is Window horizontalHotButtonWindow)
                             {
                                 horizontalHotButtonWindow["HorizontalHBWindowHotButton0"].VisualKey = Character.Settings.HorizontalHotButtonVisualKey0;

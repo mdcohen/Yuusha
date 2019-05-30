@@ -321,14 +321,10 @@ namespace Yuusha.gui
 
                     if ((m_controls[i].ControlState == Enums.EControlState.Down) && !m_controls[i].IsLocked)
                     {
-                        // start dragging, unless it is a minimized window
-                        //if (!((m_controls[i] is WindowTitle) && (GuiManager.GetControl(m_controls[i].Owner) as Window).IsMinimized))
-                        //{
                         GuiManager.Dragging = true;
                         GuiManager.DraggedControl = m_controls[i];
                         GuiManager.DraggingXOffset = ms.X - m_controls[i].Position.X;
                         GuiManager.DraggingYOffset = ms.Y - m_controls[i].Position.Y;
-                        //}
                     }
 
                     // Close any open ComboBox when dragging.

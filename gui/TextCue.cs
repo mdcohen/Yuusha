@@ -203,7 +203,7 @@ namespace Yuusha.gui
             }
         }
 
-        public static void AddCursorTextCue(string text, Color forecolor, Color backcolor, string font)
+        public static void AddMouseCursorTextCue(string text, Color forecolor, Color backcolor, string font)
         {
             MouseState ms = GuiManager.MouseState;
 
