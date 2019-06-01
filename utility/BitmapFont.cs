@@ -161,7 +161,7 @@ namespace Yuusha
 					xd.Load(ios);
 				}
 				if (!fFoundResource)
-					throw new System.Exception(String.Format("Unable to find font named '{0}'.", strFontFilename));
+					throw new Exception(String.Format("Unable to find font named '{0}'.", strFontFilename));
 			}
 
 			m_strName = "";
@@ -337,6 +337,7 @@ namespace Yuusha
 
             try
             {
+                format = ThosePeskyCurlyBracers(format);
                 string str = string.Format(format, args);
                 //int pxWidth = 0;
                 char cLast = '\0';
@@ -537,20 +538,44 @@ namespace Yuusha
 			return DrawString(m_vPen, m_color, format, args);
 		}
 
-		/// <summary>
-		/// Draw the given string at vOrigin using the specified color
-		/// </summary>
-		/// <param name="vAt">(x,y) coord</param>
-		/// <param name="cText">Text color</param>
-		/// <param name="strFormat">String format</param>
-		/// <param name="args">String format args</param>
-		/// <returns>Width of string (in pixels)</returns>
-		public int DrawString(Vector2 vAt, Color cText, string strFormat, params object[] args)
-		{
-			string str = string.Format(strFormat, args);
+        /// <summary>
+        /// Draw the given string at vOrigin using the specified color
+        /// </summary>
+        /// <param name="vAt">(x,y) coord</param>
+        /// <param name="cText">Text color</param>
+        /// <param name="strFormat">String format</param>
+        /// <param name="args">String format args</param>
+        /// <returns>Width of string (in pixels)</returns>
+        public int DrawString(Vector2 vAt, Color cText, string strFormat, params object[] args)
+        {
+            strFormat = ThosePeskyCurlyBracers(strFormat);
+
+            string str = "Exception";
+
+            try
+            {
+                str = string.Format(strFormat, args);
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
+                Utils.Log("Failed string: " + str);
+            }
 
 			return DrawString_internal(vAt, cText, str);
 		}
+
+        public string ThosePeskyCurlyBracers(string input)
+        {
+            input = input.Replace("{{", "kZZkZ");
+            input = input.Replace("}}", "KzzKz");
+            input = input.Replace("{", "{{");
+            input = input.Replace("}", "}}");
+            input = input.Replace("kZZkZ", "{{");
+            input = input.Replace("KzzKz", "}}");
+
+            return input;
+        }
 
 		/// <summary>
 		/// Private version of DrawString that expects the string to be formatted already
@@ -642,6 +667,8 @@ namespace Yuusha
 		/// <param name="args">String format args</param>
 		public void TextBox(Rectangle r, Color cText, string strFormat, params object[] args)
 		{
+            strFormat = ThosePeskyCurlyBracers(strFormat);
+
 			string str = string.Format(strFormat, args);
 
             Vector2 vAt = new Vector2(r.Left, r.Top);

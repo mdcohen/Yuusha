@@ -774,6 +774,14 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_SACK_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_SACK, Protocol.CHARACTER_SACK_END), Enums.EPlayerUpdate.Sack);
+                                gui.GridBox.CreateGridBox(gui.GridBox.GridBoxFunction.Sack);
+                                return true;
+                            }
+                            #endregion
+                            #region CHARACTER_POUCH_END
+                            else if (inData.IndexOf(Protocol.CHARACTER_POUCH_END) != -1)
+                            {
+                                Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_POUCH, Protocol.CHARACTER_POUCH_END), Enums.EPlayerUpdate.Pouch);
                                 return true;
                             }
                             #endregion

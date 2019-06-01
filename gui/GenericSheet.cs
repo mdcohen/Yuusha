@@ -31,7 +31,7 @@ namespace Yuusha.gui
             m_cursorOverride = GuiManager.CurrentSheet.CursorOverride;       
 
             // update controls
-            foreach (Control control in m_controls)
+            foreach (Control control in new List<Control>(m_controls))
                 control.Update(gameTime);
 
             // sort controls
@@ -55,7 +55,7 @@ namespace Yuusha.gui
         public override void Draw(GameTime gameTime)
         {
             // draw controls - these should all be windows
-            foreach (Control control in m_controls)
+            foreach (Control control in new List<Control>(m_controls))
             {
                 if (!control.LockoutStates.Contains(Client.GameState))
                     control.Draw(gameTime);

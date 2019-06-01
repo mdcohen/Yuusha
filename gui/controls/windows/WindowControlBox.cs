@@ -85,7 +85,8 @@ namespace Yuusha.gui
 
         public new void OnMouseDown(MouseState ms)
         {
-            m_controlState = Enums.EControlState.Down;
+            if(!GuiManager.Dragging)
+                m_controlState = Enums.EControlState.Down;
         }
 
         public new void OnMouseRelease(MouseState ms)
@@ -121,10 +122,12 @@ namespace Yuusha.gui
 
             if (control != null)
             {
-                Point p = (control as Window).WindowTitle.Position;
-                int w = (control as Window).WindowTitle.Width;
-
-                m_rectangle = new Rectangle(p.X + w - m_distanceFromRight, p.Y + m_distanceFromTop, m_rectangle.Width, m_rectangle.Height);
+                if ((control as Window).WindowTitle != null)
+                {
+                    Point p = (control as Window).WindowTitle.Position;
+                    int w = (control as Window).WindowTitle.Width;
+                    m_rectangle = new Rectangle(p.X + w - m_distanceFromRight, p.Y + m_distanceFromTop, m_rectangle.Width, m_rectangle.Height);
+                }
             }
         }
     }

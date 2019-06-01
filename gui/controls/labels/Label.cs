@@ -60,9 +60,6 @@ namespace Yuusha.gui
         {
             m_textRectangle = m_rectangle;
 
-            if (m_popUpText != "" && m_controlState == Enums.EControlState.Over)
-                TextCue.AddMouseCursorTextCue(m_popUpText, Utils.GetColor(Client.ClientSettings.DefaultPopUpColor), m_font);
-
             base.Update(gameTime);
 
             if (m_border != null) m_border.Update(gameTime);

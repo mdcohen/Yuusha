@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Yuusha.gui
 {
@@ -9,6 +8,9 @@ namespace Yuusha.gui
     {
         private int m_xDrawOffset;
         private int m_yDrawOffset;
+        
+        public DragAndDropButton DraggedButton
+        { get; set; }
 
         public List<TextCue> TextCues { get; }
 
@@ -42,16 +44,18 @@ namespace Yuusha.gui
         {
             MouseState ms = GuiManager.MouseState;
 
-            if (GuiManager.Dragging)
-            {
-                // this is used to compensate for fast dragging
-                this.Position = new Point(GuiManager.DraggedControl.Position.X + GuiManager.DraggingXOffset,
-                    GuiManager.DraggedControl.Position.Y + GuiManager.DraggingYOffset);
-            }
-            else
-            {
+            //if (DraggedButton != null)
+            //    DraggedButton.Update(gameTime);
+
+            //if (GuiManager.Dragging)
+            //{
+            //    this.Position = new Point(GuiManager.DraggedControl.Position.X + GuiManager.DraggingXOffset,
+            //        GuiManager.DraggedControl.Position.Y + GuiManager.DraggingYOffset);
+            //}
+            //else
+            //{
                 this.Position = new Point(ms.X, ms.Y);
-            }
+            //}
 
             base.Update(gameTime);
 
@@ -85,6 +89,9 @@ namespace Yuusha.gui
         {
             if (!m_visible)
                 return;
+
+            //if (DraggedButton != null)
+            //    DraggedButton.Draw(gameTime);
 
             if (m_visualKey != null && m_visualKey.Key != "")
             {

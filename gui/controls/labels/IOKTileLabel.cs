@@ -75,5 +75,10 @@ namespace Yuusha.gui
                 BitmapFont.ActiveFonts[Font].TextBox(rect, Client.UserSettings.Color_Gui_CreatureLetter_Fore, m_creatureText);
             }
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
     }
 }

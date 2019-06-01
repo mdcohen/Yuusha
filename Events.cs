@@ -14,7 +14,13 @@ namespace Yuusha
         public enum EventName
         {
             Attack_Critter,
+            Character_Death,
+            Character_Settings_Changed,
+            CharGen_Lore,
+            Client_Settings_Changed,
+            Close_Window,
             Connect,
+            CreateNewAccount,
             Disconnect,
             Display_CharGen_Text,
             Display_Conference_Text,
@@ -25,12 +31,24 @@ namespace Yuusha
             Goto_Conf,
             Goto_Game,
             Goto_Menu,
+            Load_Character_Settings,
+            Load_Client_Settings,
             LoadLOKMap,
             New_Game_Round,
             NextLOKTile,
             Next_Visual,
-            CreateNewAccount,
             None,
+            Request_Belt,
+            Request_Effects,
+            Request_Inventory,
+            Request_Locker,
+            Request_Pouch,
+            Request_Rings,
+            Request_Sack,
+            Request_Skills,
+            Request_Spells,
+            Save_Character_Settings,
+            Send_Command,
             Send_Account_Name,
             Send_Password,
             Send_Text,
@@ -41,19 +59,11 @@ namespace Yuusha
             Set_Login_Status_Label,
             Switch_Character_Next,
             Switch_Character_Back,
-            Client_Settings_Changed,
-            User_Settings_Changed,
-            Character_Settings_Changed,
             TabControl,
             Target_Cleared,
             Target_Select,
-            Save_Character_Settings,
-            Load_Character_Settings,
-            Load_Client_Settings,
-            Character_Death,
-            Send_Command,
             Toggle_AutoRoller,
-            CharGen_Lore,
+            User_Settings_Changed,
         }
 
         public static void RegisterEvent(EventName name, params object[] args)
@@ -202,6 +212,11 @@ namespace Yuusha
                         System.Threading.Tasks.Task task = new System.Threading.Tasks.Task(() => CharGen.PopulateInfoTextBox((args[0] as Button).Text, dictionaryInfo));
                         task.Start();
                         task.Wait();
+                        break;
+                    case EventName.Close_Window:
+                        Window w = GuiManager.GetControl((args[0] as Control).Owner) as Window;
+                        if (w != null)
+                            w.OnClose();
                         break;
                     case EventName.Connect:
                         #region Connect
@@ -589,17 +604,13 @@ namespace Yuusha
                             }
 
                             if (textToSend != "")
-                            {
                                 IO.Send(textToSend);
-                            }
                             break;
                         }
                     #endregion
                     case EventName.Send_Command:
                         if ((args[0] as Control) is Button)
-                        {
                             IO.Send((args[0] as Button).Command);
-                        }
                         break;
                     case EventName.Set_CharGen_State:
                         CharGen.CharGenState = (Enums.ECharGenState)args[0];
@@ -630,7 +641,8 @@ namespace Yuusha
                         break;
                     case EventName.Set_Client_Mode:
                         Client.GameDisplayMode = (Enums.EGameDisplayMode) args[0];
-                        RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Game);
+                        if(Client.GameState.ToString().EndsWith("Game"))
+                            RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Game);
                         break;
                     case EventName.Set_Game_State:
                         #region Set Game State
@@ -784,7 +796,6 @@ namespace Yuusha
                                 if (Client.GameState == Enums.EGameState.HotButtonEditMode)
                                 {
                                     #region Hot Button Edit Mode
-
                                     if (GuiManager.GetControl("HotButtonEditWindow") is HotButtonEditWindow hotButtonEditWindow)
                                     {
                                         // Change icon and text. --- Commented out 1/16/2019. No text makes the hot button not draw.
@@ -802,6 +813,7 @@ namespace Yuusha
                                             {
                                                 verticalHotButtonWindow[hotButtonEditWindow.SelectedHotButton].VisualKey = hotButtonEditWindow.SelectedVisualKey;
                                                 verticalHotButtonWindow[hotButtonEditWindow.SelectedHotButton].Text = hotButtonEditWindow["HotButtonEditWindowTextBox"].Text;
+                                                (verticalHotButtonWindow[hotButtonEditWindow.SelectedHotButton] as HotButton).Command = hotButtonEditWindow["HotButtonEditWindowCommandTextBox"].Text;
 
                                                 Character.Settings.VerticalHotButtonVisualKey0 = verticalHotButtonWindow["VerticalHBWindowHotButton0"].VisualKey;
                                                 Character.Settings.VerticalHotButtonVisualKey1 = verticalHotButtonWindow["VerticalHBWindowHotButton1"].VisualKey;
@@ -845,6 +857,27 @@ namespace Yuusha
                                                 Character.Settings.VerticalHotButtonText18 = verticalHotButtonWindow["VerticalHBWindowHotButton18"].Text;
                                                 Character.Settings.VerticalHotButtonText19 = verticalHotButtonWindow["VerticalHBWindowHotButton19"].Text;
 
+                                                Character.Settings.VerticalHotButtonCommand0 = (verticalHotButtonWindow["VerticalHBWindowHotButton0"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand1 = (verticalHotButtonWindow["VerticalHBWindowHotButton1"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand2 = (verticalHotButtonWindow["VerticalHBWindowHotButton2"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand3 = (verticalHotButtonWindow["VerticalHBWindowHotButton3"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand4 = (verticalHotButtonWindow["VerticalHBWindowHotButton4"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand5 = (verticalHotButtonWindow["VerticalHBWindowHotButton5"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand6 = (verticalHotButtonWindow["VerticalHBWindowHotButton6"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand7 = (verticalHotButtonWindow["VerticalHBWindowHotButton7"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand8 = (verticalHotButtonWindow["VerticalHBWindowHotButton8"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand9 = (verticalHotButtonWindow["VerticalHBWindowHotButton9"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand10 = (verticalHotButtonWindow["VerticalHBWindowHotButton10"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand11 = (verticalHotButtonWindow["VerticalHBWindowHotButton11"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand12 = (verticalHotButtonWindow["VerticalHBWindowHotButton12"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand13 = (verticalHotButtonWindow["VerticalHBWindowHotButton13"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand14 = (verticalHotButtonWindow["VerticalHBWindowHotButton14"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand15 = (verticalHotButtonWindow["VerticalHBWindowHotButton15"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand16 = (verticalHotButtonWindow["VerticalHBWindowHotButton16"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand17 = (verticalHotButtonWindow["VerticalHBWindowHotButton17"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand18 = (verticalHotButtonWindow["VerticalHBWindowHotButton18"] as HotButton).Command;
+                                                Character.Settings.VerticalHotButtonCommand19 = (verticalHotButtonWindow["VerticalHBWindowHotButton19"] as HotButton).Command;
+
                                                 hotButtonEditWindow.OnClose();
 
                                                 TextCue.AddClientInfoTextCue("Hot Button Saved", TextCue.TextCueTag.None, Color.Lime, Color.Black, 1000, false, false, true);
@@ -856,6 +889,7 @@ namespace Yuusha
                                             {
                                                 horizontallHotButtonWindow[hotButtonEditWindow.SelectedHotButton].VisualKey = hotButtonEditWindow.SelectedVisualKey;
                                                 horizontallHotButtonWindow[hotButtonEditWindow.SelectedHotButton].Text = hotButtonEditWindow["HotButtonEditWindowTextBox"].Text;
+                                                (horizontallHotButtonWindow[hotButtonEditWindow.SelectedHotButton] as HotButton).Command = hotButtonEditWindow["HotButtonEditWindowCommandTextBox"].Text;
 
                                                 Character.Settings.HorizontalHotButtonVisualKey0 = horizontallHotButtonWindow["HorizontalHBWindowHotButton0"].VisualKey;
                                                 Character.Settings.HorizontalHotButtonVisualKey1 = horizontallHotButtonWindow["HorizontalHBWindowHotButton1"].VisualKey;
@@ -888,6 +922,22 @@ namespace Yuusha
                                                 Character.Settings.HorizontalHotButtonText12 = horizontallHotButtonWindow["HorizontalHBWindowHotButton12"].Text;
                                                 Character.Settings.HorizontalHotButtonText13 = horizontallHotButtonWindow["HorizontalHBWindowHotButton13"].Text;
                                                 Character.Settings.HorizontalHotButtonText14 = horizontallHotButtonWindow["HorizontalHBWindowHotButton14"].Text;
+
+                                                Character.Settings.HorizontalHotButtonCommand0 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton0"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand1 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton1"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand2 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton2"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand3 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton3"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand4 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton4"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand5 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton5"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand6 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton6"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand7 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton7"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand8 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton8"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand9 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton9"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand10 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton10"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand11 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton11"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand12 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton12"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand13 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton13"] as HotButton).Command;
+                                                Character.Settings.HorizontalHotButtonCommand14 = (horizontallHotButtonWindow["HorizontalHBWindowHotButton14"] as HotButton).Command;
 
                                                 hotButtonEditWindow.OnClose();
 
@@ -1076,6 +1126,27 @@ namespace Yuusha
                                 verticalHotButtonWindow["VerticalHBWindowHotButton17"].Text = Character.Settings.VerticalHotButtonText17;
                                 verticalHotButtonWindow["VerticalHBWindowHotButton18"].Text = Character.Settings.VerticalHotButtonText18;
                                 verticalHotButtonWindow["VerticalHBWindowHotButton19"].Text = Character.Settings.VerticalHotButtonText19;
+
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton0"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand0;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton1"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand1;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton2"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand2;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton3"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand3;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton4"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand4;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton5"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand5;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton6"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand6;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton7"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand7;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton8"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand8;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton9"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand9;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton10"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand10;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton11"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand11;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton12"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand12;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton13"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand13;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton14"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand14;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton15"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand15;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton16"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand16;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton17"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand17;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton18"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand18;
+                                (verticalHotButtonWindow["VerticalHBWindowHotButton19"] as HotButton).Command = Character.Settings.VerticalHotButtonCommand19;
                             }
                             #endregion
 
@@ -1113,6 +1184,22 @@ namespace Yuusha
                                 horizontalHotButtonWindow["HorizontalHBWindowHotButton12"].Text = Character.Settings.HorizontalHotButtonText12;
                                 horizontalHotButtonWindow["HorizontalHBWindowHotButton13"].Text = Character.Settings.HorizontalHotButtonText13;
                                 horizontalHotButtonWindow["HorizontalHBWindowHotButton14"].Text = Character.Settings.HorizontalHotButtonText14;
+
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton0"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand0;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton1"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand1;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton2"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand2;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton3"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand3;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton4"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand4;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton5"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand5;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton6"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand6;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton7"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand7;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton8"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand8;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton9"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand9;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton10"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand10;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton11"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand11;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton12"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand12;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton13"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand13;
+                                (horizontalHotButtonWindow["HorizontalHBWindowHotButton14"] as HotButton).Command = Character.Settings.HorizontalHotButtonCommand14;
                             }
                             #endregion
                         }
@@ -1265,7 +1352,7 @@ namespace Yuusha
         {
             try
             {
-                foreach (Control c in GuiManager.GenericSheet.Controls)
+                foreach (Control c in new List<Control>(GuiManager.GenericSheet.Controls))
                 {
                     if (c is Window)
                         (c as Window).OnClose();
@@ -1332,7 +1419,7 @@ namespace Yuusha
                             }
                         }
                         GuiManager.TextCues.Clear();
-                        TextCue.ClearCursorTextCue();
+                        TextCue.ClearMouseCursorTextCue();
                         break;
                     case Enums.EGameState.Login:
                         if(GameHUD.PreviousGameState != Enums.EGameState.Login)
@@ -1360,7 +1447,7 @@ namespace Yuusha
                             }
                         }
                         GuiManager.TextCues.Clear();
-                        TextCue.ClearCursorTextCue();
+                        TextCue.ClearMouseCursorTextCue();
                         break;
                     //case Enums.eGameState.Splash:
                     //    Events.ResetLoginGUI();

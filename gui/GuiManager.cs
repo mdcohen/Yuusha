@@ -21,8 +21,8 @@ namespace Yuusha.gui
         static Dictionary<string, Sheet> m_sheets; // gui sheets
         static Dictionary<string, VisualInfo> m_visuals; // visual information for each texture piece
         static Dictionary<string, MouseCursor> m_cursors; // cursors
-        static Control m_draggedControl = null;
         static Control m_controlWithFocus = null;
+        static Control m_draggedControl = null;
         static string m_activeTextBox = "";
         static string m_openComboBox = "";
         static GenericSheet m_genericSheet = null; // generic sheet
@@ -60,22 +60,27 @@ namespace Yuusha.gui
             get { return m_genericSheet; }
             set { m_genericSheet = value; }
         }
+        public static Control DraggedControl
+        {
+            get { return m_draggedControl; }
+        }
         public static bool Dragging
         {
             get; set;
         }
+        public static int DraggingXOffset
+        {
+            get { return m_dragingXOffset; }
+        }
+        public static int DraggingYOffset
+        {
+            get { return m_draggingYOffset; }
+            set { m_draggingYOffset = value; }
+        }
         public static Control ControlWithFocus
         {
             get { return m_controlWithFocus; }
-            set
-            {
-                if(!(value is Window)) m_controlWithFocus = value;
-            }
-        }
-        public static Control DraggedControl
-        {
-            get { return m_draggedControl; }
-            set { m_draggedControl = value; }
+            set { if (!(value is Window)) m_controlWithFocus = value; }
         }
         public static string ActiveTextBox
         {
@@ -98,16 +103,6 @@ namespace Yuusha.gui
         public static List<TextCue> TextCues
         {
             get { return m_textCues; }
-        }
-        public static int DraggingXOffset
-        {
-            get { return m_dragingXOffset; }
-            set { m_dragingXOffset = value; }
-        }
-        public static int DraggingYOffset
-        {
-            get { return m_draggingYOffset; }
-            set { m_draggingYOffset = value; }
         }
         #endregion
 
@@ -717,7 +712,7 @@ namespace Yuusha.gui
                                             textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
                                             onMouseDown, textAlignment, xTextOffset, yTextOffset, Utils.GetColor(textOverColor), hasTextOverColor,
                                             Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance,
-                                            command, tabControlledWindow);
+                                            command, popUpText, tabControlledWindow);
                                         break;
                                     case "Label":
                                         sheet.CreateLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
@@ -806,6 +801,15 @@ namespace Yuusha.gui
             //if (state == Enums.eGameState.Splash.ToString())
             //    return;
 
+            //if (Dragging)
+            //{
+            //    GuiManager.Cursors[GuiManager.CurrentSheet.Cursor].Position = new Point(GuiManager.DraggedControl.Position.X + GuiManager.DraggingXOffset,
+            //            GuiManager.DraggedControl.Position.Y + GuiManager.DraggingYOffset);
+
+            //    GuiManager.Cursors[GuiManager.GenericSheet.Cursor].Position = new Point(GuiManager.DraggedControl.Position.X + GuiManager.DraggingXOffset,
+            //            GuiManager.DraggedControl.Position.Y + GuiManager.DraggingYOffset);
+            //}
+
             base.Update(gameTime);
 
             // Overridden states girst (eg: Hot Button Edit Mode)
@@ -853,9 +857,7 @@ namespace Yuusha.gui
             Events.UpdateGUI(gameTime);
 
             for (int a = m_textCues.Count - 1; a >= 0; a--)
-            {
                 m_textCues[a].Update(gameTime, m_textCues);
-            }
 
             for (int a = 0; a < m_textCues.Count; a++)
             {
@@ -866,6 +868,8 @@ namespace Yuusha.gui
                         (a * BitmapFont.ActiveFonts[CurrentSheet.Font].LineHeight);
                 }
             }
+
+            //TextCue.AddMouseCursorTextCue(GuiManager.CurrentSheet.Name + ": " + GuiManager.CurrentSheet.Controls.Count + ", " + GuiManager.GenericSheet.Name + ": " + GuiManager.GenericSheet.Controls.Count);
         }
 
         public void Draw(GameTime gameTime)
@@ -942,17 +946,17 @@ namespace Yuusha.gui
             // Check CurrentSheet controls.
             try
             {
-                foreach (Control c1 in CurrentSheet.Controls)
+                foreach (Control c1 in new List<Control>(CurrentSheet.Controls))
                 {
                     if (c1 is Window)
                     {
-                        foreach (Control c2 in (c1 as Window).Controls)
+                        foreach (Control c2 in new List<Control>((c1 as Window).Controls))
                         {
                             if (c2.Name == name)
                                 return c2;
                             else if (c2 is Window)
                             {
-                                foreach (Control c3 in (c2 as Window).Controls)
+                                foreach (Control c3 in new List<Control>((c2 as Window).Controls))
                                 {
                                     if (c3.Name == name)
                                         return c3;
@@ -971,19 +975,17 @@ namespace Yuusha.gui
             // Check GenericSheet controls.
             try
             {
-                foreach (Control c1 in GenericSheet.Controls)
+                foreach (Control c1 in new List<Control>(GenericSheet.Controls))
                 {
                     if (c1 is Window)
                     {
-                        foreach (Control c2 in (c1 as Window).Controls)
+                        foreach (Control c2 in new List<Control>((c1 as Window).Controls))
                         {
                             if (c2.Name == name)
-                            {
                                 return c2;
-                            }
                             else if (c2 is Window)
                             {
-                                foreach (Control c3 in (c2 as Window).Controls)
+                                foreach (Control c3 in new List<Control>((c2 as Window).Controls))
                                     if (c3.Name == name)
                                         return c3;
                             }
@@ -1000,9 +1002,20 @@ namespace Yuusha.gui
             return null;
         }
 
-        public static void SaveControlLocation(Control control)
+        public static void StartDragging(Control control, MouseState ms)
         {
-                        
+            if (Dragging) return;
+
+            m_draggedControl = control;
+            Dragging = true;
+            m_dragingXOffset = ms.X - control.Position.X;
+            m_draggingYOffset = ms.Y - control.Position.Y;
+        }
+
+        public static void StopDragging()
+        {
+            m_draggedControl = null;
+            Dragging = false;
         }
     }
 }

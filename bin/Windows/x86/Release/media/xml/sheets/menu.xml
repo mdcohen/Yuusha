@@ -8,7 +8,7 @@
 	   DeviceClearColor="Black"
 	   AllowFullScreen="true">
   
-  <!-- Green Tile Background -->
+  <!-- Green Tile Background
 	<Background
 		Font="courier16"
 		VisualKey="GreenTileBackground"
@@ -16,17 +16,27 @@
 		IsTiled="true"
 		TintColor="White"
 		VisualAlpha="200">
-	</Background>
+	</Background> -->
+
+  <!-- Dragon Over Island Background
+  <Background
+		Font="courier16"
+		VisualKey="DragonOverIslandBackground"
+		IsCentered="false"
+		IsTiled="false"
+		TintColor="White"
+		VisualAlpha="200">
+  </Background> -->
   
   <!-- Elvish City Background -->
-  <!--<Background
+  <Background
 		Font="courier16"
 		VisualKey="ElvishCityBackground"
-		IsCentered="true"
+		IsCentered="false"
 		IsTiled="false"
 		TintColor="White"
 		VisualAlpha="255">
-  </Background>-->
+  </Background>
 
   <!-- Blank Background
   <Background

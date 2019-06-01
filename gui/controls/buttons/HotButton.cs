@@ -19,8 +19,8 @@ namespace Yuusha.gui
             byte visualAlpha, byte m_borderAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown,
             VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment,
             int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
-            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command, string tabControlledWindow)
-            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, m_borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, tabControlledWindow)
+            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command, string popUpText)
+            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, m_borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, popUpText)
         {
             m_originalVisualAlpha = visualAlpha;
         }
@@ -43,7 +43,7 @@ namespace Yuusha.gui
                 {
                     this.Text = ""; // Hmm. This is how we bypass drawing a cleared HotButton.
 
-                    TextCue.ClearCursorTextCue();
+                    TextCue.ClearMouseCursorTextCue();
 
                     TextCue.AddClientInfoTextCue("Hot Button Cleared", TextCue.TextCueTag.None, Color.LimeGreen, Color.Black, 1000, false, false, true);
 
@@ -79,7 +79,7 @@ namespace Yuusha.gui
 
             this.m_borderAlpha = 0;
 
-            TextCue.ClearCursorTextCue();
+            TextCue.ClearMouseCursorTextCue();
         }
 
         protected override void OnMouseDown(MouseState ms)
@@ -130,9 +130,11 @@ namespace Yuusha.gui
                             window.OriginatingWindow = this.Owner;
 
                             // Set textbox text.
-                            (window["HotButtonEditWindowTextBox"]).Text = this.Text;
+                            window["HotButtonEditWindowTextBox"].Text = this.Text;
                             (window["HotButtonEditWindowTextBox"] as TextBox).SelectAll();
                             (window["HotButtonEditWindowTextBox"] as TextBox).DeselectText();
+
+                            window["HotButtonEditWindowCommandTextBox"].Text = this.Command;
 
                             // Create labels for choosing a macro icon.
                             window.CreateIconSelectionButtons();

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
 {
@@ -39,6 +40,7 @@ namespace Yuusha.gui
                 false, false, false, Client.UserSettings.GridBoxWindowFont, new VisualKey("WhiteSpace"),
                 Client.UserSettings.ColorGridBoxWindowTintColor, Client.UserSettings.GridBoxWindowVisualKeyAlpha, Client.UserSettings.GridBoxWindowBorderAlpha, true,
                 Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left }, "", rows, columns, purpose);
+            box.m_cursorOverride = "Dragging";
 
             WindowTitle boxTitle = new WindowTitle(box.Name + "Title", box.Name, box.Font, purpose.ToString(), Client.UserSettings.GridBoxTitleTextColor, Client.UserSettings.GridBoxTitleTintColor, 255,
                 BitmapFont.TextAlignment.Center, new VisualKey("WhiteSpace"), false, new VisualKey("WindowCloseBox"), new VisualKey("WindowCloseBoxDown"),
@@ -50,9 +52,6 @@ namespace Yuusha.gui
             GuiManager.GenericSheet.AddControl(box);
             GuiManager.GenericSheet.AttachControlToWindow(boxTitle);
             GuiManager.GenericSheet.AttachControlToWindow(boxBorder);
-
-            box.IsLocked = true;
-
             return box;
         }
 
@@ -69,23 +68,25 @@ namespace Yuusha.gui
                     int size = 64;
                     box = CreateGridBox(GridBoxFunction.Sack, rows, columns, size, size);
                     int x = Client.UserSettings.GridBoxButtonsBorderWidth, y = Client.UserSettings.GridBoxTitleHeight + Client.UserSettings.GridBoxButtonsBorderWidth;
-                    for(int i = 0; i < 20; i++)
+                    int count = 0;
+                    if (Character.CurrentCharacter != null && Character.CurrentCharacter.Sack != null)
                     {
-                        string text = "balm";
-                        if(Character.CurrentCharacter != null && Character.CurrentCharacter.Sack != null && Character.CurrentCharacter.Sack.Count >= i + 1)
+                        foreach (Item item in new List<Item>(Character.CurrentCharacter.Sack))
                         {
-                            text = Character.CurrentCharacter.Sack[i].name;
-                        }
-                        DragAndDropButton button = new DragAndDropButton(purpose.ToString() + "DragAndDropButton" + i, box.Name,
-                            new Rectangle(x, y, size, size), text, false, Color.White, true, false, box.Font, new VisualKey("WhiteSpace"),
-                            Color.Black, 255, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "",
-                            BitmapFont.TextAlignment.Center, 0, 0, Color.PaleGreen, true, Color.DarkMagenta, true, new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top },
-                            false, Map.Direction.None, 0, "");
-                        GuiManager.GenericSheet.AddControl(button);
-                        x += size;
-                        if (x > size * (columns - 1) + Client.UserSettings.GridBoxButtonsBorderWidth)
-                        {
-                            x = Client.UserSettings.GridBoxButtonsBorderWidth; y += size;
+                            DragAndDropButton button = new DragAndDropButton(purpose.ToString() + "DragAndDropButton" + count, box.Name,
+                                new Rectangle(x, y, size, size), item.name, true, Color.White, true, false, "courier12", new VisualKey("WhiteSpace"),
+                                Color.Black, 255, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "",
+                                BitmapFont.TextAlignment.Center, 0, 0, Color.PaleGreen, true, Color.DarkMagenta, true, new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top },
+                                false, Map.Direction.None, 0, item.name);
+                            button.RepresentedItem = item;
+                            GuiManager.GenericSheet.AddControl(button);
+                            x += size;
+                            if (x > size * (columns - 1) + Client.UserSettings.GridBoxButtonsBorderWidth)
+                            {
+                                x = Client.UserSettings.GridBoxButtonsBorderWidth;
+                                y += size;
+                            }
+                            count++;
                         }
                     }
                     box.IsVisible = true;

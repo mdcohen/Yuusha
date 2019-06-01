@@ -2513,7 +2513,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control> -->
 
     <!-- Vertical HotButton Window HotButton 1 -->
@@ -2533,7 +2533,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 2 -->
@@ -2553,7 +2553,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 3 -->
@@ -2573,7 +2573,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 4 -->
@@ -2593,7 +2593,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 5 -->
@@ -2613,7 +2613,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 6 -->
@@ -2633,7 +2633,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 7 -->
@@ -2653,7 +2653,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 8 -->
@@ -2673,7 +2673,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 9 -->
@@ -2693,7 +2693,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 10 -->
@@ -2713,7 +2713,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 11 -->
@@ -2733,7 +2733,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 12 -->
@@ -2753,7 +2753,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 13 -->
@@ -2773,7 +2773,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 14 -->
@@ -2793,7 +2793,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 15 -->
@@ -2813,7 +2813,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 16 -->
@@ -2833,7 +2833,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 17 -->
@@ -2853,7 +2853,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 18 -->
@@ -2873,7 +2873,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Vertical HotButton Window HotButton 19 -->
@@ -2893,11 +2893,11 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
   </VerticalHotButtonWindow>
 
-  <HorizontalHotButtonWindowWithNoTitle>
+  <HorizontalHotButtonWindow>
     <!-- Horizontal HotButton Window -->
     <Control
       Type="Window"
@@ -2976,7 +2976,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control> -->
 
     <!-- Hotkeys Window MacroButton 1 -->
@@ -2996,7 +2996,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control> -->
 
     <!-- Hotkeys Window MacroButton 2 -->
@@ -3016,7 +3016,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 3 -->
@@ -3036,7 +3036,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 4 -->
@@ -3056,7 +3056,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 5 -->
@@ -3076,7 +3076,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 6 -->
@@ -3096,7 +3096,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 7 -->
@@ -3116,7 +3116,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 8 -->
@@ -3136,7 +3136,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 9 -->
@@ -3156,7 +3156,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkey Window MacroButton 10 -->
@@ -3176,7 +3176,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 11 -->
@@ -3196,7 +3196,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 12 -->
@@ -3216,7 +3216,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 13 -->
@@ -3236,7 +3236,7 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
 
     <!-- Hotkeys Window MacroButton 14 -->
@@ -3256,8 +3256,8 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="Send_Text">
+      OnMouseDown="Send_Command">
     </Control>
-  </HorizontalHotButtonWindowWithNoTitle>
+  </HorizontalHotButtonWindow>
 
 </GenericSheet>

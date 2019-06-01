@@ -224,7 +224,7 @@ namespace Yuusha.gui
             }
         }
 
-        public static void ClearCursorTextCue()
+        public static void ClearMouseCursorTextCue()
         {
             MouseState ms = GuiManager.MouseState;
 

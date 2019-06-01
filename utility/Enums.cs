@@ -69,6 +69,7 @@ namespace Yuusha
             LeftHand,
             Inventory,
             Sack,
+            Pouch,
             Belt,
             Rings,
             Locker,

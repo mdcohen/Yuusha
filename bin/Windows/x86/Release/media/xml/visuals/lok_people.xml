@@ -43,7 +43,7 @@
 	<Visual ParentTexture="lok_people.png" Name="female_ma_npc" X="240" Y="120" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="tiger" X="300" Y="120" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="female_wizard_npc" X="360" Y="120" Width="60" Height="60"></Visual>
-	<Visual ParentTexture="lok_people.png" Name="male_wiz_npc" X="420" Y="120" Width="60" Height="60"></Visual>
+	<Visual ParentTexture="lok_people.png" Name="male_wizard_npc" X="420" Y="120" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="boar" X="480" Y="120" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="fire_salamander" X="540" Y="120" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="presence" X="600" Y="120" Width="60" Height="60"></Visual>
@@ -97,6 +97,7 @@
   <Visual ParentTexture="lok_people.png" Name="ghast" X="60" Y="300" Width="60" Height="60" Tint="Green"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="hobgoblin" X="120" Y="300" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="trog" X="180" Y="300" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="troglodyte" X="180" Y="300" Width="60" Height="60"></Visual> <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="vampire" X="240" Y="300" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="ninja" X="300" Y="300" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="giant" X="360" Y="300" Width="60" Height="60"></Visual>
@@ -142,6 +143,7 @@
 	<Visual ParentTexture="lok_people.png" Name="female_fighter_pc_purple" X="480" Y="420" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="female_fighter_pc_red" X="540" Y="420" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="kobold_female_merchant" X="600" Y="420" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="kobold_female" X="600" Y="420" Width="60" Height="60"></Visual> <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="kobold_princess" X="660" Y="420" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="kobold_male_merchant" X="720" Y="420" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="kobold_prophet" X="780" Y="420" Width="60" Height="60"></Visual>

@@ -43,6 +43,8 @@ namespace Yuusha
         readonly ContentManager m_content;
         Yuusha.gui.GuiManager m_guiManager;
         //Yuusha.gui.SplashScreen m_splashScreen;
+        bool m_firstFullScreen;
+        bool m_noDraw;
         #endregion
 
         #region Public Properties
@@ -151,6 +153,8 @@ namespace Yuusha
             Activated += new EventHandler<EventArgs>(Client_Activated);
 
             Content.RootDirectory = "Content";
+            m_firstFullScreen = true;
+            m_noDraw = false;
         }
 
         void Client_Activated(object sender, EventArgs e)
@@ -221,28 +225,17 @@ namespace Yuusha
             m_userSettings = UserSettings.Load();
             m_clientSettings = ClientSettings.Load();
             Character.LoadSettings(); // loads default values
+            m_gameState = Enums.EGameState.Login;
+            //m_splashScreen.Enabled = false;
+            m_preferredWindowWidth = 1024;
+            m_preferredWindowHeight = 768;
+            m_isFullScreen = UserSettings.FullScreen;
 
-            // set initial game state
-            //if (false)//(Client.ClientSettings.ShowSplash)
-            //{
-            //    m_gameState = Enums.eGameState.Splash;
-            //    m_preferredWindowWidth = 600;
-            //    m_preferredWindowHeight = 406;
-            //}
-            //else
-            //{
-                m_gameState = Enums.EGameState.Login;
-                //m_splashScreen.Enabled = false;
-                m_preferredWindowWidth = 1024;
-                m_preferredWindowHeight = 768;
-                m_isFullScreen = UserSettings.FullScreen;
-
-                Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
-                Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
-            //}
+            Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
+            Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
         
             // set initial title
-            Client.Title = string.Format("{0} (v{1})", StaticSettings.ClientName, StaticSettings.ClientVersion);
+            Title = string.Format("{0} (v{1})", StaticSettings.ClientName, StaticSettings.ClientVersion);
         }
 
         /// <summary>
@@ -321,6 +314,9 @@ namespace Yuusha
         {
             m_graphics.GraphicsDevice.Clear(m_deviceClearColor);
 
+            if (m_noDraw)
+                return;
+
             //if (false)//(m_gameState == Enums.eGameState.Splash)
             //    //m_splashScreen.Draw();
             //else
@@ -373,7 +369,6 @@ namespace Yuusha
             PresentationParameters presentation = m_graphics.GraphicsDevice.PresentationParameters;
 
             m_prevClientBounds = Window.ClientBounds;
-            
 
             if (presentation.IsFullScreen)
             {   // going windowed
@@ -382,6 +377,7 @@ namespace Yuusha
                 m_graphics.PreferredBackBufferHeight = m_preferredWindowHeight;
 
                 m_isFullScreen = false;
+                Window.IsBorderless = true;
             }
             else
             {
@@ -396,9 +392,12 @@ namespace Yuusha
                 m_prevClientPosition = Window.Position;
 
                 m_isFullScreen = true;
+                Window.IsBorderless = false;
             }
 
-            m_graphics.ToggleFullScreen();
+            m_graphics.ToggleFullScreen();            
+
+            //TextCue.AddClientInfoTextCue((m_graphics.IsFullScreen ? "Full Screen" : "Windowed Mode") + " Resolution: " + m_graphics.PreferredBackBufferWidth.ToString() + " x " + m_graphics.PreferredBackBufferHeight.ToString());
 
             if(!m_isFullScreen && m_prevClientPosition != null) // not working properly
                 Window.Position = m_prevClientPosition;
@@ -408,6 +407,16 @@ namespace Yuusha
             m_nowClientBounds = Window.ClientBounds;
 
             OnClientResize();
+
+            // to correct issue with top 20 pixels inaccessible after first full screen toggle
+            if (m_graphics.IsFullScreen && m_firstFullScreen)
+            {
+                m_noDraw = true;
+                m_firstFullScreen = false;
+                ToggleFullScreen();
+                ToggleFullScreen();
+                m_noDraw = false;
+            }
         }
 
         public static void OnClientResize()
@@ -416,7 +425,7 @@ namespace Yuusha
                 sheet.OnClientResize(m_prevClientBounds, m_nowClientBounds);
 
             // resize generic sheet
-            gui.GuiManager.GenericSheet.OnClientResize(m_prevClientBounds, m_nowClientBounds);
+            GuiManager.GenericSheet.OnClientResize(m_prevClientBounds, m_nowClientBounds);
         }
     }
 }

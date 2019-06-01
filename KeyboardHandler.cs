@@ -372,7 +372,7 @@ namespace Yuusha
                         {
                             // nothing
                         }
-                        else // outside login mode
+                        else // menu, game, conf
                         {
                             // Testing purposes
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
@@ -382,7 +382,6 @@ namespace Yuusha
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             {
                                 IO.Send(Protocol.REQUEST_CHARACTER_SACK);
-                                GridBox.CreateGridBox(GridBox.GridBoxFunction.Sack);
                             }
 
                             if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))

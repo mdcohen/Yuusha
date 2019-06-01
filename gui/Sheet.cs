@@ -126,91 +126,105 @@ namespace Yuusha.gui
 
         public virtual void Update(GameTime gameTime)
         {
-            if (Client.PreferredWindowWidth != m_preferredWidth || Client.PreferredWindowHeight != m_preferredHeight)
+            try
             {
-                Client.PreferredWindowWidth = m_preferredWidth;
-                Client.PreferredWindowHeight = m_preferredHeight;
+                if (Client.PreferredWindowWidth != m_preferredWidth || Client.PreferredWindowHeight != m_preferredHeight)
+                {
+                    Client.PreferredWindowWidth = m_preferredWidth;
+                    Client.PreferredWindowHeight = m_preferredHeight;
+                }
+
+                if (Client.DeviceClearColor != m_deviceClearColor)
+                    Client.DeviceClearColor = m_deviceClearColor;
+
+                if (Client.IsFullScreen && !m_allowFullScreen)
+                    Client.IsFullScreen = false;
+
+                // keyboard handler
+                if (!Yuusha.KeyboardHandler.HandleKeyboard())
+                    KeyboardHandler(Keyboard.GetState());
+
+                // mouse handler
+                MouseHandler(Mouse.GetState());
+
+                // set mouse wheel value after mouse handler
+                m_prevScrollWheelValue = Mouse.GetState().ScrollWheelValue;
+
+                // clear cursor override
+                m_cursorOverride = "";
+
+                // update background
+                if (m_background != null)
+                    m_background.Update(gameTime);
+
+                // update controls
+                foreach (Control control in new List<Control>(m_controls))
+                    control.Update(gameTime);
+
+                // sort controls
+                SortControls();
+
+                // update text cues
+                for (int a = m_textCues.Count - 1; a >= 0; a--)
+                    m_textCues[a].Update(gameTime, m_textCues);
+
+                if (Client.RoundDelay)
+                    gui.GuiManager.CurrentSheet.CursorOverride = "Wait";
+
+                // update cursor
+                if (m_cursorOverride == "")
+                {
+                    if (GuiManager.Cursors.ContainsKey(m_cursor))
+                        GuiManager.Cursors[m_cursor].Update(gameTime);
+                    else Utils.LogOnce("Failed to find cursor visual key [ " + m_cursor + " ] for GUI Sheet [ " + m_name + " ]");
+                }
+                else
+                {
+                    if (GuiManager.Cursors.ContainsKey(m_cursorOverride))
+                        GuiManager.Cursors[m_cursorOverride].Update(gameTime);
+                    else Utils.LogOnce("Failed to find cursor override visual key [ " + m_cursorOverride + " ] for GUI Sheet [ " + m_name + " ]");
+                }
             }
-
-            if (Client.DeviceClearColor != m_deviceClearColor)
-                Client.DeviceClearColor = m_deviceClearColor;
-
-            if (Client.IsFullScreen && !m_allowFullScreen)
-                Client.IsFullScreen = false;
-
-            // keyboard handler
-            if (!Yuusha.KeyboardHandler.HandleKeyboard())
-                KeyboardHandler(Keyboard.GetState());
-
-            // mouse handler
-            MouseHandler(Mouse.GetState());
-
-            // set mouse wheel value after mouse handler
-            m_prevScrollWheelValue = Mouse.GetState().ScrollWheelValue;
-
-            // clear cursor override
-            m_cursorOverride = "";
-
-            // update background
-            if (m_background != null)
-                m_background.Update(gameTime);
-
-            // update controls
-            foreach (Control control in m_controls)
-                control.Update(gameTime);
-
-            // sort controls
-            SortControls();
-
-            // update text cues
-            for (int a = m_textCues.Count - 1; a >= 0; a--)
-                m_textCues[a].Update(gameTime, m_textCues);
-
-            if (Client.RoundDelay)
-                gui.GuiManager.CurrentSheet.CursorOverride = "Wait";
-
-            // update cursor
-            if (m_cursorOverride == "")
+            catch(Exception e)
             {
-                if (GuiManager.Cursors.ContainsKey(m_cursor))
-                    GuiManager.Cursors[m_cursor].Update(gameTime);
-                else Utils.LogOnce("Failed to find cursor visual key [ " + m_cursor + " ] for GUI Sheet [ " + m_name + " ]");
-            }
-            else
-            {
-                if (GuiManager.Cursors.ContainsKey(m_cursorOverride))
-                    GuiManager.Cursors[m_cursorOverride].Update(gameTime);
-                else Utils.LogOnce("Failed to find cursor override visual key [ " + m_cursorOverride + " ] for GUI Sheet [ " + m_name + " ]");
+                Utils.LogException(e);
             }
         }
 
         public virtual void Draw(GameTime gameTime)
         {
-            // draw the background
-            if (m_background != null)
-                m_background.Draw(gameTime);
-
-            // draw controls
-            foreach (Control control in m_controls)
-                control.Draw(gameTime);
-
-            // draw strings
-            foreach (TextCue tc in m_textCues)
-                tc.Draw(gameTime);
-
-            // draw cursor
-            if (m_cursorOverride == "")
+            try
             {
-                if (GuiManager.Cursors.ContainsKey(m_cursor))
-                    GuiManager.Cursors[m_cursor].Draw(gameTime);
-                else Utils.LogOnce("Failed to find cursor visual key [ " + m_cursor + " ] for GUI Sheet [ " + m_name + " ]");
+                // draw the background
+                if (m_background != null)
+                    m_background.Draw(gameTime);
 
+                // draw controls
+                foreach (Control control in new List<Control>(m_controls))
+                    control.Draw(gameTime);
+
+                // draw strings
+                foreach (TextCue tc in m_textCues)
+                    tc.Draw(gameTime);
+
+                // draw cursor
+                if (m_cursorOverride == "")
+                {
+                    if (GuiManager.Cursors.ContainsKey(m_cursor))
+                        GuiManager.Cursors[m_cursor].Draw(gameTime);
+                    else Utils.LogOnce("Failed to find cursor visual key [ " + m_cursor + " ] for GUI Sheet [ " + m_name + " ]");
+
+                }
+                else
+                {
+                    if (GuiManager.Cursors.ContainsKey(m_cursorOverride))
+                        GuiManager.Cursors[m_cursorOverride].Draw(gameTime);
+                    else Utils.LogOnce("Failed to find cursor override visual key [ " + m_cursorOverride + " ] for GUI Sheet [ " + m_name + " ]");
+                }
             }
-            else
+            catch(Exception e)
             {
-                if (GuiManager.Cursors.ContainsKey(m_cursorOverride))
-                    GuiManager.Cursors[m_cursorOverride].Draw(gameTime);
-                else Utils.LogOnce("Failed to find cursor override visual key [ " + m_cursorOverride + " ] for GUI Sheet [ " + m_name + " ]");
+                Utils.LogException(e);
             }
 
             // reset cursor override
@@ -229,7 +243,7 @@ namespace Yuusha.gui
                     }
                     if (m_controls[index] is Window)
                     {
-                        foreach (Control c in (m_controls[index] as Window).Controls)
+                        foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
                         {
                             if (name == c.Name)
                                 return c;
@@ -301,11 +315,11 @@ namespace Yuusha.gui
 
                 // Always stop dragging if the left mouse button is not pressed.
                 if (GuiManager.Dragging && ms.LeftButton != ButtonState.Pressed)
-                    GuiManager.Dragging = false;
+                    GuiManager.StopDragging();
 
-                // Always stop dragging if the mouse pointer is not positioned in the dragged control.
-                if (GuiManager.Dragging && !(GuiManager.DraggedControl.Contains(ms.Position)))
-                    GuiManager.Dragging = false;
+                //// Always stop dragging if the mouse pointer is not positioned in the dragged control.
+                //if (GuiManager.Dragging && !(GuiManager.DraggedControl.Contains(ms.Position)))
+                //    GuiManager.StopDragging();
 
                 int numControls = m_controls.Count;
 
@@ -319,13 +333,10 @@ namespace Yuusha.gui
                         return;
                     }
 
-                    if ((m_controls[i].ControlState == Enums.EControlState.Down) && !m_controls[i].IsLocked)
-                    {
-                        GuiManager.Dragging = true;
-                        GuiManager.DraggedControl = m_controls[i];
-                        GuiManager.DraggingXOffset = ms.X - m_controls[i].Position.X;
-                        GuiManager.DraggingYOffset = ms.Y - m_controls[i].Position.Y;
-                    }
+                    //if ((m_controls[i].ControlState == Enums.EControlState.Down) && !m_controls[i].IsLocked)
+                    //{
+                    //    GuiManager.StartDragging(m_controls[i], ms);
+                    //}
 
                     // Close any open ComboBox when dragging.
                     if ((m_controls[i] is ComboBox) && (m_controls[i] as ComboBox).IsOpen)
@@ -640,7 +651,7 @@ namespace Yuusha.gui
 
         public void OnClientResize(Rectangle prev, Rectangle now)
         {
-            foreach (Control control in m_controls)
+            foreach (Control control in new List<Control>(m_controls))
                 control.OnClientResize(prev, now, false);
         }
 
@@ -864,14 +875,14 @@ namespace Yuusha.gui
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string clickEvent,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
-            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command, string tabControlledWindow)
+            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command, string popUpText, string tabControlledWindow)
         {
             if (type == "HotButton")
             {
                 AddControl(new HotButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                    borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
                    xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
-                   shadowDistance, command, tabControlledWindow));
+                   shadowDistance, command, popUpText));
             }
             else if (type == "IconImageSelectionButton")
             {
@@ -899,7 +910,7 @@ namespace Yuusha.gui
                 AddControl(new Button(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                     borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
                     xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
-                    shadowDistance, command, tabControlledWindow));
+                    shadowDistance, command, popUpText));
             }
         }
 

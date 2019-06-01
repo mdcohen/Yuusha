@@ -111,8 +111,6 @@ namespace Yuusha.gui
             {
                 if (this.Critter != null && this.DropDownMenu == null)
                 {
-                    //Events.RegisterEvent(Events.EventName.Target_Select, this.Critter);
-
                     Rectangle dropDownRectangle = new Rectangle(ms.X - 10, ms.Y - 10, 200, 100);
 
                     // readjust Y if out of client width bounds

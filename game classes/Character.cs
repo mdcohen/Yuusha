@@ -361,11 +361,12 @@ namespace Yuusha
                     try
                     {
                         m_currentCharacter.Sack.Clear();
-                        String[] pcSack = info.Split(Protocol.ISPLIT.ToCharArray());
+                        string[] pcSack = info.Split(Protocol.ISPLIT.ToCharArray());
                         if (pcSack[0].Length > 0)
                         {
                             for (a = 0; a < pcSack.Length; a++)
                             {
+                                //Utils.Log("Sack Item " + a + ": " + pcSack[a]);
                                 Item sackItem = new Item(pcSack[a]);
                                 m_currentCharacter.Sack.Add(sackItem);
                             }
@@ -376,13 +377,34 @@ namespace Yuusha
                         Utils.LogException(e);
                     }
                     break;
-                    #endregion
+                #endregion
+                case Enums.EPlayerUpdate.Pouch:
+                    #region Pouch
+                    try
+                    {
+                        m_currentCharacter.Pouch.Clear();
+                        string[] pcPouch = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (pcPouch[0].Length > 0)
+                        {
+                            for (a = 0; a < pcPouch.Length; a++)
+                            {
+                                Item sackItem = new Item(pcPouch[a]);
+                                m_currentCharacter.Sack.Add(sackItem);
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Utils.LogException(e);
+                    }
+                    break;
+                #endregion
                 case Enums.EPlayerUpdate.Belt:
                     #region Belt
                     try
                     {
                         m_currentCharacter.Belt.Clear();
-                        String[] pcBelt = info.Split(Protocol.ISPLIT.ToCharArray());
+                        string[] pcBelt = info.Split(Protocol.ISPLIT.ToCharArray());
                         if (pcBelt[0].Length > 0)
                         {
                             for (a = 0; a < pcBelt.Length; a++)
@@ -403,7 +425,7 @@ namespace Yuusha
                     try
                     {
                         m_currentCharacter.Rings.Clear();
-                        String[] pcRings = info.Split(Protocol.ISPLIT.ToCharArray());
+                        string[] pcRings = info.Split(Protocol.ISPLIT.ToCharArray());
                         for (a = 0; a < pcRings.Length; a++)
                         {
                             if (pcRings[a].Length > 0)
@@ -624,6 +646,7 @@ namespace Yuusha
         private Item m_leftHand;
         private List<Item> m_inventory;
         private List<Item> m_sack;
+        private List<Item> m_pouch;
         private List<Item> m_belt;
         private List<Item> m_rings;
         private List<Item> m_locker;
@@ -836,6 +859,10 @@ namespace Yuusha
         {
             get { return this.m_sack; }
         }
+        public List<Item> Pouch
+        {
+            get { return this.m_pouch; }
+        }
         public List<Item> Belt
         {
             get { return this.m_belt; }
@@ -898,6 +925,7 @@ namespace Yuusha
             this.m_leftHand = new Item();
             this.m_inventory = new List<Item>();
             this.m_sack = new List<Item>();
+            this.m_pouch = new List<Item>();
             this.m_belt = new List<Item>();
             this.m_rings = new List<Item>();
             this.m_locker = new List<Item>();

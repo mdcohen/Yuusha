@@ -123,7 +123,7 @@ namespace Yuusha.gui
         {
             get
             {
-                foreach(Control c in Controls)
+                foreach(Control c in new List<Control>(Controls))
                 {
                     if (name == c.Name)
                         return c;
@@ -171,7 +171,7 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            foreach (Control control in m_controls)
+            foreach (Control control in new List<Control>(m_controls))
             {
                 if (!m_cropped || ((control is WindowControlBox) || (control is WindowTitle)))
                     control.IsDisabled = m_disabled; // disabled
@@ -189,7 +189,7 @@ namespace Yuusha.gui
             {
                 base.Draw(gameTime);
 
-                foreach (Control control in m_controls)
+                foreach (Control control in new List<Control>(m_controls))
                     control.Draw(gameTime);
             }
             else
@@ -254,7 +254,7 @@ namespace Yuusha.gui
                     continue;
 
                 // stop dragging if the left button is no longer pressed
-                if (m_dragging && ms.LeftButton != ButtonState.Pressed)
+                if (GuiManager.DraggedControl == this && ms.LeftButton != ButtonState.Pressed)
                 {
                     m_dragging = false;
                 }
@@ -271,11 +271,11 @@ namespace Yuusha.gui
                         return false;
                     }
 
-                    if ((m_controls[i].ControlState == Enums.EControlState.Down) &&
-                        !m_controls[i].IsLocked)
-                    {
-                        m_dragging = true;
-                    }
+                    //if ((m_controls[i].ControlState == Enums.EControlState.Down) &&
+                    //    !m_controls[i].IsLocked)
+                    //{
+                    //    m_dragging = true;
+                    //}
 
                     #region ComboBox
                     if ((m_controls[i] is ComboBox) && (m_controls[i] as ComboBox).IsOpen)
@@ -440,99 +440,94 @@ namespace Yuusha.gui
             if (m_locked || m_disabled || !Client.HasFocus)
                 return;
 
+            if(WindowTitle != null && (WindowTitle.ControlState == Enums.EControlState.Down || WindowBorder.ControlState == Enums.EControlState.Down))
+                GuiManager.StartDragging(this, ms);
             // do not drag window if mouse is down over a control
-            foreach (Control control in m_controls)
+            //foreach (Control control in new List<Control>(m_controls))
+            //{
+            //    if (control.ControlState == Enums.EControlState.Down && (!(control == WindowTitle) ||
+            //        !(control is Border)))
+            //    {
+            //        GuiManager.StopDragging();
+            //        break;
+            //    }
+            //    else if (control.ControlState == Enums.EControlState.Down && (control == WindowTitle || control == WindowBorder))
+            //    {
+            //        GuiManager.StartDragging(this, ms);
+            //        break;
+            //    }
+            //}
+
+            // Stop dragging if minimized or maximized.
+            if (this.m_minimized || this.m_maximized)
             {
-                if (control.ControlState == Enums.EControlState.Down && !(control is WindowTitle) &&
-                    !(control is Border))
-                {
-                    GuiManager.Dragging = false;
-                    GuiManager.DraggedControl = null;
-                    break;
-                }
-                else if (control.ControlState == Enums.EControlState.Down && (control is WindowTitle) &&
-                    (control as WindowTitle).ControlBoxContains(new Point(ms.X, ms.Y)))
-                {
-                    GuiManager.Dragging = true;
-                    GuiManager.DraggedControl = this;
-                    break;
-                }
+                GuiManager.StopDragging();
             }
 
-            if (this.m_minimized)
+            // Handle dragging.
+            if (GuiManager.Dragging && GuiManager.DraggedControl == this)
             {
-                GuiManager.Dragging = false;
-                GuiManager.DraggedControl = null;
-            }
+                m_xOffset = ms.X - m_touchDownPoint.X;
+                m_yOffset = ms.Y - m_touchDownPoint.Y;
+                m_rectangle.X += m_xOffset;
+                m_rectangle.Y += m_yOffset;
+                m_touchDownPoint.X += m_xOffset;
+                m_touchDownPoint.Y += m_yOffset;
 
-            if (this.m_maximized)
-            {
-                GuiManager.Dragging = false;
-                GuiManager.DraggedControl = null;
-                return;
-            }
-
-            m_xOffset = ms.X - m_touchDownPoint.X;
-            m_yOffset = ms.Y - m_touchDownPoint.Y;
-            m_rectangle.X += m_xOffset;
-            m_rectangle.Y += m_yOffset;
-            m_touchDownPoint.X += m_xOffset;
-            m_touchDownPoint.Y += m_yOffset;
-
-            // window is being dragged, move it's controls with it
-            for (int j = Controls.Count - 1; j >= 0; j--)
-            {
-                Point position = this.Controls[j].Position;
-                position.X += this.XOffset;
-                position.Y += this.YOffset;
-                Controls[j].Position = position;
-
-                // IMPORTANT: (5/29/2019) Currently only one layer of nested windows is dragged. This will need recursiveness if adding more nested windows.
-                if (Controls[j] is Window)
+                // window is being dragged, move it's controls with it
+                foreach(Control control in new List<Control>(Controls))
                 {
-                    foreach (Control winControl in (Controls[j] as Window).Controls)
-                    {
-                        position = winControl.Position;
-                        position.X += this.XOffset;
-                        position.Y += this.YOffset;
-                        winControl.Position = position;
-                    }
-                }
+                    Point position = control.Position;
+                    position.X += this.XOffset;
+                    position.Y += this.YOffset;
+                    control.Position = position;
 
-                if (Controls[j] is WindowTitle)
-                {
-                    WindowTitle wt = this.Controls[j] as WindowTitle;
-                    if (wt.CloseBox != null)
+                    // IMPORTANT: (5/29/2019) Currently only one layer of nested windows is dragged. This will need recursiveness if adding more nested windows.
+                    if (control is Window)
                     {
-                        position = wt.CloseBox.Position;
-                        position.X += this.XOffset;
-                        position.Y += this.YOffset;
-                        wt.CloseBox.Position = position;
+                        foreach (Control winControl in new List<Control>((control as Window).Controls))
+                        {
+                            position = winControl.Position;
+                            position.X += this.XOffset;
+                            position.Y += this.YOffset;
+                            winControl.Position = position;
+                        }
                     }
-                    if (wt.MaximizeBox != null)
+
+                    if (control is WindowTitle)
                     {
-                        position = wt.MaximizeBox.Position;
-                        position.X += this.XOffset;
-                        position.Y += this.YOffset;
-                        wt.MaximizeBox.Position = position;
-                    }
-                    if (wt.MinimizeBox != null)
-                    {
-                        position = wt.MinimizeBox.Position;
-                        position.X += this.XOffset;
-                        position.Y += this.YOffset;
-                        wt.MinimizeBox.Position = position;
-                    }
-                    if (wt.CropBox != null)
-                    {
-                        position = wt.CropBox.Position;
-                        position.X += this.XOffset;
-                        position.Y += this.YOffset;
-                        wt.CropBox.Position = position;
+                        WindowTitle wt = control as WindowTitle;
+                        if (wt.CloseBox != null)
+                        {
+                            position = wt.CloseBox.Position;
+                            position.X += this.XOffset;
+                            position.Y += this.YOffset;
+                            wt.CloseBox.Position = position;
+                        }
+                        if (wt.MaximizeBox != null)
+                        {
+                            position = wt.MaximizeBox.Position;
+                            position.X += this.XOffset;
+                            position.Y += this.YOffset;
+                            wt.MaximizeBox.Position = position;
+                        }
+                        if (wt.MinimizeBox != null)
+                        {
+                            position = wt.MinimizeBox.Position;
+                            position.X += this.XOffset;
+                            position.Y += this.YOffset;
+                            wt.MinimizeBox.Position = position;
+                        }
+                        if (wt.CropBox != null)
+                        {
+                            position = wt.CropBox.Position;
+                            position.X += this.XOffset;
+                            position.Y += this.YOffset;
+                            wt.CropBox.Position = position;
+                        }
                     }
                 }
             }
-
             CheckBoundsAndAdjust();
         }
 
@@ -542,14 +537,14 @@ namespace Yuusha.gui
 
             // return if a control contains the cursor, since the window will not drag
             // unless control is window title or border
-            foreach (Control control in m_controls)
-            {
-                if (!(control is WindowTitle) && !(control is Border) &&
-                    control.Contains(new Point(ms.X, ms.Y)))
-                    return;
-                else if (control is WindowTitle && (control as WindowTitle).ControlBoxContains(new Point(ms.X, ms.Y)))
-                    return;
-            }
+            //foreach (Control control in new List<Control>(m_controls))
+            //{
+            //    if (!(control is WindowTitle) && !(control is Border) &&
+            //        control.Contains(new Point(ms.X, ms.Y)))
+            //        return;
+            //    else if (control is WindowTitle && (control as WindowTitle).ControlBoxContains(new Point(ms.X, ms.Y)))
+            //        return;
+            //}
 
             // show drag cursor if not locked, the window title has the hotspot, the window border has the hotspot
             if (m_cursorOverride != "" && !m_locked &&

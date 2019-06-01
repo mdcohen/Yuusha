@@ -91,6 +91,27 @@ namespace Yuusha.Utility.Settings
         public string VerticalHotButtonText17 = "$17";
         public string VerticalHotButtonText18 = "$18";
         public string VerticalHotButtonText19 = "$19";
+
+        public string VerticalHotButtonCommand0 = "$0";
+        public string VerticalHotButtonCommand1 = "$1";
+        public string VerticalHotButtonCommand2 = "$2";
+        public string VerticalHotButtonCommand3 = "$3";
+        public string VerticalHotButtonCommand4 = "$4";
+        public string VerticalHotButtonCommand5 = "$5";
+        public string VerticalHotButtonCommand6 = "$6";
+        public string VerticalHotButtonCommand7 = "$7";
+        public string VerticalHotButtonCommand8 = "$8";
+        public string VerticalHotButtonCommand9 = "$9";
+        public string VerticalHotButtonCommand10 = "$10";
+        public string VerticalHotButtonCommand11 = "$11";
+        public string VerticalHotButtonCommand12 = "$12";
+        public string VerticalHotButtonCommand13 = "$13";
+        public string VerticalHotButtonCommand14 = "$14";
+        public string VerticalHotButtonCommand15 = "$15";
+        public string VerticalHotButtonCommand16 = "$16";
+        public string VerticalHotButtonCommand17 = "$17";
+        public string VerticalHotButtonCommand18 = "$18";
+        public string VerticalHotButtonCommand19 = "$19";
         #endregion
 
         #region Horizontal HotButtons
@@ -126,6 +147,22 @@ namespace Yuusha.Utility.Settings
         public string HorizontalHotButtonText12 = "$12";
         public string HorizontalHotButtonText13 = "$13";
         public string HorizontalHotButtonText14 = "$14";
+
+        public string HorizontalHotButtonCommand0 = "$0";
+        public string HorizontalHotButtonCommand1 = "$1";
+        public string HorizontalHotButtonCommand2 = "$2";
+        public string HorizontalHotButtonCommand3 = "$3";
+        public string HorizontalHotButtonCommand4 = "$4";
+        public string HorizontalHotButtonCommand5 = "$5";
+        public string HorizontalHotButtonCommand6 = "$6";
+        public string HorizontalHotButtonCommand7 = "$7";
+        public string HorizontalHotButtonCommand8 = "$8";
+        public string HorizontalHotButtonCommand9 = "$9";
+        public string HorizontalHotButtonCommand10 = "$10";
+        public string HorizontalHotButtonCommand11 = "$11";
+        public string HorizontalHotButtonCommand12 = "$12";
+        public string HorizontalHotButtonCommand13 = "$13";
+        public string HorizontalHotButtonCommand14 = "$14";
         #endregion
 
         #region Load/Save code

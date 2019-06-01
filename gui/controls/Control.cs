@@ -119,6 +119,15 @@ namespace Yuusha.gui
             get { return new Point(m_rectangle.X, m_rectangle.Y); }
             set
             {
+                // 6/1/2019 was troubleshooting
+                //if(value.X == 0 && value.Y == 0)
+                //{
+                //    if (Name.StartsWith("SackDragAndDrop"))
+                //    {
+                //        Utils.Log(this.Name + " x and y set to 0");
+                //        return;
+                //    }
+                //}
                 m_rectangle.X = value.X;
                 m_rectangle.Y = value.Y;
             }
@@ -262,6 +271,16 @@ namespace Yuusha.gui
 
         public virtual void Update(GameTime gameTime)
         {
+            // temporary fix -- something wrong with bottom anchors on client resizing
+            //if (this.m_rectangle.Y + this.Height > Program.Client.Window.ClientBounds.Height)
+            //    this.m_rectangle.Y--;
+
+            if(!m_disabled && m_visible)
+            {
+                if (m_popUpText != "" && m_controlState == Enums.EControlState.Over)
+                    TextCue.AddMouseCursorTextCue(m_popUpText, Utils.GetColor(Client.ClientSettings.DefaultPopUpColor), m_font);
+            }
+
             if (m_visuals.ContainsKey(ControlState) && m_visualKey != m_visuals[ControlState])
                 m_visualKey = m_visuals[ControlState];
 
@@ -315,11 +334,9 @@ namespace Yuusha.gui
                     Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], shadowRect, vi.Rectangle, shadowColor);
                 }
 
-                // Drawing.
                 if (!m_visualTiled)
                 {
                     Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, color);
-                    //Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], new Rectangle(0, 0, Client.Width, Client.Height), m_tintColor);
                 }
                 else // Tiled visual (borders, window titles)
                 {
@@ -345,8 +362,6 @@ namespace Yuusha.gui
                         }
                     }
                 }
-
-                //Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, color);
             }
         }
 
@@ -378,7 +393,7 @@ namespace Yuusha.gui
             // current sheet only (excludes generic sheet)
             if (Sheet == GuiManager.CurrentSheet.Name)
             {
-                foreach (Control c in GuiManager.GenericSheet.Controls)
+                foreach (Control c in new List<Control>(GuiManager.GenericSheet.Controls))
                 {
                     if (c.IsVisible && c.Contains(mousePointer))
                         return false;
@@ -443,7 +458,7 @@ namespace Yuusha.gui
 
                     // ListBoxes need to continuously check mouse since it has sub parts that change on mouse over
                     // Mouseover on Windows should be able to reset over state on back controls.
-                    if (ControlState == Enums.EControlState.Over && !(this is GridBox) && !(this is Window))
+                    if (ControlState == Enums.EControlState.Over && !(this is Window))
                     {
                         // state is already over
                         result = false;
@@ -458,17 +473,17 @@ namespace Yuusha.gui
                 if ((ms.LeftButton == ButtonState.Pressed || ms.RightButton == ButtonState.Pressed) && m_hasTouchDownPoint &&
                     Contains(m_touchDownPoint) && Client.HasFocus || HasFocus)
                 {
-                    //if (this.Owner != "" && GuiManager.GetControl(this.Owner) is Window)
-                    //{
-                    ControlState = Enums.EControlState.Down;
-                    OnMouseDown(ms);
+                    if (!GuiManager.Dragging || GuiManager.DraggedControl == this)
+                    {
+                        ControlState = Enums.EControlState.Down;
+                        OnMouseDown(ms);
+                    }
 
                     // slider sends data while mouse is down
                     if ((this is Slider) && OnControl != null)
                         OnControl(m_name, Data);
                     HasFocus = true;
                     return true;
-                    //}
                 }
             }
             else if (this is Button && ControlState != Enums.EControlState.Normal)
@@ -570,23 +585,29 @@ namespace Yuusha.gui
                     //    y += now.Y - prev.Y;
                 }
 
+                // top and bottom
                 if (m_anchors.Contains(Enums.EAnchorType.Top) && m_anchors.Contains(Enums.EAnchorType.Bottom))
                 {
                     // y stays the same
                     //if (prev.Y > now.Y)
                     //    y -= prev.Y - now.Y;
+
                     //else if (prev.X < now.X)
                     //    y += now.Y - prev.Y;
                     // height is increased or decreased
                     height += now.Height - prev.Height;
                 }
 
+                // bottom and no top
                 if (m_anchors.Contains(Enums.EAnchorType.Bottom) && !m_anchors.Contains(Enums.EAnchorType.Top))
                 {
                     // distance from new x to new bottom should be same as old x to old bottom
                     int oldBottomDist = prev.Bottom - m_rectangle.Y;
                     y = now.Bottom - oldBottomDist;
-                    y += (int)((now.Height - prev.Height) / 2);
+                    int adjustment = 0;
+                    //if (Client.IsFullScreen)
+                    //    adjustment = m_rectangle.Height / 2;
+                    y += ((now.Height - prev.Height) / 2) - adjustment;
                 }
 
                 if (m_anchors.Contains(Enums.EAnchorType.Left) && !m_anchors.Contains(Enums.EAnchorType.Right))

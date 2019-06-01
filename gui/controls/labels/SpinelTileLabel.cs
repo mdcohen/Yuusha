@@ -147,8 +147,19 @@ namespace Yuusha.gui
                     VisualKey vk = m_critterVisuals[a];
                     if (!GuiManager.Visuals.ContainsKey(vk.Key))
                     {
-                        Utils.LogOnce("Failed to find visual key [ " + vk + " ] for Control [ " + m_name + " ]");
-                        vk.Key = "question_mark"; // draw a question mark
+                        string vkString = vk.ToString();
+                        if (vkString.Length > 0 && char.IsDigit(vkString[0]) && vkString.Contains(" ") && vkString.EndsWith("s"))
+                        {
+                            string newVisual = vkString.Substring(vkString.IndexOf(" ") + 1, vkString.Length - (vkString.IndexOf(" ") + 2));
+                            if (GuiManager.Visuals.ContainsKey(newVisual))
+                                vk = new VisualKey(newVisual);
+                            else vk.Key = "question_mark";
+                        }
+                        else
+                        {
+                            Utils.LogOnce("Failed to find Critter visual key [ " + vk + " ] for SpinelTileLabel [ " + m_name + " ]");
+                            vk.Key = "question_mark"; // draw a question mark
+                        }
                     }
 
                     VisualInfo vi = GuiManager.Visuals[vk.Key];

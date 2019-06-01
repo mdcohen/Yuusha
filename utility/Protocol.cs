@@ -78,6 +78,9 @@ namespace Yuusha
         public static string CHARACTER_MACROS_END = (char)27 + "C09" + (char)27;
         public static string CHARACTER_PROMPT_STATE = (char)27 + "C10" + (char)27;
         public static string CHARACTER_PROMPT_STATE_END = (char)27 + "C11" + (char)27;
+        public static string CHARACTER_POUCH = (char)27 + "C12" + (char)27;
+        public static string CHARACTER_POUCH_END = (char)27 + "C13" + (char)27;
+
         #endregion
 
         #region Main Menu, News, Detect Protocol/Client
@@ -139,6 +142,7 @@ namespace Yuusha
         #region Requests
         public static string REQUEST_CHARACTER_INVENTORY = (char)27 + "R8" + (char)27;
         public static string REQUEST_CHARACTER_SACK = (char)27 + "RA" + (char)27;
+        public static string REQUEST_CHARACTER_POUCH = (char)27 + "RB" + (char)27;
         public static string REQUEST_CHARACTER_BELT = (char)27 + "RC" + (char)27;
         public static string REQUEST_CHARACTER_RINGS = (char)27 + "RE" + (char)27;
         public static string REQUEST_CHARACTER_LOCKER = (char)27 + "RG" + (char)27;

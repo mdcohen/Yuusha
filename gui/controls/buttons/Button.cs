@@ -19,7 +19,7 @@ namespace Yuusha.gui
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
             System.Collections.Generic.List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection,
-            int shadowDistance, string command, string tabControlledWindow)
+            int shadowDistance, string command, string popUpText)
             : base()
         {
             m_name = name;
@@ -59,6 +59,7 @@ namespace Yuusha.gui
             m_shadowDirection = shadowDirection;
             m_shadowDistance = shadowDistance;
             Command = command;
+            m_popUpText = popUpText;
 
             m_onMouseDownSent = false;
         }
@@ -109,7 +110,7 @@ namespace Yuusha.gui
             if (m_owner != "")
                 if (!GuiManager.GetControl(m_owner).IsVisible) return;
 
-            if (!m_onMouseDownSent && ms.LeftButton == ButtonState.Pressed)
+            if (m_onMouseDown != "" && !m_onMouseDownSent && ms.LeftButton == ButtonState.Pressed)
             {
                 try
                 {

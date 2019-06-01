@@ -139,14 +139,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YuushaMG.exe" size="612832">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YuushaMG.exe" size="617952">
       <assemblyIdentity name="YuushaMG" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>syAy0r/tMppyzWRSZA+iLLJaViLqSOGOBkBM3mAWpKI=</dsig:DigestValue>
+        <dsig:DigestValue>fgYBx4DdABwHDIBBb9Ijr+3Gw5g0gy+zz+H0RzGpqjs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -3165,22 +3165,22 @@
       <dsig:DigestValue>WYpn+c0B53nL1hYrz09v34QijEu3DCmnev5b7NxVQYA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\generic.xml" size="81107" writeableType="applicationData">
+  <file name="media\xml\sheets\generic.xml" size="81190" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>w3QRyGC/9jsxeBbP4v5XXWHcum5+ptZDt71BKtygjl8=</dsig:DigestValue>
+      <dsig:DigestValue>S6C/hxom1b54X2spvKaPzBr0VHItAiqaG+uRJg0UhNc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\hotbuttoneditmode.xml" size="5428" writeableType="applicationData">
+  <file name="media\xml\sheets\hotbuttoneditmode.xml" size="7415" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>oWm7t33XuQgREE8/53BL0gxm+iqqOulIVREzHx5RV5w=</dsig:DigestValue>
+      <dsig:DigestValue>XgopLepead7L71ougj5Jf0g0WVHaEvOTzEyhnKC699w=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\sheets\iokgame.xml" size="28228" writeableType="applicationData">
@@ -3228,13 +3228,13 @@
       <dsig:DigestValue>rfA4fFTtRSbqHSAB6P9KpEpcXTMut769dnKTnozU8lE=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\menu.xml" size="4161" writeableType="applicationData">
+  <file name="media\xml\sheets\menu.xml" size="4377" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>h7sAFHYaIoD4qgr3g5WOczJ98WxCnlTPsGWAQD1it10=</dsig:DigestValue>
+      <dsig:DigestValue>xX6wrRBV9O1LH33n465SvBw7Vas18r83l42QwOO3XIw=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\sheets\spinelgame.xml" size="31069" writeableType="applicationData">
@@ -3291,13 +3291,13 @@
       <dsig:DigestValue>s1jYFDQVKZrirusjZl7Pc11golxPHdGy/BRPSGJqjrs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\visuals\lok_people.xml" size="36960" writeableType="applicationData">
+  <file name="media\xml\visuals\lok_people.xml" size="37240" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>B0UQOAsR5LXAI/lQHKZ1e9Re8yIqOKEry4xXVLDHymA=</dsig:DigestValue>
+      <dsig:DigestValue>/mGDuzQHbJVeovUE1fzJmed7a+t3kR7NWhYXDJnXSKM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\visuals\lok_spells.xml" size="9802" writeableType="applicationData">
