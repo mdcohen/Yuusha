@@ -175,14 +175,26 @@ namespace Yuusha
 
                             if(IsAltKeyDown(ks) && ks.IsKeyDown(Keys.F))
                             {
-                                System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
-                                
-                                colorDialog.ShowDialog();
-                            }
+                                string randomSound = "0001";
+                                int random = new Random().Next(1, 273);
+                                randomSound = random.ToString();
+                                randomSound = randomSound.PadLeft(4, '0');
 
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
-                            {
-                                GridBox.CreateGridBox(GridBox.GridBoxFunction.Sack);
+                                try
+                                {
+                                    List<string> li = new List<string>() { randomSound, new Random().Next(0, 7).ToString(), new Random().Next(8).ToString() };
+                                    Sound.Play(li);
+                                }
+                                catch (Exception e)
+                                {
+                                    Utils.LogException(e);
+                                }
+
+                                //if (GuiManager.ParticalEngine == null)
+                                //    GuiManager.ParticalEngine = new gui.effects.ParticleEngine(new List<Texture2D>() { GuiManager.Textures["heartrate.png"] }, new Vector2(100, 100));
+                                //else GuiManager.ParticalEngine = null;
+
+                                //gui.effects.Particle particle = new gui.effects.Particle()
                             }
 
                             #region ALT + O  Options Window
@@ -379,9 +391,11 @@ namespace Yuusha
                             {
                                 Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
                             }
+
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             {
                                 IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                                IO.Send(Protocol.REQUEST_CHARACTER_BELT);
                             }
 
                             if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))

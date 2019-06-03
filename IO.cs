@@ -8,6 +8,8 @@ namespace Yuusha
 {
     public static class IO
     {
+        public static bool SwitchingToCharGen = false;
+
         #region Private Data
         static TcpClient m_TcpClient = null;
         static string m_InData = null;
@@ -220,6 +222,12 @@ namespace Yuusha
             #region Detect Main Menu
             else if (inData.IndexOf(Protocol.MENU_MAIN) != -1)
             {
+                if (SwitchingToCharGen)
+                {
+                    SwitchingToCharGen = false;
+                    return true;
+                }
+
                 Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.LoggedIn);
                 Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Menu);
                 return true;
@@ -261,10 +269,11 @@ namespace Yuusha
             #region Detect Sound
             else if (inData.IndexOf(Protocol.SOUND_END) != -1)
             {
+                // soundFile, distance, direction
                 if (Client.UserSettings.SoundEffects)
                 {
                     string[] soundInfo = Protocol.GetProtoInfoFromString(inData, Protocol.SOUND, Protocol.SOUND_END).Split(Protocol.VSPLIT.ToCharArray());
-                    Sound.Play(soundInfo);
+                    Sound.Play(new System.Collections.Generic.List<string>(soundInfo));
                 }
                 return true;
             }
@@ -416,6 +425,7 @@ namespace Yuusha
                             {
                                 Events.RegisterEvent(Events.EventName.Disconnect);
                                 Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account does not exist.", "Red");
+                                gui.TextCue.AddClientInfoTextCue("Account does not exist.", gui.TextCue.TextCueTag.None, Color.Red, Color.Transparent, 4000, false, false, true);
                                 return true;
                             }
                             break;
@@ -517,6 +527,12 @@ namespace Yuusha
                     switch (Client.GameState)
                     {
                         case Enums.EGameState.Menu:
+                            if (inData.IndexOf("Welcome to the character generator.") != -1)
+                            {
+                                if (Client.GameState != Enums.EGameState.CharacterGeneration)
+                                    Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
+                                return true;
+                            }
                             break;
                         case Enums.EGameState.CharacterGeneration:
                             #region CharGen
@@ -646,6 +662,12 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_STATS_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_STATS, Protocol.CHARACTER_STATS_END), Enums.EPlayerUpdate.Stats);
+                                return true;
+                            }
+                            else if(inData.IndexOf("Welcome to the character generator.") != -1)
+                            {
+                                if (Client.GameState != Enums.EGameState.CharacterGeneration)
+                                    Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
                                 return true;
                             }
                             break;
@@ -789,6 +811,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_BELT_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_BELT, Protocol.CHARACTER_BELT_END), Enums.EPlayerUpdate.Belt);
+                                gui.GridBox.CreateGridBox(gui.GridBox.GridBoxFunction.Belt);
                                 return true;
                             }
                             #endregion

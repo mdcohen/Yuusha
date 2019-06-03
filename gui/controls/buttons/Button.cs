@@ -10,9 +10,7 @@ namespace Yuusha.gui
         protected bool m_textVisible;
 
         public string Command
-        {
-            get; set;
-        }
+        { get; set; }
 
         public Button(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
@@ -110,6 +108,12 @@ namespace Yuusha.gui
             if (m_owner != "")
                 if (!GuiManager.GetControl(m_owner).IsVisible) return;
 
+            if (m_visuals.ContainsKey(Enums.EControlState.Down))
+                m_visualKey = m_visuals[Enums.EControlState.Down];
+
+            if (ms.LeftButton == ButtonState.Pressed && !m_mouseLeftDown)
+                m_mouseLeftDown = true;
+
             if (m_onMouseDown != "" && !m_onMouseDownSent && ms.LeftButton == ButtonState.Pressed)
             {
                 try
@@ -131,6 +135,7 @@ namespace Yuusha.gui
                 return;
 
             m_onMouseDownSent = false;
+            m_mouseLeftDown = false;
 
             if (m_visuals.ContainsKey(Enums.EControlState.Normal))
                 m_visualKey = m_visuals[Enums.EControlState.Normal];

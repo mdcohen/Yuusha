@@ -74,6 +74,26 @@
   <VerticalHotButtonText17>$17</VerticalHotButtonText17>
   <VerticalHotButtonText18>$18</VerticalHotButtonText18>
   <VerticalHotButtonText19>$19</VerticalHotButtonText19>
+  <VerticalHotButtonCommand0>$0</VerticalHotButtonCommand0>
+  <VerticalHotButtonCommand1>$1</VerticalHotButtonCommand1>
+  <VerticalHotButtonCommand2>$2</VerticalHotButtonCommand2>
+  <VerticalHotButtonCommand3>$3</VerticalHotButtonCommand3>
+  <VerticalHotButtonCommand4>$4</VerticalHotButtonCommand4>
+  <VerticalHotButtonCommand5>$5</VerticalHotButtonCommand5>
+  <VerticalHotButtonCommand6>$6</VerticalHotButtonCommand6>
+  <VerticalHotButtonCommand7>$7</VerticalHotButtonCommand7>
+  <VerticalHotButtonCommand8>$8</VerticalHotButtonCommand8>
+  <VerticalHotButtonCommand9>$9</VerticalHotButtonCommand9>
+  <VerticalHotButtonCommand10>$10</VerticalHotButtonCommand10>
+  <VerticalHotButtonCommand11>$11</VerticalHotButtonCommand11>
+  <VerticalHotButtonCommand12>$12</VerticalHotButtonCommand12>
+  <VerticalHotButtonCommand13>$13</VerticalHotButtonCommand13>
+  <VerticalHotButtonCommand14>$14</VerticalHotButtonCommand14>
+  <VerticalHotButtonCommand15>$15</VerticalHotButtonCommand15>
+  <VerticalHotButtonCommand16>$16</VerticalHotButtonCommand16>
+  <VerticalHotButtonCommand17>$17</VerticalHotButtonCommand17>
+  <VerticalHotButtonCommand18>$18</VerticalHotButtonCommand18>
+  <VerticalHotButtonCommand19>$19</VerticalHotButtonCommand19>
   <HorizontalHotButtonVisualKey0>hotbuttonicon_20</HorizontalHotButtonVisualKey0>
   <HorizontalHotButtonVisualKey1>hotbuttonicon_21</HorizontalHotButtonVisualKey1>
   <HorizontalHotButtonVisualKey2>hotbuttonicon_22</HorizontalHotButtonVisualKey2>
@@ -104,4 +124,23 @@
   <HorizontalHotButtonText12>$12</HorizontalHotButtonText12>
   <HorizontalHotButtonText13>$13</HorizontalHotButtonText13>
   <HorizontalHotButtonText14>$14</HorizontalHotButtonText14>
+  <HorizontalHotButtonCommand0>$0</HorizontalHotButtonCommand0>
+  <HorizontalHotButtonCommand1>$1</HorizontalHotButtonCommand1>
+  <HorizontalHotButtonCommand2>$2</HorizontalHotButtonCommand2>
+  <HorizontalHotButtonCommand3>$3</HorizontalHotButtonCommand3>
+  <HorizontalHotButtonCommand4>$4</HorizontalHotButtonCommand4>
+  <HorizontalHotButtonCommand5>$5</HorizontalHotButtonCommand5>
+  <HorizontalHotButtonCommand6>$6</HorizontalHotButtonCommand6>
+  <HorizontalHotButtonCommand7>$7</HorizontalHotButtonCommand7>
+  <HorizontalHotButtonCommand8>$8</HorizontalHotButtonCommand8>
+  <HorizontalHotButtonCommand9>$9</HorizontalHotButtonCommand9>
+  <HorizontalHotButtonCommand10>$10</HorizontalHotButtonCommand10>
+  <HorizontalHotButtonCommand11>$11</HorizontalHotButtonCommand11>
+  <HorizontalHotButtonCommand12>$12</HorizontalHotButtonCommand12>
+  <HorizontalHotButtonCommand13>$13</HorizontalHotButtonCommand13>
+  <HorizontalHotButtonCommand14>$14</HorizontalHotButtonCommand14>
+  <HorizontalHotButtonWindowX>189</HorizontalHotButtonWindowX>
+  <HorizontalHotButtonWindowY>708</HorizontalHotButtonWindowY>
+  <VerticalHotButtonWindowX>880</VerticalHotButtonWindowX>
+  <VerticalHotButtonWindowY>22</VerticalHotButtonWindowY>
 </CharacterSettings>

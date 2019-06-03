@@ -374,9 +374,10 @@ namespace Yuusha.gui
                             }
 
                             if (Client.GameState.ToString().EndsWith("Game"))
-                            {
-                                    Events.RegisterEvent(Events.EventName.Target_Cleared, null);
-                            }
+                                Events.RegisterEvent(Events.EventName.Target_Cleared, null);
+
+                            if(GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedButton != null)
+                                GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedButton.StopDragging();
                             
                         }
                         else if (k == Keys.Tab)
@@ -879,8 +880,8 @@ namespace Yuusha.gui
                 BitmapFont.ActiveFonts[Font].TextBox(new Rectangle(rectX, rectY, m_rectangle.Width - 1, m_rectangle.Height - 1), textColor, password);
             }
 
-            // draw the cursor if cursor is visible, control has focus and control is not disabled
-            if (m_cursorVisible && HasFocus && !m_disabled)
+            // draw the cursor if cursor is visible, control has focus and control is not disabled -- also if Client has focus/is activated
+            if (m_cursorVisible && HasFocus && !m_disabled && Client.HasFocus)
             {
                 int cursorWidth = BitmapFont.ActiveFonts[Font].MeasureString("_");
                 int cursorHeight = BitmapFont.ActiveFonts[Font].LineHeight;

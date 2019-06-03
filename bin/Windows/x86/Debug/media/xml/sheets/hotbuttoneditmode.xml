@@ -205,7 +205,7 @@
 		CursorColor="White"
     AnchorTop="true"
     AnchorLeft="true"
-    TabOrder="1">
+    TabOrder="0">
   </Control>
   <Control
 		Type="SquareBorder"
@@ -264,7 +264,7 @@
       CursorColor="White"
       AnchorTop="true"
       AnchorLeft="true"
-      TabOrder="2">
+      TabOrder="1">
   </Control>
   <Control
 		Type="SquareBorder"

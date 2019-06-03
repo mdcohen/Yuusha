@@ -93,31 +93,31 @@ namespace Yuusha.gui
 
                     if (chr.RightHand != null)
                     {
-                        sheet["RHNameLabel"].Text = chr.RightHand.name;
+                        sheet["RHNameDragAndDropButton"].Text = chr.RightHand.name;
                         if (chr.RightHand.nocked)
                         {
                             if (chr.RightHand.name.ToLower().Contains("crossbow"))
-                                sheet["RHNameLabel"].Text += "*";
+                                sheet["RHNameDragAndDropButton"].Text += "*";
                             else if (chr.LeftHand == null)
-                                sheet["LHNameLabel"].Text = "*";
+                                sheet["LHNameDragAndDropButton"].Text = "*";
                         }
-                        else sheet["LHNameLabel"].Text = "";
+                        else sheet["LHNameDragAndDropButton"].Text = "";
                     }
-                    else sheet["RHNameLabel"].Text = "";
+                    else sheet["RHNameDragAndDropButton"].Text = "";
 
                     if (chr.LeftHand != null)
                     {
-                        sheet["LHNameLabel"].Text = chr.LeftHand.name;
+                        sheet["LHNameDragAndDropButton"].Text = chr.LeftHand.name;
                         if (chr.LeftHand.nocked)
                         {
                             if (chr.LeftHand.name.ToLower().Contains("crossbow"))
-                                sheet["LHNameLabel"].Text += "*";
+                                sheet["LHNameDragAndDropButton"].Text += "*";
                             else if (chr.RightHand == null)
-                                sheet["RHNameLabel"].Text = "*";
+                                sheet["RHNameDragAndDropButton"].Text = "*";
                         }
                     }
-                    else if (sheet["LHNameLabel"].Text != "*")
-                        sheet["LHNameLabel"].Text = "";
+                    else if (sheet["LHNameDragAndDropButton"].Text != "*")
+                        sheet["LHNameDragAndDropButton"].Text = "";
 
                     if (pre != null)
                     {

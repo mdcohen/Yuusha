@@ -297,13 +297,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\lok_ti
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spell_icons.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spinel_icons.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\spinel_tiles.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Sound Bank.xsb
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Wave Bank.xwb
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Yuusha.xgs
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Sound Bank.xsb
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Wave Bank.xwb
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\sounds\Win\Yuusha.xgs
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\sounds\Yuusha.xap
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\hotbuttoneditmode.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\YuushaMG.exe.config
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\YuushaMG.exe

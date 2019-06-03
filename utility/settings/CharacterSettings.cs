@@ -165,6 +165,12 @@ namespace Yuusha.Utility.Settings
         public string HorizontalHotButtonCommand14 = "$14";
         #endregion
 
+        // Window positions.
+        public int HorizontalHotButtonWindowX = 189;
+        public int HorizontalHotButtonWindowY = 708;
+        public int VerticalHotButtonWindowX = 880;
+        public int VerticalHotButtonWindowY = 22;
+
         #region Load/Save code
         /// <summary>
         /// Saves the current character settings.

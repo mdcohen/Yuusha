@@ -9,6 +9,7 @@
 	PreferredHeight="480"
 	DeviceClearColor="Black"
 	AllowFullScreen="false">
+  
 	<Background
 		Font="legends14"
 		VisualKey="LOKGameBackground"
@@ -17,6 +18,7 @@
 		TintColor="White"
 		VisualAlpha="255">
 	</Background>
+  
 	<Control
 		Type="TextBox"
 		Name="LOKGameInputTextBox"

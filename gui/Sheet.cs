@@ -169,7 +169,7 @@ namespace Yuusha.gui
                     m_textCues[a].Update(gameTime, m_textCues);
 
                 if (Client.RoundDelay)
-                    gui.GuiManager.CurrentSheet.CursorOverride = "Wait";
+                    GuiManager.CurrentSheet.CursorOverride = "Wait";
 
                 // update cursor
                 if (m_cursorOverride == "")
@@ -561,6 +561,16 @@ namespace Yuusha.gui
                         if (c is SquareBorder)
                             (owner as DragAndDropButton).Border = c as SquareBorder;
                     }
+                    else if (owner is CheckboxButton)
+                    {
+                        if (c is SquareBorder)
+                            (owner as CheckboxButton).Border = c as SquareBorder;
+                    }
+                    else if (owner is ColorDialogButton)
+                    {
+                        if (c is SquareBorder)
+                            (owner as ColorDialogButton).Border = c as SquareBorder;
+                    }
                 }
             }
         }
@@ -871,11 +881,20 @@ namespace Yuusha.gui
                 visualKeyDown, visualKeyDisabled, xTextOffset, yTextOffset, onKeyboardEnter, selectionColor, anchors, tabOrder));
         }
 
+        public void CreateCheckBoxButton(string name, string owner, Rectangle rectangle, bool visible, bool disabled, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha,
+            VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, VisualKey visualKeySelected, Color visualKeySelectedColor, Color tintOverColor, bool hasTintOverColor,
+            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string popUpText)
+        {
+            AddControl(new CheckboxButton(name, owner, rectangle, visible, disabled, this.Font, visualKey, tintColor, visualAlpha, borderAlpha, visualKeyOver, visualKeyDown,
+                    visualKeyDisabled, visualKeySelected, visualKeySelectedColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, popUpText));
+        }
+
         public void CreateButton(string type, string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string clickEvent,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
-            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command, string popUpText, string tabControlledWindow)
+            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
+            string command, string popUpText, string tabControlledWindow, string cursorOverride)
         {
             if (type == "HotButton")
             {
@@ -904,6 +923,17 @@ namespace Yuusha.gui
                    borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, textAlignment,
                    xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
                    shadowDistance, tabControlledWindow));
+            }
+            else if(type == "ColorDialogButton")
+            {
+                AddControl(new ColorDialogButton(name, owner, rectangle, visible, disabled, this.Font, tintColor, borderAlpha, cursorOverride, anchors,
+                    dropShadow, shadowDirection, shadowDistance, popUpText));
+            }
+            else if (type == "DragAndDropButton")
+            {
+                AddControl(new DragAndDropButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
+                    borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment, xTextOffset, yTextOffset, textOverColor,
+                    hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command));
             }
             else
             {
@@ -989,19 +1019,5 @@ namespace Yuusha.gui
                 anchors, layoutType));
         }
         #endregion
-
-        /// <summary>
-        /// As of 4/9/2019 this is never referenced.
-        /// </summary>
-        /// <param name="name"></param>
-        public void DestroyControl(string name)
-        {
-            Control c = this[name];
-
-            if (c != null)
-            {
-                c.OnDestroy();
-            }
-        }
     }
 }

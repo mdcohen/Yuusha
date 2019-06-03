@@ -18,15 +18,6 @@ namespace Yuusha
             "ziyilqa","luubluyi","luudnin","luuppatar","xul","ssaratu","zu","barra","kunushi","tamatunu","ega","cuthalu","egura","asaru",
             "urma","muxxisha","akki","ilani","gishtugbi","arrflug"};
 
-        //public static Dictionary<Entity, List<string>> WEAPON_REQUIREMENT = new Dictionary<Entity, List<string>>()
-        //{
-        //    {Entity.Axe_Glacier_Blue_Dragon, new List<string> { "greataxe"} },
-        //    {Entity.Makon, new List<string> { "menuki"} },
-        //    {Entity.Ydmos, new List<string> { "swordoflight"} },
-        //    {Entity.Overlord, new List<string> { "nomelee"} },
-        //    {Entity.Rift_Glacier_Cloud_Dragon, new List<string> { "ulfang"} },
-        //};
-
         public static Color GetTextFilteredColor(Enums.EGameState gameState, string textLine, bool exactMatch)
         {
             Dictionary<string, Color> chosenDictionary = null;
@@ -99,5 +90,13 @@ namespace Yuusha
             {"Type /help for a list of commands.", Color.White },
             {"adventurers in Dragon's Spine.", Color.White }
         };
+
+        public static string ConvertPluralToSingular(string str)
+        {
+            str = str.Replace("elves", "elf");
+            str = str.Replace("lammasi", "lammasu");
+
+            return str;
+        }
     }
 }

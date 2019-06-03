@@ -193,6 +193,8 @@
 		AnchorTop="true"
 		AnchorLeft="true">
 	</Control>
+  
+  <!-- New Character Button -->
 	<Control
 		Type="Button"
 		Text="New Character"
@@ -218,4 +220,30 @@
 		AnchorTop="true"
 		AnchorLeft="true">
 	</Control>
+
+  <Control
+		Type="Button"
+		Text="Logout"
+		Name="MenuLogoutButton"
+		X="200"
+		Y="475"
+		Width="200"
+		Height="40"
+		YTextOffset="8"
+		IsVisible="true"
+		IsDisabled="false"
+		Font="courier16"
+		TextColor="White"
+		TextOverColor="Lime"
+		VisualKey="RoundedButton"
+		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
+		OnMouseDown="logout"
+		TextAlignment="Center"
+		DropShadow="true"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		AnchorTop="true"
+		AnchorLeft="true">
+  </Control>
 </Sheet>

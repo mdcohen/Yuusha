@@ -13,7 +13,7 @@ namespace Yuusha.Utility.Settings
     /// </summary>
     public class UserSettings
     {
-        public bool SoundEffects = true;        
+        public bool SoundEffects = true;
         public bool FullScreen = false;
         public string DefaultGameDisplayMode = "IOK";
         public bool AutoDisplayNews = true;

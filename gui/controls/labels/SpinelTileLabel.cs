@@ -153,7 +153,13 @@ namespace Yuusha.gui
                             string newVisual = vkString.Substring(vkString.IndexOf(" ") + 1, vkString.Length - (vkString.IndexOf(" ") + 2));
                             if (GuiManager.Visuals.ContainsKey(newVisual))
                                 vk = new VisualKey(newVisual);
-                            else vk.Key = "question_mark";
+                            else if (GuiManager.Visuals.ContainsKey(TextManager.ConvertPluralToSingular(newVisual)))
+                                vk = new VisualKey(TextManager.ConvertPluralToSingular(newVisual));
+                            else
+                            {
+                                Utils.LogOnce("Failed to find Critter visual key [ " + vk + " ] for SpinelTileLabel [ " + m_name + " ] after visual key string filtering.");
+                                vk.Key = "question_mark";
+                            }
                         }
                         else
                         {

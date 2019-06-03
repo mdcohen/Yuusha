@@ -204,7 +204,8 @@
 		HasBlinkingCursor="true"
 		CursorColor="White"
     AnchorTop="true"
-    AnchorLeft="true">
+    AnchorLeft="true"
+    TabOrder="0">
   </Control>
   <Control
 		Type="SquareBorder"
@@ -262,7 +263,8 @@
       HasBlinkingCursor="true"
       CursorColor="White"
       AnchorTop="true"
-      AnchorLeft="true">
+      AnchorLeft="true"
+      TabOrder="1">
   </Control>
   <Control
 		Type="SquareBorder"

@@ -82,8 +82,6 @@ namespace Yuusha.gui
 
         public void Update(GameTime gameTime, List<TextCue> cueList)
         {
-            byte currentAlpha = m_alpha;
-
             if (!m_lifeStarted)
             {
                 m_lifeStart = gameTime.TotalGameTime;
@@ -95,10 +93,34 @@ namespace Yuusha.gui
             }
             else
             {
-                // TODO: handle fade in and fade out
+                if(m_alpha < 255 && m_fadeIn && !m_fadeOut)
+                {
+                    m_alpha += 1;
+                    if(m_alpha >= 255)
+                        cueList.Remove(this);
+                }
+
+                if (m_alpha > 0 && !m_fadeIn && m_fadeOut)
+                {
+                    m_alpha -= 1;
+                    if(m_alpha <= 0)
+                        cueList.Remove(this);
+                }
+
+                if (m_fadeIn && m_fadeOut)
+                {
+                    m_alpha += 1;
+
+                    if (m_alpha >= 255)
+                    {
+                        m_alpha = 255;
+                        m_fadeIn = false;
+                        m_fadeOut = true;
+                    }
+                }
             }
 
-            if (cueList.Contains(this) && m_alpha != currentAlpha)
+            if (cueList.Contains(this))
             {
                 m_color = new Color(m_color.R, m_color.G, m_color.B, m_alpha);
 
@@ -195,7 +217,7 @@ namespace Yuusha.gui
 
             if (cursor != null)
             {
-                TextCue tc = new TextCue(text, ms.X, ms.Y - BitmapFont.ActiveFonts[font].LineHeight, 255, color, Color.Transparent, font, 2500, false, 2, Map.Direction.Southeast, false, false, true, TextCueTag.None);
+                TextCue tc = new TextCue(text, ms.X, ms.Y - BitmapFont.ActiveFonts[font].LineHeight, 255, color, Color.Transparent, font, 2500, false, 2, Map.Direction.Southeast, false, false, false, TextCueTag.None);
 
                 cursor.TextCues.Clear();
 
@@ -220,7 +242,6 @@ namespace Yuusha.gui
                 cursor.TextCues.Clear();
 
                 cursor.TextCues.Add(tc);
-                //cursor.TextCues.Add(new TextCue(text, ms.X, ms.Y - BitmapFont.ActiveFonts[font].LineHeight, 255, color, Color.Transparent, font, 0, true, 2, Map.Direction.Southeast, false, false, false, TextCueTag.None));
             }
         }
 
@@ -282,6 +303,8 @@ namespace Yuusha.gui
             TextCue tc = new TextCue(text, x, y, (!fadeIn ? (byte)255 : (byte)1), color, backgroundColor, GuiManager.CurrentSheet.Font, lifeCycle,
                 true, 2, Map.Direction.None, centered, fadeIn, fadeOut, tag);
 
+            if (fadeIn) tc.m_alpha = 40;
+
             // disable multiple text cues for the time being
             if (GuiManager.TextCues.Count >= 10)
                 GuiManager.TextCues.RemoveAt(0);
@@ -290,18 +313,6 @@ namespace Yuusha.gui
                 GuiManager.TextCues.Clear();
 
             GuiManager.TextCues.Add(tc);
-        }
-
-        public static void AddChantingTextCue(string chant)
-        {
-            if(Client.GameState.ToString().ToLower().EndsWith("game") && Character.CurrentCharacter != null)
-            {
-                int x = 10;
-                int y = Client.Height - Convert.ToInt32(BitmapFont.ActiveFonts["levRunes20"].LineHeight * 1.25);
-
-                TextCue tc = new TextCue(chant, x, y, 255, Client.UserSettings.Color_Gui_Spell_Warming_TextCue, Color.Transparent, "levRunes20", 1500,
-                    true, 2, Map.Direction.Southeast, true, true, true, TextCueTag.WarmedSpell);
-            }
         }
 
         public static void AddPromptStateTextCue(Protocol.PromptStates promptState)
@@ -336,9 +347,5 @@ namespace Yuusha.gui
             gui.TextCue.AddClientInfoTextCue(promptText, gui.TextCue.TextCueTag.PromptState, cueColor, backgroundColor, 0, false, false, true);
         }
 
-        public static void AddWarmingSpellTextCue(string text)
-        {
-
-        }
     }
 }

@@ -18,6 +18,16 @@
 		VisualAlpha="255">
 	</Background>
 
+  <!-- Backgrounds
+  <Background
+		Font="courier16"
+		VisualKey="IslandBackground"
+		IsCentered="true"
+		IsTiled="false"
+    TintColor="White"
+		VisualAlpha="255">
+  </Background> -->
+
   <!-- Elvish City Background
   <Background
 		Font="courier16"
@@ -90,6 +100,7 @@
 		AnchorRight="true">
 	</Control>
 
+  <!-- Character Info -->
   <CharacterInfo>
     <Control
       Type="Label"
@@ -149,6 +160,8 @@
       AnchorBottom="true"
       AnchorRight="true">
     </Control>
+
+    <!-- Switch Character Next Button -->
     <Control
       Type="Button"
       Text=""
@@ -169,6 +182,8 @@
       AnchorBottom="true"
       AnchorRight="true">
     </Control>
+    
+    <!-- Switch Character Back Button -->
     <Control
       Type="Button"
       Text=""
@@ -191,6 +206,7 @@
     </Control>
   </CharacterInfo>
     
+  <!-- Play Button -->
     <Control
 		Type="Button"
 		Text="Play"
@@ -216,10 +232,12 @@
 		AnchorTop="true"
 		AnchorRight="true">
 	</Control>
+  
+  <!-- Menu Button -->
 	<Control
 		Type="Button"
 		Text="Menu"
-		Name="MenuButton"
+		Name="ConfMenuButton"
 		X="760"
 		Y="150"
 		Width="150"
@@ -241,37 +259,14 @@
 		AnchorTop="true"
 		AnchorRight="true">
 	</Control>
-	<Control
-		Type="Button"
-		Text="New Character"
-		Name="CharGenButton"
-		X="760"
-		Y="200"
-		Width="200"
-		Height="40"
-		YTextOffset="8" 
-		IsVisible="true"
-		IsDisabled="false" 
-		Font="courier16"
-		TextColor="White"
-		TextOverColor="Chartreuse" 
-		VisualKey="RoundedButton"
-		TintColor="DarkMagenta"
-    TintOverColor="MediumOrchid"
-		OnMouseDown="goto_chargen"
-		TextAlignment="Center"
-		DropShadow="true"
-		ShadowDistance="5"
-		ShadowDirection="Northwest"
-		AnchorTop="true"
-		AnchorRight="true">
-	</Control>
+	
+  <!-- Users List Button -->
   <Control
 		Type="Button"
 		Text="User List"
-		Name="UsersListButton"
+		Name="ConfUsersListButton"
 		X="760"
-		Y="250"
+		Y="200"
 		Width="150"
 		Height="40"
 		YTextOffset="8"
@@ -291,5 +286,59 @@
 		AnchorTop="true"
 		AnchorRight="true"
     Command="/ust">
+  </Control>
+
+  <!-- Logout Button -->
+  <Control
+		Type="Button"
+		Text="Logout"
+		Name="ConfLogoutButton"
+		X="760"
+		Y="275"
+		Width="150"
+		Height="40"
+		YTextOffset="8"
+		IsVisible="true"
+		IsDisabled="false"
+		Font="courier16"
+		TextColor="White"
+		TextOverColor="Lime"
+		VisualKey="RoundedButton"
+		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
+		OnMouseDown="logout"
+		TextAlignment="Center"
+		DropShadow="true"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		AnchorTop="true"
+		AnchorRight="true">
+  </Control>
+
+  <!-- New Character Button -->
+  <Control
+		Type="Button"
+		Text="New Character"
+		Name="ConfNewCharacterButton"
+		X="760"
+		Y="675"
+		Width="180"
+		Height="40"
+		YTextOffset="8"
+		IsVisible="true"
+		IsDisabled="false"
+		Font="courier16"
+		TextColor="White"
+		TextOverColor="Chartreuse"
+		VisualKey="RoundedButton"
+		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
+		OnMouseDown="goto_chargen"
+		TextAlignment="Center"
+		DropShadow="true"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		AnchorTop="true"
+		AnchorRight="true">
   </Control>
 </Sheet>

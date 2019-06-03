@@ -54,7 +54,7 @@ namespace Yuusha.gui
             //}
             //else
             //{
-                this.Position = new Point(ms.X, ms.Y);
+            this.Position = new Point(ms.X, ms.Y);
             //}
 
             base.Update(gameTime);
@@ -90,8 +90,9 @@ namespace Yuusha.gui
             if (!m_visible)
                 return;
 
-            //if (DraggedButton != null)
-            //    DraggedButton.Draw(gameTime);
+            // Instead of messing with zDepth, this does another call to draw the dragged button to confirm it is visible just "under" the mouse cursor.
+            if (DraggedButton != null)
+                DraggedButton.Draw(gameTime);
 
             if (m_visualKey != null && m_visualKey.Key != "")
             {

@@ -19,6 +19,23 @@
 		TintColor="White"
 		VisualAlpha="105">
 	</Background>
+
+  <!-- Damage Fog -->
+  <Control
+    Type="Label"
+    Name="DamageFogSkullsLabel"
+    X="0"
+    Y="0"
+    Width="1920"
+    Height="1080"
+    IsVisible="false"
+    VisualKey="DamageFogSkulls"
+    VisualAlpha="30"
+    TintColor="White"
+    AnchorTop="true"
+		AnchorLeft="true">
+  </Control>
+  
 	<!-- Scrollable Text Box Window -->
 	<Control
 		Type="Window"

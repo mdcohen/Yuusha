@@ -200,6 +200,7 @@ namespace Yuusha
             Over,
             Down,
             Disabled,
+            Selected
         }
 
         public enum ELayoutType

@@ -104,6 +104,11 @@ namespace Yuusha.gui
         {
             get { return m_textCues; }
         }
+
+        public static Control MouseOverDropAcceptingControl
+        {
+            get; set;
+        }
         #endregion
 
         #region Constructor
@@ -387,6 +392,8 @@ namespace Yuusha.gui
                                 string visualKeyOver = "";
                                 string visualKeyDown = "";
                                 string visualKeyDisabled = "";
+                                string visualKeySelected = "";
+                                string visualKeySelectedColor = "White";
 
                                 string onMouseDown = "";
                                 string onKeyboardEnter = "";
@@ -514,6 +521,10 @@ namespace Yuusha.gui
                                             visualKeyDown = reader.Value;
                                         else if (reader.Name == "VisualKeyDisabled")
                                             visualKeyDisabled = reader.Value;
+                                        else if (reader.Name == "VisualKeySelected")
+                                            visualKeySelected = reader.Value;
+                                        else if (reader.Name == "VisualKeySelectedColor")
+                                            visualKeySelectedColor = reader.Value;
                                         else if (reader.Name == "OnMouseDown")
                                             onMouseDown = reader.Value;
                                         else if (reader.Name == "TextAlignment")
@@ -707,12 +718,19 @@ namespace Yuusha.gui
                                     case "HotButton":
                                     case "MacroButton":
                                     case "TabControlButton":
+                                    case "ColorDialogButton":
+                                    case "DragAndDropButton":
                                         sheet.CreateButton(type, name, owner, new Rectangle(x, y, width, height), text, textVisible, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
                                             textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
                                             onMouseDown, textAlignment, xTextOffset, yTextOffset, Utils.GetColor(textOverColor), hasTextOverColor,
                                             Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance,
-                                            command, popUpText, tabControlledWindow);
+                                            command, popUpText, tabControlledWindow, cursorOnOver);
+                                        break;
+                                    case "CheckboxButton":
+                                        sheet.CreateCheckBoxButton(name, owner, new Rectangle(x, y, width, height), visible, disabled, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha, new VisualKey(visualKeyOver),
+                                            new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled), new VisualKey(visualKeySelected), Utils.GetColor(visualKeySelectedColor), Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow,
+                                            shadowDirection, shadowDistance, popUpText);
                                         break;
                                     case "Label":
                                         sheet.CreateLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
@@ -799,16 +817,6 @@ namespace Yuusha.gui
             string state = Client.GameState.ToString();
 
             //if (state == Enums.eGameState.Splash.ToString())
-            //    return;
-
-            //if (Dragging)
-            //{
-            //    GuiManager.Cursors[GuiManager.CurrentSheet.Cursor].Position = new Point(GuiManager.DraggedControl.Position.X + GuiManager.DraggingXOffset,
-            //            GuiManager.DraggedControl.Position.Y + GuiManager.DraggingYOffset);
-
-            //    GuiManager.Cursors[GuiManager.GenericSheet.Cursor].Position = new Point(GuiManager.DraggedControl.Position.X + GuiManager.DraggingXOffset,
-            //            GuiManager.DraggedControl.Position.Y + GuiManager.DraggingYOffset);
-            //}
 
             base.Update(gameTime);
 
@@ -828,19 +836,19 @@ namespace Yuusha.gui
 
                     if (pct <= 50)
                     {
-                        fogLabel.TintColor = Color.Yellow;
+                        fogLabel.TintColor = Color.LemonChiffon;
                         fogLabel.VisualAlpha = 65;
                         fogLabel.IsVisible = true;
 
                         if (pct <= 25)
                         {
                             fogLabel.TintColor = Color.Crimson;
-                            fogLabel.VisualAlpha = 130;
+                            fogLabel.VisualAlpha = 125;
 
                             if (Character.CurrentCharacter.Hits <= 0)
                             {
-                                fogLabel.TintColor = Color.Red;
-                                fogLabel.VisualAlpha = 200;
+                                fogLabel.TintColor = Color.Crimson;
+                                fogLabel.VisualAlpha = 190;
                             }
                         }
                     }
@@ -868,8 +876,6 @@ namespace Yuusha.gui
                         (a * BitmapFont.ActiveFonts[CurrentSheet.Font].LineHeight);
                 }
             }
-
-            //TextCue.AddMouseCursorTextCue(GuiManager.CurrentSheet.Name + ": " + GuiManager.CurrentSheet.Controls.Count + ", " + GuiManager.GenericSheet.Name + ": " + GuiManager.GenericSheet.Controls.Count);
         }
 
         public void Draw(GameTime gameTime)

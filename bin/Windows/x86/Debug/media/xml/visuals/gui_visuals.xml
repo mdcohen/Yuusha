@@ -52,6 +52,7 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
 	<Visual ParentTexture="ui_helpers.png" Name="RoundedButton" X="520" Y="1100" Width="121" Height="27"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="TextBox2" X="525" Y="1141" Width="115" Height="30"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="Logo" X="772" Y="1030" Width="115" Height="120"></Visual>
+  <!-- Window Title Control Boxes -->
 	<Visual ParentTexture="ui_helpers.png" Name="WindowMinimizeBox" X="652" Y="1104" Width="12" Height="12"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="WindowMaximizeBox" X="664" Y="1104" Width="12" Height="12"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="WindowCloseBox" X="676" Y="1104" Width="12" Height="12"></Visual>
@@ -61,5 +62,8 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
 	<Visual ParentTexture="ui_helpers.png" Name="WindowCloseBoxDown" X="676" Y="1116" Width="12" Height="12"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="WindowCropBoxDown" X="688" Y="1116" Width="12" Height="12"></Visual>
 
-  <Visual ParentTexture="heartrate.png" Name="Heartrate" X="0" Y="0" Width="177" Height="86"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="Checkmark1" X="960" Y="1080" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="Checkmark1WhiteSpace" X="1020" Y="1080" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="Checkmark2" X="960" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="Checkmark2WhiteSpace" X="1020" Y="1140" Width="60" Height="60"></Visual>
 </VisualsIndex>

@@ -16,6 +16,7 @@ namespace Yuusha.Utility.Settings
         public string DefaultDropDownMenuFont = "courier12";
         public bool DisplayChantingTextCue = true;
         public bool StartFullScreen = false;
+        public bool PlayAudioWhenClientDeactivated = true;
 
         // Window positions.
         public int OptionsWindowX = 50;

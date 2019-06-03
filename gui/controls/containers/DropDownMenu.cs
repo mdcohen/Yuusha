@@ -25,23 +25,25 @@ namespace Yuusha.gui
         public DropDownMenu(string name, Control owner, string title, Rectangle rectangle, bool visible, string font, VisualKey visualKey, Color tintColor,
             int visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance) : base()
         {
-            this.m_name = name;
-            this.m_menuOwner = owner;
-            this.m_owner = owner.Name;
-            this.m_title = title;
-            this.m_rectangle = rectangle;
-            this.m_visible = visible;
-            this.m_font = font;
-            this.m_visualKey = visualKey;
-            this.m_tintColor = tintColor;
-            this.m_visualAlpha = visualAlpha;
-            this.m_dropShadow = dropShadow;
-            this.m_shadowDirection = shadowDirection;
-            this.m_shadowDistance = shadowDistance;
-            this.m_menuItems = new List<DropDownMenuItem>();
+            m_name = name;
+            m_menuOwner = owner;
+            m_owner = owner.Name;
+            m_title = title;
+            m_rectangle = rectangle;
+            m_visible = visible;
+            m_font = font;
+            m_visualKey = visualKey;
+            m_tintColor = tintColor;
+            m_visualAlpha = visualAlpha;
+            m_dropShadow = dropShadow;
+            m_shadowDirection = shadowDirection;
+            m_shadowDistance = shadowDistance;
+            m_menuItems = new List<DropDownMenuItem>();
 
-            this.Border = new SquareBorder(this.Name + "SquareBorder", this.Name, 1, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorDropDownMenuBorder, visualAlpha);
-            this.Border.IsVisible = true;
+            Border = new SquareBorder(this.Name + "SquareBorder", this.Name, 1, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorDropDownMenuBorder, visualAlpha)
+            {
+                IsVisible = true
+            };
         }
 
         public override void Draw(GameTime gameTime)
@@ -50,8 +52,7 @@ namespace Yuusha.gui
 
             base.Draw(gameTime);
 
-            if (this.Border != null)
-                this.Border.Draw(gameTime);
+            if (Border != null) Border.Draw(gameTime);
 
             if (this.m_title != null && this.m_title.Length > 0 && BitmapFont.ActiveFonts.ContainsKey(this.Font))
             {
@@ -62,10 +63,7 @@ namespace Yuusha.gui
             }
 
             foreach (DropDownMenuItem menuItem in m_menuItems)
-            {
-                if(menuItem.IsVisible)
-                    menuItem.Draw(gameTime);
-            }
+                if(menuItem.IsVisible) menuItem.Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)
@@ -83,7 +81,7 @@ namespace Yuusha.gui
         {
             bool handled = false;
 
-            foreach (DropDownMenuItem menuItem in this.m_menuItems)
+            foreach (DropDownMenuItem menuItem in m_menuItems)
             {
                 if (menuItem.MouseHandler(ms))
                     handled = true;
@@ -104,9 +102,11 @@ namespace Yuusha.gui
             if (this.m_title != null && this.m_title.Length > 0)
                 yMod += 20;
 
-            DropDownMenuItem menuItem = new DropDownMenuItem(this.Name + "MenuItem" + (m_menuItems.Count + 1).ToString(), text, this, visualKey, onMouseDown);
-            menuItem.Rectangle = new Rectangle(this.m_rectangle.X, this.m_rectangle.Y + yMod + (this.m_menuItems.Count * 20), this.m_rectangle.Width, 18);
-            menuItem.IsVisible = true;
+            DropDownMenuItem menuItem = new DropDownMenuItem(this.Name + "MenuItem" + (m_menuItems.Count + 1).ToString(), text, this, visualKey, onMouseDown)
+            {
+                Rectangle = new Rectangle(this.m_rectangle.X, this.m_rectangle.Y + yMod + (this.m_menuItems.Count * 20), this.m_rectangle.Width, 18),
+                IsVisible = true
+            };
 
             this.m_menuItems.Add(menuItem);
         }

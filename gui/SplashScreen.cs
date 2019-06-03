@@ -57,7 +57,7 @@ namespace Yuusha.gui
                     m_nowVisualKey.Key = "Splash1";
                     if (m_nowPlaying == null)
                     {
-                        m_nowPlaying = Sound.GetCue(m_cue1);
+                        //m_nowPlaying = Sound.GetCue(m_cue1);
                         m_nowPlaying.Play();
                     }
                     else if (!m_nowPlaying.IsPlaying)
@@ -67,7 +67,7 @@ namespace Yuusha.gui
                     m_nowVisualKey.Key = "Splash2";
                     if (m_nowPlaying.Name != m_cue2)
                     {
-                        m_nowPlaying = Sound.GetCue(m_cue2);
+                        //m_nowPlaying = Sound.GetCue(m_cue2);
                         m_nowPlaying.Play();
                     }
                     else if (!m_nowPlaying.IsPlaying)
@@ -77,7 +77,7 @@ namespace Yuusha.gui
                     m_nowVisualKey.Key = "Splash3";
                     if (m_nowPlaying.Name != m_cue3)
                     {
-                        m_nowPlaying = Sound.GetCue(m_cue3);
+                        //m_nowPlaying = Sound.GetCue(m_cue3);
                         m_nowPlaying.Play();
                     }
                     else if (!m_nowPlaying.IsPlaying)

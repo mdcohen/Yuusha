@@ -96,7 +96,7 @@
   <VerticalHotButtonCommand19>$19</VerticalHotButtonCommand19>
   <HorizontalHotButtonVisualKey0>hotbuttonicon_163</HorizontalHotButtonVisualKey0>
   <HorizontalHotButtonVisualKey1>hotbuttonicon_21</HorizontalHotButtonVisualKey1>
-  <HorizontalHotButtonVisualKey2>hotbuttonicon_22</HorizontalHotButtonVisualKey2>
+  <HorizontalHotButtonVisualKey2>hotbuttonicon_219</HorizontalHotButtonVisualKey2>
   <HorizontalHotButtonVisualKey3>hotbuttonicon_23</HorizontalHotButtonVisualKey3>
   <HorizontalHotButtonVisualKey4>hotbuttonicon_24</HorizontalHotButtonVisualKey4>
   <HorizontalHotButtonVisualKey5>hotbuttonicon_25</HorizontalHotButtonVisualKey5>
@@ -111,7 +111,7 @@
   <HorizontalHotButtonVisualKey14>hotbuttonicon_251</HorizontalHotButtonVisualKey14>
   <HorizontalHotButtonText0>search all;scoop coins</HorizontalHotButtonText0>
   <HorizontalHotButtonText1 />
-  <HorizontalHotButtonText2 />
+  <HorizontalHotButtonText2>Cast</HorizontalHotButtonText2>
   <HorizontalHotButtonText3 />
   <HorizontalHotButtonText4 />
   <HorizontalHotButtonText5 />
@@ -126,7 +126,7 @@
   <HorizontalHotButtonText14>Meditate</HorizontalHotButtonText14>
   <HorizontalHotButtonCommand0>search all;scoop coins</HorizontalHotButtonCommand0>
   <HorizontalHotButtonCommand1 />
-  <HorizontalHotButtonCommand2 />
+  <HorizontalHotButtonCommand2>cast</HorizontalHotButtonCommand2>
   <HorizontalHotButtonCommand3 />
   <HorizontalHotButtonCommand4 />
   <HorizontalHotButtonCommand5 />
@@ -139,4 +139,8 @@
   <HorizontalHotButtonCommand12>shurrim idpa nngi cuthalu</HorizontalHotButtonCommand12>
   <HorizontalHotButtonCommand13>nushi lalartu urma shammash</HorizontalHotButtonCommand13>
   <HorizontalHotButtonCommand14>med</HorizontalHotButtonCommand14>
+  <HorizontalHotButtonWindowX>189</HorizontalHotButtonWindowX>
+  <HorizontalHotButtonWindowY>708</HorizontalHotButtonWindowY>
+  <VerticalHotButtonWindowX>880</VerticalHotButtonWindowX>
+  <VerticalHotButtonWindowY>22</VerticalHotButtonWindowY>
 </CharacterSettings>

@@ -151,10 +151,25 @@ namespace Yuusha
             //Components.Add(m_splashScreen);
             Deactivated += new EventHandler<EventArgs>(Client_Deactivated);
             Activated += new EventHandler<EventArgs>(Client_Activated);
+            Disposed += Client_Disposed;
 
             Content.RootDirectory = "Content";
             m_firstFullScreen = true;
             m_noDraw = false;
+
+            Window.ClientSizeChanged += Window_ClientSizeChanged;
+        }
+
+        private void Client_Disposed(object sender, EventArgs e)
+        {
+            OnExiting(sender, e);
+        }
+
+        private void Window_ClientSizeChanged(object sender, EventArgs e)
+        {
+            if (Window.ClientBounds.Height < PreferredWindowHeight || Window.ClientBounds.Width < PreferredWindowWidth)
+                m_hasFocus = false;
+            else m_hasFocus = true;
         }
 
         void Client_Activated(object sender, EventArgs e)
@@ -197,8 +212,8 @@ namespace Yuusha
         {
             base.Initialize();
 
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 100.0f);
-            this.IsFixedTimeStep = false;
+            TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 100.0f);
+            IsFixedTimeStep = false;
 
             //In some cases you want to call the Draw() method at maximum intensity.
             //m_graphics.SynchronizeWithVerticalRetrace = false;
@@ -213,10 +228,10 @@ namespace Yuusha
             m_graphics.ApplyChanges();
             
             // initialize sound
-            Sound.Initialize();
+            //Sound.Initialize();
 
             // create sprite batch
-            m_spriteBatch = new SpriteBatch(this.m_graphics.GraphicsDevice);
+            //m_spriteBatch = new SpriteBatch(this.m_graphics.GraphicsDevice);
 
             // create necessary directories
             Utils.CreateDirectories();
@@ -246,6 +261,8 @@ namespace Yuusha
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             //spriteBatch = new SpriteBatch(GraphicsDevice);
+            // create sprite batch
+            m_spriteBatch = new SpriteBatch(m_graphics.GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -257,6 +274,7 @@ namespace Yuusha
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            Content.Unload();
         }
 
         /// <summary>
@@ -294,7 +312,7 @@ namespace Yuusha
             m_height = Window.ClientBounds.Height;
             m_width = Window.ClientBounds.Width;
 
-            Sound.Update(gameTime);
+            //Sound.Update(gameTime);
 
             base.Update(gameTime);
 
@@ -334,9 +352,7 @@ namespace Yuusha
 
             // save user settings
             if (Account.Name.Length > 0)
-            {
                 UserSettings.Save();
-            }
 
             // save character settings
             if (Character.CurrentCharacter != null &&
@@ -350,10 +366,12 @@ namespace Yuusha
             Events.RegisterEvent(Events.EventName.Disconnect);
 
             // shut down sound
-            Sound.Shutdown();
+            //Sound.Shutdown();
+
+            UnloadContent();
 
             // exit
-            this.Exit();
+            Exit();
              
         }
 
@@ -372,6 +390,8 @@ namespace Yuusha
 
             if (presentation.IsFullScreen)
             {   // going windowed
+
+                //Window.BeginScreenDeviceChange(false);
 
                 m_graphics.PreferredBackBufferWidth = m_preferredWindowWidth;
                 m_graphics.PreferredBackBufferHeight = m_preferredWindowHeight;
@@ -393,6 +413,7 @@ namespace Yuusha
 
                 m_isFullScreen = true;
                 Window.IsBorderless = false;
+                //Window.BeginScreenDeviceChange(true);
             }
 
             m_graphics.ToggleFullScreen();            

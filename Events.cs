@@ -34,6 +34,7 @@ namespace Yuusha
             Load_Character_Settings,
             Load_Client_Settings,
             LoadLOKMap,
+            Logout,
             New_Game_Round,
             NextLOKTile,
             Next_Visual,
@@ -399,7 +400,7 @@ namespace Yuusha
                                             if (spell.Name == findSpellName)
                                             {
                                                 //Utils.Log("Found spell: " + findSpellName);
-                                                TextCue.AddChantingTextCue(spell.Incantation);
+                                                //TextCue.AddChantingTextCue(spell.Incantation);
                                                 break;
                                             }
                                         }
@@ -413,14 +414,14 @@ namespace Yuusha
                                     gui.TextCue.AddPromptStateTextCue(Protocol.PromptStates.Stunned);
                                 if (Client.ClientSettings.DisplayChantingTextCue)
                                 {
-                                    if (args[0].ToString().StartsWith("You warm the spell "))
-                                    {
-                                        string findSpellName = args[0].ToString().Replace("You warm the spell ", "");
-                                        findSpellName = findSpellName.Replace(".", "");
-                                        foreach (Spell spell in Character.CurrentCharacter.Spells)
-                                            if (spell.Name == findSpellName)
-                                                TextCue.AddChantingTextCue(spell.Incantation);
-                                    }
+                                    //if (args[0].ToString().StartsWith("You warm the spell "))
+                                    //{
+                                    //    string findSpellName = args[0].ToString().Replace("You warm the spell ", "");
+                                    //    findSpellName = findSpellName.Replace(".", "");
+                                    //    foreach (Spell spell in Character.CurrentCharacter.Spells)
+                                    //        if (spell.Name == findSpellName)
+                                    //            TextCue.AddChantingTextCue(spell.Incantation);
+                                    //}
                                 }
                                 break;
                             case Enums.EGameDisplayMode.LOK:
@@ -470,10 +471,13 @@ namespace Yuusha
                     case EventName.Goto_CharGen:
                         #region Goto CharGen
                         if (Client.GameState == Enums.EGameState.Conference)
+                        {
+                            IO.SwitchingToCharGen = true;
                             IO.Send("/menu");
+                        }
                         IO.Send("6");
                         IO.Send("1");
-                        RegisterEvent(EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
+                        //RegisterEvent(EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
                         break;
                     #endregion
                     case EventName.Goto_Conf:
@@ -512,6 +516,20 @@ namespace Yuusha
                         break; 
                     #endregion
                     case EventName.LoadLOKMap:
+                        break;
+                    case EventName.Logout:
+                        switch(Client.GameState)
+                        {
+                            case Enums.EGameState.Menu:
+                                IO.Send("3");
+                                break;
+                            case Enums.EGameState.Conference:
+                                IO.Send("/exit");
+                                break;
+                        }
+                        ResetLoginGUI();
+                        RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
+                        RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
                         break;
                     case EventName.Next_Visual:
                         #region Next Visual

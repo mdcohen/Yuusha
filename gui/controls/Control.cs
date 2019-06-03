@@ -305,7 +305,7 @@ namespace Yuusha.gui
 
         public virtual void Draw(GameTime gameTime)
         {
-            if (!this.IsVisible)
+            if (!IsVisible)
                 return;
 
             if (m_visualKey != null && m_visualKey.Key != "")
@@ -367,14 +367,14 @@ namespace Yuusha.gui
 
         public virtual bool KeyboardHandler(KeyboardState ks)
         {
-            if (!Client.HasFocus) return false;
+            if (!Client.HasFocus) return true; // returns that it was handled so as to not do any other handler calls
 
             return OnKeyDown(ks);
         }
 
         public virtual bool MouseHandler(MouseState ms)
         {
-            if (!Client.HasFocus) return false;
+            if (!Client.HasFocus) return true;  // returns that it was handled so as to not do any other handler calls
 
             Point mousePointer = new Point(ms.X, ms.Y); // point of the mouse
 
@@ -556,8 +556,8 @@ namespace Yuusha.gui
 
         public virtual void OnDestroy()
         {
-            if (GuiManager.Sheets[this.Sheet][this.Owner] is Window)
-                (GuiManager.Sheets[this.Sheet][this.Owner] as Window).Controls.Remove(this);
+            if (GuiManager.Sheets[Sheet][Owner] is Window)
+                (GuiManager.Sheets[Sheet][Owner] as Window).Controls.Remove(this);
 
             GuiManager.Sheets[this.Sheet].RemoveControl(this);
         }

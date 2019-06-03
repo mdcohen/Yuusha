@@ -89,6 +89,7 @@
     <Compile Include="gui\controls\borders\SquareBorder.cs" />
     <Compile Include="gui\controls\borders\TexturedBorder.cs" />
     <Compile Include="gui\controls\buttons\Button.cs" />
+    <Compile Include="gui\controls\buttons\CheckboxButton.cs" />
     <Compile Include="gui\controls\buttons\DragAndDropButton.cs" />
     <Compile Include="gui\controls\buttons\HotButton.cs" />
     <Compile Include="gui\controls\buttons\IconImageSelectionButton.cs" />
@@ -164,6 +165,7 @@
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -172,9 +174,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MonoGameContentReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="media\sounds\Xbox\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="GameThumbnail.png" />
     <Content Include="gold+dragon.ico" />
@@ -398,6 +398,7 @@
     </Content>
     <Content Include="media\xml\visuals\gui_visuals.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="media\xml\visuals\hotbutton_icons.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -427,27 +428,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Content\Sound Bank.xsb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Wave Bank.xwb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Yuusha.xgs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="media\sounds\Win\Sound Bank.xsb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="media\sounds\Win\Wave Bank.xwb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="media\sounds\Win\Yuusha.xgs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="media\sounds\Yuusha.xap">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

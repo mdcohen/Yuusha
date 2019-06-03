@@ -440,8 +440,15 @@ namespace Yuusha.gui
             if (m_locked || m_disabled || !Client.HasFocus)
                 return;
 
-            if(WindowTitle != null && (WindowTitle.ControlState == Enums.EControlState.Down || WindowBorder.ControlState == Enums.EControlState.Down))
-                GuiManager.StartDragging(this, ms);
+            if (WindowTitle != null && (WindowTitle.ControlState == Enums.EControlState.Down || WindowBorder.ControlState == Enums.EControlState.Down))
+            {
+                bool startDragging = true;
+                foreach (Control box in this.Controls)
+                    if(box is WindowControlBox && box.Contains(new Point(ms.X, ms.Y))) startDragging = false;
+
+                if(startDragging)
+                    GuiManager.StartDragging(this, ms);
+            }
             // do not drag window if mouse is down over a control
             //foreach (Control control in new List<Control>(m_controls))
             //{
@@ -551,6 +558,12 @@ namespace Yuusha.gui
                 (m_windowTitle != null && m_windowTitle.Contains(new Point(ms.X, ms.Y)) || (m_windowBorder != null && m_windowBorder.Contains(new Point(ms.X, ms.Y)) &&
                 !m_minimized && !m_cropped)))
             {
+                foreach (Control box in this.Controls)
+                {
+                    if(box is WindowControlBox)
+                        if (box.Contains(new Point(ms.X, ms.Y))) return;
+                }
+
                 GuiManager.CurrentSheet.CursorOverride = m_cursorOverride;
             }
         }
@@ -627,138 +640,152 @@ namespace Yuusha.gui
         {
             if (m_owner == "")
             {
-                if (m_rectangle.X < 0)
+                try
                 {
-                    int adjustX = Math.Abs(m_rectangle.X);
-                    m_rectangle.X += adjustX;
-                    m_touchDownPoint.X += adjustX;
-                    for (int j = this.Controls.Count - 1; j >= 0; j--)
+                    if (m_rectangle.X < 0)
                     {
-                        Point position = this.Controls[j].Position;
-                        position.X += adjustX;
-                        this.Controls[j].Position = position;
+                        int adjustX = Math.Abs(m_rectangle.X);
+                        m_rectangle.X += adjustX;
+                        m_touchDownPoint.X += adjustX;
+                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        {
+                            Point position = this.Controls[j].Position;
+                            position.X += adjustX;
+                            this.Controls[j].Position = position;
+                        }
+                    }
+
+                    if (m_rectangle.Y < 0)
+                    {
+                        int adjustY = Math.Abs(m_rectangle.Y);
+                        m_rectangle.Y += adjustY;
+                        m_touchDownPoint.Y += adjustY;
+                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        {
+                            Point position = this.Controls[j].Position;
+                            position.Y += adjustY;
+                            this.Controls[j].Position = position;
+                        }
+                    }
+
+                    if (m_rectangle.X + m_rectangle.Width > Client.Width)
+                    {
+                        int adjustX = Math.Abs((m_rectangle.X + m_rectangle.Width) - Client.Width);
+                        m_rectangle.X -= adjustX;
+                        m_touchDownPoint.X -= adjustX;
+                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        {
+                            Point position = this.Controls[j].Position;
+                            position.X -= adjustX;
+                            this.Controls[j].Position = position;
+                        }
+                    }
+
+                    int heightCheck = m_rectangle.Y + m_rectangle.Height;
+
+                    if (m_cropped && WindowTitle != null)
+                        heightCheck = m_rectangle.Y + WindowTitle.Height;
+
+                    if (heightCheck > Client.Height)
+                    {
+                        int adjustY = Math.Abs((heightCheck) - Client.Height);
+                        m_rectangle.Y -= adjustY;
+                        m_touchDownPoint.Y -= adjustY;
+                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        {
+                            Point position = this.Controls[j].Position;
+                            position.Y -= adjustY;
+                            this.Controls[j].Position = position;
+                        }
                     }
                 }
-
-                if (m_rectangle.Y < 0)
+                catch(Exception e)
                 {
-                    int adjustY = Math.Abs(m_rectangle.Y);
-                    m_rectangle.Y += adjustY;
-                    m_touchDownPoint.Y += adjustY;
-                    for (int j = this.Controls.Count - 1; j >= 0; j--)
-                    {
-                        Point position = this.Controls[j].Position;
-                        position.Y += adjustY;
-                        this.Controls[j].Position = position;
-                    }
-                }
-
-                if (m_rectangle.X + m_rectangle.Width > Client.Width)
-                {
-                    int adjustX = Math.Abs((m_rectangle.X + m_rectangle.Width) - Client.Width);
-                    m_rectangle.X -= adjustX;
-                    m_touchDownPoint.X -= adjustX;
-                    for (int j = this.Controls.Count - 1; j >= 0; j--)
-                    {
-                        Point position = this.Controls[j].Position;
-                        position.X -= adjustX;
-                        this.Controls[j].Position = position;
-                    }
-                }
-
-                int heightCheck = m_rectangle.Y + m_rectangle.Height;
-
-                if (m_cropped && WindowTitle != null)
-                    heightCheck = m_rectangle.Y + WindowTitle.Height;
-
-                if (heightCheck > Client.Height)
-                {
-                    int adjustY = Math.Abs((heightCheck) - Client.Height);
-                    m_rectangle.Y -= adjustY;
-                    m_touchDownPoint.Y -= adjustY;
-                    for (int j = this.Controls.Count - 1; j >= 0; j--)
-                    {
-                        Point position = this.Controls[j].Position;
-                        position.Y -= adjustY;
-                        this.Controls[j].Position = position;
-                    }
+                    Utils.LogException(e);
                 }
             }
             else
             {
                 Sheet sheet = GuiManager.Sheets[Client.GameState.ToString()];
 
-                if (!(sheet[m_owner] is Window owner))
+                try
                 {
-                    owner = sheet[(sheet[m_owner] as Window).Owner] as Window;
-                }
-
-                if (owner == null)
-                {
-                    sheet = GuiManager.GenericSheet;
-                    owner = sheet[m_owner] as Window;
-                    if (owner == null)
+                    if (!(sheet[m_owner] is Window owner))
+                    {
                         owner = sheet[(sheet[m_owner] as Window).Owner] as Window;
-                }
+                    }
 
-                if (owner == null)
-                    return;
-
-                if (m_rectangle.X < owner.Position.X)
-                {
-                    int adjustX = owner.Position.X - m_rectangle.X;
-                    m_rectangle.X += adjustX;
-                    m_touchDownPoint.X += adjustX;
-                    for (int j = this.Controls.Count - 1; j >= 0; j--)
+                    if (owner == null)
                     {
-                        Point position = this.Controls[j].Position;
-                        position.X += adjustX;
-                        this.Controls[j].Position = position;
+                        sheet = GuiManager.GenericSheet;
+                        owner = sheet[m_owner] as Window;
+                        if (owner == null)
+                            owner = sheet[(sheet[m_owner] as Window).Owner] as Window;
+                    }
+
+                    if (owner == null)
+                        return;
+
+                    if (m_rectangle.X < owner.Position.X)
+                    {
+                        int adjustX = owner.Position.X - m_rectangle.X;
+                        m_rectangle.X += adjustX;
+                        m_touchDownPoint.X += adjustX;
+                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        {
+                            Point position = this.Controls[j].Position;
+                            position.X += adjustX;
+                            this.Controls[j].Position = position;
+                        }
+                    }
+
+                    if (m_rectangle.Y < owner.Position.Y)
+                    {
+                        int adjustY = owner.Position.Y - m_rectangle.Y;
+                        m_rectangle.Y += adjustY;
+                        m_touchDownPoint.Y += adjustY;
+                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        {
+                            Point position = this.Controls[j].Position;
+                            position.Y += adjustY;
+                            this.Controls[j].Position = position;
+                        }
+                    }
+
+                    if (m_rectangle.X + m_rectangle.Width > owner.Position.X + owner.Width)
+                    {
+                        int adjustX = (m_rectangle.X + m_rectangle.Width) - (owner.Position.X + owner.Width);
+                        m_rectangle.X -= adjustX;
+                        m_touchDownPoint.X -= adjustX;
+                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        {
+                            Point position = this.Controls[j].Position;
+                            position.X -= adjustX;
+                            this.Controls[j].Position = position;
+                        }
+                    }
+
+                    int heightCheck = m_rectangle.Y + m_rectangle.Height;
+
+                    if (m_cropped && WindowTitle != null)
+                        heightCheck = m_rectangle.Y + WindowTitle.Height;
+
+                    if (heightCheck > owner.Position.Y + owner.Height)
+                    {
+                        int adjustY = (heightCheck) - (owner.Position.Y + owner.Height);
+                        m_rectangle.Y -= adjustY;
+                        m_touchDownPoint.Y -= adjustY;
+                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        {
+                            Point position = this.Controls[j].Position;
+                            position.Y -= adjustY;
+                            this.Controls[j].Position = position;
+                        }
                     }
                 }
-
-                if (m_rectangle.Y < owner.Position.Y)
+                catch(Exception e)
                 {
-                    int adjustY = owner.Position.Y - m_rectangle.Y;
-                    m_rectangle.Y += adjustY;
-                    m_touchDownPoint.Y += adjustY;
-                    for (int j = this.Controls.Count - 1; j >= 0; j--)
-                    {
-                        Point position = this.Controls[j].Position;
-                        position.Y += adjustY;
-                        this.Controls[j].Position = position;
-                    }
-                }
-
-                if (m_rectangle.X + m_rectangle.Width > owner.Position.X + owner.Width)
-                {
-                    int adjustX = (m_rectangle.X + m_rectangle.Width) - (owner.Position.X + owner.Width);
-                    m_rectangle.X -= adjustX;
-                    m_touchDownPoint.X -= adjustX;
-                    for (int j = this.Controls.Count - 1; j >= 0; j--)
-                    {
-                        Point position = this.Controls[j].Position;
-                        position.X -= adjustX;
-                        this.Controls[j].Position = position;
-                    }
-                }
-
-                int heightCheck = m_rectangle.Y + m_rectangle.Height;
-
-                if (m_cropped && WindowTitle != null)
-                    heightCheck = m_rectangle.Y + WindowTitle.Height;
-
-                if (heightCheck > owner.Position.Y + owner.Height)
-                {
-                    int adjustY = (heightCheck) - (owner.Position.Y + owner.Height);
-                    m_rectangle.Y -= adjustY;
-                    m_touchDownPoint.Y -= adjustY;
-                    for (int j = this.Controls.Count - 1; j >= 0; j--)
-                    {
-                        Point position = this.Controls[j].Position;
-                        position.Y -= adjustY;
-                        this.Controls[j].Position = position;
-                    }
+                    Utils.LogException(e);
                 }
             }
         }

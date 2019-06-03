@@ -9,6 +9,7 @@
   <DefaultDropDownMenuFont>courier12</DefaultDropDownMenuFont>
   <DisplayChantingTextCue>true</DisplayChantingTextCue>
   <StartFullScreen>false</StartFullScreen>
+  <PlayAudioWhenClientDeactivated>true</PlayAudioWhenClientDeactivated>
   <OptionsWindowX>50</OptionsWindowX>
   <OptionsWindowY>50</OptionsWindowY>
   <MacrosWindowX>300</MacrosWindowX>
