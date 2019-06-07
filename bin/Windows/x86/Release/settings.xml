@@ -10,6 +10,13 @@
   <DisplayChantingTextCue>true</DisplayChantingTextCue>
   <StartFullScreen>false</StartFullScreen>
   <PlayAudioWhenClientDeactivated>true</PlayAudioWhenClientDeactivated>
+  <StoredAccounts>
+    <EncryptedKeyValuePairOfStringString>
+      <Key>TL7JKi7e9HPChorCBUHc6w==</Key>
+      <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
+    </EncryptedKeyValuePairOfStringString>
+  </StoredAccounts>
+  <MostRecentStoredAccount>JUyMoMZ/fYbIwMLCcWKpxIQk2lnG9VNWDkxp+UgfB3M=</MostRecentStoredAccount>
   <OptionsWindowX>50</OptionsWindowX>
   <OptionsWindowY>50</OptionsWindowY>
   <MacrosWindowX>300</MacrosWindowX>

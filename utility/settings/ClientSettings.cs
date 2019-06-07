@@ -1,10 +1,11 @@
 using System;
 using System.Xml.Serialization;
 using System.IO;
-using Color = Microsoft.Xna.Framework.Color;
+using System.Collections.Generic;
 
 namespace Yuusha.Utility.Settings
 {
+    [Serializable]
     public class ClientSettings
     {
         public string ServerName = "Dragon's Spine";
@@ -17,6 +18,9 @@ namespace Yuusha.Utility.Settings
         public bool DisplayChantingTextCue = true;
         public bool StartFullScreen = false;
         public bool PlayAudioWhenClientDeactivated = true;
+
+        public List<Encrypt.EncryptedKeyValuePair<string, string>> StoredAccounts = new List<Encrypt.EncryptedKeyValuePair<string, string>>();
+        public string MostRecentStoredAccount = "";
 
         // Window positions.
         public int OptionsWindowX = 50;
@@ -77,6 +81,19 @@ namespace Yuusha.Utility.Settings
                 Utils.LogException(e);
                 return new ClientSettings();
             }
+        }
+
+        public bool ContainsStoredAccount(string key, out Encrypt.EncryptedKeyValuePair<string, string> kvPair)
+        {
+            foreach (Encrypt.EncryptedKeyValuePair<string, string> kvPair2 in StoredAccounts)
+                if (kvPair2.Key == key)
+                {
+                    kvPair = kvPair2;
+                    return true;
+                }
+
+            kvPair = new Encrypt.EncryptedKeyValuePair<string, string>("", "");
+            return false;
         }
     }
 }

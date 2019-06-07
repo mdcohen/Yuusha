@@ -59,7 +59,7 @@
       Owner="LoginWindow"
       Name="LogoLabel"
       X="140"
-      Y="53"
+      Y="33"
       Width="115"
       Height="120"
       VisualKey="GoldDragonLogo"
@@ -76,7 +76,7 @@
       Name="AccountLabel"
       Owner="LoginWindow"
       X="73"
-      Y="199"
+      Y="179"
       Width="110"
       Height="25"
       TextColor="Aquamarine"
@@ -92,7 +92,7 @@
       Name="AccountTextBox"
       Owner="LoginWindow"
       X="73"
-      Y="220"
+      Y="200"
       Width="254"
       Height="28"
       XTextOffset="0"
@@ -131,7 +131,7 @@
       Name="PasswordLabel"
       Owner="LoginWindow"
       X="73"
-      Y="254"
+      Y="234"
       Width="110"
       Height="25"
       TextColor="Aquamarine"
@@ -147,7 +147,7 @@
       Name="PasswordTextBox"
       Owner="LoginWindow"
       X="73"
-      Y="275"
+      Y="255"
       Width="254"
       Height="28"
       XTextOffset="0"
@@ -177,6 +177,46 @@
       VisualKey="WhiteSpace"
       VisualAlpha="255"
       TintColor="BlueViolet">
+    </Control>
+
+    <Control
+      Type="CheckboxButton"
+      Name="RememberPasswordCheckboxButton"
+      Owner="LoginWindow"
+      X="73"
+      Y="286"
+      Width="14"
+      Height="14"
+      IsVisible="true"
+      VisualKey="WhiteSpace"
+      VisualKeySelected="Checkmark1WhiteSpace"
+      VisualKeySelectedTintColor="WhiteSmoke"
+      TintColor="WhiteSmoke"
+      VisualAlpha="255"
+      BorderAlpha="255">
+    </Control>
+    <Control
+      Type="SquareBorder"
+      Name="RememberPasswordCheckboxButtonBorder"
+      Owner="RememberPasswordCheckboxButton"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="Black">
+    </Control>
+    <Control
+     Type="Label"
+     Text="Remember Password"
+     Name="RememberPasswordCheckboxButtonLabel"
+     Owner="LoginWindow"
+     X="91"
+     Y="285"
+     Width="200"
+     Height="20"
+     TextColor="LightCyan"
+     IsVisible="true"
+     Font="courier12"
+     TextAlignment="Left">
     </Control>
     
     <!-- Server Host Label -->
@@ -673,7 +713,7 @@
     Owner="CreateNewAccountWindow"
     Name="CreateNewAccountLogoLabel"
     X="140"
-    Y="53"
+    Y="33"
     Width="115"
     Height="120"
     VisualKey="GoldDragonLogo"

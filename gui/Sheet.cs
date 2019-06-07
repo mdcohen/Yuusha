@@ -969,7 +969,7 @@ namespace Yuusha.gui
                borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
                anchors, popUpText));
 
-            SquareBorder border = new SquareBorder(name + "SquareBorder", name, Client.UserSettings.TargetBorderSize, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorTargetBorder, visualAlpha);
+            SquareBorder border = new SquareBorder(name + "SquareBorder", name, Client.UserSettings.TargetBorderSize, new VisualKey("WhiteSpace"), false, Client.UserSettings.TargetBorderColor, visualAlpha);
             border.IsVisible = false;
             AddControl(border);
 

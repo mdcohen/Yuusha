@@ -2516,8 +2516,8 @@ available in any game state. -->
     <Control
       Type="Window"
       Name="VerticalHotButtonWindow"
-      X="880"
-      Y="22"
+      X="886"
+      Y="0"
       Width="138"
       Height="682"
       IsVisible="false"
@@ -2533,7 +2533,9 @@ available in any game state. -->
       DropShadow="true"
       ShadowDistance="3"
       ShadowDirection="Northwest"
-      CursorOnDrag="Dragging">
+      CursorOnDrag="Dragging"
+      AnchorBottom="true"
+		  AnchorRight="true">
     </Control>
 
     <!-- Vertical HotButton Window Title -->
@@ -2980,14 +2982,13 @@ available in any game state. -->
     <Control
       Type="Window"
       Name="HorizontalHotButtonWindow"
-      X="189"
-      Y="708"
+      X="359"
+      Y="643"
       Width="516"
       Height="50"
       IsVisible="false"
       IsLocked="false"
       Font="courier12"
-      Text="Macros"
       TextColor="White"
       TextAlignment="Center"
       VisualKey="WhiteSpace"
@@ -2997,7 +2998,9 @@ available in any game state. -->
       DropShadow="true"
       ShadowDistance="3"
       ShadowDirection="Northwest"
-      CursorOnDrag="Dragging">
+      CursorOnDrag="Dragging"
+      AnchorBottom="true"
+		  AnchorRight="true">
     </Control>
 
     <!-- Hotkeys Window Title -->

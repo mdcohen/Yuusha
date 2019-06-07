@@ -121,12 +121,16 @@ namespace Yuusha.gui
                             }
                             catch
                             {
-                                window.IconImagePrefix = "Blank";
+                                window.IconImagePrefix = "hotbutton";
                             }
 
                             window.SelectedIconLabel = window["HotButtonEditWindowSelectedIconLabel"] as Label;
                             window.SelectedIconLabel.VisualKey = this.VisualKey;
+                            if (window.SelectedIconLabel.VisualKey == "")
+                                window.SelectedIconLabel.VisualKey = "WhiteSpace";
                             window.SelectedVisualKey = this.VisualKey;
+                            if (window.SelectedVisualKey == "")
+                                window.SelectedVisualKey = "WhiteSpace";
                             window.OriginatingWindow = this.Owner;
 
                             // Set textbox text.

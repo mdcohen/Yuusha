@@ -58,6 +58,8 @@ namespace Yuusha.gui
 
         protected override void OnMouseDown(MouseState ms)
         {
+            if (IsDisabled) return;
+
             if (!m_checkOperation && ms.LeftButton == ButtonState.Pressed)
             {
                 m_checkOperation = true;
@@ -79,6 +81,8 @@ namespace Yuusha.gui
 
         protected override void OnMouseRelease(MouseState ms)
         {
+            if (IsDisabled) return;
+
             base.OnMouseRelease(ms);
 
             m_checkOperation = false;

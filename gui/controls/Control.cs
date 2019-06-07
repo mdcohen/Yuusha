@@ -446,8 +446,8 @@ namespace Yuusha.gui
                         if (Contains(mousePointer))
                         {
                             OnMouseRelease(ms);
-                            if (OnControl != null && !(this is Window) && (!(this is GridBox) ||
-                                ((this is GridBox) && (this as GridBox).HasNewData)))
+                            if (OnControl != null && !(this is Window) && (!(this is GridBoxWindow) ||
+                                ((this is GridBoxWindow) && (this as GridBoxWindow).HasNewData)))
                             {
                                 OnControl(m_name, Data);
                             }

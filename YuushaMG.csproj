@@ -107,7 +107,8 @@
     <Compile Include="gui\controls\labels\SpinelTileLabel.cs" />
     <Compile Include="gui\controls\buttons\TabControlButton.cs" />
     <Compile Include="gui\controls\TabControl.cs" />
-    <Compile Include="gui\controls\windows\gridboxes\GridBox.cs" />
+    <Compile Include="gui\controls\windows\AutoHidingWindow.cs" />
+    <Compile Include="gui\controls\windows\GridBoxWindow.cs" />
     <Compile Include="gui\controls\MouseCursor.cs" />
     <Compile Include="gui\controls\textboxes\NumericTextBox.cs" />
     <Compile Include="gui\controls\RadioButton.cs" />
@@ -118,7 +119,6 @@
     <Compile Include="gui\controls\StatusBar.cs" />
     <Compile Include="gui\controls\textboxes\TextBox.cs" />
     <Compile Include="gui\controls\windows\HotButtonEditWindow.cs" />
-    <Compile Include="gui\controls\windows\MacroButtonEditWindow.cs" />
     <Compile Include="gui\controls\windows\Window.cs" />
     <Compile Include="gui\controls\windows\WindowControlBox.cs" />
     <Compile Include="gui\controls\windows\WindowTitle.cs" />
@@ -149,6 +149,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="utility\BitmapFont.cs" />
+    <Compile Include="utility\Encrypt.cs" />
     <Compile Include="utility\Enums.cs" />
     <Compile Include="utility\Globals.cs" />
     <Compile Include="utility\Protocol.cs" />

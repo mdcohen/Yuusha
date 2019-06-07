@@ -166,21 +166,11 @@ namespace Yuusha.gui
                     }
                 }
 
-                // Place focus on the input text box.
-                if (sheet[Globals.GAMEINPUTTEXTBOX] != null)
+                if (GuiManager.GetControl("OptionsWindow").HasFocus)
                 {
-                    // Options window is only other typing textboxes with focus while in IOK mode currently.
-                    if (GuiManager.ControlWithFocus != null && (GuiManager.ControlWithFocus.Name != "OptionsWindow" && GuiManager.ControlWithFocus.Owner != "OptionsWindow"))
-                    {
-                        sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
-                        GuiManager.ActiveTextBox = Globals.GAMEINPUTTEXTBOX;
-                    }
-
-                    if (GuiManager.ControlWithFocus != null && GuiManager.ControlWithFocus.Owner != "OptionsWindow")
-                    {
-                        sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
-                    }
+                    sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = false;
                 }
+                else sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
 
                 if (!Client.HasFocus)
                 {

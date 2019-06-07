@@ -920,7 +920,7 @@ namespace Yuusha
         #region Constructor
         public Character()
         {
-            m_visualKey = new Yuusha.gui.VisualKey("male_thief_pc2");
+            m_visualKey = new VisualKey("unknown");
             this.m_rightHand = new Item();
             this.m_leftHand = new Item();
             this.m_inventory = new List<Item>();

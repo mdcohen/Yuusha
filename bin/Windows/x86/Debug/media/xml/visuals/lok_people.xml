@@ -5,6 +5,7 @@
 	<Visual ParentTexture="lok_people.png" Name="manticore" X="60" Y="0" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="centaur" X="120" Y="0" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="dire_wolf" X="180" Y="0" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="black_wolf" X="180" Y="0" Width="60" Height="60"></Visual> <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="djinn" X="240" Y="0" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="wyrm" X="300" Y="0" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="toad" X="360" Y="0" Width="60" Height="60"></Visual>
@@ -66,6 +67,7 @@
 	<Visual ParentTexture="lok_people.png" Name="snake" X="420" Y="180" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="shark" X="480" Y="180" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="brown_bear" X="540" Y="180" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="bear" X="540" Y="180" Width="60" Height="60"></Visual> <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="ice_lizard" X="600" Y="180" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="shadow" X="660" Y="180" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="stalker" X="660" Y="180" Width="60" Height="60"></Visual> <!-- identical to above -->

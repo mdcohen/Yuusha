@@ -364,9 +364,9 @@
 		AnchorLeft="true">
 	</Control>
 	<Control
-		Type="Label"
+		Type="DragAndDropButton"
 		Text=""
-		Name="RHNameLabel"
+		Name="RHNameDragAndDropButton"
 		X="45"
 		Y="690"
 		Width="200"
@@ -395,9 +395,9 @@
 		AnchorLeft="true">
 	</Control>
 	<Control
-		Type="Label"
+		Type="DragAndDropButton"
 		Text=""
-		Name="LHNameLabel"
+		Name="LHNameDragAndDropButton"
 		X="45"
 		Y="715"
 		Width="200"

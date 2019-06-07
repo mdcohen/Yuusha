@@ -61,6 +61,7 @@ namespace Yuusha.Utility.Settings
         public int GridBoxTitleCloseBoxHeight = 18;
         public int GridBoxTitleHeight = 26;
         public Color GridBoxBorderTintColor = Color.Gray;
+        public Color AcceptingGridBoxBorderColor = Color.PaleGreen;
         public int GridBoxBorderWidth = 2;
         public int GridBoxButtonsBorderWidth = 1;
 
@@ -70,10 +71,10 @@ namespace Yuusha.Utility.Settings
         public Color ColorHotButtonText_Back = Color.Purple;
         #endregion
 
-        public Color ColorTargetBorder = Color.WhiteSmoke;
+        public Color TargetBorderColor = Color.WhiteSmoke;
         public int TargetBorderSize = 1;
         public int MapTileBorderSize = 1;
-        public Color ColorMapTileBorder = Color.Goldenrod;
+        public Color MapTileBorderColor = Color.Goldenrod;
         public int DefaultWindowTitleHeight = 18;
 
         //public Dictionary<string, Color> DisplayTextColors = new Dictionary<string, Color>();

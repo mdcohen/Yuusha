@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Yuusha.gui;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Threading;
 
 namespace Yuusha
 {
@@ -225,17 +221,15 @@ namespace Yuusha
                         {
                             #region Not in new account creation mode.
                             // TEMPORARY ?? Why is/was this temporary? (10/27/11 -MDC)
-                            if ((GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["AccountTextBox"].Text.Length > 0 &&
-                                (GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["PasswordTextBox"].Text.Length > 0)
+                            if ((GuiManager.CurrentSheet["LoginWindow"] as Window)["AccountTextBox"].Text.Length > 0 &&
+                                (GuiManager.CurrentSheet["LoginWindow"] as Window)["PasswordTextBox"].Text.Length > 0)
                             {
                                 string serverHostAddress = Client.ClientSettings.ServerHost;
 
-                                if ((GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["ServerHostTextBox"] is TextBox serverHostTextBox)
+                                if ((GuiManager.CurrentSheet["LoginWindow"] as Window)["ServerHostTextBox"] is TextBox serverHostTextBox)
                                 {
                                     if (serverHostTextBox.Text != Client.ClientSettings.ServerHost)
-                                    {
                                         Client.ClientSettings.ServerHost = serverHostTextBox.Text;
-                                    }
                                 }
 
                                 if (IO.Connect())
@@ -244,11 +238,29 @@ namespace Yuusha
                                                   "Connecting to " + Client.ClientSettings.ServerName + "...", "Lime");
                                     RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Connected);
 
-                                    // connected to another host address, save the setting
-                                    if (serverHostAddress != Client.ClientSettings.ServerHost)
+                                    bool rememberPassword = (GuiManager.CurrentSheet["RememberPasswordCheckboxButton"] as CheckboxButton).IsChecked;
+                                    string accountName = (GuiManager.CurrentSheet["LoginWindow"] as Window)["AccountTextBox"].Text;
+                                    string encryptedAccountName = Utility.Encrypt.EncryptString(accountName, Utility.Settings.StaticSettings.DecryptionPassPhrase1);
+
+                                    if (!rememberPassword)
                                     {
-                                        Events.RegisterEvent(EventName.Client_Settings_Changed);
+                                        if (Client.ClientSettings.ContainsStoredAccount(encryptedAccountName, out Utility.Encrypt.EncryptedKeyValuePair<string, string> kvPair))
+                                            Client.ClientSettings.StoredAccounts.Remove(kvPair);
+
+                                        Client.ClientSettings.MostRecentStoredAccount = "";
                                     }
+                                    else
+                                    {
+                                        string password = (GuiManager.CurrentSheet["LoginWindow"] as Window)["PasswordTextBox"].Text;
+                                        string encryptedPassword = Utility.Encrypt.EncryptString(password, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
+
+                                        Client.ClientSettings.MostRecentStoredAccount = Utility.Encrypt.EncryptString(encryptedAccountName, Utility.Settings.StaticSettings.DecryptionPassPhrase3);
+
+                                        if (!Client.ClientSettings.ContainsStoredAccount(encryptedAccountName, out Utility.Encrypt.EncryptedKeyValuePair<string, string> kvPair))
+                                            Client.ClientSettings.StoredAccounts.Add(new Utility.Encrypt.EncryptedKeyValuePair<string, string>(encryptedAccountName, encryptedPassword));
+                                    }
+
+                                    RegisterEvent(EventName.Client_Settings_Changed); // always save client settings?
                                 }
                                 else
                                 {
@@ -816,13 +828,6 @@ namespace Yuusha
                                     #region Hot Button Edit Mode
                                     if (GuiManager.GetControl("HotButtonEditWindow") is HotButtonEditWindow hotButtonEditWindow)
                                     {
-                                        // Change icon and text. --- Commented out 1/16/2019. No text makes the hot button not draw.
-                                        //if (hotButtonEditWindow["HotButtonEditWindowTextBox"].Text.Length <= 0)
-                                        //{
-                                        //    TextCue.AddClientInfoTextCue("Invalid Text for HotButton", TextCue.TextCueTag.None, Color.Red, Color.Black, 1000, false, false, true);
-                                        //    return;
-                                        //}
-
                                         bool isHorizontal = hotButtonEditWindow.OriginatingWindow.ToLower().Contains("horizontal"); // horizontal or vertical hot buttons only right now
 
                                         if (!isHorizontal)
@@ -1257,6 +1262,7 @@ namespace Yuusha
                         TextBox pt = (sheet["LoginWindow"] as gui.Window)["PasswordTextBox"] as TextBox;
                         TextBox sh = (sheet["LoginWindow"] as gui.Window)["ServerHostTextBox"] as TextBox;
                         Button na = (sheet["LoginWindow"] as gui.Window)["CreateNewAccountButton"] as Button;
+                        CheckboxButton rcheck = (sheet["LoginWindow"] as gui.Window)["RememberPasswordCheckboxButton"] as CheckboxButton;
 
                         if (IO.LoginState != Enums.ELoginState.Disconnected)
                         {
@@ -1268,13 +1274,30 @@ namespace Yuusha
                                 pt.IsDisabled = true;
                             if(sh != null)
                                 sh.IsDisabled = true;
+                            if (rcheck != null)
+                                rcheck.IsDisabled = true;
                             if (na != null)
                                 na.IsVisible = false;
                         }
                         else
                         {
                             if (at != null)
+                            {
                                 at.IsDisabled = false;
+
+                                if (Client.ClientSettings.ContainsStoredAccount(Utility.Encrypt.EncryptString(at.Text, Utility.Settings.StaticSettings.DecryptionPassPhrase1), out Utility.Encrypt.EncryptedKeyValuePair<string, string> kvPair))
+                                {
+                                    string unencryptedPassword = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
+                                    if (pt.Text != unencryptedPassword)
+                                    {
+                                        at.SelectAll();
+                                        pt.Text = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
+                                        pt.SelectAll();
+                                        pt.HasFocus = true;
+                                        if (rcheck != null) rcheck.IsChecked = true;
+                                    }
+                                }
+                            }
                             if (pt != null)
                                 pt.IsDisabled = false;
                             if(sh != null)
@@ -1296,6 +1319,9 @@ namespace Yuusha
                                         na.IsVisible = true;
                                 }
                             }
+
+                            if (rcheck != null)
+                                rcheck.IsDisabled = false;
 
                             if (GuiManager.CurrentSheet["LoginStatusLabel"] is Label lsl && lsl.TextColor != Color.Red)
                                 lsl.Text = "";
@@ -1339,11 +1365,20 @@ namespace Yuusha
                         {
                             if (Client.HasFocus)
                             {
-                                Control w = GuiManager.GetControl("OptionsWindow");
-                                if (w != null && !w.HasFocus)
+                                // Place focus on the input text box.
+                                if (sheet[Globals.CONFINPUTTEXTBOX] != null)
                                 {
-                                    sheet["ConfInputTextBox"].HasFocus = true;
-                                    GuiManager.ActiveTextBox = "ConfInputTextBox";
+                                    // Options window is only other typing textboxes with focus while in IOK mode currently.
+                                    if (GuiManager.ControlWithFocus != null && !GuiManager.ControlWithFocus.Name.EndsWith("OptionsWindow") && GuiManager.ControlWithFocus.Owner.EndsWith("OptionsWindow"))
+                                    {
+                                        sheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
+                                        GuiManager.ActiveTextBox = Globals.CONFINPUTTEXTBOX;
+                                    }
+
+                                    if (GuiManager.ControlWithFocus != null && !GuiManager.ControlWithFocus.Owner.EndsWith("OptionsWindow"))
+                                    {
+                                        sheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
+                                    }
                                 }
                             }
                             else
@@ -1381,16 +1416,34 @@ namespace Yuusha
 
                 if (Client.IsFullScreen)
                 {
-                    gui.GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
-                    gui.GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                    GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                    GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
                 }
 
-                GuiManager.GetControl("AccountTextBox").HasFocus = true;
-                if (GuiManager.GetControl("ServerHostTextBox") is TextBox serverHostTextBox)
+                if (GuiManager.Sheets["Login"]["ServerHostTextBox"] is TextBox serverHostTextBox)
                 {
-                    serverHostTextBox.Clear(); serverHostTextBox.AddText(Client.ClientSettings.ServerHost);
+                    serverHostTextBox.Clear();
+                    serverHostTextBox.AddText(Client.ClientSettings.ServerHost);
                     serverHostTextBox.SelectAll();
                 }
+
+                if (Client.ClientSettings.MostRecentStoredAccount != "")
+                {
+                    if (Client.ClientSettings.ContainsStoredAccount(Utility.Encrypt.DecryptString(Client.ClientSettings.MostRecentStoredAccount, Utility.Settings.StaticSettings.DecryptionPassPhrase3), out Utility.Encrypt.EncryptedKeyValuePair<string, string> kvPair))
+                    {
+                        TextBox at = GuiManager.Sheets["Login"]["AccountTextBox"] as TextBox;
+                        TextBox pt = GuiManager.Sheets["Login"]["PasswordTextBox"] as TextBox;
+                        at.Text = Utility.Encrypt.DecryptString(kvPair.Key, Utility.Settings.StaticSettings.DecryptionPassPhrase1);
+                        at.SelectAll();
+                        pt.Text = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
+                        pt.SelectAll();
+
+                        (GuiManager.Sheets["Login"]["RememberPasswordCheckboxButton"] as CheckboxButton).IsChecked = true;
+
+                        //GuiManager.Sheets["Login"]["ConnectButton"].HasFocus = true;
+                    }
+                }
+                else GuiManager.Sheets["Login"]["AccountTextBox"].HasFocus = true;
             }
             catch(Exception e)
             {

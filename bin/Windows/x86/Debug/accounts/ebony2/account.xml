@@ -199,6 +199,13 @@
     <A>255</A>
     <PackedValue>4286611584</PackedValue>
   </GridBoxBorderTintColor>
+  <AcceptingGridBoxBorderColor>
+    <B>152</B>
+    <G>251</G>
+    <R>152</R>
+    <A>255</A>
+    <PackedValue>4288215960</PackedValue>
+  </AcceptingGridBoxBorderColor>
   <GridBoxBorderWidth>2</GridBoxBorderWidth>
   <GridBoxButtonsBorderWidth>1</GridBoxButtonsBorderWidth>
   <ColorDefaultMouseCursorTextCue>
@@ -222,21 +229,21 @@
     <A>255</A>
     <PackedValue>4286578816</PackedValue>
   </ColorHotButtonText_Back>
-  <ColorTargetBorder>
+  <TargetBorderColor>
     <B>245</B>
     <G>245</G>
     <R>245</R>
     <A>255</A>
     <PackedValue>4294309365</PackedValue>
-  </ColorTargetBorder>
+  </TargetBorderColor>
   <TargetBorderSize>1</TargetBorderSize>
   <MapTileBorderSize>1</MapTileBorderSize>
-  <ColorMapTileBorder>
+  <MapTileBorderColor>
     <B>32</B>
     <G>165</G>
     <R>218</R>
     <A>255</A>
     <PackedValue>4280329690</PackedValue>
-  </ColorMapTileBorder>
+  </MapTileBorderColor>
   <DefaultWindowTitleHeight>18</DefaultWindowTitleHeight>
 </UserSettings>

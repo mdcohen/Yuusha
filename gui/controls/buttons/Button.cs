@@ -140,5 +140,17 @@ namespace Yuusha.gui
             if (m_visuals.ContainsKey(Enums.EControlState.Normal))
                 m_visualKey = m_visuals[Enums.EControlState.Normal];
         }
+
+        protected override bool OnKeyDown(KeyboardState ks)
+        {
+            // Enter key acts as a button press.
+            if (HasFocus && ks.IsKeyDown(Keys.Enter))
+            {
+                OnMouseDown(GuiManager.MouseState);
+                return true;
+            }
+
+            return base.OnKeyDown(ks);
+        }
     }
 }

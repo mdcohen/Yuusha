@@ -340,6 +340,27 @@ namespace Yuusha
             Clipboard.SetText(m_clipboard, TextDataFormat.UnicodeText);
         }
 
+        public static string GetSHA(string pw)
+        {
+            System.Security.Cryptography.SHA256 s256 = new System.Security.Cryptography.SHA256Managed();
+
+            string shaouts = "";
+            byte[] shain;
+            byte[] shaout;
+
+            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+
+            shain = enc.GetBytes(pw);
+            shaout = s256.ComputeHash(shain);
+
+            for (int i = 0; i < shaout.Length; i++)                               // Convert to a hexadecimal string.
+            {
+                shaouts += shaout[i].ToString("X2");
+            }
+
+            return shaouts;
+        }
+
         /// <summary>
         /// Returns a color for drawing display text based on values in UserSettings.cs.
         /// </summary>

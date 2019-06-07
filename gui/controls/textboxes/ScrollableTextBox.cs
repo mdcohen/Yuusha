@@ -129,9 +129,7 @@ namespace Yuusha.gui
                 if (BitmapFont.ActiveFonts.ContainsKey(Font))
                 {
                     if (m_formattedLines.Count * BitmapFont.ActiveFonts[Font].LineHeight > m_rectangle.Height - m_xTextOffset)
-                    {
                         m_scrollbar.IsDisabled = false;
-                    }
                     else m_scrollbar.IsDisabled = true;
                 }
                 else
@@ -206,9 +204,7 @@ namespace Yuusha.gui
 
                 // if disabled use static disabled color
                 if (m_disabled)
-                {
                     textColor = new Color(Control.s_disabledColor.R, Control.s_disabledColor.G, Control.s_disabledColor.B, m_textAlpha);
-                }
 
                 int lineHeight = 0;
 
@@ -227,10 +223,7 @@ namespace Yuusha.gui
                 for (int a = 0; a < lines.Length; a++)
                 {
                     if(Client.UserSettings.TextColorFiltering)
-                    {
-                        //TextCue.AddCursorTextCue(textColors[a].R + " " + textColors[a].G + " " + textColors[a].B + " " + textColors[a].A + " " + lines[a], Color.Yellow, "courier16");
                         drawTextColor = new Color(textColors[a].R, textColors[a].G, textColors[a].B, m_textAlpha);
-                    }
                     else if(lines.Length == textTypes.Length)
                         drawTextColor = Utils.GetTextTypeColor(textTypes[a]);
 
@@ -285,9 +278,6 @@ namespace Yuusha.gui
 
         public void AddLine(string line, Enums.ETextType textType)
         {
-            line = line.Replace("{", "(");
-            line = line.Replace("}", ")");
-
             // buffer capacity
             if (m_allLines.Count >= m_maxLineBuffer)
             {

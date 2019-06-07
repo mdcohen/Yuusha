@@ -8,7 +8,6 @@ namespace Yuusha.gui
     public class DragAndDropButton : Button
     {
         protected Point m_originalPosition;
-        //protected int m_originalZDepth;
         protected bool m_draggingToDrop;
         protected int m_mouseDownX;
         protected int m_mouseDownY;
@@ -47,15 +46,10 @@ namespace Yuusha.gui
                     else cursor.DraggedButton = this;
 
                     m_originalPosition = new Point(Position.X, Position.Y);
-                    //m_originalZDepth = ZDepth;
 
                     // puts the control dead center under mouse cursor
-                    //Position = new Point(ms.X - (this.m_rectangle.Width / 2), ms.Y - (this.m_rectangle.Width / 2));
                     Position = new Point(cursor.Position.X - 10, cursor.Position.Y - 10);
                     //Position = new Point(cursor.Position.X - (this.m_rectangle.Width / 2), cursor.Position.Y - (this.m_rectangle.Width / 2));
-
-                    //TextCue.AddClientInfoTextCue("Mouse State:" + ms.)
-                    //TextCue.AddClientInfoTextCue(Name + ": " + Position.ToString());
 
                     // Attach to cursor.
                     m_draggingToDrop = true;
@@ -68,7 +62,7 @@ namespace Yuusha.gui
                     // some of these will have a drop down menu selection
 
                     // determine where this drag and drop button is
-                    if (Owner.StartsWith(GridBox.GridBoxFunction.Sack.ToString()))
+                    if (Owner.StartsWith(GridBoxWindow.GridBoxPurpose.Sack.ToString()))
                     {
                         int itemCount = 0;
                         foreach (Item item in Character.CurrentCharacter.Sack)
@@ -83,7 +77,7 @@ namespace Yuusha.gui
                             }
                         }
                     }
-                    else if (Owner.StartsWith(GridBox.GridBoxFunction.Belt.ToString()))
+                    else if (Owner.StartsWith(GridBoxWindow.GridBoxPurpose.Belt.ToString()))
                     {
                         int itemCount = 0;
                         foreach (Item item in Character.CurrentCharacter.Sack)
@@ -127,7 +121,7 @@ namespace Yuusha.gui
                     else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
                     {
                         IO.Send("put " + rightOrLeft + " in pouch");
-                        IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                        IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
                     }
                     else if(GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                     {
@@ -146,7 +140,7 @@ namespace Yuusha.gui
                 {
                     if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                     {
-                        GridBox gb = GuiManager.GenericSheet["SackGridBox"] as GridBox;
+                        GridBoxWindow gb = GuiManager.GenericSheet["SackGridBox"] as GridBoxWindow;
                         //foreach(Item item in gb.)
                         //IO.Send("take " + this.RepresentedItem.name );
                     }
@@ -162,7 +156,7 @@ namespace Yuusha.gui
 
             MouseCursor cursor = GuiManager.Cursors[GuiManager.GenericSheet.Cursor];
 
-            if (cursor.DraggedButton == null || cursor.DraggedButton == this)
+            if (cursor.DraggedButton == null || cursor.DraggedButton == this || AcceptingDroppedButtons)
             {
                 if (Border == null)
                 {
@@ -178,7 +172,6 @@ namespace Yuusha.gui
 
             if (AcceptingDroppedButtons && cursor != null && cursor.DraggedButton != null)
             {
-                //TextCue.AddClientInfoTextCue(this.Name + " is accepting a dropped button...");
                 GuiManager.MouseOverDropAcceptingControl = this;
                 cursor.DraggedButton.HasEnteredGridBoxWindow = true;
             }

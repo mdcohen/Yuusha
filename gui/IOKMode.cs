@@ -121,7 +121,7 @@ namespace Yuusha.gui
 
                     if (pre != null)
                     {
-                        // Update health.
+                        // hits update (if pre.hits is greater than 0, in other words not first update)
                         if (pre.Hits != chr.Hits && pre.Hits > 0)
                         {
                             if (pre.Hits > chr.Hits)
@@ -129,18 +129,17 @@ namespace Yuusha.gui
                                 sheet["HitsAdjLabel"].Text = string.Format("-{0}", Convert.ToString(pre.Hits - chr.Hits));
                                 sheet["HitsAdjLabel"].TextColor = Color.Red;
                             }
-                            else if(chr.Hits > pre.Hits)
+                            else
                             {
                                 sheet["HitsAdjLabel"].Text = string.Format("+{0}", Convert.ToString(chr.Hits - pre.Hits));
                                 sheet["HitsAdjLabel"].TextColor = Color.LimeGreen;
                             }
-                        }
-                        else if (gameTime == null || gameTime.TotalGameTime - m_lastHealthUpdate >= TimeSpan.FromSeconds(5))
-                        {
-                            sheet["HitsAdjLabel"].IsVisible = false;
-                        }
 
-                        // Update experience.
+                            sheet["HitsAdjLabel"].IsVisible = true;
+                        }
+                        else sheet["HitsAdjLabel"].IsVisible = false;
+
+                        // experience update (if pre.exp is greater than 0, in other words not first update)
                         if (pre.Experience < chr.Experience && pre.Experience > 0)
                         {
                             sheet["GainedExpAmountLabel"].Text = Convert.ToString(chr.Experience - pre.Experience);
@@ -157,28 +156,20 @@ namespace Yuusha.gui
                     }
                 }
 
-                // Place focus on the input text box.
-                if (sheet[Globals.GAMEINPUTTEXTBOX] != null)
+                
+                if(GuiManager.GetControl("OptionsWindow").HasFocus)
                 {
-                    // Options window is only other typing textboxes with focus while in IOK mode currently.
-                    if (GuiManager.ControlWithFocus != null && (GuiManager.ControlWithFocus.Name != "OptionsWindow" && GuiManager.ControlWithFocus.Owner != "OptionsWindow"))
-                    {
-                        sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
-                        GuiManager.ActiveTextBox = Globals.GAMEINPUTTEXTBOX;
-                    }
-
-                    if (GuiManager.ControlWithFocus != null && GuiManager.ControlWithFocus.Owner != "OptionsWindow")
-                    {
-                        sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
-                    }
+                    sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = false;
                 }
+                else sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
 
                 if (!Client.HasFocus)
                 {
                     if (sheet[Globals.GAMEINPUTTEXTBOX] != null)
-                    {
                         sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = false;
-                    }
+
+                    GuiManager.ActiveTextBox = null;
+                    GuiManager.ControlWithFocus = null;
                 }
             }
             catch (Exception e)

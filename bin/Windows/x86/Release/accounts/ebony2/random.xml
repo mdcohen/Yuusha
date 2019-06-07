@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<CharacterSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DoubleLeftClickNearbyTarget>fight %t;look at %t</DoubleLeftClickNearbyTarget>
+  <DoubleLeftClickDistantTarget>cast %t;look at %t</DoubleLeftClickDistantTarget>
+  <NumLock0>search all;scoop coins</NumLock0>
+  <NumLock1>sw</NumLock1>
+  <NumLock2>s</NumLock2>
+  <NumLock3>se</NumLock3>
+  <NumLock4>w</NumLock4>
+  <NumLock5>;</NumLock5>
+  <NumLock6>e</NumLock6>
+  <NumLock7>nw</NumLock7>
+  <NumLock8>n</NumLock8>
+  <NumLock9>ne</NumLock9>
+  <NumPadDivide>search all;scoop all gems</NumPadDivide>
+  <NumPadMultiply>belt left;remove ring</NumPadMultiply>
+  <NumPadSubtract>belt left;remove 2 ring from right</NumPadSubtract>
+  <NumPadAdd>look in sack;quaff</NumPadAdd>
+  <NumPadDelete>ashtug ninda anghizidda arrflug</NumPadDelete>
+  <FunctionKey1>test</FunctionKey1>
+  <FunctionKey2 />
+  <FunctionKey3 />
+  <FunctionKey4 />
+  <FunctionKey5 />
+  <FunctionKey6 />
+  <FunctionKey7 />
+  <FunctionKey8 />
+  <FunctionKey9 />
+  <FunctionKey10 />
+  <FunctionKey11 />
+  <FunctionKey12 />
+  <CritterListDropDownMenuItem1>fight %t;look at %t</CritterListDropDownMenuItem1>
+  <CritterListDropDownMenuItem2>cast %t;look at %t</CritterListDropDownMenuItem2>
+  <CritterListDropDownMenuItem3 />
+  <CritterListDropDownMenuItem4 />
+  <CritterListDropDownMenuItem5 />
+  <VerticalHotButtonVisualKey0>hotbuttonicon_486</VerticalHotButtonVisualKey0>
+  <VerticalHotButtonVisualKey1>hotbuttonicon_211</VerticalHotButtonVisualKey1>
+  <VerticalHotButtonVisualKey2>hotbuttonicon_132</VerticalHotButtonVisualKey2>
+  <VerticalHotButtonVisualKey3>hotbuttonicon_99</VerticalHotButtonVisualKey3>
+  <VerticalHotButtonVisualKey4>hotbuttonicon_279</VerticalHotButtonVisualKey4>
+  <VerticalHotButtonVisualKey5 />
+  <VerticalHotButtonVisualKey6 />
+  <VerticalHotButtonVisualKey7 />
+  <VerticalHotButtonVisualKey8 />
+  <VerticalHotButtonVisualKey9 />
+  <VerticalHotButtonVisualKey10 />
+  <VerticalHotButtonVisualKey11 />
+  <VerticalHotButtonVisualKey12 />
+  <VerticalHotButtonVisualKey13 />
+  <VerticalHotButtonVisualKey14 />
+  <VerticalHotButtonVisualKey15 />
+  <VerticalHotButtonVisualKey16 />
+  <VerticalHotButtonVisualKey17 />
+  <VerticalHotButtonVisualKey18 />
+  <VerticalHotButtonVisualKey19 />
+  <VerticalHotButtonText0>Magic Missile</VerticalHotButtonText0>
+  <VerticalHotButtonText1>Shield</VerticalHotButtonText1>
+  <VerticalHotButtonText2>Bonfire</VerticalHotButtonText2>
+  <VerticalHotButtonText3>Protection from Fire</VerticalHotButtonText3>
+  <VerticalHotButtonText4>Light</VerticalHotButtonText4>
+  <VerticalHotButtonText5 />
+  <VerticalHotButtonText6 />
+  <VerticalHotButtonText7 />
+  <VerticalHotButtonText8 />
+  <VerticalHotButtonText9 />
+  <VerticalHotButtonText10 />
+  <VerticalHotButtonText11 />
+  <VerticalHotButtonText12 />
+  <VerticalHotButtonText13 />
+  <VerticalHotButtonText14 />
+  <VerticalHotButtonText15 />
+  <VerticalHotButtonText16 />
+  <VerticalHotButtonText17 />
+  <VerticalHotButtonText18 />
+  <VerticalHotButtonText19 />
+  <VerticalHotButtonCommand0>luudnin kanpa egura mardukka</VerticalHotButtonCommand0>
+  <VerticalHotButtonCommand1>ningi idpa endul shurrim</VerticalHotButtonCommand1>
+  <VerticalHotButtonCommand2>angarru gallu nebo urma</VerticalHotButtonCommand2>
+  <VerticalHotButtonCommand3>ninnme edin gidim ninda</VerticalHotButtonCommand3>
+  <VerticalHotButtonCommand4>ilani namtar enn na</VerticalHotButtonCommand4>
+  <VerticalHotButtonCommand5 />
+  <VerticalHotButtonCommand6 />
+  <VerticalHotButtonCommand7 />
+  <VerticalHotButtonCommand8 />
+  <VerticalHotButtonCommand9 />
+  <VerticalHotButtonCommand10 />
+  <VerticalHotButtonCommand11 />
+  <VerticalHotButtonCommand12 />
+  <VerticalHotButtonCommand13 />
+  <VerticalHotButtonCommand14 />
+  <VerticalHotButtonCommand15 />
+  <VerticalHotButtonCommand16 />
+  <VerticalHotButtonCommand17 />
+  <VerticalHotButtonCommand18 />
+  <VerticalHotButtonCommand19 />
+  <HorizontalHotButtonVisualKey0>hotbuttonicon_163</HorizontalHotButtonVisualKey0>
+  <HorizontalHotButtonVisualKey1 />
+  <HorizontalHotButtonVisualKey2 />
+  <HorizontalHotButtonVisualKey3 />
+  <HorizontalHotButtonVisualKey4 />
+  <HorizontalHotButtonVisualKey5 />
+  <HorizontalHotButtonVisualKey6 />
+  <HorizontalHotButtonVisualKey7 />
+  <HorizontalHotButtonVisualKey8 />
+  <HorizontalHotButtonVisualKey9 />
+  <HorizontalHotButtonVisualKey10 />
+  <HorizontalHotButtonVisualKey11 />
+  <HorizontalHotButtonVisualKey12 />
+  <HorizontalHotButtonVisualKey13 />
+  <HorizontalHotButtonVisualKey14>hotbuttonicon_168</HorizontalHotButtonVisualKey14>
+  <HorizontalHotButtonText0>Search and Scoop</HorizontalHotButtonText0>
+  <HorizontalHotButtonText1 />
+  <HorizontalHotButtonText2 />
+  <HorizontalHotButtonText3 />
+  <HorizontalHotButtonText4 />
+  <HorizontalHotButtonText5 />
+  <HorizontalHotButtonText6 />
+  <HorizontalHotButtonText7 />
+  <HorizontalHotButtonText8 />
+  <HorizontalHotButtonText9 />
+  <HorizontalHotButtonText10 />
+  <HorizontalHotButtonText11 />
+  <HorizontalHotButtonText12 />
+  <HorizontalHotButtonText13 />
+  <HorizontalHotButtonText14>Cast</HorizontalHotButtonText14>
+  <HorizontalHotButtonCommand0>search all;scoop coins</HorizontalHotButtonCommand0>
+  <HorizontalHotButtonCommand1 />
+  <HorizontalHotButtonCommand2 />
+  <HorizontalHotButtonCommand3 />
+  <HorizontalHotButtonCommand4 />
+  <HorizontalHotButtonCommand5 />
+  <HorizontalHotButtonCommand6 />
+  <HorizontalHotButtonCommand7 />
+  <HorizontalHotButtonCommand8 />
+  <HorizontalHotButtonCommand9 />
+  <HorizontalHotButtonCommand10 />
+  <HorizontalHotButtonCommand11 />
+  <HorizontalHotButtonCommand12 />
+  <HorizontalHotButtonCommand13 />
+  <HorizontalHotButtonCommand14>cast</HorizontalHotButtonCommand14>
+  <HorizontalHotButtonWindowX>189</HorizontalHotButtonWindowX>
+  <HorizontalHotButtonWindowY>708</HorizontalHotButtonWindowY>
+  <VerticalHotButtonWindowX>880</VerticalHotButtonWindowX>
+  <VerticalHotButtonWindowY>22</VerticalHotButtonWindowY>
+</CharacterSettings>

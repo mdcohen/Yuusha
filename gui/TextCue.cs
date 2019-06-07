@@ -344,7 +344,7 @@ namespace Yuusha.gui
                     break;
             }
 
-            gui.TextCue.AddClientInfoTextCue(promptText, gui.TextCue.TextCueTag.PromptState, cueColor, backgroundColor, 0, false, false, true);
+            AddClientInfoTextCue(promptText, gui.TextCue.TextCueTag.PromptState, cueColor, backgroundColor, 0, false, false, true);
         }
 
     }

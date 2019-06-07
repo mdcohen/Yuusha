@@ -80,7 +80,7 @@ namespace Yuusha
                     }
                 }
 
-                System.Threading.Thread.Sleep(100);
+                //System.Threading.Thread.Sleep(100);
             }
 
             Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
@@ -320,9 +320,7 @@ namespace Yuusha
                 int id = Convert.ToInt32(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_CURRENT, Protocol.CHARACTER_CURRENT_END));
 
                 if (Character.CurrentCharacter == null || id != Character.CurrentCharacter.ID)
-                {
                     Character.CurrentCharacter = Account.GetCharacterByID(Convert.ToInt32(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_CURRENT, Protocol.CHARACTER_CURRENT_END)));
-                }
 
                 Character.LoadSettings();
                 gui.GenericSheet.LoadMacros();
@@ -748,18 +746,16 @@ namespace Yuusha
 
                                 if (promptStateInfo.ToLower() == Protocol.PromptStates.Normal.ToString().ToLower())
                                 {
-                                    foreach (Yuusha.gui.TextCue tc in new System.Collections.Generic.List<gui.TextCue>(gui.GuiManager.TextCues))
+                                    foreach (gui.TextCue tc in new System.Collections.Generic.List<gui.TextCue>(gui.GuiManager.TextCues))
                                     {
                                         if (tc.Tag == gui.TextCue.TextCueTag.PromptState)
-                                        {
                                             gui.GuiManager.TextCues.Remove(tc);
-                                        }
                                     }
                                     return true;
                                 }
 
-                                Microsoft.Xna.Framework.Color cueColor = Microsoft.Xna.Framework.Color.Gold;
-                                Microsoft.Xna.Framework.Color backgroundColor = Microsoft.Xna.Framework.Color.Transparent;
+                                Color cueColor = Color.Gold;
+                                Color backgroundColor = Color.Transparent;
                                 Protocol.PromptStates promptState = (Protocol.PromptStates)Enum.Parse(typeof(Protocol.PromptStates), promptStateInfo, true);
 
                                 gui.TextCue.AddPromptStateTextCue(promptState);
@@ -796,7 +792,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_SACK_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_SACK, Protocol.CHARACTER_SACK_END), Enums.EPlayerUpdate.Sack);
-                                gui.GridBox.CreateGridBox(gui.GridBox.GridBoxFunction.Sack);
+                                gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Sack);
                                 return true;
                             }
                             #endregion
@@ -811,7 +807,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_BELT_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_BELT, Protocol.CHARACTER_BELT_END), Enums.EPlayerUpdate.Belt);
-                                gui.GridBox.CreateGridBox(gui.GridBox.GridBoxFunction.Belt);
+                                gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Belt);
                                 return true;
                             }
                             #endregion

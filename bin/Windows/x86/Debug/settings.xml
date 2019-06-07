@@ -4,12 +4,14 @@
   <ServerHost>www.dragonsspine.com</ServerHost>
   <ServerPort>3000</ServerPort>
   <ShowSplash>false</ShowSplash>
-  <DefaultFont>legends16</DefaultFont>
+  <DefaultFont>courier16</DefaultFont>
   <DefaultPopUpColor>Cyan</DefaultPopUpColor>
   <DefaultDropDownMenuFont>courier12</DefaultDropDownMenuFont>
   <DisplayChantingTextCue>true</DisplayChantingTextCue>
   <StartFullScreen>false</StartFullScreen>
   <PlayAudioWhenClientDeactivated>true</PlayAudioWhenClientDeactivated>
+  <StoredAccounts />
+  <MostRecentStoredAccount />
   <OptionsWindowX>50</OptionsWindowX>
   <OptionsWindowY>50</OptionsWindowY>
   <MacrosWindowX>300</MacrosWindowX>

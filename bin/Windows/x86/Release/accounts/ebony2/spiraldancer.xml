@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <CharacterSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <DoubleLeftClickNearbyTarget>fight %t;throw hammer at %t</DoubleLeftClickNearbyTarget>
+  <DoubleLeftClickNearbyTarget>fight %t;throw axe at %t</DoubleLeftClickNearbyTarget>
   <DoubleLeftClickDistantTarget>cast %t;look %t</DoubleLeftClickDistantTarget>
   <NumLock0>search all;scoop coins</NumLock0>
   <NumLock1>sw</NumLock1>
@@ -29,7 +29,7 @@
   <FunctionKey10 />
   <FunctionKey11 />
   <FunctionKey12 />
-  <CritterListDropDownMenuItem1>fight %t;throw hammer at %t</CritterListDropDownMenuItem1>
+  <CritterListDropDownMenuItem1>fight %t;throw axe at %t</CritterListDropDownMenuItem1>
   <CritterListDropDownMenuItem2>cast %t</CritterListDropDownMenuItem2>
   <CritterListDropDownMenuItem3>look %t</CritterListDropDownMenuItem3>
   <CritterListDropDownMenuItem4 />
