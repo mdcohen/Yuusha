@@ -12,6 +12,10 @@ namespace Yuusha.gui
         private static string m_tileXMLFile = "";
         private static Dictionary<string, SpinelTileDefinition> m_tilesDict = new Dictionary<string, SpinelTileDefinition>();
         private static List<Cell> m_cells = new List<Cell>();
+        public static List<Cell> Cells
+        {
+            get { return m_cells; }
+        }
         private static string[] m_critterListNames = new string[12];
         private static string[] m_letters = new string[] {"A",
             "B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
@@ -166,11 +170,10 @@ namespace Yuusha.gui
                     }
                 }
 
-                if (GuiManager.GetControl("OptionsWindow").HasFocus)
-                {
-                    sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = false;
-                }
-                else sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
+                // Overrides to focus on input text box.
+                // Options window and private messages have focus priority.
+                if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")))
+                    sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
 
                 if (!Client.HasFocus)
                 {

@@ -609,3 +609,9 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier20-0.pn
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier20.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\worldmap.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\lore.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\GUISounds\pm_alert.wma
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\GUISounds\pm_alert.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\GUISounds\pm_alert_short.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\GUISounds\modem_dial.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\yuusha_items.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\visuals\yuusha_items.xml

@@ -54,7 +54,7 @@ namespace Yuusha.gui
         protected int m_selectionStart;
         protected int m_selectionLength;
 
-        protected System.Timers.Timer m_repeatingKeyTimer;
+        protected Timer m_repeatingKeyTimer;
         protected bool m_allowRepeatingKey;
         protected Keys m_lastKeyPressed;
         protected int m_repeatedKeyCount;
@@ -66,7 +66,20 @@ namespace Yuusha.gui
             set { m_cursorVisible = value; }
         }
 
+        public DropDownMenu DropDownMenu
+        { get; set; }
+
         public Border Border { get; set; }
+
+        public int SelectionStart
+        {
+            get { return m_selectionStart; }
+        }
+
+        public int SelectionLength
+        {
+            get { return m_selectionLength; }
+        }
 
         #region Constructors (2)
         public TextBox()
@@ -781,6 +794,11 @@ namespace Yuusha.gui
             if (GuiManager.ControlWithFocus != this) this.HasFocus = false;
             if (GuiManager.ActiveTextBox == Name) this.HasFocus = true;
 
+            if (!this.IsVisible || this.IsDisabled)
+            {
+                this.DropDownMenu = null;
+            }
+
             #region Cursor
             if (m_blinkingCursor)
             {
@@ -805,6 +823,8 @@ namespace Yuusha.gui
             base.Update(gameTime);
 
             if (Border != null) Border.Update(gameTime);
+
+            if (this.DropDownMenu != null) DropDownMenu.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -924,6 +944,8 @@ namespace Yuusha.gui
                     Client.SpriteBatch.Draw(GuiManager.Textures[cursorVisual.ParentTexture], cursorRectangle, cursorVisual.Rectangle, m_cursorColor);
                 }
             }
+
+            if (this.DropDownMenu != null) DropDownMenu.Draw(gameTime);
         }
 
         protected override void OnMouseDown(MouseState ms)
@@ -933,6 +955,53 @@ namespace Yuusha.gui
             m_hasFocus = true;
             
             m_cursorVisible = true;
+
+            if(ms.RightButton == ButtonState.Pressed)
+            {
+                if (DropDownMenu == null && (this.Text.Length > 0 || Utils.GetClipboardText().Length > 0))
+                {
+                    try
+                    {
+                        Rectangle dropDownRectangle = new Rectangle(ms.X - 10, ms.Y - 10, 100, 100); // default height for 5 drop down menu items
+
+                        // readjust Y if out of client width bounds
+                        //if (dropDownRectangle.Y + dropDownRectangle.Width > Client.Width)
+                        //    dropDownRectangle.Y = Client.Width - dropDownRectangle.Width - 5;
+
+                        GuiManager.CurrentSheet.CreateDropDownMenu(this.Name + "DropDownMenu", this, "", dropDownRectangle, true,
+                            this.Font, new VisualKey("WhiteSpace"), Client.UserSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
+
+                        DropDownMenu.HasFocus = true;
+                        int height = 0;
+                        if (this.Text.Length > 0)
+                        {
+                            height += 20;
+                            this.DropDownMenu.AddDropDownMenuItem("cut", this.Name, new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
+                        }
+                        if (this.Text.Length > 0)
+                        {
+                            height += 20;
+                            this.DropDownMenu.AddDropDownMenuItem("copy", this.Name, new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
+                        }
+                        if (Utils.GetClipboardText().Length > 0)
+                        {
+                            height += 20;
+                            this.DropDownMenu.AddDropDownMenuItem("paste", this.Name, new VisualKey("WhiteSpace"), "TextBox_DropDown", "", Utils.GetClipboardText().Length > 0 ? false : true);
+                        }
+                        if (this.Text.Length > 0)
+                        {
+                            height += 20;
+                            this.DropDownMenu.AddDropDownMenuItem("delete", this.Name, new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
+                        }
+
+                        DropDownMenu.Height = height;
+                    }
+                    catch(Exception e)
+                    {
+                        Utils.LogException(e);
+                    }
+                }
+            }
 
             base.OnMouseDown(ms);
         }
@@ -969,18 +1038,33 @@ namespace Yuusha.gui
             }
         }
 
-        private void ReplaceSelectedText(string replacementText)
+        public void ReplaceSelectedText(string replacementText)
         {
             m_text = m_text.Remove(m_selectionStart, m_selectionLength);
             m_text = m_text.Insert(m_selectionStart, replacementText);
             SelectAll();
         }
 
-        private void InsertClipboardText()
+        public void InsertClipboardText()
         {
             string clipboardText = Utils.GetClipboardText();
             m_text = m_text.Insert(m_cursorPosition, clipboardText);
             m_cursorPosition = m_cursorPosition + clipboardText.Length;
+        }
+
+        public override bool MouseHandler(MouseState ms)
+        {
+            if (this.DropDownMenu != null)
+                this.DropDownMenu.MouseHandler(ms);
+
+            return base.MouseHandler(ms);
+        }
+
+        public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
+        {
+            this.DropDownMenu = null;
+
+            base.OnClientResize(prev, now, ownerOverride);
         }
     }
 }

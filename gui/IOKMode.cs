@@ -20,7 +20,11 @@ namespace Yuusha.gui
 			"R","S","T","U","V","W","X","Y","Z" };
         private static string[] m_alignment = new string[] { " ", " ", "!", "*", "+", " ", "+" };
         private static string m_usedLetters = "";
-        private static List<Cell> m_cells = new List<Cell>();
+        private static List<Cell> m_cells = new List<Cell>(); // this is where currently visible cells are stored every round
+        public static List<Cell> Cells
+        {
+            get { return m_cells; }
+        }
         private static TimeSpan m_lastExpUpdate;
         private static TimeSpan m_lastHealthUpdate;
         private static TimeSpan m_lastStaminaUpdate;
@@ -156,12 +160,10 @@ namespace Yuusha.gui
                     }
                 }
 
-                
-                if(GuiManager.GetControl("OptionsWindow").HasFocus)
-                {
-                    sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = false;
-                }
-                else sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
+                // Overrides to focus on input text box.
+                // Options window and private messages have focus priority.
+                if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")))
+                    sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
 
                 if (!Client.HasFocus)
                 {
@@ -334,7 +336,7 @@ namespace Yuusha.gui
             }
         }
 
-        private static Item FormatCellItem(string inData)
+        public static Item FormatCellItem(string inData)
         {
             try
             {

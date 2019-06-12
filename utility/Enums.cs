@@ -58,7 +58,9 @@ namespace Yuusha
             CombatHit,
             CombatMiss,
             SpellHit,
-            SpellMiss
+            SpellMiss,
+            PrivateMessageReceiver,
+            PrivateMessageSender,
         }
 
         public enum EPlayerUpdate

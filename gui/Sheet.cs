@@ -238,39 +238,41 @@ namespace Yuusha.gui
                 for (int index = 0; index < m_controls.Count; index++)
                 {
                     if (name == m_controls[index].Name)
-                    {
                         return m_controls[index];
-                    }
+
                     if (m_controls[index] is Window)
                     {
-                        foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
+                        lock ((m_controls[index] as Window).Controls)
                         {
-                            if (name == c.Name)
-                                return c;
-
-                            if (c is Window)
+                            foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
                             {
-                                foreach (Control c2 in new List<Control>((c as Window).Controls))
+                                if (name == c.Name)
+                                    return c;
+
+                                if (c is Window)
                                 {
-                                    if (name == c2.Name)
-                                        return c2;
-
-                                    if(c2 is Window)
+                                    foreach (Control c2 in new List<Control>((c as Window).Controls))
                                     {
-                                        foreach (Control c3 in new List<Control>((c2 as Window).Controls))
-                                        {
-                                            if (name == c3.Name)
-                                                return c3;
+                                        if (name == c2.Name)
+                                            return c2;
 
-                                            if (c3 is Window)
+                                        if (c2 is Window)
+                                        {
+                                            foreach (Control c3 in new List<Control>((c2 as Window).Controls))
                                             {
-                                                foreach(Control c4 in new List<Control>((c3 as Window).Controls))
+                                                if (name == c3.Name)
+                                                    return c3;
+
+                                                if (c3 is Window)
                                                 {
-                                                    if (name == c4.Name)
-                                                        return c4;
+                                                    foreach (Control c4 in new List<Control>((c3 as Window).Controls))
+                                                    {
+                                                        if (name == c4.Name)
+                                                            return c4;
+                                                    }
                                                 }
+
                                             }
-                                            
                                         }
                                     }
                                 }
@@ -388,9 +390,8 @@ namespace Yuusha.gui
                         for (int j = 0; j < m_controls.Count; j++)
                         {
                             if (i == j)
-                            {
                                 continue;
-                            }
+
                             if ((m_controls[j] is RadioButton) &&
                                 ((m_controls[j] as RadioButton).GroupID == (m_controls[i] as RadioButton).GroupID))
                             {
@@ -465,6 +466,7 @@ namespace Yuusha.gui
                             // sort controls
                             SortControls();
                         }
+                        else m_controls[i].ZDepthDateTime = DateTime.Now;
                         #endregion
 
                     }
@@ -473,7 +475,7 @@ namespace Yuusha.gui
                 else if (ms.LeftButton == ButtonState.Pressed)
                 {
                     // clicked off a control so close any open combobox
-                    if (GuiManager.OpenComboBox != "")
+                    if (GuiManager.OpenComboBox != null && GuiManager.OpenComboBox != "")
                     {
                         ComboBox openComboBox = this[GuiManager.OpenComboBox] as ComboBox;
                         Point cursor = new Point(ms.X, ms.Y);
@@ -485,7 +487,7 @@ namespace Yuusha.gui
                         }
                     }
 
-                    if ((GuiManager.ActiveTextBox != "") && (GuiManager.ActiveTextBox != m_controls[i].Name))
+                    if (GuiManager.ActiveTextBox != null && (GuiManager.ActiveTextBox != "") && (GuiManager.ActiveTextBox != m_controls[i].Name))
                     {
                         // release textbox focus
                         if (this[GuiManager.ActiveTextBox] != null)
@@ -525,6 +527,9 @@ namespace Yuusha.gui
             {
                 Control owner = this[c.Owner];
 
+                if (c is DropDownMenu)
+                    c.ZDepth = 1;
+
                 if (owner != null)
                 {
                     if (owner is Window)
@@ -535,6 +540,8 @@ namespace Yuusha.gui
                     {
                         if (c is Border)
                             (owner as TextBox).Border = c as Border;
+                        if (c is DropDownMenu)
+                            (owner as TextBox).DropDownMenu = c as DropDownMenu;
                     }
                     else if (owner is Label)
                     {
@@ -560,6 +567,8 @@ namespace Yuusha.gui
                     {
                         if (c is SquareBorder)
                             (owner as DragAndDropButton).Border = c as SquareBorder;
+                        if (c is DropDownMenu)
+                            (owner as DragAndDropButton).DropDownMenu = c as DropDownMenu;
                     }
                     else if (owner is CheckboxButton)
                     {
@@ -600,13 +609,9 @@ namespace Yuusha.gui
             c.Position = new Point(w.Position.X + c.Position.X, w.Position.Y + c.Position.Y);
 
             if ((w as Window).Controls.Count > 0)
-            {
                 c.ZDepth = (w as Window).Controls[0].ZDepth + 1;
-            }
             else
-            {
                 c.ZDepth = 1;
-            }
 
             if (c.TabOrder >= 0)
                 (w as Window).CurrentTabOrder = 0;
@@ -620,7 +625,12 @@ namespace Yuusha.gui
             // set this window's title or border for easy reference later
             if (c is WindowTitle && c.Name == w.Name + "Title")
             {
+                c.Width = w.Width;
                 (w as Window).WindowTitle = c as WindowTitle;
+                if (w is AutoHidingWindow)
+                {
+                    (w as AutoHidingWindow).SetWindowOrientation();
+                }
             }
             else if (c is Border && c.Name == w.Name + "Border")
             {
@@ -819,6 +829,15 @@ namespace Yuusha.gui
         }
 
         #region Create Controls
+        public void CreateAutoHidingWindow(string name, string type, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled,
+            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, bool dropShadow,
+            Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride, Enums.EAnchorType windowTitleOrientation,
+            int autoHideVisualAlpha, bool fadeIn, bool fadeOut, int fadeSpeed)
+        {
+            AddControl(new AutoHidingWindow(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor,
+                    visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride, windowTitleOrientation,
+                    autoHideVisualAlpha, fadeIn, fadeOut, fadeSpeed));
+        }
         public void CreateWindow(string name, string type, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled,
             string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, bool dropShadow,
             Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride)

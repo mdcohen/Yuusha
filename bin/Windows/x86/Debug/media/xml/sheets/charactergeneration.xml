@@ -25,7 +25,7 @@
 		X="10"
 		Y="10"
 		Width="665"
-		Height="375"
+		Height="715"
 		IsVisible="true"
 		IsLocked="true"
 		Font="courier16"
@@ -49,7 +49,7 @@
 		Font="courier12"
 		VisualKey="WhiteSpace"
 		TintColor="Black"
-    VisualAlpha="75"
+    VisualAlpha="0"
     MinimizeBoxVisualKey="WindowMinimizeBox"
 		MinimizeBoxVisualKeyDown="WindowMinimizeBoxDown"
 		MinimizeBoxDistanceFromRight="17"
@@ -134,7 +134,7 @@
 </CharacterGenerationWindow>
 
 <CharacterGenerationInfoWindow>
-  <Control
+  <!--<Control
 		Type="Window"
 		Name="CharacterGenerationInfoWindow"
 		X="10"
@@ -154,10 +154,10 @@
     AnchorTop="true"
 		AnchorBottom="true"
 		AnchorLeft="true"
-		AnchorRight="true">>
+		AnchorRight="true">
   </Control>
-  <!-- Character Generation Window Title -->
-  <Control
+  Character Generation Info Window Title -->
+  <!--<Control
 		Type="WindowTitle"
 		Name="CharacterGenerationInfoWindowTitle"
 		Owner="CharacterGenerationInfoWindow"
@@ -187,8 +187,8 @@
 		AnchorLeft="true"
 		AnchorRight="true">
   </Control>
-  <!-- Character Generation Window Border -->
-  <Control
+  Character Generation Window Border -->
+  <!--<Control
 		Type="SquareBorder"
 		Name="CharacterGenerationInfoWindowBorder"
 		Owner="CharacterGenerationInfoWindow"
@@ -197,15 +197,16 @@
     VisualAlpha="150"
 		TintColor="DarkMagenta">
   </Control>
-  <!-- CharGen Info Scrollable TextBox -->
+  CharGen Info Scrollable TextBox -->
+  
   <Control
 		Type="ScrollableTextBox"
 		Name="CharGenInfoScrollableTextBox"
-    Owner="CharacterGenerationInfoWindow"
+    Owner="CharacterGenerationWindow"
 		X="0"
-		Y="18"
+		Y="380"
 		Width="665"
-		Height="320"
+		Height="335"
 		XTextOffset="0"
 		YTextOffset="0"
 		TextColor="White"
@@ -213,7 +214,7 @@
 		Font="courier16"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
-		VisualAlpha="150"
+		VisualAlpha="0"
 		BorderAlpha="255"
 		TextAlpha="255"
 		TextAlignment="Left"
@@ -263,7 +264,7 @@
 		Width="310"
 		Height="40"
 		YTextOffset="8"
-		IsVisible="true"
+		IsVisible="false"
 		IsDisabled="false"
 		Font="courier16"
 		TextColor="White"
@@ -287,7 +288,7 @@
       Y="105"
       Width="250"
       Height="305"
-      IsVisible="true"
+      IsVisible="false"
       IsLocked="true"
       Font="courier16"
       VisualKey="WhiteSpace"
@@ -977,7 +978,7 @@
       Y="430"
       Width="250"
       Height="275"
-      IsVisible="true"
+      IsVisible="false"
       IsLocked="true"
       Font="courier16"
       VisualKey="WhiteSpace"

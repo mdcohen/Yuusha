@@ -43,7 +43,11 @@ namespace Yuusha.gui
         private int ViewportLines
         {
             get { return (int)((m_rectangle.Height - m_xTextOffset) / BitmapFont.ActiveFonts[Font].LineHeight); }
-        } 
+        }
+        public int LinesCount
+        {
+            get { return m_allLines.Count; }
+        }
         #endregion
 
         #region Constructors (2)
@@ -295,6 +299,7 @@ namespace Yuusha.gui
 
                 m_allTextTypes.Add(textType);
 
+                // This is where line colors are decided.
                 Color lineColor = TextManager.GetTextFilteredColor(Client.GameState, line, true);
 
                 if (lineColor == TextColor && line.EndsWith("!") && !line.Contains(": "))

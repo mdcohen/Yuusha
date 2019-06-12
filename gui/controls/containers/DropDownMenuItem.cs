@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
 {
-    public class DropDownMenuItem : Control
+    public class DropDownMenuItem : Control // should these inherit from Button? 6/11/2019
     {
         private bool m_onMouseDownSent;
         private DropDownMenu m_dropDownMenu;
@@ -20,7 +20,7 @@ namespace Yuusha.gui
             set { m_rectangle = value; }
         }
 
-        public DropDownMenuItem(string name, string text, DropDownMenu menu, VisualKey visualKey, string onMouseDown) : base()
+        public DropDownMenuItem(string name, string text, DropDownMenu menu, VisualKey visualKey, string onMouseDown, string command) : base()
         {
             m_name = name;
             m_text = text;
@@ -28,16 +28,16 @@ namespace Yuusha.gui
             m_visualKey = visualKey;
             m_onMouseDown = onMouseDown;
             m_onMouseDownSent = false;
+            Command = command;
 
             m_textColor = Client.UserSettings.ColorDropDownMenuItemText;
             m_tintColor = Client.UserSettings.ColorDropDownMenuItemBackground;
+            m_textOverColor = Client.UserSettings.ColorDropDownMenuItemHighlight;
             m_font = Client.ClientSettings.DefaultDropDownMenuFont;
         }
 
         public override void Draw(GameTime gameTime)
         {
-            //if (Text == "") return;
-
             base.Draw(gameTime);
 
             if (BitmapFont.ActiveFonts.ContainsKey(Font))
@@ -66,14 +66,22 @@ namespace Yuusha.gui
             }
 
             base.Update(gameTime);
+        }
 
-            MouseState ms = Mouse.GetState();
+        protected override void OnMouseOver(MouseState ms)
+        {
+            if(!m_disabled)
+                this.TextColor = Client.UserSettings.ColorDropDownMenuItemHighlight;
 
-            Point p = new Point(ms.X, ms.Y);
+            base.OnMouseOver(ms);
+        }
 
-            if (Contains(p))
-                this.TintColor = Client.UserSettings.ColorDropDownMenuItemHighlight;
-            else this.TintColor = Client.UserSettings.ColorDropDownMenuItemBackground;
+        protected override void OnMouseLeave(MouseState ms)
+        {
+            if(!m_disabled)
+                this.TextColor = Client.UserSettings.ColorDropDownMenuItemText;
+
+            base.OnMouseLeave(ms);
         }
 
         protected override void OnMouseDown(MouseState ms)
@@ -88,6 +96,8 @@ namespace Yuusha.gui
                     Events.RegisterEvent((Events.EventName)System.Enum.Parse(typeof(Events.EventName), m_onMouseDown, true), this);
                     m_onMouseDownSent = true;
                 }
+
+                DropDownMenu.IsVisible = false;
             }
         }
 
@@ -98,8 +108,7 @@ namespace Yuusha.gui
             if (m_disabled)
                 return;
 
-            //if(ms.RightButton == ButtonState.Released)
-                m_onMouseDownSent = false;
+            m_onMouseDownSent = false;
         }
     }
 }

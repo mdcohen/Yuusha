@@ -13,6 +13,24 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin GUISounds/modem_dial.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/modem_dial.wav
+
+#begin GUISounds/pm_alert.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/pm_alert.ogg
+
+#begin GUISounds/pm_alert_short.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/pm_alert_short.wav
+
 #begin KSND0001.WAV
 /importer:WavImporter
 /processor:SoundEffectProcessor

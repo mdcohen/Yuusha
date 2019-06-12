@@ -28,7 +28,7 @@ namespace Yuusha.Utility.Settings
         public string NumPadAdd = "look in sack;quaff";
         public string NumPadDelete = "ashtug ninda anghizidda arrflug";
 
-        public string FunctionKey1 = "test";
+        public string FunctionKey1 = "";
         public string FunctionKey2 = "";
         public string FunctionKey3 = "";
         public string FunctionKey4 = "";
@@ -41,35 +41,35 @@ namespace Yuusha.Utility.Settings
         public string FunctionKey11 = "";
         public string FunctionKey12 = "";
 
-        public string CritterListDropDownMenuItem1 = "kick %t;look at %t";
-        public string CritterListDropDownMenuItem2 = "backstab %t;look at %t";
-        public string CritterListDropDownMenuItem3 = "steal coins from %t";
+        public string CritterListDropDownMenuItem1 = "fight %t;look at %t";
+        public string CritterListDropDownMenuItem2 = "cast %t;look at %t";
+        public string CritterListDropDownMenuItem3 = "look closely at %t";
         public string CritterListDropDownMenuItem4 = "jumpkick %t;look at %t";
         public string CritterListDropDownMenuItem5 = "shoot %t;look at %t";
         #endregion
 
         #region Vertical HotButtons
         // TODO Make these a list and add serialization/deserialization of List<T> available.
-        public string VerticalHotButtonVisualKey0 = "";
-        public string VerticalHotButtonVisualKey1 = "";
-        public string VerticalHotButtonVisualKey2 = "";
-        public string VerticalHotButtonVisualKey3 = "";
-        public string VerticalHotButtonVisualKey4 = "";
-        public string VerticalHotButtonVisualKey5 = "";
-        public string VerticalHotButtonVisualKey6 = "";
-        public string VerticalHotButtonVisualKey7 = "";
-        public string VerticalHotButtonVisualKey8 = "";
-        public string VerticalHotButtonVisualKey9 = "";
-        public string VerticalHotButtonVisualKey10 = "";
-        public string VerticalHotButtonVisualKey11 = "";
-        public string VerticalHotButtonVisualKey12 = "";
-        public string VerticalHotButtonVisualKey13 = "";
-        public string VerticalHotButtonVisualKey14 = "";
-        public string VerticalHotButtonVisualKey15 = "";
-        public string VerticalHotButtonVisualKey16 = "";
-        public string VerticalHotButtonVisualKey17 = "";
-        public string VerticalHotButtonVisualKey18 = "";
-        public string VerticalHotButtonVisualKey19 = "";
+        public string VerticalHotButtonVisualKey0 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey1 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey2 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey3 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey4 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey5 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey6 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey7 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey8 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey9 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey10 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey11 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey12 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey13 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey14 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey15 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey16 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey17 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey18 = "WhiteSpace";
+        public string VerticalHotButtonVisualKey19 = "WhiteSpace";
 
         public string VerticalHotButtonText0 = "";
         public string VerticalHotButtonText1 = "";
@@ -116,21 +116,21 @@ namespace Yuusha.Utility.Settings
 
         #region Horizontal HotButtons
         // TODO Make these a list and add serialization/deserialization of List<T> available.
-        public string HorizontalHotButtonVisualKey0 = "";
-        public string HorizontalHotButtonVisualKey1 = "";
-        public string HorizontalHotButtonVisualKey2 = "";
-        public string HorizontalHotButtonVisualKey3 = "";
-        public string HorizontalHotButtonVisualKey4 = "";
-        public string HorizontalHotButtonVisualKey5 = "";
-        public string HorizontalHotButtonVisualKey6 = "";
-        public string HorizontalHotButtonVisualKey7 = "";
-        public string HorizontalHotButtonVisualKey8 = "";
-        public string HorizontalHotButtonVisualKey9 = "";
-        public string HorizontalHotButtonVisualKey10 = "";
-        public string HorizontalHotButtonVisualKey11 = "";
-        public string HorizontalHotButtonVisualKey12 = "";
-        public string HorizontalHotButtonVisualKey13 = "";
-        public string HorizontalHotButtonVisualKey14 = "";
+        public string HorizontalHotButtonVisualKey0 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey1 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey2 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey3 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey4 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey5 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey6 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey7 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey8 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey9 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey10 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey11 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey12 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey13 = "WhiteSpace";
+        public string HorizontalHotButtonVisualKey14 = "WhiteSpace";
 
         public string HorizontalHotButtonText0 = "";
         public string HorizontalHotButtonText1 = "";

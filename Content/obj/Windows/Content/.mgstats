@@ -1,4 +1,7 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/modem_dial.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/GUISounds/modem_dial.xnb","SoundEffectProcessor","SoundEffectContent",3285036,3285097,0.2406783
+"C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/pm_alert.ogg","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/GUISounds/pm_alert.xnb","SoundEffectProcessor","SoundEffectContent",14097,82409,0.2539972
+"C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/pm_alert_short.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/GUISounds/pm_alert_short.xnb","SoundEffectProcessor","SoundEffectContent",46884,46885,0.2017968
 "C:/Users/mikec/Desktop/YuushaMG/Content/KSND0001.WAV","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/KSND0001.xnb","SoundEffectProcessor","SoundEffectContent",51089,51150,0.3440396
 "C:/Users/mikec/Desktop/YuushaMG/Content/KSND0002.WAV","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/KSND0002.xnb","SoundEffectProcessor","SoundEffectContent",29691,29752,0.1216422
 "C:/Users/mikec/Desktop/YuushaMG/Content/KSND0003.WAV","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/KSND0003.xnb","SoundEffectProcessor","SoundEffectContent",17826,17887,0.118824

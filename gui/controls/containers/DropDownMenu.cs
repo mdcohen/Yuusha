@@ -40,7 +40,7 @@ namespace Yuusha.gui
             m_shadowDistance = shadowDistance;
             m_menuItems = new List<DropDownMenuItem>();
 
-            Border = new SquareBorder(this.Name + "SquareBorder", this.Name, 1, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorDropDownMenuBorder, visualAlpha)
+            Border = new SquareBorder(this.Name + "SquareBorder", this.Name, 2, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorDropDownMenuBorder, visualAlpha)
             {
                 IsVisible = true
             };
@@ -52,8 +52,6 @@ namespace Yuusha.gui
 
             base.Draw(gameTime);
 
-            if (Border != null) Border.Draw(gameTime);
-
             if (this.m_title != null && this.m_title.Length > 0 && BitmapFont.ActiveFonts.ContainsKey(this.Font))
             {
                 BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
@@ -64,6 +62,8 @@ namespace Yuusha.gui
 
             foreach (DropDownMenuItem menuItem in m_menuItems)
                 if(menuItem.IsVisible) menuItem.Draw(gameTime);
+
+            if (Border != null) Border.Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)
@@ -93,7 +93,7 @@ namespace Yuusha.gui
             return handled;
         }
 
-        public void AddDropDownMenuItem(string text, string owner, VisualKey visualKey, string onMouseDown)
+        public void AddDropDownMenuItem(string text, string owner, VisualKey visualKey, string onMouseDown, string command, bool isDisabled)
         {
             // change DropDownMenu rectangle based on length of longest text in menu item collection
 
@@ -102,10 +102,11 @@ namespace Yuusha.gui
             if (this.m_title != null && this.m_title.Length > 0)
                 yMod += 20;
 
-            DropDownMenuItem menuItem = new DropDownMenuItem(this.Name + "MenuItem" + (m_menuItems.Count + 1).ToString(), text, this, visualKey, onMouseDown)
+            DropDownMenuItem menuItem = new DropDownMenuItem(this.Name + "MenuItem" + (m_menuItems.Count + 1).ToString(), text, this, visualKey, onMouseDown, command)
             {
                 Rectangle = new Rectangle(this.m_rectangle.X, this.m_rectangle.Y + yMod + (this.m_menuItems.Count * 20), this.m_rectangle.Width, 18),
-                IsVisible = true
+                IsVisible = true,
+                IsDisabled = isDisabled,
             };
 
             this.m_menuItems.Add(menuItem);
@@ -116,13 +117,24 @@ namespace Yuusha.gui
             this.IsVisible = false;
             this.IsDisabled = true;
 
-            Control owner = GuiManager.GetControl(this.m_owner);
-
-            if (owner != null)
+            if (DropDownMenuOwner != null)
             {
-                if (owner is CritterListLabel)
+                if (DropDownMenuOwner is CritterListLabel)
                 {
-                    (owner as CritterListLabel).DropDownMenu = null;
+                    GuiManager.Dispose((DropDownMenuOwner as CritterListLabel).DropDownMenu);
+                    (DropDownMenuOwner as CritterListLabel).DropDownMenu = null;
+                    return;
+                }
+                else if(DropDownMenuOwner is TextBox)
+                {
+                    GuiManager.Dispose((DropDownMenuOwner as TextBox).DropDownMenu);
+                    (DropDownMenuOwner as TextBox).DropDownMenu = null;
+                    return;
+                }
+                else if (DropDownMenuOwner is DragAndDropButton)
+                {
+                    GuiManager.Dispose((DropDownMenuOwner as DragAndDropButton).DropDownMenu);
+                    (DropDownMenuOwner as DragAndDropButton).DropDownMenu = null;
                     return;
                 }
             }

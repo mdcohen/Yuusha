@@ -254,9 +254,7 @@ namespace Yuusha.gui
 
                 // stop dragging if the left button is no longer pressed
                 if (GuiManager.DraggedControl == this && ms.LeftButton != ButtonState.Pressed)
-                {
                     m_dragging = false;
-                }
 
                 int numControls = m_controls.Count;
 

@@ -42,6 +42,8 @@ namespace Yuusha
         private List<Effect> m_effects;
         private List<Character> m_characters; // collection of Character objects in this cell
         private List<Item> m_items; // collection of Item objects in this cell
+        public List<Item> Items
+        { get { return m_items; } }
 
         public bool hasItems = false;
 
@@ -103,11 +105,12 @@ namespace Yuusha
                 this.map = Convert.ToInt16(cellInfo[1]);
                 this.xCord = Convert.ToInt16(cellInfo[2]);
                 this.yCord = Convert.ToInt16(cellInfo[3]);
-                this.cellGraphic = cellInfo[4];
-                this.displayGraphic = cellInfo[5];
-                this.lockers = Convert.ToBoolean(cellInfo[6]);
-                this.portal = Convert.ToBoolean(cellInfo[7]);
-                this.hasItems = Convert.ToBoolean(cellInfo[8]);
+                this.zCord = Convert.ToInt32(cellInfo[4]);
+                this.cellGraphic = cellInfo[5];
+                this.displayGraphic = cellInfo[6];
+                this.lockers = Convert.ToBoolean(cellInfo[7]);
+                this.portal = Convert.ToBoolean(cellInfo[8]);
+                this.hasItems = Convert.ToBoolean(cellInfo[9]);
                 m_effects = new List<Effect>();
                 m_characters = new List<Character>();
                 m_items = new List<Item>();
@@ -135,5 +138,12 @@ namespace Yuusha
             this.m_effects.Add(effect);
         } 
         #endregion
+
+        public static void SendCellItemsRequest(Cell cell)
+        {
+            gui.GameHUD.ExaminedCell = cell;
+            string cellCoords = cell.xCord + Protocol.VSPLIT + cell.yCord + Protocol.VSPLIT + cell.zCord;
+            IO.Send(Protocol.REQUEST_CELLITEMS + " " + cellCoords);
+        }
     }
 }

@@ -13,12 +13,26 @@ namespace Yuusha.Utility.Settings
         public int ServerPort = 3000;
         public bool ShowSplash = false;
         public string DefaultFont = "courier16";
-        public string DefaultPopUpColor = "Cyan";
+        public Microsoft.Xna.Framework.Color ColorDefaultPopUpFore = Microsoft.Xna.Framework.Color.Aqua;
+        public Microsoft.Xna.Framework.Color ColorDefaultPopUpBack = Microsoft.Xna.Framework.Color.Transparent;
+        public string DefaultPopUpFont = "courier16";
         public string DefaultDropDownMenuFont = "courier12";
         public bool DisplayChantingTextCue = true;
         public bool StartFullScreen = false;
-        public bool PlayAudioWhenClientDeactivated = true;
 
+        // audio related
+        public bool PlayAudioWhenClientDeactivated = true;
+        public bool PlayPrivateMessageSounds = true;
+        public bool PlayModemDialOnConnect = true;
+
+        // private messages specific
+        public bool EchoPrivateMessagesToConference = true;
+        public bool EchoPrivateMessagesToGame = true;
+        public bool DisplayPrivateMessageWindows = true;
+
+        public bool EchoGroundItemsOnExamination = false;
+
+        // saving accounts and passwords (encrypted)
         public List<Encrypt.EncryptedKeyValuePair<string, string>> StoredAccounts = new List<Encrypt.EncryptedKeyValuePair<string, string>>();
         public string MostRecentStoredAccount = "";
 

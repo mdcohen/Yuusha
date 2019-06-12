@@ -133,6 +133,10 @@ namespace Yuusha
 
         public static void ChooseGender()
         {
+            gui.GuiManager.CurrentSheet["CharGenToggleAutoRollerButton"].IsVisible = false;
+            gui.GuiManager.CurrentSheet["AutoRollerWindow"].IsVisible = false;
+            gui.GuiManager.CurrentSheet["RollerStatsWindow"].IsVisible = false;
+
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).Clear();
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
@@ -216,12 +220,16 @@ namespace Yuusha
 
         public static void ReviewStats(string inData)
         {
+            // Remove all buttons in window.
             RemoveCharGenSelectionButtons(new List<string>(Professions.Keys));
 
+            // Increase roll counter.
             RollNumber++;
 
+            // Update roll counter label.
             (gui.GuiManager.CurrentSheet["RollsCounterLabel"] as gui.Label).Text = "Roll Count: " + RollNumber;
 
+            // Determine mana info visibility for casters/non-casters.
             if(!inData.Contains("Mana:"))
             {
                 (gui.GuiManager.CurrentSheet["ManaLabel"] as gui.Label).IsVisible = false;
@@ -237,7 +245,13 @@ namespace Yuusha
                 ManaUser = true;
             }
 
-            if(!CharGen.SetCharacterInfoText)
+            // Enable auto roller toggle button.
+            gui.GuiManager.CurrentSheet["CharGenToggleAutoRollerButton"].IsVisible = true;
+            gui.GuiManager.CurrentSheet["AutoRollerWindow"].IsVisible = true;
+            gui.GuiManager.CurrentSheet["RollerStatsWindow"].IsVisible = true;            
+
+            // Why?
+            if (!CharGen.SetCharacterInfoText)
             {
                 (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).Clear();
                 (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).IsVisible = false;
@@ -358,7 +372,7 @@ namespace Yuusha
                     (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Auto Roller Success!", Enums.ETextType.Default);
                     (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
                     (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Roll again?  (y,n)", Enums.ETextType.Default);
-                    Sound.Play("0220");
+                    Sound.Play("KSND0220");
                 }
             }
         }

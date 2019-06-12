@@ -41,6 +41,7 @@ namespace Yuusha.gui
         protected TimeSpan m_lastUpdate;
         protected object m_data;
         protected int m_leftClickCount;
+        protected int m_rightClickCount;
         protected bool m_dropShadow;
         protected int m_shadowDistance;
         protected Map.Direction m_shadowDirection;
@@ -58,6 +59,9 @@ namespace Yuusha.gui
         protected System.Timers.Timer m_doubleClickTimer;
         protected int m_tabOrder;
         #endregion
+
+        public string Command // all controls can have a command
+        { get; set; }
 
         public event GuiManager.ControlDelegate OnControl;
 
@@ -111,8 +115,15 @@ namespace Yuusha.gui
         public virtual int ZDepth
         {
             get { return m_zDepth; }
-            set { m_zDepth = value; }
+            set
+            {
+                m_zDepth = value;
+                ZDepthDateTime = DateTime.Now;
+            }
         }
+
+        public virtual DateTime ZDepthDateTime
+        { get; set; }
 
         public virtual Point Position
         {
@@ -172,8 +183,6 @@ namespace Yuusha.gui
 
                 if (m_hasFocus)
                 {
-                    //TextCue.AddClientInfoTextCue(this.Name + " has focus.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 3000, false, true, true);
-
                     GuiManager.ControlWithFocus = this;
                 }
             }
@@ -266,6 +275,7 @@ namespace Yuusha.gui
         private void DoubleClickTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             m_leftClickCount = 0;
+            m_rightClickCount = 0;
             m_doubleClickTimer.Stop();
         }
 
@@ -278,7 +288,7 @@ namespace Yuusha.gui
             if(!m_disabled && m_visible)
             {
                 if (m_popUpText != "" && m_controlState == Enums.EControlState.Over)
-                    TextCue.AddMouseCursorTextCue(m_popUpText, Utils.GetColor(Client.ClientSettings.DefaultPopUpColor), m_font);
+                    TextCue.AddMouseCursorTextCue(m_popUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpFont);
             }
 
             if (m_visuals.ContainsKey(ControlState) && m_visualKey != m_visuals[ControlState])
@@ -300,6 +310,18 @@ namespace Yuusha.gui
                 m_doubleClickTimer.Stop();
             }
 
+            if (m_rightClickCount == 2)
+            {
+                m_rightClickCount = 0;
+                m_doubleClickTimer.Stop();
+                OnDoubleRightClick();
+            }
+            else if (m_leftClickCount > 2)
+            {
+                m_rightClickCount = 0;
+                m_doubleClickTimer.Stop();
+            }
+
             m_lastUpdate = gameTime.TotalGameTime;
         }
 
@@ -308,7 +330,7 @@ namespace Yuusha.gui
             if (!IsVisible)
                 return;
 
-            if (m_visualKey != null && m_visualKey.Key != "")
+            if (m_visualKey != null && m_visualKey.Key != "" && VisualAlpha > 0)
             {
                 if (!GuiManager.Visuals.ContainsKey(m_visualKey.Key))
                 {
@@ -341,12 +363,12 @@ namespace Yuusha.gui
                 else // Tiled visual (borders, window titles)
                 {
                     // This code needs some work. 2/18/2017. Have to move on.
-                    int desiredWidth = (int)(this.Width / vi.Width);
-                    int desiredHeight = this.Height;
+                    int desiredWidth = Width / vi.Width;
+                    int desiredHeight = Height;
 
                     // What uses tiled visuals?
-                    int xAmount = (int)(this.Width / desiredWidth);
-                    int yAmount = (int)(this.Height / desiredHeight);
+                    int xAmount = Width / desiredWidth;
+                    int yAmount = Height / desiredHeight;
 
                     int countWidth = 0;
                     int countHeight = 0;
@@ -454,6 +476,23 @@ namespace Yuusha.gui
                         }
                     }
 
+                    if(m_mouseRightDown)
+                    {
+                        m_rightClickCount++;
+                        m_doubleClickTimer.Start();
+                        m_mouseRightDown = false;
+
+                        if (Contains(mousePointer))
+                        {
+                            OnMouseRelease(ms);
+                            //if (OnControl != null && !(this is Window) && (!(this is GridBoxWindow) ||
+                            //    ((this is GridBoxWindow) && (this as GridBoxWindow).HasNewData)))
+                            //{
+                            //    OnControl(m_name, Data);
+                            //}
+                        }
+                    }
+
                     bool result = true;
 
                     // ListBoxes need to continuously check mouse since it has sub parts that change on mouse over
@@ -482,6 +521,7 @@ namespace Yuusha.gui
                     // slider sends data while mouse is down
                     if ((this is Slider) && OnControl != null)
                         OnControl(m_name, Data);
+
                     HasFocus = true;
                     return true;
                 }
@@ -513,6 +553,11 @@ namespace Yuusha.gui
         }
 
         protected virtual void OnDoubleLeftClick()
+        {
+            // empty
+        }
+
+        protected virtual void OnDoubleRightClick()
         {
             // empty
         }

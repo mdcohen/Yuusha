@@ -119,6 +119,7 @@
     <Compile Include="gui\controls\StatusBar.cs" />
     <Compile Include="gui\controls\textboxes\TextBox.cs" />
     <Compile Include="gui\controls\windows\HotButtonEditWindow.cs" />
+    <Compile Include="gui\controls\windows\PrivateMessageWindow.cs" />
     <Compile Include="gui\controls\windows\Window.cs" />
     <Compile Include="gui\controls\windows\WindowControlBox.cs" />
     <Compile Include="gui\controls\windows\WindowTitle.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="gui\TextCue.cs" />
     <Compile Include="gui\VisualInfo.cs" />
     <Compile Include="gui\VisualKey.cs" />
+    <Compile Include="gui\XYCoordinate.cs" />
     <Compile Include="IO.cs" />
     <Compile Include="KeyboardHandler.cs" />
     <Compile Include="Program.cs" />
@@ -327,6 +329,9 @@
     <Content Include="media\textures\worldmap.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="media\textures\yuusha_items.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\xml\cursors.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -396,6 +401,7 @@
     </Content>
     <Content Include="media\xml\textures.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="media\xml\visuals\gui_visuals.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -425,6 +431,10 @@
     </Content>
     <Content Include="media\xml\visuals\spinel_tiles.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\xml\visuals\yuusha_items.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

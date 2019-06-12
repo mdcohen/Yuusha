@@ -19,6 +19,7 @@
 	<Visual ParentTexture="lok_people.png" Name="minor_demon" X="780" Y="0" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="nymph" X="840" Y="0" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="question_mark" X="900" Y="0" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="unknown" X="900" Y="0" Width="60" Height="60"></Visual> <!-- identical to above -->
   <!-- Row 2 -->
 	<Visual ParentTexture="lok_people.png" Name="female_thaum_npc" X="0" Y="60" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="orc" X="60" Y="60" Width="60" Height="60"></Visual>
@@ -338,6 +339,9 @@
   <Visual ParentTexture="lok_people.png" Name="drow_matriarch" X="420" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="illithid" X="480" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="beholder" X="540" Y="1080" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="drow_anathema" X="600" Y="1080" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="drow_cleric" X="660" Y="1080" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="drow_master" X="720" Y="1080" Width="60" Height="60"></Visual>
 
   <!-- Added temporary sorcerer visuals which duplicate wizard visuals, 8/14/2013 -->
   <Visual ParentTexture="lok_people.png" Name="male_sorcerer_pc_gray" X="240" Y="720" Width="60" Height="60"></Visual>

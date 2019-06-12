@@ -202,7 +202,7 @@ namespace Yuusha.gui
 
         public static void AddMouseCursorTextCue(string text)
         {
-            AddMouseCursorTextCue(text, Client.UserSettings.ColorDefaultMouseCursorTextCue, GuiManager.CurrentSheet.Font);
+            AddMouseCursorTextCue(text, Client.UserSettings.DefaultMouseCursorTextCueColor, GuiManager.CurrentSheet.Font);
         }
 
         public static void AddMouseCursorTextCue(string text, Color color, string font)

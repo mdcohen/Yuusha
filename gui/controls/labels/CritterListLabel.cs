@@ -7,27 +7,14 @@ namespace Yuusha.gui
 {
     public class CritterListLabel : Label
     {
-        private bool m_centerCell;
-        private Character m_critter;
-        private DropDownMenu m_dropDownMenu;
-
         public Character Critter
-        {
-            get { return m_critter; }
-            set { m_critter = value; }
-        }
+        { get; set; }
 
         public bool CenterCell
-        {
-            get { return m_centerCell; }
-            set { m_centerCell = value; }
-        }
+        { get; set; }
 
         public DropDownMenu DropDownMenu
-        {
-            get { return m_dropDownMenu; }
-            set { m_dropDownMenu = value; }
-        }
+        { get; set; }
 
         public CritterListLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
@@ -49,31 +36,31 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
-            if (!this.IsVisible || this.IsDisabled || this.Critter == null)
+            if (!IsVisible || IsDisabled || Critter == null)
             {
-                if (this.DropDownMenu != null)
-                    this.DropDownMenu = null;
+                if (DropDownMenu != null)
+                    DropDownMenu = null;
             }
 
             base.Update(gameTime);
 
-            if (this.Border != null)
+            if (Border != null)
             {
-                this.Border.IsVisible = false;
+                Border.IsVisible = false;
 
-                if (this.Critter != null && GameHUD.CurrentTarget != null && this.Critter.ID == GameHUD.CurrentTarget.ID)
-                    this.Border.IsVisible = true;
+                if (Critter != null && GameHUD.CurrentTarget != null && this.Critter.ID == GameHUD.CurrentTarget.ID)
+                    Border.IsVisible = true;
             }
 
-            if (this.DropDownMenu != null)
-                this.DropDownMenu.Update(gameTime);
+            if (DropDownMenu != null)
+                DropDownMenu.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
 
-            if (this.DropDownMenu != null)
+            if (DropDownMenu != null)
                 DropDownMenu.Draw(gameTime);
         }
 
@@ -93,7 +80,7 @@ namespace Yuusha.gui
 
         public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
         {
-            this.DropDownMenu = null;
+            DropDownMenu = null;
 
             base.OnClientResize(prev, now, ownerOverride);            
         }
@@ -102,10 +89,10 @@ namespace Yuusha.gui
         {
             base.OnMouseDown(ms);
 
-            if (ms.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && (this.DropDownMenu == null || !this.DropDownMenu.IsVisible))
+            if (ms.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && (DropDownMenu == null || !DropDownMenu.IsVisible))
             {
                 if (Critter != null && Critter != GameHUD.CurrentTarget)
-                    Events.RegisterEvent(Events.EventName.Target_Select, this.Critter);
+                    Events.RegisterEvent(Events.EventName.Target_Select, Critter);
             }
             else if (ms.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
             {
@@ -126,27 +113,27 @@ namespace Yuusha.gui
                     if (Character.Settings.CritterListDropDownMenuItem1 != "")
                     {
                         height += 20;
-                        this.DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem1, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter");
+                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem1, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
                     if (Character.Settings.CritterListDropDownMenuItem2 != "")
                     {
                         height += 20;
-                        this.DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem2, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter");
+                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem2, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
                     if (Character.Settings.CritterListDropDownMenuItem3 != "")
                     {
                         height += 20;
-                        this.DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem3, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter");
+                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem3, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
                     if (Character.Settings.CritterListDropDownMenuItem4 != "")
                     {
                         height += 20;
-                        this.DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem4, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter");
+                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem4, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
                     if (Character.Settings.CritterListDropDownMenuItem5 != "")
                     {
                         height += 20;
-                        this.DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem5, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter");
+                        this.DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem5, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
 
                     DropDownMenu.Height = height;

@@ -16,6 +16,8 @@
 	<File Name="xml\visuals\lok_people.xml"></File>
 	<!-- LOK Item Visuals -->
 	<File Name="xml\visuals\lok_items.xml"></File>
+  <!-- Yuusha Item Visuals -->
+  <File Name="xml\visuals\yuusha_items.xml"></File>
 	<!-- LOK Spell Visuals -->
 	<File Name="xml\visuals\lok_spells.xml"></File>
   <!-- Spinel Icon Visuals -->

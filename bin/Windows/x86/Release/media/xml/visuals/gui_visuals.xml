@@ -66,4 +66,13 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <Visual ParentTexture="ui_helpers.png" Name="Checkmark1WhiteSpace" X="1020" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="Checkmark2" X="960" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="Checkmark2WhiteSpace" X="1020" Y="1140" Width="60" Height="60"></Visual>
+
+  <Visual ParentTexture="ui_helpers.png" Name="OptionGearsIcon" X="300" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="SackIcon" X="360" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="PouchIcon" X="420" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="BeltIcon" X="480" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="RingsIcon" X="540" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="InventoryIcon" X="600" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="LockerIcon" X="660" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="MapIcon" X="720" Y="1200" Width="60" Height="60"></Visual>
 </VisualsIndex>

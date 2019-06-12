@@ -29,7 +29,6 @@ namespace Yuusha
             Goto_Menu,
             Load_Character_Settings,
             Load_Client_Settings,
-            LoadLOKMap,
             Logout,
             New_Game_Round,
             NextLOKTile,
@@ -48,6 +47,7 @@ namespace Yuusha
             Send_Command,
             Send_Account_Name,
             Send_Password,
+            Send_Tell,
             Send_Text,
             Set_CharGen_State,
             Set_Client_Mode,
@@ -59,7 +59,9 @@ namespace Yuusha
             TabControl,
             Target_Cleared,
             Target_Select,
+            TextBox_DropDown,
             Toggle_AutoRoller,
+            Toggle_OptionsWindow,
             User_Settings_Changed,
         }
 
@@ -142,6 +144,7 @@ namespace Yuusha
 
                                             (menu.DropDownMenuOwner as CritterListLabel).DropDownMenu.IsDisabled = true;
                                             (menu.DropDownMenuOwner as CritterListLabel).DropDownMenu.IsVisible = false;
+                                            GuiManager.GenericSheet.RemoveControl((menu.DropDownMenuOwner as CritterListLabel).DropDownMenu);
                                             (menu.DropDownMenuOwner as CritterListLabel).DropDownMenu = null;
                                         }
 
@@ -192,8 +195,9 @@ namespace Yuusha
                         break;
                     #endregion
                     case EventName.CharGen_Lore:
+                        #region Character Generation Lore
                         Dictionary<string, string> dictionaryInfo = new Dictionary<string, string>();
-                        switch(CharGen.CharGenState)
+                        switch (CharGen.CharGenState)
                         {
                             case Enums.ECharGenState.ChooseHomeland:
                                 CharGen.SelectedHomeland = (args[0] as Button).Text;
@@ -209,13 +213,15 @@ namespace Yuusha
                         System.Threading.Tasks.Task task = new System.Threading.Tasks.Task(() => CharGen.PopulateInfoTextBox((args[0] as Button).Text, dictionaryInfo));
                         task.Start();
                         task.Wait();
-                        break;
+                        break; 
+                    #endregion
                     case EventName.Close_Window:
                         Window w = GuiManager.GetControl((args[0] as Control).Owner) as Window;
                         if (w != null)
                             w.OnClose();
                         break;
                     case EventName.Connect:
+                        // TODO: play modem connect sound??
                         #region Connect
                         if (IO.LoginState != Enums.ELoginState.NewAccount)
                         {
@@ -384,8 +390,33 @@ namespace Yuusha
                     #endregion
                     case EventName.Display_Conference_Text:
                         #region Display Conference Text
-                        (GuiManager.CurrentSheet["ConfScrollableTextBox"] as gui.ScrollableTextBox).AddLine(
-                            (string) args[0], (Enums.ETextType) args[1]);
+                        
+                        string message = (string)args[0];
+                        // detect tells
+                        // decide above if message will also be put into conference scrollable box
+                        bool privateMessage = false;
+                        if (Client.ClientSettings.DisplayPrivateMessageWindows)
+                        {
+                            if (message.IndexOf("tells you,") != -1 && message.Split(" ".ToCharArray())[1] == "tells")
+                            {
+                                PrivateMessageWindow pmWindow2 = PrivateMessageWindow.CreateNewPrivateMessageWindow(message.Split(" ".ToCharArray())[0]);
+                                pmWindow2.ReceivedMessage(message);
+                                privateMessage = true;
+                            }
+                            else if (message.StartsWith("You tell"))
+                            {
+                                string[] pm = message.Split(" ".ToCharArray());
+
+                                PrivateMessageWindow pmWindow2 = PrivateMessageWindow.CreateNewPrivateMessageWindow(pm[2].Substring(0, pm[2].Length - 1));
+                                pmWindow2.SentMessage(message);
+                                privateMessage = true;
+                            }
+                        }
+
+                        if(!privateMessage || (privateMessage && Client.ClientSettings.EchoPrivateMessagesToConference))
+                        {
+                            (GuiManager.CurrentSheet["ConfScrollableTextBox"] as gui.ScrollableTextBox).AddLine((string)args[0], (Enums.ETextType)args[1]);
+                        }
                         break;
                         #endregion
                     case EventName.Display_Game_Text:
@@ -394,26 +425,49 @@ namespace Yuusha
                         switch (Client.GameDisplayMode)
                         {
                             case Enums.EGameDisplayMode.Spinel:
-                                gui.SpinelMode.DisplayGameText((string) args[0], Enums.ETextType.Default);
-
-                                if ((string) args[0] == TextManager.YOU_ARE_STUNNED)
-                                    gui.TextCue.AddPromptStateTextCue(Protocol.PromptStates.Stunned);
-
-                                if (Client.ClientSettings.DisplayChantingTextCue)
+                                message = (string)args[0];
+                                privateMessage = false;
+                                if (Client.ClientSettings.DisplayPrivateMessageWindows)
                                 {
-                                    if (args[0].ToString().StartsWith("You warm the spell "))
+                                    if (message.IndexOf("tells you,") != -1 && message.Split(" ".ToCharArray())[1] == "tells")
                                     {
-                                        string findSpellName = args[0].ToString().Replace("You warm the spell ", "");
-                                        findSpellName = findSpellName.Replace(".", "");
-                                        //Utils.Log("Spells Count: " + Character.CurrentCharacter.Spells.Count + " Looking for: " + findSpellName);
-                                        foreach (Spell spell in Character.CurrentCharacter.Spells)
+                                        PrivateMessageWindow pmWindow2 = PrivateMessageWindow.CreateNewPrivateMessageWindow(message.Split(" ".ToCharArray())[0]);
+                                        pmWindow2.ReceivedMessage(message);
+                                        privateMessage = true;
+                                    }
+                                    else if (message.StartsWith("You tell"))
+                                    {
+                                        string[] pm = message.Split(" ".ToCharArray());
+
+                                        PrivateMessageWindow pmWindow2 = PrivateMessageWindow.CreateNewPrivateMessageWindow(pm[2].Substring(0, pm[2].Length - 1));
+                                        pmWindow2.SentMessage(message);
+                                        privateMessage = true;
+                                    }
+                                }
+
+                                if (!privateMessage || (privateMessage && Client.ClientSettings.EchoPrivateMessagesToConference))
+                                {
+                                    SpinelMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
+
+                                    if ((string)args[0] == TextManager.YOU_ARE_STUNNED)
+                                        TextCue.AddPromptStateTextCue(Protocol.PromptStates.Stunned);
+
+                                    if (Client.ClientSettings.DisplayChantingTextCue)
+                                    {
+                                        if (args[0].ToString().StartsWith("You warm the spell "))
                                         {
-                                            Utils.Log("Spell: " + spell.Name);
-                                            if (spell.Name == findSpellName)
+                                            string findSpellName = args[0].ToString().Replace("You warm the spell ", "");
+                                            findSpellName = findSpellName.Replace(".", "");
+                                            //Utils.Log("Spells Count: " + Character.CurrentCharacter.Spells.Count + " Looking for: " + findSpellName);
+                                            foreach (Spell spell in Character.CurrentCharacter.Spells)
                                             {
-                                                //Utils.Log("Found spell: " + findSpellName);
-                                                //TextCue.AddChantingTextCue(spell.Incantation);
-                                                break;
+                                                Utils.Log("Spell: " + spell.Name);
+                                                if (spell.Name == findSpellName)
+                                                {
+                                                    //Utils.Log("Found spell: " + findSpellName);
+                                                    //TextCue.AddChantingTextCue(spell.Incantation);
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
@@ -424,17 +478,6 @@ namespace Yuusha
                                     // TODO: temporary until texttypes done
                                 if ((string) args[0] == TextManager.YOU_ARE_STUNNED)
                                     gui.TextCue.AddPromptStateTextCue(Protocol.PromptStates.Stunned);
-                                if (Client.ClientSettings.DisplayChantingTextCue)
-                                {
-                                    //if (args[0].ToString().StartsWith("You warm the spell "))
-                                    //{
-                                    //    string findSpellName = args[0].ToString().Replace("You warm the spell ", "");
-                                    //    findSpellName = findSpellName.Replace(".", "");
-                                    //    foreach (Spell spell in Character.CurrentCharacter.Spells)
-                                    //        if (spell.Name == findSpellName)
-                                    //            TextCue.AddChantingTextCue(spell.Incantation);
-                                    //}
-                                }
                                 break;
                             case Enums.EGameDisplayMode.LOK:
                                 break;
@@ -527,10 +570,9 @@ namespace Yuusha
                         RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Menu);
                         break; 
                     #endregion
-                    case EventName.LoadLOKMap:
-                        break;
                     case EventName.Logout:
-                        switch(Client.GameState)
+                        #region Logout
+                        switch (Client.GameState)
                         {
                             case Enums.EGameState.Menu:
                                 IO.Send("3");
@@ -542,7 +584,8 @@ namespace Yuusha
                         ResetLoginGUI();
                         RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
                         RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
-                        break;
+                        break; 
+                    #endregion
                     case EventName.Next_Visual:
                         #region Next Visual
                         Window VisualKeyWindow = GuiManager.GenericSheet["VisualKeyWindow"] as Window;
@@ -616,22 +659,58 @@ namespace Yuusha
                                 control.VisualKey = gui.LOKMode.Tiles[gui.LOKMode.Codes[0]].VisualKey;
                             else control.VisualKey = gui.LOKMode.Tiles[gui.LOKMode.Codes[index]].VisualKey;
                             break;
-                        } 
+                        }
                     #endregion
+                    case EventName.Request_Belt:
+                        IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                        break;
+                    case EventName.Request_Effects:
+                        IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
+                        break;
+                    case EventName.Request_Inventory:
+                        IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
+                        break;
+                    case EventName.Request_Locker:
+                        IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                        break;
+                    case EventName.Request_Pouch:
+                        IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                        break;
+                    case EventName.Request_Rings:
+                        IO.Send(Protocol.REQUEST_CHARACTER_RINGS);
+                        break;
+                    case EventName.Request_Sack:
+                        IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                        break;
+                    case EventName.Request_Skills:
+                        IO.Send(Protocol.REQUEST_CHARACTER_SKILLS);
+                        break;
+                    case EventName.Request_Spells:
+                        IO.Send(Protocol.REQUEST_CHARACTER_SPELLS);
+                        break;
                     case EventName.Send_Account_Name:
                         IO.Send((GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["AccountTextBox"].Text);
                         break;
                     case EventName.Send_Password:
                         IO.Send((GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["PasswordTextBox"].Text);
                         break;
+                    case EventName.Send_Tell:
+                        #region Send Tell
+                        string tellToSend = (args[0] as Control).Text;
+                        PrivateMessageWindow pmWindow = GuiManager.GenericSheet[(args[0] as Control).Owner] as PrivateMessageWindow;
+                        tellToSend = "tell " + pmWindow.RecipientName + " " + tellToSend;
+                        if (Client.GameState == Enums.EGameState.Conference)
+                            tellToSend = "/" + tellToSend;
+                        IO.Send(tellToSend);
+                        (args[0] as TextBox).SelectAll();
+                        break; 
+                    #endregion
                     case EventName.Send_Text:
                         #region Send Text
                         {
                             string textToSend = (args[0] as Control).Text;
                             if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
-                            {
                                 textToSend = textToSend.Replace("%t", GameHUD.CurrentTarget.ID.ToString());
-                            }
 
                             if (textToSend != "")
                                 IO.Send(textToSend);
@@ -639,8 +718,8 @@ namespace Yuusha
                         }
                     #endregion
                     case EventName.Send_Command:
-                        if ((args[0] as Control) is Button)
-                            IO.Send((args[0] as Button).Command);
+                        if (args[0] is Control)
+                            IO.Send((args[0] as Control).Command);
                         break;
                     case EventName.Set_CharGen_State:
                         CharGen.CharGenState = (Enums.ECharGenState)args[0];
@@ -746,20 +825,65 @@ namespace Yuusha
                         Character.CurrentCharacter = Account.GetNextCharacter();
                         IO.Send(Protocol.SWITCH_CHARACTER + " " + Character.CurrentCharacter.ID);
                         break;
+                    case EventName.TextBox_DropDown:
+                        #region TextBox_DropDown
+                        if (args.Length >= 1 && args[0] is Control)
+                        {
+                            Control control = (Control)args[0];
+
+                            if (control != null)
+                            {
+                                if (control is DropDownMenuItem)
+                                {
+                                    DropDownMenu menu = (control as DropDownMenuItem).DropDownMenu;
+                                    TextBox textBox = GuiManager.GetControl(menu.Owner) as TextBox;
+
+                                    switch (control.Text.ToLower())
+                                    {
+                                        case "cut":
+                                            textBox.SelectAll();
+                                            Utils.SetClipboardText(textBox.Text.Substring(textBox.SelectionStart, textBox.SelectionLength));
+                                            textBox.Clear();
+                                            break;
+                                        case "copy":
+                                            textBox.SelectAll();
+                                            Utils.SetClipboardText(textBox.Text.Substring(textBox.SelectionStart, textBox.SelectionLength));
+                                            break;
+                                        case "paste":
+                                            if (textBox.SelectionLength > 0)
+                                                textBox.ReplaceSelectedText(Utils.GetClipboardText());
+                                            else textBox.InsertClipboardText();
+                                            break;
+                                        case "delete":
+                                            textBox.SelectAll();
+                                            textBox.Clear();
+                                            break;
+                                    }
+
+                                    GuiManager.CurrentSheet.RemoveControl(menu);
+                                    textBox.DropDownMenu = null;
+                                    menu = null;
+                                }
+                            }
+                        }
+                        break;
+                    #endregion
                     case EventName.Toggle_AutoRoller:
-                        if(CharGen.CharGenState != Enums.ECharGenState.ReviewStats)
+                        #region Toggle_AutoRoller
+                        if (CharGen.CharGenState != Enums.ECharGenState.ReviewStats)
                         {
                             TextCue.AddClientInfoTextCue("Auto roller may be enabled when reviewing your first stats roll.", 4000);
                             return;
                         }
                         CharGen.AutoRollerEnabled = !CharGen.AutoRollerEnabled;
                         (GuiManager.CurrentSheet["CharGenToggleAutoRollerButton"] as Button).Text = "Toggle Auto Roller " + (CharGen.AutoRollerEnabled ? "Off" : "On");
-                        if(CharGen.AutoRollerEnabled && CharGen.CharGenState == Enums.ECharGenState.ReviewStats && !CharGen.DesiredStatsAchieved())
+                        if (CharGen.AutoRollerEnabled && CharGen.CharGenState == Enums.ECharGenState.ReviewStats && !CharGen.DesiredStatsAchieved())
                         {
                             CharGen.AutoRollerStartTime = DateTime.Now;
                             IO.Send("y");
                         }
-                        break;
+                        break; 
+                    #endregion
                     case EventName.Client_Settings_Changed:
                         Client.ClientSettings.Save();
                         break;
@@ -1014,6 +1138,16 @@ namespace Yuusha
 
                             TextCue.AddClientInfoTextCue("Target: " + targetName, TextCue.TextCueTag.None, Color.Red,
                                                          Color.Transparent, 2000, false, false, false);
+                        }
+                        break;
+                    case EventName.Toggle_OptionsWindow:
+                        gui.Window optWindow = gui.GuiManager.GenericSheet["OptionsWindow"] as gui.Window;
+                        if (optWindow != null)
+                        {
+                            if (!optWindow.IsVisible)
+                                Events.RegisterEvent(Events.EventName.Load_Character_Settings);
+                            optWindow.IsVisible = !optWindow.IsVisible;
+                            optWindow.HasFocus = optWindow.IsVisible;
                         }
                         break;
                     case EventName.Load_Character_Settings:
@@ -1368,17 +1502,10 @@ namespace Yuusha
                                 // Place focus on the input text box.
                                 if (sheet[Globals.CONFINPUTTEXTBOX] != null)
                                 {
-                                    // Options window is only other typing textboxes with focus while in IOK mode currently.
-                                    if (GuiManager.ControlWithFocus != null && !GuiManager.ControlWithFocus.Name.EndsWith("OptionsWindow") && GuiManager.ControlWithFocus.Owner.EndsWith("OptionsWindow"))
-                                    {
+                                    // Overrides to focus on input text box.
+                                    // Options window and private messages have focus priority.
+                                    if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage"))
                                         sheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
-                                        GuiManager.ActiveTextBox = Globals.CONFINPUTTEXTBOX;
-                                    }
-
-                                    if (GuiManager.ControlWithFocus != null && !GuiManager.ControlWithFocus.Owner.EndsWith("OptionsWindow"))
-                                    {
-                                        sheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
-                                    }
                                 }
                             }
                             else
@@ -1392,10 +1519,10 @@ namespace Yuusha
                     case Enums.EGameState.Game:
                         break;
                     case Enums.EGameState.SpinelGame:
-                        gui.SpinelMode.UpdateGUI(gameTime, sheet);
+                        SpinelMode.UpdateGUI(gameTime, sheet);
                         break;
                     case Enums.EGameState.IOKGame:
-                        gui.IOKMode.UpdateGUI(gameTime, sheet);
+                        IOKMode.UpdateGUI(gameTime, sheet);
                         break;
                 }
             }

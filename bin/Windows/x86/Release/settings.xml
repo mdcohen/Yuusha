@@ -4,12 +4,32 @@
   <ServerHost>www.dragonsspine.com</ServerHost>
   <ServerPort>3000</ServerPort>
   <ShowSplash>false</ShowSplash>
-  <DefaultFont>legends16</DefaultFont>
-  <DefaultPopUpColor>Cyan</DefaultPopUpColor>
+  <DefaultFont>courier16</DefaultFont>
+  <ColorDefaultPopUpFore>
+    <B>255</B>
+    <G>255</G>
+    <R>0</R>
+    <A>255</A>
+    <PackedValue>4294967040</PackedValue>
+  </ColorDefaultPopUpFore>
+  <ColorDefaultPopUpBack>
+    <B>0</B>
+    <G>0</G>
+    <R>0</R>
+    <A>0</A>
+    <PackedValue>0</PackedValue>
+  </ColorDefaultPopUpBack>
+  <DefaultPopUpFont>courier16</DefaultPopUpFont>
   <DefaultDropDownMenuFont>courier12</DefaultDropDownMenuFont>
   <DisplayChantingTextCue>true</DisplayChantingTextCue>
   <StartFullScreen>false</StartFullScreen>
   <PlayAudioWhenClientDeactivated>true</PlayAudioWhenClientDeactivated>
+  <PlayPrivateMessageSounds>true</PlayPrivateMessageSounds>
+  <PlayModemDialOnConnect>true</PlayModemDialOnConnect>
+  <EchoPrivateMessagesToConference>true</EchoPrivateMessagesToConference>
+  <EchoPrivateMessagesToGame>true</EchoPrivateMessagesToGame>
+  <DisplayPrivateMessageWindows>true</DisplayPrivateMessageWindows>
+  <EchoGroundItemsOnExamination>false</EchoGroundItemsOnExamination>
   <StoredAccounts>
     <EncryptedKeyValuePairOfStringString>
       <Key>TL7JKi7e9HPChorCBUHc6w==</Key>

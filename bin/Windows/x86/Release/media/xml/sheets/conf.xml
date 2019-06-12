@@ -338,7 +338,7 @@
 		DropShadow="true"
 		ShadowDistance="5"
 		ShadowDirection="Northwest"
-		AnchorTop="true"
+		AnchorBottom="true"
 		AnchorRight="true">
   </Control>
 </Sheet>

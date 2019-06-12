@@ -122,15 +122,18 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            Control control = GuiManager.GetControl(m_owner);
+            //Control control = GuiManager.GetControl(m_owner);
 
-            if (control != null)
-            {
-                // Decision should be made here to have the WindowTitle draw above the Window Rectangle or within.
-                Point p = control.Position;
-                m_rectangle = new Rectangle(p.X, p.Y, control.Width, Height);// m_height);
-                //m_rectangle = new Rectangle(p.X, p.Y - this.Height, control.Width, Height);
-            }
+            //if (control != null)
+            //{
+            //    // Decision should be made here to have the WindowTitle draw above the Window Rectangle or within.
+            //    if (!(control is AutoHidingWindow))
+            //    {
+            //        Point p = control.Position;
+            //        m_rectangle = new Rectangle(p.X, p.Y, control.Width, Height);
+            //    }
+            //    else (control as AutoHidingWindow).SetWindowOrientation();
+            //}
 
             if (m_closeBox != null)
                 m_closeBox.Update(gameTime);

@@ -39,6 +39,11 @@ namespace Yuusha
 
         public static int[] maxWearable = { 0, 1, 1, 0, 1, 2, 1, 1, 1, 1, 0, 2, 1, 2, 8, 1, 1, 0, 1, 1, 1, 1 };
 
+        private static readonly XYCoordinate[] directions =
+        {
+            new XYCoordinate(-1, -1), new XYCoordinate(-1, 0), new XYCoordinate(-1, 1), new XYCoordinate(0, -1), new XYCoordinate(0, 1), new XYCoordinate(1, -1),
+            new XYCoordinate(1, 0), new XYCoordinate(1, 1)
+        };
         private static Character m_currentCharacter;
         private static Character m_previousRoundCharacter = new Character();
 
@@ -288,7 +293,7 @@ namespace Yuusha
                         for (a = 0; a < pcSkills.Length; a++)
                         {
                             string[] skillInfo = pcSkills[a].Split(Protocol.ASPLIT.ToCharArray());
-                            m_currentCharacter.SetSkillExperience((Character.SkillType)Convert.ToInt32(skillInfo[0]), Convert.ToInt64(skillInfo[1]));
+                            m_currentCharacter.SetSkillExperience((SkillType)Convert.ToInt32(skillInfo[0]), Convert.ToInt64(skillInfo[1]));
                         }
                     }
                     catch (Exception e)
@@ -388,8 +393,8 @@ namespace Yuusha
                         {
                             for (a = 0; a < pcPouch.Length; a++)
                             {
-                                Item sackItem = new Item(pcPouch[a]);
-                                m_currentCharacter.Sack.Add(sackItem);
+                                Item pouchItem = new Item(pcPouch[a]);
+                                m_currentCharacter.Pouch.Add(pouchItem);
                             }
                         }
                     }
@@ -1023,6 +1028,24 @@ namespace Yuusha
         public Character Clone()
         {
             return (Character)this.MemberwiseClone();
+        }
+
+        private static string GetDirectionString(XYCoordinate beg, XYCoordinate end)
+        {
+            XYCoordinate dp = end - beg;
+            string lhs = "", rhs = "";
+
+            if (dp.y == -1)
+                lhs = "n";
+            else if (dp.y == 1)
+                lhs = "s";
+
+            if (dp.x == -1)
+                rhs = "w";
+            else if (dp.x == 1)
+                rhs = "e";
+
+            return lhs + rhs;
         }
     }
 }

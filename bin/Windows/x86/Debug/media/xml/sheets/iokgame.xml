@@ -397,7 +397,8 @@
 		AnchorBottom="true"
 		AnchorLeft="true">
 	</Control>
-	
+
+  <CritterListLabels>
 	<!-- Critter List -->
 	<Control
 		Type="CritterListLabel"
@@ -603,7 +604,9 @@
 		AnchorTop="true"
 		AnchorLeft="true">
 	</Control>
+  </CritterListLabels>
 
+  <IOKTileLabels>
 	<!-- Map Display Row 1-->
 	<Control
 		Type="IOKTileLabel"
@@ -1542,4 +1545,5 @@
 		AnchorTop="true"
 		AnchorLeft="true">
 	</Control>
+  </IOKTileLabels>
 </Sheet>

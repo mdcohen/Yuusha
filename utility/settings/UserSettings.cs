@@ -13,7 +13,7 @@ namespace Yuusha.Utility.Settings
     /// </summary>
     public class UserSettings
     {
-        public bool SoundEffects = true;
+        public bool SoundEffects = true; // master setting for sound
         public bool FullScreen = false;
         public string DefaultGameDisplayMode = "IOK";
         public bool AutoDisplayNews = true;
@@ -41,34 +41,60 @@ namespace Yuusha.Utility.Settings
 
         public Color Color_Gui_Spell_Warming_TextCue = Color.PaleGoldenrod;
 
-        public Color ColorDropDownMenuBorder = Color.White;
+        public Color ColorDropDownMenuBorder = Color.MediumOrchid; // 6/8/2019 not being drawn
         public Color ColorDropDownMenu = Color.Gray;
         public Color ColorDropDownMenuItemBackground = Color.Black;
         public Color ColorDropDownMenuTitleText = Color.LightCyan;
-        public Color ColorDropDownMenuItemText = Color.LightGreen;
-        public Color ColorDropDownMenuItemHighlight = Color.DarkSlateGray;
-        
+        public Color ColorDropDownMenuItemText = Color.PaleGreen;
+        public Color ColorDropDownMenuItemHighlight = Color.White;
+        public Color ColorDropDownMenuItemTextDisabled = Color.DarkGray;
+
         public byte GridBoxWindowVisualKeyAlpha = 255;
         public byte GridBoxWindowBorderAlpha = 255;
         public string GridBoxWindowFont = "courier16";
+
         public Color ColorGridBoxWindowTintColor = Color.DarkSlateGray;
         public Color GridBoxTitleTextColor = Color.White;
         public Color GridBoxTitleTintColor = Color.Gray;
         public Color GridBoxTitleCloseBoxTintColor = Color.LightSlateGray;
+        public Color GridBoxBorderTintColor = Color.Gray;
+
         public int GridBoxTitleCloseBoxDistanceFromRight = 20;
         public int GridBoxTitleCloseBoxDistanceFromTop = 5;
         public int GridBoxTitleCloseBoxWidth = 18;
         public int GridBoxTitleCloseBoxHeight = 18;
         public int GridBoxTitleHeight = 26;
-        public Color GridBoxBorderTintColor = Color.Gray;
-        public Color AcceptingGridBoxBorderColor = Color.PaleGreen;
         public int GridBoxBorderWidth = 2;
         public int GridBoxButtonsBorderWidth = 1;
 
-        public Color ColorDefaultMouseCursorTextCue = Color.Gold;
+        public Color AcceptingGridBoxBorderColor = Color.PaleGreen;
+        public Color AcceptingGridBoxTitleColor = Color.PaleGreen;
+        public Color AcceptingGridBoxTitleTextColor = Color.DarkOrchid;
 
-        public Color ColorHotButtonText_Fore = Color.Lime;
-        public Color ColorHotButtonText_Back = Color.Purple;
+        public Color PrivateMessageWindowTitleTextColor = Color.White;
+        public Color PrivateMessageWindowTitleTintColor = Color.Gray;
+        public Color PrivateMessageWindowTintColor = Color.DarkGray;
+        public Color PrivateMessageWindowTitleCloseBoxTintColor = Color.LightSlateGray;
+        public Color PrivateMessageWindowTitleCropBoxTintColor = Color.LightSlateGray;
+        public Color PrivateMessageBorderTintColor = Color.Gray;
+
+        public int PrivateMessageWindowTitleCloseBoxDistanceFromRight = 18;
+        public int PrivateMessageWindowTitleCloseBoxDistanceFromTop = 1;
+        public int PrivateMessageWindowTitleCloseBoxWidth = 16;
+        public int PrivateMessageWindowTitleCloseBoxHeight = 16;
+
+        public int PrivateMessageWindowTitleCropBoxDistanceFromRight = 34;
+        public int PrivateMessageWindowTitleCropBoxDistanceFromTop = 2;
+        public int PrivateMessageWindowTitleCropBoxWidth = 16;
+        public int PrivateMessageWindowTitleCropBoxHeight = 16;
+
+        public int PrivateMessageWindowTitleHeight = 18;
+        public int PrivateMessageWindowBorderWidth = 2;
+
+        public Color DefaultMouseCursorTextCueColor = Color.PapayaWhip;
+
+        public Color HotButtonText_ForeColor = Color.Lime;
+        public Color HotButtonText_BackColor = Color.Purple;
         #endregion
 
         public Color TargetBorderColor = Color.WhiteSmoke;

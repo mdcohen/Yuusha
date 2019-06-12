@@ -80,7 +80,7 @@ namespace Yuusha
                     }
                 }
 
-                //System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(100);
             }
 
             Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
@@ -127,8 +127,11 @@ namespace Yuusha
 
         public static bool Connect()
         {
-            if (!TestConnection())
-                return false;
+            if (Client.ClientSettings.ServerHost.ToLower() != "localhost" && Client.ClientSettings.ServerHost != "127.0.0.1")
+            {
+                if (!TestConnection())
+                    return false;
+            }
 
             try
             {
@@ -682,10 +685,12 @@ namespace Yuusha
                                 return true;
                             }
                             #endregion
+                            #region GAME_CHARACTER_DEATH
                             else if (inData.IndexOf(Protocol.GAME_CHARACTER_DEATH) != -1)
                             {
                                 Events.RegisterEvent(Events.EventName.Character_Death, inData.Substring(0, inData.IndexOf(Protocol.GAME_CHARACTER_DEATH)));
-                            }
+                            } 
+                            #endregion
                             #region GAME_POINTER_UPDATE
                             else if (inData.IndexOf(Protocol.GAME_POINTER_UPDATE) != -1)
                             {
@@ -713,6 +718,25 @@ namespace Yuusha
                                 Events.RegisterEvent(Events.EventName.Format_Cell, Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL, Protocol.GAME_CELL_END));
                                 return true;
                             }
+                            else if(inData.IndexOf(Protocol.GAME_CELL_ITEMS_END) != -1) // request was made for cell items info
+                            {
+                                // coords are first, then every item
+                                //Cell cell = new Cell();
+                                string cellItemsInfo =  Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL_ITEMS, Protocol.GAME_CELL_ITEMS_END);
+                                string[] splitInfo = cellItemsInfo.Split(Protocol.ISPLIT.ToCharArray());
+                                string[] coordsInfo = splitInfo[0].Split(Protocol.VSPLIT.ToCharArray());
+                                //cell.xCord = Convert.ToInt16(coordsInfo[0]); cell.yCord = Convert.ToInt16(coordsInfo[1]); cell.zCord = Convert.ToInt32(coordsInfo[2]);
+                                gui.GameHUD.ExaminedCell.Items.Clear();
+                                for (int a = 1; a < splitInfo.Length; a++)
+                                {
+                                    gui.GameHUD.ExaminedCell.Add(gui.IOKMode.FormatCellItem(splitInfo[a]));
+                                }
+
+                                //gui.GameHUD.ExaminedCell = cell;
+
+                                gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Ground);
+
+                            }
                             #endregion
                             #region CHARACTER_HITS_UPDATE_END
                             else if (inData.IndexOf(Protocol.CHARACTER_HITS_UPDATE_END) != -1)
@@ -735,11 +759,14 @@ namespace Yuusha
                                 return true;
                             }
                             #endregion
+                            #region CHARACTER_EXPERIENCE_END
                             else if (inData.IndexOf(Protocol.CHARACTER_EXPERIENCE_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_EXPERIENCE, Protocol.CHARACTER_EXPERIENCE_END), Enums.EPlayerUpdate.Experience);
                                 return true;
                             }
+                            #endregion
+                            #region CHARACTER_PROMPT_STATE_END
                             else if (inData.IndexOf(Protocol.CHARACTER_PROMPT_STATE_END) != -1)
                             {
                                 string promptStateInfo = Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_PROMPT_STATE, Protocol.CHARACTER_PROMPT_STATE_END);
@@ -759,7 +786,8 @@ namespace Yuusha
                                 Protocol.PromptStates promptState = (Protocol.PromptStates)Enum.Parse(typeof(Protocol.PromptStates), promptStateInfo, true);
 
                                 gui.TextCue.AddPromptStateTextCue(promptState);
-                            }
+                            } 
+                            #endregion
                             #region CHARACTER_STATS_END
                             else if (inData.IndexOf(Protocol.CHARACTER_STATS_END) != -1)
                             {
@@ -800,6 +828,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_POUCH_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_POUCH, Protocol.CHARACTER_POUCH_END), Enums.EPlayerUpdate.Pouch);
+                                gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Pouch);
                                 return true;
                             }
                             #endregion
@@ -815,6 +844,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_RINGS_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_RINGS, Protocol.CHARACTER_RINGS_END), Enums.EPlayerUpdate.Rings);
+                                gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Rings);
                                 return true;
                             }
                             #endregion
@@ -822,6 +852,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_LOCKER_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_LOCKER, Protocol.CHARACTER_LOCKER_END), Enums.EPlayerUpdate.Locker);
+                                gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Locker);
                                 return true;
                             }
                             #endregion

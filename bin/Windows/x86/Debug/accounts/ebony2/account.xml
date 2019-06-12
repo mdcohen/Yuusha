@@ -115,11 +115,11 @@
     <PackedValue>4289390830</PackedValue>
   </Color_Gui_Spell_Warming_TextCue>
   <ColorDropDownMenuBorder>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
+    <B>211</B>
+    <G>85</G>
+    <R>186</R>
     <A>255</A>
-    <PackedValue>4294967295</PackedValue>
+    <PackedValue>4292040122</PackedValue>
   </ColorDropDownMenuBorder>
   <ColorDropDownMenu>
     <B>128</B>
@@ -143,19 +143,26 @@
     <PackedValue>4294967264</PackedValue>
   </ColorDropDownMenuTitleText>
   <ColorDropDownMenuItemText>
-    <B>144</B>
-    <G>238</G>
-    <R>144</R>
+    <B>152</B>
+    <G>251</G>
+    <R>152</R>
     <A>255</A>
-    <PackedValue>4287688336</PackedValue>
+    <PackedValue>4288215960</PackedValue>
   </ColorDropDownMenuItemText>
   <ColorDropDownMenuItemHighlight>
-    <B>79</B>
-    <G>79</G>
-    <R>47</R>
+    <B>255</B>
+    <G>255</G>
+    <R>255</R>
     <A>255</A>
-    <PackedValue>4283387695</PackedValue>
+    <PackedValue>4294967295</PackedValue>
   </ColorDropDownMenuItemHighlight>
+  <ColorDropDownMenuItemTextDisabled>
+    <B>169</B>
+    <G>169</G>
+    <R>169</R>
+    <A>255</A>
+    <PackedValue>4289309097</PackedValue>
+  </ColorDropDownMenuItemTextDisabled>
   <GridBoxWindowVisualKeyAlpha>255</GridBoxWindowVisualKeyAlpha>
   <GridBoxWindowBorderAlpha>255</GridBoxWindowBorderAlpha>
   <GridBoxWindowFont>courier16</GridBoxWindowFont>
@@ -187,11 +194,6 @@
     <A>255</A>
     <PackedValue>4288252023</PackedValue>
   </GridBoxTitleCloseBoxTintColor>
-  <GridBoxTitleCloseBoxDistanceFromRight>20</GridBoxTitleCloseBoxDistanceFromRight>
-  <GridBoxTitleCloseBoxDistanceFromTop>5</GridBoxTitleCloseBoxDistanceFromTop>
-  <GridBoxTitleCloseBoxWidth>18</GridBoxTitleCloseBoxWidth>
-  <GridBoxTitleCloseBoxHeight>18</GridBoxTitleCloseBoxHeight>
-  <GridBoxTitleHeight>26</GridBoxTitleHeight>
   <GridBoxBorderTintColor>
     <B>128</B>
     <G>128</G>
@@ -199,6 +201,13 @@
     <A>255</A>
     <PackedValue>4286611584</PackedValue>
   </GridBoxBorderTintColor>
+  <GridBoxTitleCloseBoxDistanceFromRight>20</GridBoxTitleCloseBoxDistanceFromRight>
+  <GridBoxTitleCloseBoxDistanceFromTop>5</GridBoxTitleCloseBoxDistanceFromTop>
+  <GridBoxTitleCloseBoxWidth>18</GridBoxTitleCloseBoxWidth>
+  <GridBoxTitleCloseBoxHeight>18</GridBoxTitleCloseBoxHeight>
+  <GridBoxTitleHeight>26</GridBoxTitleHeight>
+  <GridBoxBorderWidth>2</GridBoxBorderWidth>
+  <GridBoxButtonsBorderWidth>1</GridBoxButtonsBorderWidth>
   <AcceptingGridBoxBorderColor>
     <B>152</B>
     <G>251</G>
@@ -206,29 +215,93 @@
     <A>255</A>
     <PackedValue>4288215960</PackedValue>
   </AcceptingGridBoxBorderColor>
-  <GridBoxBorderWidth>2</GridBoxBorderWidth>
-  <GridBoxButtonsBorderWidth>1</GridBoxButtonsBorderWidth>
-  <ColorDefaultMouseCursorTextCue>
-    <B>0</B>
-    <G>215</G>
+  <AcceptingGridBoxTitleColor>
+    <B>152</B>
+    <G>251</G>
+    <R>152</R>
+    <A>255</A>
+    <PackedValue>4288215960</PackedValue>
+  </AcceptingGridBoxTitleColor>
+  <AcceptingGridBoxTitleTextColor>
+    <B>204</B>
+    <G>50</G>
+    <R>153</R>
+    <A>255</A>
+    <PackedValue>4291572377</PackedValue>
+  </AcceptingGridBoxTitleTextColor>
+  <PrivateMessageWindowTitleTextColor>
+    <B>255</B>
+    <G>255</G>
     <R>255</R>
     <A>255</A>
-    <PackedValue>4278245375</PackedValue>
-  </ColorDefaultMouseCursorTextCue>
-  <ColorHotButtonText_Fore>
+    <PackedValue>4294967295</PackedValue>
+  </PrivateMessageWindowTitleTextColor>
+  <PrivateMessageWindowTitleTintColor>
+    <B>128</B>
+    <G>128</G>
+    <R>128</R>
+    <A>255</A>
+    <PackedValue>4286611584</PackedValue>
+  </PrivateMessageWindowTitleTintColor>
+  <PrivateMessageWindowTintColor>
+    <B>169</B>
+    <G>169</G>
+    <R>169</R>
+    <A>255</A>
+    <PackedValue>4289309097</PackedValue>
+  </PrivateMessageWindowTintColor>
+  <PrivateMessageWindowTitleCloseBoxTintColor>
+    <B>153</B>
+    <G>136</G>
+    <R>119</R>
+    <A>255</A>
+    <PackedValue>4288252023</PackedValue>
+  </PrivateMessageWindowTitleCloseBoxTintColor>
+  <PrivateMessageWindowTitleCropBoxTintColor>
+    <B>153</B>
+    <G>136</G>
+    <R>119</R>
+    <A>255</A>
+    <PackedValue>4288252023</PackedValue>
+  </PrivateMessageWindowTitleCropBoxTintColor>
+  <PrivateMessageBorderTintColor>
+    <B>128</B>
+    <G>128</G>
+    <R>128</R>
+    <A>255</A>
+    <PackedValue>4286611584</PackedValue>
+  </PrivateMessageBorderTintColor>
+  <PrivateMessageWindowTitleCloseBoxDistanceFromRight>18</PrivateMessageWindowTitleCloseBoxDistanceFromRight>
+  <PrivateMessageWindowTitleCloseBoxDistanceFromTop>1</PrivateMessageWindowTitleCloseBoxDistanceFromTop>
+  <PrivateMessageWindowTitleCloseBoxWidth>16</PrivateMessageWindowTitleCloseBoxWidth>
+  <PrivateMessageWindowTitleCloseBoxHeight>16</PrivateMessageWindowTitleCloseBoxHeight>
+  <PrivateMessageWindowTitleCropBoxDistanceFromRight>34</PrivateMessageWindowTitleCropBoxDistanceFromRight>
+  <PrivateMessageWindowTitleCropBoxDistanceFromTop>2</PrivateMessageWindowTitleCropBoxDistanceFromTop>
+  <PrivateMessageWindowTitleCropBoxWidth>16</PrivateMessageWindowTitleCropBoxWidth>
+  <PrivateMessageWindowTitleCropBoxHeight>16</PrivateMessageWindowTitleCropBoxHeight>
+  <PrivateMessageWindowTitleHeight>18</PrivateMessageWindowTitleHeight>
+  <PrivateMessageWindowBorderWidth>2</PrivateMessageWindowBorderWidth>
+  <DefaultMouseCursorTextCueColor>
+    <B>213</B>
+    <G>239</G>
+    <R>255</R>
+    <A>255</A>
+    <PackedValue>4292210687</PackedValue>
+  </DefaultMouseCursorTextCueColor>
+  <HotButtonText_ForeColor>
     <B>0</B>
     <G>255</G>
     <R>0</R>
     <A>255</A>
     <PackedValue>4278255360</PackedValue>
-  </ColorHotButtonText_Fore>
-  <ColorHotButtonText_Back>
+  </HotButtonText_ForeColor>
+  <HotButtonText_BackColor>
     <B>128</B>
     <G>0</G>
     <R>128</R>
     <A>255</A>
     <PackedValue>4286578816</PackedValue>
-  </ColorHotButtonText_Back>
+  </HotButtonText_BackColor>
   <TargetBorderColor>
     <B>245</B>
     <G>245</G>

@@ -1,0 +1,5 @@
+6/10/2019 9:26:35 PM: {Exception} Object reference not set to an instance of an object. Stack:    at Yuusha.Events.ResetLoginGUI() in C:\Users\mikec\Desktop\YuushaMG\Events.cs:line 1522
+6/10/2019 9:36:34 PM: {Exception} Destination array was not long enough. Check destIndex and length, and the array's lower bounds. Stack:    at System.Array.Copy(Array sourceArray, Int32 sourceIndex, Array destinationArray, Int32 destinationIndex, Int32 length, Boolean reliable)
+   at System.Collections.Generic.List`1.CopyTo(T[] array)
+   at Yuusha.gui.ScrollableTextBox.Draw(GameTime gameTime) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\textboxes\ScrollableTextBox.cs:line 220
+   at Yuusha.gui.Sheet.Draw(GameTime gameTime) in C:\Users\mikec\Desktop\YuushaMG\gui\Sheet.cs:line 204

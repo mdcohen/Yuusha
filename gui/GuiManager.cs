@@ -58,40 +58,31 @@ namespace Yuusha.gui
         public static GenericSheet GenericSheet
         {
             get { return m_genericSheet; }
-            set { m_genericSheet = value; }
         }
         public static Control DraggedControl
         {
             get { return m_draggedControl; }
         }
         public static bool Dragging
-        {
-            get; set;
-        }
-        public static int DraggingXOffset
-        {
-            get { return m_dragingXOffset; }
-        }
-        public static int DraggingYOffset
-        {
-            get { return m_draggingYOffset; }
-            set { m_draggingYOffset = value; }
-        }
+        { get; set; }
+        //public static int DraggingXOffset
+        //{
+        //    get { return m_dragingXOffset; }
+        //}
+        //public static int DraggingYOffset
+        //{
+        //    get { return m_draggingYOffset; }
+        //    set { m_draggingYOffset = value; }
+        //}
         public static Control ControlWithFocus
         {
             get { return m_controlWithFocus; }
             set { if (!(value is Window)) m_controlWithFocus = value; }
         }
         public static string ActiveTextBox
-        {
-            get { return m_activeTextBox; }
-            set { m_activeTextBox = value; }
-        }
+        { get; set; }
         public static string OpenComboBox
-        {
-            get { return m_openComboBox; }
-            set { m_openComboBox = value; }
-        }
+        { get; set;}
         public static KeyboardState KeyboardState
         {
             get { return Keyboard.GetState(); }
@@ -447,6 +438,11 @@ namespace Yuusha.gui
                                 int minValue = 3;
 
                                 List<Enums.EAnchorType> anchors = new List<Enums.EAnchorType>();
+                                Enums.EAnchorType windowTitleOrientation = Enums.EAnchorType.Top;
+                                int autoHideVisualAlpha = 0;
+                                bool fadeIn = false;
+                                bool fadeOut = true;
+                                int fadeSpeed = 2; // how quickly a fading AutoHidingWindow fades in and out
                                 // used for generic sheet controls to limit visibility
                                 List<Enums.EGameState> lockoutStates = new List<Enums.EGameState>();
 
@@ -670,12 +666,28 @@ namespace Yuusha.gui
                                             minValue = reader.ReadContentAsInt();
                                         else if (reader.Name == "TabControlledWindow")
                                             tabControlledWindow = reader.Value;
+                                        else if (reader.Name == "WindowTitleOrientation")
+                                            windowTitleOrientation = (Enums.EAnchorType)Enum.Parse(typeof(Enums.EAnchorType), reader.Value, true);
+                                        else if (reader.Name == "AutoHideVisualAlpha")
+                                            autoHideVisualAlpha = reader.ReadContentAsInt();
+                                        else if (reader.Name == "FadeIn")
+                                            fadeIn = reader.ReadContentAsBoolean();
+                                        else if (reader.Name == "FadeOut")
+                                            fadeOut = reader.ReadContentAsBoolean();
+                                        else if (reader.Name == "FadeSpeed")
+                                            fadeSpeed = reader.ReadContentAsInt();
                                     }
                                     #endregion
                                 }
 
                                 switch (type)
                                 {
+                                    case "AutoHidingWindow":
+                                        sheet.CreateAutoHidingWindow(name, type, owner, new Rectangle(x, y, width, height), visible,
+                                            locked, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor),
+                                            visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors,
+                                            cursorOnDrag, windowTitleOrientation, autoHideVisualAlpha, fadeIn, fadeOut, fadeSpeed);
+                                        break;
                                     case "Window":
                                     case "HotButtonEditWindow":
                                         sheet.CreateWindow(name, type, owner, new Rectangle(x, y, width, height), visible,
@@ -829,6 +841,11 @@ namespace Yuusha.gui
 
             if (Client.GameState.ToString().Contains("Game"))
             {
+                if (GuiManager.GetControl("GameAutoHidingWindow") is AutoHidingWindow gameAutoHidingWindow)
+                {
+                    gameAutoHidingWindow.IsVisible = true;
+                }
+
                 #region DamageFogSkullsLabel
                 if (Character.CurrentCharacter != null && GuiManager.GetControl("DamageFogSkullsLabel") is Label fogLabel)
                 {
@@ -856,8 +873,14 @@ namespace Yuusha.gui
                 }
                 #endregion
             }
-            else if (GuiManager.GetControl("DamageFogSkullsLabel") is Label fogLabel)
-                fogLabel.IsVisible = false;
+            else
+            {
+                if (GuiManager.GetControl("GameAutoHidingWindow") is AutoHidingWindow gameAutoHidingWindow)
+                    gameAutoHidingWindow.IsVisible = false;
+
+                if (GuiManager.GetControl("DamageFogSkullsLabel") is Label fogLabel)
+                    fogLabel.IsVisible = false;
+            }
 
             if (!GameHUD.OverrideDisplayStates.Contains(Client.GameState) && m_sheets.ContainsKey(state))
                 m_sheets[state].Update(gameTime);            
@@ -1006,6 +1029,21 @@ namespace Yuusha.gui
             }
 
             return null;
+        }
+
+        public static void Dispose(Control c)
+        {
+            if(c.Owner != "")
+            {
+                if(GuiManager.GetControl(c.Owner) is Window w)
+                {
+                    w.Controls.Remove(c);
+                }
+            }
+
+            if (c.Sheet != "Generic")
+                CurrentSheet.RemoveControl(c);
+            else GenericSheet.RemoveControl(c);
         }
 
         public static void StartDragging(Control control, MouseState ms)

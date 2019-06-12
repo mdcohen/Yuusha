@@ -42,15 +42,22 @@ namespace Yuusha.gui
                 {
                     return 1;
                 }
+                else
+                {
+                    if (x.ZDepthDateTime < y.ZDepthDateTime)
+                        return -1;
+                    if (x.ZDepthDateTime > y.ZDepthDateTime)
+                        return 1;
+                }
 
-                // border goes underneath all other controls
+                // border goes above all other controls
                 if ((x is Border) && !(y is Border))
                 {
-                    return -1;
+                    return 1;
                 }
                 else if ((y is Border) && !(x is Border))
                 {
-                    return 1;
+                    return -1;
                 }
 
                 // window title goes above all other window controls
@@ -72,6 +79,12 @@ namespace Yuusha.gui
                 {
                     return -1;
                 }
+
+                if (x.ZDepthDateTime < y.ZDepthDateTime)
+                    return -1;
+                if (x.ZDepthDateTime > y.ZDepthDateTime)
+                    return 1;
+
                 return 0;
             }
             return -1;

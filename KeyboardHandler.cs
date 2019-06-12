@@ -200,15 +200,8 @@ namespace Yuusha
                             #region ALT + O  Options Window
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.O))
                             {
-                                gui.Window optWindow = gui.GuiManager.GenericSheet["OptionsWindow"] as gui.Window;
-                                if (optWindow != null)
-                                {
-                                    if (!optWindow.IsVisible)
-                                        Events.RegisterEvent(Events.EventName.Load_Character_Settings);
-                                    optWindow.IsVisible = !optWindow.IsVisible;
-                                    optWindow.HasFocus = optWindow.IsVisible;
-                                    result = true;
-                                }
+                                Events.RegisterEvent(Events.EventName.Toggle_OptionsWindow);
+                                result = true;
                             }
                             #endregion
 
@@ -396,6 +389,9 @@ namespace Yuusha
                             {
                                 IO.Send(Protocol.REQUEST_CHARACTER_SACK);
                                 IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                                IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                                IO.Send(Protocol.REQUEST_CHARACTER_RINGS);
+                                IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
                             }
 
                             if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))
@@ -552,15 +548,8 @@ namespace Yuusha
                             #region ALT + O  Options Window
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.O))
                             {
-                                gui.Window optWindow = gui.GuiManager.GenericSheet["OptionsWindow"] as gui.Window;
-                                if (optWindow != null)
-                                {
-                                    if (!optWindow.IsVisible)
-                                        Events.RegisterEvent(Events.EventName.Load_Character_Settings);
-                                    optWindow.IsVisible = !optWindow.IsVisible;
-                                    optWindow.HasFocus = optWindow.IsVisible;
-                                    result = true;
-                                }
+                                Events.RegisterEvent(Events.EventName.Toggle_OptionsWindow);
+                                result = true;
                             }
                             #endregion
 
@@ -575,7 +564,7 @@ namespace Yuusha
                                     GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
                                 }
 
-                                gui.TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
+                                TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
 
                                 result = true;
 

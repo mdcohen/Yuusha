@@ -14,10 +14,16 @@ namespace Yuusha
         public static string CommonSoundClick2 = "0086";
 
         private static Dictionary<string, SoundEffect> m_soundEffects = new Dictionary<string, SoundEffect>();
+        private static List<SoundEffect> m_soundEffectsQueue = new List<SoundEffect>();
 
+        /// <summary>
+        /// Typically sounds played from within the code logic.
+        /// </summary>
+        /// <param name="soundName"></param>
         public static void Play(string soundName)
         {
-            soundName = "KSND" + soundName;
+            if (!Client.UserSettings.SoundEffects)
+                return;
 
             SoundEffect soundEffect;
 
@@ -32,15 +38,21 @@ namespace Yuusha
 
             inst.Volume = 1.0f;
             inst.Play();
-
         }
 
         public static void Play(List<string> soundInfo)
         {
+            if (!Client.UserSettings.SoundEffects)
+                return;
+
             try
             {
                 SoundEffect soundEffect;
-                string soundName = "KSND" + soundInfo[0];
+                string soundName = soundInfo[0];
+
+                // quick fix, sounds coming for existing KSND files are 4 characters in length
+                if (soundInfo[0].Length == 4)
+                    soundName = "KSND" + soundInfo[0];
 
                 if (!m_soundEffects.ContainsKey(soundName))
                 {
