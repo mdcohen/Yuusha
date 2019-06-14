@@ -89,7 +89,7 @@
 		VisualAlpha="95"
 		BorderAlpha="255"
 		TextAlpha="255"
-		MaxLength="200"
+		MaxLength="250"
 		IsPasswordBox="false"
 		HasBlinkingCursor="true"
 		CursorColor="Gray"

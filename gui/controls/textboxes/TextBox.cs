@@ -119,7 +119,7 @@ namespace Yuusha.gui
             m_text = text;
             m_cursorPosition = m_text.Length;
             m_textColor = textColor;
-            m_textAlignment = textAlignment;
+            TextAlignment = textAlignment;
             m_visible = visible;
             m_disabled = disabled;
             m_font = font;
@@ -133,8 +133,8 @@ namespace Yuusha.gui
             m_passwordBox = passwordBox;
             m_blinkingCursor = blinkingCursor;
             m_cursorColor = cursorColor;
-            m_xTextOffset = xTextOffset;
-            m_yTextOffset = yTextOffset;
+            XTextOffset = xTextOffset;
+            YTextOffset = yTextOffset;
             m_onKeyboardEnter = onKeyboardEnter;
             m_selectionColor = selectionColor;
             m_anchors = anchors;
@@ -791,13 +791,11 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
-            if (GuiManager.ControlWithFocus != this) this.HasFocus = false;
-            if (GuiManager.ActiveTextBox == Name) this.HasFocus = true;
+            if (GuiManager.ControlWithFocus != this) HasFocus = false;
+            if (GuiManager.ActiveTextBox == Name) HasFocus = true;
 
-            if (!this.IsVisible || this.IsDisabled)
-            {
+            if (!IsVisible || IsDisabled)
                 this.DropDownMenu = null;
-            }
 
             #region Cursor
             if (m_blinkingCursor)
@@ -824,7 +822,7 @@ namespace Yuusha.gui
 
             if (Border != null) Border.Update(gameTime);
 
-            if (this.DropDownMenu != null) DropDownMenu.Update(gameTime);
+            if (DropDownMenu != null) DropDownMenu.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -838,15 +836,15 @@ namespace Yuusha.gui
 
             if (m_disabled)
             {
-                textColor = new Color(Control.s_disabledColor.R, Control.s_disabledColor.G, Control.s_disabledColor.B, m_textAlpha);
+                textColor = new Color(Control.ColorDisabledStandard.R, Control.ColorDisabledStandard.G, Control.ColorDisabledStandard.B, m_textAlpha);
             }
 
             if (Border != null) Border.Draw(gameTime);
 
             // difference between lineheight and this height / 2
 
-            int rectX = m_rectangle.X + m_xTextOffset; // used for selection rectangle, cursor and text
-            int rectY = m_rectangle.Y + m_yTextOffset; // used for selection rectangle, cursor and text
+            int rectX = m_rectangle.X + XTextOffset; // used for selection rectangle, cursor and text
+            int rectY = m_rectangle.Y + YTextOffset; // used for selection rectangle, cursor and text
 
             if (Border != null && Border is SquareBorder)
             {
@@ -878,12 +876,12 @@ namespace Yuusha.gui
             BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
 
             // set font alignment
-            BitmapFont.ActiveFonts[Font].Alignment = m_textAlignment;
+            BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
 
             // draw text if not password box, password characters if otherwise
             if (!m_passwordBox)
             {
-                if (Border != null && Border is SquareBorder && m_textAlignment == BitmapFont.TextAlignment.Right)
+                if (Border != null && Border is SquareBorder && TextAlignment == BitmapFont.TextAlignment.Right)
                     rectY -= (Border as SquareBorder).BorderWidth;
                 BitmapFont.ActiveFonts[Font].TextBox(new Rectangle(rectX, rectY, m_rectangle.Width - 1, m_rectangle.Height - 1), textColor, m_text);
             }
@@ -894,7 +892,7 @@ namespace Yuusha.gui
                 for (int i = 0; i < m_text.Length; i++)
                     password += GuiManager.PASSWORDCHAR;
 
-                if (Border != null && Border is SquareBorder && m_textAlignment == BitmapFont.TextAlignment.Right)
+                if (Border != null && Border is SquareBorder && TextAlignment == BitmapFont.TextAlignment.Right)
                     rectY -= (Border as SquareBorder).BorderWidth;
 
                 BitmapFont.ActiveFonts[Font].TextBox(new Rectangle(rectX, rectY, m_rectangle.Width - 1, m_rectangle.Height - 1), textColor, password);
@@ -1040,6 +1038,9 @@ namespace Yuusha.gui
 
         public void ReplaceSelectedText(string replacementText)
         {
+            if (replacementText.Length > m_maxLength)
+                TextCue.AddClientInfoTextCue("Pasted text longer than textbox maximum text length.");
+
             m_text = m_text.Remove(m_selectionStart, m_selectionLength);
             m_text = m_text.Insert(m_selectionStart, replacementText);
             SelectAll();

@@ -61,7 +61,10 @@ namespace Yuusha
             Target_Select,
             TextBox_DropDown,
             Toggle_AutoRoller,
+            Toggle_HorizontalHotbar,
+            Toggle_Macros,
             Toggle_OptionsWindow,
+            Toggle_VerticalHotbar,
             User_Settings_Changed,
         }
 
@@ -662,25 +665,49 @@ namespace Yuusha
                         }
                     #endregion
                     case EventName.Request_Belt:
-                        IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                        // get belt grid box, if not visible send request
+                        Control gridBoxWindow = GuiManager.GetControl("BeltGridBoxWindow");
+                        if (gridBoxWindow == null || !gridBoxWindow.IsVisible)
+                            IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                        else if (gridBoxWindow.IsVisible)
+                            gridBoxWindow.IsVisible = false;
                         break;
                     case EventName.Request_Effects:
                         IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                         break;
                     case EventName.Request_Inventory:
-                        IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
+                        gridBoxWindow = GuiManager.GetControl("InventoryWindow");
+                        gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
+                        if(gridBoxWindow.IsVisible) gridBoxWindow.ZDepth = 1;
+                        //IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
                         break;
                     case EventName.Request_Locker:
-                        IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                        gridBoxWindow = GuiManager.GetControl("LockerGridBoxWindow");
+                        if (gridBoxWindow == null || !gridBoxWindow.IsVisible)
+                            IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                        else if (gridBoxWindow.IsVisible)
+                            gridBoxWindow.IsVisible = false;
                         break;
                     case EventName.Request_Pouch:
-                        IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                        gridBoxWindow = GuiManager.GetControl("PouchGridBoxWindow");
+                        if (gridBoxWindow == null || !gridBoxWindow.IsVisible)
+                            IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                        else if (gridBoxWindow.IsVisible)
+                            gridBoxWindow.IsVisible = false;
                         break;
                     case EventName.Request_Rings:
-                        IO.Send(Protocol.REQUEST_CHARACTER_RINGS);
+                        gridBoxWindow = GuiManager.GetControl("RingsGridBoxWindow");
+                        if (gridBoxWindow == null || !gridBoxWindow.IsVisible)
+                            IO.Send(Protocol.REQUEST_CHARACTER_RINGS);
+                        else if (gridBoxWindow.IsVisible)
+                            gridBoxWindow.IsVisible = false;
                         break;
                     case EventName.Request_Sack:
-                        IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                        gridBoxWindow = GuiManager.GetControl("SackGridBoxWindow");
+                        if (gridBoxWindow == null || !gridBoxWindow.IsVisible)
+                            IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                        else if (gridBoxWindow.IsVisible)
+                            gridBoxWindow.IsVisible = false;
                         break;
                     case EventName.Request_Skills:
                         IO.Send(Protocol.REQUEST_CHARACTER_SKILLS);
@@ -719,7 +746,28 @@ namespace Yuusha
                     #endregion
                     case EventName.Send_Command:
                         if (args[0] is Control)
+                        {
                             IO.Send((args[0] as Control).Command);
+                            TextCue.AddClientInfoTextCue((args[0] as Control).Command);
+
+                        }
+                        //if(args[0] is DropDownMenuItem sendCommandMenuItem)
+                        //{
+                        //    if(sendCommandMenuItem.DropDownMenu != null && sendCommandMenuItem.DropDownMenu.DropDownMenuOwner is DragAndDropButton)
+                        //    {
+                        //        TextCue.AddClientInfoTextCue("sendCommandMenuItem.DropDownMenu.DropDownMenuOwner.Owner: " + sendCommandMenuItem.DropDownMenu.DropDownMenuOwner.Owner);
+
+                        //        if (sendCommandMenuItem.DropDownMenu.DropDownMenuOwner.Owner.Contains("GridBoxWindow"))
+                        //        {
+                        //            TextCue.AddClientInfoTextCue("...and here.");
+                        //            GridBoxWindow.GridBoxPurpose purpose = (sendCommandMenuItem.DropDownMenu.DropDownMenuOwner as DragAndDropButton).GridBoxUpdateRequests[sendCommandMenuItem.DropDownMenu.MenuItems.IndexOf(sendCommandMenuItem)];
+                        //            GridBoxWindow.GridBoxPurpose ownerPurpose = (GuiManager.GetControl(sendCommandMenuItem.DropDownMenu.DropDownMenuOwner.Owner) as GridBoxWindow).GridBoxPurposeType;
+
+                        //            GridBoxWindow.RequestUpdateFromServer(purpose);
+                        //            GridBoxWindow.RequestUpdateFromServer(ownerPurpose);
+                        //        }
+                        //    }
+                        //}
                         break;
                     case EventName.Set_CharGen_State:
                         CharGen.CharGenState = (Enums.ECharGenState)args[0];
@@ -785,10 +833,10 @@ namespace Yuusha
 
                                 if(CharGen.FirstCharacter)
                                 {
-                                    TextCue.AddClientInfoTextCue("There are currently no characters on your account. Please create one.", gui.TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3500, false, false, true);
+                                    TextCue.AddClientInfoTextCue("There are currently no characters on your account. Please create one.", Color.Yellow, Color.Black, 3500);
                                 }
 
-                                TextCue.AddClientInfoTextCue("Welcome to the character generator.", gui.TextCue.TextCueTag.None, Color.Yellow, Color.Black, 3500, false, false, true);
+                                TextCue.AddClientInfoTextCue("Welcome to the character generator.", Color.Yellow, Color.Black, 3500);
 
                                 RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
 
@@ -941,7 +989,7 @@ namespace Yuusha
                                         Character.Settings.CritterListDropDownMenuItem5 = tbx.Text;
                                     #endregion
 
-                                    TextCue.AddClientInfoTextCue("Character Options Saved", TextCue.TextCueTag.None, Color.Lime, Color.Black, 1000, false, false, true);
+                                    TextCue.AddClientInfoTextCue("Character Options Saved", Color.Lime, Color.Black, 1000);
 
                                 }
                             }
@@ -1027,7 +1075,7 @@ namespace Yuusha
 
                                                 hotButtonEditWindow.OnClose();
 
-                                                TextCue.AddClientInfoTextCue("Hot Button Saved", TextCue.TextCueTag.None, Color.Lime, Color.Black, 1000, false, false, true);
+                                                TextCue.AddClientInfoTextCue("Hot Button Saved", Color.Lime, Color.Black, 1000);
                                             }
                                         }
                                         else // horizontal
@@ -1088,7 +1136,7 @@ namespace Yuusha
 
                                                 hotButtonEditWindow.OnClose();
 
-                                                TextCue.AddClientInfoTextCue("Hot Button Saved", TextCue.TextCueTag.None, Color.Lime, Color.Black, 1000, false, false, true);
+                                                TextCue.AddClientInfoTextCue("Hot Button Saved", Color.Lime, Color.Black, 1000);
                                             }
                                         }
                                     }
@@ -1140,14 +1188,36 @@ namespace Yuusha
                                                          Color.Transparent, 2000, false, false, false);
                         }
                         break;
+                    case EventName.Toggle_HorizontalHotbar: // ALT + K
+                        if(GuiManager.GenericSheet["HorizontalHotButtonWindow"]  is Window horizontalHotbar)
+                        {
+                            horizontalHotbar.IsVisible = !horizontalHotbar.IsVisible;
+                            if (horizontalHotbar.IsVisible) horizontalHotbar.ZDepth = 1;
+                        }
+                        break;
+                    case EventName.Toggle_Macros: // ALT + M
+                        if(GuiManager.GenericSheet["MacrosWindow"] is Window macrosWindow)                        
+                        {
+                            macrosWindow.IsVisible = !macrosWindow.IsVisible;
+                            // TODO: functionality to edit macros with point and click
+                            if (macrosWindow.IsVisible) macrosWindow.ZDepth = 1;
+                        }
+                        break;
                     case EventName.Toggle_OptionsWindow:
-                        gui.Window optWindow = gui.GuiManager.GenericSheet["OptionsWindow"] as gui.Window;
-                        if (optWindow != null)
+                        if (GuiManager.GenericSheet["OptionsWindow"] is Window optWindow)
                         {
                             if (!optWindow.IsVisible)
                                 Events.RegisterEvent(Events.EventName.Load_Character_Settings);
                             optWindow.IsVisible = !optWindow.IsVisible;
                             optWindow.HasFocus = optWindow.IsVisible;
+                            if (optWindow.IsVisible) optWindow.ZDepth = 1;
+                        }
+                        break;
+                    case EventName.Toggle_VerticalHotbar:
+                        if (GuiManager.GenericSheet["VerticalHotButtonWindow"] is Window verticalHotbar)
+                        {
+                            verticalHotbar.IsVisible = !verticalHotbar.IsVisible;
+                            if (verticalHotbar.IsVisible) verticalHotbar.ZDepth = 1;
                         }
                         break;
                     case EventName.Load_Character_Settings:

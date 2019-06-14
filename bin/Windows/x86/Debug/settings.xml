@@ -30,6 +30,7 @@
   <EchoPrivateMessagesToGame>true</EchoPrivateMessagesToGame>
   <DisplayPrivateMessageWindows>true</DisplayPrivateMessageWindows>
   <EchoGroundItemsOnExamination>false</EchoGroundItemsOnExamination>
+  <GroupSimiliarItemsInGridBoxes>true</GroupSimiliarItemsInGridBoxes>
   <StoredAccounts>
     <EncryptedKeyValuePairOfStringString>
       <Key>TL7JKi7e9HPChorCBUHc6w==</Key>

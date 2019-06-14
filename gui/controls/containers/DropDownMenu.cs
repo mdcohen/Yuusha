@@ -11,6 +11,9 @@ namespace Yuusha.gui
         protected string m_title;
         protected Control m_menuOwner;
 
+        public List<DropDownMenuItem> MenuItems
+        { get { return m_menuItems; } }
+
         public Control DropDownMenuOwner
         {
             get { return m_menuOwner; }
@@ -39,11 +42,6 @@ namespace Yuusha.gui
             m_shadowDirection = shadowDirection;
             m_shadowDistance = shadowDistance;
             m_menuItems = new List<DropDownMenuItem>();
-
-            Border = new SquareBorder(this.Name + "SquareBorder", this.Name, 2, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorDropDownMenuBorder, visualAlpha)
-            {
-                IsVisible = true
-            };
         }
 
         public override void Draw(GameTime gameTime)
@@ -52,7 +50,7 @@ namespace Yuusha.gui
 
             base.Draw(gameTime);
 
-            if (this.m_title != null && this.m_title.Length > 0 && BitmapFont.ActiveFonts.ContainsKey(this.Font))
+            if (m_title != null && this.m_title.Length > 0 && BitmapFont.ActiveFonts.ContainsKey(this.Font))
             {
                 BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
                 BitmapFont.ActiveFonts[Font].Alignment = BitmapFont.TextAlignment.Center;
@@ -64,14 +62,15 @@ namespace Yuusha.gui
                 if(menuItem.IsVisible) menuItem.Draw(gameTime);
 
             if (Border != null) Border.Draw(gameTime);
+            else Utils.LogOnce(Name + " border is null.");
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if (this.Border != null)
-                this.Border.Update(gameTime);
+            if (Border != null)
+                Border.Update(gameTime);
 
             foreach (DropDownMenuItem menuItem in m_menuItems)
                 menuItem.Update(gameTime);
@@ -99,23 +98,28 @@ namespace Yuusha.gui
 
             int yMod = 0;
 
-            if (this.m_title != null && this.m_title.Length > 0)
+            if (m_title != null && m_title.Length > 0)
                 yMod += 20;
 
-            DropDownMenuItem menuItem = new DropDownMenuItem(this.Name + "MenuItem" + (m_menuItems.Count + 1).ToString(), text, this, visualKey, onMouseDown, command)
+            DropDownMenuItem menuItem = new DropDownMenuItem(Name + "MenuItem" + (m_menuItems.Count + 1).ToString(), text, this, visualKey, onMouseDown, command)
             {
-                Rectangle = new Rectangle(this.m_rectangle.X, this.m_rectangle.Y + yMod + (this.m_menuItems.Count * 20), this.m_rectangle.Width, 18),
+                Rectangle = new Rectangle(m_rectangle.X, m_rectangle.Y + yMod + (m_menuItems.Count * 20), m_rectangle.Width, 18),
                 IsVisible = true,
                 IsDisabled = isDisabled,
             };
 
-            this.m_menuItems.Add(menuItem);
+            // automatically shrink or grow drop down menus for the longest menu item
+            //int width = BitmapFont.ActiveFonts[Font].MeasureString(text);
+            //if (Width + (Border == null ? 0 : Border.Width) < width)
+            //    Width = width;
+
+            m_menuItems.Add(menuItem);
         }
 
         protected override void OnMouseLeave(Microsoft.Xna.Framework.Input.MouseState ms)
         {
-            this.IsVisible = false;
-            this.IsDisabled = true;
+            IsVisible = false;
+            IsDisabled = true;
 
             if (DropDownMenuOwner != null)
             {

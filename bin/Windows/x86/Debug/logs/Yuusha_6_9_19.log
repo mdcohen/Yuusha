@@ -1,6 +1,0 @@
-6/9/2019 5:32:24 PM: {Exception} Destination array was not long enough. Check destIndex and length, and the array's lower bounds. Stack:    at System.Array.Copy(Array sourceArray, Int32 sourceIndex, Array destinationArray, Int32 destinationIndex, Int32 length, Boolean reliable)
-   at System.Collections.Generic.List`1.CopyTo(T[] array, Int32 arrayIndex)
-   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
-   at Yuusha.gui.Sheet.get_Item(String name) in C:\Users\mikec\Desktop\YuushaMG\gui\Sheet.cs:line 246
-   at Yuusha.Events.ResetLoginGUI() in C:\Users\mikec\Desktop\YuushaMG\Events.cs:line 1509
-6/9/2019 6:59:42 PM: GUI Sheet [ Login ] Window [ LoginWindow ] returned null for Control [ ConnectButton ]

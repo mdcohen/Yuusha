@@ -8,7 +8,7 @@ namespace Yuusha.gui
 {
     abstract public class Control
     {
-        public static Color s_disabledColor = Color.Gray;
+        public static Color ColorDisabledStandard = Color.DimGray;
 
         #region Private Data
         protected string m_sheet; // name of the sheet this control belongs to
@@ -35,8 +35,6 @@ namespace Yuusha.gui
         protected VisualKey m_visualKey; // visual key
         protected bool m_visualTiled = false; // visual key is tiled
         protected Dictionary<Enums.EControlState, VisualKey> m_visuals;
-        protected int m_xTextOffset;
-        protected int m_yTextOffset;
         protected string m_font;
         protected TimeSpan m_lastUpdate;
         protected object m_data;
@@ -49,7 +47,14 @@ namespace Yuusha.gui
         protected string m_onDoubleClickEvent;
         protected string m_cursorOverride;
         protected string m_onMouseDown;
-        protected BitmapFont.TextAlignment m_textAlignment;
+
+        public BitmapFont.TextAlignment TextAlignment
+        { get; set; }
+        public int XTextOffset
+        { get; set; }
+        public int YTextOffset
+        { get; set; }
+
         protected Color m_textOverColor;
         protected bool m_hasTextOverColor;
         protected Color m_tintOverColor;
@@ -249,8 +254,8 @@ namespace Yuusha.gui
             m_borderAlpha = 255;
             m_visualKey = null;
             m_visuals = new Dictionary<Enums.EControlState, VisualKey>();
-            m_xTextOffset = 0;
-            m_yTextOffset = 0;
+            XTextOffset = 0;
+            YTextOffset = 0;
             m_font = "";
             m_lastUpdate = new TimeSpan();
             m_dropShadow = false;
@@ -259,7 +264,7 @@ namespace Yuusha.gui
             m_onDoubleClickEvent = "";
             m_cursorOverride = "";
             m_onMouseDown = "";
-            m_textAlignment = BitmapFont.TextAlignment.Left;
+            TextAlignment = BitmapFont.TextAlignment.Left;
             m_textOverColor = Color.White;
             m_hasTextOverColor = false;
             m_lockoutStates = new List<Enums.EGameState>();
@@ -281,14 +286,12 @@ namespace Yuusha.gui
 
         public virtual void Update(GameTime gameTime)
         {
-            // temporary fix -- something wrong with bottom anchors on client resizing
-            //if (this.m_rectangle.Y + this.Height > Program.Client.Window.ClientBounds.Height)
-            //    this.m_rectangle.Y--;
-
             if(!m_disabled && m_visible)
             {
                 if (m_popUpText != "" && m_controlState == Enums.EControlState.Over)
                     TextCue.AddMouseCursorTextCue(m_popUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpFont);
+                else if (m_popUpText != "")
+                    TextCue.RemoveMouseCursorTextCue(m_popUpText);
             }
 
             if (m_visuals.ContainsKey(ControlState) && m_visualKey != m_visuals[ControlState])
@@ -347,7 +350,7 @@ namespace Yuusha.gui
                     color = new Color(m_tintOverColor.R, m_tintOverColor.G, m_tintOverColor.B, VisualAlpha);
 
                 if (m_disabled)
-                    color = new Color(s_disabledColor.R, s_disabledColor.G, s_disabledColor.B, VisualAlpha);
+                    color = new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, VisualAlpha);
 
                 if (m_dropShadow)
                 {
@@ -400,6 +403,7 @@ namespace Yuusha.gui
 
             Point mousePointer = new Point(ms.X, ms.Y); // point of the mouse
 
+            //if (!GuiManager.MouseAbove(this) && Contains(mousePointer) && !m_containsMousePointer)
             if (Contains(mousePointer) && !m_containsMousePointer)
             {
                 m_containsMousePointer = true;
@@ -467,7 +471,9 @@ namespace Yuusha.gui
 
                         if (Contains(mousePointer))
                         {
+                            GuiManager.AwaitMouseButtonRelease = false;
                             OnMouseRelease(ms);
+
                             if (OnControl != null && !(this is Window) && (!(this is GridBoxWindow) ||
                                 ((this is GridBoxWindow) && (this as GridBoxWindow).HasNewData)))
                             {
@@ -484,7 +490,9 @@ namespace Yuusha.gui
 
                         if (Contains(mousePointer))
                         {
+                            GuiManager.AwaitMouseButtonRelease = false;
                             OnMouseRelease(ms);
+
                             //if (OnControl != null && !(this is Window) && (!(this is GridBoxWindow) ||
                             //    ((this is GridBoxWindow) && (this as GridBoxWindow).HasNewData)))
                             //{
@@ -499,9 +507,11 @@ namespace Yuusha.gui
                     // Mouseover on Windows should be able to reset over state on back controls.
                     if (ControlState == Enums.EControlState.Over && !(this is Window))
                     {
-                        // state is already over
                         result = false;
                     }
+
+                    //if (GuiManager.MouseAbove(this))
+                    //    return result;
 
                     ControlState = Enums.EControlState.Over;
                     OnMouseOver(ms);
@@ -512,7 +522,7 @@ namespace Yuusha.gui
                 if ((ms.LeftButton == ButtonState.Pressed || ms.RightButton == ButtonState.Pressed) && m_hasTouchDownPoint &&
                     Contains(m_touchDownPoint) && Client.HasFocus || HasFocus)
                 {
-                    if (!GuiManager.Dragging || GuiManager.DraggedControl == this)
+                    if ((!GuiManager.Dragging || GuiManager.DraggedControl == this) && !GuiManager.AwaitMouseButtonRelease)
                     {
                         ControlState = Enums.EControlState.Down;
                         OnMouseDown(ms);
@@ -532,7 +542,7 @@ namespace Yuusha.gui
                 if (ms.LeftButton != ButtonState.Pressed && !(this is TextBox))
                     HasFocus = false;
 
-                if (!HasFocus)
+                if (!HasFocus || !Contains(ms.Position))
                 {
                     ControlState = Enums.EControlState.Normal;
                     return true;
@@ -756,6 +766,30 @@ namespace Yuusha.gui
                 default:
                     return 0;
             }
+        }
+
+        public static bool operator >(Control c1, Control c2)
+        {
+            if (c2.ZDepth > c1.ZDepth) return true;
+
+            if (c1.ZDepth < c2.ZDepth) return true;
+
+            if (c1.ZDepth == c2.ZDepth && c1.ZDepthDateTime > c2.ZDepthDateTime)
+                return true;
+            
+            return false;
+        }
+
+        public static bool operator <(Control c1, Control c2)
+        {
+            if (c2.ZDepth < c1.ZDepth) return true;
+
+            if (c1.ZDepth > c2.ZDepth) return true;
+
+            if (c1.ZDepth == c2.ZDepth && c1.ZDepthDateTime < c2.ZDepthDateTime)
+                return true;
+
+            return false;
         }
     }
 }

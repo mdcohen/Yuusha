@@ -167,66 +167,58 @@ namespace Yuusha
                         if (Client.GameState == Enums.EGameState.Login)
                         {
                             // Testing purposes ALT + C, ALT + W
-                            #region Testing Area
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
-                            {
-                                Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
-                            }
+                            #region Testing Area aka the Playground
+                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
+                            //{
+                                //Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
+                            //}
 
-                            if(IsAltKeyDown(ks) && ks.IsKeyDown(Keys.F))
-                            {
-                                string randomSound = "0001";
-                                int random = new Random().Next(1, 273);
-                                randomSound = random.ToString();
-                                randomSound = randomSound.PadLeft(4, '0');
+                            //if(IsAltKeyDown(ks) && ks.IsKeyDown(Keys.F))
+                            //{
+                                //string randomSound = "0001";
+                                //int random = new Random().Next(1, 273);
+                                //randomSound = random.ToString();
+                                //randomSound = randomSound.PadLeft(4, '0');
 
-                                try
-                                {
-                                    List<string> li = new List<string>() { randomSound, new Random().Next(0, 7).ToString(), new Random().Next(8).ToString() };
-                                    Sound.Play(li);
-                                }
-                                catch (Exception e)
-                                {
-                                    Utils.LogException(e);
-                                }
+                                //try
+                                //{
+                                //    List<string> li = new List<string>() { randomSound, new Random().Next(0, 7).ToString(), new Random().Next(8).ToString() };
+                                //    Sound.Play(li);
+                                //}
+                                //catch (Exception e)
+                                //{
+                                //    Utils.LogException(e);
+                                //}
 
                                 //if (GuiManager.ParticalEngine == null)
                                 //    GuiManager.ParticalEngine = new gui.effects.ParticleEngine(new List<Texture2D>() { GuiManager.Textures["heartrate.png"] }, new Vector2(100, 100));
                                 //else GuiManager.ParticalEngine = null;
 
                                 //gui.effects.Particle particle = new gui.effects.Particle()
-                            }
+                            //}
 
                             #region ALT + O  Options Window
-                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.O))
-                            {
-                                Events.RegisterEvent(Events.EventName.Toggle_OptionsWindow);
-                                result = true;
-                            }
+                            //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.O))
+                            //{
+                            //    Events.RegisterEvent(Events.EventName.Toggle_OptionsWindow);
+                            //    result = true;
+                            //}
                             #endregion
 
                             #region ALT + I  Vertical Hot Button Window
-                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
-                            {
-                                gui.Window verticalHotButtonWindow = gui.GuiManager.GenericSheet["VerticalHotButtonWindow"] as gui.Window;
-                                if (verticalHotButtonWindow != null)
-                                {
-                                    verticalHotButtonWindow.IsVisible = !verticalHotButtonWindow.IsVisible;
-                                    result = true;
-                                }
-                            }
+                            //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
+                            //{
+                            //    Events.RegisterEvent(Events.EventName.Toggle_VerticalHotbar);
+                            //    result = true;
+                            //}
                             #endregion
 
                             #region ALT + K  Horizontal Hot Button Window
-                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
-                            {
-                                gui.Window horizontalHotButtonWindow = gui.GuiManager.GenericSheet["HorizontalHotButtonWindow"] as gui.Window;
-                                if (horizontalHotButtonWindow != null)
-                                {
-                                    horizontalHotButtonWindow.IsVisible = !horizontalHotButtonWindow.IsVisible;
-                                    result = true;
-                                }
-                            }
+                            //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
+                            //{
+                            //    Events.RegisterEvent(Events.EventName.Toggle_HorizontalHotbar);
+                            //    result = true;
+                            //}
                             #endregion
                             #endregion
 
@@ -261,7 +253,8 @@ namespace Yuusha
                                 }
                             }
                             #endregion
-
+                            
+                            
                             #region Tilde Saves a Screenshot
                             if (ks.IsKeyDown(Keys.OemTilde))
                             {
@@ -288,7 +281,7 @@ namespace Yuusha
                                     GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
                                 }
 
-                                gui.TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
+                                gui.TextCue.AddClientInfoTextCue("Reloaded " + GuiManager.CurrentSheet.Description + " and Generic Sheet.", TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
 
                                 result = true;
                             }
@@ -344,12 +337,8 @@ namespace Yuusha
                             #region ALT + M  Macros Window
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.M))
                             {
-                                gui.Window macrosWindow = gui.GuiManager.GenericSheet["MacrosWindow"] as gui.Window;
-                                if (macrosWindow != null)
-                                {
-                                    macrosWindow.IsVisible = !macrosWindow.IsVisible;
-                                    result = true;
-                                }
+                                Events.RegisterEvent(Events.EventName.Toggle_Macros);
+                                result = true;
                             }
                             #endregion
 
@@ -379,7 +368,7 @@ namespace Yuusha
                         }
                         else // menu, game, conf
                         {
-                            // Testing purposes
+                            // Testing purposes ALT + W
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
                             {
                                 Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
@@ -387,11 +376,7 @@ namespace Yuusha
 
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             {
-                                IO.Send(Protocol.REQUEST_CHARACTER_SACK);
-                                IO.Send(Protocol.REQUEST_CHARACTER_BELT);
-                                IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
-                                IO.Send(Protocol.REQUEST_CHARACTER_RINGS);
-                                IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                                Utils.LogCharacterFields();
                             }
 
                             if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))
@@ -481,12 +466,8 @@ namespace Yuusha
                             #region ALT + K  Horizontal Hot Button Window
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
                             {
-                                gui.Window horizontalHotButtonWindow = gui.GuiManager.GenericSheet["HorizontalHotButtonWindow"] as gui.Window;
-                                if (horizontalHotButtonWindow != null)
-                                {
-                                    horizontalHotButtonWindow.IsVisible = !horizontalHotButtonWindow.IsVisible;
-                                    result = true;
-                                }
+                                Events.RegisterEvent(Events.EventName.Toggle_HorizontalHotbar);
+                                result = true;
                             }
                             #endregion
 
@@ -504,12 +485,8 @@ namespace Yuusha
                             #region ALT + M  Macros Window
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.M))
                             {
-                                gui.Window macrosWindow = gui.GuiManager.GenericSheet["MacrosWindow"] as gui.Window;
-                                if (macrosWindow != null)
-                                {
-                                    macrosWindow.IsVisible = !macrosWindow.IsVisible;
-                                    result = true;
-                                }
+                                Events.RegisterEvent(Events.EventName.Toggle_Macros);
+                                result = true;
                             }
                             #endregion
 
@@ -617,7 +594,7 @@ namespace Yuusha
 #endif
 
                             #region Tilde Saves a Screenshot
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.OemTilde))
+                            if (ks.IsKeyDown(Keys.OemTilde))
                             {
                                 Utils.SaveScreenshot();
                             }

@@ -7,7 +7,8 @@ namespace Yuusha.gui
     public class Button : Control
     {        
         protected bool m_onMouseDownSent = false;
-        protected bool m_textVisible;
+        public bool IsTextVisible
+        { get; set; }
 
         public Button(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
@@ -21,7 +22,7 @@ namespace Yuusha.gui
             m_owner = owner;
             m_rectangle = rectangle;
             m_text = text;
-            m_textVisible = textVisible;
+            IsTextVisible = textVisible;
             m_textColor = textColor;
             m_visible = visible;
             m_disabled = disabled;
@@ -42,9 +43,9 @@ namespace Yuusha.gui
                 m_visuals.Add(Enums.EControlState.Disabled, visualKeyDisabled);
 
             m_onMouseDown = onMouseDownEvent;
-            m_textAlignment = textAlignment;
-            m_xTextOffset = xTextOffset;
-            m_yTextOffset = yTextOffset;
+            TextAlignment = textAlignment;
+            XTextOffset = xTextOffset;
+            YTextOffset = yTextOffset;
             m_textOverColor = textOverColor;
             m_hasTextOverColor = hasTextOverColor;
             m_tintOverColor = tintOverColor;
@@ -66,16 +67,16 @@ namespace Yuusha.gui
 
             base.Draw(gameTime);
 
-            if (m_text.Length > 0 && m_textVisible)
+            if (m_text.Length > 0 && IsTextVisible)
             {
                 if (BitmapFont.ActiveFonts.ContainsKey(Font))
                 {
                     // override BitmapFont sprite batch
                     BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
                     // set font alignment
-                    BitmapFont.ActiveFonts[Font].Alignment = m_textAlignment;
+                    BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
                     // draw string in textbox, using x and y text offsets to create new rectangle
-                    Rectangle rect = new Rectangle(m_rectangle.X + m_xTextOffset, m_rectangle.Y + m_yTextOffset, m_rectangle.Width, m_rectangle.Height);
+                    Rectangle rect = new Rectangle(m_rectangle.X + XTextOffset, m_rectangle.Y + YTextOffset, m_rectangle.Width, m_rectangle.Height);
                     if (!m_disabled)
                     {
                         // change color of text if mouse over text color is not null
@@ -90,7 +91,7 @@ namespace Yuusha.gui
                     }
                     else
                     {
-                        BitmapFont.ActiveFonts[Font].TextBox(rect, s_disabledColor, m_text);
+                        BitmapFont.ActiveFonts[Font].TextBox(rect, ColorDisabledStandard, m_text);
                     }
                 }
                 else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Button [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");

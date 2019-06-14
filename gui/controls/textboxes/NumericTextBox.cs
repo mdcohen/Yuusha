@@ -26,7 +26,7 @@ namespace Yuusha.gui
             m_text = text;
             m_cursorPosition = m_text.Length;
             m_textColor = textColor;
-            m_textAlignment = textAlignment;
+            TextAlignment = textAlignment;
             m_visible = visible;
             m_disabled = disabled;
             m_font = font;
@@ -40,8 +40,8 @@ namespace Yuusha.gui
             m_passwordBox = passwordBox;
             m_blinkingCursor = blinkingCursor;
             m_cursorColor = cursorColor;
-            m_xTextOffset = xTextOffset;
-            m_yTextOffset = yTextOffset;
+            XTextOffset = xTextOffset;
+            YTextOffset = yTextOffset;
             m_onKeyboardEnter = onKeyboardEnter;
             m_selectionColor = selectionColor;
             m_anchors = anchors;

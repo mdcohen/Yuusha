@@ -47,7 +47,7 @@ namespace Yuusha.gui
                     // override BitmapFont sprite batch
                     BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
                     // set font alignment
-                    BitmapFont.ActiveFonts[Font].Alignment = m_textAlignment;
+                    BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
                     // draw string in textbox
                     Rectangle rect = new Rectangle(m_rectangle.X, m_rectangle.Y, m_rectangle.Width, m_rectangle.Height);
                     // change color of text if mouse over text color is not null
@@ -91,13 +91,30 @@ namespace Yuusha.gui
 
             if (!m_onMouseDownSent && ms.LeftButton == ButtonState.Pressed)
             {
+                GuiManager.AwaitMouseButtonRelease = true;
+
                 if (m_onMouseDown != "")
                 {
                     Events.RegisterEvent((Events.EventName)System.Enum.Parse(typeof(Events.EventName), m_onMouseDown, true), this);
                     m_onMouseDownSent = true;
                 }
 
-                DropDownMenu.IsVisible = false;
+                if(DropDownMenu != null)
+                {
+                    if(DropDownMenu.DropDownMenuOwner is DragAndDropButton dButton)
+                    {
+                        if (DropDownMenu.DropDownMenuOwner.Owner.Contains("GridBoxWindow"))
+                        {
+                            GridBoxWindow.GridBoxPurpose purpose = (DropDownMenu.DropDownMenuOwner as DragAndDropButton).GridBoxUpdateRequests[DropDownMenu.MenuItems.IndexOf(this)];
+                            GridBoxWindow.GridBoxPurpose ownerPurpose = (GuiManager.GetControl(DropDownMenu.DropDownMenuOwner.Owner) as GridBoxWindow).GridBoxPurposeType;
+
+                            GridBoxWindow.RequestUpdateFromServer(purpose);
+                            GridBoxWindow.RequestUpdateFromServer(ownerPurpose);
+                        }
+                    }
+
+                    DropDownMenu.IsVisible = false;
+                }
             }
         }
 

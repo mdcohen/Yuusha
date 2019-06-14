@@ -31,6 +31,7 @@ namespace Yuusha.Utility.Settings
         public bool DisplayPrivateMessageWindows = true;
 
         public bool EchoGroundItemsOnExamination = false;
+        public bool GroupSimiliarItemsInGridBoxes = true;
 
         // saving accounts and passwords (encrypted)
         public List<Encrypt.EncryptedKeyValuePair<string, string>> StoredAccounts = new List<Encrypt.EncryptedKeyValuePair<string, string>>();

@@ -115,6 +115,10 @@ namespace Yuusha
             catch(Exception e)
             {
                 Utils.LogException(e);
+                string soundExceptionInfo = "";
+                foreach (string obj in soundInfo)
+                    soundExceptionInfo = soundExceptionInfo + " " + obj;
+                Utils.Log("SoundInfo: " + soundExceptionInfo);
             }
         }
     }

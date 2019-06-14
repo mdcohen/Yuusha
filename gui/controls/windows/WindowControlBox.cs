@@ -69,7 +69,7 @@ namespace Yuusha.gui
                     }
                     else
                     {
-                        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, sourceRect, new Color(s_disabledColor.R, s_disabledColor.G, s_disabledColor.B, m_visualAlpha));
+                        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, sourceRect, new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, m_visualAlpha));
                     }
                 }
                 catch

@@ -39,7 +39,7 @@ namespace Yuusha.gui
             base.Update(gameTime);
 
             if((AutoHideVisualAlpha == 0 && WindowTitle != null && WindowTitle.Contains(GuiManager.MouseState.Position)) ||
-                (AutoHideVisualAlpha > 0 && this.Contains(GuiManager.MouseState.Position)))
+                (AutoHideVisualAlpha > 0 && ControlState == Enums.EControlState.Over))
             {
                 if (AutoHideVisualAlpha == 0)
                 {
@@ -62,7 +62,7 @@ namespace Yuusha.gui
                 }
             }
 
-            if (!m_cropped && !this.Contains(GuiManager.MouseState.Position))
+            if (!m_cropped && ControlState != Enums.EControlState.Over)
             {
                 if (AutoHideVisualAlpha == 0)
                     OnCrop();
@@ -97,13 +97,15 @@ namespace Yuusha.gui
         //        return;
         //}
 
-        //protected override void OnMouseLeave(MouseState ms)
-        //{
-        //    base.OnMouseLeave(ms);
+        protected override void OnMouseLeave(MouseState ms)
+        {
+            base.OnMouseLeave(ms);
 
-        //    if(!m_cropped)
-        //        base.OnCrop();
-        //}
+            ControlState = Enums.EControlState.Normal;
+
+            //if (!m_cropped)
+            //    base.OnCrop();
+        }
 
         //protected override void OnMouseOver(MouseState ms)
         //{

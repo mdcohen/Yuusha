@@ -46,7 +46,7 @@ namespace Yuusha.gui
             m_owner = owner;
             m_text = text;
             m_textColor = textColor;
-            m_textAlignment = textAlignment;
+            TextAlignment = textAlignment;
             m_font = font;
             m_visualKey = visualKey;
             m_visualTiled = visualTiled;
@@ -84,7 +84,7 @@ namespace Yuusha.gui
             m_owner = owner;
             m_text = text;
             m_textColor = textColor;
-            m_textAlignment = textAlignment;
+            TextAlignment = textAlignment;
             m_font = font;
             m_visualKey = visualKey;
             m_visualTiled = visualTiled;
@@ -170,16 +170,16 @@ namespace Yuusha.gui
             }
             else
             {
-                textColor = new Color(Control.s_disabledColor.R, Control.s_disabledColor.G,
-                    Control.s_disabledColor.B, m_textAlpha);
+                textColor = new Color(Control.ColorDisabledStandard.R, Control.ColorDisabledStandard.G,
+                    Control.ColorDisabledStandard.B, m_textAlpha);
             }
 
             // override BitmapFont sprite batch
             BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
             // set font alignment
-            BitmapFont.ActiveFonts[Font].Alignment = m_textAlignment;
+            BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
             // draw string in textbox
-            Rectangle rect = new Rectangle(m_rectangle.X + m_xTextOffset, m_rectangle.Y + m_yTextOffset, m_rectangle.Width, m_rectangle.Height);
+            Rectangle rect = new Rectangle(m_rectangle.X + XTextOffset, m_rectangle.Y + YTextOffset, m_rectangle.Width, m_rectangle.Height);
             // change color of text if mouse over text color is not null
             if (m_text != null && m_text.Length > 0)
             {

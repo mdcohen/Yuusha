@@ -16,11 +16,6 @@ namespace Yuusha.gui
             //TextCue.AddMouseCursorTextCue(this.Name);
         }
 
-        protected override void OnMouseLeave(MouseState ms)
-        {
-            base.OnMouseLeave(ms);
-        }
-
         protected override void OnMouseDown(MouseState ms)
         {
             if (!m_onMouseDownSent && ms.RightButton == ButtonState.Pressed)

@@ -61,9 +61,9 @@ namespace Yuusha.gui
             m_visualAlpha = visualAlpha;
             m_borderAlpha = borderAlpha;
             m_textAlpha = textAlpha;
-            m_textAlignment = textAlignment;
-            m_xTextOffset = xTextOffset;
-            m_yTextOffset = yTextOffset;
+            TextAlignment = textAlignment;
+            XTextOffset = xTextOffset;
+            YTextOffset = yTextOffset;
             m_onDoubleClickEvent = onDoubleClickEvent;
             m_cursorOverride = cursorOverride;
             m_anchors = anchors;
@@ -115,7 +115,7 @@ namespace Yuusha.gui
                 }
                 else
                 {
-                    Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, new Color(s_disabledColor.R, s_disabledColor.G, s_disabledColor.B, m_visualAlpha));
+                    Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, m_visualAlpha));
                 }
             }
 
@@ -136,7 +136,7 @@ namespace Yuusha.gui
                 }
                 else
                 {
-                    Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, new Color(s_disabledColor.R, s_disabledColor.G, s_disabledColor.B, m_visualAlpha));
+                    Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, m_visualAlpha));
                 }
             }
 
@@ -177,7 +177,7 @@ namespace Yuusha.gui
                     }
                     else
                     {
-                        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, sourceRect, new Color(s_disabledColor.R, s_disabledColor.G, s_disabledColor.B, m_visualAlpha));
+                        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, sourceRect, new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, m_visualAlpha));
                     }
                 }
             }
@@ -186,9 +186,9 @@ namespace Yuusha.gui
                 // override BitmapFont sprite batch
                 BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
                 // set font alignment
-                BitmapFont.ActiveFonts[Font].Alignment = m_textAlignment;
+                BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
                 // draw string in textbox
-                Rectangle rect = new Rectangle(m_textRectangle.X + m_xTextOffset, m_textRectangle.Y + m_yTextOffset, m_textRectangle.Width, m_textRectangle.Height);
+                Rectangle rect = new Rectangle(m_textRectangle.X + XTextOffset, m_textRectangle.Y + YTextOffset, m_textRectangle.Width, m_textRectangle.Height);
 
                 if (CreatureText != null && CreatureText != "")
                 {

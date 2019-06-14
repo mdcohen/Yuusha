@@ -18,7 +18,7 @@ namespace Yuusha.gui
         public Label()
             : base()
         {
-            m_textAlignment = BitmapFont.TextAlignment.Left;
+            TextAlignment = BitmapFont.TextAlignment.Left;
             m_textOverColor = new Color();
             m_tintColor = new Color();
             m_hasTextOverColor = false;
@@ -47,9 +47,9 @@ namespace Yuusha.gui
             m_visualAlpha = visualAlpha;
             m_borderAlpha = borderAlpha;
             m_textAlpha = textAlpha;
-            m_textAlignment = textAlignment;
-            m_xTextOffset = xTextOffset;
-            m_yTextOffset = yTextOffset;
+            TextAlignment = textAlignment;
+            XTextOffset = xTextOffset;
+            YTextOffset = yTextOffset;
             m_onDoubleClickEvent = onDoubleClickEvent;
             m_cursorOverride = cursorOverride;
             m_anchors = anchors;
@@ -75,19 +75,18 @@ namespace Yuusha.gui
             Color textColor;
 
             if (!m_disabled)
-                textColor = new Color(m_textColor.R, m_textColor.G, m_textColor.B, this.TextAlpha);
+                textColor = new Color(m_textColor.R, m_textColor.G, m_textColor.B, TextAlpha);
             else
-                textColor = new Color(Control.s_disabledColor.R, Control.s_disabledColor.G,
-                    Control.s_disabledColor.B, this.TextAlpha);
+                textColor = new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, TextAlpha);
 
             if (BitmapFont.ActiveFonts.ContainsKey(Font))
             {
                 // override BitmapFont sprite batch
                 BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
                 // set font alignment
-                BitmapFont.ActiveFonts[Font].Alignment = m_textAlignment;
+                BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
                 // draw string
-                Rectangle rect = new Rectangle(m_textRectangle.X + m_xTextOffset, m_textRectangle.Y + m_yTextOffset, m_textRectangle.Width, m_textRectangle.Height);
+                Rectangle rect = new Rectangle(m_textRectangle.X + XTextOffset, m_textRectangle.Y + YTextOffset, m_textRectangle.Width, m_textRectangle.Height);
                 // change color of text if mouse over text color is not null
                 if (m_text != null && m_text.Length > 0)
                 {
@@ -103,7 +102,7 @@ namespace Yuusha.gui
             }
             else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Label [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
 
-            if (m_border != null) m_border.Draw(gameTime);
+            if (Border != null) Border.Draw(gameTime);
         }
 
         protected override void OnMouseOver(MouseState ms)

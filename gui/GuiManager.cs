@@ -15,6 +15,7 @@ namespace Yuusha.gui
         public const string PASSWORDCHAR = "*";
         public static bool LoggingRequested = false;
         public static bool MouseCursorVisible = true;
+        public static bool AwaitMouseButtonRelease = false; // Mouse handling ceases until the mouse button is released
 
         #region Private Data
         static Dictionary<string, Texture2D> m_textures; // master textures
@@ -690,6 +691,7 @@ namespace Yuusha.gui
                                         break;
                                     case "Window":
                                     case "HotButtonEditWindow":
+                                    //case "GridBoxWindow":
                                         sheet.CreateWindow(name, type, owner, new Rectangle(x, y, width, height), visible,
                                             locked, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor),
                                             visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors,
@@ -841,10 +843,11 @@ namespace Yuusha.gui
 
             if (Client.GameState.ToString().Contains("Game"))
             {
-                if (GuiManager.GetControl("GameAutoHidingWindow") is AutoHidingWindow gameAutoHidingWindow)
-                {
-                    gameAutoHidingWindow.IsVisible = true;
-                }
+                if (GetControl("HorizontalGameAutoHidingWindow") is AutoHidingWindow horizontalGameAutoHidingWindow)
+                    horizontalGameAutoHidingWindow.IsVisible = true;
+
+                if (GetControl("VerticalGameAutoHidingWindow") is AutoHidingWindow verticalGameAutoHidingWindow)
+                    verticalGameAutoHidingWindow.IsVisible = true;
 
                 #region DamageFogSkullsLabel
                 if (Character.CurrentCharacter != null && GuiManager.GetControl("DamageFogSkullsLabel") is Label fogLabel)
@@ -875,10 +878,13 @@ namespace Yuusha.gui
             }
             else
             {
-                if (GuiManager.GetControl("GameAutoHidingWindow") is AutoHidingWindow gameAutoHidingWindow)
-                    gameAutoHidingWindow.IsVisible = false;
+                if (GetControl("HorizontalGameAutoHidingWindow") is AutoHidingWindow horizontalGameAutoHidingWindow)
+                    horizontalGameAutoHidingWindow.IsVisible = false;
 
-                if (GuiManager.GetControl("DamageFogSkullsLabel") is Label fogLabel)
+                if (GetControl("VerticalGameAutoHidingWindow") is AutoHidingWindow verticalGameAutoHidingWindow)
+                    verticalGameAutoHidingWindow.IsVisible = false;
+
+                if (GetControl("DamageFogSkullsLabel") is Label fogLabel)
                     fogLabel.IsVisible = false;
             }
 

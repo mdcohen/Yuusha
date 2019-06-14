@@ -35,6 +35,7 @@ NOTE 2: This has changed with property value adjustment to HiDef 2/10/2017 MC.
   <Texture Name="green_weave_single.png" Path="textures\green_weave_single.png"></Texture>
   <Texture Name="green_weave.gif" Path="textures\green_weave.gif"></Texture>
   <Texture Name="yuusha_items.png" Path="textures\yuusha_items.png"></Texture>
+  <Texture Name="inventorybackground.png" Path="textures\inventorybackground.png"></Texture>
 
   <Texture Name="heartrate.png" Path="textures\effects\heartrate.png"></Texture>
   <Texture Name="circle.png" Path="textures\effects\circle.png"></Texture>

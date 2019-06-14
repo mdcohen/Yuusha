@@ -42,6 +42,7 @@ namespace Yuusha.Utility.Settings
         public Color Color_Gui_Spell_Warming_TextCue = Color.PaleGoldenrod;
 
         public Color ColorDropDownMenuBorder = Color.MediumOrchid; // 6/8/2019 not being drawn
+        public int DropDownMenuBorderWidth = 1;
         public Color ColorDropDownMenu = Color.Gray;
         public Color ColorDropDownMenuItemBackground = Color.Black;
         public Color ColorDropDownMenuTitleText = Color.LightCyan;
@@ -53,11 +54,17 @@ namespace Yuusha.Utility.Settings
         public byte GridBoxWindowBorderAlpha = 255;
         public string GridBoxWindowFont = "courier16";
 
-        public Color ColorGridBoxWindowTintColor = Color.DarkSlateGray;
+        public Color GridBoxWindowTintColor = Color.DarkSlateGray;
         public Color GridBoxTitleTextColor = Color.White;
-        public Color GridBoxTitleTintColor = Color.Gray;
+        public Color GridBoxTitleTintColor = Color.DimGray;
         public Color GridBoxTitleCloseBoxTintColor = Color.LightSlateGray;
-        public Color GridBoxBorderTintColor = Color.Gray;
+        public Color GridBoxBorderTintColor = Color.DimGray;
+
+        public Color DragAndDropTextColor = Color.White;
+        public Color DragAndDropTextOverColor = Color.White;
+        public bool DragAndDropHasTextOverColor = false;
+        public Color DragAndDropTintOverColor = Color.White;
+        public bool DragAndDropHasTintOverColor = false;
 
         public int GridBoxTitleCloseBoxDistanceFromRight = 20;
         public int GridBoxTitleCloseBoxDistanceFromTop = 5;
@@ -69,7 +76,7 @@ namespace Yuusha.Utility.Settings
 
         public Color AcceptingGridBoxBorderColor = Color.PaleGreen;
         public Color AcceptingGridBoxTitleColor = Color.PaleGreen;
-        public Color AcceptingGridBoxTitleTextColor = Color.DarkOrchid;
+        public Color AcceptingGridBoxTitleTextColor = Color.Black;
 
         public Color PrivateMessageWindowTitleTextColor = Color.White;
         public Color PrivateMessageWindowTitleTintColor = Color.Gray;

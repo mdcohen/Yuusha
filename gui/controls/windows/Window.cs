@@ -437,7 +437,7 @@ namespace Yuusha.gui
             if (m_locked || m_disabled || !Client.HasFocus)
                 return;
 
-            if (WindowTitle != null && (WindowTitle.ControlState == Enums.EControlState.Down || WindowBorder.ControlState == Enums.EControlState.Down))
+            if (WindowTitle != null && WindowTitle.ControlState == Enums.EControlState.Down)
             {
                 bool startDragging = true;
                 foreach (Control box in this.Controls)
@@ -633,51 +633,148 @@ namespace Yuusha.gui
                 c.HasFocus = false;
         }
 
+        /// <summary>
+        /// Be aware when adding a window within a window within a window within a window. ;)
+        /// </summary>
         private void CheckBoundsAndAdjust()
         {
             if (m_owner == "")
             {
                 try
                 {
+                    // X
                     if (m_rectangle.X < 0)
                     {
                         int adjustX = Math.Abs(m_rectangle.X);
                         m_rectangle.X += adjustX;
                         m_touchDownPoint.X += adjustX;
-                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        for (int j = Controls.Count - 1; j >= 0; j--)
                         {
-                            Point position = this.Controls[j].Position;
+                            Point position = Controls[j].Position;
                             position.X += adjustX;
-                            this.Controls[j].Position = position;
+                            Controls[j].Position = position;
+
+                            if (Controls[j] is Window)
+                            {
+                                for (int k = (Controls[j] as Window).Controls.Count - 1; k >= 0; k--)
+                                {
+                                    position = ((this as Window).Controls[j] as Window).Controls[k].Position;
+                                    position.X += adjustX;
+                                    ((this as Window).Controls[j] as Window).Controls[k].Position = position;
+
+                                    if (((this as Window).Controls[j] as Window).Controls[k] is Window)
+                                    {
+                                        for (int l = (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls.Count - 1; l >= 0; l--)
+                                        {
+                                            position = (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l].Position;
+                                            position.X += adjustX;
+                                            (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l].Position = position;
+
+                                            if ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] is Window)
+                                            {
+                                                for (int m = ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls.Count - 1; m >= 0; m--)
+                                                {
+                                                    position = ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls[m].Position;
+                                                    position.X += adjustX;
+                                                    ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls[m].Position = position;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
+                    // Y
                     if (m_rectangle.Y < 0)
                     {
                         int adjustY = Math.Abs(m_rectangle.Y);
                         m_rectangle.Y += adjustY;
                         m_touchDownPoint.Y += adjustY;
-                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        for (int j = Controls.Count - 1; j >= 0; j--)
                         {
-                            Point position = this.Controls[j].Position;
+                            Point position = Controls[j].Position;
                             position.Y += adjustY;
-                            this.Controls[j].Position = position;
+                            Controls[j].Position = position;
+
+                            if (Controls[j] is Window)
+                            {
+                                for (int k = (Controls[j] as Window).Controls.Count - 1; k >= 0; k--)
+                                {
+                                    position = ((this as Window).Controls[j] as Window).Controls[k].Position;
+                                    position.Y += adjustY;
+                                    ((this as Window).Controls[j] as Window).Controls[k].Position = position;
+
+                                    if (((this as Window).Controls[j] as Window).Controls[k] is Window)
+                                    {
+                                        for (int l = (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls.Count - 1; l >= 0; l--)
+                                        {
+                                            position = (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l].Position;
+                                            position.Y += adjustY;
+                                            (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l].Position = position;
+
+                                            if ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] is Window)
+                                            {
+                                                for (int m = ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls.Count - 1; m >= 0; m--)
+                                                {
+                                                    position = ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls[m].Position;
+                                                    position.Y += adjustY;
+                                                    ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls[m].Position = position;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
+                    // Width
                     if (m_rectangle.X + m_rectangle.Width > Client.Width)
                     {
                         int adjustX = Math.Abs((m_rectangle.X + m_rectangle.Width) - Client.Width);
                         m_rectangle.X -= adjustX;
                         m_touchDownPoint.X -= adjustX;
-                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        for (int j = Controls.Count - 1; j >= 0; j--)
                         {
-                            Point position = this.Controls[j].Position;
+                            Point position = Controls[j].Position;
                             position.X -= adjustX;
-                            this.Controls[j].Position = position;
+                            Controls[j].Position = position;
+
+                            if (Controls[j] is Window)
+                            {
+                                for (int k = (Controls[j] as Window).Controls.Count - 1; k >= 0; k--)
+                                {
+                                    position = ((this as Window).Controls[j] as Window).Controls[k].Position;
+                                    position.X -= adjustX;
+                                    ((this as Window).Controls[j] as Window).Controls[k].Position = position;
+
+                                    if (((this as Window).Controls[j] as Window).Controls[k] is Window)
+                                    {
+                                        for (int l = (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls.Count - 1; l >= 0; l--)
+                                        {
+                                            position = (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l].Position;
+                                            position.X -= adjustX;
+                                            (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l].Position = position;
+
+                                            if ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] is Window)
+                                            {
+                                                for (int m = ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls.Count - 1; m >= 0; m--)
+                                                {
+                                                    position = ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls[m].Position;
+                                                    position.X -= adjustX;
+                                                    ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls[m].Position = position;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
+                    // Height
                     int heightCheck = m_rectangle.Y + m_rectangle.Height;
 
                     if (m_cropped && WindowTitle != null)
@@ -688,11 +785,42 @@ namespace Yuusha.gui
                         int adjustY = Math.Abs((heightCheck) - Client.Height);
                         m_rectangle.Y -= adjustY;
                         m_touchDownPoint.Y -= adjustY;
-                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+
+                        for (int j = Controls.Count - 1; j >= 0; j--)
                         {
-                            Point position = this.Controls[j].Position;
+                            Point position = Controls[j].Position;
                             position.Y -= adjustY;
                             this.Controls[j].Position = position;
+
+                            if(Controls[j] is Window)
+                            {
+                                for(int k = (Controls[j] as Window).Controls.Count - 1; k >= 0; k--)
+                                {
+                                    position = ((this as Window).Controls[j] as Window).Controls[k].Position;
+                                    position.Y -= adjustY;
+                                    ((this as Window).Controls[j] as Window).Controls[k].Position = position;
+
+                                    if (((this as Window).Controls[j] as Window).Controls[k] is Window)
+                                    {
+                                        for (int l = (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls.Count - 1; l >= 0; l--)
+                                        {
+                                            position = (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l].Position;
+                                            position.Y -= adjustY;
+                                            (((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l].Position = position;
+
+                                            if ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] is Window)
+                                            {
+                                                for (int m = ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls.Count - 1; m >= 0; m--)
+                                                {
+                                                    position = ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls[m].Position;
+                                                    position.Y -= adjustY;
+                                                    ((((this as Window).Controls[j] as Window).Controls[k] as Window).Controls[l] as Window).Controls[m].Position = position;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

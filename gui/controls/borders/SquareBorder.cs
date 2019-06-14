@@ -69,7 +69,7 @@ namespace Yuusha.gui
                 Color color = new Color(m_tintColor.R, m_tintColor.G, m_tintColor.B, this.VisualAlpha);
 
                 if (m_disabled)
-                    color = new Color(s_disabledColor.R, s_disabledColor.G, s_disabledColor.B, this.VisualAlpha);
+                    color = new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, this.VisualAlpha);
 
                 // Fixes overlapping border sides on lower alpha.
                 Rectangle leftRect = new Rectangle(m_leftRectangle.X, m_leftRectangle.Y + this.BorderWidth, m_leftRectangle.Width, m_leftRectangle.Height - (this.BorderWidth * 2));

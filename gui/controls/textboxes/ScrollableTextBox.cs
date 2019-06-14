@@ -42,7 +42,7 @@ namespace Yuusha.gui
         }
         private int ViewportLines
         {
-            get { return (int)((m_rectangle.Height - m_xTextOffset) / BitmapFont.ActiveFonts[Font].LineHeight); }
+            get { return (int)((m_rectangle.Height - XTextOffset) / BitmapFont.ActiveFonts[Font].LineHeight); }
         }
         public int LinesCount
         {
@@ -63,7 +63,7 @@ namespace Yuusha.gui
             m_visibleTextTypes = new List<Enums.ETextType>();
             m_visibleTextColors = new List<Color>();
             m_formattedTextColors = new List<Color>();
-            m_textAlignment = BitmapFont.TextAlignment.Left;
+            TextAlignment = BitmapFont.TextAlignment.Left;
             m_maxLineBuffer = 100;
             m_prevScrollWheelValue = 0;
             m_trim = false;
@@ -90,9 +90,9 @@ namespace Yuusha.gui
             m_visualAlpha = visualAlpha;
             m_borderAlpha = borderAlpha;
             m_textAlpha = textAlpha;
-            m_xTextOffset = xTextOffset;
-            m_yTextOffset = yTextOffset;
-            m_textAlignment = textAlignment;
+            XTextOffset = xTextOffset;
+            YTextOffset = yTextOffset;
+            TextAlignment = textAlignment;
             m_anchors = anchors;
             m_trim = trim;
 
@@ -132,7 +132,7 @@ namespace Yuusha.gui
                 // enable or disable the scrollbar
                 if (BitmapFont.ActiveFonts.ContainsKey(Font))
                 {
-                    if (m_formattedLines.Count * BitmapFont.ActiveFonts[Font].LineHeight > m_rectangle.Height - m_xTextOffset)
+                    if (m_formattedLines.Count * BitmapFont.ActiveFonts[Font].LineHeight > m_rectangle.Height - XTextOffset)
                         m_scrollbar.IsDisabled = false;
                     else m_scrollbar.IsDisabled = true;
                 }
@@ -208,7 +208,7 @@ namespace Yuusha.gui
 
                 // if disabled use static disabled color
                 if (m_disabled)
-                    textColor = new Color(Control.s_disabledColor.R, Control.s_disabledColor.G, Control.s_disabledColor.B, m_textAlpha);
+                    textColor = new Color(Control.ColorDisabledStandard.R, Control.ColorDisabledStandard.G, Control.ColorDisabledStandard.B, m_textAlpha);
 
                 int lineHeight = 0;
 
@@ -221,7 +221,7 @@ namespace Yuusha.gui
                 m_visibleTextColors.CopyTo(textColors);
 
                 // set text alignment
-                BitmapFont.ActiveFonts[Font].Alignment = m_textAlignment;
+                BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
                 Color drawTextColor = textColor;
 
                 for (int a = 0; a < lines.Length; a++)
@@ -233,7 +233,7 @@ namespace Yuusha.gui
 
                     // switch to draw color based on preferred colors
 
-                    BitmapFont.ActiveFonts[Font].DrawString(m_rectangle.X + m_xTextOffset, m_rectangle.Y + m_yTextOffset + lineHeight, drawTextColor, lines[a]);
+                    BitmapFont.ActiveFonts[Font].DrawString(m_rectangle.X + XTextOffset, m_rectangle.Y + YTextOffset + lineHeight, drawTextColor, lines[a]);
                     lineHeight += BitmapFont.ActiveFonts[Font].LineHeight;
                 }
             }
@@ -342,9 +342,9 @@ namespace Yuusha.gui
             {
                 int lineLength = BitmapFont.ActiveFonts[Font].MeasureString(line);
                 string newLine = "";
-                if (lineLength > m_rectangle.Width - m_xTextOffset)
+                if (lineLength > m_rectangle.Width - XTextOffset)
                 {
-                    while (lineLength > m_rectangle.Width - m_xTextOffset)
+                    while (lineLength > m_rectangle.Width - XTextOffset)
                     {
                         newLine = newLine.Insert(0, line.Substring(line.LastIndexOf(' '), line.Length - line.LastIndexOf(' ')));
                         line = line.Remove(line.LastIndexOf(' '), line.Length - line.LastIndexOf(' '));

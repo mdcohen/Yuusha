@@ -45,9 +45,9 @@ namespace Yuusha.gui
             m_visualAlpha = visualAlpha;
             m_borderAlpha = borderAlpha;
             m_textAlpha = textAlpha;
-            m_textAlignment = textAlignment;
-            m_xTextOffset = xTextOffset;
-            m_yTextOffset = yTextOffset;
+            TextAlignment = textAlignment;
+            XTextOffset = xTextOffset;
+            YTextOffset = yTextOffset;
             m_onDoubleClickEvent = onDoubleClickEvent;
             m_cursorOverride = cursorOverride;
             m_anchors = anchors;
@@ -62,7 +62,7 @@ namespace Yuusha.gui
             base.Draw(gameTime);
 
             // draw string in textbox
-            Rectangle rect = new Rectangle(m_textRectangle.X + m_xTextOffset, m_textRectangle.Y + m_yTextOffset, m_textRectangle.Width, m_textRectangle.Height);
+            Rectangle rect = new Rectangle(m_textRectangle.X + XTextOffset, m_textRectangle.Y + YTextOffset, m_textRectangle.Width, m_textRectangle.Height);
 
             if (m_lootText != null && m_lootText != "")
             {

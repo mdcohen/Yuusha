@@ -426,7 +426,7 @@ namespace Yuusha
                             {
                                 Events.RegisterEvent(Events.EventName.Disconnect);
                                 Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account does not exist.", "Red");
-                                gui.TextCue.AddClientInfoTextCue("Account does not exist.", gui.TextCue.TextCueTag.None, Color.Red, Color.Transparent, 4000, false, false, true);
+                                gui.TextCue.AddClientInfoTextCue("Account does not exist.", Color.Red, Color.Transparent, 4000);
                                 return true;
                             }
                             break;
@@ -539,7 +539,7 @@ namespace Yuusha
                             #region CharGen
                             if(inData.ToLower().IndexOf("that was not an option") != -1)
                             {
-                                gui.TextCue.AddClientInfoTextCue("That was not an option.", gui.TextCue.TextCueTag.None, Color.Tomato, Color.Black, 1500, false, false, true);
+                                gui.TextCue.AddClientInfoTextCue("That was not an option.", Color.Tomato, Color.Black, 1500);
                                 return true;
                             }
                             else if(inData.ToLower().IndexOf("please select a gender:") != -1)

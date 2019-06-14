@@ -97,10 +97,10 @@ namespace Yuusha.gui
 
                     if (chr.RightHand != null)
                     {
-                        sheet["RHNameDragAndDropButton"].Text = chr.RightHand.name;
+                        sheet["RHNameDragAndDropButton"].Text = chr.RightHand.Name;
                         if (chr.RightHand.nocked)
                         {
-                            if (chr.RightHand.name.ToLower().Contains("crossbow"))
+                            if (chr.RightHand.Name.ToLower().Contains("crossbow"))
                                 sheet["RHNameDragAndDropButton"].Text += "*";
                             else if (chr.LeftHand == null)
                                 sheet["LHNameDragAndDropButton"].Text = "*";
@@ -111,10 +111,10 @@ namespace Yuusha.gui
 
                     if (chr.LeftHand != null)
                     {
-                        sheet["LHNameDragAndDropButton"].Text = chr.LeftHand.name;
+                        sheet["LHNameDragAndDropButton"].Text = chr.LeftHand.Name;
                         if (chr.LeftHand.nocked)
                         {
-                            if (chr.LeftHand.name.ToLower().Contains("crossbow"))
+                            if (chr.LeftHand.Name.ToLower().Contains("crossbow"))
                                 sheet["LHNameDragAndDropButton"].Text += "*";
                             else if (chr.RightHand == null)
                                 sheet["RHNameDragAndDropButton"].Text = "*";
@@ -306,9 +306,9 @@ namespace Yuusha.gui
 
                 if (critterInfo[tempA + 4].Length > 0)
                 {
-                    crit.RightHand.id = Convert.ToInt32(critterInfo[tempA + 4]);
-                    crit.RightHand.name = critterInfo[tempA + 5];
-                    crit.RightHand.visualKey = critterInfo[tempA + 6];
+                    crit.RightHand.ID = Convert.ToInt32(critterInfo[tempA + 4]);
+                    crit.RightHand.Name = critterInfo[tempA + 5];
+                    crit.RightHand.VisualKey = critterInfo[tempA + 6];
                     //crit.RightHand.longDesc = critterInfo[tempA + 14];
                 }
                 else
@@ -317,9 +317,9 @@ namespace Yuusha.gui
                 }
                 if (critterInfo.Length > tempA + 6 && critterInfo[tempA + 7].Length > 0)
                 {
-                    crit.LeftHand.id = Convert.ToInt32(critterInfo[tempA + 7]);
-                    crit.LeftHand.name = critterInfo[tempA + 8];
-                    crit.LeftHand.visualKey = critterInfo[tempA + 9];
+                    crit.LeftHand.ID = Convert.ToInt32(critterInfo[tempA + 7]);
+                    crit.LeftHand.Name = critterInfo[tempA + 8];
+                    crit.LeftHand.VisualKey = critterInfo[tempA + 9];
                     //crit.LeftHand.longDesc = critterInfo[tempA + 17]; //
                 }
                 else
@@ -343,13 +343,13 @@ namespace Yuusha.gui
                 string[] itemInfo = inData.Split(Protocol.VSPLIT.ToCharArray());
                 Item item = new Item
                 {
-                    id = Convert.ToInt32(itemInfo[0]),
-                    name = itemInfo[1],
+                    ID = Convert.ToInt32(itemInfo[0]),
+                    Name = itemInfo[1],
                     //item.longDesc = itemInfo[2];
-                    visualKey = itemInfo[3],
+                    VisualKey = itemInfo[3],
                     //item.wearLocation = (Character.WearLocation)Convert.ToInt32(itemInfo[4]);
                     //item.attuneType = (Item.AttuneType)Convert.ToInt32(itemInfo[5]);
-                    worldItemID = Convert.ToInt32(itemInfo[4])
+                    WorldItemID = Convert.ToInt32(itemInfo[4])
                 };
                 return item;
             }
@@ -387,12 +387,12 @@ namespace Yuusha.gui
                             critterInfo = critterInfo.PadRight(19);
 
                             if (ch.RightHand != null)
-                                critterInfo += ch.RightHand.name;
+                                critterInfo += ch.RightHand.Name;
 
                             critterInfo = critterInfo.PadRight(31);
 
                             if (ch.LeftHand != null)
-                                critterInfo += ch.LeftHand.name;
+                                critterInfo += ch.LeftHand.Name;
 
                             critterInfo = critterInfo.PadRight(43);
 

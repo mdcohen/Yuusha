@@ -39,9 +39,9 @@ namespace Yuusha.gui
             m_visualAlpha = visualAlpha;
             m_borderAlpha = borderAlpha;
             m_textAlpha = textAlpha;
-            m_textAlignment = textAlignment;
-            m_xTextOffset = xTextOffset;
-            m_yTextOffset = yTextOffset;
+            TextAlignment = textAlignment;
+            XTextOffset = xTextOffset;
+            YTextOffset = yTextOffset;
             m_onDoubleClickEvent = onDoubleClickEvent;
             m_cursorOverride = cursorOverride;
             m_anchors = anchors;

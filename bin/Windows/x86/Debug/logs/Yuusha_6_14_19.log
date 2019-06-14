@@ -1,0 +1,4 @@
+6/14/2019 10:50:27 AM: {Exception} The given key was not present in the dictionary. Stack:    at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at Yuusha.gui.SpinelTileLabel.Draw(GameTime gameTime) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\labels\SpinelTileLabel.cs:line 131
+   at Yuusha.gui.Window.Draw(GameTime gameTime) in C:\Users\mikec\Desktop\YuushaMG\gui\controls\windows\Window.cs:line 192
+   at Yuusha.gui.Sheet.Draw(GameTime gameTime) in C:\Users\mikec\Desktop\YuushaMG\gui\Sheet.cs:line 204

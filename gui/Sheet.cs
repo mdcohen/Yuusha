@@ -299,9 +299,7 @@ namespace Yuusha.gui
             {
                 // skip this control if disabled
                 if (m_controls[i].IsDisabled)
-                {
                     continue;
-                }
 
                 m_controls[i].KeyboardHandler(ks);
             }
@@ -502,7 +500,7 @@ namespace Yuusha.gui
         public void AddControl(Control c)
         {
             // set control sheet owner
-            c.Sheet = this.Name;
+            c.Sheet = Name;
 
             // control does not have an owner (Window), find highest z depth
             if (c.Owner == "")
@@ -556,7 +554,6 @@ namespace Yuusha.gui
                     {
                         if (c is Border)
                             (owner as DropDownMenu).Border = c as Border;
-                        //TODO if c is DropDownMenuItem ?
                     }
                     else if (owner is HotButton)
                     {
@@ -967,6 +964,7 @@ namespace Yuusha.gui
             Color tintColor, int visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance)
         {
             AddControl(new DropDownMenu(name, owner, title, rectangle, visible, font, visualKey, tintColor, visualAlpha, dropShadow, shadowDirection, shadowDistance));
+            CreateSquareBorder(name + "Border", name, Client.UserSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorDropDownMenuBorder, 255);
         }
 
         public void CreateLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,

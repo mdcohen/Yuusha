@@ -11,6 +11,8 @@ namespace Yuusha.gui
         public static string TextSendOverride = "";
         public static Enums.EGameState PreviousGameState { get;set; }
         public static Cell ExaminedCell { get; set; }
+        public static GridBoxWindow.GridBoxPurpose GridBoxWindowRequestUpdate
+        { get; set; }
 
         // Text is not cleared from scrolling textboxes in these ClientStates (they fill the screen)
         public static List<Enums.EGameState> OverrideDisplayStates = new List<Enums.EGameState>
@@ -23,12 +25,17 @@ namespace Yuusha.gui
 
         }
 
-        public static void DragAndDropLogic(DragAndDropButton button)
+        /// <summary>
+        /// Handles dropping from a drag and drop area to a drag and drop area.
+        /// </summary>
+        /// <param name="b">The drag and drop area where an item is being manipulated.</param>
+        public static void DragAndDropLogic(DragAndDropButton b)
         {
             // Right hand or left hand items
-            if (button.Name.StartsWith("RH") || button.Name.StartsWith("LH"))
+            if (b.Name.StartsWith("RH") || b.Name.StartsWith("LH"))
             {
-                string rightOrLeft = button.Name.StartsWith("RH") ? "right" : "left";
+                #region Right and Left Hand Items
+                string rightOrLeft = b.Name.StartsWith("RH") ? "right" : "left";
                 if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
                 {
                     IO.Send("put " + rightOrLeft + " in sack");
@@ -53,7 +60,7 @@ namespace Yuusha.gui
                 {
                     IO.Send("swap");
                 }
-                else if(GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
                 {
                     GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
                     if (window.WindowTitle != null)
@@ -73,28 +80,28 @@ namespace Yuusha.gui
 
                         Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
                     }
-                }
+                } 
+                #endregion
             }
-            else if (button.Name.StartsWith("Belt"))
+            else if (b.Name.StartsWith("Belt"))
             {
                 if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                 {
-                    IO.Send("wield " + button.RepresentedItem.worldItemID);
+                    IO.Send("wield " + b.RepresentedItem.Name);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
-                    // TODO: unique IDs server side for item manipulation (biiiiig deal)
-                    IO.Send("wield " + button.RepresentedItem.worldItemID + ";put " + button.RepresentedItem.worldItemID + " in locker");
+                    IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in locker");
                     IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
                 {
-                    IO.Send("wield " + button.RepresentedItem.worldItemID + ";put " + button.RepresentedItem.worldItemID + " in sack");
+                    IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in sack");
                     IO.Send(Protocol.REQUEST_CHARACTER_SACK);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
                 {
-                    IO.Send("wield " + button.RepresentedItem.worldItemID + ";put " + button.RepresentedItem.worldItemID + " in pouch");
+                    IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in pouch");
                     IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
@@ -105,13 +112,13 @@ namespace Yuusha.gui
                         switch (window.WindowTitle.Text.ToLower())
                         {
                             case "altar":
-                                IO.Send("wield " + button.RepresentedItem.worldItemID + ";put " + button.RepresentedItem.worldItemID + " on altar");
+                                IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " on altar");
                                 break;
                             case "counter":
-                                IO.Send("wield " + button.RepresentedItem.worldItemID + ";put " + button.RepresentedItem.worldItemID + " on counter");
+                                IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " on counter");
                                 break;
                             default:
-                                IO.Send("wield " + button.RepresentedItem.worldItemID + ";drop " + button.RepresentedItem.worldItemID);
+                                IO.Send("wield " + b.RepresentedItem.Name + ";drop " + b.RepresentedItem.Name);
                                 break;
                         }
 
@@ -121,7 +128,7 @@ namespace Yuusha.gui
 
                 IO.Send(Protocol.REQUEST_CHARACTER_BELT);
             }
-            else if (button.Name.StartsWith("Sack"))
+            else if (b.Name.StartsWith("Sack"))
             {
                 if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                 {
@@ -133,10 +140,161 @@ namespace Yuusha.gui
                     else if (Character.CurrentCharacter.LeftHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH"))
                         swapbefore = "swap;";
 
-                    IO.Send(swapbefore + "take " + button.RepresentedItem.worldItemID + " from sack" + swapafter);
+                    IO.Send(swapbefore + "take " + b.GetNItemName(b) + " from sack" + swapafter);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
+                {
+                    IO.Send("take " + b.GetNItemName(b) + " from sack; put " + b.RepresentedItem.Name + " in locker");
+                    IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
+                {
+                    IO.Send("take " + b.GetNItemName(b) + " from sack;belt " + b.RepresentedItem.Name);
+                    IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
+                {
+                    IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " in pouch");
+                    IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
+                {
+                    GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
+                    if (window.WindowTitle != null)
+                    {
+                        switch (window.WindowTitle.Text.ToLower())
+                        {
+                            case "altar":
+                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on altar");
+                                break;
+                            case "counter":
+                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on counter");
+                                break;
+                            default:
+                                IO.Send("take " + b.GetNItemName(b) + " from sack;drop " + b.RepresentedItem.Name);
+                                break;
+                        }
+
+                        Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+                    }
+                }
+
+                IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+            }
+            else if (b.Name.StartsWith("Pouch"))
+            {
+                if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
+                {
+                    string swapafter = "";
+                    string swapbefore = "";
+
+                    if (Character.CurrentCharacter.RightHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
+                        swapafter = ";swap";
+                    else if (Character.CurrentCharacter.LeftHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH"))
+                        swapbefore = "swap;";
+
+                    IO.Send(swapbefore + "take " + b.GetNItemName(b) + " from pouch" + swapafter);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
+                {
+                    IO.Send("take " + b.GetNItemName(b) + " from pouch; put " + b.RepresentedItem.Name + " in locker");
+                    IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
+                {
+                    IO.Send("take " + b.GetNItemName(b) + " from pouch;belt " + b.RepresentedItem.Name);
+                    IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
+                {
+                    IO.Send("take " + b.GetNItemName(b) + " from pouch;put " + b.RepresentedItem.Name + " in sack");
                     IO.Send(Protocol.REQUEST_CHARACTER_SACK);
                 }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
+                {
+                    GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
+                    if (window.WindowTitle != null)
+                    {
+                        switch (window.WindowTitle.Text.ToLower())
+                        {
+                            case "altar":
+                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on altar");
+                                break;
+                            case "counter":
+                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on counter");
+                                break;
+                            default:
+                                IO.Send("take " + b.GetNItemName(b) + " from sack;drop " + b.RepresentedItem.Name);
+                                break;
+                        }
+
+                        Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+                    }
+                }
+
+                IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
             }
+            else if(b.Name.StartsWith("Ground"))
+            {
+                if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
+                {
+                    string swapafter = "";
+                    string swapbefore = "";
+
+                    if (Character.CurrentCharacter.RightHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
+                        swapafter = ";swap";
+                    else if (Character.CurrentCharacter.LeftHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH"))
+                        swapbefore = "swap;";
+
+                    IO.Send(swapbefore + "take " + b.GetNItemName(b) + swapafter);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
+                {
+                    IO.Send("take " + b.GetNItemName(b) + "; put " + b.RepresentedItem.Name + " in locker");
+                    IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
+                {
+                    IO.Send("take " + b.GetNItemName(b) + ";belt " + b.RepresentedItem.Name);
+                    IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
+                {
+                    IO.Send("take " + b.GetNItemName(b) + ";put " + b.RepresentedItem.Name + " in sack");
+                    IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
+                {
+                    GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
+                    if (window.WindowTitle != null)
+                    {
+                        switch (window.WindowTitle.Text.ToLower())
+                        {
+                            case "altar":
+                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on altar");
+                                break;
+                            case "counter":
+                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on counter");
+                                break;
+                            default:
+                                IO.Send("take " + b.GetNItemName(b) + " from sack;drop " + b.RepresentedItem.Name);
+                                break;
+                        }
+
+                        Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+                    }
+                }
+
+                Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+            }
+        }
+
+        public static Cell GetCurrentCharacterCell()
+        {
+            if (Client.GameState == Enums.EGameState.IOKGame)
+                return IOKMode.Cells[24];
+            else// if (Client.GameState == Enums.EGameState.SpinelGame)
+                return SpinelMode.Cells[24];
         }
 
         //public void MapPortalFade()

@@ -145,5 +145,29 @@ namespace Yuusha
             string cellCoords = cell.xCord + Protocol.VSPLIT + cell.yCord + Protocol.VSPLIT + cell.zCord;
             IO.Send(Protocol.REQUEST_CELLITEMS + " " + cellCoords);
         }
+
+        public static bool operator ==(Cell c1, Cell c2)
+        {
+            if (c1 == null && c2 == null) return true;
+            if (c1 == null && c2 != null) return false;
+            if (c1 != null && c2 == null) return false;
+
+            if (c1.xCord == c2.xCord && c1.yCord == c2.yCord && c1.zCord == c2.zCord)
+                return true;
+
+            return false;                   
+        }
+
+        public static bool operator !=(Cell c1, Cell c2)
+        {
+            if (c1 == null && c2 == null) return false;
+            if (c1 == null && c2 != null) return true;
+            if (c1 != null && c2 == null) return true;
+
+            if (c1.xCord != c2.xCord || c1.yCord != c2.yCord || c1.zCord != c2.zCord)
+                return true;
+
+            return false;
+        }
     }
 }

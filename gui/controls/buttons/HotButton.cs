@@ -45,7 +45,7 @@ namespace Yuusha.gui
 
                     TextCue.ClearMouseCursorTextCue();
 
-                    TextCue.AddClientInfoTextCue("Hot Button Cleared", TextCue.TextCueTag.None, Color.LimeGreen, Color.Black, 1000, false, false, true);
+                    TextCue.AddClientInfoTextCue("Hot Button Cleared", Color.LimeGreen, Color.Black, 1000);
 
                     Events.RegisterEvent(Events.EventName.Save_Character_Settings);
 

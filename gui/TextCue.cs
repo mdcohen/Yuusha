@@ -247,8 +247,18 @@ namespace Yuusha.gui
 
         public static void ClearMouseCursorTextCue()
         {
-            MouseState ms = GuiManager.MouseState;
+            MouseCursor cursor;
 
+            if (GuiManager.CurrentSheet.CursorOverride != "")
+                cursor = GuiManager.Cursors[GuiManager.CurrentSheet.CursorOverride];
+            else cursor = GuiManager.Cursors[GuiManager.CurrentSheet.Cursor];
+
+            if (cursor != null)
+                cursor.TextCues.Clear();
+        }
+
+        public static void RemoveMouseCursorTextCue(string text)
+        {
             MouseCursor cursor;
 
             if (GuiManager.CurrentSheet.CursorOverride != "")
@@ -257,7 +267,11 @@ namespace Yuusha.gui
 
             if (cursor != null)
             {
-                cursor.TextCues.Clear();
+                foreach(TextCue tc in new List<TextCue>(cursor.TextCues))
+                {
+                    if (tc.Text == text)
+                        cursor.TextCues.Remove(tc);
+                }
             }
         }
 
@@ -269,6 +283,11 @@ namespace Yuusha.gui
         public static void AddClientInfoTextCue(string text, double lifeCycle)
         {
             AddClientInfoTextCue(text, TextCueTag.None, Color.Yellow, Color.Black, lifeCycle, false, false, true);
+        }
+        
+        public static void AddClientInfoTextCue(string text, Color foreColor, Color backgroundColor, double lifeCycle)
+        {
+            AddClientInfoTextCue(text, TextCueTag.None, foreColor, backgroundColor, lifeCycle, false, false, true);
         }
 
         public static void AddClientInfoTextCue(string text, TextCueTag tag, Color color, Color backgroundColor, double lifeCycle, bool fadeIn, bool fadeOut, bool addOnce)

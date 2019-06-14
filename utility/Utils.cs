@@ -392,5 +392,17 @@ namespace Yuusha
 
             return Color.White;
         }
-	}
+
+        public static void LogCharacterFields()
+        {
+            FieldInfo[] fields = Character.CurrentCharacter.GetType().GetFields(BindingFlags.Public |
+                                              BindingFlags.NonPublic |
+                                              BindingFlags.Instance);
+
+            foreach(FieldInfo f in fields)
+            {
+                Utils.Log(f.Name + ": " + f.GetValue(Character.CurrentCharacter));
+            }
+        }
+    }
 }

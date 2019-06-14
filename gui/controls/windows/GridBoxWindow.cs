@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -10,6 +9,7 @@ namespace Yuusha.gui
     {
         public enum GridBoxPurpose
         {
+            None,
             Altar,
             Belt,
             Counter,
@@ -38,18 +38,18 @@ namespace Yuusha.gui
 
         public static GridBoxWindow CreateGridBox(GridBoxPurpose purpose, int rows, int columns, int rowHeight, int columnWidth)
         {
-            if (GuiManager.GetControl(purpose.ToString() + "GridBox") != null)
+            if (GuiManager.GetControl(purpose.ToString() + "GridBoxWindow") != null)
             {
-                //TextCue.AddClientInfoTextCue(purpose.ToString() + "GridBox exists.");
-                GridBoxWindow existingBox = GuiManager.GetControl(purpose.ToString() + "GridBox") as GridBoxWindow;
+                GridBoxWindow existingBox = GuiManager.GetControl(purpose.ToString() + "GridBoxWindow") as GridBoxWindow;
                 existingBox.RemoveDragAndDropButtons();
+                if (existingBox.WindowTitle != null) existingBox.WindowTitle.Text = purpose.ToString(); // counter, altar, ground use same gridbox
                 return existingBox;
             }
 
-            GridBoxWindow box = new GridBoxWindow(purpose.ToString() + "GridBox", "",
+            GridBoxWindow box = new GridBoxWindow(purpose.ToString() + "GridBoxWindow", "",
                 new Rectangle(40, 40, (columns * columnWidth) + (Client.UserSettings.GridBoxButtonsBorderWidth * 2), (rows * rowHeight) + Client.UserSettings.GridBoxTitleHeight + (Client.UserSettings.GridBoxButtonsBorderWidth * 2)),
                 false, false, false, Client.UserSettings.GridBoxWindowFont, new VisualKey("WhiteSpace"),
-                Client.UserSettings.ColorGridBoxWindowTintColor, Client.UserSettings.GridBoxWindowVisualKeyAlpha, Client.UserSettings.GridBoxWindowBorderAlpha, true,
+                Client.UserSettings.GridBoxWindowTintColor, Client.UserSettings.GridBoxWindowVisualKeyAlpha, Client.UserSettings.GridBoxWindowBorderAlpha, true,
                 Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left }, "", rows, columns, purpose);
             box.m_cursorOverride = "Dragging";
 
@@ -79,7 +79,7 @@ namespace Yuusha.gui
                     columns = 5;
                     box = CreateGridBox(GridBoxPurpose.Belt, rows, columns, size, size);
                     x = Client.UserSettings.GridBoxButtonsBorderWidth;
-                    y = Client.UserSettings.GridBoxTitleHeight + Client.UserSettings.GridBoxButtonsBorderWidth;
+                    y = Client.UserSettings.GridBoxTitleHeight;
                     if (Character.CurrentCharacter != null && Character.CurrentCharacter.Belt != null)
                         itemsList = new List<Item>(Character.CurrentCharacter.Belt);
                     else return;
@@ -90,7 +90,7 @@ namespace Yuusha.gui
                     columns = 5;
                     box = CreateGridBox(GridBoxPurpose.Locker, rows, columns, size, size);
                     x = Client.UserSettings.GridBoxButtonsBorderWidth;
-                    y = Client.UserSettings.GridBoxTitleHeight + Client.UserSettings.GridBoxButtonsBorderWidth;
+                    y = Client.UserSettings.GridBoxTitleHeight;
                     if (Character.CurrentCharacter != null && Character.CurrentCharacter.Locker != null)
                         itemsList = new List<Item>(Character.CurrentCharacter.Locker);
                     else return;
@@ -103,7 +103,7 @@ namespace Yuusha.gui
                     columns = 5;
                     box = CreateGridBox(GridBoxPurpose.Ground, rows, columns, size, size);
                     x = Client.UserSettings.GridBoxButtonsBorderWidth;
-                    y = Client.UserSettings.GridBoxTitleHeight + Client.UserSettings.GridBoxButtonsBorderWidth;
+                    y = Client.UserSettings.GridBoxTitleHeight;
                     itemsList = new List<Item>(GameHUD.ExaminedCell.Items);
                     if(GameHUD.ExaminedCell != null && box.WindowTitle != null)
                     {
@@ -118,7 +118,7 @@ namespace Yuusha.gui
                     columns = 5;
                     box = CreateGridBox(GridBoxPurpose.Pouch, rows, columns, size, size);
                     x = Client.UserSettings.GridBoxButtonsBorderWidth;
-                    y = Client.UserSettings.GridBoxTitleHeight + Client.UserSettings.GridBoxButtonsBorderWidth;
+                    y = Client.UserSettings.GridBoxTitleHeight;
                     if (Character.CurrentCharacter != null && Character.CurrentCharacter.Pouch != null)
                         itemsList = new List<Item>(Character.CurrentCharacter.Pouch);
                     else return;
@@ -130,7 +130,7 @@ namespace Yuusha.gui
                     columns = 2;
                     box = CreateGridBox(GridBoxPurpose.Rings, rows, columns, size, size);
                     x = Client.UserSettings.GridBoxButtonsBorderWidth;
-                    y = Client.UserSettings.GridBoxTitleHeight + Client.UserSettings.GridBoxButtonsBorderWidth;
+                    y = Client.UserSettings.GridBoxTitleHeight;
                     if (Character.CurrentCharacter != null && Character.CurrentCharacter.Rings != null)
                         itemsList = new List<Item>(Character.CurrentCharacter.Rings);
                     else return;
@@ -138,7 +138,7 @@ namespace Yuusha.gui
                 #endregion
                 case GridBoxPurpose.Sack: // 20 slots
                     #region Sack
-                    rows = 4;
+                    rows = 5;
                     columns = 5;
                     box = CreateGridBox(GridBoxPurpose.Sack, rows, columns, size, size);
                     x = Client.UserSettings.GridBoxButtonsBorderWidth;
@@ -151,32 +151,61 @@ namespace Yuusha.gui
             }
 
             // some grid boxes have Item lists, others have string lists
+            //itemsList.Reverse();
+            Dictionary<string, int> countDictionary = new Dictionary<string, int>(); // visualKey, count
             foreach (Item item in itemsList)
             {
-                DragAndDropButton button = new DragAndDropButton(purpose.ToString() + "DragAndDropButton" + count, box.Name,
-                    new Rectangle(x, y, size, size), item.name, false, Color.White, true, false, "courier12", new VisualKey(item.visualKey),
-                    Color.White, 255, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "",
-                    BitmapFont.TextAlignment.Center, 0, 0, Color.PaleGreen, true, Color.FloralWhite, true, new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top },
-                    false, Map.Direction.None, 0, item.name);
-                button.RepresentedItem = item;
-                button.AcceptingDroppedButtons = false;
-                //button.DrawBlackBackground = true;
-
-                Control existingButton = GuiManager.GenericSheet[button.Name];
-                if (existingButton != null)
-                    GuiManager.GenericSheet.RemoveControl(existingButton);
-
-                GuiManager.GenericSheet.AddControl(button);
-                x += size;
-                if (x > size * (columns - 1) + Client.UserSettings.GridBoxButtonsBorderWidth)
+                // determine if we're sorting here or not -- an option
+                DragAndDropButton button;
+                if (!Client.ClientSettings.GroupSimiliarItemsInGridBoxes ||
+                    (Client.ClientSettings.GroupSimiliarItemsInGridBoxes && (!countDictionary.ContainsKey(item.VisualKey) || item.VisualKey.ToLower() == "unknown")))
                 {
-                    x = Client.UserSettings.GridBoxButtonsBorderWidth;
-                    y += size;
+                    if(Client.ClientSettings.GroupSimiliarItemsInGridBoxes && item.VisualKey.ToLower() != "unknown")
+                        countDictionary.Add(item.VisualKey, 1);
+                    button = new DragAndDropButton(purpose.ToString() + "DragAndDropButton" + count, box.Name,
+                    new Rectangle(x, y, size, size), item.Name, false, Client.UserSettings.DragAndDropTextColor, true, false, "courier12", new VisualKey(item.VisualKey),
+                    Color.White, 255, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "", BitmapFont.TextAlignment.Center, 0, 0,
+                    Client.UserSettings.DragAndDropTextOverColor, Client.UserSettings.DragAndDropHasTextOverColor, Client.UserSettings.DragAndDropTintOverColor,
+                    Client.UserSettings.DragAndDropHasTintOverColor, new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top },
+                    false, Map.Direction.None, 0, item.Name)
+                    {
+                        RepresentedItem = item,
+                        AcceptingDroppedButtons = false
+                    };
+                    x += size;
+                    if (x > size * (columns - 1) + Client.UserSettings.GridBoxButtonsBorderWidth)
+                    {
+                        x = Client.UserSettings.GridBoxButtonsBorderWidth;
+                        y += size;
+                    }
+
+                    Control existingButton = GuiManager.GenericSheet[button.Name];
+                    if (existingButton != null)
+                        GuiManager.GenericSheet.RemoveControl(existingButton);
+
+                    GuiManager.GenericSheet.AddControl(button);
                 }
+                else
+                {
+                    button = box.Controls.Find(b1 => b1.VisualKey == item.VisualKey) as DragAndDropButton;
+                    countDictionary[item.VisualKey]++;
+                    button.Text = countDictionary[item.VisualKey].ToString();
+                    button.IsTextVisible = true;
+                    button.TextAlignment = BitmapFont.TextAlignment.Right;
+                    button.YTextOffset = button.Height - BitmapFont.ActiveFonts[button.Font].LineHeight;
+                }
+                
+                //button.DrawBlackBackground = true;
+                
                 count++;
             }
 
+            // box isn't big enough to hold all the drag and drop buttons...
+            //while(box.Height - (box.WindowTitle == null ? 0 : box.WindowTitle.Height) < count * size)
+            //    box.Height += size;
+
             box.IsVisible = true;
+            box.ZDepth = 1;
         }
 
         protected override void OnMouseOver(MouseState ms)
@@ -226,14 +255,6 @@ namespace Yuusha.gui
             }
         }
 
-        public override void OnClose()
-        {
-            //if (GridBoxPurposeType == GridBoxPurpose.Ground)
-            //    GameHUD.ExaminedCell = null;
-
-            base.OnClose();
-        }
-
         public void RemoveDragAndDropButtons()
         {
             foreach(Control c in new List<Control>(Controls))
@@ -241,6 +262,12 @@ namespace Yuusha.gui
                 if (c is DragAndDropButton)
                     Controls.Remove(c);
             }
+        }
+
+        public static int GetItemsCount(string itemName, string gridBox)
+        {
+            GridBoxWindow box = GuiManager.GetControl(gridBox) as GridBoxWindow;
+            return box.GetItemsCount(itemName);
         }
 
         public int GetItemsCount(string name)
@@ -251,12 +278,48 @@ namespace Yuusha.gui
             {
                 if(c is DragAndDropButton dbutton)
                 {
-                    if (dbutton.RepresentedItem != null && dbutton.RepresentedItem.name == name)
+                    if (dbutton.RepresentedItem != null && dbutton.RepresentedItem.Name == name)
                         count++;
                 }
             }
 
             return count;
+        }
+
+        public static void RequestUpdateFromServer(GridBoxPurpose purpose)
+        {
+            switch (purpose)
+            {
+                case GridBoxPurpose.Altar:
+                case GridBoxPurpose.Counter:
+                case GridBoxPurpose.Ground:
+                    Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+                    break;
+                case GridBoxPurpose.Belt:
+                    IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                    break;
+                case GridBoxPurpose.Locker:
+                    IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                    break;
+                case GridBoxPurpose.Pouch:
+                    IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                    break;
+                case GridBoxPurpose.Rings:
+                    IO.Send(Protocol.REQUEST_CHARACTER_RINGS);
+                    break;
+                case GridBoxPurpose.Sack:
+                    IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                    break;
+                case GridBoxPurpose.Skills:
+                    IO.Send(Protocol.REQUEST_CHARACTER_SKILLS);
+                    break;
+                case GridBoxPurpose.Spellbook:
+                    IO.Send(Protocol.REQUEST_CHARACTER_SPELLS);
+                    break;
+                default:
+                    break;
+                    
+            }
         }
     }
 }

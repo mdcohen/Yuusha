@@ -3341,13 +3341,13 @@ available in any game state. -->
     </Control>
   </HorizontalHotButtonWindow>
 
-  <GameAutoHidingWindow>
+  <HorizontalGameAutoHidingWindow>
   <Control
       Type="AutoHidingWindow"
-      Name="GameAutoHidingWindow"
+      Name="HorizontalGameAutoHidingWindow"
       X="390"
       Y="317"
-      Width="327"
+      Width="245"
       Height="40"
       IsVisible="false"
       IsLocked="true"
@@ -3355,7 +3355,7 @@ available in any game state. -->
       VisualKey=""
       VisualAlpha="255"
       TintColor="Transparent"
-      DropShadow="true"
+      DropShadow="false"
       ShadowDistance="5"
       ShadowDirection="Southwest"
       AnchorTop="true"
@@ -3366,8 +3366,8 @@ available in any game state. -->
   <!-- Game AutoHidingWindow Title
     <Control
       Type="WindowTitle"
-      Name="GameAutoHidingWindowTitle"
-      Owner="GameAutoHidingWindow"
+      Name="HorizontalAutoHidingWindowTitle"
+      Owner="HorizontalGameAutoHidingWindow"
       Font="courier16"
       TintColor="Gray"
       VisualKey="WhiteSpace"
@@ -3381,8 +3381,8 @@ available in any game state. -->
   <!-- Game AutoHidingWindow Border
   <Control
     Type="SquareBorder"
-    Name="GameAutoHidingWindowBorder"
-    Owner="GameAutoHidingWindow"
+    Name="HorizontalAutoHidingWindowBorder"
+    Owner="HorizontalGameAutoHidingWindow"
     Width="1"
     VisualKey="WhiteSpace"
     TintColor="Gray">
@@ -3391,29 +3391,9 @@ available in any game state. -->
     <Control
       Type="Button"
       Text=""
-      Name="AutoHidingOptionsButton"
-      Owner="GameAutoHidingWindow"
+      Name="HorizontalAutoHidingSackButton"
+      Owner="HorizontalGameAutoHidingWindow"
       X="0"
-      Y="0"
-      Width="40"
-      Height="40"
-      VisualKey="OptionGearsIcon"
-      TintColor="MediumOrchid"
-      TextColor="Black"
-      TintOverColor="PaleGreen"
-      TextVisible="false"
-      IsVisible="true"
-      Font="courier12"
-      TextAlignment="Left"
-      TextOverColor="SlateGray"
-      OnMouseDown="toggle_optionswindow">
-    </Control>
-    <Control
-      Type="Button"
-      Text=""
-      Name="AutoHidingSackButton"
-      Owner="GameAutoHidingWindow"
-      X="41"
       Y="0"
       Width="40"
       Height="40"
@@ -3426,14 +3406,15 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="request_sack">
+      OnMouseDown="request_sack"
+      PopUpText="Sack">
     </Control>
     <Control
       Type="Button"
       Text=""
-      Name="AutoHidingPouchButton"
-      Owner="GameAutoHidingWindow"
-      X="82"
+      Name="HorizontalAutoHidingPouchButton"
+      Owner="HorizontalGameAutoHidingWindow"
+      X="41"
       Y="0"
       Width="40"
       Height="40"
@@ -3446,14 +3427,15 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="request_pouch">
+      OnMouseDown="request_pouch"
+      PopUpText="Pouch">
     </Control>
     <Control
       Type="Button"
       Text=""
-      Name="AutoHidingBeltButton"
-      Owner="GameAutoHidingWindow"
-      X="123"
+      Name="HorizontalAutoHidingBeltButton"
+      Owner="HorizontalGameAutoHidingWindow"
+      X="82"
       Y="0"
       Width="40"
       Height="40"
@@ -3466,14 +3448,15 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="request_belt">
+      OnMouseDown="request_belt"
+      PopUpText="Belt">
     </Control>
     <Control
       Type="Button"
       Text=""
-      Name="AutoHidingRingsButton"
-      Owner="GameAutoHidingWindow"
-      X="164"
+      Name="HorizontalAutoHidingRingsButton"
+      Owner="HorizontalGameAutoHidingWindow"
+      X="123"
       Y="0"
       Width="40"
       Height="40"
@@ -3486,14 +3469,15 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="request_rings">
+      OnMouseDown="request_rings"
+      PopUpText="Rings">
     </Control>
     <Control
       Type="Button"
       Text=""
-      Name="AutoHidingInventoryButton"
-      Owner="GameAutoHidingWindow"
-      X="205"
+      Name="HorizontalAutoHidingInventoryButton"
+      Owner="HorizontalGameAutoHidingWindow"
+      X="164"
       Y="0"
       Width="40"
       Height="40"
@@ -3506,14 +3490,15 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="request_inventory">
+      OnMouseDown="request_inventory"
+      PopUpText="Inventory">
     </Control>
     <Control
       Type="Button"
       Text=""
-      Name="AutoHidingLockerButton"
-      Owner="GameAutoHidingWindow"
-      X="246"
+      Name="HorizontalAutoHidingLockerButton"
+      Owner="HorizontalGameAutoHidingWindow"
+      X="205"
       Y="0"
       Width="40"
       Height="40"
@@ -3528,15 +3513,86 @@ available in any game state. -->
       TextOverColor="SlateGray"
       OnMouseDown="request_locker">
     </Control>
+    
+  </HorizontalGameAutoHidingWindow>
+
+  <VerticalGameAutoHidingWindow>
+    <Control
+      Type="AutoHidingWindow"
+      Name="VerticalGameAutoHidingWindow"
+      X="366"
+      Y="10"
+      Width="20"
+      Height="104"
+      IsVisible="false"
+      IsLocked="true"
+      Font="courier12"
+      VisualKey=""
+      VisualAlpha="255"
+      TintColor="Transparent"
+      DropShadow="false"
+      ShadowDistance="5"
+      ShadowDirection="Southwest"
+      AnchorTop="true"
+      AutoHideVisualAlpha="75"
+      FadeSpeed="5">
+    </Control>
+
+    <!-- Game AutoHidingWindow Title
+    <Control
+      Type="WindowTitle"
+      Name="VerticalAutoHidingWindowTitle"
+      Owner="VerticalAutoHidingWindow"
+      Font="courier16"
+      TintColor="Gray"
+      VisualKey="WhiteSpace"
+      Text=""
+      TextColor="White"
+      VisualAlpha="100"
+      TextAlignment="Center"
+      Height="5">
+    </Control> -->
+
+    <!-- Game AutoHidingWindow Border
+  <Control
+    Type="SquareBorder"
+    Name="VerticalAutoHidingWindowBorder"
+    Owner="VerticalAutoHidingWindow"
+    Width="1"
+    VisualKey="WhiteSpace"
+    TintColor="Gray">
+  </Control> -->
+
     <Control
       Type="Button"
       Text=""
-      Name="AutoHidingLockerButton"
-      Owner="GameAutoHidingWindow"
-      X="287"
+      Name="VerticalAutoHidingOptionsButton"
+      Owner="VerticalGameAutoHidingWindow"
+      X="0"
       Y="0"
-      Width="40"
-      Height="40"
+      Width="20"
+      Height="20"
+      VisualKey="OptionGearsIcon"
+      TintColor="MediumOrchid"
+      TextColor="Black"
+      TintOverColor="PaleGreen"
+      TextVisible="false"
+      IsVisible="true"
+      Font="courier12"
+      TextAlignment="Left"
+      TextOverColor="SlateGray"
+      OnMouseDown="toggle_optionswindow"
+      PopUpText="Options">
+    </Control>
+    <Control
+      Type="Button"
+      Text=""
+      Name="VerticalAutoHidingMapButton"
+      Owner="VerticalGameAutoHidingWindow"
+      X="0"
+      Y="22"
+      Width="20"
+      Height="20"
       VisualKey="MapIcon"
       TintColor="MediumOrchid"
       TextColor="Black"
@@ -3546,7 +3602,123 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="request_locker">
+      OnMouseDown="toggle_map"
+      PopUpText="Map">
     </Control>
-  </GameAutoHidingWindow>
+    <Control
+      Type="Button"
+      Text=""
+      Name="VerticalAutoHidingVerticalHotbarButton"
+      Owner="VerticalGameAutoHidingWindow"
+      X="0"
+      Y="43"
+      Width="20"
+      Height="20"
+      VisualKey="VerticalHotbarIcon"
+      TintColor="MediumOrchid"
+      TextColor="Black"
+      TintOverColor="PaleGreen"
+      TextVisible="false"
+      IsVisible="true"
+      Font="courier12"
+      TextAlignment="Left"
+      TextOverColor="SlateGray"
+      OnMouseDown="toggle_verticalhotbar"
+      PopUpText="Verticals">
+    </Control>
+    <Control
+     Type="Button"
+     Text=""
+     Name="VerticalAutoHidingHorizontalHotbarButton"
+     Owner="VerticalGameAutoHidingWindow"
+     X="0"
+     Y="64"
+     Width="20"
+     Height="20"
+     VisualKey="HorizontalHotbarIcon"
+     TintColor="MediumOrchid"
+     TextColor="Black"
+     TintOverColor="PaleGreen"
+     TextVisible="false"
+     IsVisible="true"
+     Font="courier12"
+     TextAlignment="Left"
+     TextOverColor="SlateGray"
+     OnMouseDown="toggle_horizontalhotbar"
+     PopUpText="Horizontals">
+    </Control>
+    <Control
+     Type="Button"
+     Text=""
+     Name="VerticalAutoHidingMacrosButton"
+     Owner="VerticalGameAutoHidingWindow"
+     X="0"
+     Y="85"
+     Width="20"
+     Height="20"
+     VisualKey="MacrosIcon"
+     TintColor="MediumOrchid"
+     TextColor="Black"
+     TintOverColor="PaleGreen"
+     TextVisible="false"
+     IsVisible="true"
+     Font="courier12"
+     TextAlignment="Left"
+     TextOverColor="SlateGray"
+     OnMouseDown="toggle_macros"
+     PopUpText="Macros">
+    </Control>
+  </VerticalGameAutoHidingWindow>
+  
+  <InventoryWindow>
+    <Control
+      Type="Window"
+      Name="InventoryWindow"
+      X="200"
+      Y="200"
+      Width="356"
+      Height="429"
+      IsVisible="false"
+      IsLocked="false"
+      Font="courier12"
+      VisualKey="InventoryBackground"
+      VisualAlpha="255"
+      TintColor="White"
+      DropShadow="true"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      CursorOnDrag="Dragging">
+    </Control>
+
+    <!-- Game AutoHidingWindow Title -->
+    <Control
+      Type="WindowTitle"
+      Name="InventoryWindowTitle"
+      Owner="InventoryWindow"
+      Font="courier16"
+      TintColor="DimGray"
+      VisualKey="WhiteSpace"
+      Text="Inventory"
+      TextColor="White"
+      VisualAlpha="255"
+      TextAlignment="Center"
+      CloseBoxVisualKey="WindowCloseBox"
+      CloseBoxVisualKeyDown="WindowCloseBoxDown"
+      CloseBoxDistanceFromRight="20"
+      CloseBoxDistanceFromTop="5"
+      CloseBoxWidth="18"
+      CloseBoxHeight="18"
+      Height="24">
+    </Control>
+
+    <!-- Game AutoHidingWindow Border -->
+  <Control
+    Type="SquareBorder"
+    Name="InventoryWindowBorder"
+    Owner="InventoryGridBoxWindow"
+    Width="1"
+    VisualKey="WhiteSpace"
+    TintColor="DimGray">
+  </Control>
+  </InventoryWindow>
 </GenericSheet>

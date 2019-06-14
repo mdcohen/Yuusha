@@ -33,7 +33,7 @@ namespace Yuusha.gui
             else if(ms.RightButton == ButtonState.Pressed)
             {
                 Utils.SetClipboardText(this.Text);
-                TextCue.AddClientInfoTextCue("Text Copied to Keyboard", TextCue.TextCueTag.None, Color.LimeGreen, Color.Black, 1000, false, false, true);
+                TextCue.AddClientInfoTextCue("Text Copied to Keyboard", Color.LimeGreen, Color.Black, 1000);
             }
         }
     }

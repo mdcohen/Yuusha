@@ -44,6 +44,9 @@ namespace Yuusha.gui
         {
             MouseState ms = GuiManager.MouseState;
 
+            if(Utility.Settings.StaticSettings.DisplayMouseCursorCoordinates)
+                TextCue.AddMouseCursorTextCue(ms.Position.ToString());
+
             //if (DraggedButton != null)
             //    DraggedButton.Update(gameTime);
 
@@ -112,7 +115,7 @@ namespace Yuusha.gui
                     if (!m_disabled)
                         Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], destRect, sourceRect, m_tintColor);
                     else
-                        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], destRect, sourceRect, new Color(s_disabledColor.R, s_disabledColor.G, s_disabledColor.B, m_visualAlpha));
+                        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], destRect, sourceRect, new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, m_visualAlpha));
                 }
                 catch
                 {

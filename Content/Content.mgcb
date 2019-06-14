@@ -1663,6 +1663,42 @@
 /processorParam:Quality=Best
 /build:KSND0272.wav
 
+#begin KSND0273.WAV
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0273.WAV
+
+#begin KSND0274.WAV
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0274.WAV
+
+#begin KSND0275.WAV
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0275.WAV
+
+#begin KSND0276.WAV
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0276.WAV
+
+#begin KSND0277.WAV
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0277.WAV
+
+#begin KSND0278.WAV
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0278.WAV
+
 #begin KSNDint1.WAV
 /importer:WavImporter
 /processor:SoundEffectProcessor

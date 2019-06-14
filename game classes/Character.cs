@@ -1047,5 +1047,24 @@ namespace Yuusha
 
             return lhs + rhs;
         }
+
+        public static List<Item> GetItemsList(Character chr, GridBoxWindow.GridBoxPurpose purpose)
+        {
+            switch(purpose)
+            {
+                case GridBoxWindow.GridBoxPurpose.Belt:
+                    return chr.Belt;
+                case GridBoxWindow.GridBoxPurpose.Locker:
+                    return chr.Locker;
+                case GridBoxWindow.GridBoxPurpose.Pouch:
+                    return chr.Pouch;
+                case GridBoxWindow.GridBoxPurpose.Rings:
+                    return chr.Rings;
+                case GridBoxWindow.GridBoxPurpose.Sack:
+                    return chr.Sack;                       
+            }
+
+            return new List<Item>();
+        }
     }
 }

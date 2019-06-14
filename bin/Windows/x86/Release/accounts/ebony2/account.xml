@@ -166,13 +166,13 @@
   <GridBoxWindowVisualKeyAlpha>255</GridBoxWindowVisualKeyAlpha>
   <GridBoxWindowBorderAlpha>255</GridBoxWindowBorderAlpha>
   <GridBoxWindowFont>courier16</GridBoxWindowFont>
-  <ColorGridBoxWindowTintColor>
+  <GridBoxWindowTintColor>
     <B>79</B>
     <G>79</G>
     <R>47</R>
     <A>255</A>
     <PackedValue>4283387695</PackedValue>
-  </ColorGridBoxWindowTintColor>
+  </GridBoxWindowTintColor>
   <GridBoxTitleTextColor>
     <B>255</B>
     <G>255</G>
@@ -181,11 +181,11 @@
     <PackedValue>4294967295</PackedValue>
   </GridBoxTitleTextColor>
   <GridBoxTitleTintColor>
-    <B>128</B>
-    <G>128</G>
-    <R>128</R>
+    <B>105</B>
+    <G>105</G>
+    <R>105</R>
     <A>255</A>
-    <PackedValue>4286611584</PackedValue>
+    <PackedValue>4285098345</PackedValue>
   </GridBoxTitleTintColor>
   <GridBoxTitleCloseBoxTintColor>
     <B>153</B>
@@ -195,12 +195,35 @@
     <PackedValue>4288252023</PackedValue>
   </GridBoxTitleCloseBoxTintColor>
   <GridBoxBorderTintColor>
-    <B>128</B>
-    <G>128</G>
-    <R>128</R>
+    <B>105</B>
+    <G>105</G>
+    <R>105</R>
     <A>255</A>
-    <PackedValue>4286611584</PackedValue>
+    <PackedValue>4285098345</PackedValue>
   </GridBoxBorderTintColor>
+  <DragAndDropTextColor>
+    <B>255</B>
+    <G>255</G>
+    <R>255</R>
+    <A>255</A>
+    <PackedValue>4294967295</PackedValue>
+  </DragAndDropTextColor>
+  <DragAndDropTextOverColor>
+    <B>255</B>
+    <G>255</G>
+    <R>255</R>
+    <A>255</A>
+    <PackedValue>4294967295</PackedValue>
+  </DragAndDropTextOverColor>
+  <DragAndDropHasTextOverColor>false</DragAndDropHasTextOverColor>
+  <DragAndDropTintOverColor>
+    <B>170</B>
+    <G>232</G>
+    <R>238</R>
+    <A>255</A>
+    <PackedValue>4289390830</PackedValue>
+  </DragAndDropTintOverColor>
+  <DragAndDropHasTintOverColor>true</DragAndDropHasTintOverColor>
   <GridBoxTitleCloseBoxDistanceFromRight>20</GridBoxTitleCloseBoxDistanceFromRight>
   <GridBoxTitleCloseBoxDistanceFromTop>5</GridBoxTitleCloseBoxDistanceFromTop>
   <GridBoxTitleCloseBoxWidth>18</GridBoxTitleCloseBoxWidth>
@@ -223,11 +246,11 @@
     <PackedValue>4288215960</PackedValue>
   </AcceptingGridBoxTitleColor>
   <AcceptingGridBoxTitleTextColor>
-    <B>204</B>
-    <G>50</G>
-    <R>153</R>
+    <B>0</B>
+    <G>0</G>
+    <R>0</R>
     <A>255</A>
-    <PackedValue>4291572377</PackedValue>
+    <PackedValue>4278190080</PackedValue>
   </AcceptingGridBoxTitleTextColor>
   <PrivateMessageWindowTitleTextColor>
     <B>255</B>

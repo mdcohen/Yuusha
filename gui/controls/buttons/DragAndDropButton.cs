@@ -9,6 +9,8 @@ namespace Yuusha.gui
     {
         protected Point m_originalPosition;
         protected bool m_draggingToDrop;
+        public List<GridBoxWindow.GridBoxPurpose> GridBoxUpdateRequests
+        { get; set; }
 
         public Item RepresentedItem
         { get; set; }
@@ -25,8 +27,8 @@ namespace Yuusha.gui
         /// <summary>
         /// Dragged from a GridWindow to a GridWindow or a HotButton a GridWindow is attached to.
         /// </summary>
-        public DragAndDropButton(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command)
-            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, text)
+        public DragAndDropButton(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string popUpText)
+            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText)
         {
             HasEnteredGridBoxWindow = false;
             AcceptingDroppedButtons = true; // anything created dynamically in code should be wary of this property
@@ -74,80 +76,82 @@ namespace Yuusha.gui
                     int height = 0;
 
                     // determine drop down items here
-                    List<Tuple<string, string>> dropDownMenuItemTextList = new List<Tuple<string,string>>(); // text for drop down menu item, command sent when clicked
+                    List<Tuple<string, string, GridBoxWindow.GridBoxPurpose>> dropDownMenuItemTextList = new List<Tuple<string,string, GridBoxWindow.GridBoxPurpose>>(); // text for drop down menu item, command sent when clicked
                     GridBoxWindow gridBox = GuiManager.GetControl(Owner) as GridBoxWindow;
 
                     if(RepresentedItem != null)
                     {
+                        GridBoxUpdateRequests = new List<GridBoxWindow.GridBoxPurpose>();
+
                         switch(gridBox.GridBoxPurposeType)
                         {
-                            case GridBoxWindow.GridBoxPurpose.Ground:
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " on ground"));
-                                if (Character.CurrentCharacter.RightHand == null || Character.CurrentCharacter.LeftHand == null) // has free hand
-                                {
-                                    dropDownMenuItemTextList.Add(Tuple.Create<string, string>("take " + RepresentedItem.name, "take " + RepresentedItem.worldItemID));
-                                    if (!RepresentedItem.name.StartsWith("coin"))
-                                        dropDownMenuItemTextList.Add(Tuple.Create<string, string>("to belt", "take " + RepresentedItem.worldItemID + ";belt it"));
-                                }
-
-                                int similarItemsCount = gridBox.GetItemsCount(RepresentedItem.name);
-                                if (similarItemsCount > 1)
-                                {
-                                    dropDownMenuItemTextList.Add(Tuple.Create<string, string>("scoop all", "scoop all " + RepresentedItem.worldItemID + "s"));
-                                    if(!RepresentedItem.name.StartsWith("coin"))
-                                        dropDownMenuItemTextList.Add(Tuple.Create<string, string>("pouch all", "pscoop all " + RepresentedItem.worldItemID + "s"));
-                                }
-                                else
-                                {
-                                    dropDownMenuItemTextList.Add(Tuple.Create<string, string>("to sack", "scoop " + RepresentedItem.worldItemID));
-                                    if (!RepresentedItem.name.StartsWith("coin"))
-                                        dropDownMenuItemTextList.Add(Tuple.Create<string, string>("to pouch", "pscoop " + RepresentedItem.worldItemID));
-                                }
-                                
-                                break;
                             case GridBoxWindow.GridBoxPurpose.Altar:
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " on altar"));
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("to sack", "scoop " + RepresentedItem.worldItemID + " from counter"));
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("to pouch", "pscoop " + RepresentedItem.worldItemID + " from counter"));
-                                // if more than 1 scoop/pscoop all
-                                break;
                             case GridBoxWindow.GridBoxPurpose.Counter:
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " on counter"));
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("to sack", "scoop " + RepresentedItem.worldItemID + " from counter"));
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("to pouch", "pscoop " + RepresentedItem.worldItemID + " from counter"));
-                                // if more than 1 scoop/pscoop all
+                            case GridBoxWindow.GridBoxPurpose.Ground:
+                                // cannot manipulate anything not on the ground by our feet so there is no drop down displayed
+                                if (gridBox.GridBoxPurposeType != GridBoxWindow.GridBoxPurpose.Ground || (gridBox.GridBoxPurposeType == GridBoxWindow.GridBoxPurpose.Ground && GameHUD.ExaminedCell == GameHUD.GetCurrentCharacterCell()))
+                                {
+                                    string location = gridBox.GridBoxPurposeType.ToString().ToLower();
+                                    //dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " on altar"));
+                                    dropDownMenuItemTextList.Add(Tuple.Create("look", "look at " + GetNItemName(this) + " on " + location, GridBoxWindow.GridBoxPurpose.None));
+                                    //dropDownMenuItemTextList.Add(Tuple.Create("to sack", "scoop " + RepresentedItem.worldItemID + " from altar"));
+                                    dropDownMenuItemTextList.Add(Tuple.Create("sack", "take " + GetNItemName(this) + " from " + location + ";put " + RepresentedItem.Name + " in sack", GridBoxWindow.GridBoxPurpose.Sack));
+                                    //dropDownMenuItemTextList.Add(Tuple.Create("to pouch", "pscoop " + RepresentedItem.worldItemID + " from altar"));
+                                    dropDownMenuItemTextList.Add(Tuple.Create("pouch", "take " + GetNItemName(this) + " from " + location + ";put " + RepresentedItem.Name + " in sack", GridBoxWindow.GridBoxPurpose.Pouch));
+                                    // if more than 1 scoop/pscoop all
+                                    if (GridBoxWindow.GetItemsCount(RepresentedItem.Name, Owner) > 1)
+                                    {
+                                        if (location == "ground") location = "";
+                                        else location = " from " + location;
+
+                                        dropDownMenuItemTextList.Add(Tuple.Create("scoop all", "scoop all " + RepresentedItem.Name + "s" + location, GridBoxWindow.GridBoxPurpose.Sack));
+                                        if (!RepresentedItem.Name.StartsWith("coin"))
+                                            dropDownMenuItemTextList.Add(Tuple.Create("pouch all", "pscoop all " + RepresentedItem.Name + "s" + location, GridBoxWindow.GridBoxPurpose.Pouch));
+                                    }
+                                    // search all corpses if even one exists
+                                    if (RepresentedItem.Name.ToLower() == "corpse")
+                                        dropDownMenuItemTextList.Add(Tuple.Create("search", "search all " + RepresentedItem.Name + "s" + location, GridBoxWindow.GridBoxPurpose.None));
+                                }
                                 break;
                             case GridBoxWindow.GridBoxPurpose.Belt:
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " on belt"));
+                                //dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " on belt"));
+                                dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.Name, "look at " + GetNItemName(this) + " on belt", GridBoxWindow.GridBoxPurpose.None));
                                 if (Character.CurrentCharacter.RightHand == null || Character.CurrentCharacter.LeftHand == null)
                                 {
-                                    dropDownMenuItemTextList.Add(Tuple.Create<string, string>("wield", "wield " + RepresentedItem.worldItemID));
-                                    if (GameHUD.CurrentTarget != null)
-                                        dropDownMenuItemTextList.Add(Tuple.Create<string, string>("throw at " + GameHUD.CurrentTarget.Name, "throw " + RepresentedItem.name + " at " + GameHUD.CurrentTarget.ID));
+                                    //dropDownMenuItemTextList.Add(Tuple.Create("wield", "wield " + RepresentedItem.worldItemID));
+                                    dropDownMenuItemTextList.Add(Tuple.Create("wield", "wield " + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.None));
+                                    dropDownMenuItemTextList.Add(Tuple.Create("wield and drop", "wield " + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.Ground));
+                                    if (GameHUD.CurrentTarget != null) // NOTE: some items can be thrown from the belt without wielding them
+                                        dropDownMenuItemTextList.Add(Tuple.Create("throw at " + GameHUD.CurrentTarget.Name, "wield " + RepresentedItem.Name + ";throw it at " + GameHUD.CurrentTarget.ID, GridBoxWindow.GridBoxPurpose.None));
                                 }
                                 break;
                             case GridBoxWindow.GridBoxPurpose.Locker:
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " in locker"));
+                                //dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " in locker"));
+                                dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.Name, "look at " + GetNItemName(this) + " in locker", GridBoxWindow.GridBoxPurpose.None));
+                                //dropDownMenuItemTextList.Add(Tuple.Create("take " + RepresentedItem.name, "take " + RepresentedItem.worldItemID + " from locker"));
+                                dropDownMenuItemTextList.Add(Tuple.Create("take " + RepresentedItem.Name, "take " + GetNItemName(this) + " from locker", GridBoxWindow.GridBoxPurpose.None));
                                 break;
                             case GridBoxWindow.GridBoxPurpose.Pouch:
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " in pouch"));
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("dump all", "pdump all " + RepresentedItem.name + "s"));
+                                dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.Name, "look at " + GetNItemName(this) + " in pouch", GridBoxWindow.GridBoxPurpose.None));
+                                dropDownMenuItemTextList.Add(Tuple.Create("drop", "take " + GetNItemName(this) + " from pouch;drop " + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.Ground));
+                                dropDownMenuItemTextList.Add(Tuple.Create("dump all", "pdump all " + RepresentedItem.Name + "s", GridBoxWindow.GridBoxPurpose.Ground));
                                 break;
                             case GridBoxWindow.GridBoxPurpose.Rings:
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " in rings"));
+                                dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.Name, "look at " + GetNItemName(this) + " in rings", GridBoxWindow.GridBoxPurpose.None));
                                 break;
                             case GridBoxWindow.GridBoxPurpose.Sack:
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("look at " + RepresentedItem.name, "look at " + RepresentedItem.worldItemID + " in sack"));
-                                dropDownMenuItemTextList.Add(Tuple.Create<string, string>("dump all", "dump all " + RepresentedItem.name + "s"));
+                                dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.Name, "look at " + GetNItemName(this) + " in sack", GridBoxWindow.GridBoxPurpose.None));
+                                dropDownMenuItemTextList.Add(Tuple.Create("drop", "take " + GetNItemName(this) + " from sack;drop " + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.Ground));
+                                dropDownMenuItemTextList.Add(Tuple.Create("dump all", "dump all " + RepresentedItem.Name + "s", GridBoxWindow.GridBoxPurpose.Ground));
                                 // if next to counter, dump all on counter/altar
                                 break;
-
                         }
 
-                        foreach(Tuple<string, string> tuple in dropDownMenuItemTextList)
+                        foreach(Tuple<string, string, GridBoxWindow.GridBoxPurpose> tuple in dropDownMenuItemTextList)
                         {
                             height += 20;
-                            DropDownMenu.AddDropDownMenuItem(tuple.Item1, this.Name, new VisualKey("WhiteSpace"), "Send_Command", tuple.Item2, false);
+                            DropDownMenu.AddDropDownMenuItem(tuple.Item1, Name, new VisualKey("WhiteSpace"), "Send_Command", tuple.Item2, false);
+                            GridBoxUpdateRequests.Add(tuple.Item3);
                         }
                     }
 
@@ -277,7 +281,7 @@ namespace Yuusha.gui
                     color = new Color(m_tintOverColor.R, m_tintOverColor.G, m_tintOverColor.B, VisualAlpha);
 
                 if (m_disabled)
-                    color = new Color(s_disabledColor.R, s_disabledColor.G, s_disabledColor.B, VisualAlpha);
+                    color = new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, VisualAlpha);
 
                 if (!m_visualTiled)
                 {
@@ -332,19 +336,44 @@ namespace Yuusha.gui
             m_draggingToDrop = false;
         }
 
-        public int GetNumberItem(string name, List<Control> buttons, DragAndDropButton draggedButton)
+        public string GetNItemName(DragAndDropButton draggedButton)
         {
-            //vehicles.RemoveAll(vehicle => vehicle.EnquiryID == 123);
+            if (draggedButton.RepresentedItem.Name.ToLower().Contains("coin"))
+                return "coins";
+
+            return GetNumberItem(draggedButton).ToString() + " " + draggedButton.RepresentedItem.Name;
+        }
+
+        public int GetNumberItem(DragAndDropButton draggedButton)
+        {
+            GridBoxWindow box = GuiManager.GetControl(draggedButton.Owner) as GridBoxWindow;
+            List<Control> buttons = new List<Control>(box.Controls);
+
             buttons.RemoveAll(button => !(button is DragAndDropButton));
-            buttons.RemoveAll(button => button.Text != name);
+            buttons.RemoveAll(button => (button as DragAndDropButton).RepresentedItem.Name != draggedButton.RepresentedItem.Name);
 
             int count = 1;
 
-            foreach(DragAndDropButton dadButton in buttons)
+            if (!Client.ClientSettings.GroupSimiliarItemsInGridBoxes)
             {
-                if (dadButton == draggedButton)
-                    return count;
-                count++;
+                foreach (DragAndDropButton dadButton in buttons)
+                {
+                    if (dadButton == draggedButton)
+                        return count;
+                    count++;
+                }
+            }
+            else
+            {
+                List<Item> itemsList = new List<Item>(Character.GetItemsList(Character.CurrentCharacter, box.GridBoxPurposeType));
+                itemsList.RemoveAll(k => k.Name != draggedButton.RepresentedItem.Name);
+
+                foreach (Item item2 in itemsList)
+                {
+                    if (item2.VisualKey == draggedButton.RepresentedItem.VisualKey)
+                        count++;
+                    else return count;
+                }
             }
 
             return 1;

@@ -615,3 +615,10 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\GUISounds\pm_alert
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\GUISounds\modem_dial.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\yuusha_items.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\visuals\yuusha_items.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\inventorybackground.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0273.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0274.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0275.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0276.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0277.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0278.xnb

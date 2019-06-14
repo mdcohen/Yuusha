@@ -53,16 +53,20 @@ namespace Yuusha
 
         public enum Size { Belt_Only, Sack_Only, Belt_Or_Sack, No_Container, Belt_Large_Slot_Only }
 
-        public int id; // the item id
-        public long worldItemID; // world item id
+        public int ID // the item id
+        { get; set; }
+        public long WorldItemID
+        { get; set; }// world item id
         public string notes;
         //public ItemType itemType; // weapon, wearable, container, miscellaneous
         //public BaseType baseType; // the base type of the item
         //public Character.SkillType skillType; // skill used to wield this item
-        public string name; // name of the item
+        public string Name
+        { get; set; }
         //public string shortDesc; // short description of the item (extended name)
         //public string longDesc; // long description of the item
-        public string visualKey;
+        public string VisualKey
+        { get; set; }
         //public double weight; // weight of the item
         //public Size size; // size of the item
         //public double coinValue; // coin value
@@ -117,13 +121,13 @@ namespace Yuusha
             try
             {
                 string[] itemInfo = info.Split(Protocol.VSPLIT.ToCharArray());
-                this.id = Convert.ToInt32(itemInfo[0]);
-                this.worldItemID = Convert.ToInt32(itemInfo[1]);
+                ID = Convert.ToInt32(itemInfo[0]);
+                WorldItemID = Convert.ToInt32(itemInfo[1]);
                 //this.itemType = (ItemType)Convert.ToInt32(itemInfo[2]);
                 //this.baseType = (BaseType)Convert.ToInt32(itemInfo[3]);
                 //this.skillType = (Character.SkillType)Convert.ToInt32(itemInfo[4]);
-                this.name = itemInfo[2];
-                this.visualKey = itemInfo[3];
+                Name = itemInfo[2];
+                VisualKey = itemInfo[3];
                 //this.shortDesc = itemInfo[6];
                 //this.longDesc = itemInfo[7];
                 //this.weight = Convert.ToDouble(itemInfo[8]);
