@@ -1,5 +1,18 @@
+# Directories
+/[Bb]in/
+/[Oo]bj/
+/[Pp]roperties/
+.git/
+.vs/
+
+# Extensions
+*.log
+
+# Files
+app.config
+
+# Below courtesy of our Microsoft Overlords
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
-
 /bin/Windows/x86/Release/logs
