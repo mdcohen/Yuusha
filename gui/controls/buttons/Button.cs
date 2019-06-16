@@ -67,7 +67,7 @@ namespace Yuusha.gui
 
             base.Draw(gameTime);
 
-            if (m_text.Length > 0 && IsTextVisible)
+            if (m_text != null && m_text.Length > 0 && IsTextVisible)
             {
                 if (BitmapFont.ActiveFonts.ContainsKey(Font))
                 {

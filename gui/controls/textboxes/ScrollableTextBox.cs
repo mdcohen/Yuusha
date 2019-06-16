@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
@@ -48,6 +47,8 @@ namespace Yuusha.gui
         {
             get { return m_allLines.Count; }
         }
+        public DropDownMenu DropDownMenu
+        { get; set; }
         #endregion
 
         #region Constructors (2)
@@ -188,6 +189,8 @@ namespace Yuusha.gui
                 m_visibleTextColors = m_formattedTextColors;
             }
 
+            if (DropDownMenu != null) DropDownMenu.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -238,6 +241,58 @@ namespace Yuusha.gui
                 }
             }
             else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for ScrollableTextBox [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
+
+            if (DropDownMenu != null) DropDownMenu.Draw(gameTime);
+        }
+
+        public override bool MouseHandler(MouseState ms)
+        {
+            if (DropDownMenu != null)
+                DropDownMenu.MouseHandler(ms);
+
+            return base.MouseHandler(ms);
+        }
+
+        protected override void OnMouseDown(MouseState ms)
+        {
+            if (ms.RightButton == ButtonState.Pressed)
+            {
+                if (DropDownMenu == null)
+                {
+                    try
+                    {
+                        Rectangle dropDownRectangle = new Rectangle(ms.X - 10, ms.Y - 10, 100, 100); // default height for 5 drop down menu items
+
+                        // readjust Y if out of client width bounds
+                        //if (dropDownRectangle.Y + dropDownRectangle.Width > Client.Width)
+                        //    dropDownRectangle.Y = Client.Width - dropDownRectangle.Width - 5;
+
+                        GuiManager.Sheets[Sheet].CreateDropDownMenu(Name + "DropDownMenu", Name, " Font Options ", dropDownRectangle, true,
+                            Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
+
+                        DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
+                        {
+                            IsVisible = true,
+                        };
+
+                        DropDownMenu.HasFocus = true;
+                        int height = DropDownMenu.Title == "" ? 0 : BitmapFont.ActiveFonts[Font].LineHeight;
+                        foreach(string _font in BitmapFont.ActiveFonts.Keys)
+                        {
+                            height += 20;
+                            DropDownMenu.AddDropDownMenuItem(BitmapFont.ActiveFonts[_font].Name, Name + "DropDownMenu", new VisualKey("WhiteSpace"), "ScrollableTextBox_DropDown", _font, Font == _font ? true : false);
+                        }
+
+                        DropDownMenu.Height = height;
+                    }
+                    catch (Exception e)
+                    {
+                        Utils.LogException(e);
+                    }
+                }
+            }
+
+            base.OnMouseDown(ms);
         }
 
         protected override void OnZDelta(Microsoft.Xna.Framework.Input.MouseState ms)
@@ -268,6 +323,8 @@ namespace Yuusha.gui
 
         public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
         {
+            if (DropDownMenu != null) GuiManager.Dispose(DropDownMenu);
+
             base.OnClientResize(prev, now, ownerOverride);
 
             m_formattedLines.Clear();

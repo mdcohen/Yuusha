@@ -276,7 +276,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\io
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\loktiledefs.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\definitions\spineltiledefs.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\fonts.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\conf.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\game.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\generic.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\iokgame.xml
@@ -624,3 +623,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0275.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0276.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0277.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0278.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier14-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier14.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\conference.xml

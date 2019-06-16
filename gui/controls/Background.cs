@@ -67,9 +67,7 @@ namespace Yuusha.gui
         public override void Update(GameTime gameTime)
         {
             for (int a = m_textCues.Count - 1; a >= 0; a--)
-            {
                 m_textCues[a].Update(gameTime, m_textCues);
-            }
 
             base.Update(gameTime);
         }

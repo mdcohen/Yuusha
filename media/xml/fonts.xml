@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FontIndex>
 	<Font Path="media\fonts\courier12.xml"></Font>
+  <Font Path="media\fonts\courier14.xml"></Font>
 	<Font Path="media\fonts\courier16.xml"></Font>
   <Font Path="media\fonts\courier18.xml"></Font>
   <Font Path="media\fonts\courier20.xml"></Font>

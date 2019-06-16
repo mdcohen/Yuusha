@@ -534,6 +534,13 @@ namespace Yuusha.gui
                     {
                         AttachControlToWindow(c);
                     }
+                    else if (owner is ScrollableTextBox)
+                    {
+                        if (c is DropDownMenu)
+                        {
+                            (owner as ScrollableTextBox).DropDownMenu = c as DropDownMenu;
+                        }
+                    }
                     else if (owner is TextBox)
                     {
                         if (c is Border)
@@ -552,8 +559,8 @@ namespace Yuusha.gui
                     }
                     else if (owner is DropDownMenu)
                     {
-                        if (c is Border)
-                            (owner as DropDownMenu).Border = c as Border;
+                        if (c is SquareBorder)
+                            (owner as DropDownMenu).Border = c as SquareBorder;
                     }
                     else if (owner is HotButton)
                     {
@@ -578,6 +585,7 @@ namespace Yuusha.gui
                             (owner as ColorDialogButton).Border = c as SquareBorder;
                     }
                 }
+                else Utils.Log("Owner is null. " + c.Name + ", Owner: " + c.Owner);
             }
         }
 
@@ -910,7 +918,7 @@ namespace Yuusha.gui
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string clickEvent,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
             List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
-            string command, string popUpText, string tabControlledWindow, string cursorOverride)
+            string command, string popUpText, string tabControlledWindow, string cursorOverride, bool locked)
         {
             if (type == "HotButton")
             {
@@ -949,7 +957,7 @@ namespace Yuusha.gui
             {
                 AddControl(new DragAndDropButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                     borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment, xTextOffset, yTextOffset, textOverColor,
-                    hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command));
+                    hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, popUpText, locked));
             }
             else
             {
@@ -960,11 +968,10 @@ namespace Yuusha.gui
             }
         }
 
-        public void CreateDropDownMenu(string name, Control owner, string title, Rectangle rectangle, bool visible, string font, VisualKey visualKey,
+        public void CreateDropDownMenu(string name, string owner, string title, Rectangle rectangle, bool visible, string font, VisualKey visualKey,
             Color tintColor, int visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance)
         {
             AddControl(new DropDownMenu(name, owner, title, rectangle, visible, font, visualKey, tintColor, visualAlpha, dropShadow, shadowDirection, shadowDistance));
-            CreateSquareBorder(name + "Border", name, Client.UserSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.UserSettings.ColorDropDownMenuBorder, 255);
         }
 
         public void CreateLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
@@ -986,7 +993,7 @@ namespace Yuusha.gui
                borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
                anchors, popUpText));
 
-            SquareBorder border = new SquareBorder(name + "SquareBorder", name, Client.UserSettings.TargetBorderSize, new VisualKey("WhiteSpace"), false, Client.UserSettings.TargetBorderColor, visualAlpha);
+            SquareBorder border = new SquareBorder(name + "SquareBorder", name, Client.ClientSettings.TargetBorderSize, new VisualKey("WhiteSpace"), false, Client.ClientSettings.TargetBorderColor, visualAlpha);
             border.IsVisible = false;
             AddControl(border);
 

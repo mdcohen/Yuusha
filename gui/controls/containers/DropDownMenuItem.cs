@@ -8,6 +8,8 @@ namespace Yuusha.gui
     {
         private bool m_onMouseDownSent;
         private DropDownMenu m_dropDownMenu;
+        private bool m_isLabel = false; // no mouse handling
+        private bool m_isSeparator = false;
 
         public DropDownMenu DropDownMenu
         {
@@ -30,9 +32,21 @@ namespace Yuusha.gui
             m_onMouseDownSent = false;
             Command = command;
 
-            m_textColor = Client.UserSettings.ColorDropDownMenuItemText;
-            m_tintColor = Client.UserSettings.ColorDropDownMenuItemBackground;
-            m_textOverColor = Client.UserSettings.ColorDropDownMenuItemHighlight;
+            if (text == "-")
+                m_isSeparator = true;
+            if (text.StartsWith("#"))
+            {
+                m_isLabel = true;
+                text = text.Replace("#", "");
+            }
+
+            m_textColor = Client.ClientSettings.ColorDropDownMenuItemText;
+
+            if (m_isSeparator) m_textColor = Client.ClientSettings.ColorDropDownMenuSeparator;
+            if (m_isLabel) m_textColor = Client.ClientSettings.ColorDropDownMenuLabelText;
+
+            m_tintColor = Client.ClientSettings.ColorDropDownMenuItemBackground;
+            m_textOverColor = Client.ClientSettings.ColorDropDownMenuItemHighlight;
             m_font = Client.ClientSettings.DefaultDropDownMenuFont;
         }
 
@@ -44,6 +58,11 @@ namespace Yuusha.gui
             {
                 if (m_text != null && m_text.Length > 0)
                 {
+                    Color textColor = m_textColor;
+
+                    if (m_disabled)
+                        textColor = Client.ClientSettings.ColorDropDownMenuItemDisabledText;
+
                     // override BitmapFont sprite batch
                     BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
                     // set font alignment
@@ -51,7 +70,7 @@ namespace Yuusha.gui
                     // draw string in textbox
                     Rectangle rect = new Rectangle(m_rectangle.X, m_rectangle.Y, m_rectangle.Width, m_rectangle.Height);
                     // change color of text if mouse over text color is not null
-                    BitmapFont.ActiveFonts[Font].TextBox(rect, m_textColor, m_text);
+                    BitmapFont.ActiveFonts[Font].TextBox(rect, textColor, m_text);
                 }
             }
             else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for DropDownMenuItem [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
@@ -59,11 +78,13 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
-            if (this.Text == "" || this.Text.Length <= 0)
+            if (Text == "" || Text.Length <= 0)
             {
-                this.IsVisible = false;
+                IsVisible = false;
                 return;
             }
+
+            Width = DropDownMenu.Width;
 
             base.Update(gameTime);
         }
@@ -71,7 +92,7 @@ namespace Yuusha.gui
         protected override void OnMouseOver(MouseState ms)
         {
             if(!m_disabled)
-                this.TextColor = Client.UserSettings.ColorDropDownMenuItemHighlight;
+                TextColor = Client.ClientSettings.ColorDropDownMenuItemHighlight;
 
             base.OnMouseOver(ms);
         }
@@ -79,7 +100,10 @@ namespace Yuusha.gui
         protected override void OnMouseLeave(MouseState ms)
         {
             if(!m_disabled)
-                this.TextColor = Client.UserSettings.ColorDropDownMenuItemText;
+                TextColor = Client.ClientSettings.ColorDropDownMenuItemText;
+
+            if (GuiManager.ActiveDropDownMenu == Owner)
+                GuiManager.ActiveDropDownMenu = "";
 
             base.OnMouseLeave(ms);
         }
@@ -107,13 +131,13 @@ namespace Yuusha.gui
                         {
                             GridBoxWindow.GridBoxPurpose purpose = (DropDownMenu.DropDownMenuOwner as DragAndDropButton).GridBoxUpdateRequests[DropDownMenu.MenuItems.IndexOf(this)];
                             GridBoxWindow.GridBoxPurpose ownerPurpose = (GuiManager.GetControl(DropDownMenu.DropDownMenuOwner.Owner) as GridBoxWindow).GridBoxPurposeType;
-
                             GridBoxWindow.RequestUpdateFromServer(purpose);
                             GridBoxWindow.RequestUpdateFromServer(ownerPurpose);
                         }
                     }
 
                     DropDownMenu.IsVisible = false;
+                    GuiManager.ActiveDropDownMenu = "";
                 }
             }
         }

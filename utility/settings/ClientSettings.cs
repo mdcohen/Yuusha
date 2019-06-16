@@ -2,6 +2,7 @@ using System;
 using System.Xml.Serialization;
 using System.IO;
 using System.Collections.Generic;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace Yuusha.Utility.Settings
 {
@@ -13,10 +14,12 @@ namespace Yuusha.Utility.Settings
         public int ServerPort = 3000;
         public bool ShowSplash = false;
         public string DefaultFont = "courier16";
-        public Microsoft.Xna.Framework.Color ColorDefaultPopUpFore = Microsoft.Xna.Framework.Color.Aqua;
-        public Microsoft.Xna.Framework.Color ColorDefaultPopUpBack = Microsoft.Xna.Framework.Color.Transparent;
+        public Color ColorDefaultPopUpFore = Color.White;
+        public Color ColorDefaultPopUpBack = Color.Transparent;
+        public byte DefaultPopUpFadeOutSpeed = 5;
+        public byte DefaultPopUpFadeInSpeed = 5;
         public string DefaultPopUpFont = "courier16";
-        public string DefaultDropDownMenuFont = "courier12";
+        public string DefaultDropDownMenuFont = "courier16";
         public bool DisplayChantingTextCue = true;
         public bool StartFullScreen = false;
 
@@ -32,6 +35,7 @@ namespace Yuusha.Utility.Settings
 
         public bool EchoGroundItemsOnExamination = false;
         public bool GroupSimiliarItemsInGridBoxes = true;
+        public bool AlwaysOpenGridBoxWindowsUponActivity = false;
 
         // saving accounts and passwords (encrypted)
         public List<Encrypt.EncryptedKeyValuePair<string, string>> StoredAccounts = new List<Encrypt.EncryptedKeyValuePair<string, string>>();
@@ -44,6 +48,97 @@ namespace Yuusha.Utility.Settings
         public int MacrosWindowY = 60;
         public int NewsWindowX = 500;
         public int NewsWindowY = 50;
+
+        #region Critter List Color Settings
+        public Color Color_Gui_Chaotic_Fore = Color.White;
+        public Color Color_Gui_Chaotic_Back = Color.DarkMagenta;
+        public Color Color_Gui_Evil_Fore = Color.White;
+        public Color Color_Gui_Evil_Back = Color.DarkRed;
+        public Color Color_Gui_ChaoticEvil_Fore = Color.Silver;
+        public Color Color_Gui_ChaoticEvil_Back = Color.DarkRed;
+        public Color Color_Gui_Neutral_Fore = Color.White;
+        public Color Color_Gui_Neutral_Back = Color.ForestGreen;
+        public Color Color_Gui_Lawful_Fore = Color.White;
+        public Color Color_Gui_Lawful_Back = Color.Black;
+        public Color Color_Gui_Amoral_Fore = Color.White;
+        public Color Color_Gui_Amoral_Back = Color.Black;
+        public Color Color_Gui_CreatureLetter_Fore = Color.White;
+        public Color Color_Gui_Loot_Fore = Color.Gold;
+        #endregion
+
+        public Color TargetBorderColor = Color.WhiteSmoke;
+        public int TargetBorderSize = 1;
+        public int MapTileBorderSize = 1;
+        public Color MapTileBorderColor = Color.Goldenrod;
+        public int DefaultWindowTitleHeight = 18;
+
+        public Color Color_Gui_Spell_Warming_TextCue = Color.PaleGoldenrod;
+
+        public Color DefaultMouseCursorTextCueColor = Color.PapayaWhip;
+
+        public Color HotButtonText_ForeColor = Color.Lime;
+        public Color HotButtonText_BackColor = Color.Purple;
+
+        public Color GridBoxWindowTintColor = Color.DarkSlateGray;
+        public Color GridBoxTitleTextColor = Color.White;
+        public Color GridBoxTitleTintColor = Color.DimGray;
+        public Color GridBoxTitleCloseBoxTintColor = Color.LightSlateGray;
+        public Color GridBoxBorderTintColor = Color.DimGray;
+
+        public int GridBoxTitleCloseBoxDistanceFromRight = 20;
+        public int GridBoxTitleCloseBoxDistanceFromTop = 5;
+        public int GridBoxTitleCloseBoxWidth = 18;
+        public int GridBoxTitleCloseBoxHeight = 18;
+        public int GridBoxTitleHeight = 26;
+        public int GridBoxBorderWidth = 2;
+        public int GridBoxButtonsBorderWidth = 1;
+
+        public Color DragAndDropBorderColor = Color.OldLace;
+        public Color DragAndDropTextColor = Color.White;
+        public Color DragAndDropTextOverColor = Color.White;
+        public bool DragAndDropHasTextOverColor = false;
+        public Color DragAndDropTintOverColor = Color.White;
+        public bool DragAndDropHasTintOverColor = false;
+
+        public byte GridBoxWindowVisualKeyAlpha = 255;
+        public byte GridBoxWindowBorderAlpha = 255;
+        public string GridBoxWindowFont = "courier16";
+
+        public Color AcceptingGridBoxBorderColor = Color.PaleGreen;
+        public Color AcceptingGridBoxTitleColor = Color.PaleGreen;
+        public Color AcceptingGridBoxTitleTextColor = Color.Black;
+
+        public Color ColorDropDownMenuBorder = Color.MonoGameOrange; // 6/8/2019 not being drawn
+        public int DropDownMenuBorderWidth = 1;
+        public Color ColorDropDownMenu = Color.Gray;
+        public Color ColorDropDownMenuItemBackground = Color.Transparent;
+        public Color ColorDropDownMenuItemDisabledText = Color.LightGray;
+        public Color ColorDropDownMenuTitleText = Color.LightCyan;
+        public Color ColorDropDownMenuItemText = Color.PaleGreen;
+        public Color ColorDropDownMenuSeparator = Color.Black;
+        public Color ColorDropDownMenuLabelText = Color.Black;
+        public Color ColorDropDownMenuItemHighlight = Color.White;
+        public Color ColorDropDownMenuItemTextDisabled = Color.DarkGray;
+
+        public Color PrivateMessageWindowTitleTextColor = Color.White;
+        public Color PrivateMessageWindowTitleTintColor = Color.Gray;
+        public Color PrivateMessageWindowTintColor = Color.DarkGray;
+        public Color PrivateMessageWindowTitleCloseBoxTintColor = Color.LightSlateGray;
+        public Color PrivateMessageWindowTitleCropBoxTintColor = Color.LightSlateGray;
+        public Color PrivateMessageBorderTintColor = Color.Gray;
+
+        public int PrivateMessageWindowTitleCloseBoxDistanceFromRight = 18;
+        public int PrivateMessageWindowTitleCloseBoxDistanceFromTop = 1;
+        public int PrivateMessageWindowTitleCloseBoxWidth = 16;
+        public int PrivateMessageWindowTitleCloseBoxHeight = 16;
+
+        public int PrivateMessageWindowTitleCropBoxDistanceFromRight = 34;
+        public int PrivateMessageWindowTitleCropBoxDistanceFromTop = 2;
+        public int PrivateMessageWindowTitleCropBoxWidth = 16;
+        public int PrivateMessageWindowTitleCropBoxHeight = 16;
+
+        public int PrivateMessageWindowTitleHeight = 18;
+        public int PrivateMessageWindowBorderWidth = 2;
 
         /// <summary>
         /// Saves the current settings.

@@ -44,6 +44,7 @@ namespace Yuusha
             new XYCoordinate(-1, -1), new XYCoordinate(-1, 0), new XYCoordinate(-1, 1), new XYCoordinate(0, -1), new XYCoordinate(0, 1), new XYCoordinate(1, -1),
             new XYCoordinate(1, 0), new XYCoordinate(1, 1)
         };
+
         private static Character m_currentCharacter;
         private static Character m_previousRoundCharacter = new Character();
 
@@ -145,12 +146,12 @@ namespace Yuusha
                         }
                         m_currentCharacter.m_friendNotify = Convert.ToBoolean(pcStats[14]);
                         m_currentCharacter.m_filterProfanity = Convert.ToBoolean(pcStats[15]);
-                        m_currentCharacter.m_ancestor = Convert.ToBoolean(pcStats[16]);
-                        m_currentCharacter.m_anonymous = Convert.ToBoolean(pcStats[17]);
+                        m_currentCharacter.m_ancestor = Convert.ToBoolean(pcStats[16]); //
+                        m_currentCharacter.m_anonymous = Convert.ToBoolean(pcStats[17]); //
                         m_currentCharacter.m_landID = Convert.ToInt16(pcStats[18]);
                         m_currentCharacter.m_mapID = Convert.ToInt16(pcStats[19]);
-                        m_currentCharacter.m_xCord = Convert.ToInt32(pcStats[20]);
-                        m_currentCharacter.m_yCord = Convert.ToInt32(pcStats[21]);
+                        m_currentCharacter.X = Convert.ToInt32(pcStats[20]);
+                        m_currentCharacter.Y = Convert.ToInt32(pcStats[21]);
                         m_currentCharacter.m_stunned = Convert.ToInt16(pcStats[22]);
                         m_currentCharacter.m_floating = Convert.ToInt16(pcStats[23]);
                         m_currentCharacter.m_dead = Convert.ToBoolean(pcStats[24]);
@@ -479,8 +480,11 @@ namespace Yuusha
                             {
                                 string[] spellInfo = pcSpellbook[a].Split(Protocol.VSPLIT.ToCharArray());
                                 Spell spell = World.GetSpellByID(Convert.ToInt32(spellInfo[0]));
-                                spell.Incantation = spellInfo[1];
-                                m_currentCharacter.Spells.Add(spell);
+                                if (spell != null)
+                                {
+                                    spell.Incantation = spellInfo[1];
+                                    m_currentCharacter.Spells.Add(spell);
+                                }
                             }
                         }
                     }
@@ -567,8 +571,12 @@ namespace Yuusha
         public bool m_anonymous;
         public short m_landID;
         public short m_mapID;
-        public int m_xCord;
-        public int m_yCord;
+        public int X
+        { get; set; }
+        public int Y
+        { get; set; }
+        public int Z
+        { get; set; }
         public short m_stunned;
         public short m_floating;
         public bool m_dead;
@@ -1028,6 +1036,30 @@ namespace Yuusha
         public Character Clone()
         {
             return (Character)this.MemberwiseClone();
+        }
+
+        public void UpdateCoordinates(Cell cell)
+        {
+            X = cell.xCord;
+            Y = cell.yCord;
+            Z = cell.zCord;
+        }
+
+        public bool IsNextToCounter()
+        {
+            for (int ypos = -1; ypos <= 1; ypos += 1)
+            {
+                for (int xpos = -1; xpos <= 1; xpos += 1)
+                {
+                    Cell curCell = Cell.GetCell(X + xpos, Y + ypos);
+                    if (curCell != null)
+                    {
+                        if (curCell.CellGraphic == Cell.GRAPHIC_COUNTER_PLACEABLE || curCell.CellGraphic == Cell.GRAPHIC_ALTAR_PLACEABLE)
+                            return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private static string GetDirectionString(XYCoordinate beg, XYCoordinate end)

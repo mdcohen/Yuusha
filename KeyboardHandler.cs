@@ -379,7 +379,7 @@ namespace Yuusha
                                 Utils.LogCharacterFields();
                             }
 
-                            if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))
+                            if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1))
                             {
                                 if (!ks.IsKeyDown(Keys.LeftAlt) && !ks.IsKeyDown(Keys.RightAlt))
                                 {
@@ -408,10 +408,14 @@ namespace Yuusha
                                 }
                                 else if (Client.GameDisplayMode == Enums.EGameDisplayMode.Spinel)
                                 {
+                                    Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.Normal);
+                                }
+                                else if (Client.GameDisplayMode == Enums.EGameDisplayMode.Normal)
+                                {
                                     Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.IOK);
                                 }
 
-                                gui.TextCue.AddClientInfoTextCue(Client.GameDisplayMode.ToString() + " Mode", TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
+                                    TextCue.AddClientInfoTextCue(Client.GameDisplayMode.ToString() + " Mode", TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
 
                                 result = true;
                             }
@@ -454,12 +458,8 @@ namespace Yuusha
                             #region ALT + I  Vertical Hot Button Window
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
                             {
-                                gui.Window verticalHotButtonWindow = gui.GuiManager.GenericSheet["VerticalHotButtonWindow"] as gui.Window;
-                                if (verticalHotButtonWindow != null)
-                                {
-                                    verticalHotButtonWindow.IsVisible = !verticalHotButtonWindow.IsVisible;
-                                    result = true;
-                                }
+                                Events.RegisterEvent(Events.EventName.Toggle_VerticalHotbar);
+                                result = true;
                             }
                             #endregion
 

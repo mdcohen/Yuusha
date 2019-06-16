@@ -288,10 +288,8 @@ namespace Yuusha.gui
         {
             if(!m_disabled && m_visible)
             {
-                if (m_popUpText != "" && m_controlState == Enums.EControlState.Over)
+                if (m_popUpText != "" && m_controlState == Enums.EControlState.Over && GuiManager.ActiveDropDownMenu == "")
                     TextCue.AddMouseCursorTextCue(m_popUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpFont);
-                else if (m_popUpText != "")
-                    TextCue.RemoveMouseCursorTextCue(m_popUpText);
             }
 
             if (m_visuals.ContainsKey(ControlState) && m_visualKey != m_visuals[ControlState])
@@ -401,6 +399,15 @@ namespace Yuusha.gui
         {
             if (!Client.HasFocus) return true;  // returns that it was handled so as to not do any other handler calls
 
+            // drop down menus take priority for mouse handling
+            if (GuiManager.ActiveDropDownMenu != "")
+            {
+                DropDownMenu menu = GuiManager.GetControl(GuiManager.ActiveDropDownMenu) as DropDownMenu;
+
+                if (!(this is DropDownMenu) && !(this is DropDownMenuItem) && (menu != null && Name != menu.Owner))
+                    return true;
+            }
+
             Point mousePointer = new Point(ms.X, ms.Y); // point of the mouse
 
             //if (!GuiManager.MouseAbove(this) && Contains(mousePointer) && !m_containsMousePointer)
@@ -448,13 +455,8 @@ namespace Yuusha.gui
             if ((!(this is TextBox) && (Contains(mousePointer) || HasFocus)) || ((this is TextBox) && Contains(mousePointer)))
             {
                 // there was a change in scroll wheel values since last MouseHandler
-                if (GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
-                {
-                    if (this is ScrollableTextBox)
-                    {
-                        OnZDelta(ms);
-                    }
-                }
+                if (this is ScrollableTextBox && GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
+                    OnZDelta(ms);
 
                 // to send message, mouse must have been pressed and released over the hotspot
                 if (ms.LeftButton != ButtonState.Pressed && ms.RightButton != ButtonState.Pressed)
@@ -591,7 +593,7 @@ namespace Yuusha.gui
         protected virtual void OnMouseLeave(MouseState ms)
         {
             if (!(this is TextBox))
-                this.HasFocus = false;
+                HasFocus = false;
         }
 
         protected virtual void OnMouseRelease(MouseState ms)
@@ -609,12 +611,20 @@ namespace Yuusha.gui
             // empty
         }
 
-        public virtual void OnDestroy()
+        public virtual void OnDispose()
         {
-            if (GuiManager.Sheets[Sheet][Owner] is Window)
-                (GuiManager.Sheets[Sheet][Owner] as Window).Controls.Remove(this);
+            if (Sheet != "Generic")
+            {
+                if (GuiManager.Sheets[Sheet][Owner] is Window)
+                    (GuiManager.Sheets[Sheet][Owner] as Window).Controls.Remove(this);
+            }
+            else
+            {
+                if (GuiManager.GenericSheet[Owner] is Window)
+                    (GuiManager.GenericSheet[Owner] as Window).Controls.Remove(this);
+            }
 
-            GuiManager.Sheets[this.Sheet].RemoveControl(this);
+            GuiManager.RemoveControl(this);
         }
 
         public virtual void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)

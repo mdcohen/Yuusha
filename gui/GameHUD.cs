@@ -9,10 +9,14 @@ namespace Yuusha.gui
     {
         public static Character CurrentTarget;
         public static string TextSendOverride = "";
-        public static Enums.EGameState PreviousGameState { get;set; }
+
+        public static Enums.EGameState PreviousGameState { get; set; }
         public static Cell ExaminedCell { get; set; }
         public static GridBoxWindow.GridBoxPurpose GridBoxWindowRequestUpdate
-        { get; set; }
+        { get; set; } = GridBoxWindow.GridBoxPurpose.None;
+
+        public static bool NextGridBoxUpdateIsSilent
+        { get; set; } = true;
 
         // Text is not cleared from scrolling textboxes in these ClientStates (they fill the screen)
         public static List<Enums.EGameState> OverrideDisplayStates = new List<Enums.EGameState>
@@ -20,7 +24,7 @@ namespace Yuusha.gui
             Enums.EGameState.CharacterGeneration, Enums.EGameState.HotButtonEditMode
         };
 
-        public GameHUD(Game game): base(game)
+        public GameHUD(Game game) : base(game)
         {
 
         }
@@ -28,7 +32,7 @@ namespace Yuusha.gui
         /// <summary>
         /// Handles dropping from a drag and drop area to a drag and drop area.
         /// </summary>
-        /// <param name="b">The drag and drop area where an item is being manipulated.</param>
+        /// <param name="b">The drag and drop area where an item is being manipulated FROM.</param>
         public static void DragAndDropLogic(DragAndDropButton b)
         {
             // Right hand or left hand items
@@ -39,22 +43,22 @@ namespace Yuusha.gui
                 if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
                 {
                     IO.Send("put " + rightOrLeft + " in sack");
-                    IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
                 {
                     IO.Send("belt " + rightOrLeft);
-                    IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Belt);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
                 {
                     IO.Send("put " + rightOrLeft + " in pouch");
-                    IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
                     IO.Send("put " + rightOrLeft + " in locker");
-                    IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                 {
@@ -78,9 +82,9 @@ namespace Yuusha.gui
                                 break;
                         }
 
-                        Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
                     }
-                } 
+                }
                 #endregion
             }
             else if (b.Name.StartsWith("Belt"))
@@ -92,17 +96,17 @@ namespace Yuusha.gui
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
                     IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in locker");
-                    IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
                 {
                     IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in sack");
-                    IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
                 {
                     IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in pouch");
-                    IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
                 {
@@ -122,11 +126,11 @@ namespace Yuusha.gui
                                 break;
                         }
 
-                        Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
                     }
                 }
 
-                IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Belt);
             }
             else if (b.Name.StartsWith("Sack"))
             {
@@ -145,17 +149,17 @@ namespace Yuusha.gui
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
                     IO.Send("take " + b.GetNItemName(b) + " from sack; put " + b.RepresentedItem.Name + " in locker");
-                    IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
                 {
                     IO.Send("take " + b.GetNItemName(b) + " from sack;belt " + b.RepresentedItem.Name);
-                    IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Belt);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
                 {
                     IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " in pouch");
-                    IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
                 {
@@ -175,11 +179,11 @@ namespace Yuusha.gui
                                 break;
                         }
 
-                        Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
                     }
                 }
 
-                IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
             }
             else if (b.Name.StartsWith("Pouch"))
             {
@@ -198,17 +202,17 @@ namespace Yuusha.gui
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
                     IO.Send("take " + b.GetNItemName(b) + " from pouch; put " + b.RepresentedItem.Name + " in locker");
-                    IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
                 {
                     IO.Send("take " + b.GetNItemName(b) + " from pouch;belt " + b.RepresentedItem.Name);
-                    IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Belt);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
                 {
                     IO.Send("take " + b.GetNItemName(b) + " from pouch;put " + b.RepresentedItem.Name + " in sack");
-                    IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
                 {
@@ -228,14 +232,20 @@ namespace Yuusha.gui
                                 break;
                         }
 
-                        Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
                     }
                 }
 
-                IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
             }
-            else if(b.Name.StartsWith("Ground"))
+            else if (b.Name.StartsWith("Ground") || b.Name.StartsWith("Altar") || b.Name.StartsWith("Counter"))
             {
+                string fromLocation = "";
+                if (b.Name.StartsWith("Altar"))
+                    fromLocation = " from altar";
+                else if (b.Name.StartsWith("Counter"))
+                    fromLocation = " from counter";
+
                 if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                 {
                     string swapafter = "";
@@ -246,24 +256,25 @@ namespace Yuusha.gui
                     else if (Character.CurrentCharacter.LeftHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH"))
                         swapbefore = "swap;";
 
-                    IO.Send(swapbefore + "take " + b.GetNItemName(b) + swapafter);
+                    IO.Send(swapbefore + "take " + b.GetNItemName(b) + fromLocation + swapafter);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + "; put " + b.RepresentedItem.Name + " in locker");
-                    IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                    IO.Send("take " + b.GetNItemName(b) + fromLocation + "; put " + b.RepresentedItem.Name + " in locker");
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + ";belt " + b.RepresentedItem.Name);
-                    IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                    IO.Send("take " + b.GetNItemName(b) + fromLocation + ";belt " + b.RepresentedItem.Name);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Belt);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + ";put " + b.RepresentedItem.Name + " in sack");
-                    IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                    IO.Send("take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " in sack");
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
                 }
-                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Altar") ||
+                    GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Counter"))
                 {
                     GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
                     if (window.WindowTitle != null)
@@ -271,21 +282,21 @@ namespace Yuusha.gui
                         switch (window.WindowTitle.Text.ToLower())
                         {
                             case "altar":
-                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on altar");
+                                IO.Send("take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " on altar");
                                 break;
                             case "counter":
-                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on counter");
+                                IO.Send("take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " on counter");
                                 break;
                             default:
-                                IO.Send("take " + b.GetNItemName(b) + " from sack;drop " + b.RepresentedItem.Name);
+                                IO.Send("take " + b.GetNItemName(b) + fromLocation + ";drop " + b.RepresentedItem.Name);
                                 break;
                         }
 
-                        Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
                     }
                 }
 
-                Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
+                GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
             }
         }
 

@@ -57,7 +57,7 @@ namespace Yuusha.gui
             //}
             //else
             //{
-                this.Position = new Point(ms.X, ms.Y);
+                Position = new Point(ms.X, ms.Y);
             //}
 
             base.Update(gameTime);

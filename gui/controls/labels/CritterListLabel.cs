@@ -103,9 +103,12 @@ namespace Yuusha.gui
                     // readjust Y if out of client width bounds
                     if (dropDownRectangle.Y + dropDownRectangle.Width > Client.Width)
                         dropDownRectangle.Y = Client.Width - dropDownRectangle.Width - 5;
-                    
-                    GuiManager.CurrentSheet.CreateDropDownMenu(this.Name + "DropDownMenu", this, "", dropDownRectangle, true,
-                        this.Font, new VisualKey("WhiteSpace"), Client.UserSettings.ColorDropDownMenu, this.VisualAlpha, true, Map.Direction.Northwest, 5);
+
+                    GuiManager.Sheets[Sheet].CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
+                        this.Font, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, this.VisualAlpha, true, Map.Direction.Northwest, 5);
+
+                    DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
+                    DropDownMenu.Border.IsVisible = true;
 
                     DropDownMenu.HasFocus = true;
                     int height = 0;
@@ -113,27 +116,27 @@ namespace Yuusha.gui
                     if (Character.Settings.CritterListDropDownMenuItem1 != "")
                     {
                         height += 20;
-                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem1, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
+                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem1, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
                     if (Character.Settings.CritterListDropDownMenuItem2 != "")
                     {
                         height += 20;
-                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem2, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
+                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem2, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
                     if (Character.Settings.CritterListDropDownMenuItem3 != "")
                     {
                         height += 20;
-                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem3, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
+                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem3, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
                     if (Character.Settings.CritterListDropDownMenuItem4 != "")
                     {
                         height += 20;
-                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem4, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
+                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem4, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
                     if (Character.Settings.CritterListDropDownMenuItem5 != "")
                     {
                         height += 20;
-                        this.DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem5, this.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
+                        this.DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem5, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
 
                     DropDownMenu.Height = height;

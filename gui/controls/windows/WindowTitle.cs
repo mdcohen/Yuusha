@@ -55,7 +55,7 @@ namespace Yuusha.gui
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
             if (height <= 0)
-                Height = Client.UserSettings.DefaultWindowTitleHeight;
+                Height = Client.ClientSettings.DefaultWindowTitleHeight;
             else Height = height;
             if (closeBoxVisualKey.Key != "")
                 m_closeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Close, closeBoxDistanceFromRight,
@@ -93,7 +93,7 @@ namespace Yuusha.gui
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
             if (height <= 0)
-                Height = Client.UserSettings.DefaultWindowTitleHeight;
+                Height = Client.ClientSettings.DefaultWindowTitleHeight;
             else Height = height;
             if (closeBoxVisualKey.Key != "")
                 m_closeBox = new WindowControlBox(m_owner, Enums.EWindowControlBoxType.Close, closeBoxDistanceFromRight,

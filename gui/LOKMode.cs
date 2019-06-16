@@ -105,7 +105,7 @@ namespace Yuusha.gui
                                         cell.xCord = x;
                                         cell.yCord = y;
                                         cell.zCord = z;
-                                        cell.cellGraphic = s.Substring(a, 2);
+                                        cell.CellGraphic = s.Substring(a, 2);
 
                                         if (!m_currentMapEdit.Cells.ContainsKey("" + x + "," + y + "," + z))
                                             m_currentMapEdit.Add(cell);

@@ -694,7 +694,7 @@ namespace Yuusha.gui
                                             pressedKeys = newKeys;
                                             return true;
                                         }
-                                        else if (ks.IsKeyDown(Keys.C) && !this.m_passwordBox)
+                                        else if (ks.IsKeyDown(Keys.C) && !m_passwordBox)
                                         {
                                             if (m_text.Length > 0 && m_selectionLength > 0)
                                             {
@@ -795,7 +795,7 @@ namespace Yuusha.gui
             if (GuiManager.ActiveTextBox == Name) HasFocus = true;
 
             if (!IsVisible || IsDisabled)
-                this.DropDownMenu = null;
+                DropDownMenu = null;
 
             #region Cursor
             if (m_blinkingCursor)
@@ -943,7 +943,8 @@ namespace Yuusha.gui
                 }
             }
 
-            if (this.DropDownMenu != null) DropDownMenu.Draw(gameTime);
+            if (DropDownMenu != null)
+                DropDownMenu.Draw(gameTime);
         }
 
         protected override void OnMouseDown(MouseState ms)
@@ -966,30 +967,32 @@ namespace Yuusha.gui
                         //if (dropDownRectangle.Y + dropDownRectangle.Width > Client.Width)
                         //    dropDownRectangle.Y = Client.Width - dropDownRectangle.Width - 5;
 
-                        GuiManager.CurrentSheet.CreateDropDownMenu(this.Name + "DropDownMenu", this, "", dropDownRectangle, true,
-                            this.Font, new VisualKey("WhiteSpace"), Client.UserSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
+                        GuiManager.Sheets[Sheet].CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
+                            Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
+
+                        DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
+                        {
+                            IsVisible = true,
+                        };
 
                         DropDownMenu.HasFocus = true;
                         int height = 0;
-                        if (this.Text.Length > 0)
+                        if (Text.Length > 0 && !m_passwordBox)
                         {
                             height += 20;
-                            this.DropDownMenu.AddDropDownMenuItem("cut", this.Name, new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
-                        }
-                        if (this.Text.Length > 0)
-                        {
+                            DropDownMenu.AddDropDownMenuItem("cut", Name + "DropDownMenu", new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
                             height += 20;
-                            this.DropDownMenu.AddDropDownMenuItem("copy", this.Name, new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
+                            DropDownMenu.AddDropDownMenuItem("copy", Name + "DropDownMenu", new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
                         }
                         if (Utils.GetClipboardText().Length > 0)
                         {
                             height += 20;
-                            this.DropDownMenu.AddDropDownMenuItem("paste", this.Name, new VisualKey("WhiteSpace"), "TextBox_DropDown", "", Utils.GetClipboardText().Length > 0 ? false : true);
+                            DropDownMenu.AddDropDownMenuItem("paste", Name + "DropDownMenu", new VisualKey("WhiteSpace"), "TextBox_DropDown", "", Utils.GetClipboardText().Length > 0 ? false : true);
                         }
                         if (this.Text.Length > 0)
                         {
                             height += 20;
-                            this.DropDownMenu.AddDropDownMenuItem("delete", this.Name, new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
+                            DropDownMenu.AddDropDownMenuItem("delete", Name + "DropDownMenu", new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
                         }
 
                         DropDownMenu.Height = height;
@@ -1055,15 +1058,16 @@ namespace Yuusha.gui
 
         public override bool MouseHandler(MouseState ms)
         {
-            if (this.DropDownMenu != null)
-                this.DropDownMenu.MouseHandler(ms);
+            if (DropDownMenu != null)
+                DropDownMenu.MouseHandler(ms);
 
             return base.MouseHandler(ms);
         }
 
         public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
         {
-            this.DropDownMenu = null;
+            if(DropDownMenu != null)
+                GuiManager.Dispose(DropDownMenu);
 
             base.OnClientResize(prev, now, ownerOverride);
         }

@@ -736,6 +736,11 @@ namespace Yuusha
 
                                 gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Ground);
 
+                                if (gui.GuiManager.GetControl("GroundGridBoxWindow") is gui.GridBoxWindow gridBoxWindow)
+                                {
+                                    gridBoxWindow.IsVisible = true;
+                                    gridBoxWindow.ZDepth = 1;
+                                }
                             }
                             #endregion
                             #region CHARACTER_HITS_UPDATE_END

@@ -104,6 +104,13 @@
   <Visual ParentTexture="yuusha_items.png" Name="steelbreastplate" X="194" Y="1836" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="trollleathervest" X="882" Y="1740" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="icelizardscalevest" X="1551" Y="2722" Width="90" Height="90"></Visual>
+  <!-- Legs -->
+  <Visual ParentTexture="yuusha_items.png" Name="leatherleggings" X="1665" Y="2717" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="studdedleatherleggings" X="1372" Y="2229" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="chainmailleggings" X="1373" Y="2522" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="scalemailleggings" X="1764" Y="2720" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="irongreaves" X="1768" Y="2813" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="steelgreaves" X="1372" Y="1837" Width="90" Height="90"></Visual>
   <!-- Weapons -->
   <!-- Axes -->
   <Visual ParentTexture="yuusha_items.png" Name="ironaxe" X="1200" Y="1620" Width="60" Height="60"></Visual>

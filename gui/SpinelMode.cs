@@ -408,28 +408,28 @@ namespace Yuusha.gui
                             switch (ch.Alignment)
                             {
                                 case World.Alignment.Amoral:
-                                    foreColor = Client.UserSettings.Color_Gui_Amoral_Fore;
-                                    backColor = Client.UserSettings.Color_Gui_Amoral_Back;
+                                    foreColor = Client.ClientSettings.Color_Gui_Amoral_Fore;
+                                    backColor = Client.ClientSettings.Color_Gui_Amoral_Back;
                                     break;
                                 case World.Alignment.Chaotic:
-                                    foreColor = Client.UserSettings.Color_Gui_Chaotic_Fore;
-                                    backColor = Client.UserSettings.Color_Gui_Chaotic_Back;
+                                    foreColor = Client.ClientSettings.Color_Gui_Chaotic_Fore;
+                                    backColor = Client.ClientSettings.Color_Gui_Chaotic_Back;
                                     break;
                                 case World.Alignment.ChaoticEvil:
-                                    foreColor = Client.UserSettings.Color_Gui_ChaoticEvil_Fore;
-                                    backColor = Client.UserSettings.Color_Gui_ChaoticEvil_Back;
+                                    foreColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
+                                    backColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
                                     break;
                                 case World.Alignment.Evil:
-                                    foreColor = Client.UserSettings.Color_Gui_Evil_Fore;
-                                    backColor = Client.UserSettings.Color_Gui_Evil_Back;
+                                    foreColor = Client.ClientSettings.Color_Gui_Evil_Fore;
+                                    backColor = Client.ClientSettings.Color_Gui_Evil_Back;
                                     break;
                                 case World.Alignment.Lawful:
-                                    foreColor = Client.UserSettings.Color_Gui_Lawful_Fore;
-                                    backColor = Client.UserSettings.Color_Gui_Lawful_Back;
+                                    foreColor = Client.ClientSettings.Color_Gui_Lawful_Fore;
+                                    backColor = Client.ClientSettings.Color_Gui_Lawful_Back;
                                     break;
                                 case World.Alignment.Neutral:
-                                    foreColor = Client.UserSettings.Color_Gui_Neutral_Fore;
-                                    backColor = Client.UserSettings.Color_Gui_Neutral_Back;
+                                    foreColor = Client.ClientSettings.Color_Gui_Neutral_Fore;
+                                    backColor = Client.ClientSettings.Color_Gui_Neutral_Back;
                                     break;
                             }
 
@@ -474,28 +474,28 @@ namespace Yuusha.gui
                                     switch (ch.Alignment)
                                     {
                                         case World.Alignment.Amoral:
-                                            foreColor = Client.UserSettings.Color_Gui_Amoral_Fore;
-                                            backColor = Client.UserSettings.Color_Gui_Amoral_Back;
+                                            foreColor = Client.ClientSettings.Color_Gui_Amoral_Fore;
+                                            backColor = Client.ClientSettings.Color_Gui_Amoral_Back;
                                             break;
                                         case World.Alignment.Chaotic:
-                                            foreColor = Client.UserSettings.Color_Gui_Chaotic_Fore;
-                                            backColor = Client.UserSettings.Color_Gui_Chaotic_Back;
+                                            foreColor = Client.ClientSettings.Color_Gui_Chaotic_Fore;
+                                            backColor = Client.ClientSettings.Color_Gui_Chaotic_Back;
                                             break;
                                         case World.Alignment.ChaoticEvil:
-                                            foreColor = Client.UserSettings.Color_Gui_ChaoticEvil_Fore;
-                                            backColor = Client.UserSettings.Color_Gui_ChaoticEvil_Back;
+                                            foreColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
+                                            backColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
                                             break;
                                         case World.Alignment.Evil:
-                                            foreColor = Client.UserSettings.Color_Gui_Evil_Fore;
-                                            backColor = Client.UserSettings.Color_Gui_Evil_Back;
+                                            foreColor = Client.ClientSettings.Color_Gui_Evil_Fore;
+                                            backColor = Client.ClientSettings.Color_Gui_Evil_Back;
                                             break;
                                         case World.Alignment.Lawful:
-                                            foreColor = Client.UserSettings.Color_Gui_Lawful_Fore;
-                                            backColor = Client.UserSettings.Color_Gui_Lawful_Back;
+                                            foreColor = Client.ClientSettings.Color_Gui_Lawful_Fore;
+                                            backColor = Client.ClientSettings.Color_Gui_Lawful_Back;
                                             break;
                                         case World.Alignment.Neutral:
-                                            foreColor = Client.UserSettings.Color_Gui_Neutral_Fore;
-                                            backColor = Client.UserSettings.Color_Gui_Neutral_Back;
+                                            foreColor = Client.ClientSettings.Color_Gui_Neutral_Fore;
+                                            backColor = Client.ClientSettings.Color_Gui_Neutral_Back;
                                             break;
                                     }
 
@@ -553,11 +553,11 @@ namespace Yuusha.gui
 
                         if (cell.visible)
                         {
-                            if (m_tilesDict.ContainsKey(cell.displayGraphic))
-                                currTile = m_tilesDict[cell.displayGraphic];
+                            if (m_tilesDict.ContainsKey(cell.DisplayGraphic))
+                                currTile = m_tilesDict[cell.DisplayGraphic];
                             else
                             {
-                                Utils.LogOnce("Failed to find SpinelTileDefinition for cell graphic [ " + cell.displayGraphic+ " ]");
+                                Utils.LogOnce("Failed to find SpinelTileDefinition for cell graphic [ " + cell.DisplayGraphic+ " ]");
                                 currTile = m_tilesDict["  "];
                             }
 
@@ -592,13 +592,17 @@ namespace Yuusha.gui
                                 else
                                 {
                                     spLabel.CritterVisuals.Add(new VisualKey(cell.Characters[0].VisualKey));
-                                    if(!Character.CurrentCharacter.IsPeeking)
-                                        spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));                                    
+                                    if (!Character.CurrentCharacter.IsPeeking)
+                                    {
+                                        spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
+                                        Character.CurrentCharacter.UpdateCoordinates(cell);
+                                    }
                                 }
                             }
                             else if (count == 24)
                             {
                                 spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
+                                Character.CurrentCharacter.UpdateCoordinates(cell);
                             }
 
                             if (cell.hasItems && cell.IsLootVisible)

@@ -94,17 +94,17 @@ namespace Yuusha
             /// <summary>
             /// Island of Kesmai traditional emulation.
             /// </summary>
-            IOK,
-
-            /// <summary>
-            /// Legends of Kesmai emulation.
-            /// </summary>
-            LOK,
+            IOK,           
 
             /// <summary>
             /// Spinel emulation.
             /// </summary>
             Spinel,
+
+            /// <summary>
+            /// Legends of Kesmai emulation.
+            /// </summary>
+            LOK,
         }
 
         public enum EGameState

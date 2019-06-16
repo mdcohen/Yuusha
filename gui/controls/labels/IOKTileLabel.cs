@@ -66,13 +66,13 @@ namespace Yuusha.gui
 
             if (m_lootText != null && m_lootText != "")
             {
-                BitmapFont.ActiveFonts[Font].TextBox(rect, Client.UserSettings.Color_Gui_Loot_Fore, m_lootText);
+                BitmapFont.ActiveFonts[Font].TextBox(rect, Client.ClientSettings.Color_Gui_Loot_Fore, m_lootText);
             }
 
             // SpinelTileLabel will draw it's own creature text
             if (m_creatureText != null && m_creatureText != "" && !(this is SpinelTileLabel))
             {
-                BitmapFont.ActiveFonts[Font].TextBox(rect, Client.UserSettings.Color_Gui_CreatureLetter_Fore, m_creatureText);
+                BitmapFont.ActiveFonts[Font].TextBox(rect, Client.ClientSettings.Color_Gui_CreatureLetter_Fore, m_creatureText);
             }
         }
 

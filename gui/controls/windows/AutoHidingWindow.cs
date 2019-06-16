@@ -91,29 +91,12 @@ namespace Yuusha.gui
                 return base.MouseHandler(ms);
         }
 
-        //protected override void OnMouseDown(MouseState ms)
-        //{
-        //    if (m_cropped)
-        //        return;
-        //}
-
         protected override void OnMouseLeave(MouseState ms)
         {
             base.OnMouseLeave(ms);
 
             ControlState = Enums.EControlState.Normal;
-
-            //if (!m_cropped)
-            //    base.OnCrop();
         }
-
-        //protected override void OnMouseOver(MouseState ms)
-        //{
-        //    base.OnMouseOver(ms);
-
-        //    if(m_cropped)
-        //        base.OnCrop();
-        //}
 
         public void SetWindowOrientation()
         {

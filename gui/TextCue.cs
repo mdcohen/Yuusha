@@ -95,21 +95,21 @@ namespace Yuusha.gui
             {
                 if(m_alpha < 255 && m_fadeIn && !m_fadeOut)
                 {
-                    m_alpha += 1;
+                    m_alpha += Client.ClientSettings.DefaultPopUpFadeInSpeed;
                     if(m_alpha >= 255)
                         cueList.Remove(this);
                 }
 
                 if (m_alpha > 0 && !m_fadeIn && m_fadeOut)
                 {
-                    m_alpha -= 1;
+                    m_alpha -= Client.ClientSettings.DefaultPopUpFadeOutSpeed;
                     if(m_alpha <= 0)
                         cueList.Remove(this);
                 }
 
                 if (m_fadeIn && m_fadeOut)
                 {
-                    m_alpha += 1;
+                    m_alpha += Client.ClientSettings.DefaultPopUpFadeInSpeed;
 
                     if (m_alpha >= 255)
                     {
@@ -202,7 +202,7 @@ namespace Yuusha.gui
 
         public static void AddMouseCursorTextCue(string text)
         {
-            AddMouseCursorTextCue(text, Client.UserSettings.DefaultMouseCursorTextCueColor, GuiManager.CurrentSheet.Font);
+            AddMouseCursorTextCue(text, Client.ClientSettings.DefaultMouseCursorTextCueColor, GuiManager.CurrentSheet.Font);
         }
 
         public static void AddMouseCursorTextCue(string text, Color color, string font)
@@ -363,7 +363,7 @@ namespace Yuusha.gui
                     break;
             }
 
-            AddClientInfoTextCue(promptText, gui.TextCue.TextCueTag.PromptState, cueColor, backgroundColor, 0, false, false, true);
+            AddClientInfoTextCue(promptText, TextCueTag.PromptState, cueColor, backgroundColor, 0, false, false, true);
         }
 
     }

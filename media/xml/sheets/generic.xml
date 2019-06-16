@@ -182,7 +182,7 @@ available in any game state. -->
       <Control
         Type="SquareBorder"
         Name="DoubleLeftClickTargetLabelBorder"
-        Owner="DoubleLeftClickTargetsLabel"
+        Owner="DoubleLeftClickTargetLabel"
         Width="1"
         VisualKey="WhiteSpace"
         VisualAlpha="255"
@@ -3391,7 +3391,7 @@ available in any game state. -->
     <Control
       Type="Button"
       Text=""
-      Name="HorizontalAutoHidingSackButton"
+      Name="SackHorizontalAutoHidingButton"
       Owner="HorizontalGameAutoHidingWindow"
       X="0"
       Y="0"
@@ -3412,7 +3412,7 @@ available in any game state. -->
     <Control
       Type="Button"
       Text=""
-      Name="HorizontalAutoHidingPouchButton"
+      Name="PouchHorizontalAutoHidingButton"
       Owner="HorizontalGameAutoHidingWindow"
       X="41"
       Y="0"
@@ -3511,7 +3511,8 @@ available in any game state. -->
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="request_locker">
+      OnMouseDown="request_locker"
+      PopUpText="Locker">
     </Control>
     
   </HorizontalGameAutoHidingWindow>
@@ -3715,7 +3716,7 @@ available in any game state. -->
   <Control
     Type="SquareBorder"
     Name="InventoryWindowBorder"
-    Owner="InventoryGridBoxWindow"
+    Owner="InventoryWindow"
     Width="1"
     VisualKey="WhiteSpace"
     TintColor="DimGray">

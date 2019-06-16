@@ -192,7 +192,7 @@ namespace Yuusha.gui
 
                 if (CreatureText != null && CreatureText != "")
                 {
-                    BitmapFont.ActiveFonts[Font].TextBox(rect, Client.UserSettings.Color_Gui_CreatureLetter_Fore, CreatureText);
+                    BitmapFont.ActiveFonts[Font].TextBox(rect, Client.ClientSettings.Color_Gui_CreatureLetter_Fore, CreatureText);
                 }
             }
             else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for SpinelTileLabel [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");

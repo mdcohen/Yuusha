@@ -36,7 +36,7 @@ namespace Yuusha.gui
                 if ((controlDown || altDown) && ms.LeftButton != ButtonState.Pressed)
                 {
                     if(this.Text.Length > 0)
-                        TextCue.AddMouseCursorTextCue(this.Text, Client.UserSettings.HotButtonText_ForeColor, Client.UserSettings.HotButtonText_BackColor, this.Font);
+                        TextCue.AddMouseCursorTextCue(this.Text, Client.ClientSettings.HotButtonText_ForeColor, Client.ClientSettings.HotButtonText_BackColor, this.Font);
                     return true;
                 }
                 else if(controlDown && altDown && ms.LeftButton == ButtonState.Pressed)
@@ -61,7 +61,7 @@ namespace Yuusha.gui
             base.OnMouseOver(ms);
 
             if (Border == null)
-                GuiManager.GenericSheet.CreateSquareBorder(this.Name + "SquareBorder", this.Name, 1, new VisualKey("WhiteSpace"), false, Color.OldLace, 255);
+                GuiManager.GenericSheet.CreateSquareBorder(Name + "SquareBorder", Name, 1, new VisualKey("WhiteSpace"), false, Color.OldLace, 255);
 
             this.m_borderAlpha = 255;
 

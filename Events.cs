@@ -44,6 +44,7 @@ namespace Yuusha
             Request_Skills,
             Request_Spells,
             Save_Character_Settings,
+            ScrollableTextBox_DropDown,
             Send_Command,
             Send_Account_Name,
             Send_Password,
@@ -67,6 +68,8 @@ namespace Yuusha
             Toggle_VerticalHotbar,
             User_Settings_Changed,
         }
+
+        private static System.Timers.Timer AwaitInitialRequestsData;
 
         public static void RegisterEvent(EventName name, params object[] args)
         {
@@ -147,8 +150,8 @@ namespace Yuusha
 
                                             (menu.DropDownMenuOwner as CritterListLabel).DropDownMenu.IsDisabled = true;
                                             (menu.DropDownMenuOwner as CritterListLabel).DropDownMenu.IsVisible = false;
-                                            GuiManager.GenericSheet.RemoveControl((menu.DropDownMenuOwner as CritterListLabel).DropDownMenu);
-                                            (menu.DropDownMenuOwner as CritterListLabel).DropDownMenu = null;
+                                            GuiManager.Dispose((menu.DropDownMenuOwner as CritterListLabel).DropDownMenu);
+                                            //(menu.DropDownMenuOwner as CritterListLabel).DropDownMenu = null;
                                         }
 
                                         IO.Send(GameHUD.TextSendOverride);
@@ -424,71 +427,62 @@ namespace Yuusha
                         #endregion
                     case EventName.Display_Game_Text:
                         #region Display Game Text
+                        message = (string)args[0];
 
-                        switch (Client.GameDisplayMode)
+                        if ((string)args[0] == TextManager.YOU_ARE_STUNNED)
+                            TextCue.AddPromptStateTextCue(Protocol.PromptStates.Stunned);
+                        if ((string)args[0] == TextManager.YOU_HAVE_BEEN_BLINDED)
+                            TextCue.AddPromptStateTextCue(Protocol.PromptStates.Blind);
+                        if ((string)args[0] == TextManager.YOU_ARE_SCARED)
+                            TextCue.AddPromptStateTextCue(Protocol.PromptStates.Feared);
+
+                        privateMessage = false;
+                        if (Client.ClientSettings.DisplayPrivateMessageWindows)
                         {
-                            case Enums.EGameDisplayMode.Spinel:
-                                message = (string)args[0];
-                                privateMessage = false;
-                                if (Client.ClientSettings.DisplayPrivateMessageWindows)
+                            if (message.IndexOf("tells you,") != -1 && message.Split(" ".ToCharArray())[1] == "tells")
+                            {
+                                PrivateMessageWindow pmWindow2 = PrivateMessageWindow.CreateNewPrivateMessageWindow(message.Split(" ".ToCharArray())[0]);
+                                pmWindow2.ReceivedMessage(message);
+                                privateMessage = true;
+                            }
+                            else if (message.StartsWith("You tell"))
+                            {
+                                string[] pm = message.Split(" ".ToCharArray());
+
+                                PrivateMessageWindow pmWindow2 = PrivateMessageWindow.CreateNewPrivateMessageWindow(pm[2].Substring(0, pm[2].Length - 1));
+                                pmWindow2.SentMessage(message);
+                                privateMessage = true;
+                            }
+                        }
+
+                        if (!privateMessage || (privateMessage && Client.ClientSettings.EchoPrivateMessagesToConference))
+                        {
+                            if(Client.GameDisplayMode == Enums.EGameDisplayMode.IOK)
+                                IOKMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
+                            else if(Client.GameDisplayMode == Enums.EGameDisplayMode.Spinel)
+                                SpinelMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
+
+                            if (Client.ClientSettings.DisplayChantingTextCue)
+                            {
+                                if (args[0].ToString().StartsWith("You warm the spell "))
                                 {
-                                    if (message.IndexOf("tells you,") != -1 && message.Split(" ".ToCharArray())[1] == "tells")
+                                    string findSpellName = args[0].ToString().Replace("You warm the spell ", "");
+                                    findSpellName = findSpellName.Replace(".", "");
+                                    //Utils.Log("Spells Count: " + Character.CurrentCharacter.Spells.Count + " Looking for: " + findSpellName);
+                                    foreach (Spell spell in Character.CurrentCharacter.Spells)
                                     {
-                                        PrivateMessageWindow pmWindow2 = PrivateMessageWindow.CreateNewPrivateMessageWindow(message.Split(" ".ToCharArray())[0]);
-                                        pmWindow2.ReceivedMessage(message);
-                                        privateMessage = true;
-                                    }
-                                    else if (message.StartsWith("You tell"))
-                                    {
-                                        string[] pm = message.Split(" ".ToCharArray());
-
-                                        PrivateMessageWindow pmWindow2 = PrivateMessageWindow.CreateNewPrivateMessageWindow(pm[2].Substring(0, pm[2].Length - 1));
-                                        pmWindow2.SentMessage(message);
-                                        privateMessage = true;
-                                    }
-                                }
-
-                                if (!privateMessage || (privateMessage && Client.ClientSettings.EchoPrivateMessagesToConference))
-                                {
-                                    SpinelMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
-
-                                    if ((string)args[0] == TextManager.YOU_ARE_STUNNED)
-                                        TextCue.AddPromptStateTextCue(Protocol.PromptStates.Stunned);
-
-                                    if (Client.ClientSettings.DisplayChantingTextCue)
-                                    {
-                                        if (args[0].ToString().StartsWith("You warm the spell "))
+                                        Utils.Log("Spell: " + spell.Name);
+                                        if (spell.Name == findSpellName)
                                         {
-                                            string findSpellName = args[0].ToString().Replace("You warm the spell ", "");
-                                            findSpellName = findSpellName.Replace(".", "");
-                                            //Utils.Log("Spells Count: " + Character.CurrentCharacter.Spells.Count + " Looking for: " + findSpellName);
-                                            foreach (Spell spell in Character.CurrentCharacter.Spells)
-                                            {
-                                                Utils.Log("Spell: " + spell.Name);
-                                                if (spell.Name == findSpellName)
-                                                {
-                                                    //Utils.Log("Found spell: " + findSpellName);
-                                                    //TextCue.AddChantingTextCue(spell.Incantation);
-                                                    break;
-                                                }
-                                            }
+                                            //Utils.Log("Found spell: " + findSpellName);
+                                            //TextCue.AddChantingTextCue(spell.Incantation);
+                                            break;
                                         }
                                     }
                                 }
-                                break;
-                            case Enums.EGameDisplayMode.IOK:
-                                gui.IOKMode.DisplayGameText((string) args[0], Enums.ETextType.Default);
-                                    // TODO: temporary until texttypes done
-                                if ((string) args[0] == TextManager.YOU_ARE_STUNNED)
-                                    gui.TextCue.AddPromptStateTextCue(Protocol.PromptStates.Stunned);
-                                break;
-                            case Enums.EGameDisplayMode.LOK:
-                                break;
-                            case Enums.EGameDisplayMode.Normal:
-                                break;
+                            }
                         }
                         break;
-
                         #endregion
                     case EventName.End_Game_Round:
                         #region End Game Round
@@ -666,48 +660,61 @@ namespace Yuusha
                     #endregion
                     case EventName.Request_Belt:
                         // get belt grid box, if not visible send request
-                        Control gridBoxWindow = GuiManager.GetControl("BeltGridBoxWindow");
-                        if (gridBoxWindow == null || !gridBoxWindow.IsVisible)
-                            IO.Send(Protocol.REQUEST_CHARACTER_BELT);
-                        else if (gridBoxWindow.IsVisible)
-                            gridBoxWindow.IsVisible = false;
+                        IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                        if (args[0] is Button)
+                            if (GuiManager.GetControl("BeltGridBoxWindow") is GridBoxWindow gridBoxWindow)
+                            {
+                                gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
+                                gridBoxWindow.ZDepth = 1;
+                            }
                         break;
                     case EventName.Request_Effects:
                         IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                         break;
                     case EventName.Request_Inventory:
-                        gridBoxWindow = GuiManager.GetControl("InventoryWindow");
-                        gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
-                        if(gridBoxWindow.IsVisible) gridBoxWindow.ZDepth = 1;
+                        if (args[0] is Button)
+                            if (GuiManager.GetControl("InventoryGridBoxWindow") is GridBoxWindow gridBoxWindow)
+                            {
+                                gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
+                                gridBoxWindow.ZDepth = 1;
+                            }
                         //IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
                         break;
                     case EventName.Request_Locker:
-                        gridBoxWindow = GuiManager.GetControl("LockerGridBoxWindow");
-                        if (gridBoxWindow == null || !gridBoxWindow.IsVisible)
-                            IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
-                        else if (gridBoxWindow.IsVisible)
-                            gridBoxWindow.IsVisible = false;
+                        IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
+                        if (args[0] is Button)
+                            if (GuiManager.GetControl("LockerGridBoxWindow") is GridBoxWindow gridBoxWindow)
+                            {
+                                gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
+                                gridBoxWindow.ZDepth = 1;
+                            }
                         break;
                     case EventName.Request_Pouch:
-                        gridBoxWindow = GuiManager.GetControl("PouchGridBoxWindow");
-                        if (gridBoxWindow == null || !gridBoxWindow.IsVisible)
-                            IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
-                        else if (gridBoxWindow.IsVisible)
-                            gridBoxWindow.IsVisible = false;
+                        IO.Send(Protocol.REQUEST_CHARACTER_POUCH);
+                        if (args[0] is Button)
+                            if (GuiManager.GetControl("PouchGridBoxWindow") is GridBoxWindow gridBoxWindow)
+                            {
+                                gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
+                                gridBoxWindow.ZDepth = 1;
+                            }
                         break;
                     case EventName.Request_Rings:
-                        gridBoxWindow = GuiManager.GetControl("RingsGridBoxWindow");
-                        if (gridBoxWindow == null || !gridBoxWindow.IsVisible)
-                            IO.Send(Protocol.REQUEST_CHARACTER_RINGS);
-                        else if (gridBoxWindow.IsVisible)
-                            gridBoxWindow.IsVisible = false;
+                        IO.Send(Protocol.REQUEST_CHARACTER_RINGS);
+                        if (args[0] is Button)
+                            if (GuiManager.GetControl("RingsGridBoxWindow") is GridBoxWindow gridBoxWindow)
+                            {
+                                gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
+                                gridBoxWindow.ZDepth = 1;
+                            }
                         break;
                     case EventName.Request_Sack:
-                        gridBoxWindow = GuiManager.GetControl("SackGridBoxWindow");
-                        if (gridBoxWindow == null || !gridBoxWindow.IsVisible)
-                            IO.Send(Protocol.REQUEST_CHARACTER_SACK);
-                        else if (gridBoxWindow.IsVisible)
-                            gridBoxWindow.IsVisible = false;
+                        IO.Send(Protocol.REQUEST_CHARACTER_SACK);
+                        if (args[0] is Button)
+                            if (GuiManager.GetControl("SackGridBoxWindow") is GridBoxWindow gridBoxWindow)
+                            {
+                                gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
+                                gridBoxWindow.ZDepth = 1;
+                            }
                         break;
                     case EventName.Request_Skills:
                         IO.Send(Protocol.REQUEST_CHARACTER_SKILLS);
@@ -748,7 +755,9 @@ namespace Yuusha
                         if (args[0] is Control)
                         {
                             IO.Send((args[0] as Control).Command);
-                            TextCue.AddClientInfoTextCue((args[0] as Control).Command);
+#if DEBUG
+                            TextCue.AddClientInfoTextCue("DEBUG: " + (args[0] as Control).Command);
+#endif
 
                         }
                         //if(args[0] is DropDownMenuItem sendCommandMenuItem)
@@ -844,7 +853,18 @@ namespace Yuusha
                             }
 
                             if (Client.GameState.ToString().EndsWith("Game"))
-                                Events.RegisterEvent(EventName.Target_Cleared, null);
+                            {
+                                RegisterEvent(EventName.Target_Cleared, null);
+                                // update containers GUI when entering the game
+                                foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
+                                {
+                                    GridBoxWindow.RequestUpdateFromServer(purpose);
+                                }
+
+                                AwaitInitialRequestsData = new System.Timers.Timer(1000);
+                                AwaitInitialRequestsData.Elapsed += AwaitInitialRequests_Elapsed;
+                                AwaitInitialRequestsData.Start();
+                            }
 
                             if (Client.GameState == Enums.EGameState.Login)
                                 ResetLoginGUI();
@@ -873,6 +893,29 @@ namespace Yuusha
                         Character.CurrentCharacter = Account.GetNextCharacter();
                         IO.Send(Protocol.SWITCH_CHARACTER + " " + Character.CurrentCharacter.ID);
                         break;
+                    case EventName.ScrollableTextBox_DropDown:
+                        #region ScrollableTextBox_DropDown
+                        if (args.Length >= 1 && args[0] is Control)
+                        {
+                            Control control = (Control)args[0];
+
+                            if (control != null)
+                            {
+                                if (control is DropDownMenuItem)
+                                {
+                                    DropDownMenu menu = (control as DropDownMenuItem).DropDownMenu;
+                                    ScrollableTextBox scrollableTextBox = GuiManager.GetControl(menu.Owner) as ScrollableTextBox;
+
+                                    scrollableTextBox.Font = control.Command;
+
+                                    GuiManager.Dispose(menu);
+                                    //scrollableTextBox.DropDownMenu = null;
+                                    //menu = null;
+                                }
+                            }
+                        }
+                        break;
+                        #endregion
                     case EventName.TextBox_DropDown:
                         #region TextBox_DropDown
                         if (args.Length >= 1 && args[0] is Control)
@@ -903,12 +946,11 @@ namespace Yuusha
                                             else textBox.InsertClipboardText();
                                             break;
                                         case "delete":
-                                            textBox.SelectAll();
                                             textBox.Clear();
                                             break;
                                     }
 
-                                    GuiManager.CurrentSheet.RemoveControl(menu);
+                                    GuiManager.RemoveControl(menu);
                                     textBox.DropDownMenu = null;
                                     menu = null;
                                 }
@@ -1441,6 +1483,21 @@ namespace Yuusha
             }
         }
 
+        private static void AwaitInitialRequests_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            foreach(GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
+            {
+                if((int)purpose > 3 && (int)purpose < 9)
+                {
+                    if (GuiManager.GetControl(purpose.ToString() + "GridBoxWindow") is null)
+                    {
+                        return;
+                    }
+                }
+            }
+            AwaitInitialRequestsData.Stop();
+        }
+
         public static void UpdateGUI(GameTime gameTime)
         {
             Character chr = Character.CurrentCharacter;
@@ -1565,7 +1622,7 @@ namespace Yuusha
                                 sheet["CurrentLocationLabel"].Text = chr.MapName;
                         }
 
-                        if (sheet["ConfInputTextBox"] != null)
+                        if (sheet[Globals.CONFINPUTTEXTBOX] != null)
                         {
                             if (Client.HasFocus)
                             {
@@ -1574,13 +1631,14 @@ namespace Yuusha
                                 {
                                     // Overrides to focus on input text box.
                                     // Options window and private messages have focus priority.
-                                    if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage"))
+                                    if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible &&
+                                        !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage") && GuiManager.ActiveDropDownMenu == "")
                                         sheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
                                 }
                             }
                             else
                             {
-                                sheet["ConfInputTextBox"].HasFocus = false;
+                                sheet[Globals.CONFINPUTTEXTBOX].HasFocus = false;
                             }
                         }
 

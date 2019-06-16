@@ -22,19 +22,19 @@ namespace Yuusha.gui
                 return GuiManager.GenericSheet[player + "PrivateMessageWindow"] as PrivateMessageWindow;
 
             PrivateMessageWindow pmWindow = new PrivateMessageWindow(player + "PrivateMessageWindow", "", new Rectangle(100, 100, 500, 300), true, false, false, GuiManager.GenericSheet.Font, new VisualKey("WhiteSpace"),
-                Client.UserSettings.PrivateMessageWindowTintColor, 255, 255,
+                Client.ClientSettings.PrivateMessageWindowTintColor, 255, 255,
                 true, Map.Direction.Northwest, 5, new List<Enums.EAnchorType> { Enums.EAnchorType.Top, Enums.EAnchorType.Right }, "Dragging");
             pmWindow.RecipientName = player;
 
-            WindowTitle windowTitle = new WindowTitle(pmWindow.Name + "Title", pmWindow.Name, pmWindow.Font, "Private Message: " + pmWindow.RecipientName, Client.UserSettings.PrivateMessageWindowTitleTextColor, Client.UserSettings.PrivateMessageWindowTitleTintColor, 255,
+            WindowTitle windowTitle = new WindowTitle(pmWindow.Name + "Title", pmWindow.Name, pmWindow.Font, "Private Message: " + pmWindow.RecipientName, Client.ClientSettings.PrivateMessageWindowTitleTextColor, Client.ClientSettings.PrivateMessageWindowTitleTintColor, 255,
                 BitmapFont.TextAlignment.Center, new VisualKey("WhiteSpace"), false, new VisualKey("WindowCloseBox"), new VisualKey(""), new VisualKey(""),
-                new VisualKey("WindowCropBox"), new VisualKey("WindowCloseBoxDown"), new VisualKey(""), new VisualKey(""), new VisualKey("WindowCropBoxDown"), Client.UserSettings.PrivateMessageWindowTitleCloseBoxDistanceFromRight, Client.UserSettings.PrivateMessageWindowTitleCloseBoxDistanceFromTop,
-                Client.UserSettings.PrivateMessageWindowTitleCloseBoxWidth, Client.UserSettings.PrivateMessageWindowTitleCloseBoxHeight, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                Client.UserSettings.PrivateMessageWindowTitleCropBoxDistanceFromRight, Client.UserSettings.PrivateMessageWindowTitleCropBoxDistanceFromTop, Client.UserSettings.PrivateMessageWindowTitleCropBoxWidth,
-                Client.UserSettings.PrivateMessageWindowTitleCropBoxHeight, 255, Client.UserSettings.PrivateMessageWindowTitleCloseBoxTintColor, Color.White, Color.White,
-                Client.UserSettings.PrivateMessageWindowTitleCropBoxTintColor, Client.UserSettings.PrivateMessageWindowTitleHeight);
+                new VisualKey("WindowCropBox"), new VisualKey("WindowCloseBoxDown"), new VisualKey(""), new VisualKey(""), new VisualKey("WindowCropBoxDown"), Client.ClientSettings.PrivateMessageWindowTitleCloseBoxDistanceFromRight, Client.ClientSettings.PrivateMessageWindowTitleCloseBoxDistanceFromTop,
+                Client.ClientSettings.PrivateMessageWindowTitleCloseBoxWidth, Client.ClientSettings.PrivateMessageWindowTitleCloseBoxHeight, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                Client.ClientSettings.PrivateMessageWindowTitleCropBoxDistanceFromRight, Client.ClientSettings.PrivateMessageWindowTitleCropBoxDistanceFromTop, Client.ClientSettings.PrivateMessageWindowTitleCropBoxWidth,
+                Client.ClientSettings.PrivateMessageWindowTitleCropBoxHeight, 255, Client.ClientSettings.PrivateMessageWindowTitleCloseBoxTintColor, Color.White, Color.White,
+                Client.ClientSettings.PrivateMessageWindowTitleCropBoxTintColor, Client.ClientSettings.PrivateMessageWindowTitleHeight);
 
-            SquareBorder windowBorder = new SquareBorder(pmWindow.Name + "Border", pmWindow.Name, 1, new VisualKey("WhiteSpace"), false, Client.UserSettings.PrivateMessageBorderTintColor, 255);
+            SquareBorder windowBorder = new SquareBorder(pmWindow.Name + "Border", pmWindow.Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.PrivateMessageBorderTintColor, 255);
 
             ScrollableTextBox scrollBox = new ScrollableTextBox(pmWindow.Name + "ScrollableTextBox", pmWindow.Name, new Rectangle(2, windowTitle.Height, 496, 260), "", Color.White,
                 true, false, Client.ClientSettings.DefaultFont, new VisualKey("WhiteSpace"), Color.Black, 255, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Left,
@@ -82,10 +82,10 @@ namespace Yuusha.gui
             foreach(Control c in new List<Control>(Controls))
             {
                 Controls.Remove(c);
-                GuiManager.GenericSheet.RemoveControl(c);
+                GuiManager.Dispose(c);
             }
 
-            GuiManager.GenericSheet.RemoveControl(this);
+            GuiManager.Dispose(this);
 
             base.OnClose();
         }

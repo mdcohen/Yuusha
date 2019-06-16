@@ -7,14 +7,80 @@ namespace Yuusha
 {
     public class Cell
     {
+        #region Display constants
+        public const string GRAPHIC_WATER = "~~";
+        public const string GRAPHIC_AIR = "%%";
+        public const string GRAPHIC_WEB = "ww";
+        public const string GRAPHIC_DARKNESS = "??";
+        public const string GRAPHIC_CLOSED_DOOR_HORIZONTAL = "--";
+        public const string GRAPHIC_OPEN_DOOR_HORIZONTAL = "\\ ";
+        public const string GRAPHIC_CLOSED_DOOR_VERTICAL = "| ";
+        public const string GRAPHIC_OPEN_DOOR_VERTICAL = "/ ";
+        public const string GRAPHIC_ICE = "~.";
+        public const string GRAPHIC_ICE_WALL = "~,";
+        public const string GRAPHIC_FIRE = "**";
+        public const string GRAPHIC_WALL = "[]";
+        public const string GRAPHIC_WALL_IMPENETRABLE = "DD";
+        public const string GRAPHIC_MOUNTAIN = "/\\";
+        public const string GRAPHIC_FOREST_IMPASSABLE = "TT";
+        public const string GRAPHIC_SECRET_DOOR = "SD";
+        public const string GRAPHIC_SECRET_MOUNTAIN = "SM";
+        public const string GRAPHIC_LOCKED_DOOR_HORIZONTAL = "HD";
+        public const string GRAPHIC_LOCKED_DOOR_VERTICAL = "VD";
+        public const string GRAPHIC_COUNTER = "==";
+        public const string GRAPHIC_COUNTER_PLACEABLE = "CC";
+        public const string GRAPHIC_BOXING_RING = ")(";
+        public const string GRAPHIC_ALTAR = "mm";
+        public const string GRAPHIC_ALTAR_PLACEABLE = "MM";
+        public const string GRAPHIC_REEF = "WW";
+        public const string GRAPHIC_GRATE = "##";
+        public const string GRAPHIC_EMPTY = ". ";
+        public const string GRAPHIC_RUINS_LEFT = "_]";
+        public const string GRAPHIC_RUINS_RIGHT = "[_";
+        public const string GRAPHIC_SAND = ".\\";
+        public const string GRAPHIC_FOREST_LEFT = "@ ";
+        public const string GRAPHIC_FOREST_RIGHT = " @";
+        public const string GRAPHIC_FOREST_FULL = "@@";
+        public const string GRAPHIC_BRIDGE = "::";
+
+        public const string GRAPHIC_FOREST_BURNT_LEFT = "t ";
+        public const string GRAPHIC_FOREST_BURNT_RIGHT = " t";
+        public const string GRAPHIC_FOREST_BURNT_FULL = "tt";
+
+        public const string GRAPHIC_FOREST_FROSTY_LEFT = "f ";
+        public const string GRAPHIC_FOREST_FROSTY_RIGHT = " f";
+        public const string GRAPHIC_FOREST_FROSTY_FULL = "ff";
+
+        public const string GRAPHIC_GRASS_THICK = "\"\"";
+        public const string GRAPHIC_GRASS_LIGHT = "''";
+
+        public const string GRAPHIC_UPSTAIRS = "up";
+        public const string GRAPHIC_DOWNSTAIRS = "dn";
+        public const string GRAPHIC_TRASHCAN = "o ";
+        public const string GRAPHIC_UP_AND_DOWNSTAIRS = "ud";
+
+        public const string GRAPHIC_LIGHTNING_STORM = "++";
+        public const string GRAPHIC_POISON_CLOUD = ":%";
+        public const string GRAPHIC_ICE_STORM = "`,";
+        public const string GRAPHIC_ACID_STORM = "``";
+        public const string GRAPHIC_WHIRLWIND = "%;";
+        public const string GRAPHIC_LOCUST_SWARM = "-.";
+
+        public const string GRAPHIC_BARREN_LEFT = ", ";
+        public const string GRAPHIC_BARREN_RIGHT = " ,";
+        public const string GRAPHIC_BARREN_FULL = ",,";
+
+        public const string GRAPHIC_LOOT_SYMBOL = "$";
+        #endregion
+
         public short xCord = 0; // 16 bits
         public short yCord = 0; // 16 bits
         public int zCord = 0;
         public short map = 0; // 16 bits
         public short land = 0; // 16 bits
 
-        public string displayGraphic = "  ";
-        public string cellGraphic = "  ";
+        public string DisplayGraphic = "  ";
+        public string CellGraphic = "  ";
         public string visual0 = ""; // base visual key
         public string visual1 = ""; // first layer 2D visual key
         public string visual2 = ""; // second layer 2D visual key
@@ -62,7 +128,7 @@ namespace Yuusha
         {
             get
             {
-                switch (this.displayGraphic)
+                switch (this.DisplayGraphic)
                 {
                     case "~~": // water
                     case "**": // fire
@@ -85,8 +151,8 @@ namespace Yuusha
             map = 0;
             xCord = 0;
             yCord = 0;
-            cellGraphic = "  ";
-            displayGraphic = "  ";
+            CellGraphic = "  ";
+            DisplayGraphic = "  ";
             lockers = false;
             portal = false;
             m_effects = new List<Effect>();
@@ -106,8 +172,8 @@ namespace Yuusha
                 this.xCord = Convert.ToInt16(cellInfo[2]);
                 this.yCord = Convert.ToInt16(cellInfo[3]);
                 this.zCord = Convert.ToInt32(cellInfo[4]);
-                this.cellGraphic = cellInfo[5];
-                this.displayGraphic = cellInfo[6];
+                this.CellGraphic = cellInfo[5];
+                this.DisplayGraphic = cellInfo[6];
                 this.lockers = Convert.ToBoolean(cellInfo[7]);
                 this.portal = Convert.ToBoolean(cellInfo[8]);
                 this.hasItems = Convert.ToBoolean(cellInfo[9]);
@@ -141,33 +207,71 @@ namespace Yuusha
 
         public static void SendCellItemsRequest(Cell cell)
         {
-            gui.GameHUD.ExaminedCell = cell;
-            string cellCoords = cell.xCord + Protocol.VSPLIT + cell.yCord + Protocol.VSPLIT + cell.zCord;
-            IO.Send(Protocol.REQUEST_CELLITEMS + " " + cellCoords);
+            if (cell != null)
+            {
+                gui.GameHUD.ExaminedCell = cell;
+                string cellCoords = cell.xCord + Protocol.VSPLIT + cell.yCord + Protocol.VSPLIT + cell.zCord;
+                IO.Send(Protocol.REQUEST_CELLITEMS + " " + cellCoords);
+            }
+        }
+
+        public static Cell GetCell(int x, int y)
+        {
+            if(Client.GameState == Enums.EGameState.SpinelGame)
+                return gui.SpinelMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
+            else return gui.IOKMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
         }
 
         public static bool operator ==(Cell c1, Cell c2)
         {
-            if (c1 == null && c2 == null) return true;
-            if (c1 == null && c2 != null) return false;
-            if (c1 != null && c2 == null) return false;
+            try
+            {
+                if (c1 is null && !(c2 is null))
+                    return false;
 
-            if (c1.xCord == c2.xCord && c1.yCord == c2.yCord && c1.zCord == c2.zCord)
-                return true;
+                if (!(c1 is null) && c2 is null)
+                    return false;
+
+                if (c1 is null && c2 is null)
+
+                if (c1.xCord == c2.xCord && c1.yCord == c2.yCord && c1.zCord == c2.zCord)
+                    return true;
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
+            }
 
             return false;                   
         }
 
         public static bool operator !=(Cell c1, Cell c2)
         {
-            if (c1 == null && c2 == null) return false;
-            if (c1 == null && c2 != null) return true;
-            if (c1 != null && c2 == null) return true;
+            try
+            {
+                if (c1 is null && !(c2 is null))
+                    return true;
 
-            if (c1.xCord != c2.xCord || c1.yCord != c2.yCord || c1.zCord != c2.zCord)
-                return true;
+                if (!(c1 is null) && c2 is null)
+                    return true;
+
+                if (c1 is null && c2 is null)
+                    return false;
+
+                if (c1.xCord != c2.xCord || c1.yCord != c2.yCord || c1.zCord != c2.zCord)
+                    return true;
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
+            }
 
             return false;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this == (Cell)obj;
         }
     }
 }

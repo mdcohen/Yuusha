@@ -66,20 +66,13 @@ namespace Yuusha.gui
         }
         public static bool Dragging
         { get; set; }
-        //public static int DraggingXOffset
-        //{
-        //    get { return m_dragingXOffset; }
-        //}
-        //public static int DraggingYOffset
-        //{
-        //    get { return m_draggingYOffset; }
-        //    set { m_draggingYOffset = value; }
-        //}
         public static Control ControlWithFocus
         {
             get { return m_controlWithFocus; }
             set { if (!(value is Window)) m_controlWithFocus = value; }
         }
+        public static string ActiveDropDownMenu
+        { get; set; } = "";
         public static string ActiveTextBox
         { get; set; }
         public static string OpenComboBox
@@ -339,7 +332,7 @@ namespace Yuusha.gui
                         else if (reader.Name == "GenericSheet")
                         {
                             m_genericSheet = new GenericSheet(xmlFile, reader);
-                            sheet = GuiManager.GenericSheet;
+                            sheet = GenericSheet;
                         }
                         else break;
 
@@ -739,7 +732,7 @@ namespace Yuusha.gui
                                             textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
                                             onMouseDown, textAlignment, xTextOffset, yTextOffset, Utils.GetColor(textOverColor), hasTextOverColor,
                                             Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance,
-                                            command, popUpText, tabControlledWindow, cursorOnOver);
+                                            command, popUpText, tabControlledWindow, cursorOnOver, locked);
                                         break;
                                     case "CheckboxButton":
                                         sheet.CreateCheckBoxButton(name, owner, new Rectangle(x, y, width, height), visible, disabled, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha, new VisualKey(visualKeyOver),
@@ -831,6 +824,9 @@ namespace Yuusha.gui
             string state = Client.GameState.ToString();
 
             //if (state == Enums.eGameState.Splash.ToString())
+
+            //if (ActiveDropDownMenu != "" && GetControl(ActiveDropDownMenu) is null)
+            //    ActiveDropDownMenu = "";
 
             base.Update(gameTime);
 
@@ -1039,9 +1035,14 @@ namespace Yuusha.gui
 
         public static void Dispose(Control c)
         {
+            if(c == null)
+            {
+                Utils.Log("Control already null on call to GuiManager.Dispose.");
+            }
+
             if(c.Owner != "")
             {
-                if(GuiManager.GetControl(c.Owner) is Window w)
+                if(GetControl(c.Owner) is Window w)
                 {
                     w.Controls.Remove(c);
                 }
@@ -1050,6 +1051,8 @@ namespace Yuusha.gui
             if (c.Sheet != "Generic")
                 CurrentSheet.RemoveControl(c);
             else GenericSheet.RemoveControl(c);
+
+            c.OnDispose();
         }
 
         public static void StartDragging(Control control, MouseState ms)
@@ -1060,6 +1063,15 @@ namespace Yuusha.gui
             Dragging = true;
             m_dragingXOffset = ms.X - control.Position.X;
             m_draggingYOffset = ms.Y - control.Position.Y;
+        }
+
+        public static void RemoveControl(Control control)
+        {
+            if (CurrentSheet.Controls.Contains(control))
+                CurrentSheet.RemoveControl(control);
+
+            if (GenericSheet.Controls.Contains(control))
+                GenericSheet.RemoveControl(control);
         }
 
         public static void StopDragging()

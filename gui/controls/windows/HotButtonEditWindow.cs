@@ -62,7 +62,8 @@ namespace Yuusha.gui
                 {
                     GuiManager.CurrentSheet.CreateButton("IconImageSelectionButton", IconImagePrefix + "_" + a, this.Name,
                         new Rectangle(x, y, width, height), this.Name, false, Color.White, true, false, GuiManager.Sheets[this.Sheet].Font, new VisualKey(IconVisualKeys[a]), Color.White,
-                        255, 255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Center, 0, 0, Color.White, false, Color.White, false, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left }, false, Map.Direction.Northwest, 2, "", "", "", "");
+                        255, 255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Center, 0, 0, Color.White, false, Color.White, false, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left },
+                        false, Map.Direction.Northwest, 2, "", "", "", "", false);
 
                     columnCount++;
                     x += width + padding;

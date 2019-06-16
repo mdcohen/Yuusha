@@ -37,7 +37,7 @@
   <!-- Character Generation GUI -->
   <File Name="xml\sheets\charactergeneration.xml"></File>
 	<!-- Conference GUI -->
-	<File Name="xml\sheets\conf.xml"></File>
+	<File Name="xml\sheets\conference.xml"></File>
 	<!-- Game GUI (Normal Mode) -->
 	<File Name="xml\sheets\game.xml"></File>
 	<!-- Game GUI (Legends of Kesmai Mode) -->

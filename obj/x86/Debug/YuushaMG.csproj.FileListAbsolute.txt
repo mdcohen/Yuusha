@@ -287,7 +287,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\visuals\lok_spel
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\visuals\lok_tiles.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\visuals\spell_icons.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\visuals\spinel_icons.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\sheets\conf.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\sheets\generic.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\sheets\hotbuttoneditmode.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\sheets\iokgame.xml
@@ -622,3 +621,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0275.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0276.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0277.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0278.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier14-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\courier14.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\xml\sheets\conference.xml
