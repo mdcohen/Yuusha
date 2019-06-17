@@ -119,6 +119,7 @@
     <Compile Include="gui\controls\StatusBar.cs" />
     <Compile Include="gui\controls\textboxes\TextBox.cs" />
     <Compile Include="gui\controls\windows\HotButtonEditWindow.cs" />
+    <Compile Include="gui\controls\windows\MapWindow.cs" />
     <Compile Include="gui\controls\windows\PrivateMessageWindow.cs" />
     <Compile Include="gui\controls\windows\Window.cs" />
     <Compile Include="gui\controls\windows\WindowControlBox.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="gui\VisualInfo.cs" />
     <Compile Include="gui\VisualKey.cs" />
     <Compile Include="gui\XYCoordinate.cs" />
+    <Compile Include="gui\YuushaMode.cs" />
     <Compile Include="IO.cs" />
     <Compile Include="KeyboardHandler.cs" />
     <Compile Include="Program.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="utility\Protocol.cs" />
     <Compile Include="utility\settings\CharacterSettings.cs" />
     <Compile Include="utility\settings\ClientSettings.cs" />
+    <Compile Include="utility\settings\FogOfWarSettings.cs" />
     <Compile Include="utility\settings\StaticSettings.cs" />
     <Compile Include="utility\settings\UserSettings.cs" />
     <Compile Include="utility\Sound.cs" />
@@ -369,8 +372,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="media\xml\sheets\game.xml">
+    <Content Include="media\xml\sheets\yuushagame.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="media\xml\sheets\generic.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

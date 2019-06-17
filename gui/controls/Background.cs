@@ -27,6 +27,8 @@ namespace Yuusha.gui
         #region Constructor
         public Background(System.Xml.XmlReader reader)
         {
+            m_visible = true; // by default
+
             for (int i = 0; i < reader.AttributeCount; i++)
             {
                 reader.MoveToAttribute(i);
@@ -42,15 +44,19 @@ namespace Yuusha.gui
                     m_tintColor = Utils.GetColor(reader.Value);
                 else if (reader.Name == "VisualAlpha")
                     m_visualAlpha = reader.ReadContentAsInt();
+                else if (reader.Name == "IsVisible")
+                    m_visible = reader.ReadContentAsBoolean();
             }
 
             if (m_visualTiled)
                 m_centered = false;
 
             m_textCues = new List<TextCue>();
+
+            ZDepth = 10000;
         }
 
-        public Background(string font, string visualKey, bool centered, bool tiled, Color tintColor, byte visualAlpha)
+        public Background(string font, string visualKey, bool centered, bool tiled, Color tintColor, byte visualAlpha, bool visible)
         {
             m_font = font;
             m_visualKey = new VisualKey(visualKey);
@@ -60,6 +66,7 @@ namespace Yuusha.gui
                 m_centered = false;
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
+            m_visible = visible;
             m_textCues = new List<TextCue>();
         } 
         #endregion

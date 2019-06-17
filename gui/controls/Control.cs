@@ -60,7 +60,7 @@ namespace Yuusha.gui
         protected Color m_tintOverColor;
         protected bool m_hasTintOverColor;
         protected List<Enums.EGameState> m_lockoutStates; // for generic windows, states that this window is not available
-        protected string m_popUpText;
+        //protected string PopUpText;
         protected System.Timers.Timer m_doubleClickTimer;
         protected int m_tabOrder;
         #endregion
@@ -228,6 +228,9 @@ namespace Yuusha.gui
             get { return m_tabOrder; }
             set { m_tabOrder = value; }
         }
+
+        public virtual string PopUpText
+        { get; set; }
         #endregion
 
         #region Constructor
@@ -269,7 +272,7 @@ namespace Yuusha.gui
             m_hasTextOverColor = false;
             m_lockoutStates = new List<Enums.EGameState>();
             m_shadowDirection = Map.Direction.Southeast;
-            m_popUpText = "";
+            PopUpText = "";
             m_doubleClickTimer = new System.Timers.Timer(800);
             m_doubleClickTimer.Elapsed += new System.Timers.ElapsedEventHandler(DoubleClickTimer_Elapsed);
             m_doubleClickTimer.AutoReset = true;
@@ -288,8 +291,8 @@ namespace Yuusha.gui
         {
             if(!m_disabled && m_visible)
             {
-                if (m_popUpText != "" && m_controlState == Enums.EControlState.Over && GuiManager.ActiveDropDownMenu == "")
-                    TextCue.AddMouseCursorTextCue(m_popUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpFont);
+                if (PopUpText != "" && m_controlState == Enums.EControlState.Over && GuiManager.ActiveDropDownMenu == "")
+                    TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpFont);
             }
 
             if (m_visuals.ContainsKey(ControlState) && m_visualKey != m_visuals[ControlState])
@@ -594,6 +597,8 @@ namespace Yuusha.gui
         {
             if (!(this is TextBox))
                 HasFocus = false;
+
+            TextCue.ClearMouseCursorTextCue();
         }
 
         protected virtual void OnMouseRelease(MouseState ms)

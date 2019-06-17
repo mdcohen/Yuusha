@@ -67,6 +67,9 @@ namespace Yuusha
             get { return m_characterSettings; }
         }
 
+        public static Utility.Settings.FogOfWarSettings FogOfWarSettings
+        { get; set; }            
+
         public static void GatherCharacterList(string info)
         {
             try
@@ -545,6 +548,13 @@ namespace Yuusha
             m_characterSettings = CharacterSettings.Load();
 
             Events.RegisterEvent(Events.EventName.Load_Character_Settings);
+
+            LoadFogOfWar();
+        }
+
+        private static void LoadFogOfWar()
+        {
+            FogOfWarSettings = Utility.Settings.FogOfWarSettings.Load();
         }
 
         public string title; // sent in users list info
@@ -1067,14 +1077,14 @@ namespace Yuusha
             XYCoordinate dp = end - beg;
             string lhs = "", rhs = "";
 
-            if (dp.y == -1)
+            if (dp.Y == -1)
                 lhs = "n";
-            else if (dp.y == 1)
+            else if (dp.Y == 1)
                 lhs = "s";
 
-            if (dp.x == -1)
+            if (dp.X == -1)
                 rhs = "w";
-            else if (dp.x == 1)
+            else if (dp.X == 1)
                 rhs = "e";
 
             return lhs + rhs;

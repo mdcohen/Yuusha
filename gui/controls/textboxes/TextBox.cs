@@ -320,6 +320,26 @@ namespace Yuusha.gui
                                 #region Shift is pressed.
                                 switch (Client.GameState)
                                 {
+                                    case Enums.EGameState.YuushaGame:
+                                        if (k == Keys.Up)
+                                        {
+                                            if (YuushaMode.BufferPreview > 0)
+                                            {
+                                                YuushaMode.BufferPreview--;
+                                                m_text = YuushaMode.BufferedCommands[YuushaMode.BufferPreview];
+                                                SelectAll();
+                                            }
+                                        }
+                                        else if (k == Keys.Down)
+                                        {
+                                            if (YuushaMode.BufferPreview < YuushaMode.BufferedCommands.Count - 1)
+                                            {
+                                                YuushaMode.BufferPreview++;
+                                                m_text = YuushaMode.BufferedCommands[YuushaMode.BufferPreview];
+                                                SelectAll();
+                                            }
+                                        }
+                                        break;
                                     case Enums.EGameState.SpinelGame:
                                         if (k == Keys.Up)
                                         {
@@ -424,6 +444,8 @@ namespace Yuusha.gui
                                         IOKMode.AddBufferedCommand(m_text);
                                     else if (Client.GameState == Enums.EGameState.SpinelGame)
                                         SpinelMode.AddBufferedCommand(m_text);
+                                    else if (Client.GameState == Enums.EGameState.YuushaGame)
+                                        YuushaMode.AddBufferedCommand(m_text);
                                 }
                                 pressedKeys = newKeys;
                                 return true;

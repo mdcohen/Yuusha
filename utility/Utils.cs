@@ -70,6 +70,12 @@ namespace Yuusha
             // empty
 		}
 
+        public static string GetCharacterFogOfWarFileName(string name)
+        {
+            name = GetCharacterFileName(name);
+            return "FoW-" + name;
+        }
+
         public static string GetCharacterFileName(string name)
         {
             name = name.Replace(".", "");

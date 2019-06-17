@@ -196,7 +196,7 @@ namespace Yuusha.gui
             try
             {
                 // draw the background
-                if (m_background != null)
+                if (m_background != null && m_background.IsVisible)
                     m_background.Draw(gameTime);
 
                 // draw controls
@@ -570,7 +570,10 @@ namespace Yuusha.gui
                     else if (owner is DragAndDropButton)
                     {
                         if (c is SquareBorder)
+                        {
                             (owner as DragAndDropButton).Border = c as SquareBorder;
+                            (owner as DragAndDropButton).OriginalBorderColor = c.TintColor;
+                        }
                         if (c is DropDownMenu)
                             (owner as DragAndDropButton).DropDownMenu = c as DropDownMenu;
                     }
@@ -913,6 +916,18 @@ namespace Yuusha.gui
                     visualKeyDisabled, visualKeySelected, visualKeySelectedColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, popUpText));
         }
 
+        public void CreateDragAndDropButton(string type, string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string clickEvent,
+            BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
+            List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
+            string command, string popUpText, string tabControlledWindow, string cursorOverride, bool locked, bool acceptingDroppedButtons)
+        {
+            AddControl(new DragAndDropButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
+                    borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment, xTextOffset, yTextOffset, textOverColor,
+                    hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, popUpText, locked, acceptingDroppedButtons));
+        }
+
         public void CreateButton(string type, string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string clickEvent,
@@ -952,12 +967,6 @@ namespace Yuusha.gui
             {
                 AddControl(new ColorDialogButton(name, owner, rectangle, visible, disabled, this.Font, tintColor, borderAlpha, cursorOverride, anchors,
                     dropShadow, shadowDirection, shadowDistance, popUpText));
-            }
-            else if (type == "DragAndDropButton")
-            {
-                AddControl(new DragAndDropButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                    borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment, xTextOffset, yTextOffset, textOverColor,
-                    hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, popUpText, locked));
             }
             else
             {

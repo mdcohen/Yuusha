@@ -56,8 +56,9 @@ namespace Yuusha.gui
         {
             try
             {
-                (gui.GuiManager.CurrentSheet["GameTextScrollableTextBox"] as gui.ScrollableTextBox).AddLine(text, textType);
-                (gui.GuiManager.Sheets["SpinelGame"]["GameTextScrollableTextBox"] as gui.ScrollableTextBox).AddLine(text, textType);
+                (GuiManager.CurrentSheet["GameTextScrollableTextBox"] as gui.ScrollableTextBox).AddLine(text, textType);
+                (GuiManager.Sheets["SpinelGame"]["GameTextScrollableTextBox"] as gui.ScrollableTextBox).AddLine(text, textType);
+                (GuiManager.Sheets["YuushaGame"]["GameTextScrollableTextBox"] as gui.ScrollableTextBox).AddLine(text, textType);
             }
             catch (Exception e)
             {

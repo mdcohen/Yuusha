@@ -684,13 +684,16 @@ namespace Yuusha
 				{
 					case TextAlignment.Left:
 						vAt.X = r.Left;
-						break;
+                        vAt.Y = r.Top + ((r.Height - LineHeight) / 2); // always y centered
+                        break;
 					case TextAlignment.Center:
-						vAt.X = r.Left + ((r.Width - pxWidth) / 2);
-						break;
+						vAt.X = r.Left + ((r.Width - pxWidth) / 2); // always x centered
+                        vAt.Y = r.Top + ((r.Height - LineHeight) / 2); // always y centered
+                        break;
 					case TextAlignment.Right:
 						vAt.X = r.Left + (r.Width - pxWidth);
-						break;
+                        vAt.Y = r.Top + ((r.Height - LineHeight) / 2); // always y centered
+                        break;
 				}
 				DrawString_internal(vAt, cText, str.Substring(0, nChars));
 				str = str.Substring(nChars);

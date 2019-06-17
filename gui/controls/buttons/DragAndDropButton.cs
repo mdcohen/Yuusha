@@ -9,6 +9,8 @@ namespace Yuusha.gui
     {
         protected Point m_originalPosition;
         protected bool m_draggingToDrop;
+        public Color OriginalBorderColor
+        { get; set; }
 
         public List<GridBoxWindow.GridBoxPurpose> GridBoxUpdateRequests
         { get; set; }
@@ -31,7 +33,15 @@ namespace Yuusha.gui
             : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText)
         {
             HasEnteredGridBoxWindow = false;
-            AcceptingDroppedButtons = true; // anything created dynamically in code should be wary of this property
+            AcceptingDroppedButtons = false; // anything created dynamically in code should be wary of this property
+            IsLocked = isLocked; // when a drag and drop button is locked it cannot be dragged -- however it can still accept dropped buttons...
+        }
+
+        public DragAndDropButton(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string popUpText, bool isLocked, bool acceptingDroppedButtons)
+            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText)
+        {
+            HasEnteredGridBoxWindow = false;
+            AcceptingDroppedButtons = acceptingDroppedButtons;
             IsLocked = isLocked; // when a drag and drop button is locked it cannot be dragged -- however it can still accept dropped buttons...
         }
 
@@ -239,12 +249,17 @@ namespace Yuusha.gui
 
                 if (Border != null)
                 {
-                    if(GuiManager.ActiveDropDownMenu == "" || (DropDownMenu != null && GuiManager.ActiveDropDownMenu == DropDownMenu.Name))
+                    if (GuiManager.ActiveDropDownMenu == "" || (DropDownMenu != null && GuiManager.ActiveDropDownMenu == DropDownMenu.Name))
+                    {
                         Border.IsVisible = true;
+                    }
+
+                    if(OriginalBorderColor != null)
+                    { Border.TintColor = Client.ClientSettings.DragAndDropBorderColor; }
                 }
             }
 
-            if (AcceptingDroppedButtons && cursor != null && cursor.DraggedButton != null)
+            if (AcceptingDroppedButtons && cursor != null && cursor.DraggedButton != null)// && GuiManager.MouseState.LeftButton == ButtonState.Pressed)
             {
                 GuiManager.MouseOverDropAcceptingControl = this;
                 cursor.DraggedButton.HasEnteredGridBoxWindow = true;
@@ -256,7 +271,12 @@ namespace Yuusha.gui
             base.OnMouseLeave(ms);
 
             if (Border != null)
-                Border.IsVisible = false;
+            {
+                if (OriginalBorderColor == null || Owner.Contains("GridBox"))
+                    Border.IsVisible = false;
+                else
+                    Border.TintColor = OriginalBorderColor;
+            }
 
             TextCue.ClearMouseCursorTextCue();
         }

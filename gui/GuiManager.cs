@@ -301,6 +301,8 @@ namespace Yuusha.gui
                         SpinelTileDefinition spinelTileDef = new SpinelTileDefinition(reader);
                         if (!SpinelMode.Tiles.ContainsKey(spinelTileDef.Graphic))
                             SpinelMode.Tiles.Add(spinelTileDef.Graphic, spinelTileDef);
+                        if (!YuushaMode.Tiles.ContainsKey(spinelTileDef.Graphic))
+                            YuushaMode.Tiles.Add(spinelTileDef.Graphic, spinelTileDef);
                         else Utils.Log("SpinelTileDef dictionary already contains Graphic [ " + spinelTileDef.Graphic + " ]");
                     }
                     else if (reader.Name == "LOKTileDef")
@@ -444,6 +446,8 @@ namespace Yuusha.gui
                                 string cursorOnOver = ""; // cursor on mouse over (Label)
 
                                 string tabControlledWindow = "";
+
+                                bool acceptingDroppedButtons = true;
 
                                 if (reader.Name == "Background")
                                 {
@@ -670,6 +674,8 @@ namespace Yuusha.gui
                                             fadeOut = reader.ReadContentAsBoolean();
                                         else if (reader.Name == "FadeSpeed")
                                             fadeSpeed = reader.ReadContentAsInt();
+                                        else if (reader.Name == "AcceptingDroppedButtons")
+                                            acceptingDroppedButtons = reader.ReadContentAsBoolean();
                                     }
                                     #endregion
                                 }
@@ -726,13 +732,20 @@ namespace Yuusha.gui
                                     case "MacroButton":
                                     case "TabControlButton":
                                     case "ColorDialogButton":
-                                    case "DragAndDropButton":
                                         sheet.CreateButton(type, name, owner, new Rectangle(x, y, width, height), text, textVisible, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
                                             textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
                                             onMouseDown, textAlignment, xTextOffset, yTextOffset, Utils.GetColor(textOverColor), hasTextOverColor,
                                             Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance,
                                             command, popUpText, tabControlledWindow, cursorOnOver, locked);
+                                        break;
+                                    case "DragAndDropButton":
+                                        sheet.CreateDragAndDropButton(type, name, owner, new Rectangle(x, y, width, height), text, textVisible, Utils.GetColor(textColor),
+                                            visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
+                                            textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
+                                            onMouseDown, textAlignment, xTextOffset, yTextOffset, Utils.GetColor(textOverColor), hasTextOverColor,
+                                            Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance,
+                                            command, popUpText, tabControlledWindow, cursorOnOver, locked, acceptingDroppedButtons);
                                         break;
                                     case "CheckboxButton":
                                         sheet.CreateCheckBoxButton(name, owner, new Rectangle(x, y, width, height), visible, disabled, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha, new VisualKey(visualKeyOver),
@@ -874,14 +887,14 @@ namespace Yuusha.gui
             }
             else
             {
-                if (GetControl("HorizontalGameAutoHidingWindow") is AutoHidingWindow horizontalGameAutoHidingWindow)
-                    horizontalGameAutoHidingWindow.IsVisible = false;
+                //if (GetControl("HorizontalGameAutoHidingWindow") is AutoHidingWindow horizontalGameAutoHidingWindow)
+                //    horizontalGameAutoHidingWindow.IsVisible = false;
 
-                if (GetControl("VerticalGameAutoHidingWindow") is AutoHidingWindow verticalGameAutoHidingWindow)
-                    verticalGameAutoHidingWindow.IsVisible = false;
+                //if (GetControl("VerticalGameAutoHidingWindow") is AutoHidingWindow verticalGameAutoHidingWindow)
+                //    verticalGameAutoHidingWindow.IsVisible = false;
 
                 if (GetControl("DamageFogSkullsLabel") is Label fogLabel)
-                    fogLabel.IsVisible = false;
+                    fogLabel.IsVisible = false; // won't be drawn anyway?
             }
 
             if (!GameHUD.OverrideDisplayStates.Contains(Client.GameState) && m_sheets.ContainsKey(state))
@@ -965,14 +978,10 @@ namespace Yuusha.gui
         public static Control GetControl(string name)
         {
             if (CurrentSheet[name] != null)
-            {
                 return CurrentSheet[name];
-            }
 
             if (GenericSheet[name] != null)
-            {
                 return GenericSheet[name];
-            }
 
             // Check CurrentSheet controls.
             try
@@ -1065,6 +1074,12 @@ namespace Yuusha.gui
             m_draggingYOffset = ms.Y - control.Position.Y;
         }
 
+        public static void StopDragging()
+        {
+            m_draggedControl = null;
+            Dragging = false;
+        }
+
         public static void RemoveControl(Control control)
         {
             if (CurrentSheet.Controls.Contains(control))
@@ -1072,12 +1087,6 @@ namespace Yuusha.gui
 
             if (GenericSheet.Controls.Contains(control))
                 GenericSheet.RemoveControl(control);
-        }
-
-        public static void StopDragging()
-        {
-            m_draggedControl = null;
-            Dragging = false;
         }
     }
 }

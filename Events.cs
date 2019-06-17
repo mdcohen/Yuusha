@@ -22,6 +22,7 @@ namespace Yuusha
             Display_Conference_Text,
             Display_Game_Text,
             End_Game_Round,
+            Fog_of_War_Updated,
             Format_Cell,
             Goto_CharGen,
             Goto_Conf,
@@ -62,6 +63,7 @@ namespace Yuusha
             Target_Select,
             TextBox_DropDown,
             Toggle_AutoRoller,
+            Toggle_FogOfWar,
             Toggle_HorizontalHotbar,
             Toggle_Macros,
             Toggle_OptionsWindow,
@@ -377,12 +379,10 @@ namespace Yuusha
                         {
                             IO.Send(Protocol.LOGOUT); // send logout if connected
                             IO.Disconnect(); // clean up the connection
-                            Program.Client.GUIManager.LoadSheet(
-                                gui.GuiManager.Sheets[Enums.EGameState.IOKGame.ToString()].FilePath);
-                            Program.Client.GUIManager.LoadSheet(
-                                gui.GuiManager.Sheets[Enums.EGameState.SpinelGame.ToString()].FilePath);
-                            Program.Client.GUIManager.LoadSheet(
-                                gui.GuiManager.Sheets[Enums.EGameState.Conference.ToString()].FilePath);
+                            Program.Client.GUIManager.LoadSheet(GuiManager.Sheets[Enums.EGameState.IOKGame.ToString()].FilePath);
+                            Program.Client.GUIManager.LoadSheet(GuiManager.Sheets[Enums.EGameState.SpinelGame.ToString()].FilePath);
+                            Program.Client.GUIManager.LoadSheet(GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()].FilePath);
+                            Program.Client.GUIManager.LoadSheet(GuiManager.Sheets[Enums.EGameState.Conference.ToString()].FilePath);
                             RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Disconnected); // set state
                             RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Login);
                         }
@@ -461,6 +461,8 @@ namespace Yuusha
                                 IOKMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
                             else if(Client.GameDisplayMode == Enums.EGameDisplayMode.Spinel)
                                 SpinelMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
+                            else if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha)
+                                YuushaMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
 
                             if (Client.ClientSettings.DisplayChantingTextCue)
                             {
@@ -491,8 +493,10 @@ namespace Yuusha
                         {
                             case Enums.EGameDisplayMode.IOK:
                             case Enums.EGameDisplayMode.Spinel:
-                                gui.IOKMode.EndGameRound();
-                                gui.SpinelMode.EndGameRound();
+                            case Enums.EGameDisplayMode.Yuusha:
+                                IOKMode.EndGameRound();
+                                SpinelMode.EndGameRound();
+                                YuushaMode.EndGameRound();
                                 break;
                             case Enums.EGameDisplayMode.LOK:
                                 break;
@@ -509,8 +513,10 @@ namespace Yuusha
                         {
                             case Enums.EGameDisplayMode.IOK:
                             case Enums.EGameDisplayMode.Spinel:
-                                gui.IOKMode.FormatCells((string) args[0]);
-                                gui.SpinelMode.FormatCell((string) args[0]);
+                            case Enums.EGameDisplayMode.Yuusha:
+                                IOKMode.FormatCells((string) args[0]);
+                                SpinelMode.FormatCell((string) args[0]);
+                                YuushaMode.FormatCell((string)args[0]);
                                 break;
                             case Enums.EGameDisplayMode.LOK:
                                 break;
@@ -635,8 +641,10 @@ namespace Yuusha
                         {
                             case Enums.EGameDisplayMode.IOK:
                             case Enums.EGameDisplayMode.Spinel:
-                                gui.IOKMode.NewGameRound();
-                                gui.SpinelMode.NewGameRound();
+                            case Enums.EGameDisplayMode.Yuusha:
+                                IOKMode.NewGameRound();
+                                SpinelMode.NewGameRound();
+                                YuushaMode.NewGameRound();
                                 break;
                             case Enums.EGameDisplayMode.LOK:
                                 break;
@@ -758,7 +766,13 @@ namespace Yuusha
 #if DEBUG
                             TextCue.AddClientInfoTextCue("DEBUG: " + (args[0] as Control).Command);
 #endif
-
+                        }
+                        else if(args[0] is string)
+                        {
+                            IO.Send(args[0] as string);
+#if DEBUG
+                            TextCue.AddClientInfoTextCue("DEBUG: " + args[0] as string);
+#endif
                         }
                         //if(args[0] is DropDownMenuItem sendCommandMenuItem)
                         //{
@@ -826,6 +840,9 @@ namespace Yuusha
                                     break;
                                 case Enums.EGameDisplayMode.LOK:
                                     Client.GameState = Enums.EGameState.LOKGame;
+                                    break;
+                                case Enums.EGameDisplayMode.Yuusha:
+                                    Client.GameState = Enums.EGameState.YuushaGame;
                                     break;
                                 default:
                                     Client.GameState = Enums.EGameState.Game;
@@ -972,8 +989,11 @@ namespace Yuusha
                             CharGen.AutoRollerStartTime = DateTime.Now;
                             IO.Send("y");
                         }
-                        break; 
+                        break;
                     #endregion
+                    case EventName.Fog_of_War_Updated:
+                        //Character.FogOfWarSettings.Save();
+                        break;
                     case EventName.Client_Settings_Changed:
                         Client.ClientSettings.Save();
                         break;
@@ -1228,6 +1248,19 @@ namespace Yuusha
 
                             TextCue.AddClientInfoTextCue("Target: " + targetName, TextCue.TextCueTag.None, Color.Red,
                                                          Color.Transparent, 2000, false, false, false);
+                        }
+                        break;
+                    case EventName.Toggle_FogOfWar:
+                        Control mapWindow = GuiManager.GetControl("PrimaryMapWindow");
+                        if (mapWindow == null)
+                        {
+                            MapWindow.CreateMapWindow();
+                            (GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "MapDisplayWindow") as Window).WindowBorder.IsVisible = false;
+                        }
+                        else
+                        {
+                            mapWindow.IsVisible = !mapWindow.IsVisible;
+                            (GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "MapDisplayWindow") as Window).WindowBorder.IsVisible = !mapWindow.IsVisible;
                         }
                         break;
                     case EventName.Toggle_HorizontalHotbar: // ALT + K
@@ -1652,6 +1685,9 @@ namespace Yuusha
                     case Enums.EGameState.IOKGame:
                         IOKMode.UpdateGUI(gameTime, sheet);
                         break;
+                    case Enums.EGameState.YuushaGame:
+                        YuushaMode.UpdateGUI(gameTime, sheet);
+                        break;
                 }
             }
         }
@@ -1732,21 +1768,6 @@ namespace Yuusha
                     case Enums.EGameState.Game:
                         GuiManager.TextCues.Clear();
                         break;
-                    case Enums.EGameState.IOKGame:
-                        if (newGameState == Enums.EGameState.SpinelGame)
-                            gui.SpinelMode.UpdateGUI(Program.Client.ClientGameTime, GuiManager.Sheets[newGameState.ToString()]);
-                        else
-                        {
-                            control = GuiManager.GetControl(Globals.GAMEINPUTTEXTBOX);
-                            if (control != null)
-                            {
-                                (control as TextBox).Clear();
-                                control.HasFocus = true;
-                            }
-                        }
-                        GuiManager.TextCues.Clear();
-                        TextCue.ClearMouseCursorTextCue();
-                        break;
                     case Enums.EGameState.Login:
                         if(GameHUD.PreviousGameState != Enums.EGameState.Login)
                             Events.ResetLoginGUI();
@@ -1758,10 +1779,22 @@ namespace Yuusha
                         break;
                     case Enums.EGameState.Menu:
                         break;
+                    case Enums.EGameState.IOKGame:
+                    case Enums.EGameState.YuushaGame:
                     case Enums.EGameState.SpinelGame:
+                        if (currGameState == Enums.EGameState.YuushaGame)
+                            Character.FogOfWarSettings.Save();
                         if (newGameState == Enums.EGameState.IOKGame)
                         {
-                            gui.IOKMode.UpdateGUI(Program.Client.ClientGameTime, GuiManager.Sheets[newGameState.ToString()]);
+                            IOKMode.UpdateGUI(Program.Client.ClientGameTime, GuiManager.Sheets[newGameState.ToString()]);
+                        }
+                        else if(newGameState == Enums.EGameState.YuushaGame)
+                        {
+                            YuushaMode.UpdateGUI(Program.Client.ClientGameTime, GuiManager.Sheets[newGameState.ToString()]);
+                        }
+                        else if(newGameState == Enums.EGameState.SpinelGame)
+                        {
+                            SpinelMode.UpdateGUI(Program.Client.ClientGameTime, GuiManager.Sheets[newGameState.ToString()]);
                         }
                         else
                         {

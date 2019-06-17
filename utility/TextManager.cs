@@ -26,6 +26,7 @@ namespace Yuusha
             {
                 case Enums.EGameState.IOKGame:
                 case Enums.EGameState.SpinelGame:
+                case Enums.EGameState.YuushaGame:
                     chosenDictionary = GAME_TEXT_COLOR_FILTERS;
                     break;
                 case Enums.EGameState.Conference:

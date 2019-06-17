@@ -375,9 +375,10 @@ namespace Yuusha.gui
                         #region Adjust Z Depth
                         if (m_controls[i].ZDepth != 1)
                         {
-                            if ((m_controls[i] is Window) && ((m_controls[i] as Window).Controls.Count > 0))
+                            if (m_controls[i] is Window && ((m_controls[i] as Window).Controls.Count > 0))
                             {
-                                m_controls[i].ZDepth = 1;
+                                if(!m_controls[i].IsLocked) // REMEMBER THIS
+                                    m_controls[i].ZDepth = 1;
                             }
                             else
                             {
@@ -437,7 +438,7 @@ namespace Yuusha.gui
             if (m_locked || m_disabled || !Client.HasFocus)
                 return;
 
-            if (WindowTitle != null && WindowTitle.ControlState == Enums.EControlState.Down)
+            if ((WindowTitle != null && WindowTitle.ControlState == Enums.EControlState.Down) || this is MapWindow)
             {
                 bool startDragging = true;
                 foreach (Control box in this.Controls)
@@ -463,10 +464,8 @@ namespace Yuusha.gui
             //}
 
             // Stop dragging if minimized or maximized.
-            if (this.m_minimized || this.m_maximized)
-            {
+            if (m_minimized || m_maximized)
                 GuiManager.StopDragging();
-            }
 
             // Handle dragging.
             if (GuiManager.Dragging && GuiManager.DraggedControl == this)
@@ -532,6 +531,7 @@ namespace Yuusha.gui
                     }
                 }
             }
+
             CheckBoundsAndAdjust();
         }
 
@@ -638,6 +638,8 @@ namespace Yuusha.gui
         /// </summary>
         private void CheckBoundsAndAdjust()
         {
+            if (this is MapWindow) return;
+
             if (m_owner == "")
             {
                 try
@@ -777,6 +779,7 @@ namespace Yuusha.gui
                     // Height
                     int heightCheck = m_rectangle.Y + m_rectangle.Height;
 
+
                     if (m_cropped && WindowTitle != null)
                         heightCheck = m_rectangle.Y + WindowTitle.Height;
 
@@ -792,9 +795,9 @@ namespace Yuusha.gui
                             position.Y -= adjustY;
                             this.Controls[j].Position = position;
 
-                            if(Controls[j] is Window)
+                            if (Controls[j] is Window)
                             {
-                                for(int k = (Controls[j] as Window).Controls.Count - 1; k >= 0; k--)
+                                for (int k = (Controls[j] as Window).Controls.Count - 1; k >= 0; k--)
                                 {
                                     position = ((this as Window).Controls[j] as Window).Controls[k].Position;
                                     position.Y -= adjustY;
@@ -824,7 +827,7 @@ namespace Yuusha.gui
                         }
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Utils.LogException(e);
                 }
@@ -949,12 +952,14 @@ namespace Yuusha.gui
             {
                 for (int j = this.Controls.Count - 1; j >= 0; j--)
                 {
+                    //m_controls[j].OnClientResize(oldWindowRect, m_rectangle, true);
                     Point position = m_controls[j].Position;
                     position.X += (m_rectangle.X - oldWindowRect.X);
                     position.Y += (m_rectangle.Y - oldWindowRect.Y);
                     m_controls[j].Position = position;
 
-                    if (m_controls[j] is ScrollableTextBox && this.Sheet != GuiManager.GenericSheet.Name)
+                    // TODO: fix this. get anchors working or whatever, this is ridiculous. 6/16/2019 Eb
+                    if (m_controls[j] is ScrollableTextBox && Sheet != GuiManager.GenericSheet.Name && Client.GameDisplayMode != Enums.EGameDisplayMode.Yuusha)
                         m_controls[j].OnClientResize(prev, now, true);
                 }
             }

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Text;
 
 namespace Yuusha
 {
@@ -35,6 +33,7 @@ namespace Yuusha
         public const string GRAPHIC_REEF = "WW";
         public const string GRAPHIC_GRATE = "##";
         public const string GRAPHIC_EMPTY = ". ";
+        public const string GRAPHIC_OUTOFBOUNDS = "  ";
         public const string GRAPHIC_RUINS_LEFT = "_]";
         public const string GRAPHIC_RUINS_RIGHT = "[_";
         public const string GRAPHIC_SAND = ".\\";
@@ -73,35 +72,35 @@ namespace Yuusha
         public const string GRAPHIC_LOOT_SYMBOL = "$";
         #endregion
 
-        public short xCord = 0; // 16 bits
-        public short yCord = 0; // 16 bits
+        public int xCord = 0;
+        public int yCord = 0;
         public int zCord = 0;
-        public short map = 0; // 16 bits
-        public short land = 0; // 16 bits
+        public int map = 0;
+        public int land = 0;
 
         public string DisplayGraphic = "  ";
         public string CellGraphic = "  ";
-        public string visual0 = ""; // base visual key
-        public string visual1 = ""; // first layer 2D visual key
-        public string visual2 = ""; // second layer 2D visual key
+        //public string visual0 = ""; // base visual key
+        //public string visual1 = ""; // first layer 2D visual key
+        //public string visual2 = ""; // second layer 2D visual key
 
-        public bool lair = false; // true if the janitor will ignore this cell
+        //public bool lair = false; // true if the janitor will ignore this cell
         public bool lockers = false; // true if this is a lockers cell
         public bool portal = false;	// true if this is a map portal cell
-        public bool secretDoor = false; // true if this cell is a secret door
-        public bool singleCustomer = false;	// true if only one player is allowed in this cell at a time
-        public bool teleport = false; // true if this is a teleport cell (uses this cell's CellLock for access)
-        public bool magicDead = false; // true if magic does not work
-        public bool townLimits = false;	// true if within town limits (terrain spells cast here by lawfuls make you neutral)
-        public bool noRecall = false; // true if cell does not allow setting recall or recall from
-        public bool underworldPortal = false; // true if cell allows access to the Underworld
-        public bool ancestorStart = false; // true if cell begins ancestoring process
-        public bool ancestorFinish = false;	// true if cell allows completion of ancestoring process
-        public bool oneHandClimbUp = false;
-        public bool oneHandClimbDown = false;
-        public bool twoHandClimbUp = false;
-        public bool twoHandClimbDown = false;
-        public bool pvpEnabled = false; // true if PvP enabled (no mark or karma penalties)
+        //public bool secretDoor = false; // true if this cell is a secret door
+        //public bool singleCustomer = false;	// true if only one player is allowed in this cell at a time
+        //public bool teleport = false; // true if this is a teleport cell (uses this cell's CellLock for access)
+        //public bool magicDead = false; // true if magic does not work
+        //public bool townLimits = false;	// true if within town limits (terrain spells cast here by lawfuls make you neutral)
+        //public bool noRecall = false; // true if cell does not allow setting recall or recall from
+        //public bool underworldPortal = false; // true if cell allows access to the Underworld
+        //public bool ancestorStart = false; // true if cell begins ancestoring process
+        //public bool ancestorFinish = false;	// true if cell allows completion of ancestoring process
+        //public bool oneHandClimbUp = false;
+        //public bool oneHandClimbDown = false;
+        //public bool twoHandClimbUp = false;
+        //public bool twoHandClimbDown = false;
+        //public bool pvpEnabled = false; // true if PvP enabled (no mark or karma penalties)
 
         public bool visible = false; // is this cell visible from player's current position
 
@@ -128,7 +127,7 @@ namespace Yuusha
         {
             get
             {
-                switch (this.DisplayGraphic)
+                switch (DisplayGraphic)
                 {
                     case "~~": // water
                     case "**": // fire
@@ -146,7 +145,7 @@ namespace Yuusha
         #region Constructors (2)
         public Cell()
         {
-            visible = true;
+            visible = false;
             land = 0;
             map = 0;
             xCord = 0;
@@ -167,10 +166,10 @@ namespace Yuusha
             try
             {
                 this.visible = true;
-                this.land = Convert.ToInt16(cellInfo[0]);
-                this.map = Convert.ToInt16(cellInfo[1]);
-                this.xCord = Convert.ToInt16(cellInfo[2]);
-                this.yCord = Convert.ToInt16(cellInfo[3]);
+                this.land = Convert.ToInt32(cellInfo[0]);
+                this.map = Convert.ToInt32(cellInfo[1]);
+                this.xCord = Convert.ToInt32(cellInfo[2]);
+                this.yCord = Convert.ToInt32(cellInfo[3]);
                 this.zCord = Convert.ToInt32(cellInfo[4]);
                 this.CellGraphic = cellInfo[5];
                 this.DisplayGraphic = cellInfo[6];
@@ -180,6 +179,25 @@ namespace Yuusha
                 m_effects = new List<Effect>();
                 m_characters = new List<Character>();
                 m_items = new List<Item>();
+
+                if (Client.GameState == Enums.EGameState.YuushaGame)
+                {
+                    gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(map, xCord, yCord, zCord, DisplayGraphic);
+
+                    if (DisplayGraphic != "  ")
+                    {
+                        if (!Character.FogOfWarSettings.FogOfWar.Contains(fogDetail))
+                        {
+                            Character.FogOfWarSettings.FogOfWar.Add(fogDetail);
+                            Events.RegisterEvent(Events.EventName.Fog_of_War_Updated);
+                        }
+                        else if (fogDetail.DisplayGraphic != Character.FogOfWarSettings.GetFogOfWarDetail(map, xCord, yCord, zCord).DisplayGraphic)
+                        {
+                            Character.FogOfWarSettings.UpdateFogOfWarDetail(map, xCord, yCord, zCord, DisplayGraphic);
+                            Events.RegisterEvent(Events.EventName.Fog_of_War_Updated);
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -219,6 +237,8 @@ namespace Yuusha
         {
             if(Client.GameState == Enums.EGameState.SpinelGame)
                 return gui.SpinelMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
+            else if (Client.GameState == Enums.EGameState.YuushaGame)
+                return gui.YuushaMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
             else return gui.IOKMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
         }
 
@@ -233,8 +253,9 @@ namespace Yuusha
                     return false;
 
                 if (c1 is null && c2 is null)
+                    return false;
 
-                if (c1.xCord == c2.xCord && c1.yCord == c2.yCord && c1.zCord == c2.zCord)
+                if (c1.map == c2.map && c1.xCord == c2.xCord && c1.yCord == c2.yCord && c1.zCord == c2.zCord)
                     return true;
             }
             catch(Exception e)
@@ -271,7 +292,21 @@ namespace Yuusha
 
         public override bool Equals(object obj)
         {
+            if (!(obj is Cell)) return false;
+
+            if(obj is Cell cell)
+            {
+                if (cell.map == map && cell.xCord == xCord && cell.yCord == yCord && cell.zCord == zCord)
+                    return true;
+                else return false;
+            }
+
             return this == (Cell)obj;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

@@ -42,27 +42,27 @@ namespace Yuusha.gui
                 string rightOrLeft = b.Name.StartsWith("RH") ? "right" : "left";
                 if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
                 {
-                    IO.Send("put " + rightOrLeft + " in sack");
+                    Events.RegisterEvent(Events.EventName.Send_Command, "put " + rightOrLeft + " in sack");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
                 {
-                    IO.Send("belt " + rightOrLeft);
+                    Events.RegisterEvent(Events.EventName.Send_Command, "belt " + rightOrLeft);
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Belt);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
                 {
-                    IO.Send("put " + rightOrLeft + " in pouch");
+                    Events.RegisterEvent(Events.EventName.Send_Command, "put " + rightOrLeft + " in pouch");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
-                    IO.Send("put " + rightOrLeft + " in locker");
+                    Events.RegisterEvent(Events.EventName.Send_Command, "put " + rightOrLeft + " in locker");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                 {
-                    IO.Send("swap");
+                    Events.RegisterEvent(Events.EventName.Send_Command, "swap");
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
                 {
@@ -72,13 +72,13 @@ namespace Yuusha.gui
                         switch (window.WindowTitle.Text.ToLower())
                         {
                             case "altar":
-                                IO.Send("put " + rightOrLeft + " on altar");
+                                Events.RegisterEvent(Events.EventName.Send_Command, "put " + rightOrLeft + " on altar");
                                 break;
                             case "counter":
-                                IO.Send("put " + rightOrLeft + " on counter");
+                                Events.RegisterEvent(Events.EventName.Send_Command, "put " + rightOrLeft + " on counter");
                                 break;
                             default:
-                                IO.Send("drop " + rightOrLeft);
+                                Events.RegisterEvent(Events.EventName.Send_Command, "drop " + rightOrLeft);
                                 break;
                         }
 
@@ -91,21 +91,21 @@ namespace Yuusha.gui
             {
                 if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                 {
-                    IO.Send("wield " + b.RepresentedItem.Name);
+                    Events.RegisterEvent(Events.EventName.Send_Command, "wield " + b.RepresentedItem.Name);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
-                    IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in locker");
+                    Events.RegisterEvent(Events.EventName.Send_Command, "wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in locker");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
                 {
-                    IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in sack");
+                    Events.RegisterEvent(Events.EventName.Send_Command,"wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in sack");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
                 {
-                    IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in pouch");
+                    Events.RegisterEvent(Events.EventName.Send_Command,"wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in pouch");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
@@ -116,13 +116,13 @@ namespace Yuusha.gui
                         switch (window.WindowTitle.Text.ToLower())
                         {
                             case "altar":
-                                IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " on altar");
+                                Events.RegisterEvent(Events.EventName.Send_Command,"wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " on altar");
                                 break;
                             case "counter":
-                                IO.Send("wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " on counter");
+                                Events.RegisterEvent(Events.EventName.Send_Command,"wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " on counter");
                                 break;
                             default:
-                                IO.Send("wield " + b.RepresentedItem.Name + ";drop " + b.RepresentedItem.Name);
+                                Events.RegisterEvent(Events.EventName.Send_Command,"wield " + b.RepresentedItem.Name + ";drop " + b.RepresentedItem.Name);
                                 break;
                         }
 
@@ -144,21 +144,21 @@ namespace Yuusha.gui
                     else if (Character.CurrentCharacter.LeftHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH"))
                         swapbefore = "swap;";
 
-                    IO.Send(swapbefore + "take " + b.GetNItemName(b) + " from sack" + swapafter);
+                    Events.RegisterEvent(Events.EventName.Send_Command,swapbefore + "take " + b.GetNItemName(b) + " from sack" + swapafter);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + " from sack; put " + b.RepresentedItem.Name + " in locker");
+                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack; put " + b.RepresentedItem.Name + " in locker");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + " from sack;belt " + b.RepresentedItem.Name);
+                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;belt " + b.RepresentedItem.Name);
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Belt);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " in pouch");
+                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " in pouch");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
@@ -169,13 +169,13 @@ namespace Yuusha.gui
                         switch (window.WindowTitle.Text.ToLower())
                         {
                             case "altar":
-                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on altar");
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on altar");
                                 break;
                             case "counter":
-                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on counter");
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on counter");
                                 break;
                             default:
-                                IO.Send("take " + b.GetNItemName(b) + " from sack;drop " + b.RepresentedItem.Name);
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;drop " + b.RepresentedItem.Name);
                                 break;
                         }
 
@@ -197,21 +197,21 @@ namespace Yuusha.gui
                     else if (Character.CurrentCharacter.LeftHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH"))
                         swapbefore = "swap;";
 
-                    IO.Send(swapbefore + "take " + b.GetNItemName(b) + " from pouch" + swapafter);
+                    Events.RegisterEvent(Events.EventName.Send_Command,swapbefore + "take " + b.GetNItemName(b) + " from pouch" + swapafter);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + " from pouch; put " + b.RepresentedItem.Name + " in locker");
+                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from pouch; put " + b.RepresentedItem.Name + " in locker");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + " from pouch;belt " + b.RepresentedItem.Name);
+                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from pouch;belt " + b.RepresentedItem.Name);
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Belt);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + " from pouch;put " + b.RepresentedItem.Name + " in sack");
+                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from pouch;put " + b.RepresentedItem.Name + " in sack");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
@@ -222,13 +222,13 @@ namespace Yuusha.gui
                         switch (window.WindowTitle.Text.ToLower())
                         {
                             case "altar":
-                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on altar");
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on altar");
                                 break;
                             case "counter":
-                                IO.Send("take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on counter");
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on counter");
                                 break;
                             default:
-                                IO.Send("take " + b.GetNItemName(b) + " from sack;drop " + b.RepresentedItem.Name);
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;drop " + b.RepresentedItem.Name);
                                 break;
                         }
 
@@ -256,21 +256,21 @@ namespace Yuusha.gui
                     else if (Character.CurrentCharacter.LeftHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH"))
                         swapbefore = "swap;";
 
-                    IO.Send(swapbefore + "take " + b.GetNItemName(b) + fromLocation + swapafter);
+                    Events.RegisterEvent(Events.EventName.Send_Command,swapbefore + "take " + b.GetNItemName(b) + fromLocation + swapafter);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + fromLocation + "; put " + b.RepresentedItem.Name + " in locker");
+                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + fromLocation + "; put " + b.RepresentedItem.Name + " in locker");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + fromLocation + ";belt " + b.RepresentedItem.Name);
+                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + fromLocation + ";belt " + b.RepresentedItem.Name);
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Belt);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
                 {
-                    IO.Send("take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " in sack");
+                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " in sack");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Altar") ||
@@ -282,13 +282,13 @@ namespace Yuusha.gui
                         switch (window.WindowTitle.Text.ToLower())
                         {
                             case "altar":
-                                IO.Send("take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " on altar");
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " on altar");
                                 break;
                             case "counter":
-                                IO.Send("take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " on counter");
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " on counter");
                                 break;
                             default:
-                                IO.Send("take " + b.GetNItemName(b) + fromLocation + ";drop " + b.RepresentedItem.Name);
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + fromLocation + ";drop " + b.RepresentedItem.Name);
                                 break;
                         }
 
@@ -304,8 +304,10 @@ namespace Yuusha.gui
         {
             if (Client.GameState == Enums.EGameState.IOKGame)
                 return IOKMode.Cells[24];
-            else// if (Client.GameState == Enums.EGameState.SpinelGame)
+            else if (Client.GameState == Enums.EGameState.SpinelGame)
                 return SpinelMode.Cells[24];
+            else//if (Client.GameState == Enums.EGameState.YuushaGame)
+                return YuushaMode.Cells[24];
         }
 
         //public void MapPortalFade()

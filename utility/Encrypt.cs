@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using System;
-using System.Xml.Schema;
 
 namespace Yuusha.Utility
 {

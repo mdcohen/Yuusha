@@ -1,19 +1,22 @@
-﻿namespace Yuusha
+﻿using System;
+
+namespace Yuusha
 {
+    [Serializable]
     public class XYCoordinate
     {
-        public int x;
-        public int y;
+        public int X;
+        public int Y;
 
         public XYCoordinate(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
 
         public override string ToString()
         {
-            return "{" + this.x.ToString() + "," + this.y.ToString() + "}";
+            return "{" + this.X.ToString() + "," + this.Y.ToString() + "}";
         }
 
         public override int GetHashCode()
@@ -30,13 +33,13 @@
 
         public static bool operator ==(XYCoordinate lhs, XYCoordinate rhs)
         {
-            if ((object)lhs == null && (object)rhs == null)
+            if (lhs is null && rhs == null)
                 return true;
 
-            if ((object)lhs == null || (object)rhs == null)
+            if (lhs == null || rhs == null)
                 return false;
 
-            if (lhs.x == rhs.x && lhs.y == rhs.y)
+            if (lhs.X == rhs.X && lhs.Y == rhs.Y)
                 return true;
             else
                 return false;
@@ -44,13 +47,13 @@
 
         public static bool operator !=(XYCoordinate lhs, XYCoordinate rhs)
         {
-            if ((object)lhs == null && (object)rhs == null)
+            if (lhs == null && rhs == null)
                 return false;
 
-            if ((object)lhs == null || (object)rhs == null)
+            if (lhs == null || rhs == null)
                 return true;
 
-            if (lhs.x == rhs.x && lhs.y == rhs.y)
+            if (lhs.X == rhs.X && lhs.Y == rhs.Y)
                 return false;
             else
                 return true;
@@ -58,7 +61,7 @@
 
         public static XYCoordinate operator -(XYCoordinate lhs, XYCoordinate rhs)
         {
-            return new XYCoordinate(lhs.x - rhs.x, lhs.y - rhs.y);
+            return new XYCoordinate(lhs.X - rhs.X, lhs.Y - rhs.Y);
         }
     }
 }

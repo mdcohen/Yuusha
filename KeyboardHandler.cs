@@ -168,33 +168,42 @@ namespace Yuusha
                         {
                             // Testing purposes ALT + C, ALT + W
                             #region Testing Area aka the Playground
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
+                            {
+                                Control mapWindow = GuiManager.GetControl("PrimaryMapWindow");
+
+                                if (mapWindow == null)
+                                    MapWindow.CreateMapWindow();
+                                else mapWindow.IsVisible = !mapWindow.IsVisible;
+                                result = true;
+                            }
                             //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
                             //{
-                                //Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
+                            //Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
                             //}
 
                             //if(IsAltKeyDown(ks) && ks.IsKeyDown(Keys.F))
                             //{
-                                //string randomSound = "0001";
-                                //int random = new Random().Next(1, 273);
-                                //randomSound = random.ToString();
-                                //randomSound = randomSound.PadLeft(4, '0');
+                            //string randomSound = "0001";
+                            //int random = new Random().Next(1, 273);
+                            //randomSound = random.ToString();
+                            //randomSound = randomSound.PadLeft(4, '0');
 
-                                //try
-                                //{
-                                //    List<string> li = new List<string>() { randomSound, new Random().Next(0, 7).ToString(), new Random().Next(8).ToString() };
-                                //    Sound.Play(li);
-                                //}
-                                //catch (Exception e)
-                                //{
-                                //    Utils.LogException(e);
-                                //}
+                            //try
+                            //{
+                            //    List<string> li = new List<string>() { randomSound, new Random().Next(0, 7).ToString(), new Random().Next(8).ToString() };
+                            //    Sound.Play(li);
+                            //}
+                            //catch (Exception e)
+                            //{
+                            //    Utils.LogException(e);
+                            //}
 
-                                //if (GuiManager.ParticalEngine == null)
-                                //    GuiManager.ParticalEngine = new gui.effects.ParticleEngine(new List<Texture2D>() { GuiManager.Textures["heartrate.png"] }, new Vector2(100, 100));
-                                //else GuiManager.ParticalEngine = null;
+                            //if (GuiManager.ParticalEngine == null)
+                            //    GuiManager.ParticalEngine = new gui.effects.ParticleEngine(new List<Texture2D>() { GuiManager.Textures["heartrate.png"] }, new Vector2(100, 100));
+                            //else GuiManager.ParticalEngine = null;
 
-                                //gui.effects.Particle particle = new gui.effects.Particle()
+                            //gui.effects.Particle particle = new gui.effects.Particle()
                             //}
 
                             #region ALT + O  Options Window
@@ -372,11 +381,17 @@ namespace Yuusha
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
                             {
                                 Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
+                                result = true;
                             }
-
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             {
+                                Events.RegisterEvent(Events.EventName.Toggle_FogOfWar);
+                                result = true;
+                            }
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
+                            {
                                 Utils.LogCharacterFields();
+                                result = true;
                             }
 
                             if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1))
@@ -386,6 +401,8 @@ namespace Yuusha
                                     if (!ks.IsKeyDown(Keys.LeftShift) && !ks.IsKeyDown(Keys.RightShift))
                                         GuiManager.CurrentSheet.HandleTabOrderForward();
                                     else GuiManager.CurrentSheet.HandleTabOrderReverse();
+
+                                    result = true;
                                 }
                             }
 
@@ -394,8 +411,12 @@ namespace Yuusha
                             {
                                 if (Client.GameState == Enums.EGameState.HotButtonEditMode) return true;
 
-                                Program.Client.ToggleFullScreen();
-                                result = true;
+                                if (GuiManager.CurrentSheet.AllowFullScreen)
+                                {
+                                    Program.Client.ToggleFullScreen();
+                                    result = true;
+                                }
+                                else TextCue.AddClientInfoTextCue("Fullscreen disabled in " + Client.GameState + ".");
                             }
                             #endregion
 
@@ -403,19 +424,13 @@ namespace Yuusha
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.G))
                             {
                                 if (Client.GameDisplayMode == Enums.EGameDisplayMode.IOK)
-                                {
                                     Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.Spinel);
-                                }
                                 else if (Client.GameDisplayMode == Enums.EGameDisplayMode.Spinel)
-                                {
-                                    Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.Normal);
-                                }
-                                else if (Client.GameDisplayMode == Enums.EGameDisplayMode.Normal)
-                                {
+                                    Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.Yuusha);
+                                else if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha)
                                     Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.IOK);
-                                }
 
-                                    TextCue.AddClientInfoTextCue(Client.GameDisplayMode.ToString() + " Mode", TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
+                                TextCue.AddClientInfoTextCue(Client.GameDisplayMode.ToString() + " Mode", TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
 
                                 result = true;
                             }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
 {
@@ -10,7 +11,7 @@ namespace Yuusha.gui
         private byte m_foreAlpha;
         private Color m_foreTint;
         private VisualKey m_lootVisual;
-        private List<VisualKey> m_critterVisuals; 
+        private List<VisualKey> m_critterVisuals;
         #endregion
 
         #region Public Properties
@@ -34,17 +35,21 @@ namespace Yuusha.gui
             get { return m_lootVisual.Key; }
             set { m_lootVisual.Key = value; }
         }
+        public string FogVisual
+        { get; set; }
         public List<VisualKey> CritterVisuals
         {
             get { return m_critterVisuals; }
-        } 
+        }
+        public MapWindow.FogOfWarDetail FogOfWarDetail
+        { get; set; }
         #endregion
 
         #region Constructor
         public SpinelTileLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
-            string cursorOverride, System.Collections.Generic.List<Enums.EAnchorType> anchors, string popUpText)
+            string cursorOverride, List<Enums.EAnchorType> anchors, string popUpText)
             : base()
         {
             m_name = name;
@@ -67,26 +72,24 @@ namespace Yuusha.gui
             m_onDoubleClickEvent = onDoubleClickEvent;
             m_cursorOverride = cursorOverride;
             m_anchors = anchors;
-            m_popUpText = popUpText;
+            PopUpText = popUpText;
 
             m_foreVisual = new VisualKey("");
             m_foreAlpha = 255;
             m_foreTint = Color.White;
             m_lootVisual = new VisualKey("");
             m_critterVisuals = new List<VisualKey>();
-
             
             LootText = "";
             CreatureText = "";
+
+            FogOfWarDetail = new MapWindow.FogOfWarDetail(0, 0, 0, 0, "");
         } 
         #endregion
 
         public override void Update(GameTime gameTime)
         {
             m_textRectangle = m_rectangle; // TODO:
-
-            if (m_popUpText != "" && m_controlState == Enums.EControlState.Over)
-                TextCue.AddMouseCursorTextCue(m_popUpText, Client.ClientSettings.ColorDefaultPopUpFore, m_font);
 
             base.Update(gameTime);
         }
@@ -117,6 +120,20 @@ namespace Yuusha.gui
                 {
                     Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, m_visualAlpha));
                 }
+            }
+
+            if (FogVisual != null && FogVisual != "")
+            {
+                if (!GuiManager.Visuals.ContainsKey(m_foreVisual.Key))
+                {
+                    Utils.LogOnce("Failed to find visual key [ " + m_foreVisual + " ] for Control [ " + m_name + " ]");
+                    m_foreVisual.Key = ""; // clear visual key
+                    return;
+                }
+
+                VisualInfo vi = GuiManager.Visuals[FogVisual];
+                Color fogColor = new Color(MapWindow.FogColor, MapWindow.FogAlpha);
+                Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, fogColor);
             }
 
             if (m_lootVisual != null && m_lootVisual.Key != "")
@@ -181,6 +198,7 @@ namespace Yuusha.gui
                     }
                 }
             }
+
             if (BitmapFont.ActiveFonts.ContainsKey(Font))
             {
                 // override BitmapFont sprite batch
@@ -196,6 +214,14 @@ namespace Yuusha.gui
                 }
             }
             else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for SpinelTileLabel [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
+
+        }
+
+        protected override void OnMouseOver(MouseState ms)
+        {
+            base.OnMouseOver(ms);
+
+            TextCue.AddMouseCursorTextCue(PopUpText);
         }
     }
 }

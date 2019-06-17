@@ -179,19 +179,13 @@ namespace Yuusha
             switch (GameState)
             {
                 case Enums.EGameState.IOKGame:
-                    Control iokTextBox = GuiManager.CurrentSheet[Globals.GAMEINPUTTEXTBOX];
-                    if (iokTextBox != null)
-                    {
-                        iokTextBox.HasFocus = true;
-                        GuiManager.ActiveTextBox = iokTextBox.Name;
-                    }
-                    break;
                 case Enums.EGameState.SpinelGame:
-                    Control spinelTextBox = GuiManager.CurrentSheet[Globals.GAMEINPUTTEXTBOX];
-                    if (spinelTextBox != null)
+                case Enums.EGameState.YuushaGame:
+                    Control inputTextBox = GuiManager.CurrentSheet[Globals.GAMEINPUTTEXTBOX];
+                    if (inputTextBox != null)
                     {
-                        spinelTextBox.HasFocus = true;
-                        GuiManager.ActiveTextBox = spinelTextBox.Name;
+                        inputTextBox.HasFocus = true;
+                        GuiManager.ActiveTextBox = inputTextBox.Name;
                     }
                     break;
             }
@@ -360,6 +354,7 @@ namespace Yuusha
                 Character.CurrentCharacter.Name.Length > 0)
             {
                 Character.Settings.Save();
+                Character.FogOfWarSettings.Save();
             }
 
             // register disconnect event

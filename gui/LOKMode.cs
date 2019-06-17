@@ -185,12 +185,12 @@ namespace Yuusha.gui
                                         {
                                             string key = x + "," + y + "," + z;
                                             cell = m_currentMapEdit.Cells[key];
-                                            if (vkFile.EndsWith("vk0"))
-                                                cell.visual0 = s.Substring(a, 2);
-                                            else if(vkFile.EndsWith("vk1"))
-                                                cell.visual1 = s.Substring(a, 2);
-                                            else if (vkFile.EndsWith("vk2"))
-                                                cell.visual2 = s.Substring(a, 2);
+                                            //if (vkFile.EndsWith("vk0"))
+                                                //cell.visual0 = s.Substring(a, 2);
+                                            //else if(vkFile.EndsWith("vk1"))
+                                                //cell.visual1 = s.Substring(a, 2);
+                                            //else if (vkFile.EndsWith("vk2"))
+                                                //cell.visual2 = s.Substring(a, 2);
                                         }
                                     }
                                     a += 2;

@@ -105,6 +105,8 @@ namespace Yuusha
             /// Legends of Kesmai emulation.
             /// </summary>
             LOK,
+
+            Yuusha,
         }
 
         public enum EGameState
@@ -155,6 +157,8 @@ namespace Yuusha
             SpinelGame,
 
             HotButtonEditMode,
+
+            YuushaGame
         }
 
         public enum ECharGenGUIMode

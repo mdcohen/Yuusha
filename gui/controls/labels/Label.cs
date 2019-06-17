@@ -23,7 +23,7 @@ namespace Yuusha.gui
             m_tintColor = new Color();
             m_hasTextOverColor = false;
             m_textRectangle = m_rectangle; // TODO:
-            m_popUpText = "";
+            PopUpText = "";
             m_onDoubleClickEvent = "";
         }
 
@@ -53,7 +53,7 @@ namespace Yuusha.gui
             m_onDoubleClickEvent = onDoubleClickEvent;
             m_cursorOverride = cursorOverride;
             m_anchors = anchors;
-            m_popUpText = popUpText;
+            PopUpText = popUpText;
         }
 
         public override void Update(GameTime gameTime)

@@ -323,7 +323,9 @@ namespace Yuusha
                 int id = Convert.ToInt32(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_CURRENT, Protocol.CHARACTER_CURRENT_END));
 
                 if (Character.CurrentCharacter == null || id != Character.CurrentCharacter.ID)
+                {
                     Character.CurrentCharacter = Account.GetCharacterByID(Convert.ToInt32(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_CURRENT, Protocol.CHARACTER_CURRENT_END)));
+                }
 
                 Character.LoadSettings();
                 gui.GenericSheet.LoadMacros();
@@ -676,6 +678,7 @@ namespace Yuusha
                         case Enums.EGameState.SpinelGame:
                         case Enums.EGameState.IOKGame:
                         case Enums.EGameState.LOKGame:
+                        case Enums.EGameState.YuushaGame:
                         case Enums.EGameState.Game:
                             #region Game
                             #region GAME_NEW_ROUND

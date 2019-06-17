@@ -188,6 +188,7 @@ namespace Yuusha.gui
                 {
                     if(Client.ClientSettings.GroupSimiliarItemsInGridBoxes && item.VisualKey.ToLower() != "unknown")
                         countDictionary.Add(item.VisualKey, 1);
+
                     button = new DragAndDropButton(purpose.ToString() + "DragAndDropButton" + count, box.Name,
                     new Rectangle(x, y, size, size), item.Name, false, Client.ClientSettings.DragAndDropTextColor, true, false, "courier12", new VisualKey(item.VisualKey),
                     Color.White, 255, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "", BitmapFont.TextAlignment.Center, 0, 0,
@@ -206,6 +207,7 @@ namespace Yuusha.gui
                     }
 
                     Control existingButton = GuiManager.GenericSheet[button.Name];
+
                     if (existingButton != null)
                         GuiManager.GenericSheet.RemoveControl(existingButton);
 
@@ -218,7 +220,8 @@ namespace Yuusha.gui
                     button.Text = countDictionary[item.VisualKey].ToString();
                     button.IsTextVisible = true;
                     button.TextAlignment = BitmapFont.TextAlignment.Right;
-                    button.YTextOffset = button.Height - BitmapFont.ActiveFonts[button.Font].LineHeight;
+                    button.YTextOffset = (button.Height / 2) - (BitmapFont.ActiveFonts[button.Font].LineHeight / 2);
+                    button.XTextOffset = -3;
                 }
                 
                 //button.DrawBlackBackground = true;

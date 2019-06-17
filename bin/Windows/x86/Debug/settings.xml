@@ -8,9 +8,9 @@
   <ColorDefaultPopUpFore>
     <B>255</B>
     <G>255</G>
-    <R>0</R>
+    <R>255</R>
     <A>255</A>
-    <PackedValue>4294967040</PackedValue>
+    <PackedValue>4294967295</PackedValue>
   </ColorDefaultPopUpFore>
   <ColorDefaultPopUpBack>
     <B>0</B>
@@ -19,10 +19,10 @@
     <A>0</A>
     <PackedValue>0</PackedValue>
   </ColorDefaultPopUpBack>
-  <DefaultPopUpFadeOutSpeed>5</DefaultPopUpFadeOutSpeed>
+  <DefaultPopUpFadeOutSpeed>1</DefaultPopUpFadeOutSpeed>
   <DefaultPopUpFadeInSpeed>5</DefaultPopUpFadeInSpeed>
   <DefaultPopUpFont>courier16</DefaultPopUpFont>
-  <DefaultDropDownMenuFont>courier12</DefaultDropDownMenuFont>
+  <DefaultDropDownMenuFont>courier16</DefaultDropDownMenuFont>
   <DisplayChantingTextCue>true</DisplayChantingTextCue>
   <StartFullScreen>false</StartFullScreen>
   <PlayAudioWhenClientDeactivated>true</PlayAudioWhenClientDeactivated>
@@ -36,15 +36,11 @@
   <AlwaysOpenGridBoxWindowsUponActivity>false</AlwaysOpenGridBoxWindowsUponActivity>
   <StoredAccounts>
     <EncryptedKeyValuePairOfStringString>
-      <Key>TL7JKi7e9HPChorCBUHc6w==</Key>
-      <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
-    </EncryptedKeyValuePairOfStringString>
-    <EncryptedKeyValuePairOfStringString>
-      <Key>NdeynG3nkVvn157IF406Nw==</Key>
+      <Key>1/vDctOy9dB3Mf0zOJBz4Q==</Key>
       <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
     </EncryptedKeyValuePairOfStringString>
   </StoredAccounts>
-  <MostRecentStoredAccount>JUyMoMZ/fYbIwMLCcWKpxIQk2lnG9VNWDkxp+UgfB3M=</MostRecentStoredAccount>
+  <MostRecentStoredAccount>DmheJJn42Woz+paW+RgPcUvtL4zDS1KM7XooVvQWYEI=</MostRecentStoredAccount>
   <OptionsWindowX>50</OptionsWindowX>
   <OptionsWindowY>50</OptionsWindowY>
   <MacrosWindowX>300</MacrosWindowX>
@@ -291,11 +287,11 @@
     <PackedValue>4278190080</PackedValue>
   </AcceptingGridBoxTitleTextColor>
   <ColorDropDownMenuBorder>
-    <B>211</B>
-    <G>85</G>
-    <R>186</R>
+    <B>0</B>
+    <G>60</G>
+    <R>231</R>
     <A>255</A>
-    <PackedValue>4292040122</PackedValue>
+    <PackedValue>4278205671</PackedValue>
   </ColorDropDownMenuBorder>
   <DropDownMenuBorderWidth>1</DropDownMenuBorderWidth>
   <ColorDropDownMenu>
@@ -309,8 +305,8 @@
     <B>0</B>
     <G>0</G>
     <R>0</R>
-    <A>255</A>
-    <PackedValue>4278190080</PackedValue>
+    <A>0</A>
+    <PackedValue>0</PackedValue>
   </ColorDropDownMenuItemBackground>
   <ColorDropDownMenuItemDisabledText>
     <B>211</B>

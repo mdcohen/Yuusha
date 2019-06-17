@@ -16,7 +16,7 @@ namespace Yuusha.Utility.Settings
         public string DefaultFont = "courier16";
         public Color ColorDefaultPopUpFore = Color.White;
         public Color ColorDefaultPopUpBack = Color.Transparent;
-        public byte DefaultPopUpFadeOutSpeed = 5;
+        public byte DefaultPopUpFadeOutSpeed = 1;
         public byte DefaultPopUpFadeInSpeed = 5;
         public string DefaultPopUpFont = "courier16";
         public string DefaultDropDownMenuFont = "courier16";
@@ -65,6 +65,8 @@ namespace Yuusha.Utility.Settings
         public Color Color_Gui_CreatureLetter_Fore = Color.White;
         public Color Color_Gui_Loot_Fore = Color.Gold;
         #endregion
+
+        //public bool FogOfWar = true;
 
         public Color TargetBorderColor = Color.WhiteSmoke;
         public int TargetBorderSize = 1;

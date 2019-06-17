@@ -369,7 +369,7 @@
 		Name="RHNameDragAndDropButton"
 		X="45"
 		Y="690"
-		Width="200"
+		Width="64"
 		Height="25"
 		TextColor="White" 
 		IsVisible="true"

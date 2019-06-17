@@ -38,8 +38,8 @@
   <File Name="xml\sheets\charactergeneration.xml"></File>
 	<!-- Conference GUI -->
 	<File Name="xml\sheets\conference.xml"></File>
-	<!-- Game GUI (Normal Mode) -->
-	<File Name="xml\sheets\game.xml"></File>
+	<!-- Game GUI (Yuusha) -->
+	<File Name="xml\sheets\yuushagame.xml"></File>
 	<!-- Game GUI (Legends of Kesmai Mode) -->
 	<File Name="xml\sheets\lokgame.xml"></File>
 	<!-- Game GUI (Island of Kesmai Mode) -->

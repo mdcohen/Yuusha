@@ -55,7 +55,7 @@ namespace Yuusha.gui
             m_shadowDirection = shadowDirection;
             m_shadowDistance = shadowDistance;
             Command = command;
-            m_popUpText = popUpText;
+            PopUpText = popUpText;
 
             m_onMouseDownSent = false;
         }

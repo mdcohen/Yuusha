@@ -310,6 +310,7 @@ namespace Yuusha.gui
                 case Enums.EGameState.Game:
                 case Enums.EGameState.IOKGame:
                 case Enums.EGameState.LOKGame:
+                case Enums.EGameState.YuushaGame:
                 case Enums.EGameState.SpinelGame:
                     x = 10;
                     y = Client.Height - Convert.ToInt32(BitmapFont.ActiveFonts[GuiManager.CurrentSheet.Font].LineHeight * 1.25);

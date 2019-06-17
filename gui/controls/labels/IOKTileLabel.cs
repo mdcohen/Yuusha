@@ -51,7 +51,7 @@ namespace Yuusha.gui
             m_onDoubleClickEvent = onDoubleClickEvent;
             m_cursorOverride = cursorOverride;
             m_anchors = anchors;
-            m_popUpText = popUpText;
+            PopUpText = popUpText;
 
             m_lootText = "";
             m_creatureText = "";
