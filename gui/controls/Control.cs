@@ -65,7 +65,7 @@ namespace Yuusha.gui
         protected int m_tabOrder;
         #endregion
 
-        public string Command // all controls can have a command
+        public string Command // all controls may have an associated command
         { get; set; }
 
         public event GuiManager.ControlDelegate OnControl;
@@ -190,6 +190,8 @@ namespace Yuusha.gui
                 {
                     GuiManager.ControlWithFocus = this;
                 }
+                else if (GuiManager.ControlWithFocus == this)
+                    GuiManager.ControlWithFocus = null;
             }
         }
 
@@ -292,7 +294,7 @@ namespace Yuusha.gui
             if(!m_disabled && m_visible)
             {
                 if (PopUpText != "" && m_controlState == Enums.EControlState.Over && GuiManager.ActiveDropDownMenu == "")
-                    TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpFont);
+                    TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpBackAlpha, Client.ClientSettings.DefaultPopUpFont);
             }
 
             if (m_visuals.ContainsKey(ControlState) && m_visualKey != m_visuals[ControlState])
@@ -336,6 +338,12 @@ namespace Yuusha.gui
 
             if (m_visualKey != null && m_visualKey.Key != "" && VisualAlpha > 0)
             {
+                if (m_visualKey.Key == "  ")
+                {
+                    m_visualKey.Key = "WhiteSpace";
+                    Utils.Log("Corrected VisualKey for " + Name + ". Sheet: " + Sheet + " GameState: " + Client.GameState.ToString() + " DisplayMode: " + Client.GameDisplayMode.ToString());
+                }
+
                 if (!GuiManager.Visuals.ContainsKey(m_visualKey.Key))
                 {
                     Utils.LogOnce("Failed to find visual key [ " + m_visualKey + " ] for Control [ " + m_name + " ]");
@@ -458,8 +466,10 @@ namespace Yuusha.gui
             if ((!(this is TextBox) && (Contains(mousePointer) || HasFocus)) || ((this is TextBox) && Contains(mousePointer)))
             {
                 // there was a change in scroll wheel values since last MouseHandler
-                if (this is ScrollableTextBox && GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
+                if ((this is ScrollableTextBox || this is MapWindow) && GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
+                {
                     OnZDelta(ms);
+                }
 
                 // to send message, mouse must have been pressed and released over the hotspot
                 if (ms.LeftButton != ButtonState.Pressed && ms.RightButton != ButtonState.Pressed)
@@ -704,7 +714,7 @@ namespace Yuusha.gui
                 {
                     int oldRightDist = prev.Right - m_rectangle.X;
                     x = now.Right - oldRightDist;
-                    x += (int)((now.Width - prev.Width) / 2);
+                    x += (now.Width - prev.Width) / 2;
                 }
 
                 if (m_anchors.Contains(Enums.EAnchorType.Left) && !m_anchors.Contains(Enums.EAnchorType.Right) &&
@@ -717,14 +727,14 @@ namespace Yuusha.gui
 
                 if (m_anchors.Contains(Enums.EAnchorType.Center))
                 {
-                    x += (int)((now.Width - prev.Width) / 2);
-                    y += (int)((now.Height - prev.Height) / 2);
+                    x += (now.Width - prev.Width) / 2;
+                    y += (now.Height - prev.Height) / 2;
                 }
             }
             else // no anchors, just adjust x and y position
             {
-                x += (int)((now.Width - prev.Width) / 2);
-                y += (int)((now.Height - prev.Height) / 2);
+                x += (now.Width - prev.Width) / 2;
+                y += (now.Height - prev.Height) / 2;
             }
 
             m_rectangle.X = x;

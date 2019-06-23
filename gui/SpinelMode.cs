@@ -87,7 +87,6 @@ namespace Yuusha.gui
                         sheet["HitsTakenAmountLabel"].TextColor = Color.Plum;
                     }
 
-
                     #region Magic Points Labels
                     if (chr.IsSpellUser)
                     {
@@ -151,6 +150,8 @@ namespace Yuusha.gui
                             }
 
                             sheet["HitsAdjLabel"].IsVisible = true;
+
+                            Character.PreviousRoundCharacter.Hits = chr.Hits;
                         }
                         else sheet["HitsAdjLabel"].IsVisible = false;
 
@@ -348,14 +349,13 @@ namespace Yuusha.gui
             try
             {
                 string[] itemInfo = inData.Split(Protocol.VSPLIT.ToCharArray());
-                Item item = new Item();
-                item.ID = Convert.ToInt32(itemInfo[0]);
-                item.Name = itemInfo[1];
-                //item.longDesc = itemInfo[2];
-                item.VisualKey = itemInfo[3];
-                //item.wearLocation = (Character.WearLocation)Convert.ToInt32(itemInfo[4]);
-                //item.attuneType = (Item.AttuneType)Convert.ToInt32(itemInfo[5]);
-                item.WorldItemID = Convert.ToInt32(itemInfo[4]);
+                Item item = new Item
+                {
+                    ID = Convert.ToInt32(itemInfo[0]),
+                    WorldItemID = Convert.ToInt32(itemInfo[1]),
+                    Name = itemInfo[2],
+                    VisualKey = itemInfo[3]
+                };
                 return item;
             }
             catch (Exception e)
@@ -381,73 +381,78 @@ namespace Yuusha.gui
                         m_critterListNames[a] = "";
                     }
 
-                    Cell cell = m_cells[24]; // start with our cell
+                    Cell cell;
 
-                    if (cell.Characters.Count > 0)
+                    if (m_cells.Count >= 25)
                     {
-                        foreach (Character ch in cell.Characters)
+                        cell = m_cells[24]; // start with our cell
+
+                        if (cell.Characters.Count > 0)
                         {
-                            #region Create Critter Label (Center Cell)
-                            string critterInfo = "  " + m_alignment[(int)ch.Alignment] + ch.Name;
-                            critterInfo = critterInfo.PadRight(19);
-
-                            if (ch.RightHand != null)
-                                critterInfo += ch.RightHand.Name;
-
-                            critterInfo = critterInfo.PadRight(31);
-
-                            if (ch.LeftHand != null)
-                                critterInfo += ch.LeftHand.Name;
-
-                            critterInfo = critterInfo.PadRight(43);
-
-                            critterInfo += ch.visibleArmor;
-
-                            Color foreColor = Color.White;
-                            Color backColor = Color.Black;
-
-                            switch (ch.Alignment)
+                            foreach (Character ch in cell.Characters)
                             {
-                                case World.Alignment.Amoral:
-                                    foreColor = Client.ClientSettings.Color_Gui_Amoral_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Amoral_Back;
-                                    break;
-                                case World.Alignment.Chaotic:
-                                    foreColor = Client.ClientSettings.Color_Gui_Chaotic_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Chaotic_Back;
-                                    break;
-                                case World.Alignment.ChaoticEvil:
-                                    foreColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
-                                    break;
-                                case World.Alignment.Evil:
-                                    foreColor = Client.ClientSettings.Color_Gui_Evil_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Evil_Back;
-                                    break;
-                                case World.Alignment.Lawful:
-                                    foreColor = Client.ClientSettings.Color_Gui_Lawful_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Lawful_Back;
-                                    break;
-                                case World.Alignment.Neutral:
-                                    foreColor = Client.ClientSettings.Color_Gui_Neutral_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Neutral_Back;
+                                #region Create Critter Label (Center Cell)
+                                string critterInfo = "  " + m_alignment[(int)ch.Alignment] + ch.Name;
+                                critterInfo = critterInfo.PadRight(19);
+
+                                if (ch.RightHand != null)
+                                    critterInfo += ch.RightHand.Name;
+
+                                critterInfo = critterInfo.PadRight(31);
+
+                                if (ch.LeftHand != null)
+                                    critterInfo += ch.LeftHand.Name;
+
+                                critterInfo = critterInfo.PadRight(43);
+
+                                critterInfo += ch.visibleArmor;
+
+                                Color foreColor = Color.White;
+                                Color backColor = Color.Black;
+
+                                switch (ch.Alignment)
+                                {
+                                    case World.Alignment.Amoral:
+                                        foreColor = Client.ClientSettings.Color_Gui_Amoral_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Amoral_Back;
+                                        break;
+                                    case World.Alignment.Chaotic:
+                                        foreColor = Client.ClientSettings.Color_Gui_Chaotic_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Chaotic_Back;
+                                        break;
+                                    case World.Alignment.ChaoticEvil:
+                                        foreColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
+                                        break;
+                                    case World.Alignment.Evil:
+                                        foreColor = Client.ClientSettings.Color_Gui_Evil_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Evil_Back;
+                                        break;
+                                    case World.Alignment.Lawful:
+                                        foreColor = Client.ClientSettings.Color_Gui_Lawful_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Lawful_Back;
+                                        break;
+                                    case World.Alignment.Neutral:
+                                        foreColor = Client.ClientSettings.Color_Gui_Neutral_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Neutral_Back;
+                                        break;
+                                }
+
+                                m_critterListNames[labelNum] = ch.Name;
+                                CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
+                                label.Critter = ch;
+                                label.CenterCell = true;
+                                label.Text = critterInfo;
+                                label.TextColor = foreColor;
+                                label.TintColor = backColor;
+                                label.IsVisible = true;
+                                #endregion
+
+                                labelNum++;
+
+                                if (labelNum >= 12)
                                     break;
                             }
-
-                            m_critterListNames[labelNum] = ch.Name;
-                            CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
-                            label.Critter = ch;
-                            label.CenterCell = true;
-                            label.Text = critterInfo;
-                            label.TextColor = foreColor;
-                            label.TintColor = backColor;
-                            label.IsVisible = true;
-                            #endregion
-
-                            labelNum++;
-
-                            if (labelNum >= 12)
-                                break;
                         }
                     }
 
@@ -535,14 +540,12 @@ namespace Yuusha.gui
                 {
                     SpinelTileLabel spLabel;
                     Cell cell;
-                    VisualInfo backVI = GuiManager.Visuals["WhiteSpace"];
-                    SpinelTileDefinition currTile;
+                    SpinelTileDefinition currentTile;
 
                     for (int count = 0; count < m_cells.Count; count++) // move through each cell and update the map and mobs list
                     {
                         cell = m_cells[count];
 
-                        //spLabel = GuiManager.GetControl("Tile" + count.ToString()) as SpinelTileLabel;
                         spLabel = GuiManager.GetControl(Enums.EGameState.SpinelGame.ToString(), "Tile" + count.ToString()) as SpinelTileLabel;
 
                         if (spLabel == null)
@@ -555,30 +558,30 @@ namespace Yuusha.gui
                         if (cell.visible)
                         {
                             if (m_tilesDict.ContainsKey(cell.DisplayGraphic))
-                                currTile = m_tilesDict[cell.DisplayGraphic];
+                                currentTile = m_tilesDict[cell.DisplayGraphic];
                             else
                             {
                                 Utils.LogOnce("Failed to find SpinelTileDefinition for cell graphic [ " + cell.DisplayGraphic+ " ]");
-                                currTile = m_tilesDict["  "];
+                                currentTile = m_tilesDict["  "];
                             }
 
                             spLabel.Text = "";
                             spLabel.TextColor = Color.White;
-                            spLabel.TintColor = currTile.BackTint;
+                            spLabel.TintColor = currentTile.BackTint;
                             spLabel.TextAlpha = 255;
                             try
                             {
-                                spLabel.VisualKey = currTile.BackVisual.Key;
+                                spLabel.VisualKey = currentTile.BackVisual.Key;
                             }
                             catch(Exception e) // troubleshooting 10/19/2013
                             {
                                 Utils.LogException(e);
-                                Utils.Log("spLabel = " + spLabel.Name + " currTile = " + currTile.Name);
+                                Utils.Log("spLabel = " + spLabel.Name + " currTile = " + currentTile.Name);
                             }
-                            spLabel.VisualAlpha = currTile.BackAlpha;
-                            spLabel.ForeVisual = currTile.ForeVisual.Key;
-                            spLabel.ForeColor = currTile.ForeTint;
-                            spLabel.ForeAlpha = currTile.ForeAlpha;
+                            spLabel.VisualAlpha = currentTile.BackAlpha;
+                            spLabel.ForeVisual = currentTile.ForeVisual.Key;
+                            spLabel.ForeColor = currentTile.ForeTint;
+                            spLabel.ForeAlpha = currentTile.ForeAlpha;
 
                             if (cell.portal)
                                 spLabel.VisualKey = m_tilesDict["pp"].ForeVisual.Key;
@@ -614,7 +617,7 @@ namespace Yuusha.gui
                         else
                         {
                             if (m_tilesDict.ContainsKey("  "))
-                                currTile = m_tilesDict["  "];
+                                currentTile = m_tilesDict["  "];
                             else
                             {
                                 Utils.LogOnce("Failed to find IOKTile for cell graphic [    ]");
@@ -623,13 +626,13 @@ namespace Yuusha.gui
 
                             spLabel.Text = "";// currTile.DisplayGraphic;
                             spLabel.TextColor = Color.White;// currTile.ForeColor;
-                            spLabel.TintColor = currTile.BackTint;
+                            spLabel.TintColor = currentTile.BackTint;
                             spLabel.TextAlpha = 255;
-                            spLabel.VisualKey = currTile.BackVisual.Key;
-                            spLabel.VisualAlpha = currTile.BackAlpha;
-                            spLabel.ForeVisual = currTile.ForeVisual.Key;
-                            spLabel.ForeColor = currTile.ForeTint;
-                            spLabel.ForeAlpha = currTile.ForeAlpha;
+                            spLabel.VisualKey = currentTile.BackVisual.Key;
+                            spLabel.VisualAlpha = currentTile.BackAlpha;
+                            spLabel.ForeVisual = currentTile.ForeVisual.Key;
+                            spLabel.ForeColor = currentTile.ForeTint;
+                            spLabel.ForeAlpha = currentTile.ForeAlpha;
                         }
                     }
                 }

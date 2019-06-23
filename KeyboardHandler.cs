@@ -168,15 +168,15 @@ namespace Yuusha
                         {
                             // Testing purposes ALT + C, ALT + W
                             #region Testing Area aka the Playground
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
-                            {
-                                Control mapWindow = GuiManager.GetControl("PrimaryMapWindow");
+                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
+                            //{
+                                //Control mapWindow = GuiManager.GetControl("PrimaryMapWindow");
 
-                                if (mapWindow == null)
-                                    MapWindow.CreateMapWindow();
-                                else mapWindow.IsVisible = !mapWindow.IsVisible;
-                                result = true;
-                            }
+                                //if (mapWindow == null)
+                                //    MapWindow.CreateMapWindow();
+                                //else mapWindow.IsVisible = !mapWindow.IsVisible;
+                                //result = true;
+                            //}
                             //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
                             //{
                             //Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
@@ -261,8 +261,7 @@ namespace Yuusha
                                     result = true;
                                 }
                             }
-                            #endregion
-                            
+                            #endregion                            
                             
                             #region Tilde Saves a Screenshot
                             if (ks.IsKeyDown(Keys.OemTilde))
@@ -290,7 +289,7 @@ namespace Yuusha
                                     GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
                                 }
 
-                                gui.TextCue.AddClientInfoTextCue("Reloaded " + GuiManager.CurrentSheet.Description + " and Generic Sheet.", TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
+                                gui.TextCue.AddClientInfoTextCue("Reloaded " + GuiManager.CurrentSheet.Description + " and Generic Sheet.", TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 0, 2000, false, true, false);
 
                                 result = true;
                             }
@@ -362,7 +361,7 @@ namespace Yuusha
                                     GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
                                 }
 
-                                gui.TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
+                                gui.TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 0, 2000, false, true, false);
 
                                 result = true;
 
@@ -383,11 +382,20 @@ namespace Yuusha
                                 Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
                                 result = true;
                             }
+
+                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.E))
+                            //{
+                            //    TextCue.AddClientInfoTextCue("ALT + E");
+                            //    (GuiManager.GetControl("FogOfWarMapWindow") as MapWindow).EnlargeGrid(1);
+                            //    result = true;
+                            //}
+
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             {
                                 Events.RegisterEvent(Events.EventName.Toggle_FogOfWar);
                                 result = true;
                             }
+
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
                             {
                                 Utils.LogCharacterFields();
@@ -430,7 +438,7 @@ namespace Yuusha
                                 else if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha)
                                     Events.RegisterEvent(Events.EventName.Set_Client_Mode, Enums.EGameDisplayMode.IOK);
 
-                                TextCue.AddClientInfoTextCue(Client.GameDisplayMode.ToString() + " Mode", TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
+                                TextCue.AddClientInfoTextCue(Client.GameDisplayMode.ToString() + " Mode", TextCue.TextCueTag.None, Color.Lime, Color.Transparent, 0, 2700, false, true, false);
 
                                 result = true;
                             }
@@ -492,7 +500,7 @@ namespace Yuusha
                                                             GuiManager.LoggingRequested = !GuiManager.LoggingRequested;
                                                             string onoff = "Enabled";
                                                             if (!GuiManager.LoggingRequested) onoff = "Disabled";
-                                                            gui.TextCue.AddClientInfoTextCue("Logging " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
+                                                            gui.TextCue.AddClientInfoTextCue("Logging " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 0, 2500, false, true, false);
                                                             result = true;
                                                         }
                             #endregion
@@ -556,7 +564,7 @@ namespace Yuusha
                                     GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
                                 }
 
-                                TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 2000, false, true, false);
+                                TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 0, 2000, false, true, false);
 
                                 result = true;
 
@@ -586,7 +594,7 @@ namespace Yuusha
                                 Client.UserSettings.SoundEffects = !Client.UserSettings.SoundEffects;
                                 string onoff = "Enabled";
                                 if (!Client.UserSettings.SoundEffects) onoff = "Disabled";
-                                gui.TextCue.AddClientInfoTextCue("Sound Effects " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 2500, false, true, false);
+                                gui.TextCue.AddClientInfoTextCue("Sound Effects " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 0, 2500, false, true, false);
                                 result = true;
                             }
                             #endregion

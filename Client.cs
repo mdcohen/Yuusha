@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using Yuusha.gui;
 using Yuusha.Utility.Settings;
 
@@ -37,11 +35,12 @@ namespace Yuusha
         private static Rectangle m_nowClientBounds;
         private static Point m_prevClientPosition;
         private static TimeSpan m_lastPing;
-        private static TimeSpan m_totalGameTime;
+       //private static TimeSpan m_totalGameTime;
 
         GraphicsDeviceManager m_graphics;
-        readonly ContentManager m_content;
+        readonly ContentManager m_contentManager;
         Yuusha.gui.GuiManager m_guiManager;
+        Yuusha.Audio.AudioManager m_audioManager;
         //Yuusha.gui.SplashScreen m_splashScreen;
         bool m_firstFullScreen;
         bool m_noDraw;
@@ -125,10 +124,10 @@ namespace Yuusha
             get { return m_lastPing; }
             set { m_lastPing = value; }
         }
-        public static TimeSpan TotalGameTime
-        {
-            get { return m_totalGameTime; }
-        }
+        //public static TimeSpan TotalGameTime
+        //{
+        //    get { return m_totalGameTime; }
+        //}
         public GuiManager GUIManager
         {
             get { return m_guiManager; }
@@ -144,11 +143,15 @@ namespace Yuusha
         public Client()
         {
             m_graphics = new GraphicsDeviceManager(this);
-            m_content = new ContentManager(Services);
+            m_contentManager = new ContentManager(Services);
             m_guiManager = new GuiManager(this);
             Components.Add(m_guiManager);
+            m_audioManager = new Audio.AudioManager(this);
+            Components.Add(m_audioManager);
+
             //m_splashScreen = new Yuusha.gui.SplashScreen(this);
             //Components.Add(m_splashScreen);
+
             Deactivated += new EventHandler<EventArgs>(Client_Deactivated);
             Activated += new EventHandler<EventArgs>(Client_Activated);
             Disposed += Client_Disposed;
@@ -172,7 +175,7 @@ namespace Yuusha
             else m_hasFocus = true;
         }
 
-        void Client_Activated(object sender, EventArgs e)
+        private void Client_Activated(object sender, EventArgs e)
         {
             m_hasFocus = true;
 
@@ -191,7 +194,7 @@ namespace Yuusha
             }
         }
 
-        void Client_Deactivated(object sender, EventArgs e)
+        private void Client_Deactivated(object sender, EventArgs e)
         {
             m_hasFocus = false;
         }
@@ -281,7 +284,7 @@ namespace Yuusha
             this.ClientGameTime = gameTime;
 
             // update game time
-            m_totalGameTime = gameTime.TotalGameTime;
+            //m_totalGameTime = gameTime.TotalGameTime;
 
             if ((m_preferredWindowWidth != m_graphics.PreferredBackBufferWidth ||
                 m_preferredWindowHeight != m_graphics.PreferredBackBufferHeight) && !m_graphics.IsFullScreen)
@@ -375,11 +378,12 @@ namespace Yuusha
             if(Client.IsFullScreen && Client.GameState == Enums.EGameState.HotButtonEditMode)
             {
                 TextCue.AddClientInfoTextCue("Please exit Hot Button Edit Mode before switching from full screen.",
-                    TextCue.TextCueTag.None, Color.Red, Color.Black, 2000, false, false, true);
+                    TextCue.TextCueTag.None, Color.Red, Color.Black, 255, 2000, false, false, true);
                 return;
             }
 
             PresentationParameters presentation = m_graphics.GraphicsDevice.PresentationParameters;
+            //presentation.HardwareModeSwitch = true;
 
             m_prevClientBounds = Window.ClientBounds;
 

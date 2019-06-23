@@ -7,15 +7,13 @@
 	   PreferredHeight="768"
      DeviceClearColor="Black"
      AllowFullScreen="true">
-  <!--PreferredWidth="1024"
-	   PreferredHeight="768" -->
 	<Background
 		Font="courier16"
 		VisualKey="BlackTileBackground"
 		IsCentered="false"
     IsTiled="true"
     TintColor="White"
-		VisualAlpha="255">
+		VisualAlpha="100">
 	</Background>
 
   <!-- Damage Fog -->
@@ -39,10 +37,10 @@
   <Control
 		Type="Window"
 		Name="ScrollableTextBoxWindow"
-		X="10"
-		Y="472"
-	  Width="864"
-		Height="210"
+		X="5"
+		Y="504"
+	  Width="909"
+		Height="256"
 		IsVisible="true"
 		IsLocked="false"
 		Font="courier16"
@@ -55,7 +53,7 @@
 		AnchorRight="false"
 		CursorOnDrag="Dragging">
   </Control>
-  <!-- ScrollableTextBoxWindowTitle -->
+  <!-- ScrollableTextBoxWindow WindowTitle -->
   <Control
     Type="WindowTitle"
     Name="ScrollableTextBoxWindowTitle"
@@ -63,13 +61,6 @@
     Font="courier12"
     VisualKey="WhiteSpace"
     TintColor="Gray"
-    CloseBoxVisualKey="WindowCloseBox"
-    CloseBoxVisualKeyDown="WindowCloseBoxDown"
-    CloseBoxDistanceFromRight="17"
-    CloseBoxDistanceFromTop="0"
-    CloseBoxWidth="15"
-    CloseBoxHeight="15"
-    CloseBoxTintColor="LightSteelBlue"
     CropBoxVisualKey="WindowCropBox"
     CropBoxVisualKeyDown="WindowCropBoxDown"
     CropBoxDistanceFromRight="38"
@@ -101,7 +92,7 @@
 		X="4"
 		Y="15"
 		Width="860"
-		Height="170"
+		Height="216"
 		XTextOffset="0"
 		YTextOffset="0"
 		TextColor="White"
@@ -124,8 +115,8 @@
 		Name="GameInputTextBox"
     Owner="ScrollableTextBoxWindow"
 		X="0"
-		Y="185"
-		Width="864"
+		Y="231"
+		Width="909"
 		Height="25"
 		XTextOffset="0"
 		YTextOffset="0"
@@ -133,9 +124,9 @@
 		IsVisible="true"
 		IsEditable="true"
 		Font="courier16"
-		TintColor="DarkCyan"
+		TintColor="MediumSeaGreen"
 		VisualKey="WhiteSpace"
-		VisualAlpha="30"
+		VisualAlpha="60"
 		BorderAlpha="255"
 		TextAlpha="255"
 		MaxLength="200"
@@ -158,221 +149,205 @@
     VisualAlpha="100">
   </Control>
   </InputOutput>
-
+ 
   <Stats>
-  <!-- Hits -->
+     <!-- Text Vitals Window -->
   <Control
+		Type="Window"
+		Name="TextVitalsWindow"
+		X="660"
+		Y="423"
+	  Width="253"
+		Height="82"
+		IsVisible="true"
+		IsLocked="false"
+		Font="courier16"
+		VisualKey=""
+		TintColor="White"
+		DropShadow="false"
+		AnchorTop="false"
+		AnchorBottom="true"
+		AnchorRight="true"
+		CursorOnDrag="Dragging">
+  </Control>
+  <!-- TextVitalsWindowTitle
+  <Control
+    Type="WindowTitle"
+    Name="TextVitalsWindowTitle"
+    Owner="TextVitalsWindow"
+    Font="courier12"
+    VisualKey="WhiteSpace"
+    TintColor="MediumSeaGreen"
+    Text=""
+    TextColor="Black"
+    TextAlignment="Center"
+    Height="3"
+    VisualAlpha="100">
+  </Control> -->
+  <!-- TextVitalsWindowBorder
+  <Control
+		Type="SquareBorder"
+		Name="TextVitalsWindowBorder"
+		Owner="TextVitalsWindow"
+		Width="1"
+		VisualKey="WhiteSpace"
+		TintColor="DimGray"
+    VisualAlpha="100">
+  </Control> -->
+
+  <!-- Hits -->
+	<Control
 		Type="Label"
 		Text="Hits:"
 		Name="HitsLabel"
-		X="435"
-		Y="690"
+    Owner="TextVitalsWindow"
+		X="0"
+		Y="5"
 		Width="105"
 		Height="25"
 		TextColor="Plum"
 		IsVisible="true"
-		Font="courier16"
+		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
-  </Control>
-  <!-- Hits Amount -->
-  <Control
+	</Control>
+     <!-- Hits Remaining -->
+	<Control
+		Type="Label"
+		Text=""
+		Name="HitsRemainingLabel"
+    Owner="TextVitalsWindow"
+		X="143"
+		Y="5"
+		Width="50"
+		Height="25"
+		TextColor="Plum"
+		IsVisible="true"
+		Font="changaone16"
+		TextAlignment="Right"
+		AnchorBottom="true"
+		AnchorRight="true">
+	</Control>
+	<!-- Hits Amount -->
+	<Control
 		Type="Label"
 		Text=""
 		Name="HitsAmountLabel"
-		X="585"
-		Y="690"
-		Width="120"
+    Owner="TextVitalsWindow"
+		X="193"
+		Y="5"
+		Width="60"
 		Height="25"
 		TextColor="Plum"
 		IsVisible="true"
-		Font="courier16"
-		TextAlignment="Right"
-		AnchorBottom="true"
-		AnchorRight="true">
-  </Control>
-  <!-- Experience -->
-  <Control
-		Type="Label"
-		Text="Exp:"
-		Name="ExpLabel"
-		X="435"
-		Y="715"
-		Width="80"
-		Height="25"
-		TextColor="Plum"
-		IsVisible="true"
-		Font="courier16"
+		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
-  </Control>
-  <!-- Experience Amount -->
-  <Control
-		Type="Label"
-		Text=""
-		Name="ExpAmountLabel"
-		X="525"
-		Y="715"
-		Width="180"
-		Height="25"
-		TextColor="Plum"
-		IsVisible="true"
-		Font="courier16"
-		TextAlignment="Right"
-		AnchorBottom="true"
-		AnchorRight="true">
-  </Control>
-  <!-- Stamina -->
-  <Control
+	</Control>
+	<!-- Stamina -->
+	<Control
 		Type="Label"
 		Text="Stamina:"
 		Name="StaminaLabel"
-		X="435"
-		Y="740"
+    Owner="TextVitalsWindow"
+		X="0"
+		Y="30"
 		Width="100"
 		Height="25"
 		TextColor="Plum"
 		IsVisible="true"
-		Font="courier16"
+		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
-  </Control>
-  <!-- Stamina Amount -->
+	</Control>
+  <!-- Stamina Remaining -->
   <Control
+    Type="Label"
+    Text=""
+    Name="StaminaRemainingLabel"
+    Owner="TextVitalsWindow"
+    X="143"
+    Y="30"
+    Width="50"
+    Height="25"
+    TextColor="Plum"
+    IsVisible="true"
+    Font="changaone16"
+    TextAlignment="Right"
+    AnchorBottom="true"
+    AnchorRight="true">
+  </Control>
+	<!-- Stamina Amount -->
+	<Control
 		Type="Label"
 		Text=""
 		Name="StaminaAmountLabel"
-		X="585"
-		Y="740"
-		Width="120"
+    Owner="TextVitalsWindow"
+		X="193"
+		Y="30"
+		Width="60"
 		Height="25"
 		TextColor="Plum"
 		IsVisible="true"
-		Font="courier16"
-		TextAlignment="Right"
+		Font="changaone16"
+		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
-  </Control>
-  <!-- Hits Taken -->
-  <Control
+	</Control>
+	<!-- Magic Points -->
+	<Control
 		Type="Label"
-		Text="Hits Taken:"
-		Name="HitsTakenLabel"
-		X="720"
-		Y="690"
+		Text="Magic Points:"
+		Name="MagicPtsLabel"
+    Owner="TextVitalsWindow"
+		X="0"
+		Y="55"
 		Width="140"
 		Height="25"
 		TextColor="Plum"
 		IsVisible="true"
-		Font="courier16"
+		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
-  </Control>
-  <!-- Hits Taken Amount -->
-  <Control
+	</Control>
+     <!-- Magic Points Remaining -->
+	<Control
 		Type="Label"
 		Text=""
-		Name="HitsTakenAmountLabel"
-		X="850"
-		Y="690"
-		Width="100"
+		Name="MagicPtsRemainingLabel"
+    Owner="TextVitalsWindow"
+		X="143"
+		Y="55"
+		Width="50"
 		Height="25"
 		TextColor="Plum"
 		IsVisible="true"
-		Font="courier16"
+		Font="changaone16"
 		TextAlignment="Right"
 		AnchorBottom="true"
 		AnchorRight="true">
-  </Control>
-  <!-- Magic Points -->
-  <Control
-		Type="Label"
-		Text="Mana:"
-		Name="MagicPtsLabel"
-		X="720"
-		Y="715"
-		Width="60"
-		Height="25"
-		TextColor="Plum"
-		IsVisible="true"
-		Font="courier16"
-		TextAlignment="Left"
-		AnchorBottom="true"
-		AnchorRight="true">
-  </Control>
-  <!-- Magic Points Amount -->
-  <Control
+	</Control>
+	<!-- Magic Points Amount -->
+	<Control
 		Type="Label"
 		Text=""
 		Name="MagicPtsAmountLabel"
-		X="850"
-		Y="715"
-		Width="100"
+    Owner="TextVitalsWindow"
+		X="193"
+		Y="55"
+		Width="60"
 		Height="25"
 		TextColor="Plum"
 		IsVisible="true"
-		Font="courier16"
-		TextAlignment="Right"
-		AnchorBottom="true"
-		AnchorRight="true">
-  </Control>
-  <!-- Gained Experience -->
-  <Control
-		Type="Label"
-		Text="Gained Exp:"
-		Name="GainedExpLabel"
-		X="720"
-		Y="740"
-		Width="160"
-		Height="25"
-		TextColor="Lime"
-		VisualAlpha="255"
-		IsVisible="true"
-		Font="courier16"
+		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
-  </Control>
-  <!-- Gained Experience Amount -->
-  <Control
-		Type="Label"
-		Text=""
-		Name="GainedExpAmountLabel"
-		X="830"
-		Y="740"
-		Width="120"
-		Height="25"
-		TextColor="Lime"
-		VisualAlpha="255"
-		IsVisible="true"
-		Font="courier16"
-		TextAlignment="Right"
-		AnchorBottom="true"
-		AnchorRight="true">
-  </Control>
-  <!-- Hits Adjustment HUD -->
-  <Control
-		Type="Label"
-		Text=""
-		Name="HitsAdjLabel"
-		X="955"
-		Y="690"
-		Width="60"
-		Height="25"
-		TextColor="Red"
-		TintColor="Black"
-		VisualKey="WhiteSpace"
-		VisualAlpha="0"
-		IsVisible="true"
-		Font="courier16"
-		TextAlignment="Center"
-		AnchorBottom="true"
-		AnchorRight="true">
-  </Control>
+	</Control>
   </Stats>
 
   <Hands>
@@ -396,15 +371,15 @@
 		Type="DragAndDropButton"
 		Text=""
 		Name="RHNameDragAndDropButton"
-		X="45"
-		Y="690"
+		X="120"
+		Y="435"
 		Width="64"
 		Height="64"
 		TextColor="White"
     TextVisible="false"
 		IsVisible="true"
     IsLocked="false"
-		Font="courier12"
+		Font="changaone12"
 		TextAlignment="Center"
 		AnchorBottom="true"
 		AnchorLeft="true">
@@ -438,15 +413,15 @@
 		Type="DragAndDropButton"
 		Text=""
 		Name="LHNameDragAndDropButton"
-		X="114"
-		Y="690"
+		X="189"
+		Y="435"
 		Width="64"
 		Height="64"
 		TextColor="White"
     TextVisible="false"
 		IsVisible="true"
     IsLocked="false"
-		Font="courier12"
+		Font="changaone12"
 		TextAlignment="Center"
 		AnchorBottom="true"
 		AnchorLeft="true">
@@ -467,10 +442,10 @@
   <Control
 		Type="Window"
 		Name="CritterListWindow"
-		X="390"
-		Y="10"
-	  Width="624"
-		Height="247"
+		X="500"
+		Y="7"
+	  Width="520"
+		Height="257"
 		IsVisible="true"
 		IsLocked="false"
 		Font="courier12"
@@ -481,21 +456,14 @@
 		AnchorRight="true"
 		CursorOnDrag="Dragging">
   </Control>
-    <!-- ScrollableTextBoxWindowTitle -->
-    <Control
+  <!-- CritterListWindowTitle -->
+  <Control
       Type="WindowTitle"
       Name="CritterListWindowTitle"
       Owner="CritterListWindow"
       Font="courier12"
       VisualKey="WhiteSpace"
       TintColor="Gray"
-      CloseBoxVisualKey="WindowCloseBox"
-      CloseBoxVisualKeyDown="WindowCloseBoxDown"
-      CloseBoxDistanceFromRight="17"
-      CloseBoxDistanceFromTop="0"
-      CloseBoxWidth="15"
-      CloseBoxHeight="15"
-      CloseBoxTintColor="LightSteelBlue"
       CropBoxVisualKey="WindowCropBox"
       CropBoxVisualKeyDown="WindowCropBoxDown"
       CropBoxDistanceFromRight="38"
@@ -509,24 +477,25 @@
       Height="13"
       VisualAlpha="100">
     </Control>
-  <!-- Critter List Border -->
+  <!-- Critter List Border
   <Control
 		Type="SquareBorder"
 		Name="CritterListWindowBorder"
 		Owner="CritterListWindow"
 		Width="1"
 		VisualKey="WhiteSpace"
-		TintColor="DimGray">
-  </Control>
+		TintColor="DimGray"
+    VisualAlpha="25">
+  </Control>-->
   <!-- Critter List -->
   <Control
 		Type="CritterListLabel"
 		Text=""
 		Name="CritterList0"
 		Owner="CritterListWindow"
-		X="2"
+		X="0"
 		Y="15"
-		Width="620"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -542,9 +511,9 @@
 		Text=""
 		Name="CritterList1"
 		Owner="CritterListWindow"
-		X="2"
+		X="0"
 		Y="35"
-		Width="620"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -560,9 +529,9 @@
 		Text=""
 		Name="CritterList2"
 		Owner="CritterListWindow"
-		X="2"
-		Y="60"
-		Width="620"
+		X="0"
+		Y="55"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -578,9 +547,9 @@
 		Text=""
 		Name="CritterList3"
 		Owner="CritterListWindow"
-		X="2"
-		Y="85"
-		Width="620"
+		X="0"
+		Y="75"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -596,9 +565,9 @@
 		Text=""
 		Name="CritterList4"
 		Owner="CritterListWindow"
-		X="2"
-		Y="110"
-		Width="620"
+		X="0"
+		Y="95"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -614,9 +583,9 @@
 		Text=""
 		Name="CritterList5"
 		Owner="CritterListWindow"
-		X="2"
-		Y="135"
-		Width="620"
+		X="0"
+		Y="115"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -632,9 +601,9 @@
 		Text=""
 		Name="CritterList6"
 		Owner="CritterListWindow"
-		X="2"
-		Y="160"
-		Width="620"
+		X="0"
+		Y="135"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -650,9 +619,9 @@
 		Text=""
 		Name="CritterList7"
 		Owner="CritterListWindow"
-		X="2"
-		Y="185"
-		Width="620"
+		X="0"
+		Y="155"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -668,9 +637,9 @@
 		Text=""
 		Name="CritterList8"
 		Owner="CritterListWindow"
-		X="2"
-		Y="210"
-		Width="620"
+		X="0"
+		Y="175"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -686,9 +655,9 @@
 		Text=""
 		Name="CritterList9"
 		Owner="CritterListWindow"
-		X="2"
-		Y="235"
-		Width="620"
+		X="0"
+		Y="195"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -704,9 +673,9 @@
 		Text=""
 		Name="CritterList10"
 		Owner="CritterListWindow"
-		X="2"
-		Y="260"
-		Width="620"
+		X="0"
+		Y="215"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -722,9 +691,9 @@
 		Text=""
 		Name="CritterList11"
 		Owner="CritterListWindow"
-		X="2"
-		Y="290"
-		Width="620"
+		X="0"
+		Y="235"
+		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
 		TextColor="White"
@@ -743,7 +712,7 @@
 		Type="Window"
 		Name="MapDisplayWindow"
 		X="298"
-		Y="198"
+		Y="148"
 	  Width="354"
 		Height="354"
 		IsVisible="true"
@@ -1758,8 +1727,8 @@
     <Control
         Type="AutoHidingWindow"
         Name="HorizontalGameAutoHidingWindow"
-        X="390"
-        Y="317"
+        X="10"
+        Y="390"
         Width="245"
         Height="40"
         IsVisible="false"
@@ -1771,7 +1740,8 @@
         DropShadow="false"
         ShadowDistance="5"
         ShadowDirection="Southwest"
-        AnchorTop="true"
+        AnchorLeft="true"
+        AnchorBottom="true"
         AutoHideVisualAlpha="55"
         FadeSpeed="5">
     </Control>
@@ -1936,8 +1906,8 @@
       Name="VerticalGameAutoHidingWindow"
       X="10"
       Y="10"
-      Width="20"
-      Height="104"
+      Width="40"
+      Height="208"
       IsVisible="false"
       IsLocked="true"
       Font="courier12"
@@ -1984,8 +1954,8 @@
       Owner="VerticalGameAutoHidingWindow"
       X="0"
       Y="0"
-      Width="20"
-      Height="20"
+      Width="40"
+      Height="40"
       VisualKey="OptionGearsIcon"
       TintColor="MediumOrchid"
       TextColor="Black"
@@ -2004,9 +1974,9 @@
       Name="VerticalAutoHidingMapButton"
       Owner="VerticalGameAutoHidingWindow"
       X="0"
-      Y="22"
-      Width="20"
-      Height="20"
+      Y="42"
+      Width="40"
+      Height="40"
       VisualKey="MapIcon"
       TintColor="MediumOrchid"
       TextColor="Black"
@@ -2016,7 +1986,7 @@
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="toggle_map"
+      OnMouseDown="toggle_fogofwar"
       PopUpText="Map">
     </Control>
     <Control
@@ -2025,9 +1995,9 @@
       Name="VerticalAutoHidingVerticalHotbarButton"
       Owner="VerticalGameAutoHidingWindow"
       X="0"
-      Y="43"
-      Width="20"
-      Height="20"
+      Y="84"
+      Width="40"
+      Height="40"
       VisualKey="VerticalHotbarIcon"
       TintColor="MediumOrchid"
       TextColor="Black"
@@ -2046,9 +2016,9 @@
      Name="VerticalAutoHidingHorizontalHotbarButton"
      Owner="VerticalGameAutoHidingWindow"
      X="0"
-     Y="64"
-     Width="20"
-     Height="20"
+     Y="126"
+     Width="40"
+     Height="40"
      VisualKey="HorizontalHotbarIcon"
      TintColor="MediumOrchid"
      TextColor="Black"
@@ -2067,9 +2037,9 @@
      Name="VerticalAutoHidingMacrosButton"
      Owner="VerticalGameAutoHidingWindow"
      X="0"
-     Y="85"
-     Width="20"
-     Height="20"
+     Y="168"
+     Width="40"
+     Height="40"
      VisualKey="MacrosIcon"
      TintColor="MediumOrchid"
      TextColor="Black"

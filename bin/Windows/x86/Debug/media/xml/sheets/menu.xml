@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sheet Name="Menu"
 	   Description="Menu GUI" 
-	   Font="courier16"
+	   Font="changaone16"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"
@@ -10,7 +10,7 @@
   
   <!-- Green Tile Background
 	<Background
-		Font="courier16"
+		Font="changaone16"
 		VisualKey="GreenTileBackground"
 		IsCentered="false"
 		IsTiled="true"
@@ -20,7 +20,7 @@
 
   <!-- Dragon Over Island Background
   <Background
-		Font="courier16"
+		Font="changaone16"
 		VisualKey="DragonOverIslandBackground"
 		IsCentered="false"
 		IsTiled="false"
@@ -30,7 +30,7 @@
   
   <!-- Elvish City Background -->
   <Background
-		Font="courier16"
+		Font="changaone16"
 		VisualKey="ElvishCityBackground"
 		IsCentered="false"
 		IsTiled="false"
@@ -40,7 +40,7 @@
 
   <!-- Blank Background
   <Background
-		Font="courier16"
+		Font="changaone16"
 		VisualKey="WhiteSpace"
 		IsCentered="true"
 		IsTiled="false"
@@ -59,7 +59,7 @@
 		Height="30"
 		TextColor="White"
 		IsVisible="true"
-		Font="courier16"
+		Font="changaone16"
 		TextAlignment="Center">
 	</Control>
   
@@ -73,7 +73,7 @@
 		Height="30"
 		TextColor="White"
 		IsVisible="true"
-		Font="courier16"
+		Font="changaone16"
 		TextAlignment="Center">
 	</Control>
   
@@ -87,7 +87,7 @@
 		Height="30"
 		TextColor="White"
 		IsVisible="true"
-		Font="courier16"
+		Font="changaone16"
 		TextAlignment="Center">
 	</Control>
   
@@ -99,7 +99,7 @@
 		Width="60"
 		Height="60"
 		IsVisible="true"
-    Font="courier16"
+    Font="changaone16"
 		VisualKey="">
 	</Control>
   
@@ -113,7 +113,7 @@
 		Height="20"
 		IsVisible="true"
 		IsDisabled="false" 
-		Font="courier16"
+		Font="changaone16"
 		VisualKey="BrownRightArrowButton"
 		VisualKeyDown="BrownRightArrowButtonDown"
 		TintColor="Gold"
@@ -132,7 +132,7 @@
 		Height="20"
 		IsVisible="true"
 		IsDisabled="false" 
-		Font="courier16"
+		Font="changaone16"
 		VisualKey="BrownLeftArrowButton"
 		VisualKeyDown="BrownLeftArrowButtonDown"
 		TintColor="Gold"
@@ -153,7 +153,7 @@
 		YTextOffSet="0" 
 		IsVisible="true"
 		IsDisabled="false" 
-		Font="courier16"
+		Font="changaone16"
 		TextColor="White"
 		TextOverColor="Lime" 
 		VisualKey="RoundedButton"
@@ -179,7 +179,7 @@
 		YTextOffSet="0" 
 		IsVisible="true"
 		IsDisabled="false" 
-		Font="courier16"
+		Font="changaone16"
 		TextColor="White"
 		TextOverColor="Lime" 
 		VisualKey="RoundedButton"
@@ -206,7 +206,7 @@
 		YTextOffSet="0" 
 		IsVisible="true"
 		IsDisabled="false" 
-		Font="courier16"
+		Font="changaone16"
 		TextColor="White"
 		TextOverColor="Lime" 
 		VisualKey="RoundedButton"
@@ -232,7 +232,7 @@
 		YTextOffSet="0"
 		IsVisible="true"
 		IsDisabled="false"
-		Font="courier16"
+		Font="changaone16"
 		TextColor="White"
 		TextOverColor="Lime"
 		VisualKey="RoundedButton"

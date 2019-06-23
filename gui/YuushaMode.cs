@@ -26,7 +26,7 @@ namespace Yuusha.gui
         private static List<string> m_bufferedCommands = new List<string>();
         private static int m_maxBufferedCommands = 20;
         private static int m_bufferPreview = 0;
-        private static TimeSpan m_lastExpUpdate;
+       // private static TimeSpan m_lastExpUpdate;
         #endregion
 
         #region Properties
@@ -73,33 +73,38 @@ namespace Yuusha.gui
             {
                 if (chr != null)
                 {
-                    sheet["HitsAmountLabel"].Text = string.Format("{0}/{1}", chr.Hits, chr.HitsFull);
-                    sheet["ExpAmountLabel"].Text = string.Format("{0:n0}", chr.Experience);
-                    sheet["StaminaAmountLabel"].Text = string.Format("{0}/{1}", chr.Stamina, chr.StaminaFull);
-                    sheet["HitsTakenAmountLabel"].Text = Convert.ToString(chr.HitsFull - chr.Hits);
+                    if (GuiManager.GetControl("TextVitalsWindow") is Window vitalsWindow && vitalsWindow.DiscreetlyDraggable)
+                        vitalsWindow.DiscreetlyDraggable = false;
 
-                    if (sheet["HitsTakenAmountLabel"].Text != "0")
-                    {
-                        sheet["HitsTakenAmountLabel"].TextColor = Color.DarkSalmon;
-                    }
-                    else
-                    {
-                        sheet["HitsTakenAmountLabel"].TextColor = Color.Plum;
-                    }
+                    sheet["HitsRemainingLabel"].Text = chr.Hits.ToString();
+                    if (chr.Hits != chr.HitsFull)
+                        sheet["HitsRemainingLabel"].TextColor = Color.DarkSalmon;
+                    else sheet["HitsRemainingLabel"].TextColor = sheet["HitsAmountLabel"].TextColor;
+                    sheet["HitsAmountLabel"].Text = "/" + chr.HitsFull.ToString();
 
+                    sheet["StaminaRemainingLabel"].Text = chr.Stamina.ToString();
+                    if (chr.Stamina != chr.StaminaFull)
+                        sheet["StaminaRemainingLabel"].TextColor = Color.DarkSalmon;
+                    else sheet["StaminaRemainingLabel"].TextColor = sheet["StaminaAmountLabel"].TextColor;
+                    sheet["StaminaAmountLabel"].Text = "/" + chr.StaminaFull.ToString();
 
                     #region Magic Points Labels
                     if (chr.IsSpellUser)
                     {
+                        sheet["MagicPtsRemainingLabel"].Text = chr.Mana.ToString();
+                        if (chr.Mana != chr.ManaFull)
+                            sheet["MagicPtsRemainingLabel"].TextColor = Color.DarkSalmon;
+                        else sheet["MagicPtsRemainingLabel"].TextColor = sheet["MagicPtsAmountLabel"].TextColor;
+                        sheet["MagicPtsAmountLabel"].Text = "/" + chr.ManaFull.ToString();
 
                         sheet["MagicPtsLabel"].IsVisible = true;
                         sheet["MagicPtsAmountLabel"].IsVisible = true;
-                        string.Format("{0}/{1}", chr.Mana, chr.ManaFull);
-                        sheet["MagicPtsAmountLabel"].Text = string.Format("{0}/{1}", chr.Mana, chr.ManaFull);
+                        sheet["MagicPtsRemainingLabel"].IsVisible = true;
                     }
                     else
                     {
                         sheet["MagicPtsLabel"].IsVisible = false;
+                        sheet["MagicPtsRemainingLabel"].IsVisible = false;
                         sheet["MagicPtsAmountLabel"].IsVisible = false;
                     }
                     #endregion
@@ -111,6 +116,7 @@ namespace Yuusha.gui
                         sheet["RHNameDragAndDropButton"].PopUpText = chr.RightHand.Name;
                         sheet["RHNameDragAndDropButton"].VisualKey = chr.RightHand.VisualKey;
                         sheet["RHNameDragAndDropButton"].TintColor = Color.White;
+
                         if (chr.RightHand.nocked)
                         {
                             if (chr.RightHand.Name.ToLower().Contains("crossbow"))
@@ -141,6 +147,7 @@ namespace Yuusha.gui
                         sheet["LHNameDragAndDropButton"].PopUpText = chr.LeftHand.Name;
                         sheet["LHNameDragAndDropButton"].VisualKey = chr.LeftHand.VisualKey;
                         sheet["LHNameDragAndDropButton"].TintColor = Color.White;
+
                         if (chr.LeftHand.nocked)
                         {
                             if (chr.LeftHand.Name.ToLower().Contains("crossbow"))
@@ -167,36 +174,44 @@ namespace Yuusha.gui
                     if (pre != null)
                     {
                         // hits update (if pre.hits is greater than 0, in other words not first update)
-                        if (pre.Hits != chr.Hits && pre.Hits > 0)
+                        if (pre.Hits != chr.Hits)// && pre.Hits > 0)
                         {
                             if (pre.Hits > chr.Hits)
-                            {
-                                sheet["HitsAdjLabel"].Text = string.Format("-{0}", Convert.ToString(pre.Hits - chr.Hits));
-                                sheet["HitsAdjLabel"].TextColor = Color.Red;
-                            }
+                                TextCue.AddHealthLossTextCue(string.Format("-{0}", Convert.ToString(pre.Hits - chr.Hits)));
                             else
-                            {
-                                sheet["HitsAdjLabel"].Text = string.Format("+{0}", Convert.ToString(chr.Hits - pre.Hits));
-                                sheet["HitsAdjLabel"].TextColor = Color.LimeGreen;
-                            }
+                                TextCue.AddHealthGainTextCue(string.Format("+{0}", Convert.ToString(chr.Hits - pre.Hits)));
 
-                            sheet["HitsAdjLabel"].IsVisible = true;
+                            Character.PreviousRoundCharacter.Hits = chr.Hits;
                         }
-                        else sheet["HitsAdjLabel"].IsVisible = false;
 
-                        // experience update (if pre.exp is greater than 0, in other words not first update)
+                        if (pre.Stamina != chr.Stamina)// && pre.Hits > 0)
+                        {
+                            if (pre.Stamina > chr.Stamina)
+                                TextCue.AddStaminaLossTextCue(string.Format("-{0}", Convert.ToString(pre.Stamina - chr.Stamina)));
+                            else
+                                TextCue.AddStaminaGainTextCue(string.Format("+{0}", Convert.ToString(chr.Stamina - pre.Stamina)));
+
+                            Character.PreviousRoundCharacter.Stamina = chr.Stamina;
+                        }
+
+                        if (pre.Mana != chr.Mana)// && pre.Hits > 0)
+                        {
+                            if (pre.Mana > chr.Mana)
+                                TextCue.AddManaLossTextCue(string.Format("-{0}", Convert.ToString(pre.Mana - chr.Mana)));
+                            else
+                                TextCue.AddManaGainTextCue(string.Format("+{0}", Convert.ToString(chr.Mana - pre.Mana)));
+
+                            Character.PreviousRoundCharacter.Mana = chr.Mana;
+                        }
+
+                        // Experience adjustments.
                         if (pre.Experience < chr.Experience && pre.Experience > 0)
                         {
-                            sheet["GainedExpAmountLabel"].Text = string.Format("{0:n0}", chr.Experience - pre.Experience);
-
-                            sheet["GainedExpLabel"].IsVisible = true;
-                            sheet["GainedExpAmountLabel"].IsVisible = true;
-                            m_lastExpUpdate = gameTime.TotalGameTime;
+                            TextCue.AddXPGainTextCue(string.Format("+{0:n0}", chr.Experience - pre.Experience));
                         }
-                        else if (gameTime == null || gameTime.TotalGameTime - m_lastExpUpdate >= TimeSpan.FromSeconds(5))
+                        else if (pre.Experience > chr.Experience)
                         {
-                            sheet["GainedExpLabel"].IsVisible = false;
-                            sheet["GainedExpAmountLabel"].IsVisible = false;
+                            TextCue.AddXPLossTextCue(string.Format("-{0:n0}", pre.Experience - chr.Experience));
                         }
                     }
                 }
@@ -378,14 +393,13 @@ namespace Yuusha.gui
             try
             {
                 string[] itemInfo = inData.Split(Protocol.VSPLIT.ToCharArray());
-                Item item = new Item();
-                item.ID = Convert.ToInt32(itemInfo[0]);
-                item.Name = itemInfo[1];
-                //item.longDesc = itemInfo[2];
-                item.VisualKey = itemInfo[3];
-                //item.wearLocation = (Character.WearLocation)Convert.ToInt32(itemInfo[4]);
-                //item.attuneType = (Item.AttuneType)Convert.ToInt32(itemInfo[5]);
-                item.WorldItemID = Convert.ToInt32(itemInfo[4]);
+                Item item = new Item
+                {
+                    ID = Convert.ToInt32(itemInfo[0]),
+                    WorldItemID = Convert.ToInt32(itemInfo[1]),
+                    Name = itemInfo[2],
+                    VisualKey = itemInfo[3]
+                };
                 return item;
             }
             catch (Exception e)
@@ -411,73 +425,78 @@ namespace Yuusha.gui
                         m_critterListNames[a] = "";
                     }
 
-                    Cell cell = m_cells[24]; // start with our cell
+                    Cell cell;
 
-                    if (cell.Characters.Count > 0)
+                    if (m_cells.Count >= 25)
                     {
-                        foreach (Character ch in cell.Characters)
+                        cell = m_cells[24]; // start with our cell
+
+                        if (cell.Characters.Count > 0)
                         {
-                            #region Create Critter Label (Center Cell)
-                            string critterInfo = "  " + m_alignment[(int)ch.Alignment] + ch.Name;
-                            critterInfo = critterInfo.PadRight(19);
-
-                            if (ch.RightHand != null)
-                                critterInfo += ch.RightHand.Name;
-
-                            critterInfo = critterInfo.PadRight(31);
-
-                            if (ch.LeftHand != null)
-                                critterInfo += ch.LeftHand.Name;
-
-                            critterInfo = critterInfo.PadRight(43);
-
-                            critterInfo += ch.visibleArmor;
-
-                            Color foreColor = Color.White;
-                            Color backColor = Color.Black;
-
-                            switch (ch.Alignment)
+                            foreach (Character ch in cell.Characters)
                             {
-                                case World.Alignment.Amoral:
-                                    foreColor = Client.ClientSettings.Color_Gui_Amoral_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Amoral_Back;
-                                    break;
-                                case World.Alignment.Chaotic:
-                                    foreColor = Client.ClientSettings.Color_Gui_Chaotic_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Chaotic_Back;
-                                    break;
-                                case World.Alignment.ChaoticEvil:
-                                    foreColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
-                                    break;
-                                case World.Alignment.Evil:
-                                    foreColor = Client.ClientSettings.Color_Gui_Evil_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Evil_Back;
-                                    break;
-                                case World.Alignment.Lawful:
-                                    foreColor = Client.ClientSettings.Color_Gui_Lawful_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Lawful_Back;
-                                    break;
-                                case World.Alignment.Neutral:
-                                    foreColor = Client.ClientSettings.Color_Gui_Neutral_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Neutral_Back;
+                                #region Create Critter Label (Center Cell)
+                                string critterInfo = "  " + m_alignment[(int)ch.Alignment] + ch.Name;
+                                critterInfo = critterInfo.PadRight(19);
+
+                                if (ch.RightHand != null)
+                                    critterInfo += ch.RightHand.Name;
+
+                                critterInfo = critterInfo.PadRight(31);
+
+                                if (ch.LeftHand != null)
+                                    critterInfo += ch.LeftHand.Name;
+
+                                critterInfo = critterInfo.PadRight(43);
+
+                                critterInfo += ch.visibleArmor;
+
+                                Color foreColor = Color.White;
+                                Color backColor = Color.Black;
+
+                                switch (ch.Alignment)
+                                {
+                                    case World.Alignment.Amoral:
+                                        foreColor = Client.ClientSettings.Color_Gui_Amoral_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Amoral_Back;
+                                        break;
+                                    case World.Alignment.Chaotic:
+                                        foreColor = Client.ClientSettings.Color_Gui_Chaotic_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Chaotic_Back;
+                                        break;
+                                    case World.Alignment.ChaoticEvil:
+                                        foreColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
+                                        break;
+                                    case World.Alignment.Evil:
+                                        foreColor = Client.ClientSettings.Color_Gui_Evil_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Evil_Back;
+                                        break;
+                                    case World.Alignment.Lawful:
+                                        foreColor = Client.ClientSettings.Color_Gui_Lawful_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Lawful_Back;
+                                        break;
+                                    case World.Alignment.Neutral:
+                                        foreColor = Client.ClientSettings.Color_Gui_Neutral_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Neutral_Back;
+                                        break;
+                                }
+
+                                m_critterListNames[labelNum] = ch.Name;
+                                CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
+                                label.Critter = ch;
+                                label.CenterCell = true;
+                                label.Text = critterInfo;
+                                label.TextColor = foreColor;
+                                label.TintColor = backColor;
+                                label.IsVisible = true;
+                                #endregion
+
+                                labelNum++;
+
+                                if (labelNum >= 12)
                                     break;
                             }
-
-                            m_critterListNames[labelNum] = ch.Name;
-                            CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
-                            label.Critter = ch;
-                            label.CenterCell = true;
-                            label.Text = critterInfo;
-                            label.TextColor = foreColor;
-                            label.TintColor = backColor;
-                            label.IsVisible = true;
-                            #endregion
-
-                            labelNum++;
-
-                            if (labelNum >= 12)
-                                break;
                         }
                     }
 
@@ -565,7 +584,6 @@ namespace Yuusha.gui
                 {
                     SpinelTileLabel spLabel;
                     Cell cell;
-                    VisualInfo backVI = GuiManager.Visuals["WhiteSpace"];
                     SpinelTileDefinition currTile;
 
                     for (int count = 0; count < m_cells.Count; count++) // move through each cell and update the map and mobs list

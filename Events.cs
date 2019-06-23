@@ -41,6 +41,7 @@ namespace Yuusha
             Request_Locker,
             Request_Pouch,
             Request_Rings,
+            Request_Stats,
             Request_Sack,
             Request_Skills,
             Request_Spells,
@@ -71,7 +72,7 @@ namespace Yuusha
             User_Settings_Changed,
         }
 
-        private static System.Timers.Timer AwaitInitialRequestsData;
+        private static System.Timers.Timer AwaitInitialRequestsData = null;
 
         public static void RegisterEvent(EventName name, params object[] args)
         {
@@ -248,8 +249,7 @@ namespace Yuusha
 
                                 if (IO.Connect())
                                 {
-                                    RegisterEvent(EventName.Set_Login_Status_Label,
-                                                  "Connecting to " + Client.ClientSettings.ServerName + "...", "Lime");
+                                    RegisterEvent(EventName.Set_Login_Status_Label, "Connecting to " + Client.ClientSettings.ServerName + "...", "Lime");
                                     RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Connected);
 
                                     bool rememberPassword = (GuiManager.CurrentSheet["RememberPasswordCheckboxButton"] as CheckboxButton).IsChecked;
@@ -301,7 +301,7 @@ namespace Yuusha
                             if (newAccountTextBox.Text.Length < CharGen.ACCOUNT_MIN_LENGTH || newAccountTextBox.Text.Length > CharGen.ACCOUNT_MAX_LENGTH)
                             {
                                 TextCue.AddClientInfoTextCue("Account name must be between " + CharGen.ACCOUNT_MIN_LENGTH + " and " + CharGen.ACCOUNT_MAX_LENGTH + " characters in length.",
-                                    TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 10000, false, true, true);
+                                    TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 0, 10000, false, true, true);
 
                                 newAccountTextBox.HasFocus = true;
                                 return;
@@ -312,14 +312,14 @@ namespace Yuusha
                             if (newAccountPasswordTextBox.Text.Length < CharGen.PASSWORD_MIN_LENGTH || newAccountPasswordTextBox.Text.Length > CharGen.PASSWORD_MAX_LENGTH)
                             {
                                 TextCue.AddClientInfoTextCue("Password must be between " + CharGen.PASSWORD_MIN_LENGTH + " and " + CharGen.PASSWORD_MAX_LENGTH + " characters in length.",
-                                    TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 10000, false, true, true);
+                                    TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 0, 10000, false, true, true);
 
                                 newAccountPasswordTextBox.HasFocus = true;
                                 return;
                             }
                             else if ((GuiManager.CurrentSheet["CreateNewAccountWindow"] as gui.Window)["CreateNewAccountConfirmPasswordTextBox"].Text != newAccountPasswordTextBox.Text)
                             {
-                                TextCue.AddClientInfoTextCue("Passwords do not match.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 10000, false, true, true);
+                                TextCue.AddClientInfoTextCue("Passwords do not match.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 0, 10000, false, true, true);
                                 newAccountPasswordTextBox.HasFocus = true;
                                 return;
                             }
@@ -331,14 +331,14 @@ namespace Yuusha
                             }
                             catch
                             {
-                                TextCue.AddClientInfoTextCue("Invalid email address.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 10000, false, true, true);
+                                TextCue.AddClientInfoTextCue("Invalid email address.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 0, 10000, false, true, true);
                                 newAccountEmailTextBox.HasFocus = true;
                                 return;
                             }
 
                             if ((GuiManager.CurrentSheet["CreateNewAccountWindow"] as gui.Window)["CreateNewAccountConfirmEmailTextBox"].Text != newAccountEmailTextBox.Text)
                             {
-                                TextCue.AddClientInfoTextCue("Email addresses do not match.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 10000, false, true, true);
+                                TextCue.AddClientInfoTextCue("Email addresses do not match.", TextCue.TextCueTag.None, Color.OrangeRed, Color.Transparent, 0, 10000, false, true, true);
                                 newAccountEmailTextBox.HasFocus = true;
                                 return;
                             }
@@ -348,8 +348,7 @@ namespace Yuusha
 
                             if (IO.Connect())
                             {
-                                RegisterEvent(EventName.Set_Login_Status_Label,
-                                              "Connecting to " + Client.ClientSettings.ServerName + "...", "Lime");
+                                RegisterEvent(EventName.Set_Login_Status_Label, "Connecting to " + Client.ClientSettings.ServerName + "...", "Lime");
                                 RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Connected);
                                 RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.NewAccount);
                                 //if (IO.LoginState != Enums.ELoginState.NewAccount)
@@ -457,11 +456,11 @@ namespace Yuusha
 
                         if (!privateMessage || (privateMessage && Client.ClientSettings.EchoPrivateMessagesToConference))
                         {
-                            if(Client.GameDisplayMode == Enums.EGameDisplayMode.IOK)
+                            if(Client.GameState == Enums.EGameState.IOKGame)
                                 IOKMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
-                            else if(Client.GameDisplayMode == Enums.EGameDisplayMode.Spinel)
+                            else if(Client.GameState == Enums.EGameState.SpinelGame)
                                 SpinelMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
-                            else if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha)
+                            else if (Client.GameState == Enums.EGameState.YuushaGame)
                                 YuushaMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
 
                             if (Client.ClientSettings.DisplayChantingTextCue)
@@ -512,10 +511,12 @@ namespace Yuusha
                         switch (Client.GameDisplayMode)
                         {
                             case Enums.EGameDisplayMode.IOK:
+                                IOKMode.FormatCell((string)args[0]);
+                                break;
                             case Enums.EGameDisplayMode.Spinel:
+                                SpinelMode.FormatCell((string)args[0]);
+                                break;
                             case Enums.EGameDisplayMode.Yuusha:
-                                IOKMode.FormatCells((string) args[0]);
-                                SpinelMode.FormatCell((string) args[0]);
                                 YuushaMode.FormatCell((string)args[0]);
                                 break;
                             case Enums.EGameDisplayMode.LOK:
@@ -680,13 +681,15 @@ namespace Yuusha
                         IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                         break;
                     case EventName.Request_Inventory:
+                        IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
                         if (args[0] is Button)
-                            if (GuiManager.GetControl("InventoryGridBoxWindow") is GridBoxWindow gridBoxWindow)
+                        {
+                            if (GuiManager.GetControl("InventoryWindow") is Window inventoryWindow)
                             {
-                                gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
-                                gridBoxWindow.ZDepth = 1;
+                                inventoryWindow.IsVisible = !inventoryWindow.IsVisible;
+                                inventoryWindow.ZDepth = 1;
                             }
-                        //IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
+                        }
                         break;
                     case EventName.Request_Locker:
                         IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);
@@ -714,6 +717,9 @@ namespace Yuusha
                                 gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
                                 gridBoxWindow.ZDepth = 1;
                             }
+                        break;
+                    case EventName.Request_Stats:
+                        IO.Send(Protocol.REQUEST_CHARACTER_STATS);
                         break;
                     case EventName.Request_Sack:
                         IO.Send(Protocol.REQUEST_CHARACTER_SACK);
@@ -821,8 +827,11 @@ namespace Yuusha
                         break;
                     case EventName.Set_Client_Mode:
                         Client.GameDisplayMode = (Enums.EGameDisplayMode) args[0];
-                        if(Client.GameState.ToString().EndsWith("Game"))
+                        if (Client.GameState.ToString().EndsWith("Game"))
+                        {
+                            RegisterEvent(EventName.Send_Command, "redraw");
                             RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Game);
+                        }
                         break;
                     case EventName.Set_Game_State:
                         #region Set Game State
@@ -878,9 +887,18 @@ namespace Yuusha
                                     GridBoxWindow.RequestUpdateFromServer(purpose);
                                 }
 
-                                AwaitInitialRequestsData = new System.Timers.Timer(1000);
-                                AwaitInitialRequestsData.Elapsed += AwaitInitialRequests_Elapsed;
-                                AwaitInitialRequestsData.Start();
+                                if (AwaitInitialRequestsData == null)
+                                {
+                                    AwaitInitialRequestsData = new System.Timers.Timer(1000);
+                                    AwaitInitialRequestsData.Elapsed += AwaitInitialRequests_Elapsed;
+                                    AwaitInitialRequestsData.Start();
+                                }
+
+                                if (GuiManager.GetControl("FogOfWarMapWindow") == null)
+                                {
+                                    MapWindow.CreateFogOfWarMapWindow();
+                                    GuiManager.GetControl("FogOfWarMapWindow").IsVisible = true;
+                                }
                             }
 
                             if (Client.GameState == Enums.EGameState.Login)
@@ -1051,7 +1069,7 @@ namespace Yuusha
                                         Character.Settings.CritterListDropDownMenuItem5 = tbx.Text;
                                     #endregion
 
-                                    TextCue.AddClientInfoTextCue("Character Options Saved", Color.Lime, Color.Black, 1000);
+                                    TextCue.AddClientInfoTextCue("Character Options Saved", Color.Lime, Color.Black, 1500);
 
                                 }
                             }
@@ -1229,7 +1247,7 @@ namespace Yuusha
                         if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
                         {
                             TextCue.AddClientInfoTextCue("No Target", TextCue.TextCueTag.None, Color.Red,
-                               Color.Black, 2000, false, false, false);
+                               Color.Black, 255, 2000, false, false, false);
                             GameHUD.CurrentTarget = null;
                         }
                         break;
@@ -1247,14 +1265,14 @@ namespace Yuusha
                             }
 
                             TextCue.AddClientInfoTextCue("Target: " + targetName, TextCue.TextCueTag.None, Color.Red,
-                                                         Color.Transparent, 2000, false, false, false);
+                                                         Color.Transparent, 0, 2000, false, false, false);
                         }
                         break;
                     case EventName.Toggle_FogOfWar:
-                        Control mapWindow = GuiManager.GetControl("PrimaryMapWindow");
+                        Control mapWindow = GuiManager.GetControl("FogOfWarMapWindow");
                         if (mapWindow == null)
                         {
-                            MapWindow.CreateMapWindow();
+                            MapWindow.CreateFogOfWarMapWindow();
                             (GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "MapDisplayWindow") as Window).WindowBorder.IsVisible = false;
                         }
                         else
@@ -1664,8 +1682,8 @@ namespace Yuusha
                                 {
                                     // Overrides to focus on input text box.
                                     // Options window and private messages have focus priority.
-                                    if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible &&
-                                        !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage") && GuiManager.ActiveDropDownMenu == "")
+                                    if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || GuiManager.ControlWithFocus != null && 
+                                        !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")) && GuiManager.ActiveDropDownMenu == "")
                                         sheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
                                 }
                             }

@@ -206,21 +206,25 @@ namespace Yuusha.gui
                 // draw strings
                 foreach (TextCue tc in m_textCues)
                     tc.Draw(gameTime);
+                
+                // Cursor is drawn on the Generic Sheet.
+                //if (GuiManager.MouseCursorVisible)
+                //{
+                //    // draw cursor
+                //    if (m_cursorOverride == "")
+                //    {
+                //        if (GuiManager.Cursors.ContainsKey(m_cursor))
+                //            GuiManager.Cursors[m_cursor].Draw(gameTime);
+                //        else Utils.LogOnce("Failed to find cursor visual key [ " + m_cursor + " ] for GUI Sheet [ " + m_name + " ]");
 
-                // draw cursor
-                if (m_cursorOverride == "")
-                {
-                    if (GuiManager.Cursors.ContainsKey(m_cursor))
-                        GuiManager.Cursors[m_cursor].Draw(gameTime);
-                    else Utils.LogOnce("Failed to find cursor visual key [ " + m_cursor + " ] for GUI Sheet [ " + m_name + " ]");
-
-                }
-                else
-                {
-                    if (GuiManager.Cursors.ContainsKey(m_cursorOverride))
-                        GuiManager.Cursors[m_cursorOverride].Draw(gameTime);
-                    else Utils.LogOnce("Failed to find cursor override visual key [ " + m_cursorOverride + " ] for GUI Sheet [ " + m_name + " ]");
-                }
+                //    }
+                //    else
+                //    {
+                //        if (GuiManager.Cursors.ContainsKey(m_cursorOverride))
+                //            GuiManager.Cursors[m_cursorOverride].Draw(gameTime);
+                //        else Utils.LogOnce("Failed to find cursor override visual key [ " + m_cursorOverride + " ] for GUI Sheet [ " + m_name + " ]");
+                //    }
+                //}
             }
             catch(Exception e)
             {
@@ -573,6 +577,7 @@ namespace Yuusha.gui
                         {
                             (owner as DragAndDropButton).Border = c as SquareBorder;
                             (owner as DragAndDropButton).OriginalBorderColor = c.TintColor;
+                            (owner as DragAndDropButton).HasOriginalBorderColor = true;
                         }
                         if (c is DropDownMenu)
                             (owner as DragAndDropButton).DropDownMenu = c as DropDownMenu;
@@ -636,9 +641,7 @@ namespace Yuusha.gui
                 c.Width = w.Width;
                 (w as Window).WindowTitle = c as WindowTitle;
                 if (w is AutoHidingWindow)
-                {
                     (w as AutoHidingWindow).SetWindowOrientation();
-                }
             }
             else if (c is Border && c.Name == w.Name + "Border")
             {
@@ -681,6 +684,9 @@ namespace Yuusha.gui
         {
             foreach (Control control in new List<Control>(m_controls))
                 control.OnClientResize(prev, now, false);
+
+            foreach (TextCue textCue in new List<TextCue>(TextCues))
+                textCue.OnClientResize(prev, now);
         }
 
         /// <summary>

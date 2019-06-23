@@ -70,6 +70,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="audio\AmbienceAudio.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="game classes\Account.cs" />
@@ -162,7 +163,7 @@
     <Compile Include="utility\settings\FogOfWarSettings.cs" />
     <Compile Include="utility\settings\StaticSettings.cs" />
     <Compile Include="utility\settings\UserSettings.cs" />
-    <Compile Include="utility\Sound.cs" />
+    <Compile Include="audio\AudioManager.cs" />
     <Compile Include="utility\TextManager.cs" />
     <Compile Include="utility\Utils.cs" />
   </ItemGroup>
@@ -184,6 +185,30 @@
   <ItemGroup>
     <Content Include="GameThumbnail.png" />
     <Content Include="gold+dragon.ico" />
+    <Content Include="media\fonts\changaone12-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\changaone12.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\changaone14-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\changaone14.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\changaone16-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\changaone16.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\changaone20-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\changaone20.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\fonts\courier12-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

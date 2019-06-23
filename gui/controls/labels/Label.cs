@@ -105,10 +105,14 @@ namespace Yuusha.gui
             if (Border != null) Border.Draw(gameTime);
         }
 
-        protected override void OnMouseOver(MouseState ms)
-        {
-            if (m_cursorOverride != "" && GuiManager.Cursors.ContainsKey(m_cursorOverride))
-                GuiManager.CurrentSheet.CursorOverride = m_cursorOverride;
-        }
+        //protected override void OnMouseOver(MouseState ms)
+        //{
+        //    base.OnMouseOver(ms);
+
+        //    if (m_cursorOverride != "" && GuiManager.Cursors.ContainsKey(m_cursorOverride))
+        //        GuiManager.CurrentSheet.CursorOverride = m_cursorOverride;
+
+        //    TextCue.AddMouseCursorTextCue(Position.ToString());
+        //}
     }
 }

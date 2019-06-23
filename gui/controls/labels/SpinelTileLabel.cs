@@ -105,7 +105,7 @@ namespace Yuusha.gui
             {
                 if (!GuiManager.Visuals.ContainsKey(m_foreVisual.Key))
                 {
-                    Utils.LogOnce("Failed to find visual key [ " + m_foreVisual + " ] for Control [ " + m_name + " ]");
+                    Utils.LogOnce("Failed to find SpinelTileLabel foreVisual key [ " + m_foreVisual + " ] for Control [ " + m_name + " ]");
                     m_foreVisual.Key = ""; // clear visual key
                     return;
                 }
@@ -124,10 +124,10 @@ namespace Yuusha.gui
 
             if (FogVisual != null && FogVisual != "")
             {
-                if (!GuiManager.Visuals.ContainsKey(m_foreVisual.Key))
+                if (!GuiManager.Visuals.ContainsKey(FogVisual))
                 {
-                    Utils.LogOnce("Failed to find visual key [ " + m_foreVisual + " ] for Control [ " + m_name + " ]");
-                    m_foreVisual.Key = ""; // clear visual key
+                    Utils.LogOnce("Failed to find SpinelTileLabel fogVisual key [ " + FogVisual + " ] for Control [ " + m_name + " ]");
+                    FogVisual = ""; // clear visual key
                     return;
                 }
 
@@ -140,7 +140,7 @@ namespace Yuusha.gui
             {
                 if (!GuiManager.Visuals.ContainsKey(m_lootVisual.Key))
                 {
-                    Utils.LogOnce("Failed to find visual key [ " + m_lootVisual + " ] for Control [ " + m_name + " ]");
+                    Utils.LogOnce("Failed to find SpinelTileLabel lootVisual key [ " + m_lootVisual + " ] for Control [ " + m_name + " ]");
                     m_lootVisual.Key = ""; // clear visual key
                     return;
                 }
@@ -217,11 +217,12 @@ namespace Yuusha.gui
 
         }
 
-        protected override void OnMouseOver(MouseState ms)
-        {
-            base.OnMouseOver(ms);
+        //protected override void OnMouseOver(MouseState ms)
+        //{
+        //    base.OnMouseOver(ms);
 
-            TextCue.AddMouseCursorTextCue(PopUpText);
-        }
+        //    if(FogOfWarDetail != null)
+        //        TextCue.AddMouseCursorTextCue(FogOfWarDetail.XCord + ", " + FogOfWarDetail.YCord);
+        //}
     }
 }

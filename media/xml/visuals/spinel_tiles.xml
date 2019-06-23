@@ -70,6 +70,7 @@
   <Visual ParentTexture="spinel_tiles.png" Name="sptile_left_tree_frost" X="0" Y="240" Width="40" Height="40"></Visual>
   <Visual ParentTexture="spinel_tiles.png" Name="sptile_right_tree_frost" X="40" Y="240" Width="40" Height="40"></Visual>
   <Visual ParentTexture="spinel_tiles.png" Name="sptile_double_tree_frost" X="80" Y="240" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_frozengrass1" X="120" Y="240" Width="40" Height="40"></Visual>
 
   <Visual ParentTexture="spinel_tiles.png" Name="sptile_left_tree_dead" X="0" Y="280" Width="40" Height="40"></Visual>
   <Visual ParentTexture="spinel_tiles.png" Name="sptile_right_tree_dead" X="40" Y="280" Width="40" Height="40"></Visual>

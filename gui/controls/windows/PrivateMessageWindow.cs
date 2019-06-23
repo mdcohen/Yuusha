@@ -64,8 +64,8 @@ namespace Yuusha.gui
             if (Client.ClientSettings.PlayPrivateMessageSounds)
             {
                 if (firstMessage || !IsVisible)
-                    Sound.Play("GUISounds/pm_alert");
-                else Sound.Play("GUISounds/pm_alert_short");
+                    Audio.AudioManager.PlaySoundEffect("GUISounds/pm_alert");
+                else Audio.AudioManager.PlaySoundEffect("GUISounds/pm_alert_short");
             }
             IsVisible = true;
         }
@@ -77,17 +77,17 @@ namespace Yuusha.gui
             MessageBox.AddLine("You: " + messageSent, Enums.ETextType.PrivateMessageReceiver);
         }
 
-        public override void OnClose()
-        {
-            foreach(Control c in new List<Control>(Controls))
-            {
-                Controls.Remove(c);
-                GuiManager.Dispose(c);
-            }
+        //public override void OnClose()
+        //{
+        //    foreach(Control c in new List<Control>(Controls))
+        //    {
+        //        Controls.Remove(c);
+        //        GuiManager.Dispose(c);
+        //    }
 
-            GuiManager.Dispose(this);
+        //    GuiManager.Dispose(this);
 
-            base.OnClose();
-        }
+        //    base.OnClose();
+        //}
     }
 }

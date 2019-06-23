@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FontIndex>
+  <Font Path="media\fonts\changaone12.xml"></Font>
+  <Font Path="media\fonts\changaone14.xml"></Font>
+  <Font Path="media\fonts\changaone16.xml"></Font>
+  <Font Path="media\fonts\changaone20.xml"></Font>
 	<Font Path="media\fonts\courier12.xml"></Font>
   <Font Path="media\fonts\courier14.xml"></Font>
 	<Font Path="media\fonts\courier16.xml"></Font>

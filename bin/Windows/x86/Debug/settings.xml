@@ -19,6 +19,7 @@
     <A>0</A>
     <PackedValue>0</PackedValue>
   </ColorDefaultPopUpBack>
+  <DefaultPopUpBackAlpha>150</DefaultPopUpBackAlpha>
   <DefaultPopUpFadeOutSpeed>1</DefaultPopUpFadeOutSpeed>
   <DefaultPopUpFadeInSpeed>5</DefaultPopUpFadeInSpeed>
   <DefaultPopUpFont>courier16</DefaultPopUpFont>
@@ -39,8 +40,16 @@
       <Key>1/vDctOy9dB3Mf0zOJBz4Q==</Key>
       <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
     </EncryptedKeyValuePairOfStringString>
+    <EncryptedKeyValuePairOfStringString>
+      <Key>TL7JKi7e9HPChorCBUHc6w==</Key>
+      <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
+    </EncryptedKeyValuePairOfStringString>
+    <EncryptedKeyValuePairOfStringString>
+      <Key>GY461cfMfHfq7E1Pz9mIIA==</Key>
+      <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
+    </EncryptedKeyValuePairOfStringString>
   </StoredAccounts>
-  <MostRecentStoredAccount>DmheJJn42Woz+paW+RgPcUvtL4zDS1KM7XooVvQWYEI=</MostRecentStoredAccount>
+  <MostRecentStoredAccount>aWp4qGrySfKkBAIR8SP2oprlFh7hJ2NcYQcongYiYc4=</MostRecentStoredAccount>
   <OptionsWindowX>50</OptionsWindowX>
   <OptionsWindowY>50</OptionsWindowY>
   <MacrosWindowX>300</MacrosWindowX>
@@ -190,6 +199,7 @@
     <A>255</A>
     <PackedValue>4286578816</PackedValue>
   </HotButtonText_BackColor>
+  <HotButtonText_BackColorAlpha>200</HotButtonText_BackColorAlpha>
   <GridBoxWindowTintColor>
     <B>79</B>
     <G>79</G>

@@ -310,6 +310,85 @@ namespace Yuusha.gui
                 return YuushaMode.Cells[24];
         }
 
+        public static void UpdateInventoryGridBoxWindow()
+        {
+            if(GuiManager.GetControl("InventoryWindow") is Window w)
+            {
+                Item item = null;
+
+                foreach(Control c in w.Controls)
+                {
+                    if(c is DragAndDropButton b)
+                    {
+                        string slot = b.Name.Replace("DragAndDropButton", "");
+
+                        switch(slot)
+                        {
+                            case "Neck":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Neck, Character.WearOrientation.None);
+                                break;
+                            case "Head":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Head, Character.WearOrientation.None);
+                                break;
+                            case "Shoulders":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Shoulders, Character.WearOrientation.None);
+                                break;
+                            case "Back":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Back, Character.WearOrientation.None);
+                                break;
+                            case "Face":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Face, Character.WearOrientation.None);
+                                break;
+                            case "Torso":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Torso, Character.WearOrientation.None);
+                                break;
+                            case "LeftBicep":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Bicep, Character.WearOrientation.Left);
+                                break;
+                            case "RightBicep":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Bicep, Character.WearOrientation.Right);
+                                break;
+                            case "LeftWrist":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Wrist, Character.WearOrientation.Left);
+                                break;
+                            case "RightWrist":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Wrist, Character.WearOrientation.Right);
+                                break;
+                            case "Waist":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Waist, Character.WearOrientation.None);
+                                break;
+                            case "Legs":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Legs, Character.WearOrientation.None);
+                                break;
+                            case "Feet":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Feet, Character.WearOrientation.None);
+                                break;
+                            case "Hands":
+                                item = Character.CurrentCharacter.GetInventoryItem(Character.WearLocation.Hands, Character.WearOrientation.None);
+                                break;
+                        }
+
+                        if(item != null)
+                        {
+                            b.VisualKey = item.VisualKey;
+                            b.IsLocked = false;
+                            b.AcceptingDroppedButtons = false;
+                            b.PopUpText = item.Name;
+                            b.RepresentedItem = item;
+                        }
+                        else
+                        {
+                            b.AcceptingDroppedButtons = true;
+                            b.VisualKey = "";
+                            b.IsLocked = true;
+                            b.PopUpText = "";
+                            b.RepresentedItem = null;
+                        }
+                    }
+                }
+            }
+        }
+
         //public void MapPortalFade()
         //{
 

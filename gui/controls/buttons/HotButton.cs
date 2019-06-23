@@ -36,7 +36,7 @@ namespace Yuusha.gui
                 if ((controlDown || altDown) && ms.LeftButton != ButtonState.Pressed)
                 {
                     if(this.Text.Length > 0)
-                        TextCue.AddMouseCursorTextCue(this.Text, Client.ClientSettings.HotButtonText_ForeColor, Client.ClientSettings.HotButtonText_BackColor, this.Font);
+                        TextCue.AddMouseCursorTextCue(this.Text, Client.ClientSettings.HotButtonText_ForeColor, Client.ClientSettings.HotButtonText_BackColor, Client.ClientSettings.HotButtonText_BackColorAlpha, this.Font);
                     return true;
                 }
                 else if(controlDown && altDown && ms.LeftButton == ButtonState.Pressed)
@@ -98,7 +98,7 @@ namespace Yuusha.gui
                 if(!Client.IsFullScreen)
                 {
                     TextCue.AddClientInfoTextCue("Hot Button Edit Mode requires full screen display.",
-                        TextCue.TextCueTag.None, Color.Red, Color.Black, 2000, false, false, true);
+                        TextCue.TextCueTag.None, Color.Red, Color.Black, 255, 2000, false, false, true);
                     return;
                 }
 

@@ -342,6 +342,7 @@
   <Visual ParentTexture="lok_people.png" Name="drow_anathema" X="600" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="drow_cleric" X="660" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="drow_master" X="720" Y="1080" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="phoenix" X="780" Y="1080" Width="60" Height="60"></Visual>
 
   <!-- Added temporary sorcerer visuals which duplicate wizard visuals, 8/14/2013 -->
   <Visual ParentTexture="lok_people.png" Name="male_sorcerer_pc_gray" X="240" Y="720" Width="60" Height="60"></Visual>

@@ -134,6 +134,7 @@ namespace Yuusha.gui
                             GridBoxWindow.RequestUpdateFromServer(purpose);
                             GridBoxWindow.RequestUpdateFromServer(ownerPurpose);
                         }
+                        // otherwise Inventory
                     }
 
                     DropDownMenu.IsVisible = false;

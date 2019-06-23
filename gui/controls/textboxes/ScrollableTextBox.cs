@@ -219,9 +219,16 @@ namespace Yuusha.gui
                 Enums.ETextType[] textTypes = new Enums.ETextType[m_visibleLines.Count];
                 Color[] textColors = new Color[m_visibleLines.Count];
 
-                m_visibleLines.CopyTo(lines);
-                m_visibleTextTypes.CopyTo(textTypes);
-                m_visibleTextColors.CopyTo(textColors);
+                try
+                {
+                    m_visibleLines.CopyTo(lines);
+                    m_visibleTextTypes.CopyTo(textTypes);
+                    m_visibleTextColors.CopyTo(textColors);
+                }
+                catch(Exception e)
+                {
+                    Utils.LogException(e);
+                }
 
                 // set text alignment
                 BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
@@ -277,10 +284,13 @@ namespace Yuusha.gui
 
                         DropDownMenu.HasFocus = true;
                         int height = DropDownMenu.Title == "" ? 0 : BitmapFont.ActiveFonts[Font].LineHeight;
-                        foreach(string _font in BitmapFont.ActiveFonts.Keys)
+                        foreach (string _font in BitmapFont.ActiveFonts.Keys)
                         {
-                            height += 20;
-                            DropDownMenu.AddDropDownMenuItem(BitmapFont.ActiveFonts[_font].Name, Name + "DropDownMenu", new VisualKey("WhiteSpace"), "ScrollableTextBox_DropDown", _font, Font == _font ? true : false);
+                            if (_font.ToLower().StartsWith("courier"))
+                            {
+                                height += 20;
+                                DropDownMenu.AddDropDownMenuItem(BitmapFont.ActiveFonts[_font].Name, Name + "DropDownMenu", new VisualKey("WhiteSpace"), "ScrollableTextBox_DropDown", _font, Font == _font ? true : false);
+                            }
                         }
 
                         DropDownMenu.Height = height;

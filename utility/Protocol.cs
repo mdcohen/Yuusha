@@ -146,6 +146,7 @@ namespace Yuusha
         public static string REQUEST_CHARACTER_BELT = (char)27 + "RC" + (char)27;
         public static string REQUEST_CELLITEMS = (char)27 + "RD" + (char)27;
         public static string REQUEST_CHARACTER_RINGS = (char)27 + "RE" + (char)27;
+        public static string REQUEST_CHARACTER_STATS = (char)27 + "RF" + (char)27;
         public static string REQUEST_CHARACTER_LOCKER = (char)27 + "RG" + (char)27;
         public static string REQUEST_CHARACTER_SPELLS = (char)27 + "RI" + (char)27;
         public static string REQUEST_CHARACTER_EFFECTS = (char)27 + "RK" + (char)27;

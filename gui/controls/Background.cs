@@ -122,9 +122,7 @@ namespace Yuusha.gui
 
             // draw strings
             foreach (TextCue tc in m_textCues)
-            {
                 tc.Draw(gameTime);
-            }
         }
     }
 }

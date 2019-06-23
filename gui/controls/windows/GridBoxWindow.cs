@@ -13,7 +13,8 @@ namespace Yuusha.gui
             Altar,
             Counter,
             Ground,
-            Belt,            
+            Belt,
+            Inventory, // technically not a GridBox
             Locker,
             Pouch,
             Rings,
@@ -182,11 +183,14 @@ namespace Yuusha.gui
             foreach (Item item in itemsList)
             {
                 // determine if we're sorting here or not -- an option
+
                 DragAndDropButton button;
+
                 if (!Client.ClientSettings.GroupSimiliarItemsInGridBoxes ||
                     (Client.ClientSettings.GroupSimiliarItemsInGridBoxes && (!countDictionary.ContainsKey(item.VisualKey) || item.VisualKey.ToLower() == "unknown")))
+
                 {
-                    if(Client.ClientSettings.GroupSimiliarItemsInGridBoxes && item.VisualKey.ToLower() != "unknown")
+                    if (Client.ClientSettings.GroupSimiliarItemsInGridBoxes && item.VisualKey.ToLower() != "unknown")
                         countDictionary.Add(item.VisualKey, 1);
 
                     button = new DragAndDropButton(purpose.ToString() + "DragAndDropButton" + count, box.Name,

@@ -105,10 +105,12 @@ namespace Yuusha.gui
                         dropDownRectangle.Y = Client.Width - dropDownRectangle.Width - 5;
 
                     GuiManager.Sheets[Sheet].CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
-                        this.Font, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, this.VisualAlpha, true, Map.Direction.Northwest, 5);
+                        Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, VisualAlpha, true, Map.Direction.Northwest, 5);
 
-                    DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
-                    DropDownMenu.Border.IsVisible = true;
+                    DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
+                    {
+                        IsVisible = true
+                    };
 
                     DropDownMenu.HasFocus = true;
                     int height = 0;

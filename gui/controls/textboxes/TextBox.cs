@@ -760,7 +760,6 @@ namespace Yuusha.gui
         {
             m_allowRepeatingKey = true;
             m_repeatingKeyTimer.Stop();
-            TextCue.AddMouseCursorTextCue("Stopped.", Color.Yellow, Color.Black, this.Font);
         }
 
         public virtual void AddText(string text)
@@ -836,6 +835,14 @@ namespace Yuusha.gui
 
             if (m_cursorPosition > (m_maxLength - 1)) m_cursorPosition = m_maxLength - 1;
 
+            //if (Sheet == GuiManager.CurrentSheet.Name)
+            //{
+            //    if (Owner != "" && GuiManager.GetControl(Owner).IsVisible)
+            //        TextCue.AddClientInfoTextCue(Name + " cursor position: " + m_cursorPosition.ToString());
+            //    else if (Owner == "")
+            //        TextCue.AddClientInfoTextCue(Name + " cursor position: " + m_cursorPosition.ToString());
+            //}
+
             if (!HasFocus)
                 m_cursorVisible = false;
             #endregion
@@ -900,12 +907,26 @@ namespace Yuusha.gui
             // set font alignment
             BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
 
+            // code below needs work 6/23/2019
+            string viewableText = m_text;
+
+            if (BitmapFont.ActiveFonts[Font].MeasureString(viewableText) > Width)
+            {
+                int count = 1;
+                while (BitmapFont.ActiveFonts[Font].MeasureString(viewableText) > Width)
+                {
+                    viewableText = viewableText.Substring(count);
+                    count++;
+                }
+            }
+
             // draw text if not password box, password characters if otherwise
             if (!m_passwordBox)
             {
                 if (Border != null && Border is SquareBorder && TextAlignment == BitmapFont.TextAlignment.Right)
                     rectY -= (Border as SquareBorder).BorderWidth;
-                BitmapFont.ActiveFonts[Font].TextBox(new Rectangle(rectX, rectY, m_rectangle.Width - 1, m_rectangle.Height - 1), textColor, m_text);
+
+                BitmapFont.ActiveFonts[Font].TextBox(new Rectangle(rectX, rectY, m_rectangle.Width - 1, m_rectangle.Height - 1), textColor, viewableText);
             }
             else
             {

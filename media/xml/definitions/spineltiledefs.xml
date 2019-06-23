@@ -19,9 +19,9 @@
 	<SpinelTileDef Graphic="tt" Name="BurntTreeDense" ForeVisual="sptile_double_tree_dead" BackVisual="sptile_ground3" ForeAlpha="255" BackAlpha="255" ForeTint="DarkGray" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="t " Name="BurntTreeLeft" ForeVisual="sptile_left_tree_dead" BackVisual="sptile_ground3" ForeAlpha="255" BackAlpha="255" ForeTint="DarkGray" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic=" t" Name="BurntTreeRight" ForeVisual="sptile_right_tree_dead" BackVisual="sptile_ground3" ForeAlpha="255" BackAlpha="255" ForeTint="DarkGray" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic="ff" Name="FrostTreeDense" ForeVisual="sptile_double_tree_frost" BackVisual="sptile_ground4" ForeAlpha="255" BackAlpha="255" ForeTint="AliceBlue" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic="f " Name="FrostTreeLeft" ForeVisual="sptile_left_tree_frost" BackVisual="sptile_ground4" ForeAlpha="255" BackAlpha="255" ForeTint="AliceBlue" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic=" f" Name="FrostTreeRight" ForeVisual="sptile_right_tree_frost" BackVisual="sptile_ground4" ForeAlpha="255" BackAlpha="255" ForeTint="AliceBlue" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic="ff" Name="FrostTreeDense" ForeVisual="sptile_double_tree_frost" BackVisual="sptile_frozengrass1" ForeAlpha="255" BackAlpha="255" ForeTint="AliceBlue" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic="f " Name="FrostTreeLeft" ForeVisual="sptile_left_tree_frost" BackVisual="sptile_frozengrass1" ForeAlpha="255" BackAlpha="255" ForeTint="AliceBlue" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic=" f" Name="FrostTreeRight" ForeVisual="sptile_right_tree_frost" BackVisual="sptile_frozengrass1" ForeAlpha="255" BackAlpha="255" ForeTint="AliceBlue" BackTint="White"></SpinelTileDef>
   <SpinelTileDef Graphic="::" Name="Dock" ForeVisual="sptile_dock" BackVisual="sptile_empty1" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="Blue"></SpinelTileDef>
 	<SpinelTileDef Graphic="%%" Name="Air" ForeVisual="sptile_air" BackVisual="" ForeAlpha="200" BackAlpha="255" ForeTint="SkyBlue" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic=".\" Name="Sand" ForeVisual="sptile_sand" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
@@ -48,14 +48,14 @@
 	<SpinelTileDef Graphic="pp" Name="MapPortal" ForeVisual="sptile_portal1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
   <SpinelTileDef Graphic=")(" Name="BoxingRing2" ForeVisual="sptile_boxingring1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
   <SpinelTileDef Graphic="`," Name="IceStorm" ForeVisual="sptile_ice1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="SkyBlue" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic=":%" Name="PoisonCloud" ForeVisual="sptile_ground8" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic="%;" Name="Whirlwind" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic="``" Name="AcidRain" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic=",," Name="BarrenFull" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic=", " Name="BarrenLeft" ForeVisual="sptile_unknown1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic=" ," Name="BarrenRight" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic="-." Name="LocustSwarm" ForeVisual="sptile_ground11" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic=":%" Name="PoisonCloud" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="200" BackAlpha="255" ForeTint="Green" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic="%;" Name="Whirlwind" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="200" BackAlpha="255" ForeTint="Yellow" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic="``" Name="AcidRain" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="200" BackAlpha="255" ForeTint="Black" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic=",," Name="BarrenFull" ForeVisual="sptile_ground9" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic=", " Name="BarrenLeft" ForeVisual="sptile_ground10" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic=" ," Name="BarrenRight" ForeVisual="sptile_ground11" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic="-." Name="LocustSwarm" ForeVisual="sptile_unknown2" BackVisual="sptile_ground9" ForeAlpha="190" BackAlpha="255" ForeTint="DimGray" BackTint="White"></SpinelTileDef>
   <SpinelTileDef Graphic="ud" Name="UpDownStairs" ForeVisual="sptile_down1" BackVisual="sptile_up1" ForeAlpha="155" BackAlpha="155" ForeTint="White" BackTint="White"></SpinelTileDef>
-  <SpinelTileDef Graphic="++" Name="Lightning" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
-
+  <SpinelTileDef Graphic="++" Name="Lightning" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="190" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
+ 
 </SpinelTileDefinitions>

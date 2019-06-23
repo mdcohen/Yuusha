@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Ambience/Kesmai-Dungeon-Background.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Kesmai-Dungeon-Background.wav
+
+#begin Ambience/Wind-Moderate.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Wind-Moderate.wav
+
 #begin GUISounds/modem_dial.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

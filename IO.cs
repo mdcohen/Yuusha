@@ -276,7 +276,7 @@ namespace Yuusha
                 if (Client.UserSettings.SoundEffects)
                 {
                     string[] soundInfo = Protocol.GetProtoInfoFromString(inData, Protocol.SOUND, Protocol.SOUND_END).Split(Protocol.VSPLIT.ToCharArray());
-                    Sound.Play(new System.Collections.Generic.List<string>(soundInfo));
+                    Audio.AudioManager.PlaySoundEffect(new System.Collections.Generic.List<string>(soundInfo));
                 }
                 return true;
             }
@@ -735,8 +735,6 @@ namespace Yuusha
                                     gui.GameHUD.ExaminedCell.Add(gui.IOKMode.FormatCellItem(splitInfo[a]));
                                 }
 
-                                //gui.GameHUD.ExaminedCell = cell;
-
                                 gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Ground);
 
                                 if (gui.GuiManager.GetControl("GroundGridBoxWindow") is gui.GridBoxWindow gridBoxWindow)
@@ -821,6 +819,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_INVENTORY_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_INVENTORY, Protocol.CHARACTER_INVENTORY_END), Enums.EPlayerUpdate.Inventory);
+                                gui.GameHUD.UpdateInventoryGridBoxWindow();
                                 return true;
                             }
                             #endregion

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System;
 
 namespace Yuusha.gui
 {
@@ -11,18 +13,31 @@ namespace Yuusha.gui
         public static int FogAlpha = 150;
         public static Color FogColor = Color.Black;
 
-        private bool AlwaysBackground = true;
+        private bool m_savedMap = false;
 
-        private int Columns;
-        private int Rows;
+        private bool m_alwaysBackground = true;
+        private int m_prevScrollWheelValue;
+        private int m_xMod;
+        private int m_yMod;
+        private int m_columns;
+        private int m_rows;
+        private Rectangle m_mapViewRectangle;
+
+        private System.Threading.Tasks.Task m_fogCallingTask;
+
+        private RenderTarget2D m_mapRender2D;
+
+        private bool m_updatingGrid = false;
 
         private List<SpinelTileLabel> SpinelLabels
         { get; } = new List<SpinelTileLabel>();
-
         public Dictionary<XYCoordinate, Cell> Cells
         { get; set; }
-
         public Cell LatestUpdateFromCell
+        { get; set; }
+        public Scrollbar Scrollbar
+        { get; set; }
+        public Point OriginalPosition
         { get; set; }
 
         public MapWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled,
@@ -31,165 +46,323 @@ namespace Yuusha.gui
             : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
         {
             Cells = new Dictionary<XYCoordinate, Cell>();
+            Scrollbar = new Scrollbar(m_name + "Scrollbar", 0, 1, 1, 20, 0, false);
         }
 
-        public static void CreateMapWindow()
+        public static void CreateFogOfWarMapWindow()
         {
-            //if (!Client.ClientSettings.FogOfWar)
-            //    return;
-
-            MapWindow window = new MapWindow("PrimaryMapWindow", "", new Rectangle(0, 0, Client.Width, Client.Height), true, true, false, "courier28", new gui.VisualKey("WhiteSpace"), Color.Transparent,
+            // -50 offset because that's where the map starts.
+            // 0, -50
+            MapWindow window = new MapWindow("FogOfWarMapWindow", "", new Rectangle(0, -50, Client.Width, Client.Height + 50), true, true, false, "courier28", new gui.VisualKey("WhiteSpace"), Color.Black,
                 255, 0, false, Map.Direction.None, 0, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
          
-            GuiManager.CurrentSheet.AddControl(window);
-            window.Columns = 22;
-            window.Rows = 16;
-            window.CreateGrid(window.Columns, window.Rows);
-            window.CallUponFog();
+            GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()].AddControl(window);
+
+            window.m_columns = 22; // 22
+            window.m_rows = 16; // 16
+            window.m_xMod = 9; // 9
+            window.m_yMod = 7; // 7 (-50 position offset)
+
+            //window.EnlargeGrid(20);
+
+            window.CreateGrid();
         }
 
-        public void CreateGrid(int columns, int rows)
+        private void CreateGrid()
         {
-            for(int y = 0; y < rows * DEFAULT_TILE_SIZE; y += DEFAULT_TILE_SIZE)
+            m_updatingGrid = true;
+
+            for(int y = 0; y < m_rows * DEFAULT_TILE_SIZE; y += DEFAULT_TILE_SIZE)
             {
-                for(int x = 0; x < columns * DEFAULT_TILE_SIZE; x += DEFAULT_TILE_SIZE)
+                for(int x = 0; x < m_columns * DEFAULT_TILE_SIZE; x += DEFAULT_TILE_SIZE)
                 {
                     SpinelTileLabel sptLabel = new SpinelTileLabel(Name + "SpinelTileLabel" + Controls.Count, Name, new Rectangle(x, y, DEFAULT_TILE_SIZE, DEFAULT_TILE_SIZE), "", Color.White,
                         true, false, "courier12", new gui.VisualKey("WhiteSpace"), Color.Black, 255, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
 
                     sptLabel.TextAlignment = BitmapFont.TextAlignment.Center;
-                    GuiManager.CurrentSheet.AddControl(sptLabel);
+                    //sptLabel.IsVisible = false;
+                    GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()].AddControl(sptLabel);
                     SpinelLabels.Add(sptLabel);
                 }
             }
 
-            Width = columns * DEFAULT_TILE_SIZE;
-            Height = rows * DEFAULT_TILE_SIZE;
+            Width = m_columns * DEFAULT_TILE_SIZE;
+            Height = m_rows * DEFAULT_TILE_SIZE;
+
+            m_updatingGrid = false;
         }
 
         public void EnlargeGrid(int amount)
         {
+            foreach(Control c in new List<Control>(Controls))
+            {
+                if (c is SpinelTileLabel)
+                    GuiManager.RemoveControl(c);
+            }
 
+            SpinelLabels.Clear();
+
+            m_columns += amount * 2;
+            m_rows += amount;
+            m_xMod += amount;
+            m_yMod += amount;
+            Position = new Point(Position.X - (DEFAULT_TILE_SIZE * amount), Position.Y - (DEFAULT_TILE_SIZE * amount));
+            Width += DEFAULT_TILE_SIZE * (amount * 2);
+            Height += DEFAULT_TILE_SIZE * (amount * 2);
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (AlwaysBackground)
+            if (m_alwaysBackground)
             {
                 if(GuiManager.DraggedControl != this)
                     ZDepth = 1000; // always in the back
             }
 
-            if (Character.CurrentCharacter != null)
+            base.Update(gameTime);
+
+            if (IsVisible && Character.CurrentCharacter != null)
             {
-                if (LatestUpdateFromCell == null || LatestUpdateFromCell != Cell.GetCell(Character.CurrentCharacter.X, Character.CurrentCharacter.Y))
+                // Update if it hasn't been done yet, and if the CurrentCharacter hasn't moved.
+                if (LatestUpdateFromCell == null || (Cell.GetCell(Character.CurrentCharacter.X, Character.CurrentCharacter.Y) is Cell cell && cell != LatestUpdateFromCell))
                 {
-                    CallUponFog();
+                    m_fogCallingTask = new System.Threading.Tasks.Task(CallUponTheFog);
+                    m_fogCallingTask.Start();
                 }
             }
-
-            base.Update(gameTime);
         }
 
-        public override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
-        }
+        //public override void Draw(GameTime gameTime)
+        //{
+        //    if (!IsVisible) return;
 
-        public void ToggleGrid()
-        {
-            if (TintColor == Color.Transparent)
-                TintColor = Color.DimGray;
-            else TintColor = Color.Transparent;
-        }
+        //    base.Draw(gameTime);
 
-        private Cell GetCell(int x, int y)
-        {
-            XYCoordinate xy = new XYCoordinate(x, y);
+        //    if (m_fogCallingTask != null && m_fogCallingTask.IsCompleted)
+        //        RenderMap();
 
-            if (Cells.ContainsKey(xy))
-                return Cells[xy];
-            else return null;
-        }
+        //    try
+        //    {
+        //        //if (!m_savedMap && m_mapRender2D != null)
+        //        //{
+        //        //    string fileName = "map_" +
+        //        //    DateTime.Now.Month + DateTime.Now.Day + DateTime.Now.Year + DateTime.Now.Hour + DateTime.Now.Minute +
+        //        //    DateTime.Now.Second + DateTime.Now.Millisecond + ".png";
+        //        //    try
+        //        //    {
+        //        //        //map.SaveAsPng(new System.IO.FileStream(Utils.StartupPath + Utils.LogsFolder + fileName, System.IO.FileMode.CreateNew), Width, Height);
+        //        //        m_mapRender2D.SaveAsPng(new System.IO.FileStream(Utils.StartupPath + Utils.LogsFolder + fileName, System.IO.FileMode.CreateNew), Width, Height);
+        //        //    }
+        //        //    catch (Exception e)
+        //        //    {
+        //        //        Utils.LogException(e);
+        //        //    }
+        //        //    m_savedMap = true;
+        //        //}
 
-        public void CallUponFog()
+        //        if (m_mapRender2D != null && !m_mapRender2D.IsDisposed)
+        //        {
+        //            Client.SpriteBatch.Draw(m_mapRender2D, m_rectangle, Color.White);
+        //        }
+        //    }
+        //    catch(Exception e)
+        //    {
+        //        Utils.LogException(e);
+        //    }
+        //}
+
+        private void CallUponTheFog()
         {
-            if (Character.CurrentCharacter == null) return;
+            if (Character.CurrentCharacter == null || m_updatingGrid) return;
 
             LatestUpdateFromCell = Cell.GetCell(Character.CurrentCharacter.X, Character.CurrentCharacter.Y);
 
-            int x = Character.CurrentCharacter.X - 9; // at position 0,0
-            int y = Character.CurrentCharacter.Y - 7; // at position 0,0
+            int x = Character.CurrentCharacter.X - m_xMod; // at position 0,0 (Control[0] 
+            int y = Character.CurrentCharacter.Y - m_yMod; // at position 0,0
             int count = 0;
             int columnsCount = 0;
-            VisualInfo backVI = GuiManager.Visuals["WhiteSpace"];
-            SpinelTileDefinition currTile;
-
-            foreach (SpinelTileLabel sptLabel in SpinelLabels)
+            //Control mainMapWindow = GuiManager.GetControl("MapDisplayWindow");
+            
+            if (Client.GameState == Enums.EGameState.SpinelGame || Client.GameState == Enums.EGameState.YuushaGame)
             {
-                SpinelLabels[count].FogOfWarDetail.Map = Character.CurrentCharacter.m_mapID;
-                SpinelLabels[count].FogOfWarDetail.XCord = x;
-                SpinelLabels[count].FogOfWarDetail.YCord = y;
-                SpinelLabels[count].FogOfWarDetail.ZCord = Character.CurrentCharacter.Z;
-                //SpinelLabels[count].PopUpText = x + "," + y;
-                //SpinelLabels[count].Text = "[]";
-
-                if (Character.FogOfWarSettings.FogOfWar.Contains(SpinelLabels[count].FogOfWarDetail))
+                SpinelTileDefinition currentTile;
+                foreach (SpinelTileLabel sptLabel in SpinelLabels)
                 {
-                    if (YuushaMode.Tiles.ContainsKey(Character.FogOfWarSettings.GetFogOfWarDetail(SpinelLabels[count].FogOfWarDetail).DisplayGraphic))
-                        currTile = YuushaMode.Tiles[Character.FogOfWarSettings.GetFogOfWarDetail(SpinelLabels[count].FogOfWarDetail).DisplayGraphic];
-                    else
+                    //if (!mainMapWindow.Contains(new Point(sptLabel.Position.X + 5, sptLabel.Position.Y + 5)))
+                    //{
+                        SpinelLabels[count].FogOfWarDetail.Map = Character.CurrentCharacter.m_mapID;
+                        SpinelLabels[count].FogOfWarDetail.XCord = x;
+                        SpinelLabels[count].FogOfWarDetail.YCord = y;
+                        SpinelLabels[count].FogOfWarDetail.ZCord = Character.CurrentCharacter.Z;
+                        //SpinelLabels[count].PopUpText = x + "," + y;
+                        //SpinelLabels[count].Text = "[]";
+
+                        if (Character.FogOfWarSettings.FogOfWar.Contains(SpinelLabels[count].FogOfWarDetail))
+                        {
+                            if (YuushaMode.Tiles.ContainsKey(Character.FogOfWarSettings.GetFogOfWarDetail(SpinelLabels[count].FogOfWarDetail).DisplayGraphic))
+                                currentTile = YuushaMode.Tiles[Character.FogOfWarSettings.GetFogOfWarDetail(SpinelLabels[count].FogOfWarDetail).DisplayGraphic];
+                            else
+                            {
+                                Utils.LogOnce("Failed to find SpinelTileDefinition for cell graphic [ " + SpinelLabels[count].FogOfWarDetail.DisplayGraphic + " ]");
+                                currentTile = YuushaMode.Tiles["  "];
+                            }
+
+                            SpinelLabels[count].Text = "";
+                            SpinelLabels[count].TextColor = Color.White;
+                            SpinelLabels[count].TextAlpha = 255;
+                            SpinelLabels[count].TintColor = currentTile.BackTint;
+                            SpinelLabels[count].VisualKey = currentTile.BackVisual.Key;
+                            SpinelLabels[count].VisualAlpha = currentTile.BackAlpha;
+                            SpinelLabels[count].ForeVisual = currentTile.ForeVisual.Key;
+                            SpinelLabels[count].ForeColor = currentTile.ForeTint;
+                            SpinelLabels[count].ForeAlpha = currentTile.ForeAlpha;
+
+                            if (Cell.GetCell(x, y) is Cell cell && cell.portal)
+                                SpinelLabels[count].VisualKey = YuushaMode.Tiles["pp"].ForeVisual.Key;
+
+                            SpinelLabels[count].FogVisual = "WhiteSpace";
+                        }
+                        else
+                        {
+                            currentTile = YuushaMode.Tiles["  "];
+
+                            SpinelLabels[count].Text = "";
+                            SpinelLabels[count].TextColor = Color.White;
+                            SpinelLabels[count].TextAlpha = 0;
+                            SpinelLabels[count].TintColor = Color.PowderBlue;
+                            SpinelLabels[count].VisualKey = "";
+                            SpinelLabels[count].VisualAlpha = 0;
+                            SpinelLabels[count].ForeVisual = "";
+                            SpinelLabels[count].ForeColor = Color.LemonChiffon;
+                            SpinelLabels[count].ForeAlpha = 0;
+
+                            //if (Cell.GetCell(x, y) is Cell cell && cell.portal)
+                            //    SpinelLabels[count].VisualKey = YuushaMode.Tiles["pp"].ForeVisual.Key;
+
+                            SpinelLabels[count].FogVisual = "";
+                        }
+                    //}
+
+                    x++;
+                    columnsCount++;
+                    count++;
+                    if (columnsCount == m_columns)
                     {
-                        Utils.LogOnce("Failed to find SpinelTileDefinition for cell graphic [ " + SpinelLabels[count].FogOfWarDetail.DisplayGraphic + " ]");
-                        currTile = YuushaMode.Tiles["  "];
+                        y++;
+                        x = Character.CurrentCharacter.X - m_xMod;
+                        columnsCount = 0;
                     }
-
-                    SpinelLabels[count].Text = "";
-                    SpinelLabels[count].TextColor = Color.White;
-                    SpinelLabels[count].TextAlpha = 255;
-                    SpinelLabels[count].TintColor = currTile.BackTint;
-                    SpinelLabels[count].VisualKey = currTile.BackVisual.Key;
-                    SpinelLabels[count].VisualAlpha = currTile.BackAlpha;
-                    SpinelLabels[count].ForeVisual = currTile.ForeVisual.Key;
-                    SpinelLabels[count].ForeColor = currTile.ForeTint;
-                    SpinelLabels[count].ForeAlpha = currTile.ForeAlpha;
-
-                    if (Cell.GetCell(x, y) is Cell cell && cell.portal)
-                        SpinelLabels[count].VisualKey = YuushaMode.Tiles["pp"].ForeVisual.Key;
-
-                    SpinelLabels[count].FogVisual = "WhiteSpace";
                 }
-                else
+            }
+            else
+            {
+                IOKTileDefinition currentTile;
+                foreach (SpinelTileLabel sptLabel in SpinelLabels)
                 {
-                    currTile = YuushaMode.Tiles["  "];
+                    //if (!mainMapWindow.Contains(new Point(sptLabel.Position.X + 5, sptLabel.Position.Y + 5)))
+                    //{
+                        SpinelLabels[count].FogOfWarDetail.Map = Character.CurrentCharacter.m_mapID;
+                        SpinelLabels[count].FogOfWarDetail.XCord = x;
+                        SpinelLabels[count].FogOfWarDetail.YCord = y;
+                        SpinelLabels[count].FogOfWarDetail.ZCord = Character.CurrentCharacter.Z;
 
-                    SpinelLabels[count].Text = "";
-                    SpinelLabels[count].TextColor = Color.White;
-                    SpinelLabels[count].TextAlpha = 0;
-                    SpinelLabels[count].TintColor = Color.PowderBlue;
+                        if (Character.FogOfWarSettings.FogOfWar.Contains(SpinelLabels[count].FogOfWarDetail))
+                        {
+                            if (IOKMode.Tiles.ContainsKey(Character.FogOfWarSettings.GetFogOfWarDetail(SpinelLabels[count].FogOfWarDetail).DisplayGraphic))
+                                currentTile = IOKMode.Tiles[Character.FogOfWarSettings.GetFogOfWarDetail(SpinelLabels[count].FogOfWarDetail).DisplayGraphic];
+                            else
+                            {
+                                Utils.LogOnce("Failed to find IOKTileDefinition for cell graphic [ " + SpinelLabels[count].FogOfWarDetail.DisplayGraphic + " ]");
+                                currentTile = IOKMode.Tiles["  "];
+                            }
 
-                    SpinelLabels[count].VisualKey = "";
+                            SpinelLabels[count].CreatureText = ""; // clear creature text;
+                            SpinelLabels[count].LootText = ""; // clear loot text;
+                            SpinelLabels[count].Font = "courier28";
+                            SpinelLabels[count].TextAlignment = BitmapFont.TextAlignment.Center;
+                            SpinelLabels[count].Text = currentTile.DisplayGraphic;
+                            SpinelLabels[count].TextColor = currentTile.ForeColor;
+                            SpinelLabels[count].TintColor = currentTile.BackColor;
+                            SpinelLabels[count].TextAlpha = currentTile.ForeAlpha;
+                            SpinelLabels[count].VisualAlpha = currentTile.BackAlpha;
 
-                    SpinelLabels[count].VisualAlpha = 0;
-                    SpinelLabels[count].ForeVisual = "";
-                    SpinelLabels[count].ForeColor = Color.LemonChiffon;
-                    //SpinelLabels[count].ForeColor = currTile.ForeTint;
-                    SpinelLabels[count].ForeAlpha = 0;
-                    ///SpinelLabels[count].ForeAlpha = currTile.ForeAlpha;
+                            SpinelLabels[count].VisualKey = "WhiteSpace";
+                            SpinelLabels[count].ForeVisual = "";
 
-                    //if (Cell.GetCell(x, y) is Cell cell && cell.portal)
-                    //    SpinelLabels[count].VisualKey = YuushaMode.Tiles["pp"].ForeVisual.Key;
+                            //if (Cell.GetCell(x, y) is Cell cell && cell.portal)
+                            //    SpinelLabels[count].VisualKey = IOKMode.Tiles["pp"].ForeVisual.Key;
+
+                            SpinelLabels[count].FogVisual = "WhiteSpace";
+                        }
+                        else
+                        {
+                            currentTile = IOKMode.Tiles["  "];
+
+                            SpinelLabels[count].Text = "";
+                            SpinelLabels[count].TextColor = Color.White;
+                            SpinelLabels[count].TextAlpha = 0;
+                            SpinelLabels[count].TintColor = Color.PowderBlue;
+
+                            SpinelLabels[count].VisualKey = "";
+
+                            SpinelLabels[count].VisualAlpha = 0;
+                            SpinelLabels[count].ForeVisual = "";
+                            SpinelLabels[count].ForeColor = Color.LemonChiffon;
+                            //SpinelLabels[count].ForeColor = currTile.ForeTint;
+                            SpinelLabels[count].ForeAlpha = 0;
+                            ///SpinelLabels[count].ForeAlpha = currTile.ForeAlpha;
+
+                            //if (Cell.GetCell(x, y) is Cell cell && cell.portal)
+                            //    SpinelLabels[count].VisualKey = IOKMode.Tiles["pp"].ForeVisual.Key;
+
+                            SpinelLabels[count].FogVisual = "";
+                        }
+                    //}
+
+                    x++;
+                    columnsCount++;
+                    count++;
+                    if (columnsCount == m_columns)
+                    {
+                        y++;
+                        x = Character.CurrentCharacter.X - m_xMod;
+                        columnsCount = 0;
+                    }
                 }
+            }
+        }
 
-                x++;
-                columnsCount++;
-                count++;
-                if (columnsCount == Columns)
+        private void RenderMap()
+        {
+            try
+            {
+                GraphicsDevice device = Program.Client.GraphicsDevice;
+
+                m_mapRender2D = new RenderTarget2D(device,
+                    Width, Height, true, SurfaceFormat.Color, DepthFormat.Depth24);
+                
+                device.SetRenderTarget(m_mapRender2D);
+
+                Client.SpriteBatch.End();
+                Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+
+                foreach (Control c in Controls)
                 {
-                    y++;
-                    x = Character.CurrentCharacter.X - 9;
-                    columnsCount = 0;
+                    if (c is SpinelTileLabel)
+                    {
+                        c.IsVisible = true;
+                        c.Draw(new GameTime());
+                        c.IsVisible = false;
+                    }
                 }
+
+                Client.SpriteBatch.End();
+                Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+                device.SetRenderTarget(null);
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
             }
         }
 
@@ -207,7 +380,23 @@ namespace Yuusha.gui
 
         protected override void OnZDelta(MouseState ms)
         {
-            base.OnZDelta(ms);
+            if (Scrollbar != null && !Scrollbar.IsDisabled)
+            {
+                int prev = GuiManager.CurrentSheet.PreviousScrollWheelValue;
+                int curr = ms.ScrollWheelValue;
+                int diff = Math.Max(prev, curr) - Math.Min(prev, curr);
+
+                if (Math.Max(diff, m_prevScrollWheelValue) -
+                    Math.Min(diff, m_prevScrollWheelValue) == 0)
+                    Scrollbar.ScrollValue = 0;
+                else if (prev < curr)
+                    Scrollbar.ScrollValue += diff / 120;
+                else if (prev > curr)
+                    Scrollbar.ScrollValue -= diff / 120;
+
+                // save scroll wheel value
+                m_prevScrollWheelValue = ms.ScrollWheelValue;
+            }
         }
 
         [System.Serializable]

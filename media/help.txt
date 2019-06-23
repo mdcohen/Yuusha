@@ -9,5 +9,6 @@ ALT + N: Server News Window
 ALT + O: Options Window
 ALT + R: Reload Current GUI
 ALT + S: Toggle Sound Effects
-ALT + T: Reload Tiles (Game Mode Only)
+ALT + T: Reload Map Tiles (Game Mode Only)
+ALT + W: Toggle Fog of War (Yuusha Game Mode)
 ALT + ` : Take and Save Screenshot

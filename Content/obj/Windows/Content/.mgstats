@@ -1,4 +1,6 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Kesmai-Dungeon-Background.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Kesmai-Dungeon-Background.xnb","SongProcessor","SongContent",13617206,143,0.5717053
+"C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Wind-Moderate.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Wind-Moderate.xnb","SongProcessor","SongContent",5504860,131,0.3709331
 "C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/modem_dial.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/GUISounds/modem_dial.xnb","SoundEffectProcessor","SoundEffectContent",3285036,3285097,0.2406783
 "C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/pm_alert.ogg","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/GUISounds/pm_alert.xnb","SoundEffectProcessor","SoundEffectContent",14097,82409,0.2539972
 "C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/pm_alert_short.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/GUISounds/pm_alert_short.xnb","SoundEffectProcessor","SoundEffectContent",46884,46885,0.2017968

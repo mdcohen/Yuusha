@@ -94,6 +94,8 @@ namespace Yuusha.gui
         {
             get; set;
         }
+        public static bool TakingScreenshot
+        { get; set; } = false;
         #endregion
 
         #region Constructor
@@ -690,7 +692,7 @@ namespace Yuusha.gui
                                         break;
                                     case "Window":
                                     case "HotButtonEditWindow":
-                                    //case "GridBoxWindow":
+                                    case "GridBoxWindow":
                                         sheet.CreateWindow(name, type, owner, new Rectangle(x, y, width, height), visible,
                                             locked, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor),
                                             visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors,
@@ -920,8 +922,9 @@ namespace Yuusha.gui
         {
             string state = Client.GameState.ToString();
 
-            Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-            //Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend); // Before MonoGame conversion.
+            if(TakingScreenshot)
+                Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend); // Before MonoGame conversion.
+                else Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
             // Overridden states girst (eg: Hot Button Edit Mode)
             if (GameHUD.OverrideDisplayStates.Contains(Client.GameState))
@@ -975,15 +978,22 @@ namespace Yuusha.gui
             return null;
         }
 
+        /// <summary>
+        /// First search the current sheet, then the generic sheet, then nested windows.
+        /// </summary>
+        /// <param name="name">Name of the control to find.</param>
+        /// <returns></returns>
         public static Control GetControl(string name)
         {
+            // Check current sheet.
             if (CurrentSheet[name] != null)
                 return CurrentSheet[name];
 
+            // Check generic sheet.
             if (GenericSheet[name] != null)
                 return GenericSheet[name];
 
-            // Check CurrentSheet controls.
+            // Check controls nested within windows.
             try
             {
                 foreach (Control c1 in new List<Control>(CurrentSheet.Controls))
@@ -1000,6 +1010,12 @@ namespace Yuusha.gui
                                 {
                                     if (c3.Name == name)
                                         return c3;
+                                    else if (c3 is Window)
+                                    {
+                                        foreach (Control c4 in new List<Control>((c3 as Window).Controls))
+                                            if (c4.Name == name)
+                                                return c4;
+                                    }
                                 }
                             }
                         }
@@ -1028,6 +1044,12 @@ namespace Yuusha.gui
                                 foreach (Control c3 in new List<Control>((c2 as Window).Controls))
                                     if (c3.Name == name)
                                         return c3;
+                                    else if (c3 is Window)
+                                    {
+                                        foreach (Control c4 in new List<Control>((c3 as Window).Controls))
+                                            if (c4.Name == name)
+                                                return c4;
+                                    }
                             }
                         }
                     }
@@ -1039,9 +1061,20 @@ namespace Yuusha.gui
                 Utils.Log("Error in GuiManager.GetControl - Searching generic sheet for a control named " + name + ".");
             }
 
+            foreach(string sheetName in Sheets.Keys)
+            {
+                if(sheetName != CurrentSheet.Name && sheetName != GenericSheet.Name)
+                    if (Sheets[sheetName][name] != null)
+                        return Sheets[sheetName][name];
+            }
+            
             return null;
         }
 
+        /// <summary>
+        /// Properly dispose of a control.
+        /// </summary>
+        /// <param name="c">The Control to be disposed.</param>
         public static void Dispose(Control c)
         {
             if(c == null)
@@ -1058,7 +1091,7 @@ namespace Yuusha.gui
             }
 
             if (c.Sheet != "Generic")
-                CurrentSheet.RemoveControl(c);
+                Sheets[c.Sheet].RemoveControl(c);
             else GenericSheet.RemoveControl(c);
 
             c.OnDispose();
@@ -1087,6 +1120,17 @@ namespace Yuusha.gui
 
             if (GenericSheet.Controls.Contains(control))
                 GenericSheet.RemoveControl(control);
+        }
+
+        public static bool ContainsVitalsUpdateTextCue(TextCue tc)
+        {
+            foreach(TextCue tc2 in new List<TextCue>(TextCues))
+            {
+                if (tc2.Text == tc.Text && tc2.Tag == tc.Tag)
+                    return true;
+            }
+
+            return false;
         }
     }
 }

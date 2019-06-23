@@ -81,6 +81,12 @@ namespace Yuusha.gui
 
         public TabControl TabControl
         { get; set; }
+
+        /// <summary>
+        /// Window can be dragged from any location in its rectangle. Set to false only within the code.
+        /// </summary>
+        public bool DiscreetlyDraggable
+        { get; set; } = true;
         #endregion
 
         #region Constructor
@@ -444,9 +450,13 @@ namespace Yuusha.gui
                 foreach (Control box in this.Controls)
                     if(box is WindowControlBox && box.Contains(new Point(ms.X, ms.Y))) startDragging = false;
 
-                if(startDragging)
+                if (startDragging)
                     GuiManager.StartDragging(this, ms);
             }
+
+            if (!DiscreetlyDraggable && ms.LeftButton == ButtonState.Pressed)
+                GuiManager.StartDragging(this, ms);
+
             // do not drag window if mouse is down over a control
             //foreach (Control control in new List<Control>(m_controls))
             //{
@@ -485,7 +495,6 @@ namespace Yuusha.gui
                     position.Y += this.YOffset;
                     control.Position = position;
 
-                    // IMPORTANT: (5/29/2019) Currently only one layer of nested windows is dragged. This will need recursiveness if adding more nested windows.
                     if (control is Window)
                     {
                         foreach (Control winControl in new List<Control>((control as Window).Controls))
@@ -539,28 +548,17 @@ namespace Yuusha.gui
         {
             base.OnMouseOver(ms);
 
-            // return if a control contains the cursor, since the window will not drag
-            // unless control is window title or border
-            //foreach (Control control in new List<Control>(m_controls))
-            //{
-            //    if (!(control is WindowTitle) && !(control is Border) &&
-            //        control.Contains(new Point(ms.X, ms.Y)))
-            //        return;
-            //    else if (control is WindowTitle && (control as WindowTitle).ControlBoxContains(new Point(ms.X, ms.Y)))
-            //        return;
-            //}
-
             // show drag cursor if not locked, the window title has the hotspot, the window border has the hotspot
-            if (m_cursorOverride != "" && !m_locked &&
-                (m_windowTitle != null && m_windowTitle.Contains(new Point(ms.X, ms.Y)) || (m_windowBorder != null && m_windowBorder.Contains(new Point(ms.X, ms.Y)) &&
-                !m_minimized && !m_cropped)))
+            if (m_cursorOverride != "" && !m_locked && (!DiscreetlyDraggable || WindowTitle != null && WindowTitle.Contains(new Point(ms.X, ms.Y))))
             {
-                foreach (Control box in this.Controls)
+                foreach (Control box in Controls)
                 {
-                    if(box is WindowControlBox)
+                    if (box is WindowControlBox)
                         if (box.Contains(new Point(ms.X, ms.Y))) return;
                 }
 
+                //TextCue.AddClientInfoTextCue("Cursor override set to: " + m_cursorOverride);
+                //GuiManager.GenericSheet.CursorOverride = m_cursorOverride;
                 GuiManager.CurrentSheet.CursorOverride = m_cursorOverride;
             }
         }
@@ -627,10 +625,16 @@ namespace Yuusha.gui
 
         public virtual void OnClose()
         {
-            this.IsVisible = false;
+            IsVisible = false;
+            HasFocus = false;
 
-            foreach (Control c in this.Controls)
+            foreach (Control c in Controls)
                 c.HasFocus = false;
+
+            if (Client.GameState.ToString().EndsWith("Game"))
+                GuiManager.CurrentSheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
+            else if (Client.GameState == Enums.EGameState.Conference)
+                GuiManager.CurrentSheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
         }
 
         /// <summary>
@@ -732,8 +736,8 @@ namespace Yuusha.gui
                         }
                     }
 
-                    // Width
-                    if (m_rectangle.X + m_rectangle.Width > Client.Width)
+                    // Width -- MapWindow allowed to exceed bounds
+                    if (m_rectangle.X + m_rectangle.Width > Client.Width && !(this is MapWindow))
                     {
                         int adjustX = Math.Abs((m_rectangle.X + m_rectangle.Width) - Client.Width);
                         m_rectangle.X -= adjustX;
@@ -776,14 +780,13 @@ namespace Yuusha.gui
                         }
                     }
 
-                    // Height
+                    // Height -- MapWindow allowed to exceed bounds
                     int heightCheck = m_rectangle.Y + m_rectangle.Height;
-
 
                     if (m_cropped && WindowTitle != null)
                         heightCheck = m_rectangle.Y + WindowTitle.Height;
 
-                    if (heightCheck > Client.Height)
+                    if (heightCheck > Client.Height && !(this is MapWindow))
                     {
                         int adjustY = Math.Abs((heightCheck) - Client.Height);
                         m_rectangle.Y -= adjustY;
@@ -920,6 +923,9 @@ namespace Yuusha.gui
 
         public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
         {
+            if (GuiManager.DraggedControl == this)
+                GuiManager.StopDragging();
+
             Rectangle oldWindowRect = m_rectangle;
 
             if (m_anchors.Count == 0)

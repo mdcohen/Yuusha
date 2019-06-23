@@ -263,16 +263,20 @@ namespace Yuusha
             {
                 GraphicsDevice device = Program.Client.GraphicsDevice;
 
-                Color[] screenData = new Color[device.PresentationParameters.BackBufferWidth *
-                                           device.PresentationParameters.BackBufferHeight];
+                //Color[] screenData = new Color[device.PresentationParameters.BackBufferWidth *
+                //                           device.PresentationParameters.BackBufferHeight];
 
                 RenderTarget2D screenShot = new RenderTarget2D(device,
                     device.PresentationParameters.BackBufferWidth,
-                    device.PresentationParameters.BackBufferHeight);
+                    device.PresentationParameters.BackBufferHeight, true, SurfaceFormat.Color, DepthFormat.Depth24);
+
+                device.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
 
                 device.SetRenderTarget(screenShot);
 
+                gui.GuiManager.TakingScreenshot = true;
                 Program.Client.GUIManager.Draw(new GameTime());
+                gui.GuiManager.TakingScreenshot = false;
 
                 device.SetRenderTarget(null);
 
@@ -286,13 +290,14 @@ namespace Yuusha
                 //save to disk
                 FileStream fs = new FileStream(Utils.StartupPath + m_screenshotsFolder + fileName, FileMode.CreateNew);
 
+                
                 screenShot.SaveAsPng(fs, screenShot.Width, screenShot.Height);
 
                 fs.Dispose();
 
                 screenShot.Dispose();
 
-                gui.TextCue.AddClientInfoTextCue(fileName, gui.TextCue.TextCueTag.None, Color.Lime, Color.Black, 2000, false, false, true);
+                gui.TextCue.AddClientInfoTextCue(fileName, gui.TextCue.TextCueTag.None, Color.Lime, Color.Black, 255, 2000, false, false, true);
             }
             catch (Exception e)
             { Utils.LogException(e); }

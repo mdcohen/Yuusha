@@ -14,12 +14,13 @@ namespace Yuusha.Utility.Settings
         public int ServerPort = 3000;
         public bool ShowSplash = false;
         public string DefaultFont = "courier16";
-        public Color ColorDefaultPopUpFore = Color.White;
-        public Color ColorDefaultPopUpBack = Color.Transparent;
+        public Color ColorDefaultPopUpFore = Color.GhostWhite;
+        public Color ColorDefaultPopUpBack = Color.Black;
+        public byte DefaultPopUpBackAlpha = 150; // foreground text is always 255
         public byte DefaultPopUpFadeOutSpeed = 1;
         public byte DefaultPopUpFadeInSpeed = 5;
         public string DefaultPopUpFont = "courier16";
-        public string DefaultDropDownMenuFont = "courier16";
+        public string DefaultDropDownMenuFont = "courier14";
         public bool DisplayChantingTextCue = true;
         public bool StartFullScreen = false;
 
@@ -80,6 +81,7 @@ namespace Yuusha.Utility.Settings
 
         public Color HotButtonText_ForeColor = Color.Lime;
         public Color HotButtonText_BackColor = Color.Purple;
+        public byte HotButtonText_BackColorAlpha = 200;
 
         public Color GridBoxWindowTintColor = Color.DarkSlateGray;
         public Color GridBoxTitleTextColor = Color.White;

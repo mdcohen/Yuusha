@@ -147,7 +147,7 @@ namespace Yuusha
         {
             visible = false;
             land = 0;
-            map = 0;
+            map = -1;
             xCord = 0;
             yCord = 0;
             CellGraphic = "  ";
@@ -167,7 +167,18 @@ namespace Yuusha
             {
                 this.visible = true;
                 this.land = Convert.ToInt32(cellInfo[0]);
+                if (Character.CurrentCharacter != null && Character.CurrentCharacter.m_landID != land)
+                {
+                    Utils.LogOnce("Map ID mismatch between cells being viewed and CurrentCharacter's mapID. Logging this until fixed.");
+                    Character.CurrentCharacter.m_landID = land;
+                }
                 this.map = Convert.ToInt32(cellInfo[1]);
+                // QUICK FIX until server update 6/18/2019
+                if(Character.CurrentCharacter != null && Character.CurrentCharacter.m_mapID != map)
+                {
+                    Utils.LogOnce("Map ID mismatch between cells being viewed and CurrentCharacter's mapID. Logging this until fixed.");
+                    Character.CurrentCharacter.m_mapID = map;
+                }
                 this.xCord = Convert.ToInt32(cellInfo[2]);
                 this.yCord = Convert.ToInt32(cellInfo[3]);
                 this.zCord = Convert.ToInt32(cellInfo[4]);
@@ -180,22 +191,19 @@ namespace Yuusha
                 m_characters = new List<Character>();
                 m_items = new List<Item>();
 
-                if (Client.GameState == Enums.EGameState.YuushaGame)
-                {
-                    gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(map, xCord, yCord, zCord, DisplayGraphic);
+                gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(map, xCord, yCord, zCord, DisplayGraphic);
 
-                    if (DisplayGraphic != "  ")
+                if (DisplayGraphic != "  ")
+                {
+                    if (!Character.FogOfWarSettings.FogOfWar.Contains(fogDetail))
                     {
-                        if (!Character.FogOfWarSettings.FogOfWar.Contains(fogDetail))
-                        {
-                            Character.FogOfWarSettings.FogOfWar.Add(fogDetail);
-                            Events.RegisterEvent(Events.EventName.Fog_of_War_Updated);
-                        }
-                        else if (fogDetail.DisplayGraphic != Character.FogOfWarSettings.GetFogOfWarDetail(map, xCord, yCord, zCord).DisplayGraphic)
-                        {
-                            Character.FogOfWarSettings.UpdateFogOfWarDetail(map, xCord, yCord, zCord, DisplayGraphic);
-                            Events.RegisterEvent(Events.EventName.Fog_of_War_Updated);
-                        }
+                        Character.FogOfWarSettings.FogOfWar.Add(fogDetail);
+                        Events.RegisterEvent(Events.EventName.Fog_of_War_Updated);
+                    }
+                    else if (fogDetail.DisplayGraphic != Character.FogOfWarSettings.GetFogOfWarDetail(map, xCord, yCord, zCord).DisplayGraphic)
+                    {
+                        Character.FogOfWarSettings.UpdateFogOfWarDetail(map, xCord, yCord, zCord, DisplayGraphic);
+                        Events.RegisterEvent(Events.EventName.Fog_of_War_Updated);
                     }
                 }
             }
@@ -235,11 +243,19 @@ namespace Yuusha
 
         public static Cell GetCell(int x, int y)
         {
-            if(Client.GameState == Enums.EGameState.SpinelGame)
-                return gui.SpinelMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
-            else if (Client.GameState == Enums.EGameState.YuushaGame)
-                return gui.YuushaMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
-            else return gui.IOKMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
+            try
+            {
+                if (Client.GameState == Enums.EGameState.SpinelGame)
+                    return gui.SpinelMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
+                else if (Client.GameState == Enums.EGameState.YuushaGame)
+                    return gui.YuushaMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
+                else return gui.IOKMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
+            }
+            return null;
         }
 
         public static bool operator ==(Cell c1, Cell c2)

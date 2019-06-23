@@ -33,9 +33,7 @@ namespace Yuusha.gui
 
             UpdateRectangle();
 
-            MouseState ms = GuiManager.MouseState;
-
-            if (!Contains(new Point(ms.X, ms.Y)))
+            if (!Contains(new Point(GuiManager.MouseState.X, GuiManager.MouseState.Y)))
                 m_controlState = Enums.EControlState.Normal;
         }
 

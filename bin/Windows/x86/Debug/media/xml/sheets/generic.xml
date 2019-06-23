@@ -178,24 +178,14 @@ available in any game state. -->
         Font="courier12"
         TextAlignment="Left">
       </Control>
-
-      <Control
-        Type="SquareBorder"
-        Name="DoubleLeftClickTargetLabelBorder"
-        Owner="DoubleLeftClickTargetLabel"
-        Width="1"
-        VisualKey="WhiteSpace"
-        VisualAlpha="255"
-        TintColor="Black">
-      </Control>
-
+      <!-- ODD BUG: On 6/18/2019 Noticed this label was being drawn far lower on Y than stated here. Adjusted with a negative Y value.-->
       <Control
        Type="Label"
        Text="Nearby"
        Name="OptionsDoubleLeftClickNearbyTargetLabel"
        Owner="FirstTabOptionsWindow"
-       X="4"
-       Y="24"
+       X="5"
+       Y="-63"
        Width="68"
        Height="200"
        TextColor="DeepSkyBlue"
@@ -209,7 +199,7 @@ available in any game state. -->
         Name="DoubleLeftClickNearbyTargetTextBox"
         Owner="FirstTabOptionsWindow"
         X="75"
-        Y="23"
+        Y="27"
         Width="400"
         Height="20"
         XTextOffset="0"
@@ -244,7 +234,7 @@ available in any game state. -->
        Name="OptionsDoubleLeftClickDistantTargetLabel"
        Owner="FirstTabOptionsWindow"
        X="4"
-       Y="54"
+       Y="53"
        Width="74"
        Height="22"
        TextColor="DeepSkyBlue"
@@ -518,18 +508,18 @@ available in any game state. -->
       </Control>
 
       <Control
-          Type="ColorDialogButton"
-          Name="OptionsTargetBorderColorDialogButton"
-          Owner="FirstTabOptionsWindow"
-          X="4"
-          Y="269"
-          Width="30"
-          Height="30"
-          IsVisible="true"
-          VisualKey="WhiteSpace"
-          TintColor="WhiteSmoke"
-          VisualAlpha="255"
-          BorderAlpha="255">
+        Type="ColorDialogButton"
+        Name="OptionsTargetBorderColorDialogButton"
+        Owner="FirstTabOptionsWindow"
+        X="4"
+        Y="269"
+        Width="30"
+        Height="30"
+        IsVisible="true"
+        VisualKey="WhiteSpace"
+        TintColor="WhiteSmoke"
+        VisualAlpha="255"
+        BorderAlpha="255">
       </Control>
       <Control
         Type="SquareBorder"
@@ -3340,336 +3330,6 @@ available in any game state. -->
       OnMouseDown="Send_Command">
     </Control>
   </HorizontalHotButtonWindow>
-
-  <HorizontalGameAutoHidingWindow>
-  <Control
-      Type="AutoHidingWindow"
-      Name="HorizontalGameAutoHidingWindow"
-      X="390"
-      Y="317"
-      Width="245"
-      Height="40"
-      IsVisible="false"
-      IsLocked="true"
-      Font="courier12"
-      VisualKey=""
-      VisualAlpha="255"
-      TintColor="Transparent"
-      DropShadow="false"
-      ShadowDistance="5"
-      ShadowDirection="Southwest"
-      AnchorTop="true"
-      AutoHideVisualAlpha="55"
-      FadeSpeed="5">
-  </Control>
-
-  <!-- Game AutoHidingWindow Title
-    <Control
-      Type="WindowTitle"
-      Name="HorizontalAutoHidingWindowTitle"
-      Owner="HorizontalGameAutoHidingWindow"
-      Font="courier16"
-      TintColor="Gray"
-      VisualKey="WhiteSpace"
-      Text=""
-      TextColor="White"
-      VisualAlpha="100"
-      TextAlignment="Center"
-      Height="5">
-    </Control> -->
-
-  <!-- Game AutoHidingWindow Border
-  <Control
-    Type="SquareBorder"
-    Name="HorizontalAutoHidingWindowBorder"
-    Owner="HorizontalGameAutoHidingWindow"
-    Width="1"
-    VisualKey="WhiteSpace"
-    TintColor="Gray">
-  </Control> -->
-
-    <Control
-      Type="Button"
-      Text=""
-      Name="SackHorizontalAutoHidingButton"
-      Owner="HorizontalGameAutoHidingWindow"
-      X="0"
-      Y="0"
-      Width="40"
-      Height="40"
-      VisualKey="SackIcon"
-      TintColor="MediumOrchid"
-      TextColor="Black"
-      TintOverColor="PaleGreen"
-      TextVisible="false"
-      IsVisible="true"
-      Font="courier12"
-      TextAlignment="Left"
-      TextOverColor="SlateGray"
-      OnMouseDown="request_sack"
-      PopUpText="Sack">
-    </Control>
-    <Control
-      Type="Button"
-      Text=""
-      Name="PouchHorizontalAutoHidingButton"
-      Owner="HorizontalGameAutoHidingWindow"
-      X="41"
-      Y="0"
-      Width="40"
-      Height="40"
-      VisualKey="PouchIcon"
-      TintColor="MediumOrchid"
-      TextColor="Black"
-      TintOverColor="PaleGreen"
-      TextVisible="false"
-      IsVisible="true"
-      Font="courier12"
-      TextAlignment="Left"
-      TextOverColor="SlateGray"
-      OnMouseDown="request_pouch"
-      PopUpText="Pouch">
-    </Control>
-    <Control
-      Type="Button"
-      Text=""
-      Name="HorizontalAutoHidingBeltButton"
-      Owner="HorizontalGameAutoHidingWindow"
-      X="82"
-      Y="0"
-      Width="40"
-      Height="40"
-      VisualKey="BeltIcon"
-      TintColor="MediumOrchid"
-      TextColor="Black"
-      TintOverColor="PaleGreen"
-      TextVisible="false"
-      IsVisible="true"
-      Font="courier12"
-      TextAlignment="Left"
-      TextOverColor="SlateGray"
-      OnMouseDown="request_belt"
-      PopUpText="Belt">
-    </Control>
-    <Control
-      Type="Button"
-      Text=""
-      Name="HorizontalAutoHidingRingsButton"
-      Owner="HorizontalGameAutoHidingWindow"
-      X="123"
-      Y="0"
-      Width="40"
-      Height="40"
-      VisualKey="RingsIcon"
-      TintColor="MediumOrchid"
-      TextColor="Black"
-      TintOverColor="PaleGreen"
-      TextVisible="false"
-      IsVisible="true"
-      Font="courier12"
-      TextAlignment="Left"
-      TextOverColor="SlateGray"
-      OnMouseDown="request_rings"
-      PopUpText="Rings">
-    </Control>
-    <Control
-      Type="Button"
-      Text=""
-      Name="HorizontalAutoHidingInventoryButton"
-      Owner="HorizontalGameAutoHidingWindow"
-      X="164"
-      Y="0"
-      Width="40"
-      Height="40"
-      VisualKey="InventoryIcon"
-      TintColor="MediumOrchid"
-      TextColor="Black"
-      TintOverColor="PaleGreen"
-      TextVisible="false"
-      IsVisible="true"
-      Font="courier12"
-      TextAlignment="Left"
-      TextOverColor="SlateGray"
-      OnMouseDown="request_inventory"
-      PopUpText="Inventory">
-    </Control>
-    <Control
-      Type="Button"
-      Text=""
-      Name="HorizontalAutoHidingLockerButton"
-      Owner="HorizontalGameAutoHidingWindow"
-      X="205"
-      Y="0"
-      Width="40"
-      Height="40"
-      VisualKey="LockerIcon"
-      TintColor="MediumOrchid"
-      TextColor="Black"
-      TintOverColor="PaleGreen"
-      TextVisible="false"
-      IsVisible="true"
-      Font="courier12"
-      TextAlignment="Left"
-      TextOverColor="SlateGray"
-      OnMouseDown="request_locker"
-      PopUpText="Locker">
-    </Control>
-    
-  </HorizontalGameAutoHidingWindow>
-
-  <VerticalGameAutoHidingWindow>
-    <Control
-      Type="AutoHidingWindow"
-      Name="VerticalGameAutoHidingWindow"
-      X="366"
-      Y="10"
-      Width="20"
-      Height="104"
-      IsVisible="false"
-      IsLocked="true"
-      Font="courier12"
-      VisualKey=""
-      VisualAlpha="255"
-      TintColor="Transparent"
-      DropShadow="false"
-      ShadowDistance="5"
-      ShadowDirection="Southwest"
-      AnchorTop="true"
-      AutoHideVisualAlpha="75"
-      FadeSpeed="5">
-    </Control>
-
-    <!-- Game AutoHidingWindow Title
-    <Control
-      Type="WindowTitle"
-      Name="VerticalAutoHidingWindowTitle"
-      Owner="VerticalAutoHidingWindow"
-      Font="courier16"
-      TintColor="Gray"
-      VisualKey="WhiteSpace"
-      Text=""
-      TextColor="White"
-      VisualAlpha="100"
-      TextAlignment="Center"
-      Height="5">
-    </Control> -->
-
-    <!-- Game AutoHidingWindow Border
-  <Control
-    Type="SquareBorder"
-    Name="VerticalAutoHidingWindowBorder"
-    Owner="VerticalAutoHidingWindow"
-    Width="1"
-    VisualKey="WhiteSpace"
-    TintColor="Gray">
-  </Control> -->
-
-    <Control
-      Type="Button"
-      Text=""
-      Name="VerticalAutoHidingOptionsButton"
-      Owner="VerticalGameAutoHidingWindow"
-      X="0"
-      Y="0"
-      Width="20"
-      Height="20"
-      VisualKey="OptionGearsIcon"
-      TintColor="MediumOrchid"
-      TextColor="Black"
-      TintOverColor="PaleGreen"
-      TextVisible="false"
-      IsVisible="true"
-      Font="courier12"
-      TextAlignment="Left"
-      TextOverColor="SlateGray"
-      OnMouseDown="toggle_optionswindow"
-      PopUpText="Options">
-    </Control>
-    <Control
-      Type="Button"
-      Text=""
-      Name="VerticalAutoHidingMapButton"
-      Owner="VerticalGameAutoHidingWindow"
-      X="0"
-      Y="22"
-      Width="20"
-      Height="20"
-      VisualKey="MapIcon"
-      TintColor="MediumOrchid"
-      TextColor="Black"
-      TintOverColor="PaleGreen"
-      TextVisible="false"
-      IsVisible="true"
-      Font="courier12"
-      TextAlignment="Left"
-      TextOverColor="SlateGray"
-      OnMouseDown="toggle_map"
-      PopUpText="Map">
-    </Control>
-    <Control
-      Type="Button"
-      Text=""
-      Name="VerticalAutoHidingVerticalHotbarButton"
-      Owner="VerticalGameAutoHidingWindow"
-      X="0"
-      Y="43"
-      Width="20"
-      Height="20"
-      VisualKey="VerticalHotbarIcon"
-      TintColor="MediumOrchid"
-      TextColor="Black"
-      TintOverColor="PaleGreen"
-      TextVisible="false"
-      IsVisible="true"
-      Font="courier12"
-      TextAlignment="Left"
-      TextOverColor="SlateGray"
-      OnMouseDown="toggle_verticalhotbar"
-      PopUpText="Verticals">
-    </Control>
-    <Control
-     Type="Button"
-     Text=""
-     Name="VerticalAutoHidingHorizontalHotbarButton"
-     Owner="VerticalGameAutoHidingWindow"
-     X="0"
-     Y="64"
-     Width="20"
-     Height="20"
-     VisualKey="HorizontalHotbarIcon"
-     TintColor="MediumOrchid"
-     TextColor="Black"
-     TintOverColor="PaleGreen"
-     TextVisible="false"
-     IsVisible="true"
-     Font="courier12"
-     TextAlignment="Left"
-     TextOverColor="SlateGray"
-     OnMouseDown="toggle_horizontalhotbar"
-     PopUpText="Horizontals">
-    </Control>
-    <Control
-     Type="Button"
-     Text=""
-     Name="VerticalAutoHidingMacrosButton"
-     Owner="VerticalGameAutoHidingWindow"
-     X="0"
-     Y="85"
-     Width="20"
-     Height="20"
-     VisualKey="MacrosIcon"
-     TintColor="MediumOrchid"
-     TextColor="Black"
-     TintOverColor="PaleGreen"
-     TextVisible="false"
-     IsVisible="true"
-     Font="courier12"
-     TextAlignment="Left"
-     TextOverColor="SlateGray"
-     OnMouseDown="toggle_macros"
-     PopUpText="Macros">
-    </Control>
-  </VerticalGameAutoHidingWindow>
   
   <InventoryWindow>
     <Control
@@ -3690,8 +3350,7 @@ available in any game state. -->
       ShadowDirection="Northwest"
       CursorOnDrag="Dragging">
     </Control>
-
-    <!-- Game AutoHidingWindow Title -->
+    <!-- InventoryWindowTitle -->
     <Control
       Type="WindowTitle"
       Name="InventoryWindowTitle"
@@ -3711,8 +3370,7 @@ available in any game state. -->
       CloseBoxHeight="18"
       Height="24">
     </Control>
-
-    <!-- Game AutoHidingWindow Border -->
+    <!-- InventoryWindowBorder -->
   <Control
     Type="SquareBorder"
     Name="InventoryWindowBorder"
@@ -3721,5 +3379,244 @@ available in any game state. -->
     VisualKey="WhiteSpace"
     TintColor="DimGray">
   </Control>
+    
+    <!-- Neck -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="NeckDragAndDropButton"
+    Owner="InventoryWindow"
+		X="70"
+		Y="81"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>    
+    <!-- Head -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="HeadDragAndDropButton"
+    Owner="InventoryWindow"
+		X="184"
+		Y="35"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Shoulders -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="ShouldersDragAndDropButton"
+    Owner="InventoryWindow"
+		X="264"
+		Y="82"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Face -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="FaceDragAndDropButton"
+    Owner="InventoryWindow"
+		X="192"
+		Y="102"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Back -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="BackDragAndDropButton"
+    Owner="InventoryWindow"
+		X="264"
+		Y="151"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Torso -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="TorsoDragAndDropButton"
+    Owner="InventoryWindow"
+		X="104"
+		Y="149"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Left Bicep -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="LeftBicepDragAndDropButton"
+    Owner="InventoryWindow"
+		X="36"
+		Y="167"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Right Bicep -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="RightBicepDragAndDropButton"
+    Owner="InventoryWindow"
+		X="188"
+		Y="167"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Waist -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="WaistDragAndDropButton"
+    Owner="InventoryWindow"
+		X="130"
+		Y="237"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Left Wrist -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="LeftWristDragAndDropButton"
+    Owner="InventoryWindow"
+		X="45"
+		Y="233"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Right Wrist -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="RightWristDragAndDropButton"
+    Owner="InventoryWindow"
+		X="244"
+		Y="233"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Legs -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="LegsDragAndDropButton"
+    Owner="InventoryWindow"
+		X="61"
+		Y="300"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Hands -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="HandsDragAndDropButton"
+    Owner="InventoryWindow"
+		X="209"
+		Y="300"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
+    <!-- Feet -->
+    <Control
+		Type="DragAndDropButton"
+		Text=""
+		Name="FeetDragAndDropButton"
+    Owner="InventoryWindow"
+		X="135"
+		Y="339"
+		Width="60"
+		Height="60"
+		TextColor="White"
+    TextVisible="false"
+		IsVisible="true"
+    IsLocked="true"
+		Font="courier12"
+		TextAlignment="Center">
+    </Control>
   </InventoryWindow>
 </GenericSheet>

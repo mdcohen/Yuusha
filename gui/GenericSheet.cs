@@ -76,7 +76,7 @@ namespace Yuusha.gui
                 else
                 {
                     if (GuiManager.Cursors.ContainsKey(m_cursorOverride))
-                    { 
+                    {
                         if (GuiManager.Cursors[m_cursorOverride].IsVisible)
                             GuiManager.Cursors[m_cursorOverride].Draw(gameTime);
                     }

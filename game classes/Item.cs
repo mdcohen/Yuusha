@@ -101,8 +101,8 @@ namespace Yuusha
         //public string unidentifiedName;
         //public string identifiedName;
 
-        public Character.WearLocation wearLocation;
-        public Character.WearOrientation wearOrientation;
+        public Character.WearLocation wearLocation = Character.WearLocation.None;
+        public Character.WearOrientation wearOrientation = Character.WearOrientation.None;
 
         public bool returning; // true if this item will stay in hand if thrown
         public bool flammable; // true if this item will be destroyed by fire
@@ -128,6 +128,10 @@ namespace Yuusha
                 //this.skillType = (Character.SkillType)Convert.ToInt32(itemInfo[4]);
                 Name = itemInfo[2];
                 VisualKey = itemInfo[3];
+                if (itemInfo.Length > 4)
+                    wearLocation = (Character.WearLocation)Convert.ToInt32(itemInfo[4]);
+                if (itemInfo.Length > 5)
+                    wearOrientation = (Character.WearOrientation)Convert.ToInt32(itemInfo[5]);
                 //this.shortDesc = itemInfo[6];
                 //this.longDesc = itemInfo[7];
                 //this.weight = Convert.ToDouble(itemInfo[8]);
@@ -157,8 +161,7 @@ namespace Yuusha
                 //this.armorClass = Convert.ToDouble(itemInfo[32]);
                 //this.minDamage = Convert.ToInt32(itemInfo[33]);
                 //this.maxDamage = Convert.ToInt32(itemInfo[34]);
-                //this.wearLocation = (Character.WearLocation)Convert.ToInt32(itemInfo[35]);
-                //this.wearOrientation = (Character.WearOrientation)Convert.ToInt32(itemInfo[36]);
+
                 //this.returning = Convert.ToBoolean(itemInfo[37]);
                 //this.flammable = Convert.ToBoolean(itemInfo[38]);
                 //this.creationTime = itemInfo[39];

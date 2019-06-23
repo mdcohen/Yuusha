@@ -739,7 +739,7 @@
 		IsVisible="true"
     VisualAlpha="115"
     BorderAlpha="115"
-		Font="courier16"
+		Font="changaone20"
 		TextAlignment="Center">
 	</Control>
 </Sheet>

@@ -11,22 +11,11 @@ namespace Yuusha
     {
         public enum SkillType { None, Bow, Dagger, Flail, Halberd, Mace, Rapier, Shuriken, Staff, Sword, Threestaff, Two_Handed, Unarmed, Thievery, Magic }
 
-        public enum WearLocation { None, Head, Neck, Nose, Ear, Face, Shoulders, Back, Torso, Bicep, Forearms, Wrist, Finger, Waist, Legs, Calves, Shins, Feet, Hands }
+        public enum WearLocation { None, Head, Neck, Nose, Face, Shoulders, Back, Torso, Bicep, Wrist, Finger, Waist, Legs, Feet, Hands }
 
-        public enum WearOrientation { None, Left, Right }
+        public enum WearOrientation { None, RightRing1, RightRing2, RightRing3, RightRing4, LeftRing1, LeftRing2, LeftRing3, LeftRing4, Left = 9, Right = 10 }
 
         public enum ClassType { None, Fighter, Thaumaturge, Wizard, Martial_Artist, Thief, Knight, Ravager, Sorcerer }
-
-        public enum SpeciesType
-        {
-            Unknown,
-            FireDragon,
-            IceDragon,
-            LightningDrake,
-            TundraYeti,
-            Sandwyrm,
-            Arachnid,
-        }
 
         public enum GenderType { It, Male, Female, Random }
 
@@ -357,6 +346,7 @@ namespace Yuusha
                                 Item inventoryItem = new Item(pcInventory[a]);
                                 m_currentCharacter.Inventory.Add(inventoryItem);
                             }
+                            GameHUD.UpdateInventoryGridBoxWindow();
                         }
                     }
                     catch (Exception e)
@@ -579,8 +569,8 @@ namespace Yuusha
         public bool m_filterProfanity;
         public bool m_ancestor;
         public bool m_anonymous;
-        public short m_landID;
-        public short m_mapID;
+        public int m_landID;
+        public int m_mapID;
         public int X
         { get; set; }
         public int Y
@@ -1045,7 +1035,7 @@ namespace Yuusha
 
         public Character Clone()
         {
-            return (Character)this.MemberwiseClone();
+            return (Character)MemberwiseClone();
         }
 
         public void UpdateCoordinates(Cell cell)
@@ -1090,6 +1080,16 @@ namespace Yuusha
             return lhs + rhs;
         }
 
+        public Item GetInventoryItem(WearLocation location, WearOrientation orientation)
+        {
+            foreach(Item item in Inventory)
+            {
+                if (item.wearLocation == location && item.wearOrientation == orientation)
+                    return item;
+            }
+            return null;
+        }
+
         public static List<Item> GetItemsList(Character chr, GridBoxWindow.GridBoxPurpose purpose)
         {
             switch(purpose)
@@ -1103,7 +1103,11 @@ namespace Yuusha
                 case GridBoxWindow.GridBoxPurpose.Rings:
                     return chr.Rings;
                 case GridBoxWindow.GridBoxPurpose.Sack:
-                    return chr.Sack;                       
+                    return chr.Sack;
+                case GridBoxWindow.GridBoxPurpose.Altar:
+                case GridBoxWindow.GridBoxPurpose.Counter:
+                case GridBoxWindow.GridBoxPurpose.Ground:
+                    return GameHUD.ExaminedCell.Items;
             }
 
             return new List<Item>();

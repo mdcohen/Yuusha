@@ -626,3 +626,15 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier14-0.
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier14.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\conference.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\yuushagame.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone12-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone12.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone14-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone14.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone16-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone16.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone20-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone20.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Kesmai-Dungeon-Background.wma
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Kesmai-Dungeon-Background.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Wind-Moderate.wma
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Wind-Moderate.xnb

@@ -141,6 +141,8 @@ namespace Yuusha.gui
                             }
 
                             sheet["HitsAdjLabel"].IsVisible = true;
+
+                            Character.PreviousRoundCharacter.Hits = chr.Hits;
                         }
                         else sheet["HitsAdjLabel"].IsVisible = false;
 
@@ -218,7 +220,7 @@ namespace Yuusha.gui
             return "Z";
         }
 
-        public static void FormatCells(string inData)
+        public static void FormatCell(string inData)
         {
             try
             {
@@ -265,11 +267,8 @@ namespace Yuusha.gui
                 else
                 {
                     while (m_cells.Count > 49)
-                    {
                         m_cells.RemoveAt(49);
-                    }
                     //Utils.Log("Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: " + m_cells.Count + " inData: " + inData);
-                    
                 }
             }
             catch (Exception e)
@@ -345,18 +344,16 @@ namespace Yuusha.gui
                 Item item = new Item
                 {
                     ID = Convert.ToInt32(itemInfo[0]),
-                    Name = itemInfo[1],
-                    //item.longDesc = itemInfo[2];
-                    VisualKey = itemInfo[3],
-                    //item.wearLocation = (Character.WearLocation)Convert.ToInt32(itemInfo[4]);
-                    //item.attuneType = (Item.AttuneType)Convert.ToInt32(itemInfo[5]);
-                    WorldItemID = Convert.ToInt32(itemInfo[4])
+                    WorldItemID = Convert.ToInt32(itemInfo[1]),
+                    Name = itemInfo[2],
+                    VisualKey = itemInfo[3]
                 };
                 return item;
             }
             catch (Exception e)
             {
                 Utils.LogException(e);
+                Utils.Log(inData);
                 return null;
             }
         }
@@ -377,76 +374,80 @@ namespace Yuusha.gui
                         m_critterListNames[a] = "";
                     }
 
-                    Cell cell = m_cells[24]; // start with our cell
+                    Cell cell;
 
-                    if (cell.Characters.Count > 0)
+                    if (m_cells.Count >= 25)
                     {
-                        foreach (Character ch in cell.Characters)
+                        cell = m_cells[24]; // start with our cell
+
+                        if (cell.Characters.Count > 0)
                         {
-                            #region Create Critter Label (Center Cell)
-                            string critterInfo = "  " + m_alignment[(int)ch.Alignment] + ch.Name;
-                            critterInfo = critterInfo.PadRight(19);
-
-                            if (ch.RightHand != null)
-                                critterInfo += ch.RightHand.Name;
-
-                            critterInfo = critterInfo.PadRight(31);
-
-                            if (ch.LeftHand != null)
-                                critterInfo += ch.LeftHand.Name;
-
-                            critterInfo = critterInfo.PadRight(43);
-
-                            critterInfo += ch.visibleArmor;
-
-                            Color foreColor = Color.White;
-                            Color backColor = Color.Black;
-
-                            switch (ch.Alignment)
+                            foreach (Character ch in cell.Characters)
                             {
-                                case World.Alignment.Amoral:
-                                    foreColor = Client.ClientSettings.Color_Gui_Amoral_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Amoral_Back;
-                                    break;
-                                case World.Alignment.Chaotic:
-                                    foreColor = Client.ClientSettings.Color_Gui_Chaotic_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Chaotic_Back;
-                                    break;
-                                case World.Alignment.ChaoticEvil:
-                                    foreColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
-                                    break;
-                                case World.Alignment.Evil:
-                                    foreColor = Client.ClientSettings.Color_Gui_Evil_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Evil_Back;
-                                    break;
-                                case World.Alignment.Lawful:
-                                    foreColor = Client.ClientSettings.Color_Gui_Lawful_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Lawful_Back;
-                                    break;
-                                case World.Alignment.Neutral:
-                                    foreColor = Client.ClientSettings.Color_Gui_Neutral_Fore;
-                                    backColor = Client.ClientSettings.Color_Gui_Neutral_Back;
+                                #region Create Critter Label (Center Cell)
+                                string critterInfo = "  " + m_alignment[(int)ch.Alignment] + ch.Name;
+                                critterInfo = critterInfo.PadRight(19);
+
+                                if (ch.RightHand != null)
+                                    critterInfo += ch.RightHand.Name;
+
+                                critterInfo = critterInfo.PadRight(31);
+
+                                if (ch.LeftHand != null)
+                                    critterInfo += ch.LeftHand.Name;
+
+                                critterInfo = critterInfo.PadRight(43);
+
+                                critterInfo += ch.visibleArmor;
+
+                                Color foreColor = Color.White;
+                                Color backColor = Color.Black;
+
+                                switch (ch.Alignment)
+                                {
+                                    case World.Alignment.Amoral:
+                                        foreColor = Client.ClientSettings.Color_Gui_Amoral_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Amoral_Back;
+                                        break;
+                                    case World.Alignment.Chaotic:
+                                        foreColor = Client.ClientSettings.Color_Gui_Chaotic_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Chaotic_Back;
+                                        break;
+                                    case World.Alignment.ChaoticEvil:
+                                        foreColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
+                                        break;
+                                    case World.Alignment.Evil:
+                                        foreColor = Client.ClientSettings.Color_Gui_Evil_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Evil_Back;
+                                        break;
+                                    case World.Alignment.Lawful:
+                                        foreColor = Client.ClientSettings.Color_Gui_Lawful_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Lawful_Back;
+                                        break;
+                                    case World.Alignment.Neutral:
+                                        foreColor = Client.ClientSettings.Color_Gui_Neutral_Fore;
+                                        backColor = Client.ClientSettings.Color_Gui_Neutral_Back;
+                                        break;
+                                }
+
+                                m_critterListNames[labelNum] = ch.Name;
+                                CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
+                                label.Critter = ch;
+                                label.CenterCell = true;
+                                label.Text = critterInfo;
+                                label.TextColor = foreColor;
+                                label.TintColor = backColor;
+                                label.IsVisible = true;
+                                #endregion
+
+                                labelNum++;
+
+                                if (labelNum >= 12)
                                     break;
                             }
-
-                            m_critterListNames[labelNum] = ch.Name;
-                            CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
-                            label.Critter = ch;
-                            label.CenterCell = true;
-                            label.Text = critterInfo;
-                            label.TextColor = foreColor;
-                            label.TintColor = backColor;
-                            label.IsVisible = true;
-                            #endregion
-
-                            labelNum++;
-
-                            if (labelNum >= 12)
-                                break;
                         }
                     }
-
 
                     for (int a = 0; a < m_cells.Count; a++) // move through each cell and update the map and mobs list
                     {
@@ -530,7 +531,6 @@ namespace Yuusha.gui
                 {
                     IOKTileLabel label = null;
                     Cell cell = null;
-                    VisualInfo backVI = GuiManager.Visuals["WhiteSpace"];
                     IOKTileDefinition currTile = null;
 
                     for (int count = 0; count < m_cells.Count; count++) // move through each cell and update the map and mobs list

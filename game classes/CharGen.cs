@@ -372,7 +372,7 @@ namespace Yuusha
                     (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Auto Roller Success!", Enums.ETextType.Default);
                     (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
                     (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Roll again?  (y,n)", Enums.ETextType.Default);
-                    Sound.Play("KSND0220");
+                    Audio.AudioManager.PlaySoundEffect("KSND0220");
                 }
             }
         }

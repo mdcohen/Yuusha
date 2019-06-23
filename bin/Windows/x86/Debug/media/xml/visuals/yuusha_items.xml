@@ -89,11 +89,17 @@
   <!-- Miscellaneous -->
   <Visual ParentTexture="yuusha_items.png" Name="coins" X="540" Y="1620" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="scroll" X="480" Y="1620" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="flameshieldscroll" X="1577" Y="1528" Width="38" Height="63"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="flameshieldscroll" X="1556" Y="1530" Width="39" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="chaosportalscroll" X="1522" Y="1527" Width="38" Height="63"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="spellbook" X="203" Y="340" Width="60" Height="60"></Visual> <!-- TODO: spellbooks for each casting profession-->
   <Visual ParentTexture="yuusha_items.png" Name="bloodsplatter" X="240" Y="1620" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="smallironmirror" X="1800" Y="1170" Width="90" Height="90"></Visual>
+  <!-- Edibles -->
+  <Visual ParentTexture="yuusha_items.png" Name="sprig" X="834" Y="1395" Width="38" Height="38"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="brightredberries" X="1744" Y="1325" Width="38" Height="38"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="shinyblueberries" X="729" Y="1464" Width="38" Height="38"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="yellowberries" X="1593" Y="1358" Width="38" Height="38"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="darkgreenberries" X="1713" Y="1326" Width="38" Height="38"></Visual>
   <!-- Robes -->
   <Visual ParentTexture="yuusha_items.png" Name="yasnakiapprenticerobe" X="670" Y="846" Width="58" Height="88"></Visual>
   <!-- Torso -->
@@ -112,12 +118,28 @@
   <Visual ParentTexture="yuusha_items.png" Name="scalemailleggings" X="1764" Y="2720" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="irongreaves" X="1768" Y="2813" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="steelgreaves" X="1372" Y="1837" Width="90" Height="90"></Visual>
+  <!-- Bracers (Wrist) -->
+  <Visual ParentTexture="yuusha_items.png" Name="leatherbracer" X="97" Y="2229" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="studdedleatherbracer" X="588" Y="2131" Width="89" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="chainmailbracer" X="195" Y="2228" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="scalemailbracer" X="686" Y="2229" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="bandedmailbracer" X="493" Y="2228" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="steelbracer" X="1665" Y="2814" Width="90" Height="92"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="mithrilmoonstonebracer" X="1553" Y="2819" Width="90" Height="90"></Visual>
+  <!-- Armbands (Bicep) -->
+  <Visual ParentTexture="yuusha_items.png" Name="studdedleatherarmband" X="673" Y="167" Width="54" Height="41"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="steelstuddedleatherarmband" X="607" Y="542" Width="54" Height="41"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="steelarmband" X="731" Y="270" Width="64" Height="40"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="steelarmbandswirlinglines" X="535" Y="168" Width="63" Height="38"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="adamantiumarmguard" X="598" Y="338" Width="64" Height="40"></Visual>
+  <!-- Waist -->
+  <Visual ParentTexture="yuusha_items.png" Name="nightmarehidebelt" X="205" Y="67" Width="61" Height="36"></Visual>
   <!-- Weapons -->
   <!-- Axes -->
   <Visual ParentTexture="yuusha_items.png" Name="ironaxe" X="1200" Y="1620" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="steelbattleaxe" X="1260" Y="1620" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="returningaxe" X="1320" Y="1620" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="executionersaxe" X="480" Y="1380" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="executionersaxe" X="1380" Y="1620" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="twohandedsteelbattleaxe" X="1560" Y="1620" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="steelbroadaxe" X="1500" Y="1620" Width="60" Height="60"></Visual>
   <!-- Hammers -->

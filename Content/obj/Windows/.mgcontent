@@ -4,6 +4,8 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Kesmai-Dungeon-Background.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Wind-Moderate.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/modem_dial.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/pm_alert.ogg</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/pm_alert_short.wav</File>
@@ -290,6 +292,8 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint3.WAV</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
