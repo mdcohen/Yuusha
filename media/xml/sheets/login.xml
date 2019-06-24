@@ -693,7 +693,7 @@
       Height="20"
       TextColor="White"
       IsVisible="true"
-      Font="courier12"
+      Font="changaone16"
       VisualKey=""
       VisualKeyDown=""
       VisualKeyOver=""

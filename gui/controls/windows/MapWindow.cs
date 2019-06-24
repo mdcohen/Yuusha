@@ -124,7 +124,7 @@ namespace Yuusha.gui
             if (IsVisible && Character.CurrentCharacter != null)
             {
                 // Update if it hasn't been done yet, and if the CurrentCharacter hasn't moved.
-                if (LatestUpdateFromCell == null || (Cell.GetCell(Character.CurrentCharacter.X, Character.CurrentCharacter.Y) is Cell cell && cell != LatestUpdateFromCell))
+                if (LatestUpdateFromCell == null || (Cell.GetCell(Character.CurrentCharacter.X, Character.CurrentCharacter.Y, Character.CurrentCharacter.Z) is Cell cell && cell != LatestUpdateFromCell))
                 {
                     m_fogCallingTask = new System.Threading.Tasks.Task(CallUponTheFog);
                     m_fogCallingTask.Start();
@@ -175,7 +175,7 @@ namespace Yuusha.gui
         {
             if (Character.CurrentCharacter == null || m_updatingGrid) return;
 
-            LatestUpdateFromCell = Cell.GetCell(Character.CurrentCharacter.X, Character.CurrentCharacter.Y);
+            LatestUpdateFromCell = Cell.GetCell(Character.CurrentCharacter.X, Character.CurrentCharacter.Y, Character.CurrentCharacter.Z);
 
             int x = Character.CurrentCharacter.X - m_xMod; // at position 0,0 (Control[0] 
             int y = Character.CurrentCharacter.Y - m_yMod; // at position 0,0
@@ -217,7 +217,7 @@ namespace Yuusha.gui
                             SpinelLabels[count].ForeColor = currentTile.ForeTint;
                             SpinelLabels[count].ForeAlpha = currentTile.ForeAlpha;
 
-                            if (Cell.GetCell(x, y) is Cell cell && cell.portal)
+                            if (Cell.GetCell(x, y, Character.CurrentCharacter.Z) is Cell cell && cell.portal)
                                 SpinelLabels[count].VisualKey = YuushaMode.Tiles["pp"].ForeVisual.Key;
 
                             SpinelLabels[count].FogVisual = "WhiteSpace";

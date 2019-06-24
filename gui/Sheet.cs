@@ -239,43 +239,46 @@ namespace Yuusha.gui
         {
             get
             {
-                for (int index = 0; index < m_controls.Count; index++)
+                lock (m_controls)
                 {
-                    if (name == m_controls[index].Name)
-                        return m_controls[index];
-
-                    if (m_controls[index] is Window)
+                    for (int index = 0; index < m_controls.Count; index++)
                     {
-                        lock ((m_controls[index] as Window).Controls)
+                        if (name == m_controls[index].Name)
+                            return m_controls[index];
+
+                        if (m_controls[index] is Window)
                         {
-                            foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
+                            lock ((m_controls[index] as Window).Controls)
                             {
-                                if (name == c.Name)
-                                    return c;
-
-                                if (c is Window)
+                                foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
                                 {
-                                    foreach (Control c2 in new List<Control>((c as Window).Controls))
+                                    if (name == c.Name)
+                                        return c;
+
+                                    if (c is Window)
                                     {
-                                        if (name == c2.Name)
-                                            return c2;
-
-                                        if (c2 is Window)
+                                        foreach (Control c2 in new List<Control>((c as Window).Controls))
                                         {
-                                            foreach (Control c3 in new List<Control>((c2 as Window).Controls))
+                                            if (name == c2.Name)
+                                                return c2;
+
+                                            if (c2 is Window)
                                             {
-                                                if (name == c3.Name)
-                                                    return c3;
-
-                                                if (c3 is Window)
+                                                foreach (Control c3 in new List<Control>((c2 as Window).Controls))
                                                 {
-                                                    foreach (Control c4 in new List<Control>((c3 as Window).Controls))
-                                                    {
-                                                        if (name == c4.Name)
-                                                            return c4;
-                                                    }
-                                                }
+                                                    if (name == c3.Name)
+                                                        return c3;
 
+                                                    if (c3 is Window)
+                                                    {
+                                                        foreach (Control c4 in new List<Control>((c3 as Window).Controls))
+                                                        {
+                                                            if (name == c4.Name)
+                                                                return c4;
+                                                        }
+                                                    }
+
+                                                }
                                             }
                                         }
                                     }
@@ -286,9 +289,7 @@ namespace Yuusha.gui
                 }
 
                 if (!(this == GuiManager.GenericSheet))
-                {
                     return GuiManager.GenericSheet[name];
-                }
 
                 return null;
             }
@@ -541,15 +542,15 @@ namespace Yuusha.gui
                     else if (owner is ScrollableTextBox)
                     {
                         if (c is DropDownMenu)
-                        {
                             (owner as ScrollableTextBox).DropDownMenu = c as DropDownMenu;
-                        }
+                        else if (c is Border)
+                            (owner as ScrollableTextBox).Border = c as Border;
                     }
                     else if (owner is TextBox)
                     {
                         if (c is Border)
                             (owner as TextBox).Border = c as Border;
-                        if (c is DropDownMenu)
+                        else if (c is DropDownMenu)
                             (owner as TextBox).DropDownMenu = c as DropDownMenu;
                     }
                     else if (owner is Label)
@@ -557,40 +558,40 @@ namespace Yuusha.gui
                         if (c is Border)
                             (owner as Label).Border = c as Border;
 
-                        if (owner is CritterListLabel)
+                        else if (owner is CritterListLabel)
                             if (c is DropDownMenu)
                                 (owner as CritterListLabel).DropDownMenu = c as DropDownMenu;
                     }
                     else if (owner is DropDownMenu)
                     {
-                        if (c is SquareBorder)
-                            (owner as DropDownMenu).Border = c as SquareBorder;
+                        if (c is Border)
+                            (owner as DropDownMenu).Border = c as Border;
                     }
                     else if (owner is HotButton)
                     {
-                        if (c is SquareBorder)
-                            (owner as HotButton).Border = c as SquareBorder;
+                        if (c is Border)
+                            (owner as HotButton).Border = c as Border;
                     }
                     else if (owner is DragAndDropButton)
                     {
-                        if (c is SquareBorder)
+                        if (c is Border)
                         {
-                            (owner as DragAndDropButton).Border = c as SquareBorder;
+                            (owner as DragAndDropButton).Border = c as Border;
                             (owner as DragAndDropButton).OriginalBorderColor = c.TintColor;
                             (owner as DragAndDropButton).HasOriginalBorderColor = true;
                         }
-                        if (c is DropDownMenu)
+                        else if (c is DropDownMenu)
                             (owner as DragAndDropButton).DropDownMenu = c as DropDownMenu;
                     }
                     else if (owner is CheckboxButton)
                     {
-                        if (c is SquareBorder)
-                            (owner as CheckboxButton).Border = c as SquareBorder;
+                        if (c is Border)
+                            (owner as CheckboxButton).Border = c as Border;
                     }
                     else if (owner is ColorDialogButton)
                     {
-                        if (c is SquareBorder)
-                            (owner as ColorDialogButton).Border = c as SquareBorder;
+                        if (c is Border)
+                            (owner as ColorDialogButton).Border = c as Border;
                     }
                 }
                 else Utils.Log("Owner is null. " + c.Name + ", Owner: " + c.Owner);

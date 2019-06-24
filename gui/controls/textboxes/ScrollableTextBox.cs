@@ -49,6 +49,8 @@ namespace Yuusha.gui
         }
         public DropDownMenu DropDownMenu
         { get; set; }
+        public Border Border
+        { get; set; }
         #endregion
 
         #region Constructors (2)
@@ -189,6 +191,7 @@ namespace Yuusha.gui
                 m_visibleTextColors = m_formattedTextColors;
             }
 
+            if (Border != null) Border.Update(gameTime);
             if (DropDownMenu != null) DropDownMenu.Update(gameTime);
 
             base.Update(gameTime);
@@ -249,6 +252,7 @@ namespace Yuusha.gui
             }
             else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for ScrollableTextBox [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
 
+            if (Border != null) Border.Draw(gameTime);
             if (DropDownMenu != null) DropDownMenu.Draw(gameTime);
         }
 

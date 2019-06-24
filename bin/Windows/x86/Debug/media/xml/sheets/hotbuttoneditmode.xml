@@ -41,6 +41,7 @@
 		Font="courier12"
 		VisualKey="WhiteSpace"
 		TintColor="DarkSlateGray"
+    VisualAlpha="0"
 		DropShadow="false"
 		ShadowDistance="5"
 		ShadowDirection="Northwest"
@@ -51,7 +52,7 @@
 		AnchorRight="true">
   </Control>
 
-  <!-- HotButton Edit Window Title -->
+  <!-- HotButton Edit Window Title
   <Control
 		Type="WindowTitle"
 		Name="HotButtonEditWindowTitle"
@@ -68,7 +69,7 @@
 		Text="Hotbutton Edit"
 		TextColor="White"
 		TextAlignment="Center">
-  </Control>
+  </Control> -->
   
   <!-- SELECTED -->
   <Control
@@ -76,13 +77,13 @@
     Name="HotButtonEditWindowSelectedIconTextLabel"
     Owner="HotButtonEditWindow"
     X="6"
-    Y="22"
+    Y="20"
     Width="128"
     Height="20"
     TextColor="White"
     Text="Selected"
     IsVisible="true"
-    Font="courier12"
+    Font="changaone14"
     TintColor="Transparent"
     VisualKey="WhiteSpace"
     VisualAlpha="0"
@@ -120,13 +121,13 @@
     Name="HotButtonEditWindowPreviewIconTextLabel"
     Owner="HotButtonEditWindow"
     X="140"
-    Y="22"
+    Y="20"
     Width="128"
     Height="20"
     TextColor="White"
     Text="Preview"
     IsVisible="true"
-    Font="courier12"
+    Font="changaone14"
     TintColor="Transparent"
     VisualKey="WhiteSpace"
     VisualAlpha="0"
@@ -169,7 +170,7 @@
     TextColor="White"
     Text="Display Text"
     IsVisible="true"
-    Font="courier12"
+    Font="changaone12"
     TintColor="Transparent"
     VisualKey="WhiteSpace"
     VisualAlpha="0"
@@ -228,7 +229,7 @@
     TextColor="White"
     Text="Command Text"
     IsVisible="true"
-    Font="courier12"
+    Font="changaone12"
     TintColor="Transparent"
     VisualKey="WhiteSpace"
     VisualAlpha="0"
@@ -286,11 +287,11 @@
 		Width="80"
 		Height="35"
 		XTextOffset="0"
-		YTextOffset="5"
+		YTextOffset="0"
 		TextColor="White"
 		IsVisible="true"
 		IsDisabled="false"
-		Font="courier16"
+		Font="changaone16"
     VisualKey="RoundedButton"
 		VisualKeyDown=""
 		VisualKeyOver=""
@@ -315,11 +316,11 @@
 		Width="80"
 		Height="35"
 		XTextOffset="0"
-		YTextOffset="5"
+		YTextOffset="0"
 		TextColor="White"
 		IsVisible="true"
 		IsDisabled="false"
-		Font="courier16"
+		Font="changaone16"
     VisualKey="RoundedButton"
 		VisualKeyDown=""
 		VisualKeyOver=""
@@ -327,7 +328,7 @@
     TintColor="DarkMagenta"
     TintOverColor="MediumOrchid"
     VisualAlpha="255"
-		OnMouseDown="Close_Window"
+		OnMouseDown="close_window"
 		TextAlignment="Center"
 		TextOverColor="Chartreuse"
     AnchorTop="true"

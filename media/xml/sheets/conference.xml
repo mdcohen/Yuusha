@@ -71,6 +71,15 @@
 		AnchorLeft="true"
 		AnchorRight="true">
 	</Control>
+  <Control
+    Type="SquareBorder"
+    Name="ConfScrollableTextBoxBorder"
+    Owner="ConfScrollableTextBox"
+    Width="1"
+    VisualKey="WhiteSpace"
+    VisualAlpha="155"
+    TintColor="DimGray">
+  </Control>
 	<Control
 		Type="TextBox"
 		Name="ConfInputTextBox"
@@ -99,6 +108,15 @@
 		AnchorLeft="true"
 		AnchorRight="true">
 	</Control>
+  <Control
+      Type="SquareBorder"
+      Name="ConfInputTextBoxBorder"
+      Owner="ConfInputTextBox"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="155"
+      TintColor="DimGray">
+  </Control>
 
   <!-- Character Info -->
   <CharacterInfo>

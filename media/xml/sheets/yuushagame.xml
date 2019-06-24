@@ -1987,7 +1987,7 @@
       TextAlignment="Left"
       TextOverColor="SlateGray"
       OnMouseDown="toggle_fogofwar"
-      PopUpText="Map">
+      PopUpText="Fog of War">
     </Control>
     <Control
       Type="Button"

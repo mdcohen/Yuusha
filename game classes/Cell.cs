@@ -191,6 +191,7 @@ namespace Yuusha
                 m_characters = new List<Character>();
                 m_items = new List<Item>();
 
+                // Fog of War
                 gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(map, xCord, yCord, zCord, DisplayGraphic);
 
                 if (DisplayGraphic != "  ")
@@ -210,6 +211,7 @@ namespace Yuusha
             catch (Exception e)
             {
                 Utils.LogException(e);
+                Utils.Log("Invalid Cell info format: " + info);
             }
         } 
         #endregion
@@ -241,15 +243,15 @@ namespace Yuusha
             }
         }
 
-        public static Cell GetCell(int x, int y)
+        public static Cell GetCell(int x, int y, int z)
         {
             try
             {
                 if (Client.GameState == Enums.EGameState.SpinelGame)
-                    return gui.SpinelMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
+                    return gui.SpinelMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
                 else if (Client.GameState == Enums.EGameState.YuushaGame)
-                    return gui.YuushaMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
-                else return gui.IOKMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y);
+                    return gui.YuushaMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
+                else return gui.IOKMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
             }
             catch(Exception e)
             {

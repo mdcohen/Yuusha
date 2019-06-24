@@ -861,7 +861,7 @@ namespace Yuusha.gui
                     verticalGameAutoHidingWindow.IsVisible = true;
 
                 #region DamageFogSkullsLabel
-                if (Character.CurrentCharacter != null && GuiManager.GetControl("DamageFogSkullsLabel") is Label fogLabel)
+                if (Character.CurrentCharacter != null && GetControl("DamageFogSkullsLabel") is Label fogLabel)
                 {
                     double pct = (double)((Character.CurrentCharacter.Hits * 100) / Character.CurrentCharacter.HitsFull);
 
@@ -870,6 +870,7 @@ namespace Yuusha.gui
                         fogLabel.TintColor = Color.LemonChiffon;
                         fogLabel.VisualAlpha = 65;
                         fogLabel.IsVisible = true;
+                        fogLabel.ZDepth = 999;
 
                         if (pct <= 25)
                         {

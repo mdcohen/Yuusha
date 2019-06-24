@@ -73,8 +73,13 @@ namespace Yuusha.gui
             {
                 if (chr != null)
                 {
-                    if (GuiManager.GetControl("TextVitalsWindow") is Window vitalsWindow && vitalsWindow.DiscreetlyDraggable)
-                        vitalsWindow.DiscreetlyDraggable = false;
+                    //if (GuiManager.GetControl("TextVitalsWindow") is Window vitalsWindow)
+                    //{
+                    //    //vitalsWindow.PopUpText = string.Format("{0:n0}", chr.Experience) + "/" + string.Format("{0:n0}", Globals.GetExperienceRequiredForLevel(chr.Level + 1));
+
+                    //    if(vitalsWindow.DiscreetlyDraggable)
+                    //        vitalsWindow.DiscreetlyDraggable = false;
+                    //}
 
                     sheet["HitsRemainingLabel"].Text = chr.Hits.ToString();
                     if (chr.Hits != chr.HitsFull)

@@ -1051,7 +1051,7 @@ namespace Yuusha
             {
                 for (int xpos = -1; xpos <= 1; xpos += 1)
                 {
-                    Cell curCell = Cell.GetCell(X + xpos, Y + ypos);
+                    Cell curCell = Cell.GetCell(X + xpos, Y + ypos, Character.CurrentCharacter.Z);
                     if (curCell != null)
                     {
                         if (curCell.CellGraphic == Cell.GRAPHIC_COUNTER_PLACEABLE || curCell.CellGraphic == Cell.GRAPHIC_ALTAR_PLACEABLE)

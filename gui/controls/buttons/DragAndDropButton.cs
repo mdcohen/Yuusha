@@ -288,7 +288,7 @@ namespace Yuusha.gui
 
             if (Border != null)
             {
-                if (!HasOriginalBorderColor || Owner.Contains("GridBox") || Owner == "InventoryWindow" || (Name.StartsWith("RH") || Name.StartsWith("LH") && Height < 60)) // bad code again :(
+                if (!HasOriginalBorderColor || Owner.Contains("GridBox") || Owner == "InventoryWindow" || ((Name.StartsWith("RH") || Name.StartsWith("LH")) && Height < 60)) // bad code again :(
                     Border.IsVisible = false;
                 else
                     Border.TintColor = OriginalBorderColor;

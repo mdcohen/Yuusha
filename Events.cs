@@ -897,7 +897,7 @@ namespace Yuusha
                                 if (GuiManager.GetControl("FogOfWarMapWindow") == null)
                                 {
                                     MapWindow.CreateFogOfWarMapWindow();
-                                    GuiManager.GetControl("FogOfWarMapWindow").IsVisible = true;
+                                    GuiManager.GetControl("FogOfWarMapWindow").IsVisible = false;
                                 }
                             }
 
@@ -1599,14 +1599,17 @@ namespace Yuusha
 
                                 if (Client.ClientSettings.ContainsStoredAccount(Utility.Encrypt.EncryptString(at.Text, Utility.Settings.StaticSettings.DecryptionPassPhrase1), out Utility.Encrypt.EncryptedKeyValuePair<string, string> kvPair))
                                 {
-                                    string unencryptedPassword = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
-                                    if (pt.Text != unencryptedPassword)
+                                    if (!pt.HasFocus)
                                     {
-                                        at.SelectAll();
-                                        pt.Text = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
-                                        pt.SelectAll();
-                                        pt.HasFocus = true;
-                                        if (rcheck != null) rcheck.IsChecked = true;
+                                        string unencryptedPassword = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
+                                        if (pt.Text != unencryptedPassword)
+                                        {
+                                            at.SelectAll();
+                                            pt.Text = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
+                                            pt.SelectAll();
+                                            pt.HasFocus = true;
+                                            if (rcheck != null) rcheck.IsChecked = true;
+                                        }
                                     }
                                 }
                             }

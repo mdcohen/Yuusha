@@ -62,7 +62,9 @@ namespace Yuusha.gui
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                 {
-                    Events.RegisterEvent(Events.EventName.Send_Command, "swap");
+                    // when returning to original position prevent a swap command
+                    if(GuiManager.MouseOverDropAcceptingControl.Name.Substring(0, 2) != b.Name.Substring(0, 2))
+                        Events.RegisterEvent(Events.EventName.Send_Command, "swap");
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
                 {

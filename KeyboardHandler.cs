@@ -127,6 +127,8 @@ namespace Yuusha
                 return true;
             }
 
+            // ALT + W
+            // toggle Fog of War
             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
             {
                 return true;
@@ -331,10 +333,10 @@ namespace Yuusha
                         else if (Client.GameState == Enums.EGameState.CharacterGeneration)
                         {
                             // Testing purposes
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
-                            {
-                                Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
-                            }
+                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
+                            //{
+                            //    Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
+                            //}
 
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter))
                             {
@@ -342,13 +344,13 @@ namespace Yuusha
                                 result = true;
                             }
 
-                            #region ALT + M  Macros Window
-                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.M))
-                            {
-                                Events.RegisterEvent(Events.EventName.Toggle_Macros);
-                                result = true;
-                            }
-                            #endregion
+                            //#region ALT + M  Macros Window
+                            //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.M))
+                            //{
+                            //    Events.RegisterEvent(Events.EventName.Toggle_Macros);
+                            //    result = true;
+                            //}
+                            //#endregion
 
                             #region ALT + R  Reload Current GUI Sheet
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.R))
@@ -373,15 +375,21 @@ namespace Yuusha
                         else if (Client.GameState == Enums.EGameState.HotButtonEditMode)
                         {
                             // nothing
+                            if(ks.IsKeyDown(Keys.Escape))
+                            {
+                                if (GuiManager.GetControl("HotButtonEditWindow") is Window hbeWindow)
+                                    hbeWindow.OnClose();
+                                result = true;
+                            }
                         }
                         else // menu, game, conf
                         {
                             // Testing purposes ALT + W
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
-                            {
-                                Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
-                                result = true;
-                            }
+                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
+                            //{
+                            //    Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
+                            //    result = true;
+                            //}
 
                             //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.E))
                             //{
@@ -390,17 +398,18 @@ namespace Yuusha
                             //    result = true;
                             //}
 
+                            // ALT + W Toggle Fog of War
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             {
                                 Events.RegisterEvent(Events.EventName.Toggle_FogOfWar);
                                 result = true;
                             }
 
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
-                            {
-                                Utils.LogCharacterFields();
-                                result = true;
-                            }
+                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
+                            //{
+                            //    Utils.LogCharacterFields();
+                            //    result = true;
+                            //}
 
                             if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1))
                             {
@@ -495,14 +504,14 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + L  Toggle Logging of Scrollable Text Boxes
-                                                        if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.L))
-                                                        {
-                                                            GuiManager.LoggingRequested = !GuiManager.LoggingRequested;
-                                                            string onoff = "Enabled";
-                                                            if (!GuiManager.LoggingRequested) onoff = "Disabled";
-                                                            gui.TextCue.AddClientInfoTextCue("Logging " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 0, 2500, false, true, false);
-                                                            result = true;
-                                                        }
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.L))
+                            {
+                                GuiManager.LoggingRequested = !GuiManager.LoggingRequested;
+                                string onoff = "Enabled";
+                                if (!GuiManager.LoggingRequested) onoff = "Disabled";
+                                gui.TextCue.AddClientInfoTextCue("Logging " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 0, 2500, false, true, false);
+                                result = true;
+                            }
                             #endregion
 
                             #region ALT + M  Macros Window
@@ -594,7 +603,18 @@ namespace Yuusha
                                 Client.UserSettings.SoundEffects = !Client.UserSettings.SoundEffects;
                                 string onoff = "Enabled";
                                 if (!Client.UserSettings.SoundEffects) onoff = "Disabled";
-                                gui.TextCue.AddClientInfoTextCue("Sound Effects " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 0, 2500, false, true, false);
+                                TextCue.AddClientInfoTextCue("Sound Effects " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 0, 2500, false, true, false);
+                                result = true;
+                            }
+                            #endregion
+
+                            #region ALT + A  Toggle Ambient SOunds
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.A))
+                            {
+                                Client.UserSettings.BackgroundAmbience = !Client.UserSettings.BackgroundAmbience;
+                                string onoff = "Enabled";
+                                if (!Client.UserSettings.BackgroundAmbience) onoff = "Disabled";
+                                TextCue.AddClientInfoTextCue("Ambient Sounds " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 0, 2500, false, true, false);
                                 result = true;
                             }
                             #endregion
@@ -615,8 +635,7 @@ namespace Yuusha
                             }
                             #endregion
 #endif
-
-                            #region Tilde Saves a Screenshot
+                            #region Tilde  Saves a Screenshot
                             if (ks.IsKeyDown(Keys.OemTilde))
                             {
                                 Utils.SaveScreenshot();
@@ -635,6 +654,11 @@ namespace Yuusha
         public static bool IsAltKeyDown(KeyboardState ks)
         {
             return ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt);
+        }
+
+        public static bool IsCtrlKeyDown(KeyboardState ks)
+        {
+            return ks.IsKeyDown(Keys.LeftControl) || ks.IsKeyDown(Keys.RightControl);
         }
 
         public static bool IsShiftKeyDown(KeyboardState ks)

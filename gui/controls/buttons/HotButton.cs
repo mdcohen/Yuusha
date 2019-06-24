@@ -10,9 +10,9 @@ namespace Yuusha.gui
         public int FadeIncrement = 10;
         public double FadeDelay = .035;
         readonly int m_originalVisualAlpha = 255;
-        private SquareBorder m_border;
+        private Border m_border;
         
-        public SquareBorder Border { get { return m_border; } set { m_border = value; } }
+        public Border Border { get { return m_border; } set { m_border = value; } }
 
         public HotButton(string name, string owner, Rectangle rectangle, string text, bool textVisible,
             Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor,

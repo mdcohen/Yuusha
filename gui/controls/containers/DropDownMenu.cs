@@ -53,12 +53,12 @@ namespace Yuusha.gui
 
             base.Draw(gameTime);
 
-            if (Title != null && this.Title.Length > 0 && BitmapFont.ActiveFonts.ContainsKey(this.Font))
+            if (Title != null && Title.Length > 0 && BitmapFont.ActiveFonts.ContainsKey(Font))
             {
                 BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
                 BitmapFont.ActiveFonts[Font].Alignment = BitmapFont.TextAlignment.Center;
-                Rectangle rect = new Rectangle(this.m_rectangle.X, m_rectangle.Y, m_rectangle.Width, 30);
-                BitmapFont.ActiveFonts[Font].TextBox(rect, Client.ClientSettings.ColorDropDownMenuTitleText, this.Title);
+                Rectangle rect = new Rectangle(m_rectangle.X, m_rectangle.Y, m_rectangle.Width, 30);
+                BitmapFont.ActiveFonts[Font].TextBox(rect, Client.ClientSettings.ColorDropDownMenuTitleText, Title);
             }
 
             foreach (DropDownMenuItem menuItem in m_menuItems)
@@ -86,8 +86,7 @@ namespace Yuusha.gui
                 menuItem.Width = Width;
             }           
 
-            if (Border != null)
-                Border.Update(gameTime);
+            if (Border != null) Border.Update(gameTime);
 
             foreach (DropDownMenuItem menuItem in m_menuItems)
                 menuItem.Update(gameTime);
