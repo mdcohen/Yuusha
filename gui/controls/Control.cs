@@ -31,7 +31,6 @@ namespace Yuusha.gui
         protected int m_textAlpha; // text alpha
         protected Color m_tintColor; // visual tint color
         protected int m_visualAlpha; // visual alpha
-        protected int m_borderAlpha; // border alpha
         protected VisualKey m_visualKey; // visual key
         protected bool m_visualTiled = false; // visual key is tiled
         protected Dictionary<Enums.EControlState, VisualKey> m_visuals;
@@ -256,7 +255,6 @@ namespace Yuusha.gui
             m_tintColor = Color.White;
             m_visualAlpha = 255;
             m_textAlpha = 255;
-            m_borderAlpha = 255;
             m_visualKey = null;
             m_visuals = new Dictionary<Enums.EControlState, VisualKey>();
             XTextOffset = 0;
@@ -291,11 +289,11 @@ namespace Yuusha.gui
 
         public virtual void Update(GameTime gameTime)
         {
-            if(!m_disabled && m_visible)
-            {
-                if (PopUpText != "" && m_controlState == Enums.EControlState.Over && GuiManager.ActiveDropDownMenu == "")
-                    TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpBackAlpha, Client.ClientSettings.DefaultPopUpFont);
-            }
+            //if (!m_disabled && m_visible)
+            //{
+            //    if (PopUpText != "" && m_controlState == Enums.EControlState.Over && GuiManager.ActiveDropDownMenu == "")
+            //        TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpBackAlpha, Client.ClientSettings.DefaultPopUpFont);
+            //}
 
             if (m_visuals.ContainsKey(ControlState) && m_visualKey != m_visuals[ControlState])
                 m_visualKey = m_visuals[ControlState];
@@ -396,6 +394,12 @@ namespace Yuusha.gui
                         }
                     }
                 }
+            }
+
+            if (!m_disabled)
+            {
+                if (PopUpText != "" && m_controlState == Enums.EControlState.Over && GuiManager.ActiveDropDownMenu == "")
+                    TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpBackAlpha, Client.ClientSettings.DefaultPopUpFont);
             }
         }
 
@@ -551,8 +555,8 @@ namespace Yuusha.gui
                     return true;
                 }
             }
-            else if (this is Button && ControlState != Enums.EControlState.Normal)
-            //else if ((!Contains(mousePointer) || (this is Button)) && ControlState != Enums.eControlState.Normal)
+            //else if (this is Button && ControlState != Enums.EControlState.Normal)
+            else if ((!Contains(mousePointer) || (this is Button)) && ControlState != Enums.EControlState.Normal)
             {
                 if (ms.LeftButton != ButtonState.Pressed && !(this is TextBox))
                     HasFocus = false;
@@ -608,7 +612,7 @@ namespace Yuusha.gui
             if (!(this is TextBox))
                 HasFocus = false;
 
-            TextCue.ClearMouseCursorTextCue();
+            TextCue.RemoveMouseCursorTextCue(PopUpText);
         }
 
         protected virtual void OnMouseRelease(MouseState ms)

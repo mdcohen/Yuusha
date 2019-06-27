@@ -19,8 +19,8 @@ namespace Yuusha.Utility.Settings
         public byte DefaultPopUpBackAlpha = 150; // foreground text is always 255
         public byte DefaultPopUpFadeOutSpeed = 1;
         public byte DefaultPopUpFadeInSpeed = 5;
-        public string DefaultPopUpFont = "courier16";
-        public string DefaultDropDownMenuFont = "courier14";
+        public string DefaultPopUpFont = "changaone14";
+        public string DefaultDropDownMenuFont = "changaone14";
         public bool DisplayChantingTextCue = true;
         public bool StartFullScreen = false;
 
@@ -79,9 +79,9 @@ namespace Yuusha.Utility.Settings
 
         public Color DefaultMouseCursorTextCueColor = Color.PapayaWhip;
 
-        public Color HotButtonText_ForeColor = Color.Lime;
-        public Color HotButtonText_BackColor = Color.Purple;
-        public byte HotButtonText_BackColorAlpha = 200;
+        public Color HotButtonPopUpText_ForeColor = Color.Lime;
+        public Color HotButtonPopUpText_BackColor = Color.Purple;
+        public byte HotButtonPopUpText_BackColorAlpha = 255;
 
         public Color GridBoxWindowTintColor = Color.DarkSlateGray;
         public Color GridBoxTitleTextColor = Color.White;

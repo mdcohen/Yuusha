@@ -67,24 +67,22 @@ namespace Yuusha.gui
             {
                 TextCue tc = TextCues[a];
                 tc.Update(gameTime, TextCues);
-                if (TextCues.Contains(tc))
-                {
-                    if (BitmapFont.ActiveFonts.ContainsKey(tc.Font))
-                    {
-                        tc.X = ms.X;
-                        tc.Y = ms.Y - BitmapFont.ActiveFonts[tc.Font].LineHeight;
 
-                        while (tc.X < 0) tc.X++;
+                //if (BitmapFont.ActiveFonts.ContainsKey(tc.Font))
+                //{
+                //    tc.X = ms.X;
+                //    tc.Y = ms.Y - BitmapFont.ActiveFonts[tc.Font].LineHeight;
 
-                        while (tc.Y < 0) tc.Y++;
+                //    while (tc.X < 0) tc.X++;
 
-                        while (tc.X + BitmapFont.ActiveFonts[tc.Font].MeasureString(tc.Text) > Client.Width)
-                            tc.X--;
+                //    while (tc.Y < 0) tc.Y++;
 
-                        while (tc.Y > Client.Height) tc.Y--;
-                    }
-                    else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + tc.Font + " ] for TextCue [ " + tc.Text + " ] ");
-                }
+                //    while (tc.X + BitmapFont.ActiveFonts[tc.Font].MeasureString(tc.Text) > Client.Width)
+                //        tc.X--;
+
+                //    while (tc.Y > Client.Height) tc.Y--;
+                //}
+                //else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + tc.Font + " ] for TextCue [ " + tc.Text + " ] ");
             }
         }
 

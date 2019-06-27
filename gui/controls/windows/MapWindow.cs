@@ -41,9 +41,9 @@ namespace Yuusha.gui
         { get; set; }
 
         public MapWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled,
-            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, bool dropShadow,
+            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow,
             Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride)
-            : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
+            : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
         {
             Cells = new Dictionary<XYCoordinate, Cell>();
             Scrollbar = new Scrollbar(m_name + "Scrollbar", 0, 1, 1, 20, 0, false);
@@ -54,7 +54,7 @@ namespace Yuusha.gui
             // -50 offset because that's where the map starts.
             // 0, -50
             MapWindow window = new MapWindow("FogOfWarMapWindow", "", new Rectangle(0, -50, Client.Width, Client.Height + 50), true, true, false, "courier28", new gui.VisualKey("WhiteSpace"), Color.Black,
-                255, 0, false, Map.Direction.None, 0, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
+                255, false, Map.Direction.None, 0, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
          
             GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()].AddControl(window);
 
@@ -77,7 +77,7 @@ namespace Yuusha.gui
                 for(int x = 0; x < m_columns * DEFAULT_TILE_SIZE; x += DEFAULT_TILE_SIZE)
                 {
                     SpinelTileLabel sptLabel = new SpinelTileLabel(Name + "SpinelTileLabel" + Controls.Count, Name, new Rectangle(x, y, DEFAULT_TILE_SIZE, DEFAULT_TILE_SIZE), "", Color.White,
-                        true, false, "courier12", new gui.VisualKey("WhiteSpace"), Color.Black, 255, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+                        true, false, "courier12", new gui.VisualKey("WhiteSpace"), Color.Black, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
 
                     sptLabel.TextAlignment = BitmapFont.TextAlignment.Center;
                     //sptLabel.IsVisible = false;

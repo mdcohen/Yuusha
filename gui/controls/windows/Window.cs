@@ -85,13 +85,16 @@ namespace Yuusha.gui
         /// <summary>
         /// Window can be dragged from any location in its rectangle. Set to false only within the code.
         /// </summary>
+        //public bool DiscreetlyDraggable
+        //{ get; set; } = true;
+
         public bool DiscreetlyDraggable
-        { get; set; } = true;
+        { get { return !GameHUD.NonDiscreetlyDraggableWindows.Contains(Name); } }
         #endregion
 
         #region Constructor
         public Window(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled,
-            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, bool dropShadow,
+            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow,
             Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride)
             : base()
         {
@@ -106,7 +109,6 @@ namespace Yuusha.gui
             m_visuals.Add(Enums.EControlState.Normal, m_visualKey);
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
-            m_borderAlpha = borderAlpha;
             m_dropShadow = dropShadow;
             m_shadowDirection = shadowDirection;
             m_shadowDistance = shadowDistance;
@@ -557,10 +559,12 @@ namespace Yuusha.gui
                         if (box.Contains(new Point(ms.X, ms.Y))) return;
                 }
 
-                //TextCue.AddClientInfoTextCue("Cursor override set to: " + m_cursorOverride);
-                //GuiManager.GenericSheet.CursorOverride = m_cursorOverride;
                 GuiManager.CurrentSheet.CursorOverride = m_cursorOverride;
             }
+
+//#if DEBUG
+//            TextCue.AddMouseCursorTextCue("DEBUG: " + Position.ToString());
+//#endif
         }
 
         public virtual void OnCrop()

@@ -74,7 +74,7 @@ namespace Yuusha.gui
 
         public ScrollableTextBox(string name, string owner, Rectangle rectangle, string text, Color textColor,
             bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha,
-            byte borderAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown,
+            byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown,
             VisualKey visualKeyDisabled, int xTextOffset, int yTextOffset, BitmapFont.TextAlignment textAlignment,
             List<Enums.EAnchorType> anchors, bool trim)
             : base()
@@ -91,7 +91,6 @@ namespace Yuusha.gui
             m_visuals.Add(Enums.EControlState.Normal, m_visualKey);
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
-            m_borderAlpha = borderAlpha;
             m_textAlpha = textAlpha;
             XTextOffset = xTextOffset;
             YTextOffset = yTextOffset;

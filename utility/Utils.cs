@@ -65,11 +65,6 @@ namespace Yuusha
             }
         }
 
-		public Utils()
-		{
-            // empty
-		}
-
         public static string GetCharacterFogOfWarFileName(string name)
         {
             name = GetCharacterFileName(name);
@@ -257,6 +252,12 @@ namespace Yuusha
             }
         }
 
+        public static TimeSpan RoundsToTimeSpan(int rounds)
+        {
+            var secondsPerRound = new TimeSpan(0, 0, Convert.ToInt32(Utility.Settings.StaticSettings.RoundDelayLength / 1000));
+            return new TimeSpan(0, 0, rounds * secondsPerRound.Seconds);
+        }
+
         public static void SaveScreenshot()
         {
             try
@@ -413,6 +414,24 @@ namespace Yuusha
             foreach(FieldInfo f in fields)
             {
                 Utils.Log(f.Name + ": " + f.GetValue(Character.CurrentCharacter));
+            }
+        }
+
+        public static void LogCharacterEffects()
+        {
+
+            FieldInfo[] fields;
+
+            foreach (Effect effect in Character.CurrentCharacter.Effects)
+            {
+                fields = effect.GetType().GetFields(BindingFlags.Public |
+                                              BindingFlags.NonPublic |
+                                              BindingFlags.Instance);
+
+                foreach (FieldInfo f in fields)
+                {
+                    Utils.Log(f.Name + ": " + f.GetValue(effect));
+                }
             }
         }
     }

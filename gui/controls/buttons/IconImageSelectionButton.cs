@@ -7,8 +7,8 @@ namespace Yuusha.gui
 {
     public class IconImageSelectionButton : HotButton
     {
-        public IconImageSelectionButton(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command)
-            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, "")
+        public IconImageSelectionButton(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command)
+            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, "")
         {
         }
 
@@ -23,50 +23,47 @@ namespace Yuusha.gui
             {
                 m_visualAlpha = 0;
 
-                HotButtonEditWindow owner = GuiManager.CurrentSheet[this.Owner] as HotButtonEditWindow;
-
-                if (owner != null)
+                if (GuiManager.CurrentSheet[Owner] is HotButtonEditWindow owner)
                 {
-                    owner.SelectedIconLabel.VisualKey = this.VisualKey;
-                    owner.SelectedVisualKey = this.VisualKey;
+                    owner.SelectedIconLabel.VisualKey = VisualKey;
+                    owner.SelectedVisualKey = VisualKey;
                 }
             }
         }
 
         protected override void OnMouseOver(MouseState ms)
         {
-            HotButtonEditWindow owner = GuiManager.CurrentSheet[this.Owner] as HotButtonEditWindow;
-
-            if (owner != null)
+            if (GuiManager.CurrentSheet[Owner] is HotButtonEditWindow owner)
             {
-                Label previewLabel = owner["HotButtonEditWindowPreviewIconLabel"] as Label;
-
-                if (previewLabel != null)
+                if (owner["HotButtonEditWindowPreviewIconLabel"] is Label previewLabel)
                 {
-                    if (previewLabel.VisualKey != this.VisualKey)
-                    {
-                        previewLabel.VisualKey = this.VisualKey;
-                        //previewLabel.Text = this.VisualKey.ToString();
-                    }
+                    if (previewLabel.VisualKey != VisualKey)
+                        previewLabel.VisualKey = VisualKey;
+                }
+
+                if (owner["SelectedIconNameLabel"] is Label selectedNameLabel)
+                {
+                    selectedNameLabel.Text = VisualKey;
                 }
             }
+
+            base.OnMouseOver(ms);
         }
 
         protected override void OnMouseLeave(MouseState ms)
         {
-            HotButtonEditWindow owner = GuiManager.CurrentSheet[this.Owner] as HotButtonEditWindow;
-
-            if (owner != null)
+            if (GuiManager.CurrentSheet[this.Owner] is HotButtonEditWindow owner)
             {
                 owner.SelectedIconLabel.VisualKey = owner.SelectedVisualKey;
 
-                Label previewLabel = owner["HotButtonEditWindowPreviewIconLabel"] as Label;
-
-                if (previewLabel != null)
-                {
+                if (owner["HotButtonEditWindowPreviewIconLabel"] is Label previewLabel)
                     previewLabel.Text = "";
-                }
+
+                if (owner["SelectedIconNameLabel"] is Label selectedNameLabel)
+                    selectedNameLabel.Text = "";
             }
+
+            base.OnMouseLeave(ms);
         }
     }
 }

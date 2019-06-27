@@ -2014,4 +2014,26 @@
      PopUpText="Macros">
     </Control>
   </VerticalGameAutoHidingWindow>
+
+  <EffectsWindow>
+    <Control
+     Type="Window"
+     Name="EffectsWindow"
+     X="660"
+     Y="325"
+     Width="120"
+     Height="70"
+     IsVisible="false"
+     IsLocked="false"
+     Font="changaone12"
+     VisualKey="WhiteSpace"
+     VisualAlpha="0"
+     TintColor="DarkSlateGray"
+     DropShadow="true"
+     ShadowDistance="0"
+     ShadowDirection="Northwest"
+     CursorOnDrag="Dragging"
+     AnchorTop="true">
+    </Control>
+  </EffectsWindow>
 </Sheet>

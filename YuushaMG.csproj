@@ -102,6 +102,7 @@
     <Compile Include="gui\controls\containers\DropDownMenuItem.cs" />
     <Compile Include="gui\controls\labels\ColorDialogLabel.cs" />
     <Compile Include="gui\controls\labels\CritterListLabel.cs" />
+    <Compile Include="gui\controls\labels\EffectLabel.cs" />
     <Compile Include="gui\controls\labels\IOKTileLabel.cs" />
     <Compile Include="gui\controls\labels\Label.cs" />
     <Compile Include="gui\controls\labels\MapTileLabel.cs" />

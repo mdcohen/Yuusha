@@ -1,9 +1,10 @@
 ALT + Enter: Toggle Fullscreen Mode
+ALT + A: Toggle Ambient Sounds
 ALT + G: Switch Game Mode
 ALT + H: Help Window
 ALT + I: Toggle Vertical Hot Button Window
 ALT + K: Toggle Horizontal Hot Button Window
-ALT + L: Enable/Disable Text Logging
+ALT + L: Toggle Text Logging
 ALT + M: Macros Window
 ALT + N: Server News Window
 ALT + O: Options Window
@@ -11,4 +12,4 @@ ALT + R: Reload Current GUI
 ALT + S: Toggle Sound Effects
 ALT + T: Reload Map Tiles (Game Mode Only)
 ALT + W: Toggle Fog of War (Yuusha Game Mode)
-ALT + ` : Take and Save Screenshot
+CTRL + ~ : Save Screenshot

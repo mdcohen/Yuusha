@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <VisualsIndex>
   <Visual ParentTexture="yuusha_items.png" Name="balm" X="974" Y="526" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="phialsimplevenom" X="1860" Y="1200" Width="60" Height="60"></Visual>
   <!-- Head Items -->
   <Visual ParentTexture="yuusha_items.png" Name="ramskull" X="579" Y="2714" Width="100" Height="100"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="tigerskull" X="679" Y="2714" Width="100" Height="100"></Visual>
@@ -93,7 +94,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="chaosportalscroll" X="1522" Y="1527" Width="38" Height="63"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="spellbook" X="203" Y="340" Width="60" Height="60"></Visual> <!-- TODO: spellbooks for each casting profession-->
   <Visual ParentTexture="yuusha_items.png" Name="bloodsplatter" X="240" Y="1620" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="smallironmirror" X="1800" Y="1170" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="smallironmirror" X="1800" Y="1200" Width="60" Height="60"></Visual>
   <!-- Edibles -->
   <Visual ParentTexture="yuusha_items.png" Name="sprig" X="834" Y="1395" Width="38" Height="38"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="brightredberries" X="1744" Y="1325" Width="38" Height="38"></Visual>
@@ -104,6 +105,14 @@
   <Visual ParentTexture="yuusha_items.png" Name="yasnakiapprenticerobe" X="670" Y="846" Width="58" Height="88"></Visual>
   <!-- Gauntlets -->
   <Visual ParentTexture="yuusha_items.png" Name="leathergauntlets" X="73" Y="1233" Width="60" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="leathergauntletsironplates" X="273" Y="1234" Width="60" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="leathergauntletssteelplates" X="9" Y="960" Width="60" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="irongauntlets" X="139" Y="928" Width="60" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="steelgauntlets" X="406" Y="1201" Width="60" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="bandedgauntlets" X="205" Y="963" Width="60" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="chainmailgauntlets" X="205" Y="1263" Width="60" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="studdedleathergauntlets" X="7" Y="1132" Width="60" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="mithrilgauntlets" X="140" Y="1234" Width="60" Height="39"></Visual>
   <!-- Torso -->
   <Visual ParentTexture="yuusha_items.png" Name="leathertunic" X="980" Y="1740" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="studdedleathertunic" X="390" Y="1740" Width="90" Height="90"></Visual>
@@ -193,6 +202,11 @@
   <Visual ParentTexture="yuusha_items.png" Name="titanmaul" X="1860" Y="2160" Width="60" Height="60"></Visual>
   <!-- Rapiers *** Needs update-->
   <Visual ParentTexture="yuusha_items.png" Name="rapier" X="1860" Y="2280" Width="60" Height="60"></Visual>
+  <!-- Shields -->
+  <Visual ParentTexture="yuusha_items.png" Name="woodenshield" X="1800" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="reinforcedwoodenshield" X="1860" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="steelkiteshield" X="1860" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="buletteplatetowershield" X="1800" Y="1080" Width="60" Height="60"></Visual>
   <!-- Shortbows -->
   <Visual ParentTexture="yuusha_items.png" Name="shortbow" X="1860" Y="1980" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="runedshortbow" X="1860" Y="2040" Width="60" Height="60"></Visual>

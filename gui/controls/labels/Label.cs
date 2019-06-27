@@ -7,13 +7,9 @@ namespace Yuusha.gui
     public class Label : Control
     {
         protected Rectangle m_textRectangle;
-        private Border m_border;
 
         public Border Border
-        {
-            get { return m_border; }
-            set { m_border = value; }
-        }
+        { get; set; }
 
         public Label()
             : base()
@@ -28,7 +24,7 @@ namespace Yuusha.gui
         }
 
         public Label(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
             string cursorOverride, System.Collections.Generic.List<Enums.EAnchorType> anchors, string popUpText)
             : base()
@@ -45,7 +41,6 @@ namespace Yuusha.gui
             m_visualKey = visualKey;
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
-            m_borderAlpha = borderAlpha;
             m_textAlpha = textAlpha;
             TextAlignment = textAlignment;
             XTextOffset = xTextOffset;
@@ -62,7 +57,7 @@ namespace Yuusha.gui
 
             base.Update(gameTime);
 
-            if (m_border != null) m_border.Update(gameTime);
+            if (Border != null) Border.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -104,15 +99,5 @@ namespace Yuusha.gui
 
             if (Border != null) Border.Draw(gameTime);
         }
-
-        //protected override void OnMouseOver(MouseState ms)
-        //{
-        //    base.OnMouseOver(ms);
-
-        //    if (m_cursorOverride != "" && GuiManager.Cursors.ContainsKey(m_cursorOverride))
-        //        GuiManager.CurrentSheet.CursorOverride = m_cursorOverride;
-
-        //    TextCue.AddMouseCursorTextCue(Position.ToString());
-        //}
     }
 }

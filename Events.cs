@@ -679,12 +679,20 @@ namespace Yuusha
                         break;
                     case EventName.Request_Effects:
                         IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
+                        if (args[0] is Button)
+                        {
+                            if (GuiManager.GenericSheet["EffectsWindow"] is Window effectsWindow)
+                            {
+                                effectsWindow.IsVisible = !effectsWindow.IsVisible;
+                                effectsWindow.ZDepth = 1;
+                            }
+                        }
                         break;
                     case EventName.Request_Inventory:
                         IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
                         if (args[0] is Button)
                         {
-                            if (GuiManager.GetControl("InventoryWindow") is Window inventoryWindow)
+                            if (GuiManager.GenericSheet["InventoryWindow"] is Window inventoryWindow)
                             {
                                 inventoryWindow.IsVisible = !inventoryWindow.IsVisible;
                                 inventoryWindow.ZDepth = 1;
@@ -826,12 +834,15 @@ namespace Yuusha
                         }
                         break;
                     case EventName.Set_Client_Mode:
-                        Client.GameDisplayMode = (Enums.EGameDisplayMode) args[0];
+                        Enums.EGameDisplayMode prevDisplayMode = Client.GameDisplayMode;
+                        Enums.EGameDisplayMode newDisplayMode = (Enums.EGameDisplayMode)args[0];
+                        Client.GameDisplayMode = newDisplayMode;
                         if (Client.GameState.ToString().EndsWith("Game"))
                         {
                             RegisterEvent(EventName.Send_Command, "redraw");
                             RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Game);
                         }
+                        OnSwitchDisplayMode(prevDisplayMode, newDisplayMode);
                         break;
                     case EventName.Set_Game_State:
                         #region Set Game State
@@ -875,17 +886,16 @@ namespace Yuusha
 
                                 RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
 
-                                (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
+                                (GuiManager.CurrentSheet["CharGenInputTextBox"] as TextBox).HasFocus = true;
                             }
 
-                            if (Client.GameState.ToString().EndsWith("Game"))
+                            else if (Client.GameState.ToString().EndsWith("Game"))
                             {
                                 RegisterEvent(EventName.Target_Cleared, null);
+
                                 // update containers GUI when entering the game
                                 foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
-                                {
                                     GridBoxWindow.RequestUpdateFromServer(purpose);
-                                }
 
                                 if (AwaitInitialRequestsData == null)
                                 {
@@ -899,9 +909,11 @@ namespace Yuusha
                                     MapWindow.CreateFogOfWarMapWindow();
                                     GuiManager.GetControl("FogOfWarMapWindow").IsVisible = false;
                                 }
+
+                                IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                             }
 
-                            if (Client.GameState == Enums.EGameState.Login)
+                            else if (Client.GameState == Enums.EGameState.Login)
                                 ResetLoginGUI();
                         }
                         break;
@@ -1652,7 +1664,7 @@ namespace Yuusha
                             if (sheet["CurrentNameLabel"] != null)
                                 sheet["CurrentNameLabel"].Text = chr.Name;
                             if (sheet["CurrentLevelLabel"] != null)
-                                sheet["CurrentLevelLabel"].Text = string.Format("Level {0} {1}", chr.Level, chr.ClassFullName);
+                                sheet["CurrentLevelLabel"].Text = string.Format("{0} {1}", chr.Level, chr.ClassFullName);
                             if (sheet["CurrentLocationLabel"] != null)
                                 sheet["CurrentLocationLabel"].Text = chr.MapName;
                         }
@@ -1671,7 +1683,7 @@ namespace Yuusha
                             if (sheet["CurrentNameLabel"] != null)
                                 sheet["CurrentNameLabel"].Text = chr.Name;
                             if (sheet["CurrentLevelLabel"] != null)
-                                sheet["CurrentLevelLabel"].Text = string.Format("Level {0} {1}", chr.Level, chr.ClassFullName);
+                                sheet["CurrentLevelLabel"].Text = string.Format("{0} {1}", chr.Level, chr.ClassFullName);
                             if (sheet["CurrentLocationLabel"] != null)
                                 sheet["CurrentLocationLabel"].Text = chr.MapName;
                         }
@@ -1701,13 +1713,13 @@ namespace Yuusha
                     case Enums.EGameState.Game:
                         break;
                     case Enums.EGameState.SpinelGame:
-                        SpinelMode.UpdateGUI(gameTime, sheet);
+                        SpinelMode.UpdateGUI();
                         break;
                     case Enums.EGameState.IOKGame:
-                        IOKMode.UpdateGUI(gameTime, sheet);
+                        IOKMode.UpdateGUI();
                         break;
                     case Enums.EGameState.YuushaGame:
-                        YuushaMode.UpdateGUI(gameTime, sheet);
+                        YuushaMode.UpdateGUI();
                         break;
                 }
             }
@@ -1769,69 +1781,23 @@ namespace Yuusha
         /// <param name="currGameState">The current game state.</param>
         public static void OnSwitchGameState(Enums.EGameState currGameState, Enums.EGameState newGameState)
         {
-            Control control = null;
-
             try
             {
                 switch (currGameState)
                 {
                     case Enums.EGameState.Conference:
-                        if (!GameHUD.OverrideDisplayStates.Contains(newGameState))
-                        {
-                            control = GuiManager.GetControl("ConfScrollableTextBox");
-                            if (control != null)
-                                (control as ScrollableTextBox).Clear();
-                        }
-                        control = GuiManager.GetControl("ConfInputTextBox");
-                        if (control != null)
-                            (control as TextBox).Clear();
+                        if (!GameHUD.OverrideDisplayStates.Contains(newGameState) && GuiManager.GetControl("ConfScrollableTextBox") is ScrollableTextBox confScrollableTextBox)
+                            confScrollableTextBox.Clear();
+                        if (GuiManager.GetControl("ConfInputTextBox") is TextBox confInputTextBox)
+                            confInputTextBox.Clear();
                         break;
                     case Enums.EGameState.Game:
                         GuiManager.TextCues.Clear();
                         break;
                     case Enums.EGameState.Login:
                         if(GameHUD.PreviousGameState != Enums.EGameState.Login)
-                            Events.ResetLoginGUI();
+                            ResetLoginGUI();
                         break;
-                    case Enums.EGameState.LOKGame:
-                        GuiManager.TextCues.Clear();
-                        break;
-                    case Enums.EGameState.HotButtonEditMode:
-                        break;
-                    case Enums.EGameState.Menu:
-                        break;
-                    case Enums.EGameState.IOKGame:
-                    case Enums.EGameState.YuushaGame:
-                    case Enums.EGameState.SpinelGame:
-                        if (currGameState == Enums.EGameState.YuushaGame)
-                            Character.FogOfWarSettings.Save();
-                        if (newGameState == Enums.EGameState.IOKGame)
-                        {
-                            IOKMode.UpdateGUI(Program.Client.ClientGameTime, GuiManager.Sheets[newGameState.ToString()]);
-                        }
-                        else if(newGameState == Enums.EGameState.YuushaGame)
-                        {
-                            YuushaMode.UpdateGUI(Program.Client.ClientGameTime, GuiManager.Sheets[newGameState.ToString()]);
-                        }
-                        else if(newGameState == Enums.EGameState.SpinelGame)
-                        {
-                            SpinelMode.UpdateGUI(Program.Client.ClientGameTime, GuiManager.Sheets[newGameState.ToString()]);
-                        }
-                        else
-                        {
-                            control = GuiManager.GetControl(Globals.GAMEINPUTTEXTBOX);
-                            if (control != null)
-                            {
-                                (control as TextBox).Clear();
-                                control.HasFocus = true;
-                            }
-                        }
-                        GuiManager.TextCues.Clear();
-                        TextCue.ClearMouseCursorTextCue();
-                        break;
-                    //case Enums.eGameState.Splash:
-                    //    Events.ResetLoginGUI();
-                    //break;
                     default:
                         break;
                 }
@@ -1843,6 +1809,38 @@ namespace Yuusha
             {
                 Utils.LogException(e);
             }
+        }
+
+        public static void OnSwitchDisplayMode(Enums.EGameDisplayMode prevDisplayMode, Enums.EGameDisplayMode newDisplayMode)
+        {
+            if (prevDisplayMode == Enums.EGameDisplayMode.Yuusha)
+                Character.FogOfWarSettings.Save();
+
+            switch (newDisplayMode)
+            {
+                case Enums.EGameDisplayMode.IOK:
+                    IOKMode.UpdateGUI();
+                    break;
+                case Enums.EGameDisplayMode.Spinel:
+                    SpinelMode.UpdateGUI();
+                    break;
+                case Enums.EGameDisplayMode.Yuusha:
+                    YuushaMode.UpdateGUI();
+                    break;
+            }
+
+            if (GuiManager.GetControl(Globals.GAMEINPUTTEXTBOX) is TextBox gameInputTextBox)
+            {
+                gameInputTextBox.Clear();
+                gameInputTextBox.HasFocus = true;
+            }
+
+            // clear text cues
+            GuiManager.TextCues.Clear();
+            // clear mouse text cue
+            TextCue.ClearMouseCursorTextCue();
+            // update effects window
+            GameHUD.UpdateEffectsWindow(GuiManager.CurrentSheet);
         }
     }
 }

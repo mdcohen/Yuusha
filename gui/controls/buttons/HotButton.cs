@@ -16,18 +16,18 @@ namespace Yuusha.gui
 
         public HotButton(string name, string owner, Rectangle rectangle, string text, bool textVisible,
             Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor,
-            byte visualAlpha, byte m_borderAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown,
+            byte visualAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown,
             VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment,
             int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
             List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command, string popUpText)
-            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, m_borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, popUpText)
+            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, popUpText)
         {
             m_originalVisualAlpha = visualAlpha;
         }
 
         protected override bool OnKeyDown(KeyboardState ks)
         {
-            if (this.m_containsMousePointer)
+            if (m_containsMousePointer)
             {
                 bool controlDown = ks.IsKeyDown(Keys.LeftControl) || ks.IsKeyDown(Keys.RightControl);
                 bool altDown = ks.IsKeyDown(Keys.LeftAlt) || ks.IsKeyDown(Keys.RightAlt);
@@ -35,13 +35,13 @@ namespace Yuusha.gui
 
                 if ((controlDown || altDown) && ms.LeftButton != ButtonState.Pressed)
                 {
-                    if(this.Text.Length > 0)
-                        TextCue.AddMouseCursorTextCue(this.Text, Client.ClientSettings.HotButtonText_ForeColor, Client.ClientSettings.HotButtonText_BackColor, Client.ClientSettings.HotButtonText_BackColorAlpha, this.Font);
+                    if(Text.Length > 0)
+                        TextCue.AddMouseCursorTextCue(Text, Client.ClientSettings.HotButtonPopUpText_ForeColor, Client.ClientSettings.HotButtonPopUpText_BackColor, Client.ClientSettings.HotButtonPopUpText_BackColorAlpha, Font);
                     return true;
                 }
                 else if(controlDown && altDown && ms.LeftButton == ButtonState.Pressed)
                 {
-                    this.Text = ""; // Hmm. This is how we bypass drawing a cleared HotButton.
+                    Text = ""; // Hmm. This is how we bypass drawing a cleared HotButton.
 
                     TextCue.ClearMouseCursorTextCue();
 
@@ -61,9 +61,7 @@ namespace Yuusha.gui
             base.OnMouseOver(ms);
 
             if (Border == null)
-                GuiManager.GenericSheet.CreateSquareBorder(Name + "SquareBorder", Name, 1, new VisualKey("WhiteSpace"), false, Color.OldLace, 255);
-
-            this.m_borderAlpha = 255;
+                GuiManager.GenericSheet.CreateSquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Color.OldLace, 255);
 
             if (Border != null)
                 Border.IsVisible = true;
@@ -77,8 +75,6 @@ namespace Yuusha.gui
             if (Border != null)
                 Border.IsVisible = false;
 
-            this.m_borderAlpha = 0;
-
             TextCue.ClearMouseCursorTextCue();
         }
 
@@ -88,7 +84,7 @@ namespace Yuusha.gui
 
             if (ms.LeftButton == ButtonState.Pressed)
             {
-                if (this.Text.Length <= 0)
+                if (Text.Length <= 0)
                     return;
 
                 m_visualAlpha = 40;
@@ -125,10 +121,10 @@ namespace Yuusha.gui
                             }
 
                             window.SelectedIconLabel = window["HotButtonEditWindowSelectedIconLabel"] as Label;
-                            window.SelectedIconLabel.VisualKey = this.VisualKey;
+                            window.SelectedIconLabel.VisualKey = VisualKey;
                             if (window.SelectedIconLabel.VisualKey == "")
                                 window.SelectedIconLabel.VisualKey = "WhiteSpace";
-                            window.SelectedVisualKey = this.VisualKey;
+                            window.SelectedVisualKey = VisualKey;
                             if (window.SelectedVisualKey == "")
                                 window.SelectedVisualKey = "WhiteSpace";
                             window.OriginatingWindow = this.Owner;

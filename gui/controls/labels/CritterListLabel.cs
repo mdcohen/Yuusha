@@ -17,10 +17,10 @@ namespace Yuusha.gui
         { get; set; }
 
         public CritterListLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
             string cursorOverride, System.Collections.Generic.List<Enums.EAnchorType> anchors, string popUpText) : base(name, owner,  rectangle, text, textColor, visible,
-            disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, textAlpha,
+            disabled, font, visualKey, tintColor, visualAlpha, textAlpha,
             textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent,
             cursorOverride, anchors, popUpText)
         {

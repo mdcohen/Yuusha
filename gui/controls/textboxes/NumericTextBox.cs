@@ -16,7 +16,7 @@ namespace Yuusha.gui
 
         public NumericTextBox(
             string name, string owner, Rectangle rectangle, string text, Color textColor, BitmapFont.TextAlignment textAlignment, bool visible, bool disabled, string font,
-            VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha, bool editable, int maxLength,
+            VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha, bool editable, int maxLength,
             bool passwordBox, bool blinkingCursor, Color cursorColor, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled,
             int xTextOffset, int yTextOffset, string onKeyboardEnter, Color selectionColor, List<Enums.EAnchorType> anchors, int tabOrder, int maxValue, int minValue) : base()
         {
@@ -33,7 +33,6 @@ namespace Yuusha.gui
             m_visualKey = visualKey;
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
-            m_borderAlpha = borderAlpha;
             m_textAlpha = textAlpha;
             m_editable = editable;
             m_maxLength = maxLength;

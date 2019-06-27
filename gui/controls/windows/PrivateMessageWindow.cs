@@ -9,9 +9,9 @@ namespace Yuusha.gui
         public string RecipientName { get; set; }
         public ScrollableTextBox MessageBox { get; set; }
 
-        public PrivateMessageWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled,
-            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, bool dropShadow,
-            Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride) : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
+        public PrivateMessageWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled, string font,
+            VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
+            List<Enums.EAnchorType> anchors, string cursorOverride) : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
         {
 
         }
@@ -22,8 +22,7 @@ namespace Yuusha.gui
                 return GuiManager.GenericSheet[player + "PrivateMessageWindow"] as PrivateMessageWindow;
 
             PrivateMessageWindow pmWindow = new PrivateMessageWindow(player + "PrivateMessageWindow", "", new Rectangle(100, 100, 500, 300), true, false, false, GuiManager.GenericSheet.Font, new VisualKey("WhiteSpace"),
-                Client.ClientSettings.PrivateMessageWindowTintColor, 255, 255,
-                true, Map.Direction.Northwest, 5, new List<Enums.EAnchorType> { Enums.EAnchorType.Top, Enums.EAnchorType.Right }, "Dragging");
+                Client.ClientSettings.PrivateMessageWindowTintColor, 255, true, Map.Direction.Northwest, 5, new List<Enums.EAnchorType> { Enums.EAnchorType.Top, Enums.EAnchorType.Right }, "Dragging");
             pmWindow.RecipientName = player;
 
             WindowTitle windowTitle = new WindowTitle(pmWindow.Name + "Title", pmWindow.Name, pmWindow.Font, "Private Message: " + pmWindow.RecipientName, Client.ClientSettings.PrivateMessageWindowTitleTextColor, Client.ClientSettings.PrivateMessageWindowTitleTintColor, 255,
@@ -37,12 +36,12 @@ namespace Yuusha.gui
             SquareBorder windowBorder = new SquareBorder(pmWindow.Name + "Border", pmWindow.Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.PrivateMessageBorderTintColor, 255);
 
             ScrollableTextBox scrollBox = new ScrollableTextBox(pmWindow.Name + "ScrollableTextBox", pmWindow.Name, new Rectangle(2, windowTitle.Height, 496, 260), "", Color.White,
-                true, false, Client.ClientSettings.DefaultFont, new VisualKey("WhiteSpace"), Color.Black, 255, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Left,
+                true, false, Client.ClientSettings.DefaultFont, new VisualKey("WhiteSpace"), Color.Black, 255, 0, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Left,
                 new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left, Enums.EAnchorType.Right, Enums.EAnchorType.Bottom }, true);
             pmWindow.MessageBox = scrollBox;
 
             TextBox textBox = new TextBox(pmWindow.Name + "TextBox", pmWindow.Name, new Rectangle(2, 279, 496, 19), "", Color.White,
-                BitmapFont.TextAlignment.Left, true, false, pmWindow.Font, new VisualKey("WhiteSpace"), Color.CornflowerBlue, 255, 0, 255, true, 300, false, true, Color.WhiteSmoke, new VisualKey(""), new VisualKey(""), new VisualKey(""),
+                BitmapFont.TextAlignment.Left, true, false, pmWindow.Font, new VisualKey("WhiteSpace"), Color.CornflowerBlue, 255, 0, true, 300, false, true, Color.WhiteSmoke, new VisualKey(""), new VisualKey(""), new VisualKey(""),
                 0, 0, "send_tell", Color.Navy, new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Right, Enums.EAnchorType.Bottom }, 0);
 
             GuiManager.GenericSheet.AddControl(pmWindow);

@@ -172,12 +172,12 @@ namespace Yuusha
                             #region Testing Area aka the Playground
                             //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             //{
-                                //Control mapWindow = GuiManager.GetControl("PrimaryMapWindow");
+                            //Control mapWindow = GuiManager.GetControl("PrimaryMapWindow");
 
-                                //if (mapWindow == null)
-                                //    MapWindow.CreateMapWindow();
-                                //else mapWindow.IsVisible = !mapWindow.IsVisible;
-                                //result = true;
+                            //if (mapWindow == null)
+                            //    MapWindow.CreateMapWindow();
+                            //else mapWindow.IsVisible = !mapWindow.IsVisible;
+                            //result = true;
                             //}
                             //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
                             //{
@@ -405,11 +405,22 @@ namespace Yuusha
                                 result = true;
                             }
 
-                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
-                            //{
-                            //    Utils.LogCharacterFields();
-                            //    result = true;
-                            //}
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
+                            {
+                                //Utils.LogCharacterFields();
+                                //Utils.LogCharacterEffects();
+                                IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
+                                result = true;
+                            }
+
+                            // Escape closes gridboxwindows if there is no target. Otherwise, target is cleared first.
+                            if (ks.IsKeyDown(Keys.Escape))
+                            {
+                                if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget == null)
+                                    GuiManager.CloseAllGridBoxes();
+                                else if (!Client.GameState.ToString().EndsWith("Game"))
+                                    GuiManager.CloseAllGridBoxes();
+                            }
 
                             if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1))
                             {

@@ -358,7 +358,6 @@ namespace Yuusha.gui
                                 bool locked = true;
                                 bool disabled = false;
                                 byte visualAlpha = 255;
-                                byte borderAlpha = 255;
                                 byte textAlpha = 255;
                                 string text = "";
                                 bool textVisible = true;
@@ -491,8 +490,6 @@ namespace Yuusha.gui
                                             tintColor = reader.Value;
                                         else if (reader.Name == "VisualAlpha")
                                             visualAlpha = Convert.ToByte(reader.Value);
-                                        else if (reader.Name == "BorderAlpha")
-                                            borderAlpha = Convert.ToByte(reader.Value);
                                         else if (reader.Name == "TextAlpha")
                                             textAlpha = Convert.ToByte(reader.Value);
                                         else if (reader.Name == "Text")
@@ -687,7 +684,7 @@ namespace Yuusha.gui
                                     case "AutoHidingWindow":
                                         sheet.CreateAutoHidingWindow(name, type, owner, new Rectangle(x, y, width, height), visible,
                                             locked, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor),
-                                            visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors,
+                                            visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors,
                                             cursorOnDrag, windowTitleOrientation, autoHideVisualAlpha, fadeIn, fadeOut, fadeSpeed);
                                         break;
                                     case "Window":
@@ -695,8 +692,7 @@ namespace Yuusha.gui
                                     case "GridBoxWindow":
                                         sheet.CreateWindow(name, type, owner, new Rectangle(x, y, width, height), visible,
                                             locked, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor),
-                                            visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors,
-                                            cursorOnDrag);
+                                            visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOnDrag);
                                         break;
                                     case "WindowTitle":
                                         sheet.CreateWindowTitle(name, owner, font, text, Utils.GetColor(textColor), Utils.GetColor(tintColor), visualAlpha,
@@ -717,15 +713,15 @@ namespace Yuusha.gui
                                         break;
                                     case "NumericTextBox":
                                         sheet.CreateNumericTextBox(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
-                                            textAlignment, visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
-                                            textAlpha, editable, maxLength, passwordBox, blinkingCursor, Utils.GetColor(cursorColor),
+                                            textAlignment, visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, textAlpha, editable,
+                                            maxLength, passwordBox, blinkingCursor, Utils.GetColor(cursorColor),
                                             new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
                                             xTextOffset, yTextOffset, onKeyboardEnter, Utils.GetColor(selectionColor), anchors, tabOrder, maxValue, minValue);
                                         break;
                                     case "TextBox":
                                         sheet.CreateTextBox(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor), textAlignment,
-                                            visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
-                                            textAlpha, editable, maxLength, passwordBox, blinkingCursor, Utils.GetColor(cursorColor),
+                                            visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, textAlpha,
+                                            editable, maxLength, passwordBox, blinkingCursor, Utils.GetColor(cursorColor),
                                             new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
                                             xTextOffset, yTextOffset, onKeyboardEnter, Utils.GetColor(selectionColor), anchors, tabOrder);
                                         break;
@@ -735,59 +731,58 @@ namespace Yuusha.gui
                                     case "TabControlButton":
                                     case "ColorDialogButton":
                                         sheet.CreateButton(type, name, owner, new Rectangle(x, y, width, height), text, textVisible, Utils.GetColor(textColor),
-                                            visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
-                                            textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
+                                            visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
                                             onMouseDown, textAlignment, xTextOffset, yTextOffset, Utils.GetColor(textOverColor), hasTextOverColor,
                                             Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance,
                                             command, popUpText, tabControlledWindow, cursorOnOver, locked);
                                         break;
                                     case "DragAndDropButton":
                                         sheet.CreateDragAndDropButton(type, name, owner, new Rectangle(x, y, width, height), text, textVisible, Utils.GetColor(textColor),
-                                            visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha,
+                                            visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,
                                             textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
                                             onMouseDown, textAlignment, xTextOffset, yTextOffset, Utils.GetColor(textOverColor), hasTextOverColor,
                                             Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance,
                                             command, popUpText, tabControlledWindow, cursorOnOver, locked, acceptingDroppedButtons);
                                         break;
                                     case "CheckboxButton":
-                                        sheet.CreateCheckBoxButton(name, owner, new Rectangle(x, y, width, height), visible, disabled, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, borderAlpha, new VisualKey(visualKeyOver),
+                                        sheet.CreateCheckBoxButton(name, owner, new Rectangle(x, y, width, height), visible, disabled, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, new VisualKey(visualKeyOver),
                                             new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled), new VisualKey(visualKeySelected), Utils.GetColor(visualKeySelectedColor), Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow,
                                             shadowDirection, shadowDistance, popUpText);
                                         break;
                                     case "Label":
                                         sheet.CreateLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,
-                                            borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
+                                            textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
                                             popUpText);
                                         break;
                                     case "CritterListLabel":
                                         sheet.CreateCritterListLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,
-                                            borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
+                                            textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
                                             popUpText);
                                         break;
                                     case "IOKTileLabel":
                                         sheet.CreateIOKTileLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,
-                                            borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
+                                            textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
                                             popUpText);
                                         break;
                                     case "SpinelTileLabel":
                                         sheet.CreateSpinelTileLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,
-                                            borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
+                                            textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
                                             popUpText);
                                         break;
                                     case "ScrollableTextBox":
                                         sheet.CreateScrollableTextBox(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,
-                                            borderAlpha, textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown),
+                                            textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown),
                                             new VisualKey(visualKeyDisabled), xTextOffset, yTextOffset, textAlignment, anchors, trim);
                                         break;
                                     case "StatusBar":
                                         sheet.CreateStatusBar(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,
-                                            borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
+                                            textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
                                             layoutType);
                                         break;
                                     default:
@@ -838,11 +833,6 @@ namespace Yuusha.gui
         {
             string state = Client.GameState.ToString();
 
-            //if (state == Enums.eGameState.Splash.ToString())
-
-            //if (ActiveDropDownMenu != "" && GetControl(ActiveDropDownMenu) is null)
-            //    ActiveDropDownMenu = "";
-
             base.Update(gameTime);
 
             // Overridden states girst (eg: Hot Button Edit Mode)
@@ -852,7 +842,7 @@ namespace Yuusha.gui
             if (m_genericSheet != null)
                 m_genericSheet.Update(gameTime);
 
-            if (Client.GameState.ToString().Contains("Game"))
+            if (state.Contains("Game"))
             {
                 if (GetControl("HorizontalGameAutoHidingWindow") is AutoHidingWindow horizontalGameAutoHidingWindow)
                     horizontalGameAutoHidingWindow.IsVisible = true;
@@ -863,7 +853,7 @@ namespace Yuusha.gui
                 #region DamageFogSkullsLabel
                 if (Character.CurrentCharacter != null && GetControl("DamageFogSkullsLabel") is Label fogLabel)
                 {
-                    double pct = (double)((Character.CurrentCharacter.Hits * 100) / Character.CurrentCharacter.HitsFull);
+                    double pct = ((Character.CurrentCharacter.Hits * 100) / Character.CurrentCharacter.HitsFull);
 
                     if (pct <= 50)
                     {
@@ -887,15 +877,11 @@ namespace Yuusha.gui
                     else fogLabel.IsVisible = false;
                 }
                 #endregion
+
+                //GameHUD.UpdateCritterListWindow();
             }
             else
             {
-                //if (GetControl("HorizontalGameAutoHidingWindow") is AutoHidingWindow horizontalGameAutoHidingWindow)
-                //    horizontalGameAutoHidingWindow.IsVisible = false;
-
-                //if (GetControl("VerticalGameAutoHidingWindow") is AutoHidingWindow verticalGameAutoHidingWindow)
-                //    verticalGameAutoHidingWindow.IsVisible = false;
-
                 if (GetControl("DamageFogSkullsLabel") is Label fogLabel)
                     fogLabel.IsVisible = false; // won't be drawn anyway?
             }
@@ -1132,6 +1118,18 @@ namespace Yuusha.gui
             }
 
             return false;
+        }
+
+        public static void CloseAllGridBoxes()
+        {
+            foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
+            {
+                if (GenericSheet[purpose + "GridBoxWindow"] is GridBoxWindow box && box.IsVisible)
+                    box.OnClose();
+            }
+
+            if (GenericSheet["InventoryWindow"] is Window window && window.IsVisible)
+                window.OnClose();
         }
     }
 }

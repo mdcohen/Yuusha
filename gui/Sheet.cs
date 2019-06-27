@@ -845,25 +845,25 @@ namespace Yuusha.gui
 
         #region Create Controls
         public void CreateAutoHidingWindow(string name, string type, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled,
-            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, bool dropShadow,
-            Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride, Enums.EAnchorType windowTitleOrientation,
-            int autoHideVisualAlpha, bool fadeIn, bool fadeOut, int fadeSpeed)
+            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
+            List<Enums.EAnchorType> anchors, string cursorOverride, Enums.EAnchorType windowTitleOrientation, int autoHideVisualAlpha,
+            bool fadeIn, bool fadeOut, int fadeSpeed)
         {
             AddControl(new AutoHidingWindow(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor,
-                    visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride, windowTitleOrientation,
+                    visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride, windowTitleOrientation,
                     autoHideVisualAlpha, fadeIn, fadeOut, fadeSpeed));
         }
         public void CreateWindow(string name, string type, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled,
-            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, bool dropShadow,
-            Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride)
+            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
+            List<Enums.EAnchorType> anchors, string cursorOverride)
         {
             if (type == "Window")
                 AddControl(new Window(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor,
-                    visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride));
+                    visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride));
             else if (type == "HotButtonEditWindow")
             {
                 AddControl(new HotButtonEditWindow(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor,
-                    visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride));
+                    visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride));
             }
         }
 
@@ -894,49 +894,48 @@ namespace Yuusha.gui
 
         public void CreateNumericTextBox(string name, string owner, Rectangle rectangle, string text, Color textColor,
             BitmapFont.TextAlignment textAlignment, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             bool editable, int maxLength, bool passwordBox, bool blinkingCursor, Color cursorColor,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, int xTextOffset,
             int yTextOffset, string onKeyboardEnter, Color selectionColor, List<Enums.EAnchorType> anchors, int tabOrder, int maxValue, int minValue)
         {
             AddControl(new NumericTextBox(name, owner, rectangle, text, textColor, textAlignment, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                borderAlpha, textAlpha, editable, maxLength, passwordBox, blinkingCursor, cursorColor, visualKeyOver,
-                visualKeyDown, visualKeyDisabled, xTextOffset, yTextOffset, onKeyboardEnter, selectionColor, anchors, tabOrder, maxValue, minValue));
+                textAlpha, editable, maxLength, passwordBox, blinkingCursor, cursorColor, visualKeyOver, visualKeyDown, visualKeyDisabled,
+                xTextOffset, yTextOffset, onKeyboardEnter, selectionColor, anchors, tabOrder, maxValue, minValue));
         }
 
         public void CreateTextBox(string name, string owner, Rectangle rectangle, string text, Color textColor, BitmapFont.TextAlignment textAlignment, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
-            bool editable, int maxLength, bool passwordBox, bool blinkingCursor, Color cursorColor,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha, bool editable, int maxLength, bool passwordBox, bool blinkingCursor, Color cursorColor,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, int xTextOffset,
             int yTextOffset, string onKeyboardEnter, Color selectionColor, List<Enums.EAnchorType> anchors, int tabOrder)
         {
             AddControl(new TextBox(name, owner, rectangle, text, textColor, textAlignment, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                borderAlpha, textAlpha, editable, maxLength, passwordBox, blinkingCursor, cursorColor, visualKeyOver,
+                textAlpha, editable, maxLength, passwordBox, blinkingCursor, cursorColor, visualKeyOver,
                 visualKeyDown, visualKeyDisabled, xTextOffset, yTextOffset, onKeyboardEnter, selectionColor, anchors, tabOrder));
         }
 
-        public void CreateCheckBoxButton(string name, string owner, Rectangle rectangle, bool visible, bool disabled, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha,
+        public void CreateCheckBoxButton(string name, string owner, Rectangle rectangle, bool visible, bool disabled, VisualKey visualKey, Color tintColor, byte visualAlpha,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, VisualKey visualKeySelected, Color visualKeySelectedColor, Color tintOverColor, bool hasTintOverColor,
             List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string popUpText)
         {
-            AddControl(new CheckboxButton(name, owner, rectangle, visible, disabled, this.Font, visualKey, tintColor, visualAlpha, borderAlpha, visualKeyOver, visualKeyDown,
+            AddControl(new CheckboxButton(name, owner, rectangle, visible, disabled, this.Font, visualKey, tintColor, visualAlpha, visualKeyOver, visualKeyDown,
                     visualKeyDisabled, visualKeySelected, visualKeySelectedColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, popUpText));
         }
 
         public void CreateDragAndDropButton(string type, string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string clickEvent,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
             List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
             string command, string popUpText, string tabControlledWindow, string cursorOverride, bool locked, bool acceptingDroppedButtons)
         {
             AddControl(new DragAndDropButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                    borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment, xTextOffset, yTextOffset, textOverColor,
+                    textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment, xTextOffset, yTextOffset, textOverColor,
                     hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, popUpText, locked, acceptingDroppedButtons));
         }
 
         public void CreateButton(string type, string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string clickEvent,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
             List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
@@ -945,40 +944,37 @@ namespace Yuusha.gui
             if (type == "HotButton")
             {
                 AddControl(new HotButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                   borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
-                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
-                   shadowDistance, command, popUpText));
+                   textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment, xTextOffset, yTextOffset, textOverColor,
+                   hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, popUpText));
             }
             else if (type == "IconImageSelectionButton")
             {
                 AddControl(new IconImageSelectionButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                   borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
-                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
+                   textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment, xTextOffset, yTextOffset, textOverColor,
+                   hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
                    shadowDistance, command));
             }
             else if (type == "MacroButton")
             {
                 AddControl(new MacroButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                   borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
-                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
-                   shadowDistance, command));
+                   textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment, xTextOffset, yTextOffset, textOverColor,
+                   hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command));
             }
             else if(type == "TabControlButton")
             {
                 AddControl(new TabControlButton(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                   borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, textAlignment,
-                   xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
-                   shadowDistance, tabControlledWindow));
+                   textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor,
+                   tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, tabControlledWindow));
             }
             else if(type == "ColorDialogButton")
             {
-                AddControl(new ColorDialogButton(name, owner, rectangle, visible, disabled, this.Font, tintColor, borderAlpha, cursorOverride, anchors,
+                AddControl(new ColorDialogButton(name, owner, rectangle, visible, disabled, this.Font, tintColor, cursorOverride, anchors,
                     dropShadow, shadowDirection, shadowDistance, popUpText));
             }
             else
             {
                 AddControl(new Button(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                    borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
+                    textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
                     xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
                     shadowDistance, command, popUpText));
             }
@@ -991,22 +987,22 @@ namespace Yuusha.gui
         }
 
         public void CreateLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
             string cursorOverride, List<Enums.EAnchorType> anchors, string popUpText)
         {
             AddControl(new Label(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
+                textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
                 anchors, popUpText));
         }
 
         public void CreateCritterListLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
             string cursorOverride, List<Enums.EAnchorType> anchors, string popUpText)
         {
             AddControl(new CritterListLabel(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-               borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
+               textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
                anchors, popUpText));
 
             SquareBorder border = new SquareBorder(name + "SquareBorder", name, Client.ClientSettings.TargetBorderSize, new VisualKey("WhiteSpace"), false, Client.ClientSettings.TargetBorderColor, visualAlpha);
@@ -1019,43 +1015,41 @@ namespace Yuusha.gui
         }
 
         public void CreateIOKTileLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
             string cursorOverride, List<Enums.EAnchorType> anchors, string popUpText)
         {
             AddControl(new IOKTileLabel(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
-                anchors, popUpText));
+                textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride, anchors, popUpText));
         }
 
         public void CreateSpinelTileLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
             string cursorOverride, List<Enums.EAnchorType> anchors, string popUpText)
         {
             AddControl(new SpinelTileLabel(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
+                textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
                 anchors, popUpText));
         }
 
         public void CreateScrollableTextBox(string name, string owner, Rectangle rectangle, string text, Color textColor,
-            bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha,
-            byte borderAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown,
-            VisualKey visualKeyDisabled, int xTextOffset, int yTextOffset, BitmapFont.TextAlignment textAlignment,
-            List<Enums.EAnchorType> anchors, bool trim)
+            bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
+            VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, int xTextOffset, int yTextOffset,
+            BitmapFont.TextAlignment textAlignment, List<Enums.EAnchorType> anchors, bool trim)
         {
             AddControl(new ScrollableTextBox(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey,
-                tintColor, visualAlpha, borderAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, xTextOffset,
+                tintColor, visualAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, xTextOffset,
                 yTextOffset, textAlignment, anchors, trim));
         }
 
         public void CreateStatusBar(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
             string cursorOverride, List<Enums.EAnchorType> anchors, Enums.ELayoutType layoutType)
         {
             AddControl(new StatusBar(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
-                borderAlpha, textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
+                textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
                 anchors, layoutType));
         }
         #endregion

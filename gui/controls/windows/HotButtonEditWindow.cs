@@ -15,7 +15,7 @@ namespace Yuusha.gui
         public string IconImagePrefix;
         private bool IconSelectionButtonsCreated = false;
 
-        public HotButtonEditWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride) : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
+        public HotButtonEditWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride) : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
         {
         }
 
@@ -60,9 +60,9 @@ namespace Yuusha.gui
 
                 for (a = 0; a < IconVisualKeys.Count; a++)
                 {
-                    GuiManager.CurrentSheet.CreateButton("IconImageSelectionButton", IconImagePrefix + "_" + a, this.Name,
-                        new Rectangle(x, y, width, height), this.Name, false, Color.White, true, false, GuiManager.Sheets[this.Sheet].Font, new VisualKey(IconVisualKeys[a]), Color.White,
-                        255, 255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Center, 0, 0, Color.White, false, Color.White, false, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left },
+                    GuiManager.CurrentSheet.CreateButton("IconImageSelectionButton", IconImagePrefix + "_" + a, Name,
+                        new Rectangle(x, y, width, height), Name, false, Color.White, true, false, GuiManager.Sheets[Sheet].Font, new VisualKey(IconVisualKeys[a]), Color.White,
+                        255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Center, 0, 0, Color.White, false, Color.White, false, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left },
                         false, Map.Direction.Northwest, 2, "", "", "", "", false);
 
                     columnCount++;

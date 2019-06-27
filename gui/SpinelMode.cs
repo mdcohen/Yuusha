@@ -54,9 +54,9 @@ namespace Yuusha.gui
         {
             try
             {
-                (GuiManager.CurrentSheet["GameTextScrollableTextBox"] as gui.ScrollableTextBox).AddLine(text, textType);
-                (GuiManager.Sheets["IOKGame"]["GameTextScrollableTextBox"] as gui.ScrollableTextBox).AddLine(text, textType);
-                (GuiManager.Sheets["YuushaGame"]["GameTextScrollableTextBox"] as gui.ScrollableTextBox).AddLine(text, textType);
+                (GuiManager.CurrentSheet["GameTextScrollableTextBox"] as ScrollableTextBox).AddLine(text, textType);
+                (GuiManager.Sheets["IOKGame"]["GameTextScrollableTextBox"] as ScrollableTextBox).AddLine(text, textType);
+                (GuiManager.Sheets["YuushaGame"]["GameTextScrollableTextBox"] as ScrollableTextBox).AddLine(text, textType);
             }
             catch (Exception e)
             {
@@ -64,8 +64,9 @@ namespace Yuusha.gui
             }
         }
 
-        public static void UpdateGUI(GameTime gameTime, gui.Sheet sheet)
+        public static void UpdateGUI()
         {
+            Sheet sheet = GuiManager.Sheets[Enums.EGameState.SpinelGame.ToString()];
             Character pre = Character.PreviousRoundCharacter;
             Character chr = Character.CurrentCharacter;
 
@@ -162,9 +163,9 @@ namespace Yuusha.gui
 
                             sheet["GainedExpLabel"].IsVisible = true;
                             sheet["GainedExpAmountLabel"].IsVisible = true;
-                            m_lastExpUpdate = gameTime.TotalGameTime;
+                            m_lastExpUpdate = Program.Client.ClientGameTime.TotalGameTime;
                         }
-                        else if (gameTime == null || gameTime.TotalGameTime - m_lastExpUpdate >= TimeSpan.FromSeconds(5))
+                        else if (Program.Client.ClientGameTime == null || Program.Client.ClientGameTime.TotalGameTime - m_lastExpUpdate >= TimeSpan.FromSeconds(5))
                         {
                             sheet["GainedExpLabel"].IsVisible = false;
                             sheet["GainedExpAmountLabel"].IsVisible = false;

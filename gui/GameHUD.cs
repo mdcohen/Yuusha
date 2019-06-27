@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
 {
     public class GameHUD : GameComponent
     {
+        public static List<string> NonDiscreetlyDraggableWindows = new List<string>()
+        {
+            //"EffectsWindow",
+            "TextVitalsWindow"
+        };
+
         public static Character CurrentTarget;
         public static string TextSendOverride = "";
 
@@ -312,9 +316,9 @@ namespace Yuusha.gui
                 return YuushaMode.Cells[24];
         }
 
-        public static void UpdateInventoryGridBoxWindow()
+        public static void UpdateInventoryWindow()
         {
-            if(GuiManager.GetControl("InventoryWindow") is Window w)
+            if(GuiManager.GenericSheet["InventoryWindow"] is Window w)
             {
                 Item item = null;
 
@@ -389,6 +393,102 @@ namespace Yuusha.gui
                     }
                 }
             }
+        }
+
+        public static void UpdateEffectsWindow(Sheet sheet)
+        {
+            if (sheet["EffectsWindow"] is Window w)
+            {
+                w.Controls.RemoveAll(c => c is Label);
+                int size = 30;
+                int spacing = 1;
+
+                //if (Character.CurrentCharacter.Effects.Count <= 0)
+                //{
+                //    Label label = new Label("NoEffectsLabel", w.Name, new Rectangle(0, (w.WindowTitle != null ? w.WindowTitle.Height : 0) + 2, BitmapFont.ActiveFonts[w.Font].MeasureString("No Effects"), 30), "No Effects", Color.White, true, false, w.Font,
+                //            new VisualKey("WhiteSpace"), Color.Transparent, 0, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+
+                //    GuiManager.GenericSheet.AddControl(label);
+                //}
+                if (Character.CurrentCharacter.Effects.Count > 0)
+                {
+                    int x = 0;
+                    int y = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + 2;
+
+
+                    foreach (Effect effect in Character.CurrentCharacter.Effects)
+                    {
+                        VisualKey visual = new VisualKey("WhiteSpace");
+                        string text = effect.Name[0].ToString();
+                        string effectPopUp = Utils.FormatEnumString(effect.Name);
+                        Color tintColor = Color.Transparent;
+                        //int count = 0;
+
+                        // time remaining
+                        if (effect.Duration > 0)
+                        {
+                            System.TimeSpan timeRemaining = Utils.RoundsToTimeSpan(effect.Duration);
+                            if (timeRemaining < System.TimeSpan.FromMinutes(60))
+                                effectPopUp += " [" + string.Format("{0:D2}", timeRemaining.Minutes) + ":" + string.Format("{0:D2}", timeRemaining.Seconds) + "]";
+                            else effectPopUp += " [" + timeRemaining.ToString() + "]";
+                        }
+
+                        // visual key of effect/spell if it exists
+                        if (Effect.IconsDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
+                        {
+                            visual = new VisualKey(Effect.IconsDictionary[Utils.FormatEnumString(effect.Name)]);
+                            text = "";
+                            tintColor = Color.White;
+                        }
+
+                        EffectLabel label = new EffectLabel(effect.Name + "Label", w.Name, new Rectangle(x, y, size, size), text, Color.White, true, false, w.Font,
+                            visual, tintColor, 255, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), effectPopUp)
+                        {
+                            EffectName = effect.Name,
+                            TimeCreated = System.DateTime.Now,
+                            Duration = effect.Duration,
+                            Timeless = effect.Duration == 0
+                        };
+
+                        GuiManager.CurrentSheet.AddControl(label);
+
+                        SquareBorder border = new SquareBorder(label.Name + "Border", label.Name, 1, new VisualKey("WhiteSpace"), false, Color.DimGray, 175);
+                        GuiManager.CurrentSheet.AddControl(border);
+
+                        x += size + spacing;
+
+                        //count++;
+                        //if (count == 10) // make another row at 15 effects
+                        //{
+                        //    x = 0;
+                        //    y += size + spacing;
+                        //    count = 0;
+                        //}
+                    }
+                }
+
+                w.Width = (Character.CurrentCharacter.Effects.Count * (size + spacing)) - spacing;
+                if (w.WindowTitle != null) w.WindowTitle.Width = w.Width;
+                w.Height = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + size + spacing;
+
+                if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter.Effects.Count > 0)
+                    w.IsVisible = true;
+                else w.IsVisible = false;
+            }
+        }
+
+        public static void UpdateCritterListWindow()
+        {
+            //if (GuiManager.CurrentSheet["CritterListWindow"] is Window w)
+            //{
+            //    List<Control> critterLabels = new List<Control>(w.Controls.RemoveAll(c => !(c is CritterListLabel)));
+            //    critterLabels.RemoveAll(c => !c.IsVisible);
+
+            //    int height = w.WindowTitle != null ? w.WindowTitle.Height : 0;
+
+            //    if (critterLabels.Count > 0)
+            //        height += critterLabels.Count * critterLabels[0].Height;
+            //}
         }
 
         //public void MapPortalFade()

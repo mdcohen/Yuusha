@@ -819,7 +819,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_INVENTORY_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_INVENTORY, Protocol.CHARACTER_INVENTORY_END), Enums.EPlayerUpdate.Inventory);
-                                gui.GameHUD.UpdateInventoryGridBoxWindow();
+                                gui.GameHUD.UpdateInventoryWindow();
                                 return true;
                             }
                             #endregion
@@ -874,6 +874,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_EFFECTS_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_EFFECTS, Protocol.CHARACTER_EFFECTS_END), Enums.EPlayerUpdate.Effects);
+                                gui.GameHUD.UpdateEffectsWindow(gui.GuiManager.CurrentSheet);
                                 return true;
                             }
                             #endregion

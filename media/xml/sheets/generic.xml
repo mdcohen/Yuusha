@@ -3371,7 +3371,7 @@ available in any game state. -->
       Height="24">
     </Control>
     <!-- InventoryWindowBorder -->
-  <Control
+    <Control
     Type="SquareBorder"
     Name="InventoryWindowBorder"
     Owner="InventoryWindow"

@@ -21,10 +21,10 @@ namespace Yuusha.gui
         public int FadeSpeed
         { get; set; }
 
-        public AutoHidingWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled,
-            string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, bool dropShadow,
-            Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride, Enums.EAnchorType titleOrientation,
-            int autoHideVisualAlpha, bool fadeIn, bool fadeOut, int fadeSpeed) : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
+        public AutoHidingWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled, string font,
+            VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
+            List<Enums.EAnchorType> anchors, string cursorOverride, Enums.EAnchorType titleOrientation, int autoHideVisualAlpha,
+            bool fadeIn, bool fadeOut, int fadeSpeed) : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
         {
             WindowTitleOrientation = titleOrientation;
             OriginalVisualAlpha = visualAlpha;

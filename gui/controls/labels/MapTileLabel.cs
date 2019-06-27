@@ -21,11 +21,11 @@ namespace Yuusha.gui
             if (!m_onMouseDownSent && ms.RightButton == ButtonState.Pressed)
             {
                 if (Client.GameState == Enums.EGameState.IOKGame)
-                    Cell.SendCellItemsRequest(IOKMode.Cells[System.Convert.ToInt32(this.Name.Replace("Tile", ""))]);
+                    Cell.SendCellItemsRequest(IOKMode.Cells[System.Convert.ToInt32(Name.Replace("Tile", ""))]);
                 else if (Client.GameState == Enums.EGameState.SpinelGame)
-                    Cell.SendCellItemsRequest(SpinelMode.Cells[System.Convert.ToInt32(this.Name.Replace("Tile", ""))]);
+                    Cell.SendCellItemsRequest(SpinelMode.Cells[System.Convert.ToInt32(Name.Replace("Tile", ""))]);
                 else if (Client.GameState == Enums.EGameState.YuushaGame && !Owner.Contains("MapWindow"))
-                    Cell.SendCellItemsRequest(YuushaMode.Cells[System.Convert.ToInt32(this.Name.Replace("Tile", ""))]);
+                    Cell.SendCellItemsRequest(YuushaMode.Cells[System.Convert.ToInt32(Name.Replace("Tile", ""))]);
 
                 // if client.client settings echo ground items
                 if (Client.ClientSettings.EchoGroundItemsOnExamination)

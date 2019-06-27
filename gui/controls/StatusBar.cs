@@ -20,7 +20,7 @@ namespace Yuusha.gui
         #endregion
 
         public StatusBar(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
             string cursorOverride, System.Collections.Generic.List<Enums.EAnchorType> anchors,
             Enums.ELayoutType layoutType) : base()
@@ -37,7 +37,6 @@ namespace Yuusha.gui
             m_visualKey = visualKey;
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
-            m_borderAlpha = borderAlpha;
             m_textAlpha = textAlpha;
             TextAlignment = textAlignment;
             XTextOffset = xTextOffset;

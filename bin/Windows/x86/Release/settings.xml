@@ -181,21 +181,21 @@
     <A>255</A>
     <PackedValue>4292210687</PackedValue>
   </DefaultMouseCursorTextCueColor>
-  <HotButtonText_ForeColor>
+  <HotButtonPopUpText_ForeColor>
     <B>0</B>
     <G>255</G>
     <R>0</R>
     <A>255</A>
     <PackedValue>4278255360</PackedValue>
-  </HotButtonText_ForeColor>
-  <HotButtonText_BackColor>
+  </HotButtonPopUpText_ForeColor>
+  <HotButtonPopUpText_BackColor>
     <B>128</B>
     <G>0</G>
     <R>128</R>
     <A>255</A>
     <PackedValue>4286578816</PackedValue>
-  </HotButtonText_BackColor>
-  <HotButtonText_BackColorAlpha>200</HotButtonText_BackColorAlpha>
+  </HotButtonPopUpText_BackColor>
+  <HotButtonPopUpText_BackColorAlpha>255</HotButtonPopUpText_BackColorAlpha>
   <GridBoxWindowTintColor>
     <B>79</B>
     <G>79</G>

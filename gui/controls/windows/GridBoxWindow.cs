@@ -14,7 +14,6 @@ namespace Yuusha.gui
             Counter,
             Ground,
             Belt,
-            Inventory, // technically not a GridBox
             Locker,
             Pouch,
             Rings,
@@ -32,9 +31,9 @@ namespace Yuusha.gui
         private int ColumnWidth;
 
         public GridBoxWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled, string font,
-            VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, bool dropShadow, Map.Direction shadowDirection,
+            VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection,
             int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride, int numRows, int numColumns, GridBoxPurpose gridBoxPurpose) : base(name, owner, rectangle, visible, locked,
-                disabled, font, visualKey, tintColor, visualAlpha, borderAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
+                disabled, font, visualKey, tintColor, visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
         {
             HasNewData = false;
             GridBoxPurposeType = gridBoxPurpose;
@@ -54,7 +53,7 @@ namespace Yuusha.gui
             GridBoxWindow box = new GridBoxWindow(purpose.ToString() + "GridBoxWindow", "",
                 new Rectangle(40, 40, (columns * columnWidth) + (Client.ClientSettings.GridBoxButtonsBorderWidth * 2), (rows * rowHeight) + Client.ClientSettings.GridBoxTitleHeight + (Client.ClientSettings.GridBoxButtonsBorderWidth * 2)),
                 false, false, false, Client.ClientSettings.GridBoxWindowFont, new VisualKey("WhiteSpace"),
-                Client.ClientSettings.GridBoxWindowTintColor, Client.ClientSettings.GridBoxWindowVisualKeyAlpha, Client.ClientSettings.GridBoxWindowBorderAlpha, true,
+                Client.ClientSettings.GridBoxWindowTintColor, Client.ClientSettings.GridBoxWindowVisualKeyAlpha, true,
                 Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left }, "", rows, columns, purpose);
             box.Rows = rows;
             box.Columns = columns;
@@ -195,7 +194,7 @@ namespace Yuusha.gui
 
                     button = new DragAndDropButton(purpose.ToString() + "DragAndDropButton" + count, box.Name,
                     new Rectangle(x, y, size, size), item.Name, false, Client.ClientSettings.DragAndDropTextColor, true, false, "courier12", new VisualKey(item.VisualKey),
-                    Color.White, 255, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "", BitmapFont.TextAlignment.Center, 0, 0,
+                    Color.White, 255, 0, new VisualKey(""), new VisualKey(""), new VisualKey(""), "", BitmapFont.TextAlignment.Center, 0, 0,
                     Client.ClientSettings.DragAndDropTextOverColor, Client.ClientSettings.DragAndDropHasTextOverColor, Client.ClientSettings.DragAndDropTintOverColor,
                     Client.ClientSettings.DragAndDropHasTintOverColor, new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top },
                     false, Map.Direction.None, 0, item.Name, false)

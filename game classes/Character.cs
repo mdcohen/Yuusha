@@ -346,7 +346,7 @@ namespace Yuusha
                                 Item inventoryItem = new Item(pcInventory[a]);
                                 m_currentCharacter.Inventory.Add(inventoryItem);
                             }
-                            GameHUD.UpdateInventoryGridBoxWindow();
+                            GameHUD.UpdateInventoryWindow();
                         }
                     }
                     catch (Exception e)
@@ -496,9 +496,7 @@ namespace Yuusha
                         if (pcEffects[0].Length > 0)
                         {
                             for (a = 0; a < pcEffects.Length; a++)
-                            {
                                 m_currentCharacter.Effects.Add(new Effect(pcEffects[a]));
-                            }
                         }
                     }
                     catch (Exception e)

@@ -11,7 +11,7 @@ namespace Yuusha.gui
         { get; set; }
 
         public Button(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
-            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte borderAlpha, byte textAlpha,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
             System.Collections.Generic.List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection,
@@ -30,7 +30,6 @@ namespace Yuusha.gui
             m_visualKey = visualKey;
             m_tintColor = tintColor;
             m_visualAlpha = visualAlpha;
-            m_borderAlpha = borderAlpha;
             m_textAlpha = textAlpha;
 
             if (m_visualKey.Key != "")
@@ -157,6 +156,16 @@ namespace Yuusha.gui
             }
 
             return base.OnKeyDown(ks);
+        }
+
+        protected override void OnMouseOver(MouseState ms)
+        {
+            base.OnMouseOver(ms);
+        }
+
+        protected override void OnMouseLeave(MouseState ms)
+        {
+            base.OnMouseLeave(ms);
         }
     }
 }

@@ -39,59 +39,34 @@ namespace Yuusha.Audio
 
             if (Client.GameState.ToString().EndsWith("Game"))
             {
-                // Get sound by map ID -- then zone ID -- then x, y ???
+                // Get sound by map ID -- then zone ID -- then Rectangle??
                 if (Character.CurrentCharacter != null && Character.CurrentCharacter.m_mapID == 2)
                 {
                     if (MediaPlayer.Queue != null && MediaPlayer.Queue.ActiveSong != null)
                     {
                         if (MediaPlayer.Queue.ActiveSong.Name != "Wind-Moderate")
-                        {
                             PlayAmbience("Wind-Moderate", true, true, .5f);
-                        }
                     }
                     else if(MediaPlayer.Queue == null || MediaPlayer.State == MediaState.Stopped)
-                    {
                         PlayAmbience("Wind-Moderate", true, true, .5f);
-                    }
                         
                 }
                 else if(Character.CurrentCharacter != null && Character.CurrentCharacter.m_mapID == 0)
                 {
-                    if (MediaPlayer.Queue != null && MediaPlayer.Queue.ActiveSong != null)
+                    if (Character.CurrentCharacter.Z < 0)
                     {
-                        if (Character.CurrentCharacter.Z < 0)
+                        if (MediaPlayer.Queue != null && MediaPlayer.Queue.ActiveSong != null)
                         {
                             if (MediaPlayer.Queue.ActiveSong.Name != "Kesmai-Dungeon-Background")
-                            {
                                 PlayAmbience("Kesmai-Dungeon-Background", true, true, .5f);
-                            }
                         }
-                        else MediaPlayer.Stop();
-                    }
-                    else if (MediaPlayer.Queue == null || MediaPlayer.State == MediaState.Stopped)
-                    {
-                        if (Character.CurrentCharacter.Z < 0)
-                        {
+                        else if (MediaPlayer.Queue == null || MediaPlayer.State == MediaState.Stopped)
                             PlayAmbience("Kesmai-Dungeon-Background", true, true, .5f);
-                        }
-                        else MediaPlayer.Stop();
                     }
+                    else MediaPlayer.Stop();
                 }
             }
-            else
-            {
-                MediaPlayer.Stop();
-
-                //if (MediaPlayer.State == MediaState.Playing)
-                //{
-                //    MediaPlayer.Volume -= .1f;
-                //    if (MediaPlayer.Volume <= .1f)
-                //    {
-                //        MediaPlayer.Stop();
-                //        MediaPlayer.Volume = 1.0f;
-                //    }
-                //}
-            }
+            else MediaPlayer.Stop();
 
             base.Update(gameTime);
         }

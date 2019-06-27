@@ -95,7 +95,7 @@ namespace Yuusha.gui
                     Y -= 2;
                     break;
                 case TextCueTag.HealthLoss:
-                    Y -= 1;
+                    Y -= 2;
                     break;
                 case TextCueTag.ManaGain:
                 case TextCueTag.StaminaGain:
@@ -139,7 +139,7 @@ namespace Yuusha.gui
                 if (m_alpha > 0 && !m_fadeIn && m_fadeOut)
                 {
                     m_alpha -= alphaMinus;
-                    if(m_alpha <= 20)
+                    if(m_alpha <= 0)
                         cueList.Remove(this);
                 }
 
@@ -276,10 +276,18 @@ namespace Yuusha.gui
 
             if (cursor != null)
             {
-                TextCue tc = new TextCue(text, ms.X, ms.Y - BitmapFont.ActiveFonts[font].LineHeight, 255, forecolor, backcolor, backgroundAlpha, font, 2500, false, 2, Map.Direction.Southeast, false, false, true, TextCueTag.None);
+                int x = ms.X;
+                int y = ms.Y - BitmapFont.ActiveFonts[font].LineHeight;
 
-                cursor.TextCues.Clear();
+                if (x + BitmapFont.ActiveFonts[font].MeasureString(text) > Client.Width)
+                    x = Client.Width - BitmapFont.ActiveFonts[font].MeasureString(text);
 
+                if (y < 0)
+                    y = ms.Y + BitmapFont.ActiveFonts[font].LineHeight;
+
+                TextCue tc = new TextCue(text, x, y, 255, forecolor, backcolor, backgroundAlpha, font, 100, false, 2, Map.Direction.Southeast, false, false, false, TextCueTag.None);
+                // only one mouse cursor text cue at a time...
+                cursor.TextCues.Clear();                
                 cursor.TextCues.Add(tc);
             }
         }
@@ -462,7 +470,7 @@ namespace Yuusha.gui
             int x = Client.Width / 2;
             int y = Client.Height / 2 - (lineHeight * 2);
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Firebrick, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.HealthLoss);
+            TextCue tc = new TextCue(text, x, y, 255, Color.Red, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.HealthLoss);
 
             if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
