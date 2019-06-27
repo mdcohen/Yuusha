@@ -27,6 +27,7 @@ namespace Yuusha.gui
             m_name = name;
             m_text = text;
             m_dropDownMenu = menu;
+            Font = menu.Font;
             m_visualKey = visualKey;
             m_onMouseDown = onMouseDown;
             m_onMouseDownSent = false;

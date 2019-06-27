@@ -854,49 +854,49 @@ namespace Yuusha
         }
         public Item RightHand
         {
-            get { return this.m_rightHand; }
-            set { this.m_rightHand = value; }
+            get { return m_rightHand; }
+            set { m_rightHand = value; }
         }
         public Item LeftHand
         {
-            get { return this.m_leftHand; }
-            set { this.m_leftHand = value; }
+            get { return m_leftHand; }
+            set { m_leftHand = value; }
         }
         public List<Item> Inventory
         {
-            get { return this.m_inventory; }
+            get { return m_inventory; }
         }
         public List<Item> Sack
         {
-            get { return this.m_sack; }
+            get { return m_sack; }
         }
         public List<Item> Pouch
         {
-            get { return this.m_pouch; }
+            get { return m_pouch; }
         }
         public List<Item> Belt
         {
-            get { return this.m_belt; }
+            get { return m_belt; }
         }
         public List<Item> Rings
         {
-            get { return this.m_rings; }
+            get { return m_rings; }
         }
         public List<Item> Locker
         {
-            get { return this.m_locker; }
+            get { return m_locker; }
         }
         public List<Spell> Spells
         {
-            get { return this.m_spells; }
+            get { return m_spells; }
         }
         public List<Effect> Effects
         {
-            get { return this.m_effects; }
+            get { return m_effects; }
         }
         public List<string> Macros
         {
-            get { return this.m_macros; }
+            get { return m_macros; }
         }
         public int HitsFull
         {
@@ -904,11 +904,11 @@ namespace Yuusha
         }
         public int ManaFull
         {
-            get { return this.ManaMax + this.ManaAdjustment; }
+            get { return ManaMax + ManaAdjustment; }
         }
         public int StaminaFull
         {
-            get { return this.StaminaMax + this.StaminaAdjustment; }
+            get { return StaminaMax + StaminaAdjustment; }
         }
         public bool IsSpellUser
         {
@@ -932,17 +932,17 @@ namespace Yuusha
         public Character()
         {
             m_visualKey = new VisualKey("unknown");
-            this.m_rightHand = new Item();
-            this.m_leftHand = new Item();
-            this.m_inventory = new List<Item>();
-            this.m_sack = new List<Item>();
-            this.m_pouch = new List<Item>();
-            this.m_belt = new List<Item>();
-            this.m_rings = new List<Item>();
-            this.m_locker = new List<Item>();
-            this.m_spells = new List<Spell>();
-            this.m_effects = new List<Effect>();
-            this.m_macros = new List<string>();
+            m_rightHand = new Item();
+            m_leftHand = new Item();
+            m_inventory = new List<Item>();
+            m_sack = new List<Item>();
+            m_pouch = new List<Item>();
+            m_belt = new List<Item>();
+            m_rings = new List<Item>();
+            m_locker = new List<Item>();
+            m_spells = new List<Spell>();
+            m_effects = new List<Effect>();
+            m_macros = new List<string>();
         } 
         #endregion
 

@@ -57,7 +57,7 @@ namespace Yuusha.gui
             {
                 BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
                 BitmapFont.ActiveFonts[Font].Alignment = BitmapFont.TextAlignment.Center;
-                Rectangle rect = new Rectangle(m_rectangle.X, m_rectangle.Y, m_rectangle.Width, 30);
+                Rectangle rect = new Rectangle(m_rectangle.X, m_rectangle.Y, m_rectangle.Width, BitmapFont.ActiveFonts[Font].LineHeight);
                 BitmapFont.ActiveFonts[Font].TextBox(rect, Client.ClientSettings.ColorDropDownMenuTitleText, Title);
             }
 

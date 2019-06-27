@@ -8,21 +8,8 @@ namespace Yuusha.gui
 {
     public class Background : Control
     {
-        #region Private Data
         private bool m_centered = false;
         private List<TextCue> m_textCues;
-        #endregion
-
-        #region Public Properties
-        public bool IsCentered
-        {
-            get { return m_centered; }
-        }
-        public List<TextCue> TextCues
-        {
-            get { return m_textCues; }
-        }
-        #endregion
 
         #region Constructor
         public Background(System.Xml.XmlReader reader)

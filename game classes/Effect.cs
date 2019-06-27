@@ -19,7 +19,7 @@ namespace Yuusha
         {
             { "Animal Affinity", "hotbuttonicon_463" },
             { "Banish", "hotbuttonicon_91" },
-            { "Bless", "hotbuttonicon_135" },
+            { "Bless", "hotbuttonicon_274" },
             { "Blind", "hotbuttonicon_483" },
             { "Bonfire", "hotbuttonicon_132" },
             { "Breathe Water", "hotbuttonicon_249" },

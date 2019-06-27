@@ -51,6 +51,19 @@ namespace Yuusha.gui
         { get; set; }
         public Border Border
         { get; set; }
+        public override string Font
+        {
+            get => base.Font;
+            set
+            {
+                if (value != base.Font)
+                {
+                    base.Font = value;
+                    OnFontChange();
+                }
+                else base.Font = value;
+            }
+        }
         #endregion
 
         #region Constructors (2)
@@ -386,6 +399,26 @@ namespace Yuusha.gui
             }
 
             if (Scrollbar.ScrollLocked) Scrollbar.ScrollValue = m_formattedLines.Count;
+        }
+
+        private void OnFontChange()
+        {
+            //List<string> allLines = new List<string>(m_allLines);
+            //List<Enums.ETextType> allTextTypes = new List<Enums.ETextType>(m_allTextTypes);
+
+            //Clear();
+
+            //for(int i = 0; i < allLines.Count; i++)
+            //    AddLine(allLines[i], allTextTypes[i]);
+
+            m_formattedLines.Clear();
+            m_formattedTextTypes.Clear();
+            m_formattedTextColors.Clear();
+
+            for (int a = 0; a < m_allLines.Count; a++)
+            {
+                FormatLine(m_allLines[a], m_allTextTypes[a], m_allTextColors[a]);
+            }
         }
 
         public void Clear()

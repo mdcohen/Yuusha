@@ -594,7 +594,7 @@ namespace Yuusha.gui
                             (owner as ColorDialogButton).Border = c as Border;
                     }
                 }
-                else Utils.Log("Owner is null. " + c.Name + ", Owner: " + c.Owner);
+                //else Utils.Log("Owner is null. " + c.Name + ", Owner: " + c.Owner);
             }
         }
 

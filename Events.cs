@@ -956,8 +956,6 @@ namespace Yuusha
                                     scrollableTextBox.Font = control.Command;
 
                                     GuiManager.Dispose(menu);
-                                    //scrollableTextBox.DropDownMenu = null;
-                                    //menu = null;
                                 }
                             }
                         }
