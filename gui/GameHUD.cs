@@ -91,6 +91,12 @@ namespace Yuusha.gui
                         GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
                     }
                 }
+                else if(GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Inventory"))
+                {
+                    //TODO: wearOrientation
+                    Events.RegisterEvent(Events.EventName.Send_Command, "wear " + rightOrLeft);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Inventory);
+                }
                 #endregion
             }
             else if (b.Name.StartsWith("Belt"))
@@ -282,27 +288,27 @@ namespace Yuusha.gui
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Altar") ||
                     GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Counter"))
                 {
-                    GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
-                    if (window.WindowTitle != null)
-                    {
-                        switch (window.WindowTitle.Text.ToLower())
-                        {
-                            case "altar":
-                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " on altar");
-                                break;
-                            case "counter":
-                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " on counter");
-                                break;
-                            default:
-                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + fromLocation + ";drop " + b.RepresentedItem.Name);
-                                break;
-                        }
-
-                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
-                    }
+                    Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + fromLocation + ";drop " + b.RepresentedItem.Name);
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
                 }
 
                 GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
+            }
+            else if(b.Name.Contains("Inventory"))
+            {
+                Character.WearOrientation wearOrientation = b.RepresentedItem.wearOrientation;
+                if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
+                {
+                    string swapafter = "";
+                    string swapbefore = "";
+
+                    if (Character.CurrentCharacter.RightHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
+                        swapafter = ";swap";
+                    else if (Character.CurrentCharacter.LeftHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH"))
+                        swapbefore = "swap;";
+
+                    Events.RegisterEvent(Events.EventName.Send_Command, swapbefore + "remove" + (wearOrientation != Character.WearOrientation.None ? wearOrientation.ToString() + " " : " ") + b.RepresentedItem.Name + swapafter);
+                }
             }
         }
 

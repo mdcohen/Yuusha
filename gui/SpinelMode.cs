@@ -89,7 +89,7 @@ namespace Yuusha.gui
                     }
 
                     #region Magic Points Labels
-                    if (chr.IsSpellUser)
+                    if (chr.IsManaUser)
                     {
 
                         sheet["MagicPtsLabel"].IsVisible = true;
@@ -506,8 +506,6 @@ namespace Yuusha.gui
                                             break;
                                     }
 
-                                    
-
                                     m_critterListNames[labelNum] = ch.Name;
                                     CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
                                     label.Critter = ch;
@@ -587,7 +585,7 @@ namespace Yuusha.gui
                             if (cell.portal)
                                 spLabel.VisualKey = m_tilesDict["pp"].ForeVisual.Key;
 
-                            if (cell.Characters.Count > 0)
+                            if (cell.Characters != null && cell.Characters.Count > 0)
                             {
                                 if (count != 24) // not our cell
                                 {
@@ -621,7 +619,7 @@ namespace Yuusha.gui
                                 currentTile = m_tilesDict["  "];
                             else
                             {
-                                Utils.LogOnce("Failed to find IOKTile for cell graphic [    ]");
+                                Utils.LogOnce("Failed to find SpinelTileDefinition for cell graphic [    ]");
                                 continue;
                             }
 

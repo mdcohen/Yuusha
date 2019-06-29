@@ -17,9 +17,9 @@ namespace Yuusha
         private static List<Character> m_newbies = new List<Character>(); // new characters
         private static List<string> m_news = new List<string>(); // server news
 
-        public static Character.ClassType[] m_spellUsers = new Character.ClassType[] { Character.ClassType.Knight,
+        public static Character.ClassType[] ManaUser = new Character.ClassType[] { Character.ClassType.Knight,
             Character.ClassType.Thaumaturge, Character.ClassType.Wizard, Character.ClassType.Thief, Character.ClassType.Ravager,
-            Character.ClassType.Sorcerer};
+            Character.ClassType.Sorcerer, Character.ClassType.Druid, Character.ClassType.Ranger};
 
         public static int[] age_cycle = { 14400, 28800, 43200, 57600, 72000 };
 

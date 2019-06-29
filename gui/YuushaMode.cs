@@ -74,19 +74,31 @@ namespace Yuusha.gui
             {
                 if (chr != null)
                 {
-                    //if (GuiManager.GetControl("TextVitalsWindow") is Window vitalsWindow)
-                    //{
-                    //    //vitalsWindow.PopUpText = string.Format("{0:n0}", chr.Experience) + "/" + string.Format("{0:n0}", Globals.GetExperienceRequiredForLevel(chr.Level + 1));
+                    if (sheet["HitsRemainingLabel"].Text.Length > 0)
+                    {
+                        int hitsRemaining = Convert.ToInt32(sheet["HitsRemainingLabel"].Text);
 
-                    //    if(vitalsWindow.DiscreetlyDraggable)
-                    //        vitalsWindow.DiscreetlyDraggable = false;
-                    //}
+                        if (hitsRemaining < chr.Hits)
+                            TextCue.AddHealthGainTextCue(string.Format("+{0}", Convert.ToString(chr.Hits - hitsRemaining)));
+                        else if (hitsRemaining > chr.Hits)
+                            TextCue.AddHealthLossTextCue(string.Format("-{0}", Convert.ToString(hitsRemaining - chr.Hits)));
+                    }
 
                     sheet["HitsRemainingLabel"].Text = chr.Hits.ToString();
                     if (chr.Hits != chr.HitsFull)
                         sheet["HitsRemainingLabel"].TextColor = Color.DarkSalmon;
                     else sheet["HitsRemainingLabel"].TextColor = sheet["HitsAmountLabel"].TextColor;
                     sheet["HitsAmountLabel"].Text = "/" + chr.HitsFull.ToString();
+
+                    if (sheet["StaminaRemainingLabel"].Text.Length > 0)
+                    {
+                        int stamRemaining = Convert.ToInt32(sheet["StaminaRemainingLabel"].Text);
+
+                        if (stamRemaining < chr.Stamina)
+                            TextCue.AddStaminaGainTextCue(string.Format("+{0}", Convert.ToString(chr.Stamina - stamRemaining)));
+                        else if (stamRemaining > chr.Stamina)
+                            TextCue.AddStaminaLossTextCue(string.Format("-{0}", Convert.ToString(stamRemaining - chr.Stamina)));
+                    }
 
                     sheet["StaminaRemainingLabel"].Text = chr.Stamina.ToString();
                     if (chr.Stamina != chr.StaminaFull)
@@ -95,8 +107,18 @@ namespace Yuusha.gui
                     sheet["StaminaAmountLabel"].Text = "/" + chr.StaminaFull.ToString();
 
                     #region Magic Points Labels
-                    if (chr.IsSpellUser)
+                    if (chr.IsManaUser)
                     {
+                        if (sheet["MagicPtsRemainingLabel"].Text.Length > 0)
+                        {
+                            int manaRemaining = Convert.ToInt32(sheet["MagicPtsRemainingLabel"].Text);
+
+                            if (manaRemaining < chr.Mana)
+                                TextCue.AddManaGainTextCue(string.Format("+{0}", Convert.ToString(chr.Mana - manaRemaining)));
+                            else if (manaRemaining > chr.Mana)
+                                TextCue.AddManaLossTextCue(string.Format("-{0}", Convert.ToString(manaRemaining - chr.Mana)));
+                        }
+
                         sheet["MagicPtsRemainingLabel"].Text = chr.Mana.ToString();
                         if (chr.Mana != chr.ManaFull)
                             sheet["MagicPtsRemainingLabel"].TextColor = Color.DarkSalmon;
@@ -179,46 +201,11 @@ namespace Yuusha.gui
 
                     if (pre != null)
                     {
-                        // hits update (if pre.hits is greater than 0, in other words not first update)
-                        if (pre.Hits != chr.Hits)// && pre.Hits > 0)
-                        {
-                            if (pre.Hits > chr.Hits)
-                                TextCue.AddHealthLossTextCue(string.Format("-{0}", Convert.ToString(pre.Hits - chr.Hits)));
-                            else
-                                TextCue.AddHealthGainTextCue(string.Format("+{0}", Convert.ToString(chr.Hits - pre.Hits)));
-
-                            Character.PreviousRoundCharacter.Hits = chr.Hits;
-                        }
-
-                        if (pre.Stamina != chr.Stamina)// && pre.Hits > 0)
-                        {
-                            if (pre.Stamina > chr.Stamina)
-                                TextCue.AddStaminaLossTextCue(string.Format("-{0}", Convert.ToString(pre.Stamina - chr.Stamina)));
-                            else
-                                TextCue.AddStaminaGainTextCue(string.Format("+{0}", Convert.ToString(chr.Stamina - pre.Stamina)));
-
-                            Character.PreviousRoundCharacter.Stamina = chr.Stamina;
-                        }
-
-                        if (pre.Mana != chr.Mana)// && pre.Hits > 0)
-                        {
-                            if (pre.Mana > chr.Mana)
-                                TextCue.AddManaLossTextCue(string.Format("-{0}", Convert.ToString(pre.Mana - chr.Mana)));
-                            else
-                                TextCue.AddManaGainTextCue(string.Format("+{0}", Convert.ToString(chr.Mana - pre.Mana)));
-
-                            Character.PreviousRoundCharacter.Mana = chr.Mana;
-                        }
-
                         // Experience adjustments.
                         if (pre.Experience < chr.Experience && pre.Experience > 0)
-                        {
                             TextCue.AddXPGainTextCue(string.Format("+{0:n0}", chr.Experience - pre.Experience));
-                        }
                         else if (pre.Experience > chr.Experience)
-                        {
                             TextCue.AddXPLossTextCue(string.Format("-{0:n0}", pre.Experience - chr.Experience));
-                        }
                     }
                 }
 
@@ -516,7 +503,7 @@ namespace Yuusha.gui
                         {
                             cell = m_cells[a];
 
-                            if (cell.Characters.Count > 0)
+                            if (cell.Characters != null && cell.Characters.Count > 0)
                             {
                                 string letter = AssignCritterLetter();
                                 foreach (Character ch in cell.Characters)
@@ -637,7 +624,7 @@ namespace Yuusha.gui
                             if (cell.portal)
                                 spLabel.VisualKey = m_tilesDict["pp"].ForeVisual.Key;
 
-                            if (cell.Characters.Count > 0)
+                            if (cell.Characters != null && cell.Characters.Count > 0)
                             {
                                 if (count != 24) // not our cell
                                 {
@@ -671,7 +658,7 @@ namespace Yuusha.gui
                                 currTile = m_tilesDict["  "];
                             else
                             {
-                                Utils.LogOnce("Failed to find IOKTile for cell graphic [    ]");
+                                Utils.LogOnce("Failed to find SpinelTileDefinition for cell graphic [    ]");
                                 continue;
                             }
 

@@ -113,9 +113,13 @@ namespace Yuusha.gui
                                         else dropDownMenuItemTextList.Add(Tuple.Create("take", "take " + GetNItemName(this) + " from " + location, GridBoxWindow.GridBoxPurpose.None));
                                         if (RepresentedItem.Name != "corpse" && !RepresentedItem.Name.StartsWith("coin"))
                                             dropDownMenuItemTextList.Add(Tuple.Create("sack", "take " + GetNItemName(this) + " from " + location + ";put " + RepresentedItem.Name + " in sack", GridBoxWindow.GridBoxPurpose.Sack));
-                                        else if(RepresentedItem.Name.StartsWith("coin"))
-                                            dropDownMenuItemTextList.Add(Tuple.Create("scoop", "scoop coins", GridBoxWindow.GridBoxPurpose.Sack));
-                                        if (!RepresentedItem.Name.StartsWith("coin") && RepresentedItem.Name != "corpse")
+                                        else if (RepresentedItem.Name.StartsWith("coin"))
+                                        {
+                                            if(gridBox.GridBoxPurposeType != GridBoxWindow.GridBoxPurpose.Ground)
+                                                dropDownMenuItemTextList.Add(Tuple.Create("sack", "scoop coins from " + location, GridBoxWindow.GridBoxPurpose.Sack));
+                                            else dropDownMenuItemTextList.Add(Tuple.Create("sack", "scoop coins", GridBoxWindow.GridBoxPurpose.Sack));
+                                        }
+                                            if (!RepresentedItem.Name.StartsWith("coin") && RepresentedItem.Name != "corpse")
                                         {
                                             dropDownMenuItemTextList.Add(Tuple.Create("pouch", "take " + GetNItemName(this) + " from " + location + ";put " + RepresentedItem.Name + " in pouch", GridBoxWindow.GridBoxPurpose.Pouch));
                                             dropDownMenuItemTextList.Add(Tuple.Create("belt", "take " + GetNItemName(this) + " from " + location + ";belt " + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.Belt));
@@ -133,7 +137,6 @@ namespace Yuusha.gui
                                         // search all corpses if even one exists
                                         if (gridBox.GridBoxPurposeType == GridBoxWindow.GridBoxPurpose.Ground && RepresentedItem.Name.ToLower() == "corpse")
                                             dropDownMenuItemTextList.Add(Tuple.Create("search", "search all", GridBoxWindow.GridBoxPurpose.None));
-                                        //}
                                         break;
                                     case GridBoxWindow.GridBoxPurpose.Belt:
                                         dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.Name, "look at " + GetNItemName(this) + " on belt", GridBoxWindow.GridBoxPurpose.None));
@@ -190,9 +193,24 @@ namespace Yuusha.gui
                                 switch (Owner.Replace("Window", ""))
                                 {
                                     case "Inventory":
-                                        // identify wearLocation and wearOrientation
+                                        Character.WearOrientation wearOrientation = RepresentedItem.wearOrientation;
+                                        dropDownMenuItemTextList.Add(Tuple.Create("remove", "remove" + (wearOrientation != Character.WearOrientation.None ? wearOrientation.ToString() + " " : " ") + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.Inventory));
+                                        //dropDownMenuItemTextList.Add(Tuple.Create("belt", "remove" + (wearOrientation != Character.WearOrientation.None ? wearOrientation.ToString() + " " : " ") + RepresentedItem.Name + ";belt " + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.Belt));
                                         break;
                                 }
+                            }
+                            else if(Name.StartsWith("RH") || Name.StartsWith("LH"))
+                            {
+                                dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.Name, "look at " + (Name.StartsWith("RH") ? "right" : "left"), GridBoxWindow.GridBoxPurpose.None));
+                                if(RepresentedItem.Name != "corpse" && !RepresentedItem.Name.StartsWith("coin"))
+                                    dropDownMenuItemTextList.Add(Tuple.Create("belt", "belt " + (Name.StartsWith("RH") ? "right" : "left"), GridBoxWindow.GridBoxPurpose.Belt));
+                                if(RepresentedItem.Name != "corpse")
+                                    dropDownMenuItemTextList.Add(Tuple.Create("sack", "put " + (Name.StartsWith("RH") ? "right" : "left") + " in sack", GridBoxWindow.GridBoxPurpose.Sack));
+                                if (RepresentedItem.Name != "corpse" && !RepresentedItem.Name.StartsWith("coin"))
+                                    dropDownMenuItemTextList.Add(Tuple.Create("pouch", "put " + (Name.StartsWith("RH") ? "right" : "left") + " in pouch", GridBoxWindow.GridBoxPurpose.Sack));
+                                dropDownMenuItemTextList.Add(Tuple.Create("drop", "drop " + (Name.StartsWith("RH") ? "right" : "left"), GridBoxWindow.GridBoxPurpose.Ground));
+                                if(Character.CurrentCharacter != null && Character.CurrentCharacter.IsNextToCounter())
+                                    dropDownMenuItemTextList.Add(Tuple.Create("put on counter/altar", "put " + (Name.StartsWith("RH") ? "right" : "left") + " on counter", GridBoxWindow.GridBoxPurpose.Sack));
                             }
 
                             foreach (Tuple<string, string, GridBoxWindow.GridBoxPurpose> tuple in dropDownMenuItemTextList)

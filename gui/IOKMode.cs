@@ -85,7 +85,7 @@ namespace Yuusha.gui
                         sheet["HitsTakenAmountLabel"].TextColor = Color.DarkSalmon;
                     else sheet["HitsTakenAmountLabel"].TextColor = Color.White;
 
-                    if (chr.IsSpellUser)
+                    if (chr.IsManaUser)
                     {
                         sheet["MagicPtsLabel"].IsVisible = true;
                         sheet["MagicPtsAmountLabel"].IsVisible = true;

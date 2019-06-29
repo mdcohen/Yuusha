@@ -185,7 +185,7 @@ namespace Yuusha.gui
                     else Utils.LogOnce("Failed to find cursor override visual key [ " + m_cursorOverride + " ] for GUI Sheet [ " + m_name + " ]");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Utils.LogException(e);
             }
@@ -206,7 +206,7 @@ namespace Yuusha.gui
                 // draw strings
                 foreach (TextCue tc in m_textCues)
                     tc.Draw(gameTime);
-                
+
                 // Cursor is drawn on the Generic Sheet.
                 //if (GuiManager.MouseCursorVisible)
                 //{
@@ -226,7 +226,7 @@ namespace Yuusha.gui
                 //    }
                 //}
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Utils.LogException(e);
             }
@@ -239,7 +239,7 @@ namespace Yuusha.gui
         {
             get
             {
-                lock (m_controls)
+                try
                 {
                     for (int index = 0; index < m_controls.Count; index++)
                     {
@@ -248,37 +248,62 @@ namespace Yuusha.gui
 
                         if (m_controls[index] is Window)
                         {
-                            lock ((m_controls[index] as Window).Controls)
+                            //for (int index1 = 0; index1 < (m_controls[index] as Window).Controls.Count; index1++)
+                            //{
+                            //    if (name == (m_controls[index] as Window).Controls[index1].Name)
+                            //    {
+                            //        return (m_controls[index] as Window).Controls[index1];
+                            //    }
+                            //    else if ((m_controls[index] as Window).Controls[index1] is Window)
+                            //    {
+                            //        for (int index2 = 0; index2 < ((m_controls[index] as Window).Controls[index1] as Window).Controls.Count; index2++)
+                            //        {
+                            //            if (name == ((m_controls[index] as Window).Controls[index1] as Window).Controls[index2].Name)
+                            //            {
+                            //                return ((m_controls[index] as Window).Controls[index1] as Window).Controls[index2];
+                            //            }
+                            //            else if (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] is Window)
+                            //            {
+                            //                for (int index3 = 0; index3 < (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] as Window).Controls.Count; index3++)
+                            //                {
+                            //                    if (name == (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] as Window).Controls[index3].Name)
+                            //                    {
+                            //                        return (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] as Window).Controls[index3];
+                            //                    }
+                            //                }
+                            //            }
+                            //        }
+                            //    }
+                            //}
+
+                            foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
                             {
-                                foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
+                                if (name == c.Name)
+                                    return c;
+
+                                if (c is Window)
                                 {
-                                    if (name == c.Name)
-                                        return c;
-
-                                    if (c is Window)
+                                    foreach (Control c2 in new List<Control>((c as Window).Controls))
                                     {
-                                        foreach (Control c2 in new List<Control>((c as Window).Controls))
+                                        if (name == c2.Name)
+                                            return c2;
+
+                                        if (c2 is Window)
                                         {
-                                            if (name == c2.Name)
-                                                return c2;
-
-                                            if (c2 is Window)
+                                            foreach (Control c3 in new List<Control>((c2 as Window).Controls))
                                             {
-                                                foreach (Control c3 in new List<Control>((c2 as Window).Controls))
+                                                if (name == c3.Name)
+                                                    return c3;
+
+                                                if (c3 is Window)
                                                 {
-                                                    if (name == c3.Name)
-                                                        return c3;
-
-                                                    if (c3 is Window)
+                                                    foreach (Control c4 in new List<Control>((c3 as Window).Controls))
                                                     {
-                                                        foreach (Control c4 in new List<Control>((c3 as Window).Controls))
-                                                        {
-                                                            if (name == c4.Name)
-                                                                return c4;
-                                                        }
+                                                        if (name == c4.Name)
+                                                            return c4;
                                                     }
-
                                                 }
+
                                             }
                                         }
                                     }
@@ -286,13 +311,18 @@ namespace Yuusha.gui
                             }
                         }
                     }
+
+                    if (!(this == GuiManager.GenericSheet))
+                        return GuiManager.GenericSheet[name];
+
+                    return null;
                 }
-
-                if (!(this == GuiManager.GenericSheet))
-                    return GuiManager.GenericSheet[name];
-
-                return null;
-            }
+                catch (Exception e)
+                {
+                    Utils.LogException(e);
+                    return null;
+                }
+            }            
         }
 
         public void KeyboardHandler(KeyboardState ks)

@@ -59,6 +59,10 @@ namespace Yuusha.gui
             get { return m_tag; }
             set { m_tag = value; }
         }
+        public bool LifeStarted
+        { get { return m_lifeStarted; } }
+        public TimeSpan LifeStart
+        { get { return m_lifeStart; } }
         #endregion
 
         public TextCue(string text, int x, int y, byte alpha, Color color, Color backgroundColor, byte backgroundAlpha, string font, double lifeCycle,

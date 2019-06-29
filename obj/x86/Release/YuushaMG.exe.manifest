@@ -146,7 +146,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>2LoF6tIfOAQUzYjLvK4xGC7/oOkeQ3kUPdhvBMG0IqM=</dsig:DigestValue>
+        <dsig:DigestValue>r565FWUOwsJnqkUMIR6IVwJnooQoVtNjR5JcJBXT9og=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -3309,13 +3309,13 @@
       <dsig:DigestValue>PAB21jlIOvVVEtWniV2kgvWBBwkSOGS8+Ma2Mc6LS4k=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\textures\yuusha_items.png" size="7670944">
+  <file name="media\textures\yuusha_items.png" size="8639837">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ycFVMEibQXJd7dt+toI6YFLVYnAh1LB038QtJm3eGFg=</dsig:DigestValue>
+      <dsig:DigestValue>V2uKInmRMgpdPp+6WGWvWxVQYHswh2kCcRe5mnryJEE=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\cursors.xml" size="473" writeableType="applicationData">
@@ -3579,13 +3579,13 @@
       <dsig:DigestValue>5aqw5vx4W2NBypzCcv0khLYnkz5rVIabeWvvbNqJns4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\visuals\yuusha_items.xml" size="22243" writeableType="applicationData">
+  <file name="media\xml\visuals\yuusha_items.xml" size="28297" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>eAHlZOTPpZKQ0DNxcI3mNUnqY0kQpnKX7I+m7UXRW5M=</dsig:DigestValue>
+      <dsig:DigestValue>sOZmY6e1SUz2klBeeQQ22hWfuFABj2gDvbUF55Lr/Xg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="YuushaMG.exe.config" size="159">

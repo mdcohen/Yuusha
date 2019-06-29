@@ -14,6 +14,7 @@ namespace Yuusha.gui
             Counter,
             Ground,
             Belt,
+            Inventory, // technically not a GridBoxWindow...
             Locker,
             Pouch,
             Rings,
@@ -54,12 +55,15 @@ namespace Yuusha.gui
                 new Rectangle(40, 40, (columns * columnWidth) + (Client.ClientSettings.GridBoxButtonsBorderWidth * 2), (rows * rowHeight) + Client.ClientSettings.GridBoxTitleHeight + (Client.ClientSettings.GridBoxButtonsBorderWidth * 2)),
                 false, false, false, Client.ClientSettings.GridBoxWindowFont, new VisualKey("WhiteSpace"),
                 Client.ClientSettings.GridBoxWindowTintColor, Client.ClientSettings.GridBoxWindowVisualKeyAlpha, true,
-                Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left }, "", rows, columns, purpose);
-            box.Rows = rows;
-            box.Columns = columns;
-            box.RowHeight = rowHeight;
-            box.ColumnWidth = columnWidth;
-            box.m_cursorOverride = "Dragging";
+                Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left }, "", rows, columns, purpose)
+            {
+                Rows = rows,
+                Columns = columns,
+                RowHeight = rowHeight,
+                ColumnWidth = columnWidth,
+                GridBoxPurposeType = purpose,
+                m_cursorOverride = "Dragging"
+            };
 
             WindowTitle boxTitle = new WindowTitle(box.Name + "Title", box.Name, box.Font, purpose.ToString(), Client.ClientSettings.GridBoxTitleTextColor, Client.ClientSettings.GridBoxTitleTintColor, 255,
                 BitmapFont.TextAlignment.Center, new VisualKey("WhiteSpace"), false, new VisualKey("WindowCloseBox"), new VisualKey("WindowCloseBoxDown"),
@@ -222,6 +226,8 @@ namespace Yuusha.gui
                     countDictionary[item.VisualKey]++;
                     button.Text = countDictionary[item.VisualKey].ToString();
                     button.IsTextVisible = true;
+                    button.TextAlpha = button.VisualAlpha;
+                    button.TextColor = Color.White;
                     button.TextAlignment = BitmapFont.TextAlignment.Right;
                     button.YTextOffset = (button.Height / 2) - (BitmapFont.ActiveFonts[button.Font].LineHeight / 2);
                     button.XTextOffset = -3;
@@ -344,6 +350,9 @@ namespace Yuusha.gui
                     break;
                 case GridBoxPurpose.Belt:
                     IO.Send(Protocol.REQUEST_CHARACTER_BELT);
+                    break;
+                case GridBoxPurpose.Inventory:
+                    IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
                     break;
                 case GridBoxPurpose.Locker:
                     IO.Send(Protocol.REQUEST_CHARACTER_LOCKER);

@@ -420,7 +420,7 @@ namespace Yuusha.gui
                 DropDownMenu menu = GuiManager.GetControl(GuiManager.ActiveDropDownMenu) as DropDownMenu;
 
                 if (!(this is DropDownMenu) && !(this is DropDownMenuItem) && (menu != null && Name != menu.Owner))
-                    return true;
+                    return false;
             }
 
             Point mousePointer = new Point(ms.X, ms.Y); // point of the mouse

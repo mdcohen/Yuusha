@@ -1113,7 +1113,7 @@ namespace Yuusha.gui
         {
             foreach(TextCue tc2 in new List<TextCue>(TextCues))
             {
-                if (tc2.Text == tc.Text && tc2.Tag == tc.Tag)
+                if (tc2.LifeStarted && tc2.LifeStart > (Program.Client.ClientGameTime.TotalGameTime - TimeSpan.FromSeconds(1)) && tc2.Text == tc.Text && tc2.Tag == tc.Tag)
                     return true;
             }
 

@@ -15,13 +15,11 @@ namespace Yuusha
 
         public enum WearOrientation { None, RightRing1, RightRing2, RightRing3, RightRing4, LeftRing1, LeftRing2, LeftRing3, LeftRing4, Left = 9, Right = 10 }
 
-        public enum ClassType { None, Fighter, Thaumaturge, Wizard, Martial_Artist, Thief, Knight, Ravager, Sorcerer }
+        public enum ClassType { None, Fighter, Thaumaturge, Wizard, Martial_Artist, Thief, Knight, Ravager, Sorcerer, Druid, Ranger, Berserker }
 
         public enum GenderType { It, Male, Female, Random }
 
         public enum HomelandType { Barbarian, Draznia, Hovath, Illyria, Lemuria, Leng, Mnar, Mu }
-
-        public static ClassType[] spellUsers = new ClassType[] { ClassType.Thaumaturge, ClassType.Wizard, ClassType.Thief, ClassType.Knight };
 
         public const short NAME_MIN_LENGTH = 4;
         public const short NAME_MAX_LENGTH = 14;
@@ -114,9 +112,9 @@ namespace Yuusha
                         string[] pcStats = info.Split(Protocol.VSPLIT.ToCharArray());
                         m_currentCharacter.ID = Convert.ToInt32(pcStats[0]);
                         m_currentCharacter.Name = pcStats[1];
-                        m_currentCharacter.Gender = (Character.GenderType)Convert.ToInt32(pcStats[2]);
+                        m_currentCharacter.Gender = (GenderType)Convert.ToInt32(pcStats[2]);
                         m_currentCharacter.Race = pcStats[3];
-                        m_currentCharacter.Profession = (Character.ClassType)Convert.ToInt32(pcStats[4]);
+                        m_currentCharacter.Profession = (ClassType)Convert.ToInt32(pcStats[4]);
                         m_currentCharacter.ClassFullName = pcStats[5];
                         m_currentCharacter.Alignment = (World.Alignment)Convert.ToInt32(pcStats[6]);
                         m_currentCharacter.ImpLevel = (World.ImpLevel)Convert.ToInt32(pcStats[7]);
@@ -910,11 +908,11 @@ namespace Yuusha
         {
             get { return StaminaMax + StaminaAdjustment; }
         }
-        public bool IsSpellUser
+        public bool IsManaUser
         {
             get
             {
-                return Array.IndexOf(World.m_spellUsers, this.Profession) > -1;
+                return Array.IndexOf(World.ManaUser, Profession) > -1;
             }
         }
         public bool IsPeeking
