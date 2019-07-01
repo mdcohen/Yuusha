@@ -732,11 +732,13 @@ namespace Yuusha
                     case EventName.Request_Sack:
                         IO.Send(Protocol.REQUEST_CHARACTER_SACK);
                         if (args[0] is Button)
+                        {
                             if (GuiManager.GetControl("SackGridBoxWindow") is GridBoxWindow gridBoxWindow)
                             {
                                 gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
                                 gridBoxWindow.ZDepth = 1;
                             }
+                        }
                         break;
                     case EventName.Request_Skills:
                         IO.Send(Protocol.REQUEST_CHARACTER_SKILLS);

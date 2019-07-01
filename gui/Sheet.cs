@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Yuusha.gui
 {
@@ -583,14 +581,30 @@ namespace Yuusha.gui
                         else if (c is DropDownMenu)
                             (owner as TextBox).DropDownMenu = c as DropDownMenu;
                     }
+                    else if (owner is PercentageBarLabel)
+                    {
+                        if(c is Border)
+                        {
+                            if ((owner as PercentageBarLabel).Border == null)
+                                (owner as PercentageBarLabel).Border = c as Border;
+                            else (owner as PercentageBarLabel).ForeBorder = c as Border;
+                        }
+
+                        if (c is Label)
+                            (owner as PercentageBarLabel).ForeLabel = c as Label;
+                    }
                     else if (owner is Label)
                     {
                         if (c is Border)
                             (owner as Label).Border = c as Border;
 
                         else if (owner is CritterListLabel)
+                        {
                             if (c is DropDownMenu)
                                 (owner as CritterListLabel).DropDownMenu = c as DropDownMenu;
+                        }
+                        else if(owner is PercentageBarLabel)
+                            (owner as PercentageBarLabel).ForeLabel = c as Label;
                     }
                     else if (owner is DropDownMenu)
                     {
@@ -1022,6 +1036,16 @@ namespace Yuusha.gui
             string cursorOverride, List<Enums.EAnchorType> anchors, string popUpText)
         {
             AddControl(new Label(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
+                textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
+                anchors, popUpText));
+        }
+
+        public void CreatePercentageBarLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
+            bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
+            BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
+            string cursorOverride, List<Enums.EAnchorType> anchors, string popUpText)
+        {
+            AddControl(new PercentageBarLabel(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                 textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
                 anchors, popUpText));
         }

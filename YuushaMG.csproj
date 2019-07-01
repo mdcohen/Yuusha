@@ -106,6 +106,7 @@
     <Compile Include="gui\controls\labels\IOKTileLabel.cs" />
     <Compile Include="gui\controls\labels\Label.cs" />
     <Compile Include="gui\controls\labels\MapTileLabel.cs" />
+    <Compile Include="gui\controls\labels\PercentageBarLabel.cs" />
     <Compile Include="gui\controls\labels\SpinelTileLabel.cs" />
     <Compile Include="gui\controls\buttons\TabControlButton.cs" />
     <Compile Include="gui\controls\TabControl.cs" />

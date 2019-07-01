@@ -409,6 +409,8 @@ namespace Yuusha
                             {
                                 //Utils.LogCharacterFields();
                                 //Utils.LogCharacterEffects();
+                                //foreach (Spell spell in World.SpellsList)
+                                //    Utils.Log(spell.Name);
                                 IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                                 result = true;
                             }

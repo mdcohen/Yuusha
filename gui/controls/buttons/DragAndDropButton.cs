@@ -194,8 +194,7 @@ namespace Yuusha.gui
                                 {
                                     case "Inventory":
                                         Character.WearOrientation wearOrientation = RepresentedItem.wearOrientation;
-                                        dropDownMenuItemTextList.Add(Tuple.Create("remove", "remove" + (wearOrientation != Character.WearOrientation.None ? wearOrientation.ToString() + " " : " ") + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.Inventory));
-                                        //dropDownMenuItemTextList.Add(Tuple.Create("belt", "remove" + (wearOrientation != Character.WearOrientation.None ? wearOrientation.ToString() + " " : " ") + RepresentedItem.Name + ";belt " + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.Belt));
+                                        dropDownMenuItemTextList.Add(Tuple.Create("remove", "remove" + (wearOrientation != Character.WearOrientation.None ? " " + wearOrientation.ToString().ToLower() + " " : " ") + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.Inventory));
                                         break;
                                 }
                             }

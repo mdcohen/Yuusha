@@ -45,7 +45,7 @@
       <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
     </EncryptedKeyValuePairOfStringString>
   </StoredAccounts>
-  <MostRecentStoredAccount>JUyMoMZ/fYbIwMLCcWKpxIQk2lnG9VNWDkxp+UgfB3M=</MostRecentStoredAccount>
+  <MostRecentStoredAccount>DmheJJn42Woz+paW+RgPcUvtL4zDS1KM7XooVvQWYEI=</MostRecentStoredAccount>
   <OptionsWindowX>50</OptionsWindowX>
   <OptionsWindowY>50</OptionsWindowY>
   <MacrosWindowX>300</MacrosWindowX>
@@ -268,7 +268,7 @@
     <PackedValue>4294967295</PackedValue>
   </DragAndDropTintOverColor>
   <DragAndDropHasTintOverColor>false</DragAndDropHasTintOverColor>
-  <GridBoxWindowVisualKeyAlpha>255</GridBoxWindowVisualKeyAlpha>
+  <GridBoxWindowVisualKeyAlpha>160</GridBoxWindowVisualKeyAlpha>
   <GridBoxWindowBorderAlpha>255</GridBoxWindowBorderAlpha>
   <GridBoxWindowFont>courier16</GridBoxWindowFont>
   <AcceptingGridBoxBorderColor>

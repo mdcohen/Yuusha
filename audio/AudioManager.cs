@@ -66,7 +66,7 @@ namespace Yuusha.Audio
                     else MediaPlayer.Stop();
                 }
             }
-            else MediaPlayer.Stop();
+            else if (!gui.GameHUD.OverrideDisplayStates.Contains(Client.GameState)) MediaPlayer.Stop();
 
             base.Update(gameTime);
         }

@@ -233,10 +233,11 @@ namespace Yuusha.gui
 
                     string cellInfo = Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL_INFO, Protocol.GAME_CELL_INFO_END);
                     string critterInfo = Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL_CRITTERS, Protocol.GAME_CELL_CRITTERS_END);
-                    //string itemsInfo = Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL_ITEMS, Protocol.GAME_CELL_ITEMS_END);
                     string effectsInfo = Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL_EFFECTS, Protocol.GAME_CELL_EFFECTS_END);
 
-                    cell = new Cell(cellInfo);
+                    if (cellInfo == null || cellInfo.Length <= 0 || cellInfo == "")
+                        cell = new Cell();
+                    else cell = new Cell(cellInfo);
 
                     if (critterInfo.Length > 0)
                     {
@@ -546,7 +547,7 @@ namespace Yuusha.gui
                         label.CreatureText = ""; // clear creature text;
                         label.LootText = ""; // clear loot text;
 
-                        if (cell.visible)
+                        if (cell.IsVisible)
                         {
                             if (m_tilesDict.ContainsKey(cell.DisplayGraphic))
                             {
@@ -582,7 +583,7 @@ namespace Yuusha.gui
                                 Character.CurrentCharacter.UpdateCoordinates(cell);
                             }
 
-                            if (cell.hasItems && cell.IsLootVisible)
+                            if (cell.HasItems && cell.IsLootVisible)
                             {
                                 label.LootText = " $";
                             }

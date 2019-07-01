@@ -156,9 +156,9 @@
 		Type="Window"
 		Name="TextVitalsWindow"
 		X="660"
-		Y="423"
+		Y="410"
 	  Width="253"
-		Height="82"
+		Height="92"
 		IsVisible="true"
 		IsLocked="false"
 		Font="courier16"
@@ -348,6 +348,45 @@
 		AnchorBottom="true"
 		AnchorRight="true">
 	</Control>
+
+    <Control
+		Type="PercentageBarLabel"
+		Text=""
+		Name="ExpPercentageBarLabel"
+    Owner="TextVitalsWindow"
+		X="0"
+		Y="85"
+		Width="250"
+		Height="5"
+		TextColor="Plum"
+		IsVisible="true"
+    VisualKey="WhiteSpace"
+    TintColor="Yellow"
+    VisualAlpha="130"
+		Font="changaone16"
+		TextAlignment="Left"
+		AnchorBottom="true"
+		AnchorRight="true">
+    </Control>
+    <Control
+		Type="Label"
+		Text=""
+		Name="ExpPercentageBarForeLabel"
+    Owner="ExpPercentageBarLabel"
+		X="193"
+		Y="85"
+		Width="60"
+		Height="5"
+		TextColor="Plum"
+		IsVisible="true"
+    VisualKey="WhiteSpace"
+    TintColor="Yellow"
+    VisualAlpha="235"
+		Font="changaone16"
+		TextAlignment="Left"
+		AnchorBottom="true"
+		AnchorRight="true">
+    </Control>
   </Stats>
 
   <Hands>

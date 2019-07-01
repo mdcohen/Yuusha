@@ -244,7 +244,9 @@ namespace Yuusha.gui
                     string critterInfo = Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL_CRITTERS, Protocol.GAME_CELL_CRITTERS_END);
                     string effectsInfo = Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL_EFFECTS, Protocol.GAME_CELL_EFFECTS_END);
 
-                    cell = new Cell(cellInfo);
+                    if (cellInfo == null || cellInfo.Length <= 0 || cellInfo == "")
+                        cell = new Cell();
+                    else cell = new Cell(cellInfo);
 
                     if (critterInfo.Length > 0)
                     {
@@ -554,7 +556,7 @@ namespace Yuusha.gui
                         spLabel.LootVisual = "";
                         spLabel.CreatureText = "";
 
-                        if (cell.visible)
+                        if (cell.IsVisible)
                         {
                             if (m_tilesDict.ContainsKey(cell.DisplayGraphic))
                                 currentTile = m_tilesDict[cell.DisplayGraphic];
@@ -582,7 +584,7 @@ namespace Yuusha.gui
                             spLabel.ForeColor = currentTile.ForeTint;
                             spLabel.ForeAlpha = currentTile.ForeAlpha;
 
-                            if (cell.portal)
+                            if (cell.IsPortal)
                                 spLabel.VisualKey = m_tilesDict["pp"].ForeVisual.Key;
 
                             if (cell.Characters != null && cell.Characters.Count > 0)
@@ -608,7 +610,7 @@ namespace Yuusha.gui
                                 Character.CurrentCharacter.UpdateCoordinates(cell);
                             }
 
-                            if (cell.hasItems && cell.IsLootVisible)
+                            if (cell.HasItems && cell.IsLootVisible)
                             {
                                 spLabel.LootVisual = m_tilesDict[" $"].ForeVisual.Key;
                             }

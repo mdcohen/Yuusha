@@ -285,6 +285,11 @@ namespace Yuusha.gui
                     Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " in sack");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
                 }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
+                {
+                    Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + fromLocation + ";put " + b.RepresentedItem.Name + " in pouch");
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
+                }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Altar") ||
                     GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Counter"))
                 {
@@ -448,7 +453,7 @@ namespace Yuusha.gui
                         }
 
                         EffectLabel label = new EffectLabel(effect.Name + "Label", w.Name, new Rectangle(x, y, size, size), text, Color.White, true, false, w.Font,
-                            visual, tintColor, 255, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), effectPopUp)
+                            visual, tintColor, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), effectPopUp)
                         {
                             EffectName = effect.Name,
                             TimeCreated = System.DateTime.Now,

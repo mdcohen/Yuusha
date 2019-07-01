@@ -207,6 +207,12 @@ namespace Yuusha.gui
                         else if (pre.Experience > chr.Experience)
                             TextCue.AddXPLossTextCue(string.Format("-{0:n0}", pre.Experience - chr.Experience));
                     }
+
+                    if (sheet["ExpPercentageBarLabel"] is PercentageBarLabel expBar)
+                    {
+                        expBar.Percentage = (double)chr.Experience / Globals.GetExperienceRequiredForLevel(Globals.GetExpLevel(chr.Experience) + 1) * 100;
+                        //Utils.LogOnce("Exp: " + chr.Experience + " Req: " + Globals.GetExperienceRequiredForLevel(Globals.GetExpLevel(chr.Experience) + 1) + " Pct: " + (chr.Experience / Globals.GetExperienceRequiredForLevel(Globals.GetExpLevel(chr.Experience) + 1)) * 100);
+                    }
                 }
 
                 // Overrides to focus on input text box.
@@ -280,7 +286,9 @@ namespace Yuusha.gui
                     string critterInfo = Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL_CRITTERS, Protocol.GAME_CELL_CRITTERS_END);
                     string effectsInfo = Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL_EFFECTS, Protocol.GAME_CELL_EFFECTS_END);
 
-                    cell = new Cell(cellInfo);
+                    if (cellInfo == null || cellInfo.Length <= 0 || cellInfo == "")
+                        cell = new Cell();
+                    else cell = new Cell(cellInfo);
 
                     if (critterInfo.Length > 0)
                     {
@@ -289,8 +297,7 @@ namespace Yuusha.gui
                         for (a = 0; a < critters.Length; a++)
                         {
                             Character ch = FormatCellCritter(critters[a]);
-                            if (ch != null)
-                                cell.Add(ch);
+                            if (ch != null) cell.Add(ch);
                         }
                     }
 
@@ -593,7 +600,7 @@ namespace Yuusha.gui
                         spLabel.LootVisual = "";
                         spLabel.CreatureText = "";
 
-                        if (cell.visible)
+                        if (cell.IsVisible)
                         {
                             if (m_tilesDict.ContainsKey(cell.DisplayGraphic))
                                 currTile = m_tilesDict[cell.DisplayGraphic];
@@ -621,7 +628,7 @@ namespace Yuusha.gui
                             spLabel.ForeColor = currTile.ForeTint;
                             spLabel.ForeAlpha = currTile.ForeAlpha;
 
-                            if (cell.portal)
+                            if (cell.IsPortal)
                                 spLabel.VisualKey = m_tilesDict["pp"].ForeVisual.Key;
 
                             if (cell.Characters != null && cell.Characters.Count > 0)
@@ -647,7 +654,7 @@ namespace Yuusha.gui
                                 Character.CurrentCharacter.UpdateCoordinates(cell);
                             }
 
-                            if (cell.hasItems && cell.IsLootVisible)
+                            if (cell.HasItems && cell.IsLootVisible)
                             {
                                 spLabel.LootVisual = m_tilesDict[" $"].ForeVisual.Key;
                             }

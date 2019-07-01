@@ -76,6 +76,7 @@
 	<Visual ParentTexture="lok_people.png" Name="sabretooth" X="780" Y="180" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="brownie" X="840" Y="180" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="goblin_wizard" X="900" Y="180" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="goblin_wizard_female" X="900" Y="180" Width="60" Height="60"></Visual> <!-- identical to above -->
   <Visual ParentTexture="lok_people.png" Name="goblin_seer" X="900" Y="180" Width="60" Height="60"></Visual> <!-- identical to above -->
   <!-- Row 5 -->
 	<Visual ParentTexture="lok_people.png" Name="wight" X="0" Y="240" Width="60" Height="60"></Visual>
@@ -343,6 +344,7 @@
   <Visual ParentTexture="lok_people.png" Name="drow_cleric" X="660" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="drow_master" X="720" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="phoenix" X="780" Y="1080" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="hellhound" X="840" Y="1080" Width="60" Height="60"></Visual>
 
   <!-- Added temporary sorcerer visuals which duplicate wizard visuals, 8/14/2013 -->
   <Visual ParentTexture="lok_people.png" Name="male_sorcerer_pc_gray" X="240" Y="720" Width="60" Height="60"></Visual>

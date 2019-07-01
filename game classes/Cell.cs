@@ -75,18 +75,16 @@ namespace Yuusha
         public int xCord = 0;
         public int yCord = 0;
         public int zCord = 0;
-        public int map = 0;
-        public int land = 0;
+        public int MapID = 0;
+        public int LandID = 0;
 
-        public string DisplayGraphic = "  ";
-        public string CellGraphic = "  ";
-        //public string visual0 = ""; // base visual key
-        //public string visual1 = ""; // first layer 2D visual key
-        //public string visual2 = ""; // second layer 2D visual key
+        public string DisplayGraphic
+        { get; set; } = "  ";
+        public string CellGraphic
+        { get; set; } = "  ";
 
         //public bool lair = false; // true if the janitor will ignore this cell
-        public bool lockers = false; // true if this is a lockers cell
-        public bool portal = false;	// true if this is a map portal cell
+        
         //public bool secretDoor = false; // true if this cell is a secret door
         //public bool singleCustomer = false;	// true if only one player is allowed in this cell at a time
         //public bool teleport = false; // true if this is a teleport cell (uses this cell's CellLock for access)
@@ -102,15 +100,12 @@ namespace Yuusha
         //public bool twoHandClimbDown = false;
         //public bool pvpEnabled = false; // true if PvP enabled (no mark or karma penalties)
 
-        public bool visible = false; // is this cell visible from player's current position
-
         private List<Effect> m_effects;
         private List<Character> m_characters; // collection of Character objects in this cell
         private List<Item> m_items; // collection of Item objects in this cell
+
         public List<Item> Items
         { get { return m_items; } }
-
-        public bool hasItems = false;
 
         #region Public Properties
         public List<Character> Characters
@@ -122,6 +117,12 @@ namespace Yuusha
         {
             get { return this.m_effects; }
         }
+
+        public bool HasItems
+        { get; set; } = false;
+
+        public bool IsLockers
+        { get; set; } = false; // true if this is a lockers cell        
 
         public bool IsLootVisible
         {
@@ -140,20 +141,27 @@ namespace Yuusha
                 }
             }
         }
+
+        public bool IsVisible
+        { get; set; } = false; // is this cell visible from player's current position
+
+        public bool IsPortal
+        { get; set; } = false;	// true if this is a map portal cell
         #endregion
 
         #region Constructors (2)
         public Cell()
         {
-            visible = false;
-            land = 0;
-            map = -1;
+            IsVisible = false;
+            LandID = 0;
+            MapID = -1;
             xCord = 0;
             yCord = 0;
+            zCord = 0;
             CellGraphic = "  ";
             DisplayGraphic = "  ";
-            lockers = false;
-            portal = false;
+            IsLockers = false;
+            IsPortal = false;
             m_effects = new List<Effect>();
             m_characters = new List<Character>();
             m_items = new List<Item>();
@@ -165,34 +173,28 @@ namespace Yuusha
 
             try
             {
-                this.visible = true;
-                this.land = Convert.ToInt32(cellInfo[0]);
-                if (Character.CurrentCharacter != null && Character.CurrentCharacter.m_landID != land)
+                IsVisible = true;
+                LandID = Convert.ToInt32(cellInfo[0]);
+                if (Character.CurrentCharacter != null && Character.CurrentCharacter.m_landID != LandID)
                 {
                     Utils.LogOnce("Map ID mismatch between cells being viewed and CurrentCharacter's mapID. Logging this until fixed.");
-                    Character.CurrentCharacter.m_landID = land;
+                    Character.CurrentCharacter.m_landID = LandID;
                 }
-                this.map = Convert.ToInt32(cellInfo[1]);
-                // QUICK FIX until server update 6/18/2019
-                if(Character.CurrentCharacter != null && Character.CurrentCharacter.m_mapID != map)
-                {
-                    Utils.LogOnce("Map ID mismatch between cells being viewed and CurrentCharacter's mapID. Logging this until fixed.");
-                    Character.CurrentCharacter.m_mapID = map;
-                }
-                this.xCord = Convert.ToInt32(cellInfo[2]);
-                this.yCord = Convert.ToInt32(cellInfo[3]);
-                this.zCord = Convert.ToInt32(cellInfo[4]);
-                this.CellGraphic = cellInfo[5];
-                this.DisplayGraphic = cellInfo[6];
-                this.lockers = Convert.ToBoolean(cellInfo[7]);
-                this.portal = Convert.ToBoolean(cellInfo[8]);
-                this.hasItems = Convert.ToBoolean(cellInfo[9]);
+                MapID = Convert.ToInt32(cellInfo[1]);
+                xCord = Convert.ToInt32(cellInfo[2]);
+                yCord = Convert.ToInt32(cellInfo[3]);
+                zCord = Convert.ToInt32(cellInfo[4]);
+                CellGraphic = cellInfo[5];
+                DisplayGraphic = cellInfo[6];
+                IsLockers = Convert.ToBoolean(cellInfo[7]);
+                IsPortal = Convert.ToBoolean(cellInfo[8]);
+                HasItems = Convert.ToBoolean(cellInfo[9]);
                 m_effects = new List<Effect>();
                 m_characters = new List<Character>();
                 m_items = new List<Item>();
 
                 // Fog of War
-                gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(map, xCord, yCord, zCord, DisplayGraphic);
+                gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(MapID, xCord, yCord, zCord, DisplayGraphic);
 
                 if (DisplayGraphic != "  ")
                 {
@@ -201,9 +203,9 @@ namespace Yuusha
                         Character.FogOfWarSettings.FogOfWar.Add(fogDetail);
                         Events.RegisterEvent(Events.EventName.Fog_of_War_Updated);
                     }
-                    else if (fogDetail.DisplayGraphic != Character.FogOfWarSettings.GetFogOfWarDetail(map, xCord, yCord, zCord).DisplayGraphic)
+                    else if (fogDetail.DisplayGraphic != Character.FogOfWarSettings.GetFogOfWarDetail(MapID, xCord, yCord, zCord).DisplayGraphic)
                     {
-                        Character.FogOfWarSettings.UpdateFogOfWarDetail(map, xCord, yCord, zCord, DisplayGraphic);
+                        Character.FogOfWarSettings.UpdateFogOfWarDetail(MapID, xCord, yCord, zCord, DisplayGraphic);
                         Events.RegisterEvent(Events.EventName.Fog_of_War_Updated);
                     }
                 }
@@ -273,7 +275,7 @@ namespace Yuusha
                 if (c1 is null && c2 is null)
                     return false;
 
-                if (c1.map == c2.map && c1.xCord == c2.xCord && c1.yCord == c2.yCord && c1.zCord == c2.zCord)
+                if (c1.MapID == c2.MapID && c1.xCord == c2.xCord && c1.yCord == c2.yCord && c1.zCord == c2.zCord)
                     return true;
             }
             catch(Exception e)
@@ -314,7 +316,7 @@ namespace Yuusha
 
             if(obj is Cell cell)
             {
-                if (cell.map == map && cell.xCord == xCord && cell.yCord == yCord && cell.zCord == zCord)
+                if (cell.MapID == MapID && cell.xCord == xCord && cell.yCord == yCord && cell.zCord == zCord)
                     return true;
                 else return false;
             }

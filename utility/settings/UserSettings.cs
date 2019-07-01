@@ -17,7 +17,7 @@ namespace Yuusha.Utility.Settings
         public bool SoundEffects = true; // master setting for sound
         public bool BackgroundAmbience = true;
         public bool FullScreen = false;
-        public string DefaultGameDisplayMode = "IOK";
+        public string DefaultGameDisplayMode = "Yuusha";
         public bool AutoDisplayNews = true;
         public bool NewRoundNotification = true;
         public bool HideMouseCursor = true; // hide mouse cursor when not in use for x seconds
@@ -54,7 +54,7 @@ namespace Yuusha.Utility.Settings
 
         public void OnLoad()
         {
-            Client.GameDisplayMode = (Enums.EGameDisplayMode)Enum.Parse(typeof(Enums.EGameDisplayMode), this.DefaultGameDisplayMode, true);
+            Client.GameDisplayMode = (Enums.EGameDisplayMode)Enum.Parse(typeof(Enums.EGameDisplayMode), DefaultGameDisplayMode, true);
         }
 
         /// <summary>

@@ -755,6 +755,12 @@ namespace Yuusha.gui
                                             textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
                                             popUpText);
                                         break;
+                                    case "PercentageBarLabel":
+                                        sheet.CreatePercentageBarLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
+                                            visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,
+                                            textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
+                                            popUpText);
+                                        break;
                                     case "CritterListLabel":
                                         sheet.CreateCritterListLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,

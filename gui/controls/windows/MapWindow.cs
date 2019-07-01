@@ -217,7 +217,7 @@ namespace Yuusha.gui
                             SpinelLabels[count].ForeColor = currentTile.ForeTint;
                             SpinelLabels[count].ForeAlpha = currentTile.ForeAlpha;
 
-                            if (Cell.GetCell(x, y, Character.CurrentCharacter.Z) is Cell cell && cell.portal)
+                            if (Cell.GetCell(x, y, Character.CurrentCharacter.Z) is Cell cell && cell.IsPortal)
                                 SpinelLabels[count].VisualKey = YuushaMode.Tiles["pp"].ForeVisual.Key;
 
                             SpinelLabels[count].FogVisual = "WhiteSpace";

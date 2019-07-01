@@ -144,7 +144,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="obsidianegg" X="1800" Y="960" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="goldenegg" X="1860" Y="960" Width="60" Height="60"></Visual>
   <!-- Edibles -->
-  <Visual ParentTexture="yuusha_items.png" Name="sprig" X="834" Y="1393" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="neutralizesprig" X="834" Y="1393" Width="40" Height="40"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="brightredberries" X="1744" Y="1325" Width="38" Height="38"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="shinyblueberries" X="729" Y="1464" Width="38" Height="38"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="yellowberries" X="1593" Y="1358" Width="38" Height="38"></Visual>
@@ -158,7 +158,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="irongauntlets" X="139" Y="928" Width="60" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="steelgauntlets" X="406" Y="1201" Width="60" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="bandedgauntlets" X="205" Y="963" Width="60" Height="39"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="chainmailgauntlets" X="205" Y="1263" Width="60" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="chainmailgauntlets" X="207" Y="1270" Width="60" Height="38"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="studdedleathergauntlets" X="7" Y="1132" Width="60" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="mithrilgauntlets" X="140" Y="1234" Width="60" Height="39"></Visual>
   <!-- Torso -->
