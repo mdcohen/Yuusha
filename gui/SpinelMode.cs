@@ -101,13 +101,14 @@ namespace Yuusha.gui
                     {
                         sheet["MagicPtsLabel"].IsVisible = false;
                         sheet["MagicPtsAmountLabel"].IsVisible = false;
-                    } 
+                    }
                     #endregion
 
                     #region Right Hand Label
                     if (chr.RightHand != null)
                     {
                         sheet["RHNameDragAndDropButton"].Text = chr.RightHand.Name;
+                        (sheet["RHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = chr.RightHand;
                         if (chr.RightHand.nocked)
                         {
                             if (chr.RightHand.Name.ToLower().Contains("crossbow"))
@@ -116,13 +117,18 @@ namespace Yuusha.gui
                                 sheet["LHNameDragAndDropButton"].Text = "*";
                         }
                     }
-                    else sheet["RHNameDragAndDropButton"].Text = ""; 
+                    else
+                    {
+                        sheet["RHNameDragAndDropButton"].Text = "";
+                        (sheet["RHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = null;
+                    }
                     #endregion
 
                     #region Left Hand Label
                     if (chr.LeftHand != null)
                     {
                         sheet["LHNameDragAndDropButton"].Text = chr.LeftHand.Name;
+                        (sheet["LHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = chr.LeftHand;
                         if (chr.LeftHand.nocked)
                         {
                             if (chr.LeftHand.Name.ToLower().Contains("crossbow"))
@@ -131,7 +137,11 @@ namespace Yuusha.gui
                                 sheet["RHNameDragAndDropButton"].Text = "*";
                         }
                     }
-                    else sheet["LHNameDragAndDropButton"].Text = ""; 
+                    else
+                    {
+                        sheet["LHNameDragAndDropButton"].Text = "";
+                        (sheet["LHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = null;
+                    }
                     #endregion
 
                     if (pre != null)

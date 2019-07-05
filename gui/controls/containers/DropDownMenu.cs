@@ -132,6 +132,52 @@ namespace Yuusha.gui
             m_menuItems.Add(menuItem);
         }
 
+        protected override bool OnKeyDown(KeyboardState ks)
+        {
+            Keys[] keys = ks.GetPressedKeys();
+
+            foreach(Keys k in keys)
+            {
+                foreach (DropDownMenuItem item in MenuItems)
+                {
+                    if (item.Text.ToLower().StartsWith(((char)k).ToString().ToLower()))
+                    {
+                        if (!item.MouseDownSent)
+                        {
+                            GuiManager.AwaitKeyRelease.Add(k);
+                            item.MouseDownSent = true;
+
+                            GuiManager.AwaitMouseButtonRelease = true;
+
+                            Events.RegisterEvent((Events.EventName)System.Enum.Parse(typeof(Events.EventName), item.MouseDown, true), item);
+
+                            if (item.DropDownMenu != null)
+                            {
+                                if (item.DropDownMenu.DropDownMenuOwner is DragAndDropButton dButton)
+                                {
+                                    if (item.DropDownMenu.DropDownMenuOwner.Owner.Contains("GridBoxWindow"))
+                                    {
+                                        GridBoxWindow.GridBoxPurpose purpose = (item.DropDownMenu.DropDownMenuOwner as DragAndDropButton).GridBoxUpdateRequests[item.DropDownMenu.MenuItems.IndexOf(item)];
+                                        GridBoxWindow.GridBoxPurpose ownerPurpose = (GuiManager.GetControl(item.DropDownMenu.DropDownMenuOwner.Owner) as GridBoxWindow).GridBoxPurposeType;
+                                        GridBoxWindow.RequestUpdateFromServer(purpose);
+                                        GridBoxWindow.RequestUpdateFromServer(ownerPurpose);
+                                    }
+                                    // otherwise Inventory
+                                }
+
+                                item.DropDownMenu.IsVisible = false;
+                                GuiManager.ActiveDropDownMenu = "";
+                                item.DropDownMenu = null;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return base.OnKeyDown(ks);
+        }
+
         protected override void OnMouseLeave(Microsoft.Xna.Framework.Input.MouseState ms)
         {
             IsVisible = false;

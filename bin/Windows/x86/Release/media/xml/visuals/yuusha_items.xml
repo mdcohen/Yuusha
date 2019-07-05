@@ -143,22 +143,26 @@
   <Visual ParentTexture="yuusha_items.png" Name="smallironmirror" X="1800" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="obsidianegg" X="1800" Y="960" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="goldenegg" X="1860" Y="960" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="snarlingtigerfigurine" X="1860" Y="960" Width="60" Height="60"></Visual>
   <!-- Edibles -->
-  <Visual ParentTexture="yuusha_items.png" Name="sprig" X="834" Y="1395" Width="38" Height="38"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="neutralizesprig" X="834" Y="1393" Width="40" Height="40"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="brightredberries" X="1744" Y="1325" Width="38" Height="38"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="shinyblueberries" X="729" Y="1464" Width="38" Height="38"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="yellowberries" X="1593" Y="1358" Width="38" Height="38"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="darkgreenberries" X="1713" Y="1326" Width="38" Height="38"></Visual>
-  <!-- Robes -->
+  <!-- Back -->
   <Visual ParentTexture="yuusha_items.png" Name="yasnakiapprenticerobe" X="670" Y="846" Width="58" Height="88"></Visual>
-  <!-- Gauntlets -->
+  <Visual ParentTexture="yuusha_items.png" Name="sharkskinjacket" X="1920" Y="1320" Width="60" Height="60"></Visual>
+  <!-- Feet -->
+  <Visual ParentTexture="yuusha_items.png" Name="silverthreadedbrownboots" X="1920" Y="1860" Width="60" Height="60"></Visual>
+  <!-- Hands -->
   <Visual ParentTexture="yuusha_items.png" Name="leathergauntlets" X="73" Y="1233" Width="60" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="leathergauntletsironplates" X="273" Y="1234" Width="60" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="leathergauntletssteelplates" X="9" Y="960" Width="60" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="irongauntlets" X="139" Y="928" Width="60" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="steelgauntlets" X="406" Y="1201" Width="60" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="bandedgauntlets" X="205" Y="963" Width="60" Height="39"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="chainmailgauntlets" X="205" Y="1263" Width="60" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="chainmailgauntlets" X="207" Y="1270" Width="60" Height="37"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="studdedleathergauntlets" X="7" Y="1132" Width="60" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="mithrilgauntlets" X="140" Y="1234" Width="60" Height="39"></Visual>
   <!-- Torso -->
@@ -171,6 +175,18 @@
   <Visual ParentTexture="yuusha_items.png" Name="trollleathervest" X="882" Y="1740" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="icelizardscalevest" X="1551" Y="2722" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="firesalamanderscalevest" X="1800" Y="1020" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="lightningdrakescalevest" X="1920" Y="1080" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="reddragonscalevest" X="1920" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="serpentscalevest" X="1920" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="demonscalevest" X="1920" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="wyrmscalevest" X="1920" Y="1380" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="youngbluedragonscalevest" X="1920" Y="1440" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="bluedragonscalevest" X="1920" Y="1500" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="stormdragonscalevest" X="1920" Y="1560" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="crocodilescalevest" X="1920" Y="1620" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="wyvernscalevest" X="1920" Y="1680" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="sandwyrmscalevest" X="1920" Y="1740" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="maturegreendragonscalevest" X="1920" Y="1800" Width="60" Height="60"></Visual>
   <!-- Shoulders -->
   <Visual ParentTexture="yuusha_items.png" Name="blackspiderskincape" X="1860" Y="1020" Width="60" Height="60"></Visual>
   <!-- Legs -->
@@ -180,6 +196,11 @@
   <Visual ParentTexture="yuusha_items.png" Name="scalemailleggings" X="1764" Y="2720" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="irongreaves" X="1768" Y="2813" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="steelgreaves" X="1372" Y="1837" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="reddragonscalegreaves" X="1459" Y="2822" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="lightningdrakescalegreaves" X="1373" Y="2621" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="bluedragonscalegreaves" X="1364" Y="2821" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="greendragonscalegreaves" X="1263" Y="2822" Width="90" Height="90"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="wyvernscaleleggings" X="980" Y="2132" Width="90" Height="90"></Visual>
   <!-- Bracers (Wrist) -->
   <Visual ParentTexture="yuusha_items.png" Name="leatherbracer" X="97" Y="2229" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="studdedleatherbracer" X="588" Y="2131" Width="89" Height="90"></Visual>
@@ -188,6 +209,17 @@
   <Visual ParentTexture="yuusha_items.png" Name="bandedmailbracer" X="493" Y="2228" Width="90" Height="90"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="steelbracer" X="1665" Y="2814" Width="90" Height="92"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="mithrilmoonstonebracer" X="1553" Y="2819" Width="90" Height="90"></Visual>
+  <!-- Bracelets (Wrist) -->
+  <Visual ParentTexture="yuusha_items.png" Name="runedmithrilbracelet" X="1200" Y="900" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="goldmapleleafbracelet" X="1260" Y="900" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="alabasterdovesplatinumbracelet" X="1320" Y="900" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="pearlcrabgoldbracelet" X="1380" Y="900" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="silverjadedolphinbracelet" X="1440" Y="900" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="glowingsilverscalebracelet" X="1500" Y="900" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="silverscalebracelet" X="1560" Y="900" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="malachiterunedbracelet" X="1620" Y="900" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="heavygoldmapleleafbracelet" X="1680" Y="900" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="aquamarinesilverbracelet" X="1740" Y="900" Width="60" Height="60"></Visual>
   <!-- Armbands (Bicep) -->
   <Visual ParentTexture="yuusha_items.png" Name="studdedleatherarmband" X="673" Y="167" Width="54" Height="41"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="steelstuddedleatherarmband" X="607" Y="542" Width="54" Height="41"></Visual>

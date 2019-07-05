@@ -62,11 +62,11 @@ available in any game state. -->
     <Control
 		Type="TabControlButton"
 		Text="Targetting"
-		Name="FirstTabControlButton"
+		Name="FirstOptionsTabControlButton"
 		Owner="OptionsWindow"
 		X="2"
 		Y="27"
-    YTextOffset="2"
+    YTextOffset="0"
 		Width="100"
 		Height="22"
     VisualKey="WhiteSpace"
@@ -82,11 +82,11 @@ available in any game state. -->
     <Control
 		Type="TabControlButton"
 		Text="Keyboard"
-		Name="SecondTabControlButton"
+		Name="SecondOptionsTabControlButton"
 		Owner="OptionsWindow"
 		X="104"
 		Y="27"
-    YTextOffset="2"
+    YTextOffset="0"
 		Width="100"
 		Height="22"
     VisualKey="WhiteSpace"
@@ -97,6 +97,46 @@ available in any game state. -->
 		TextAlignment="Center"
     TextOverColor="PaleGreen"
     TabControlledWindow="SecondTabOptionsWindow">
+    </Control>
+
+    <Control
+		Type="TabControlButton"
+		Text="Client"
+		Name="ThirdOptionsTabControlButton"
+		Owner="OptionsWindow"
+		X="206"
+		Y="27"
+    YTextOffset="0"
+		Width="100"
+		Height="22"
+    VisualKey="WhiteSpace"
+    TintColor="Gray"
+		TextColor="White"
+		IsVisible="true"
+		Font="courier12"
+		TextAlignment="Center"
+    TextOverColor="PaleGreen"
+    TabControlledWindow="ThirdTabOptionsWindow">
+    </Control>
+
+    <Control
+		Type="TabControlButton"
+		Text="Sound"
+		Name="FourthOptionsTabControlButton"
+		Owner="OptionsWindow"
+		X="308"
+		Y="27"
+    YTextOffset="0"
+		Width="100"
+		Height="22"
+    VisualKey="WhiteSpace"
+    TintColor="Gray"
+		TextColor="White"
+		IsVisible="true"
+		Font="courier12"
+		TextAlignment="Center"
+    TextOverColor="PaleGreen"
+    TabControlledWindow="FourthTabOptionsWindow">
     </Control>
 
     <Control
@@ -136,11 +176,47 @@ available in any game state. -->
     </Control>
 
     <Control
+    Type="Window"
+    Name="ThirdTabOptionsWindow"
+    Owner="OptionsWindow"
+    X="2"
+    Y="50"
+    Width="498"
+    Height="548"
+    IsVisible="false"
+    IsLocked="true"
+    Font="courier12"
+    VisualKey="WhiteSpace"
+    TintColor="DarkSlateGray"
+    DropShadow="false"
+    ShadowDistance="0"
+    ShadowDirection="Northwest">
+    </Control>
+
+    <Control
+    Type="Window"
+    Name="FourthTabOptionsWindow"
+    Owner="OptionsWindow"
+    X="2"
+    Y="50"
+    Width="498"
+    Height="548"
+    IsVisible="false"
+    IsLocked="true"
+    Font="courier12"
+    VisualKey="WhiteSpace"
+    TintColor="DarkSlateGray"
+    DropShadow="false"
+    ShadowDistance="0"
+    ShadowDirection="Northwest">
+    </Control>
+
+    <Control
         Type="Button"
         Text="Save"
         Name="OptionsSaveButton"
         Owner="OptionsWindow"
-        X="406"
+        X="416"
         Y="26"
         Width="80"
         Height="22"
@@ -1652,7 +1728,7 @@ available in any game state. -->
       Type="WindowTitle"
       Name="NewsWindowTitle"
       Owner="NewsWindow"
-      Font="courier12"
+      Font="changaone12"
       VisualKey="WhiteSpace"
       TintColor="Gray"
       CloseBoxVisualKey="WindowCloseBox"
@@ -3342,7 +3418,7 @@ available in any game state. -->
       IsVisible="false"
       IsLocked="false"
       Font="courier12"
-      VisualKey="InventoryBackground"
+      VisualKey="Inventory_Male"
       VisualAlpha="255"
       TintColor="White"
       DropShadow="true"

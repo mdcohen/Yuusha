@@ -11,9 +11,12 @@ namespace Yuusha.Audio
         public static string CommonSoundClick1 = "0085";
         public static string CommonSoundClick2 = "0086";
 
+        public enum SoundDirection { None, South, North, West, East, Southwest, Northwest, Southeast, Northeast }
+
         private static Dictionary<string, SoundEffect> m_soundEffects = new Dictionary<string, SoundEffect>();
         private static Dictionary<string, Song> m_songs = new Dictionary<string, Song>();
-        public static List<AmbienceAudio> CurrentlyPlayingAmbience = new List<AmbienceAudio>();
+        private static List<AmbienceAudio> CurrentlyPlayingAmbience = new List<AmbienceAudio>();
+        private static List<SoundEffectInstance> CurrentlyPlayingSoundEffects = new List<SoundEffectInstance>();
 
         public AudioManager(Game game) : base(game)
         {
@@ -32,10 +35,17 @@ namespace Yuusha.Audio
                 if (!MediaPlayer.IsMuted) MediaPlayer.IsMuted = false;
             }
 
-            foreach (AmbienceAudio ambience in CurrentlyPlayingAmbience)
+            foreach (AmbienceAudio ambience in new List<AmbienceAudio>(CurrentlyPlayingAmbience))
             {
-                ambience.Update(gameTime);
+                if (MediaPlayer.Queue != null && (MediaPlayer.Queue.ActiveSong == null || MediaPlayer.Queue.ActiveSong != ambience.Track))
+                {
+                    CurrentlyPlayingAmbience.Remove(ambience);
+                    ambience.Dispose();
+                }
             }
+
+            foreach (AmbienceAudio ambience in new List<AmbienceAudio>(CurrentlyPlayingAmbience))
+                ambience.Update(gameTime);
 
             if (Client.GameState.ToString().EndsWith("Game"))
             {
@@ -68,6 +78,15 @@ namespace Yuusha.Audio
             }
             else if (!gui.GameHUD.OverrideDisplayStates.Contains(Client.GameState)) MediaPlayer.Stop();
 
+            foreach (SoundEffectInstance inst in new List<SoundEffectInstance>(CurrentlyPlayingSoundEffects))
+            {
+                if (inst.State == SoundState.Stopped)
+                {
+                    CurrentlyPlayingSoundEffects.Remove(inst);
+                    inst.Dispose();
+                }
+            }
+            
             base.Update(gameTime);
         }
 
@@ -116,23 +135,32 @@ namespace Yuusha.Audio
             if (!Client.UserSettings.SoundEffects)
                 return;
 
-            SoundEffect soundEffect;
-
-            if (!m_soundEffects.ContainsKey(soundName))
+            try
             {
-                soundEffect = Program.Client.Content.Load<SoundEffect>(soundName);
-                m_soundEffects.Add(soundName, soundEffect);
+                SoundEffect soundEffect;
+
+                if (!m_soundEffects.ContainsKey(soundName))
+                {
+                    soundEffect = Program.Client.Content.Load<SoundEffect>(soundName);
+                    m_soundEffects.Add(soundName, soundEffect);
+                }
+                else soundEffect = m_soundEffects[soundName];
+
+                SoundEffectInstance inst = soundEffect.CreateInstance();
+
+                inst.Volume = 1.0f;
+
+                CurrentlyPlayingSoundEffects.Add(inst);
+                inst.Play();
             }
-            else soundEffect = m_soundEffects[soundName];
-
-            SoundEffectInstance inst = soundEffect.CreateInstance();
-
-            inst.Volume = 1.0f;
-            inst.Play();
+            catch(Exception e)
+            {
+                Utils.LogException(e);
+            }
         }
 
         /// <summary>
-        /// Sounds sent from the game server with direction and distance values.
+        /// Sounds played with information from the game server containing direction and distance values.
         /// </summary>
         /// <param name="soundInfo"></param>
         public static void PlaySoundEffect(List<string> soundInfo)
@@ -160,8 +188,8 @@ namespace Yuusha.Audio
 
                 float volume = 1.0f;
                 float pan = 0.0f;
-
-                switch (Convert.ToInt32(soundInfo[1]))
+                int distance = Convert.ToInt32(soundInfo[1]);
+                switch (distance)
                 {
                     case 1:
                         volume = .8f;
@@ -173,7 +201,7 @@ namespace Yuusha.Audio
                         volume = .48f;
                         break;
                     case 4:
-                        volume = .27f;
+                        volume = .20f;
                         break;
                     case 5:
                         volume = .12f;
@@ -183,19 +211,25 @@ namespace Yuusha.Audio
                         break;
                 }
 
-                //switch ((Map.Direction)Convert.ToInt32(soundInfo[2]))
-                //{
-                //    case Map.Direction.Northwest:
-                //    case Map.Direction.West:
-                //    case Map.Direction.Southwest:
-                //        pan = -.5f;
-                //        break;
-                //    case Map.Direction.Northeast:
-                //    case Map.Direction.East:
-                //    case Map.Direction.Southeast:
-                //        pan = .5f;
-                //        break;
-                //}
+                SoundDirection direction = (SoundDirection)Convert.ToInt32(soundInfo[2]);
+
+                switch (direction)
+                {
+                    case SoundDirection.West:
+                        pan = -.5f;
+                        break;
+                    case SoundDirection.Northwest:
+                    case SoundDirection.Southwest:
+                        pan = -.3f;
+                        break;
+                    case SoundDirection.East:
+                        pan = .5f;
+                        break;
+                    case SoundDirection.Northeast:
+                    case SoundDirection.Southeast:
+                        pan = .3f;
+                        break;
+                }
 
                 inst.Volume = volume;
                 //double pitch = new Random().NextDouble();
@@ -203,7 +237,10 @@ namespace Yuusha.Audio
                 inst.Pitch = pitch;
                 inst.Pan = pan;
 
-                //gui.TextCue.AddClientInfoTextCue("[" + soundName + "] Volume: " + volume.ToString() + " Pan: " + pan.ToString() + " Pitch: " + pitch.ToString());
+                CurrentlyPlayingSoundEffects.Add(inst);
+
+                if (distance > 3 || Client.ClientSettings.DisplaySoundIndicatorsNearby)
+                    gui.SoundIndicatorLabel.CreateSoundIndicator(direction, distance);
 
                 inst.Play();
             }
@@ -215,6 +252,15 @@ namespace Yuusha.Audio
                     soundExceptionInfo = soundExceptionInfo + " " + obj;
                 Utils.Log("SoundInfo: " + soundExceptionInfo);
             }
+        }
+
+        /// <summary>
+        /// Stop all sound effect instances from playing. Typically called when exiting game mode.
+        /// </summary>
+        public static void StopAllSounds()
+        {
+            foreach (SoundEffectInstance inst in new List<SoundEffectInstance>(CurrentlyPlayingSoundEffects))
+                inst.Stop();
         }
     }
 }

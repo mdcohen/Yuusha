@@ -1,0 +1,8 @@
+﻿GUI|Holding down the CTRL and ALT keys then left clicking on a Hotbutton will immediately clear it.
+Critter|Dragons, and in fact most wyrmkin, have an innate ability to detect when magic is being used nearby. They will more oft than naught hunt down the source.
+GUI|The ESC key may be used to clear a target, clear the input textbox, and close container windows such as the sack, pouch and locker.
+Command|If you just so happen to be evil, know that coins may be deposited or withdrawn directly in/from your bank account while at your locker in an Ornic Hideout. Hold the coins and use the "deposit" or "withdraw <amount>" commands. The "balance" command works as well.
+Command|There is a fully functional game mail system where you may send and receive items. Type "mail help" for a list of commands.
+World|Throughout the known lands are remnants of ancient portals rumored built and enchanted by a long vanished sect of druids. Some portals still work properly if you know and recite the correct chant.
+Critter|Don't forget to bring fresh animal and beast corpses to a Tanner. There's no telling what could be salvaged.
+World|Beware of Ornic Hideouts; they're a safe haven for Ravagers, Sorcerers and followers of Nergal. However, they're a certain and quick death for all others.

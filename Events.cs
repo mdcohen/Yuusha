@@ -472,10 +472,10 @@ namespace Yuusha
                                     //Utils.Log("Spells Count: " + Character.CurrentCharacter.Spells.Count + " Looking for: " + findSpellName);
                                     foreach (Spell spell in Character.CurrentCharacter.Spells)
                                     {
-                                        Utils.Log("Spell: " + spell.Name);
+                                        Utils.Log("Spellbook: " + spell.Name);
                                         if (spell.Name == findSpellName)
                                         {
-                                            //Utils.Log("Found spell: " + findSpellName);
+                                            Utils.Log("Found spell: " + findSpellName);
                                             //TextCue.AddChantingTextCue(spell.Incantation);
                                             break;
                                         }
@@ -1729,14 +1729,16 @@ namespace Yuusha
         {
             try
             {
+                GuiManager.TextCues.Clear();
+
                 foreach (Control c in new List<Control>(GuiManager.GenericSheet.Controls))
                 {
                     if (c is Window)
                         (c as Window).OnClose();
                 }
 
-                Program.Client.GUIManager.LoadSheet(gui.GuiManager.GenericSheet.FilePath);
-                Program.Client.GUIManager.LoadSheet(gui.GuiManager.CurrentSheet.FilePath);
+                Program.Client.GUIManager.LoadSheet(GuiManager.GenericSheet.FilePath);
+                Program.Client.GUIManager.LoadSheet(GuiManager.CurrentSheet.FilePath);
 
                 if (Client.IsFullScreen)
                 {
@@ -1763,8 +1765,6 @@ namespace Yuusha
                         pt.SelectAll();
 
                         (GuiManager.Sheets["Login"]["RememberPasswordCheckboxButton"] as CheckboxButton).IsChecked = true;
-
-                        //GuiManager.Sheets["Login"]["ConnectButton"].HasFocus = true;
                     }
                 }
                 else GuiManager.Sheets["Login"]["AccountTextBox"].HasFocus = true;
@@ -1791,8 +1791,13 @@ namespace Yuusha
                         if (GuiManager.GetControl("ConfInputTextBox") is TextBox confInputTextBox)
                             confInputTextBox.Clear();
                         break;
-                    case Enums.EGameState.Game:
+                    case Enums.EGameState.Game: // switching out of the game
                         GuiManager.TextCues.Clear();
+                        foreach (Control control in GuiManager.GenericSheet.Controls)
+                        {
+                            if (control is SoundIndicatorLabel) control.IsVisible = false;
+                        }
+                        Audio.AudioManager.StopAllSounds();
                         break;
                     case Enums.EGameState.Login:
                         if(GameHUD.PreviousGameState != Enums.EGameState.Login)
@@ -1804,6 +1809,26 @@ namespace Yuusha
 
                 if(currGameState != Enums.EGameState.HotButtonEditMode)
                     GameHUD.PreviousGameState = currGameState;
+
+                // New Game State
+                switch(newGameState)
+                {
+                    case Enums.EGameState.Game:
+                        IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS); // update effects
+                        GameHUD.UpdateInventoryWindow(); // update inventory window
+                        // request updates for all gridboxwindows
+                        foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
+                            GridBoxWindow.RequestUpdateFromServer(purpose);
+                        // create all sound indicator labels
+                        SoundIndicatorLabel.CreateAllSoundIndicators();
+                        if(Character.CurrentCharacter != null)
+                            TextCue.AddZNameTextCue(Character.CurrentCharacter.ZName);
+                        break;
+                    case Enums.EGameState.Conference:
+                        foreach (Control control in GuiManager.GenericSheet.Controls)
+                            control.IsVisible = false;
+                        break;
+                }
             }
             catch (Exception e)
             {

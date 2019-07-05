@@ -100,6 +100,7 @@ namespace Yuusha.gui
                     if (chr.RightHand != null)
                     {
                         sheet["RHNameDragAndDropButton"].Text = chr.RightHand.Name;
+                        (sheet["RHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = chr.RightHand;
                         if (chr.RightHand.nocked)
                         {
                             if (chr.RightHand.Name.ToLower().Contains("crossbow"))
@@ -109,11 +110,16 @@ namespace Yuusha.gui
                         }
                         else sheet["LHNameDragAndDropButton"].Text = "";
                     }
-                    else sheet["RHNameDragAndDropButton"].Text = "";
+                    else
+                    {
+                        sheet["RHNameDragAndDropButton"].Text = "";
+                        (sheet["RHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = null;
+                    }
 
                     if (chr.LeftHand != null)
                     {
                         sheet["LHNameDragAndDropButton"].Text = chr.LeftHand.Name;
+                        (sheet["LHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = chr.LeftHand;
                         if (chr.LeftHand.nocked)
                         {
                             if (chr.LeftHand.Name.ToLower().Contains("crossbow"))
@@ -122,8 +128,11 @@ namespace Yuusha.gui
                                 sheet["RHNameDragAndDropButton"].Text = "*";
                         }
                     }
-                    else if (sheet["LHNameDragAndDropButton"].Text != "*")
+                    else
+                    {
                         sheet["LHNameDragAndDropButton"].Text = "";
+                        (sheet["LHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = null;
+                    }
 
                     if (pre != null)
                     {

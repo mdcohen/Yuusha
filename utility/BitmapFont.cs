@@ -675,7 +675,7 @@ namespace Yuusha
             while (str.Length != 0)
 			{
                 // stop drawing if there isn't room for this line
-                if (Utility.Settings.StaticSettings.IgnoreHeightDrawText && vAt.Y + m_nHeight > r.Bottom)
+                if (!Utility.Settings.StaticSettings.IgnoreHeightDrawText && vAt.Y + m_nHeight > r.Bottom)
                     return;
 
                 CountCharWidth(r.Width, str, out int nChars, out int pxWidth);

@@ -174,7 +174,7 @@ namespace Yuusha
                         m_currentCharacter.Charisma = Convert.ToInt32(pcStats[51]);
                         m_currentCharacter.StrengthAdd = Convert.ToInt32(pcStats[52]);
                         m_currentCharacter.DexterityAdd = Convert.ToInt32(pcStats[53]);
-                        m_currentCharacter.encumbrance = Convert.ToInt32(pcStats[54]);
+                        m_currentCharacter.encumbrance = Convert.ToDecimal(pcStats[54]);
                         m_currentCharacter.birthday = pcStats[55];
                         m_currentCharacter.lastOnline = pcStats[56];
                         m_currentCharacter.karma = Convert.ToInt32(pcStats[57]);
@@ -208,6 +208,8 @@ namespace Yuusha
                         m_currentCharacter.HitsDoctored = Convert.ToInt32(pcStats[69]);
                         m_currentCharacter.lastOnline = pcStats[70];
                         m_currentCharacter.MapName = pcStats[71];
+                        if (pcStats.Length >= 73)
+                            m_currentCharacter.ZName = pcStats[72];
                     }
                     catch (Exception e)
                     {
@@ -553,6 +555,9 @@ namespace Yuusha
         public int corpseImageY;
         public string visibleArmor;
         public string assignedLetter;
+        public double healthPercentage; // remaining
+        public double staminaPercentage; // remaining
+        public double manaPercentage; // remaining
        
         public bool m_afk;
         public bool m_showStaffTitle;
@@ -585,7 +590,7 @@ namespace Yuusha
         public int poisoned;
         public SkillType fighterSpecial;
         
-        public int encumbrance;
+        public decimal encumbrance;
         public string birthday;
         public string lastOnline;
         public int karma;
@@ -667,19 +672,32 @@ namespace Yuusha
         #region Public Properties
         public int ID
         {
-            get { return this.m_id; }
-            set { this.m_id = value; }
+            get { return m_id; }
+            set { m_id = value; }
         }
         public string Name
         {
-            get { return this.m_name; }
-            set { this.m_name = value; }
+            get { return m_name; }
+            set { m_name = value; }
         }
         public string MapName
         {
-            get { return this.m_mapName; }
-            set { this.m_mapName = value; }
+            get { return m_mapName; }
+            set { m_mapName = value; }
         }
+        public string ZName
+        {
+            get { return m_zName; }
+            private set
+            {
+                if (value != m_zName && Client.GameState.ToString().EndsWith("Game"))
+                {
+                    TextCue.AddZNameTextCue(value);
+                };
+                m_zName = value;
+            }
+        }
+        private string m_zName = "";
         public int Level
         {
             get { return m_level; }
@@ -1036,8 +1054,23 @@ namespace Yuusha
 
         public void UpdateCoordinates(Cell cell)
         {
+            bool statsRequested = false;
+
+            m_landID = cell.LandID;
+
+            if (CurrentCharacter != null && CurrentCharacter.m_mapID != cell.MapID)
+            {
+                Events.RegisterEvent(Events.EventName.Request_Stats);
+                statsRequested = true;
+            }
+
+            m_mapID = cell.MapID;
             X = cell.xCord;
             Y = cell.yCord;
+
+            if (!statsRequested && CurrentCharacter != null && CurrentCharacter.Z != cell.zCord)
+                Events.RegisterEvent(Events.EventName.Request_Stats);
+
             Z = cell.zCord;
         }
 

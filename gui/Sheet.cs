@@ -310,7 +310,7 @@ namespace Yuusha.gui
                         }
                     }
 
-                    if (!(this == GuiManager.GenericSheet))
+                    if (GuiManager.GenericSheet != null && !(this == GuiManager.GenericSheet))
                         return GuiManager.GenericSheet[name];
 
                     return null;

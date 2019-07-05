@@ -348,16 +348,16 @@
 		AnchorBottom="true"
 		AnchorRight="true">
 	</Control>
-
+  <!-- Experience Percentage Bar -->
     <Control
 		Type="PercentageBarLabel"
 		Text=""
 		Name="ExpPercentageBarLabel"
     Owner="TextVitalsWindow"
 		X="0"
-		Y="85"
+		Y="83"
 		Width="250"
-		Height="5"
+		Height="7"
 		TextColor="Plum"
 		IsVisible="true"
     VisualKey="WhiteSpace"
@@ -369,6 +369,15 @@
 		AnchorRight="true">
     </Control>
     <Control
+		Type="SquareBorder"
+		Name="ExpPercentageBarLabelBorder"
+		Owner="ExpPercentageBarLabel"
+		Width="1"
+		VisualKey="WhiteSpace"
+		TintColor="Yellow"
+    VisualAlpha="255">
+    </Control>
+    <Control
 		Type="Label"
 		Text=""
 		Name="ExpPercentageBarForeLabel"
@@ -376,7 +385,7 @@
 		X="193"
 		Y="85"
 		Width="60"
-		Height="5"
+		Height="7"
 		TextColor="Plum"
 		IsVisible="true"
     VisualKey="WhiteSpace"
@@ -484,7 +493,7 @@
 		X="500"
 		Y="7"
 	  Width="520"
-		Height="257"
+		Height="291"
 		IsVisible="true"
 		IsLocked="false"
 		Font="courier12"
@@ -516,7 +525,7 @@
       Height="13"
       VisualAlpha="100">
     </Control>
-  <!-- Critter List Border -->
+  <!-- Critter List Border
   <Control
 		Type="SquareBorder"
 		Name="CritterListWindowBorder"
@@ -524,8 +533,8 @@
 		Width="1"
 		VisualKey="WhiteSpace"
 		TintColor="DimGray"
-    VisualAlpha="25">
-  </Control>
+    VisualAlpha="75">
+  </Control> -->
   <!-- Critter List -->
   <Control
 		Type="CritterListLabel"
@@ -551,7 +560,7 @@
 		Name="CritterList1"
 		Owner="CritterListWindow"
 		X="0"
-		Y="35"
+		Y="38"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
@@ -569,7 +578,7 @@
 		Name="CritterList2"
 		Owner="CritterListWindow"
 		X="0"
-		Y="55"
+		Y="61"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
@@ -587,7 +596,7 @@
 		Name="CritterList3"
 		Owner="CritterListWindow"
 		X="0"
-		Y="75"
+		Y="84"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
@@ -605,7 +614,7 @@
 		Name="CritterList4"
 		Owner="CritterListWindow"
 		X="0"
-		Y="95"
+		Y="107"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
@@ -623,7 +632,7 @@
 		Name="CritterList5"
 		Owner="CritterListWindow"
 		X="0"
-		Y="115"
+		Y="130"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
@@ -641,7 +650,7 @@
 		Name="CritterList6"
 		Owner="CritterListWindow"
 		X="0"
-		Y="135"
+		Y="153"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
@@ -659,7 +668,7 @@
 		Name="CritterList7"
 		Owner="CritterListWindow"
 		X="0"
-		Y="155"
+		Y="176"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
@@ -677,7 +686,7 @@
 		Name="CritterList8"
 		Owner="CritterListWindow"
 		X="0"
-		Y="175"
+		Y="199"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
@@ -695,7 +704,7 @@
 		Name="CritterList9"
 		Owner="CritterListWindow"
 		X="0"
-		Y="195"
+		Y="222"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
@@ -713,7 +722,7 @@
 		Name="CritterList10"
 		Owner="CritterListWindow"
 		X="0"
-		Y="215"
+		Y="245"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"
@@ -731,7 +740,7 @@
 		Name="CritterList11"
 		Owner="CritterListWindow"
 		X="0"
-		Y="235"
+		Y="268"
 		Width="520"
 		Height="20"
 		VisualKey="WhiteSpace"

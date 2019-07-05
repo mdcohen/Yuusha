@@ -615,7 +615,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\pm_ale
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\modem_dial.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\yuusha_items.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\yuusha_items.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\inventorybackground.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0273.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0274.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0275.xnb
@@ -638,3 +637,7 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Kesmai-
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Kesmai-Dungeon-Background.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Wind-Moderate.wma
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Wind-Moderate.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\inventory_male.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\inventory_female.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\tips.txt
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\tip_notification.xnb

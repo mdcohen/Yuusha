@@ -94,7 +94,7 @@
   <VerticalHotButtonCommand17 />
   <VerticalHotButtonCommand18 />
   <VerticalHotButtonCommand19 />
-  <HorizontalHotButtonVisualKey0>hotbuttonicon_12</HorizontalHotButtonVisualKey0>
+  <HorizontalHotButtonVisualKey0>WhiteSpace</HorizontalHotButtonVisualKey0>
   <HorizontalHotButtonVisualKey1>WhiteSpace</HorizontalHotButtonVisualKey1>
   <HorizontalHotButtonVisualKey2>WhiteSpace</HorizontalHotButtonVisualKey2>
   <HorizontalHotButtonVisualKey3>WhiteSpace</HorizontalHotButtonVisualKey3>
@@ -109,7 +109,7 @@
   <HorizontalHotButtonVisualKey12>WhiteSpace</HorizontalHotButtonVisualKey12>
   <HorizontalHotButtonVisualKey13>WhiteSpace</HorizontalHotButtonVisualKey13>
   <HorizontalHotButtonVisualKey14>WhiteSpace</HorizontalHotButtonVisualKey14>
-  <HorizontalHotButtonText0>Look Around</HorizontalHotButtonText0>
+  <HorizontalHotButtonText0 />
   <HorizontalHotButtonText1 />
   <HorizontalHotButtonText2 />
   <HorizontalHotButtonText3 />
@@ -124,7 +124,7 @@
   <HorizontalHotButtonText12 />
   <HorizontalHotButtonText13 />
   <HorizontalHotButtonText14 />
-  <HorizontalHotButtonCommand0>look around</HorizontalHotButtonCommand0>
+  <HorizontalHotButtonCommand0 />
   <HorizontalHotButtonCommand1 />
   <HorizontalHotButtonCommand2 />
   <HorizontalHotButtonCommand3 />

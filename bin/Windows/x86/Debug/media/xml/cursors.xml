@@ -10,13 +10,13 @@
 		VisualKey="QuestionCursor"
 		Font="courier16">
 	</Cursor>
-	<Cursor
+  <Cursor
 		Name="Dragging"
 		VisualKey="DraggingCursor"
 		Font="courier16"
 		XDrawOffset="-4"
 		YDrawOffset="-4">
-	</Cursor>
+  </Cursor>
 	<Cursor
 		Name="Wait"
 		VisualKey="WaitCursor"

@@ -31,7 +31,8 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <Visual ParentTexture="green_weave_single.png" Name="GreenWeaveSingle" X="0" Y="0" Width="34" Height="40"></Visual>
   <Visual ParentTexture="green_weave.gif" Name="GreenWeave" X="0" Y="0" Width="600" Height="40"></Visual>
   <Visual ParentTexture="damage_fog_skulls.png" Name="DamageFogSkulls" X="0" Y="0" Width="1920" Height="1080"></Visual>
-  <Visual ParentTexture="inventorybackground.png" Name="InventoryBackground" X="0" Y="0" Width="356" Height="429"></Visual>
+  <Visual ParentTexture="inventory_male.png" Name="Inventory_Male" X="0" Y="0" Width="356" Height="429"></Visual>
+  <Visual ParentTexture="inventory_female.png" Name="Inventory_Female" X="0" Y="0" Width="356" Height="429"></Visual>
 
   <!-- UI Helpers -->
   <Visual ParentTexture="ui_helpers.png" Name="TextBox" X="894" Y="302" Width="192" Height="34"></Visual>
@@ -81,4 +82,5 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <Visual ParentTexture="ui_helpers.png" Name="VerticalHotbarIcon" X="780" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="HorizontalHotbarIcon" X="840" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="MacrosIcon" X="900" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="SoundWavesIcon" X="960" Y="1200" Width="60" Height="60"></Visual>
 </VisualsIndex>

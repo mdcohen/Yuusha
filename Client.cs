@@ -39,7 +39,8 @@ namespace Yuusha
 
         GraphicsDeviceManager m_graphics;
         readonly ContentManager m_contentManager;
-        Yuusha.gui.GuiManager m_guiManager;
+        GuiManager m_guiManager;
+        GameHUD m_gameHUD;
         Yuusha.Audio.AudioManager m_audioManager;
         //Yuusha.gui.SplashScreen m_splashScreen;
         bool m_firstFullScreen;
@@ -146,6 +147,8 @@ namespace Yuusha
             m_contentManager = new ContentManager(Services);
             m_guiManager = new GuiManager(this);
             Components.Add(m_guiManager);
+            m_gameHUD = new GameHUD(this);
+            Components.Add(m_gameHUD);
             m_audioManager = new Audio.AudioManager(this);
             Components.Add(m_audioManager);
 

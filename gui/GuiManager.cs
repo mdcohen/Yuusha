@@ -16,6 +16,8 @@ namespace Yuusha.gui
         public static bool LoggingRequested = false;
         public static bool MouseCursorVisible = true;
         public static bool AwaitMouseButtonRelease = false; // Mouse handling ceases until the mouse button is released
+        public static List<Keys> AwaitKeyRelease = new List<Keys>();
+        public static bool DisplayedLoginTip = false;
 
         #region Private Data
         static Dictionary<string, Texture2D> m_textures; // master textures
@@ -837,102 +839,116 @@ namespace Yuusha.gui
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            string state = Client.GameState.ToString();
-
-            base.Update(gameTime);
-
-            // Overridden states girst (eg: Hot Button Edit Mode)
-            if (GameHUD.OverrideDisplayStates.Contains(Client.GameState))
-                m_sheets[state].Update(gameTime);
-
-            if (m_genericSheet != null)
-                m_genericSheet.Update(gameTime);
-
-            if (state.Contains("Game"))
+            try
             {
-                if (GetControl("HorizontalGameAutoHidingWindow") is AutoHidingWindow horizontalGameAutoHidingWindow)
-                    horizontalGameAutoHidingWindow.IsVisible = true;
+                string state = Client.GameState.ToString();
 
-                if (GetControl("VerticalGameAutoHidingWindow") is AutoHidingWindow verticalGameAutoHidingWindow)
-                    verticalGameAutoHidingWindow.IsVisible = true;
+                base.Update(gameTime);
 
-                #region DamageFogSkullsLabel
-                if (Character.CurrentCharacter != null && GetControl("DamageFogSkullsLabel") is Label fogLabel)
+                // Overridden states girst (eg: Hot Button Edit Mode)
+                if (GameHUD.OverrideDisplayStates.Contains(Client.GameState))
+                    m_sheets[state].Update(gameTime);
+
+                if (m_genericSheet != null)
+                    m_genericSheet.Update(gameTime);
+
+                if (state.Contains("Game"))
                 {
-                    double pct = ((Character.CurrentCharacter.Hits * 100) / Character.CurrentCharacter.HitsFull);
+                    if (GetControl("HorizontalGameAutoHidingWindow") is AutoHidingWindow horizontalGameAutoHidingWindow)
+                        horizontalGameAutoHidingWindow.IsVisible = true;
 
-                    if (pct <= 50)
+                    if (GetControl("VerticalGameAutoHidingWindow") is AutoHidingWindow verticalGameAutoHidingWindow)
+                        verticalGameAutoHidingWindow.IsVisible = true;
+
+                    #region DamageFogSkullsLabel
+                    if (Character.CurrentCharacter != null && GetControl("DamageFogSkullsLabel") is Label fogLabel)
                     {
-                        fogLabel.TintColor = Color.LemonChiffon;
-                        fogLabel.VisualAlpha = 65;
-                        fogLabel.IsVisible = true;
-                        fogLabel.ZDepth = 999;
+                        double pct = ((Character.CurrentCharacter.Hits * 100) / Character.CurrentCharacter.HitsFull);
 
-                        if (pct <= 25)
+                        if (pct <= 50)
                         {
-                            fogLabel.TintColor = Color.Crimson;
-                            fogLabel.VisualAlpha = 125;
+                            fogLabel.TintColor = Color.LemonChiffon;
+                            fogLabel.VisualAlpha = 65;
+                            fogLabel.IsVisible = true;
+                            fogLabel.ZDepth = 999;
 
-                            if (Character.CurrentCharacter.Hits <= 0)
+                            if (pct <= 25)
                             {
                                 fogLabel.TintColor = Color.Crimson;
-                                fogLabel.VisualAlpha = 190;
+                                fogLabel.VisualAlpha = 125;
+
+                                if (Character.CurrentCharacter.Hits <= 0)
+                                {
+                                    fogLabel.TintColor = Color.Crimson;
+                                    fogLabel.VisualAlpha = 190;
+                                }
                             }
                         }
+                        else fogLabel.IsVisible = false;
                     }
-                    else fogLabel.IsVisible = false;
+                    #endregion
+
+                    //GameHUD.UpdateCritterListWindow();
                 }
-                #endregion
-
-                //GameHUD.UpdateCritterListWindow();
-            }
-            else
-            {
-                if (GetControl("DamageFogSkullsLabel") is Label fogLabel)
-                    fogLabel.IsVisible = false; // won't be drawn anyway?
-            }
-
-            if (!GameHUD.OverrideDisplayStates.Contains(Client.GameState) && m_sheets.ContainsKey(state))
-                m_sheets[state].Update(gameTime);            
-
-            Events.UpdateGUI(gameTime);
-
-            for (int a = m_textCues.Count - 1; a >= 0; a--)
-                m_textCues[a].Update(gameTime, m_textCues);
-
-            for (int a = 0; a < m_textCues.Count; a++)
-            {
-                if (m_textCues[a].IsCentered)
+                else
                 {
-                    m_textCues[a].X = (int)((Client.Width / 2) - (BitmapFont.ActiveFonts[m_textCues[a].Font].MeasureString(m_textCues[a].Text) / 2));
-                    m_textCues[a].Y = (int)(((m_textCues.Count + 1) * BitmapFont.ActiveFonts[CurrentSheet.Font].LineHeight) / 2) +
-                        (a * BitmapFont.ActiveFonts[CurrentSheet.Font].LineHeight);
+                    if (GetControl("DamageFogSkullsLabel") is Label fogLabel)
+                        fogLabel.IsVisible = false; // won't be drawn anyway?
                 }
+
+                if (!GameHUD.OverrideDisplayStates.Contains(Client.GameState) && m_sheets.ContainsKey(state))
+                    m_sheets[state].Update(gameTime);
+
+                Events.UpdateGUI(gameTime);
+
+                for (int a = m_textCues.Count - 1; a >= 0; a--)
+                    m_textCues[a].Update(gameTime, m_textCues);
+
+                for (int a = 0; a < m_textCues.Count; a++)
+                {
+                    if (m_textCues[a].IsCentered)
+                    {
+                        m_textCues[a].X = (int)((Client.Width / 2) - (BitmapFont.ActiveFonts[m_textCues[a].Font].MeasureString(m_textCues[a].Text) / 2));
+                        m_textCues[a].Y = (int)(((m_textCues.Count + 1) * BitmapFont.ActiveFonts[CurrentSheet.Font].LineHeight) / 2) +
+                            (a * BitmapFont.ActiveFonts[CurrentSheet.Font].LineHeight);
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
             }
         }
 
         public void Draw(GameTime gameTime)
         {
-            string state = Client.GameState.ToString();
+            try
+            {
+                string state = Client.GameState.ToString();
 
-            if(TakingScreenshot)
-                Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend); // Before MonoGame conversion.
+                if (TakingScreenshot)
+                    Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend); // Before MonoGame conversion.
                 else Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
-            // Overridden states girst (eg: Hot Button Edit Mode)
-            if (GameHUD.OverrideDisplayStates.Contains(Client.GameState))
-                m_sheets[state].Draw(gameTime);
+                // Overridden states girst (eg: Hot Button Edit Mode)
+                if (GameHUD.OverrideDisplayStates.Contains(Client.GameState))
+                    m_sheets[state].Draw(gameTime);
 
-            if (!GameHUD.OverrideDisplayStates.Contains(Client.GameState) && m_sheets.ContainsKey(state))
-                m_sheets[state].Draw(gameTime);
+                if (!GameHUD.OverrideDisplayStates.Contains(Client.GameState) && m_sheets.ContainsKey(state))
+                    m_sheets[state].Draw(gameTime);
 
-            if (m_genericSheet != null)
-                m_genericSheet.Draw(gameTime);
+                if (m_genericSheet != null)
+                    m_genericSheet.Draw(gameTime);
 
-            foreach (TextCue tc in m_textCues)
-                tc.Draw(gameTime);
+                foreach (TextCue tc in m_textCues)
+                    tc.Draw(gameTime);
 
-            Client.SpriteBatch.End();
+                Client.SpriteBatch.End();
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
+            }
         }
 
         public static Control GetControl(string sheet, string name)
@@ -979,11 +995,11 @@ namespace Yuusha.gui
         public static Control GetControl(string name)
         {
             // Check current sheet.
-            if (CurrentSheet[name] != null)
+            if (CurrentSheet != null && CurrentSheet[name] != null)
                 return CurrentSheet[name];
 
             // Check generic sheet.
-            if (GenericSheet[name] != null)
+            if (GenericSheet != null && GenericSheet[name] != null)
                 return GenericSheet[name];
 
             // Check controls nested within windows.
@@ -1022,41 +1038,44 @@ namespace Yuusha.gui
             }
 
             // Check GenericSheet controls.
-            try
+            if (GenericSheet != null)
             {
-                foreach (Control c1 in new List<Control>(GenericSheet.Controls))
+                try
                 {
-                    if (c1 is Window)
+                    foreach (Control c1 in new List<Control>(GenericSheet.Controls))
                     {
-                        foreach (Control c2 in new List<Control>((c1 as Window).Controls))
+                        if (c1 is Window)
                         {
-                            if (c2.Name == name)
-                                return c2;
-                            else if (c2 is Window)
+                            foreach (Control c2 in new List<Control>((c1 as Window).Controls))
                             {
-                                foreach (Control c3 in new List<Control>((c2 as Window).Controls))
-                                    if (c3.Name == name)
-                                        return c3;
-                                    else if (c3 is Window)
-                                    {
-                                        foreach (Control c4 in new List<Control>((c3 as Window).Controls))
-                                            if (c4.Name == name)
-                                                return c4;
-                                    }
+                                if (c2.Name == name)
+                                    return c2;
+                                else if (c2 is Window)
+                                {
+                                    foreach (Control c3 in new List<Control>((c2 as Window).Controls))
+                                        if (c3.Name == name)
+                                            return c3;
+                                        else if (c3 is Window)
+                                        {
+                                            foreach (Control c4 in new List<Control>((c3 as Window).Controls))
+                                                if (c4.Name == name)
+                                                    return c4;
+                                        }
+                                }
                             }
                         }
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Utils.LogException(e);
-                Utils.Log("Error in GuiManager.GetControl - Searching generic sheet for a control named " + name + ".");
+                catch (Exception e)
+                {
+                    Utils.LogException(e);
+                    Utils.Log("Error in GuiManager.GetControl - Searching generic sheet for a control named " + name + ".");
+                }
             }
 
-            foreach(string sheetName in Sheets.Keys)
+            foreach (string sheetName in Sheets.Keys)
             {
-                if(sheetName != CurrentSheet.Name && sheetName != GenericSheet.Name)
+                if (sheetName != CurrentSheet.Name && (GenericSheet == null || sheetName != GenericSheet.Name))
                     if (Sheets[sheetName][name] != null)
                         return Sheets[sheetName][name];
             }

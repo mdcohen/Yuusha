@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0179.WAV</SourceFile>
   <SourceTime>2019-04-10T18:34:05.1412297+02:00</SourceTime>
   <DestFile>C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSND0179.xnb</DestFile>
-  <DestTime>2019-04-10T19:01:45.6765556+02:00</DestTime>
+  <DestTime>2019-07-05T00:45:00.4369884+02:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

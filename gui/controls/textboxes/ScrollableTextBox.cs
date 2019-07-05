@@ -47,6 +47,8 @@ namespace Yuusha.gui
         {
             get { return m_allLines.Count; }
         }
+        public int FormattedLinesCount
+        { get { return m_formattedLines.Count; } }
         public DropDownMenu DropDownMenu
         { get; set; }
         public Border Border

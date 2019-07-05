@@ -8,7 +8,6 @@ namespace Yuusha
         #region Private Data
         private static string m_name = "";
         private static int m_id = -1;
-        private static string m_password = "";
         private static int m_lifetimeMarks = 0;
         private static int m_currentMarks = 0;
         private static string m_ipAddress = "";

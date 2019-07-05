@@ -43,6 +43,18 @@
 /processorParam:Quality=Best
 /build:GUISounds/pm_alert_short.wav
 
+#begin GUISounds/sageadvice_cymbal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/sageadvice_cymbal.wav
+
+#begin GUISounds/tip_notification.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/tip_notification.wav
+
 #begin KSND0001.WAV
 /importer:WavImporter
 /processor:SoundEffectProcessor

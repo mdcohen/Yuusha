@@ -407,6 +407,14 @@ namespace Yuusha.gui
         {
             if (!Client.HasFocus) return true; // returns that it was handled so as to not do any other handler calls
 
+            foreach(Keys k in ks.GetPressedKeys())
+            {
+                if (GuiManager.AwaitKeyRelease.Contains(k))
+                    return true;
+            }
+
+            GuiManager.AwaitKeyRelease.Clear();
+
             return OnKeyDown(ks);
         }
 
@@ -625,7 +633,17 @@ namespace Yuusha.gui
             return false;
         }
 
+        protected virtual bool OnKeyRelease(KeyboardState ks)
+        {
+            return false;
+        }
+
         protected virtual void OnZDelta(MouseState ms)
+        {
+            // empty
+        }
+
+        protected virtual void OnPositionChange(int xOffset, int yOffset)
         {
             // empty
         }

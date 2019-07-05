@@ -8,7 +8,7 @@ namespace Yuusha.gui
 {
     public class TextCue : GameComponent
     {
-        public enum TextCueTag { None, PromptState, WarmedSpell, XPGain, XPLoss, HealthGain, HealthLoss, StaminaGain, StaminaLoss, ManaGain, ManaLoss }
+        public enum TextCueTag { None, PromptState, WarmedSpell, XPGain, XPLoss, HealthGain, HealthLoss, StaminaGain, StaminaLoss, ManaGain, ManaLoss, ZName }
 
         #region Private Data
         private string m_text;
@@ -118,14 +118,16 @@ namespace Yuusha.gui
                 m_lifeStart = gameTime.TotalGameTime;
                 m_lifeStarted = true;
             }
-            else if (m_lifeCycle > 0 && gameTime.TotalGameTime - TimeSpan.FromMilliseconds(m_lifeCycle) > m_lifeStart) // lifeCycle of 0 or less means the TextCue stays until forcibly removed
+            else if (m_lifeCycle > 0 && gameTime.TotalGameTime - TimeSpan.FromMilliseconds(m_lifeCycle) > m_lifeStart && (!m_fadeOut || m_fadeOut && m_alpha <= 0)) // lifeCycle of 0 or less means the TextCue stays until forcibly removed
             {
+                // a change here makes all text cues stick around until they completely fade out
                 cueList.Remove(this);
             }
             else
             {
                 byte alphaPlus = Client.ClientSettings.DefaultPopUpFadeInSpeed;
                 byte alphaMinus = Client.ClientSettings.DefaultPopUpFadeOutSpeed;
+
                 switch(Tag)
                 {
                     case TextCueTag.XPGain:
@@ -133,21 +135,26 @@ namespace Yuusha.gui
                         break;
                 }
 
+                // Fade in only
                 if (m_alpha < 255 && m_fadeIn && !m_fadeOut)
                 {
                     m_alpha += alphaPlus;
-                    if(m_alpha >= 255)
-                        cueList.Remove(this);
+
+                    if (m_alpha >= 255)
+                        m_alpha = 255;
                 }
 
-                if (m_alpha > 0 && !m_fadeIn && m_fadeOut)
+                // Fade out only.
+                else if (m_alpha > 0 && !m_fadeIn && m_fadeOut)
                 {
                     m_alpha -= alphaMinus;
+
                     if(m_alpha <= 0)
                         cueList.Remove(this);
                 }
 
-                if (m_fadeIn && m_fadeOut)
+                // Fade in and fade out.
+                else if (m_fadeIn && m_fadeOut)
                 {
                     m_alpha += alphaPlus;
 
@@ -534,10 +541,35 @@ namespace Yuusha.gui
                 GuiManager.TextCues.Add(tc);
         }
 
+        public static void AddZNameTextCue(string text)
+        {
+            if (GuiManager.TextCues.Find(tc => tc.Text == text) != null)
+                return;
+
+            GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.ZName);
+
+            string font = "rocksalt20";
+            //string font = "changaone20";
+
+            int x = Client.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
+            int y = Client.Height / 2;
+
+            if(GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()]["MapDisplayWindow"] is Window mapWindow)
+            {
+                x = mapWindow.Position.X + mapWindow.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
+                y = mapWindow.Position.Y - BitmapFont.ActiveFonts[font].LineHeight;
+            }
+
+            TextCue textCue = new TextCue(text, x, y, 0, Color.GhostWhite, Color.Black, 200, font, 4500, false, 2, Map.Direction.Southwest, false, true, true, TextCueTag.ZName);
+
+            if (!GuiManager.TextCues.Contains(textCue))
+                GuiManager.TextCues.Add(textCue);
+        }
+
         public void OnClientResize(Rectangle prev, Rectangle now)
         {
-            X += (now.Width - prev.Width);
-            Y += (now.Height - prev.Height);
+            X += now.Width - prev.Width;
+            Y += now.Height - prev.Height;
         }
     }
 }

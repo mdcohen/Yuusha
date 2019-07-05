@@ -221,7 +221,7 @@ namespace Yuusha.gui
 
         public override bool KeyboardHandler(KeyboardState ks)
         {
-            if (this.m_cropped || this.IsMinimized || !this.IsVisible || this.IsDisabled)
+            if (m_cropped || IsMinimized || !IsVisible || IsDisabled)
                 return false;
 
             // front to back
@@ -242,12 +242,12 @@ namespace Yuusha.gui
 
         public override bool MouseHandler(MouseState ms)
         {
-            if (!this.IsVisible || this.IsDisabled)
+            if (!IsVisible || IsDisabled)
                 return false;
 
-            if (this.m_cropped || this.IsMinimized)
+            if (m_cropped || IsMinimized)
             {
-                foreach (Control c in this.Controls)
+                foreach (Control c in Controls)
                 {
                     if (c is WindowTitle || c is WindowControlBox)
                         return c.MouseHandler(ms);
@@ -493,17 +493,19 @@ namespace Yuusha.gui
                 foreach(Control control in new List<Control>(Controls))
                 {
                     Point position = control.Position;
-                    position.X += this.XOffset;
-                    position.Y += this.YOffset;
+                    position.X += XOffset;
+                    position.Y += YOffset;
                     control.Position = position;
+
+                    // make a call here
 
                     if (control is Window)
                     {
                         foreach (Control winControl in new List<Control>((control as Window).Controls))
                         {
                             position = winControl.Position;
-                            position.X += this.XOffset;
-                            position.Y += this.YOffset;
+                            position.X += XOffset;
+                            position.Y += YOffset;
                             winControl.Position = position;
                         }
                     }

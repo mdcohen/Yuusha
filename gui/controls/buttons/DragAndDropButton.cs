@@ -84,10 +84,19 @@ namespace Yuusha.gui
                             dropDownRectangle.Y = Client.Width - dropDownRectangle.Width - 5;
 
                         // must come up with a solution for calling these
-                        GuiManager.GenericSheet.CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
+                        if(Sheet != "Generic")
+                        {
+                            GuiManager.CurrentSheet.CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
+                            Font, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, VisualAlpha, true, Map.Direction.Northwest, 5);
+                        }
+                        else GuiManager.GenericSheet.CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
                             Font, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, VisualAlpha, true, Map.Direction.Northwest, 5);
 
-                        DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
+                        DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
+                        {
+                            IsVisible = true,
+                            VisualAlpha = 255
+                        };
 
                         DropDownMenu.HasFocus = true;
                         int height = 0;
@@ -200,7 +209,7 @@ namespace Yuusha.gui
                             }
                             else if(Name.StartsWith("RH") || Name.StartsWith("LH"))
                             {
-                                dropDownMenuItemTextList.Add(Tuple.Create("look at " + RepresentedItem.Name, "look at " + (Name.StartsWith("RH") ? "right" : "left"), GridBoxWindow.GridBoxPurpose.None));
+                                dropDownMenuItemTextList.Add(Tuple.Create("look", "look at " + (Name.StartsWith("RH") ? "right" : "left"), GridBoxWindow.GridBoxPurpose.None));
                                 if(RepresentedItem.Name != "corpse" && !RepresentedItem.Name.StartsWith("coin"))
                                     dropDownMenuItemTextList.Add(Tuple.Create("belt", "belt " + (Name.StartsWith("RH") ? "right" : "left"), GridBoxWindow.GridBoxPurpose.Belt));
                                 if(RepresentedItem.Name != "corpse")
@@ -209,7 +218,7 @@ namespace Yuusha.gui
                                     dropDownMenuItemTextList.Add(Tuple.Create("pouch", "put " + (Name.StartsWith("RH") ? "right" : "left") + " in pouch", GridBoxWindow.GridBoxPurpose.Sack));
                                 dropDownMenuItemTextList.Add(Tuple.Create("drop", "drop " + (Name.StartsWith("RH") ? "right" : "left"), GridBoxWindow.GridBoxPurpose.Ground));
                                 if(Character.CurrentCharacter != null && Character.CurrentCharacter.IsNextToCounter())
-                                    dropDownMenuItemTextList.Add(Tuple.Create("put on counter/altar", "put " + (Name.StartsWith("RH") ? "right" : "left") + " on counter", GridBoxWindow.GridBoxPurpose.Sack));
+                                    dropDownMenuItemTextList.Add(Tuple.Create("counter/altar", "put " + (Name.StartsWith("RH") ? "right" : "left") + " on counter", GridBoxWindow.GridBoxPurpose.Sack));
                             }
 
                             foreach (Tuple<string, string, GridBoxWindow.GridBoxPurpose> tuple in dropDownMenuItemTextList)
@@ -229,6 +238,14 @@ namespace Yuusha.gui
                     Utils.LogException(e);
                 }
             }
+        }
+
+        public override bool KeyboardHandler(KeyboardState ks)
+        {
+            if (DropDownMenu != null)
+                return DropDownMenu.KeyboardHandler(ks);
+
+            return base.KeyboardHandler(ks);
         }
 
         protected override void OnDoubleLeftClick()

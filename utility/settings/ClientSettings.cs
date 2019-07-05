@@ -28,12 +28,20 @@ namespace Yuusha.Utility.Settings
         public bool PlayAudioWhenClientDeactivated = true;
         public bool PlayPrivateMessageSounds = true;
         public bool PlayModemDialOnConnect = true;
+        public bool DisplaySoundIndicators = true;
+        public bool DisplaySoundIndicatorsNearby = false;
+        public int SoundIndicatorDimensions = 60;
+        public Color SoundIndicatorTintColor = Color.AliceBlue;
+        public Color SoundIndicatorTextColor = Color.Goldenrod;
+        public string SoundIndicatorFont = "changaone14";
 
         // private messages specific
         public bool EchoPrivateMessagesToConference = true;
         public bool EchoPrivateMessagesToGame = true;
         public bool DisplayPrivateMessageWindows = true;
 
+        public bool DisplaySpellEffectLabels = true;
+        public bool DisplaySpellEffectNameOnLabels = false;
         public bool EchoGroundItemsOnExamination = false;
         public bool GroupSimiliarItemsInGridBoxes = true;
         public bool AlwaysOpenGridBoxWindowsUponActivity = false;

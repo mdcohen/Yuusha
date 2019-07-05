@@ -45,6 +45,7 @@ namespace Yuusha
             Status,
             System,
             Help,
+            Hint,
             Private,
             Listing,
             Error,
@@ -61,6 +62,7 @@ namespace Yuusha
             SpellMiss,
             PrivateMessageReceiver,
             PrivateMessageSender,
+            SageAdvice,
         }
 
         public enum EPlayerUpdate

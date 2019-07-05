@@ -484,6 +484,13 @@ namespace Yuusha
                             break;
                             #endregion
                         case Enums.ELoginState.WorldInformation:
+                            // Create a hint window because collecting world info sometimes takes a few seconds..
+                            if (!gui.GuiManager.DisplayedLoginTip)
+                            {
+                                gui.GuiManager.DisplayedLoginTip = true;
+                                gui.TipWindow.CreateTipWindow();
+                            }
+
                             try
                             {
                                 #region WorldInformation
@@ -692,6 +699,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.GAME_CHARACTER_DEATH) != -1)
                             {
                                 Events.RegisterEvent(Events.EventName.Character_Death, inData.Substring(0, inData.IndexOf(Protocol.GAME_CHARACTER_DEATH)));
+                                return true;
                             } 
                             #endregion
                             #region GAME_POINTER_UPDATE
@@ -724,20 +732,29 @@ namespace Yuusha
                             else if(inData.IndexOf(Protocol.GAME_CELL_ITEMS_END) != -1) // request was made for cell items info
                             {
                                 // coords are first, then every item
-                                //Cell cell = new Cell();
                                 string cellItemsInfo =  Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CELL_ITEMS, Protocol.GAME_CELL_ITEMS_END);
                                 string[] splitInfo = cellItemsInfo.Split(Protocol.ISPLIT.ToCharArray());
-                                string[] coordsInfo = splitInfo[0].Split(Protocol.VSPLIT.ToCharArray());
-                                //cell.xCord = Convert.ToInt16(coordsInfo[0]); cell.yCord = Convert.ToInt16(coordsInfo[1]); cell.zCord = Convert.ToInt32(coordsInfo[2]);
+                                string[] coordsInfo = splitInfo[0].Split(Protocol.VSPLIT.ToCharArray());                                
+
                                 gui.GameHUD.ExaminedCell.Items.Clear();
                                 for (int a = 1; a < splitInfo.Length; a++)
-                                {
                                     gui.GameHUD.ExaminedCell.Add(gui.IOKMode.FormatCellItem(splitInfo[a]));
+
+                                string cellType = "Ground";
+
+                                if (gui.GameHUD.ExaminedCell.CellGraphic == Cell.GRAPHIC_ALTAR_PLACEABLE)
+                                {
+                                    gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Altar);
+                                    cellType = "Altar";
                                 }
+                                else if(gui.GameHUD.ExaminedCell.CellGraphic == Cell.GRAPHIC_COUNTER_PLACEABLE)
+                                {
+                                    gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Counter);
+                                    cellType = "Counter";
+                                }
+                                else gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Ground);
 
-                                gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Ground);
-
-                                if (gui.GuiManager.GetControl("GroundGridBoxWindow") is gui.GridBoxWindow gridBoxWindow)
+                                if (gui.GuiManager.GetControl(cellType + "GridBoxWindow") is gui.GridBoxWindow gridBoxWindow)
                                 {
                                     gridBoxWindow.IsVisible = true;
                                     gridBoxWindow.ZDepth = 1;

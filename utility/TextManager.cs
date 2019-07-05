@@ -48,16 +48,17 @@ namespace Yuusha
         public static Dictionary<string, Color> GAME_TEXT_COLOR_FILTERS = new Dictionary<string, Color>()
         {
             // Gains
-            {"You have risen from ", Color.Orchid },
-            {"You have earned enough experience for your next level! Type REST ", Color.Goldenrod },
+            {"You have risen from ", Color.Orchid},
+            {"You have earned enough experience for your next level! Type REST ", Color.LightGoldenrodYellow },
             {"You are now a level ", Color.Gold },
+            {"You have gained ", Color.Orchid},
 
             // Looking around
-            {"You are looking at ", Color.LightSkyBlue },
-            {"On the ground you see ", Color.LightGreen },
-            {"In your pouch you see ", Color.MediumSpringGreen },
-            {"In your sack you see ", Color.MediumSpringGreen },
-            {"On the counter you see ", Color.MediumSpringGreen },
+            {"You are looking at ", Color.LightBlue },
+            {"On the ground you see ", Color.AliceBlue },
+            {"In your pouch you see ", Color.DodgerBlue },
+            {"In your sack you see ", Color.CadetBlue },
+            {"On the counter you see ", Color.CornflowerBlue },
 
             // Combat: self
             {"Swing hits with ", Color.PeachPuff },
@@ -72,8 +73,8 @@ namespace Yuusha
             {" hits with ", Color.Tomato },
 
             // Magic
-            {"You warm the spell", Color.DarkSeaGreen },
-            {"You cast", Color.DarkSeaGreen },
+            {"You warm the spell", Color.LightSeaGreen },
+            {"You cast", Color.SeaGreen},
             {"You have been enchanted with", Color.MediumSeaGreen },
             
             // Important messages
@@ -97,7 +98,72 @@ namespace Yuusha
             str = str.Replace("elves", "elf");
             str = str.Replace("lammasi", "lammasu");
 
+            if (str.EndsWith("s"))
+                str = str.Substring(0, str.Length - 1);
+
             return str;
+        }
+
+        public static void CheckTextTriggers(string input)
+        {
+            if (input.StartsWith("You have been hit by a death spell"))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Death", gui.SpellEffectLabel.DamageBorderColor);
+            else if (input.StartsWith("You have been hit by a curse spell"))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Curse", gui.SpellEffectLabel.DamageBorderColor);
+            else if (input.Equals("You have been healed."))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Cure", gui.SpellEffectLabel.HealBorderColor);
+            else if (input.StartsWith("You have been enchanted with "))
+            {
+                string effectName = input.Replace("You have been enchanted with ", "");
+                effectName = effectName.Substring(0, effectName.Length - 1);
+                gui.SpellEffectLabel.CreateSpellEffectLabel(effectName, gui.SpellEffectLabel.BuffBorderColor);
+            }
+            else if (input.Equals("You fade into the shadows."))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Hide in Shadows", Color.DarkViolet);
+            else if (input.Equals("You have been hit by a lightning bolt!"))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Lightning Bolt");
+            else if (input.ToLower().Equals("you have been hit by magic missile!"))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Magic Missile", gui.SpellEffectLabel.DamageBorderColor);
+            else if (input.ToLower().Equals("you have been hit by a fireball!"))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Fireball");
+            else if (input.ToLower().Equals("you have been hit by a raging ice storm!"))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Icestorm");
+            else if (input.ToLower().Equals("you have been hit by icespear!"))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Icespear", gui.SpellEffectLabel.DamageBorderColor);
+            else if (input.ToLower().Equals("you have been hit by concussion!"))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Concussion");
+            else if (input.ToLower().Equals("you have been hit by disintegrate!"))
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Disintegrate");
+            else if (input.StartsWith("Sage: "))
+                gui.TipWindow.CreateSageAdviceHintWindow(input.Replace("Sage: ", ""));
+        }
+
+        public static string[] GetRandomHintText()
+        {
+            List<string> lines = new List<string>();
+
+            try
+            {
+                System.IO.StreamReader sr = new System.IO.StreamReader(Utils.GetMediaFile("tips.txt"));
+                
+
+                while (!sr.EndOfStream)
+                    lines.Add(sr.ReadLine());
+                sr.Close();
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                return new string[] { "Oops", "The tips.txt file is missing from the media subdirectory." };
+            }
+
+            if (lines.Count > 0)
+            {
+                return lines[new Random().Next(lines.Count)].Split("|".ToCharArray());
+            }
+            else
+            {
+                return new string[] { "Sage Advice", "Nothing to spend your gold on? A trip to the Sage is always worth it." };
+            }
         }
     }
 }

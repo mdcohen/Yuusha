@@ -4,7 +4,7 @@
   <SoundEffects>true</SoundEffects>
   <BackgroundAmbience>true</BackgroundAmbience>
   <FullScreen>false</FullScreen>
-  <DefaultGameDisplayMode>IOK</DefaultGameDisplayMode>
+  <DefaultGameDisplayMode>Yuusha</DefaultGameDisplayMode>
   <AutoDisplayNews>true</AutoDisplayNews>
   <NewRoundNotification>true</NewRoundNotification>
   <HideMouseCursor>true</HideMouseCursor>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ClientSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ServerName>Dragon's Spine</ServerName>
-  <ServerHost>www.dragonsspine.com</ServerHost>
+  <ServerHost>localhost</ServerHost>
   <ServerPort>3000</ServerPort>
   <ShowSplash>false</ShowSplash>
   <DefaultFont>courier16</DefaultFont>
@@ -29,19 +29,39 @@
   <PlayAudioWhenClientDeactivated>true</PlayAudioWhenClientDeactivated>
   <PlayPrivateMessageSounds>true</PlayPrivateMessageSounds>
   <PlayModemDialOnConnect>true</PlayModemDialOnConnect>
+  <DisplaySoundIndicators>true</DisplaySoundIndicators>
+  <DisplaySoundIndicatorsNearby>false</DisplaySoundIndicatorsNearby>
+  <SoundIndicatorDimensions>60</SoundIndicatorDimensions>
+  <SoundIndicatorTintColor>
+    <B>255</B>
+    <G>248</G>
+    <R>240</R>
+    <A>255</A>
+    <PackedValue>4294965488</PackedValue>
+  </SoundIndicatorTintColor>
+  <SoundIndicatorTextColor>
+    <B>32</B>
+    <G>165</G>
+    <R>218</R>
+    <A>255</A>
+    <PackedValue>4280329690</PackedValue>
+  </SoundIndicatorTextColor>
+  <SoundIndicatorFont>changaone14</SoundIndicatorFont>
   <EchoPrivateMessagesToConference>true</EchoPrivateMessagesToConference>
   <EchoPrivateMessagesToGame>true</EchoPrivateMessagesToGame>
   <DisplayPrivateMessageWindows>true</DisplayPrivateMessageWindows>
+  <DisplaySpellEffectLabels>true</DisplaySpellEffectLabels>
+  <DisplaySpellEffectNameOnLabels>false</DisplaySpellEffectNameOnLabels>
   <EchoGroundItemsOnExamination>false</EchoGroundItemsOnExamination>
   <GroupSimiliarItemsInGridBoxes>true</GroupSimiliarItemsInGridBoxes>
   <AlwaysOpenGridBoxWindowsUponActivity>false</AlwaysOpenGridBoxWindowsUponActivity>
   <StoredAccounts>
     <EncryptedKeyValuePairOfStringString>
-      <Key>TL7JKi7e9HPChorCBUHc6w==</Key>
+      <Key>1/vDctOy9dB3Mf0zOJBz4Q==</Key>
       <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
     </EncryptedKeyValuePairOfStringString>
     <EncryptedKeyValuePairOfStringString>
-      <Key>1/vDctOy9dB3Mf0zOJBz4Q==</Key>
+      <Key>TL7JKi7e9HPChorCBUHc6w==</Key>
       <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
     </EncryptedKeyValuePairOfStringString>
   </StoredAccounts>

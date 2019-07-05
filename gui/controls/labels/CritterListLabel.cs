@@ -2,6 +2,7 @@
 using System.Timers;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
 {
@@ -16,6 +17,9 @@ namespace Yuusha.gui
         public DropDownMenu DropDownMenu
         { get; set; }
 
+        public PercentageBarLabel HealthBar
+        { get; private set; }
+
         public CritterListLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
@@ -24,12 +28,27 @@ namespace Yuusha.gui
             textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent,
             cursorOverride, anchors, popUpText)
         {
+            int x = rectangle.X; int y = rectangle.Y + rectangle.Height;
+            if(GuiManager.GetControl(owner) is Window w)
+            {
+                x = w.Position.X + x;
+                y = w.Position.Y + y;
+            }
+
+            HealthBar = new PercentageBarLabel(name + "PercentageBarLabel", name, new Rectangle(x, y, rectangle.Width, 2), "", Color.White,
+                true, false, "courier12", new VisualKey("WhiteSpace"), Color.Transparent, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");
+            HealthBar.Segmented = false;
+            HealthBar.ForeLabel = new Label(HealthBar.Name + "ForeLabel", HealthBar.Name, new Rectangle(x, y, rectangle.Width, 2), "", Color.White,
+                true, false, "courier12", new VisualKey("WhiteSpace"), Color.Red, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");
         }
 
         public override bool MouseHandler(Microsoft.Xna.Framework.Input.MouseState ms)
         {
-            if (this.DropDownMenu != null)
-                this.DropDownMenu.MouseHandler(ms);
+            if (DropDownMenu != null)
+                DropDownMenu.MouseHandler(ms);
+
+            if (HealthBar != null)
+                HealthBar.MouseHandler(ms);
 
             return base.MouseHandler(ms);
         }
@@ -44,12 +63,32 @@ namespace Yuusha.gui
 
             base.Update(gameTime);
 
+            if (Critter != null && Text == "")
+                Critter = null;
+
             if (Border != null)
             {
+                Border.Update(gameTime);
+
                 Border.IsVisible = false;
 
-                if (Critter != null && GameHUD.CurrentTarget != null && this.Critter.ID == GameHUD.CurrentTarget.ID)
+                if (Critter != null && GameHUD.CurrentTarget != null && Critter.ID == GameHUD.CurrentTarget.ID)
                     Border.IsVisible = true;
+            }
+
+            if (HealthBar != null)
+            {
+                HealthBar.Position = new Point(Position.X, Position.Y + Height);
+
+                if (Critter != null)
+                {
+                    HealthBar.Percentage = Critter.healthPercentage;
+                    //if (HealthBar.Percentage < 100)
+                    //    HealthBar.ForeLabel.Text = string.Format("{0:0.00}%", HealthBar.Percentage);
+                    //else HealthBar.ForeLabel.Text = "100%";
+                }
+
+                HealthBar.Update(gameTime);
             }
 
             if (DropDownMenu != null)
@@ -58,7 +97,13 @@ namespace Yuusha.gui
 
         public override void Draw(GameTime gameTime)
         {
+            if (!IsVisible)
+                return;
+
             base.Draw(gameTime);
+
+            if (HealthBar != null)
+                HealthBar.Draw(gameTime);
 
             if (DropDownMenu != null)
                 DropDownMenu.Draw(gameTime);
@@ -81,8 +126,8 @@ namespace Yuusha.gui
         public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
         {
             DropDownMenu = null;
-
-            base.OnClientResize(prev, now, ownerOverride);            
+            base.OnClientResize(prev, now, ownerOverride);
+            if (HealthBar != null) HealthBar.OnClientResize(prev, now, true);
         }
 
         protected override void OnMouseDown(Microsoft.Xna.Framework.Input.MouseState ms)

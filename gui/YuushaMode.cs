@@ -57,6 +57,8 @@ namespace Yuusha.gui
                 (GuiManager.CurrentSheet["GameTextScrollableTextBox"] as ScrollableTextBox).AddLine(text, textType);
                 (GuiManager.Sheets["IOKGame"]["GameTextScrollableTextBox"] as ScrollableTextBox).AddLine(text, textType);
                 (GuiManager.Sheets["SpinelGame"]["GameTextScrollableTextBox"] as ScrollableTextBox).AddLine(text, textType);
+
+                TextManager.CheckTextTriggers(text);
             }
             catch (Exception e)
             {
@@ -141,6 +143,7 @@ namespace Yuusha.gui
                     if (chr.RightHand != null)
                     {
                         (sheet["RHNameDragAndDropButton"] as DragAndDropButton).IsTextVisible = false;
+                        (sheet["RHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = chr.RightHand;
                         sheet["RHNameDragAndDropButton"].PopUpText = chr.RightHand.Name;
                         sheet["RHNameDragAndDropButton"].VisualKey = chr.RightHand.VisualKey;
                         sheet["RHNameDragAndDropButton"].TintColor = Color.White;
@@ -163,6 +166,7 @@ namespace Yuusha.gui
                     {
                         sheet["RHNameDragAndDropButton"].Text = "empty";
                         (sheet["RHNameDragAndDropButton"] as DragAndDropButton).IsTextVisible = true;
+                        (sheet["RHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = null;
                         sheet["RHNameDragAndDropButton"].VisualKey = "WhiteSpace";
                         sheet["RHNameDragAndDropButton"].TintColor = Color.Black;
                     }
@@ -172,6 +176,7 @@ namespace Yuusha.gui
                     if (chr.LeftHand != null)
                     {
                         (sheet["LHNameDragAndDropButton"] as DragAndDropButton).IsTextVisible = false;
+                        (sheet["LHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = chr.LeftHand;
                         sheet["LHNameDragAndDropButton"].PopUpText = chr.LeftHand.Name;
                         sheet["LHNameDragAndDropButton"].VisualKey = chr.LeftHand.VisualKey;
                         sheet["LHNameDragAndDropButton"].TintColor = Color.White;
@@ -194,6 +199,7 @@ namespace Yuusha.gui
                     {
                         sheet["LHNameDragAndDropButton"].Text = "empty";
                         (sheet["LHNameDragAndDropButton"] as DragAndDropButton).IsTextVisible = true;
+                        (sheet["LHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = null;
                         sheet["LHNameDragAndDropButton"].VisualKey = "WhiteSpace";
                         sheet["LHNameDragAndDropButton"].TintColor = Color.Black;
                     }
@@ -206,12 +212,28 @@ namespace Yuusha.gui
                             TextCue.AddXPGainTextCue(string.Format("+{0:n0}", chr.Experience - pre.Experience));
                         else if (pre.Experience > chr.Experience)
                             TextCue.AddXPLossTextCue(string.Format("-{0:n0}", pre.Experience - chr.Experience));
+
+                        Character.PreviousRoundCharacter.Experience = chr.Experience;
+
+                        if (pre.ZName != chr.ZName)
+                            TextCue.AddZNameTextCue(chr.ZName);
                     }
 
                     if (sheet["ExpPercentageBarLabel"] is PercentageBarLabel expBar)
                     {
-                        expBar.Percentage = (double)chr.Experience / Globals.GetExperienceRequiredForLevel(Globals.GetExpLevel(chr.Experience) + 1) * 100;
-                        //Utils.LogOnce("Exp: " + chr.Experience + " Req: " + Globals.GetExperienceRequiredForLevel(Globals.GetExpLevel(chr.Experience) + 1) + " Pct: " + (chr.Experience / Globals.GetExperienceRequiredForLevel(Globals.GetExpLevel(chr.Experience) + 1)) * 100);
+                        int level = Globals.GetExpLevel(chr.Experience);
+                        if (level != chr.Level)
+                            expBar.Percentage = 100;
+                        else
+                        {
+                            long expNeededForLevelUp = Globals.GetExperienceRequiredForLevel(level + 1) - Globals.GetExperienceRequiredForLevel(level);
+                            long expIntoLevel = chr.Experience - expNeededForLevelUp;
+                            expBar.Percentage = (double)expIntoLevel / expNeededForLevelUp * 100;
+                        }
+
+                        if (expBar.Percentage < 100)
+                            expBar.PopUpText = string.Format("{0:0.00}%", expBar.Percentage);
+                        else expBar.PopUpText = "100%";
                     }
                 }
 
@@ -332,14 +354,12 @@ namespace Yuusha.gui
 
                 //string[] critterInventory = Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CRITTER_INVENTORY, Protocol.GAME_CRITTER_INVENTORY_END).Split(Protocol.ISPLIT.ToCharArray());
 
-                int tempA = 0;
-
-                crit.ID = Convert.ToInt32(critterInfo[tempA]); // player id or worldnpc id
+                crit.ID = Convert.ToInt32(critterInfo[0]); // player id or worldnpc id
                 crit.isPC = crit.ID >= 0;
-                crit.Name = critterInfo[tempA + 1];
+                crit.Name = critterInfo[1];
                 //crit.shortDesc = critterInfo[tempA + 2];
                 //crit.longDesc = critterInfo[tempA + 3];
-                crit.VisualKey = critterInfo[tempA + 2];
+                crit.VisualKey = critterInfo[2];
                 if (crit.VisualKey == "")
                 {
                     crit.VisualKey = crit.Name.ToLower().Replace(".", "_");
@@ -351,34 +371,40 @@ namespace Yuusha.gui
                 // change visual key to thief if critter is a thief
                 //if (crit.Profession == Character.ClassType.Thief && crit.VisualKey.ToLower().Contains("fighter"))
                 //   crit.VisualKey = crit.VisualKey.Replace("fighter", "thief");
-                crit.Alignment = (World.Alignment)Convert.ToInt32(critterInfo[tempA + 3]);
+                crit.Alignment = (World.Alignment)Convert.ToInt32(critterInfo[3]);
                 //crit.Level = Convert.ToInt32(critterInfo[tempA + 7]);
                 //crit.Gender = (Character.GenderType)Convert.ToInt32(critterInfo[tempA + 8]);
                 //crit.Race = critterInfo[tempA + 9];
                 //crit.Hits = Convert.ToInt32(critterInfo[tempA + 10]);
                 //crit.HitsMax = Convert.ToInt32(critterInfo[tempA + 11]);
 
-                if (critterInfo[tempA + 4].Length > 0)
+                if (critterInfo[4].Length > 0)
                 {
-                    crit.RightHand.ID = Convert.ToInt32(critterInfo[tempA + 4]);
-                    crit.RightHand.Name = critterInfo[tempA + 5];
-                    crit.RightHand.VisualKey = critterInfo[tempA + 6];
+                    crit.RightHand.ID = Convert.ToInt32(critterInfo[4]);
+                    crit.RightHand.Name = critterInfo[5];
+                    crit.RightHand.VisualKey = critterInfo[6];
                 }
                 else
                 {
                     crit.RightHand = null;
                 }
-                if (critterInfo[tempA + 7].Length > 0)
+                if (critterInfo[7].Length > 0)
                 {
-                    crit.LeftHand.ID = Convert.ToInt32(critterInfo[tempA + 7]);
-                    crit.LeftHand.Name = critterInfo[tempA + 8];
-                    crit.LeftHand.VisualKey = critterInfo[tempA + 9];
+                    crit.LeftHand.ID = Convert.ToInt32(critterInfo[7]);
+                    crit.LeftHand.Name = critterInfo[8];
+                    crit.LeftHand.VisualKey = critterInfo[9];
                 }
                 else
                 {
                     crit.LeftHand = null;
                 }
-                crit.visibleArmor = critterInfo[tempA + 10];
+                crit.visibleArmor = critterInfo[10];
+                if (critterInfo.Length >= 12)
+                    crit.healthPercentage = Convert.ToDouble(critterInfo[11]);
+                if (critterInfo.Length >= 13)
+                    crit.staminaPercentage = Convert.ToDouble(critterInfo[12]);
+                if (critterInfo.Length >= 14)
+                    crit.manaPercentage = Convert.ToDouble(critterInfo[13]);
                 return crit;
             }
             catch (Exception e)

@@ -107,6 +107,8 @@
     <Compile Include="gui\controls\labels\Label.cs" />
     <Compile Include="gui\controls\labels\MapTileLabel.cs" />
     <Compile Include="gui\controls\labels\PercentageBarLabel.cs" />
+    <Compile Include="gui\controls\labels\SoundIndicatorLabel.cs" />
+    <Compile Include="gui\controls\labels\SpellEffectLabel.cs" />
     <Compile Include="gui\controls\labels\SpinelTileLabel.cs" />
     <Compile Include="gui\controls\buttons\TabControlButton.cs" />
     <Compile Include="gui\controls\TabControl.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="gui\controls\Slider.cs" />
     <Compile Include="gui\controls\StatusBar.cs" />
     <Compile Include="gui\controls\textboxes\TextBox.cs" />
+    <Compile Include="gui\controls\windows\TipWindow.cs" />
     <Compile Include="gui\controls\windows\HotButtonEditWindow.cs" />
     <Compile Include="gui\controls\windows\MapWindow.cs" />
     <Compile Include="gui\controls\windows\PrivateMessageWindow.cs" />
@@ -250,6 +253,18 @@
     <Content Include="media\fonts\courier28.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="media\fonts\rocksalt20-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\rocksalt20-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\rocksalt20-2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\rocksalt20.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\help.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -302,7 +317,10 @@
     <Content Include="media\textures\hotbutton_icons.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\inventorybackground.png">
+    <Content Include="media\textures\inventory_male.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\textures\inventory_female.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\island.png">
@@ -369,6 +387,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\yuusha_items.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\tips.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\xml\cursors.xml">

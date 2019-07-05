@@ -6,15 +6,16 @@ namespace Yuusha.gui
 {
     public class DropDownMenuItem : Control // should these inherit from Button? 6/11/2019
     {
-        private bool m_onMouseDownSent;
-        private DropDownMenu m_dropDownMenu;
         private bool m_isLabel = false; // no mouse handling
         private bool m_isSeparator = false;
 
         public DropDownMenu DropDownMenu
-        {
-            get { return m_dropDownMenu; }
-        }
+        {get;set;}
+
+        public string MouseDown
+        { get { return m_onMouseDown; } }
+        public bool MouseDownSent
+        { get; set; }
 
         public Rectangle Rectangle
         {
@@ -26,11 +27,11 @@ namespace Yuusha.gui
         {
             m_name = name;
             m_text = text;
-            m_dropDownMenu = menu;
+            DropDownMenu = menu;
             Font = menu.Font;
             m_visualKey = visualKey;
             m_onMouseDown = onMouseDown;
-            m_onMouseDownSent = false;
+            MouseDownSent = false;
             Command = command;
 
             if (text == "-")
@@ -85,7 +86,8 @@ namespace Yuusha.gui
                 return;
             }
 
-            Width = DropDownMenu.Width;
+            if(DropDownMenu != null)
+                Width = DropDownMenu.Width;
 
             base.Update(gameTime);
         }
@@ -114,14 +116,14 @@ namespace Yuusha.gui
             if (m_disabled)
                 return;
 
-            if (!m_onMouseDownSent && ms.LeftButton == ButtonState.Pressed)
+            if (!MouseDownSent && ms.LeftButton == ButtonState.Pressed)
             {
                 GuiManager.AwaitMouseButtonRelease = true;
 
                 if (m_onMouseDown != "")
                 {
                     Events.RegisterEvent((Events.EventName)System.Enum.Parse(typeof(Events.EventName), m_onMouseDown, true), this);
-                    m_onMouseDownSent = true;
+                    MouseDownSent = true;
                 }
 
                 if(DropDownMenu != null)
@@ -140,6 +142,7 @@ namespace Yuusha.gui
 
                     DropDownMenu.IsVisible = false;
                     GuiManager.ActiveDropDownMenu = "";
+                    DropDownMenu = null;
                 }
             }
         }
@@ -151,7 +154,7 @@ namespace Yuusha.gui
             if (m_disabled)
                 return;
 
-            m_onMouseDownSent = false;
+            MouseDownSent = false;
         }
     }
 }

@@ -29,34 +29,32 @@ namespace Yuusha
         public Spell(string info)
         {
             string[] spellInfo = info.Split(Protocol.VSPLIT.ToCharArray());
-            this.m_id = Convert.ToInt32(spellInfo[0]);
-            this.m_command = spellInfo[1];
-            this.m_name = spellInfo[2];
-            this.m_description = spellInfo[3];
-            this.m_requiredLevel = Convert.ToInt32(spellInfo[4]);
-            this.m_mana = Convert.ToInt32(spellInfo[5]);
-            this.m_spellType = (SpellType)Convert.ToInt32(spellInfo[6]);
-            this.m_targetType = (TargetType)Convert.ToInt32(spellInfo[7]);
+            m_id = Convert.ToInt32(spellInfo[0]);
+            m_command = spellInfo[1];
+            m_name = spellInfo[2];
+            m_description = spellInfo[3];
+            m_requiredLevel = Convert.ToInt32(spellInfo[4]);
+            m_mana = Convert.ToInt32(spellInfo[5]);
+            m_spellType = (SpellType)Convert.ToInt32(spellInfo[6]);
+            m_targetType = (TargetType)Convert.ToInt32(spellInfo[7]);
             string[] classes = spellInfo[8].Split(Protocol.ASPLIT.ToCharArray());
-            this.m_classTypes = new Character.ClassType[classes.Length];
+            m_classTypes = new Character.ClassType[classes.Length];
             for (int a = 0; a < classes.Length; a++)
-            {
-                this.m_classTypes[a] = (Character.ClassType)Convert.ToInt32(classes[a]);
-            }
-            this.m_trainingPrice = Convert.ToInt32(spellInfo[9]);
-            this.m_beneficial = Convert.ToBoolean(spellInfo[10]);
-            this.m_soundFile = spellInfo[11];
+                m_classTypes[a] = (Character.ClassType)Convert.ToInt32(classes[a]);
+            m_trainingPrice = Convert.ToInt32(spellInfo[9]);
+            m_beneficial = Convert.ToBoolean(spellInfo[10]);
+            m_soundFile = spellInfo[11];
         } 
         #endregion
 
         #region Public Properties
         public string Name
         {
-            get { return this.m_name; }
+            get { return m_name; }
         }
         public int ID
         {
-            get { return this.m_id; }
+            get { return m_id; }
         }
 
         public string Incantation

@@ -16,6 +16,9 @@ namespace Yuusha.gui
 
         public static Enums.EGameState PreviousGameState { get; set; }
         public static Cell ExaminedCell { get; set; }
+
+        // TODO a boolean here to prevent ZName pop up
+
         public static GridBoxWindow.GridBoxPurpose GridBoxWindowRequestUpdate
         { get; set; } = GridBoxWindow.GridBoxPurpose.None;
 
@@ -31,6 +34,19 @@ namespace Yuusha.gui
         public GameHUD(Game game) : base(game)
         {
 
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            //if (Character.PreviousRoundCharacter != null && Character.CurrentCharacter != null)
+            //{
+            //    if (Client.GameState.ToString().EndsWith("Game") && Character.PreviousRoundCharacter.Z != Character.CurrentCharacter.Z)
+            //    {
+            //        Events.RegisterEvent(Events.EventName.Request_Stats);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -70,9 +86,12 @@ namespace Yuusha.gui
                     if(GuiManager.MouseOverDropAcceptingControl.Name.Substring(0, 2) != b.Name.Substring(0, 2))
                         Events.RegisterEvent(Events.EventName.Send_Command, "swap");
                 }
-                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground") ||
+                    GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Altar") ||
+                    GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Counter"))
                 {
                     GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
+
                     if (window.WindowTitle != null)
                     {
                         switch (window.WindowTitle.Text.ToLower())
@@ -331,6 +350,10 @@ namespace Yuusha.gui
         {
             if(GuiManager.GenericSheet["InventoryWindow"] is Window w)
             {
+                if (Character.CurrentCharacter.Gender == Character.GenderType.Female)
+                    w.VisualKey = "Inventory_Female";
+                else w.VisualKey = "Inventory_Male";
+
                 Item item = null;
 
                 foreach(Control c in w.Controls)

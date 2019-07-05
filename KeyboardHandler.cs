@@ -168,7 +168,7 @@ namespace Yuusha
                         #region Login Game State
                         if (Client.GameState == Enums.EGameState.Login)
                         {
-                            // Testing purposes ALT + C, ALT + W
+                            // Testing purposes ALT + C, ALT + W, ALT + Q
                             #region Testing Area aka the Playground
                             //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             //{
@@ -223,6 +223,18 @@ namespace Yuusha
                             //    result = true;
                             //}
                             #endregion
+
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
+                            {
+                                //Utils.LogCharacterFields();
+                                //Utils.LogCharacterEffects();
+                                //foreach (Spell spell in World.SpellsList)
+                                //    Utils.Log(spell.Name);
+                                //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
+                                //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
+                                IO.Send(Protocol.REQUEST_CHARACTER_STATS);
+                                result = true;
+                            }
 
                             #region ALT + K  Horizontal Hot Button Window
                             //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
@@ -411,7 +423,9 @@ namespace Yuusha
                                 //Utils.LogCharacterEffects();
                                 //foreach (Spell spell in World.SpellsList)
                                 //    Utils.Log(spell.Name);
-                                IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
+                                //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
+                                //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
+                                IO.Send(Protocol.REQUEST_CHARACTER_STATS);
                                 result = true;
                             }
 
@@ -467,37 +481,37 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + H  Help Window
-                                                        if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.H))
-                                                        {
-                                                            gui.Window helpWindow = gui.GuiManager.GenericSheet["HelpWindow"] as gui.Window;
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.H))
+                            {
+                                gui.Window helpWindow = gui.GuiManager.GenericSheet["HelpWindow"] as gui.Window;
 
-                                                            if (helpWindow != null)
-                                                            {
-                                                                if (!helpWindow.IsVisible)
-                                                                {
-                                                                    (helpWindow["HelpScrollableTextBox"] as gui.ScrollableTextBox).Clear();
+                                if (helpWindow != null)
+                                {
+                                    if (!helpWindow.IsVisible)
+                                    {
+                                        (helpWindow["HelpScrollableTextBox"] as gui.ScrollableTextBox).Clear();
 
-                                                                    try
-                                                                    {
-                                                                        System.IO.StreamReader sr = new System.IO.StreamReader(Utils.GetMediaFile("help.txt"));
+                                        try
+                                        {
+                                            System.IO.StreamReader sr = new System.IO.StreamReader(Utils.GetMediaFile("help.txt"));
 
-                                                                        while (!sr.EndOfStream)
-                                                                        {
-                                                                            (helpWindow["HelpScrollableTextBox"] as gui.ScrollableTextBox).AddLine(sr.ReadLine(), Enums.ETextType.Default);
-                                                                        }
-                                                                        sr.Close();
-                                                                    }
-                                                                    catch (System.IO.FileNotFoundException)
-                                                                    {
-                                                                        (helpWindow["HelpScrollableTextBox"] as gui.ScrollableTextBox).AddLine("The help.txt file is missing from the media subdirectory.", Enums.ETextType.Default);
-                                                                    }
-                                                                }
+                                            while (!sr.EndOfStream)
+                                            {
+                                                (helpWindow["HelpScrollableTextBox"] as gui.ScrollableTextBox).AddLine(sr.ReadLine(), Enums.ETextType.Default);
+                                            }
+                                            sr.Close();
+                                        }
+                                        catch (System.IO.FileNotFoundException)
+                                        {
+                                            (helpWindow["HelpScrollableTextBox"] as gui.ScrollableTextBox).AddLine("The help.txt file is missing from the media subdirectory.", Enums.ETextType.Default);
+                                        }
+                                    }
 
-                                                                helpWindow.IsVisible = !helpWindow.IsVisible;
+                                    helpWindow.IsVisible = !helpWindow.IsVisible;
 
-                                                                result = true;
-                                                            }
-                                                        }
+                                    result = true;
+                                }
+                            }
                             #endregion
 
                             #region ALT + I  Vertical Hot Button Window

@@ -167,7 +167,7 @@ namespace Yuusha.gui
                 return false;
 
             // If typing in Options, don't echo the text to game or conference input text boxes.
-            if ((this.Name == Globals.GAMEINPUTTEXTBOX || this.Name == Globals.CONFINPUTTEXTBOX)
+            if ((Name == Globals.GAMEINPUTTEXTBOX || Name == Globals.CONFINPUTTEXTBOX)
                 && GuiManager.GenericSheet["OptionsWindow"] != null && GuiManager.GenericSheet["OptionsWindow"].HasFocus)
                 return false;
 
@@ -460,6 +460,9 @@ namespace Yuusha.gui
                         #endregion
                         else
                         {
+                            if (GuiManager.ActiveDropDownMenu != "")
+                                return false;
+
                             // eliminate F (function) keys
                             if (k.ToString().StartsWith("F") && k.ToString().Length > 1)
                                 return false;
@@ -538,7 +541,7 @@ namespace Yuusha.gui
 
                                 if (!shiftPressed && !controlPressed && !altPressed)
                                 {
-                                    if (this.Name == Globals.GAMEINPUTTEXTBOX && numLock) // overrides for numpad keys in a game input text box
+                                    if (Name == Globals.GAMEINPUTTEXTBOX && numLock) // overrides for numpad keys in a game input text box
                                     {
                                         #region NumLock and Number Pad Keys
                                         switch (k)

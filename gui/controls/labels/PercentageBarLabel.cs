@@ -21,9 +21,12 @@ namespace Yuusha.gui
         { get; set; } = true;
 
         public int SegmentGapSize
-        { get; set; } = 2;
+        { get; set; } = 3;
 
         public Color SegmentGapColor
+        { get; set; } = Color.Black;
+
+        public Color SegmentGapOriginalColor
         { get; set; } = Color.Black;
 
         public PercentageBarLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
@@ -33,18 +36,16 @@ namespace Yuusha.gui
                 textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, textAlignment,
                 xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride, anchors, popUpText)
         {
-
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
+            if (Percentage > 100) Percentage = 100;
+            else if (Percentage < 0) Percentage = 0;
+
             ForeLabel.Width = System.Convert.ToInt32(Width * Percentage / 100);
-
-            if (Segmented) ForeLabel.Width -= SegmentGapSize;
-
-            PopUpText = string.Format("{0:0.00}%", Percentage);
 
             if (ForeLabel != null)
             {
@@ -61,6 +62,9 @@ namespace Yuusha.gui
 
         public override void Draw(GameTime gameTime)
         {
+            if (!IsVisible)
+                return;
+
             base.Draw(gameTime);
 
             if (ForeLabel != null) ForeLabel.Draw(gameTime);
@@ -72,7 +76,7 @@ namespace Yuusha.gui
                 int segmentLength = Width / 10;
                 for (int i = 1; i < 10; i++)
                 {
-                    Rectangle segRec = new Rectangle(Position.X + (segmentLength * i) - SegmentGapSize, Position.Y, SegmentGapSize, Height);
+                    Rectangle segRec = new Rectangle(Position.X + (segmentLength * i), Position.Y, SegmentGapSize, Height);
                     Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], segRec, vi.Rectangle, new Color(Color.Black, VisualAlpha));
                 }
             }
