@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<font base="16" height="21">
+<bitmaps>
+<bitmap id="0" name="lemon12-0.png" size="256x256" />
+</bitmaps>
+<glyphs>
+<glyph ch=" " code="0020" bm="0" origin="0,0" size="0x0" aw="4" lsb="0" />
+<glyph ch="!" code="0021" bm="0" origin="0,0" size="8x21" aw="7" lsb="0" />
+<glyph ch="&quot;" code="0022" bm="0" origin="8,0" size="9x21" aw="8" lsb="0" />
+<glyph ch="#" code="0023" bm="0" origin="17,0" size="12x21" aw="11" lsb="0" />
+<glyph ch="$" code="0024" bm="0" origin="29,0" size="12x21" aw="11" lsb="0" />
+<glyph ch="%" code="0025" bm="0" origin="41,0" size="19x21" aw="18" lsb="0" />
+<glyph ch="&amp;" code="0026" bm="0" origin="60,0" size="13x21" aw="12" lsb="0" />
+<glyph ch="'" code="0027" bm="0" origin="73,0" size="5x21" aw="4" lsb="0" />
+<glyph ch="(" code="0028" bm="0" origin="78,0" size="7x21" aw="6" lsb="0" />
+<glyph ch=")" code="0029" bm="0" origin="85,0" size="7x21" aw="6" lsb="0" />
+<glyph ch="*" code="002a" bm="0" origin="92,0" size="10x21" aw="9" lsb="0" />
+<glyph ch="+" code="002b" bm="0" origin="102,0" size="12x21" aw="11" lsb="0" />
+<glyph ch="," code="002c" bm="0" origin="114,0" size="6x21" aw="5" lsb="0" />
+<glyph ch="-" code="002d" bm="0" origin="120,0" size="9x21" aw="8" lsb="0" />
+<glyph ch="." code="002e" bm="0" origin="129,0" size="6x21" aw="5" lsb="0" />
+<glyph ch="/" code="002f" bm="0" origin="135,0" size="7x21" aw="6" lsb="0" />
+<glyph ch="0" code="0030" bm="0" origin="142,0" size="13x21" aw="12" lsb="0" />
+<glyph ch="1" code="0031" bm="0" origin="155,0" size="10x21" aw="9" lsb="0" />
+<glyph ch="2" code="0032" bm="0" origin="165,0" size="12x21" aw="11" lsb="0" />
+<glyph ch="3" code="0033" bm="0" origin="177,0" size="11x21" aw="10" lsb="0" />
+<glyph ch="4" code="0034" bm="0" origin="188,0" size="12x21" aw="11" lsb="0" />
+<glyph ch="5" code="0035" bm="0" origin="200,0" size="11x21" aw="10" lsb="0" />
+<glyph ch="6" code="0036" bm="0" origin="211,0" size="11x21" aw="10" lsb="0" />
+<glyph ch="7" code="0037" bm="0" origin="222,0" size="10x21" aw="9" lsb="0" />
+<glyph ch="8" code="0038" bm="0" origin="232,0" size="11x21" aw="10" lsb="0" />
+<glyph ch="9" code="0039" bm="0" origin="243,0" size="12x21" aw="12" lsb="0" />
+<glyph ch=":" code="003a" bm="0" origin="0,21" size="6x21" aw="5" lsb="0" />
+<glyph ch=";" code="003b" bm="0" origin="6,21" size="6x21" aw="5" lsb="0" />
+<glyph ch="&lt;" code="003c" bm="0" origin="12,21" size="12x21" aw="11" lsb="0" />
+<glyph ch="=" code="003d" bm="0" origin="24,21" size="12x21" aw="11" lsb="0" />
+<glyph ch="&gt;" code="003e" bm="0" origin="36,21" size="12x21" aw="11" lsb="0" />
+<glyph ch="?" code="003f" bm="0" origin="48,21" size="10x21" aw="9" lsb="0" />
+<glyph ch="@" code="0040" bm="0" origin="58,21" size="18x21" aw="17" lsb="0" />
+<glyph ch="A" code="0041" bm="0" origin="76,21" size="12x21" aw="11" lsb="0" />
+<glyph ch="B" code="0042" bm="0" origin="88,21" size="13x21" aw="12" lsb="0" />
+<glyph ch="C" code="0043" bm="0" origin="101,21" size="11x21" aw="11" lsb="0" />
+<glyph ch="D" code="0044" bm="0" origin="112,21" size="13x21" aw="12" lsb="0" />
+<glyph ch="E" code="0045" bm="0" origin="125,21" size="10x21" aw="9" lsb="0" />
+<glyph ch="F" code="0046" bm="0" origin="135,21" size="10x21" aw="9" lsb="0" />
+<glyph ch="G" code="0047" bm="0" origin="145,21" size="12x21" aw="11" lsb="0" />
+<glyph ch="H" code="0048" bm="0" origin="157,21" size="14x21" aw="13" lsb="0" />
+<glyph ch="I" code="0049" bm="0" origin="171,21" size="7x21" aw="6" lsb="0" />
+<glyph ch="J" code="004a" bm="0" origin="178,21" size="9x21" aw="8" lsb="0" />
+<glyph ch="K" code="004b" bm="0" origin="187,21" size="12x21" aw="11" lsb="0" />
+<glyph ch="L" code="004c" bm="0" origin="199,21" size="9x21" aw="8" lsb="0" />
+<glyph ch="M" code="004d" bm="0" origin="208,21" size="17x21" aw="16" lsb="0" />
+<glyph ch="N" code="004e" bm="0" origin="225,21" size="14x21" aw="14" lsb="0" />
+<glyph ch="O" code="004f" bm="0" origin="239,21" size="13x21" aw="12" lsb="0" />
+<glyph ch="P" code="0050" bm="0" origin="0,42" size="12x21" aw="11" lsb="0" />
+<glyph ch="Q" code="0051" bm="0" origin="12,42" size="13x21" aw="12" lsb="0" />
+<glyph ch="R" code="0052" bm="0" origin="25,42" size="12x21" aw="11" lsb="0" />
+<glyph ch="S" code="0053" bm="0" origin="37,42" size="11x21" aw="11" lsb="0" />
+<glyph ch="T" code="0054" bm="0" origin="48,42" size="10x21" aw="9" lsb="0" />
+<glyph ch="U" code="0055" bm="0" origin="58,42" size="14x21" aw="13" lsb="0" />
+<glyph ch="V" code="0056" bm="0" origin="72,42" size="12x21" aw="11" lsb="0" />
+<glyph ch="W" code="0057" bm="0" origin="84,42" size="17x21" aw="16" lsb="0" />
+<glyph ch="X" code="0058" bm="0" origin="101,42" size="12x21" aw="12" lsb="0" />
+<glyph ch="Y" code="0059" bm="0" origin="113,42" size="11x21" aw="10" lsb="0" />
+<glyph ch="Z" code="005a" bm="0" origin="124,42" size="11x21" aw="10" lsb="0" />
+<glyph ch="[" code="005b" bm="0" origin="135,42" size="8x21" aw="7" lsb="0" />
+<glyph ch="\" code="005c" bm="0" origin="143,42" size="7x21" aw="6" lsb="0" />
+<glyph ch="]" code="005d" bm="0" origin="150,42" size="8x21" aw="7" lsb="0" />
+<glyph ch="^" code="005e" bm="0" origin="158,42" size="12x21" aw="11" lsb="0" />
+<glyph ch="_" code="005f" bm="0" origin="170,42" size="12x21" aw="11" lsb="0" />
+<glyph ch="`" code="0060" bm="0" origin="182,42" size="6x21" aw="6" lsb="0" />
+<glyph ch="a" code="0061" bm="0" origin="188,42" size="12x21" aw="11" lsb="0" />
+<glyph ch="b" code="0062" bm="0" origin="200,42" size="12x21" aw="11" lsb="0" />
+<glyph ch="c" code="0063" bm="0" origin="212,42" size="11x21" aw="10" lsb="0" />
+<glyph ch="d" code="0064" bm="0" origin="223,42" size="12x21" aw="12" lsb="0" />
+<glyph ch="e" code="0065" bm="0" origin="235,42" size="11x21" aw="10" lsb="0" />
+<glyph ch="f" code="0066" bm="0" origin="246,42" size="7x21" aw="6" lsb="0" />
+<glyph ch="g" code="0067" bm="0" origin="0,63" size="12x21" aw="11" lsb="0" />
+<glyph ch="h" code="0068" bm="0" origin="12,63" size="13x21" aw="12" lsb="0" />
+<glyph ch="i" code="0069" bm="0" origin="25,63" size="7x21" aw="6" lsb="0" />
+<glyph ch="j" code="006a" bm="0" origin="32,63" size="7x21" aw="6" lsb="0" />
+<glyph ch="k" code="006b" bm="0" origin="39,63" size="12x21" aw="11" lsb="0" />
+<glyph ch="l" code="006c" bm="0" origin="51,63" size="6x21" aw="6" lsb="0" />
+<glyph ch="m" code="006d" bm="0" origin="57,63" size="19x21" aw="18" lsb="0" />
+<glyph ch="n" code="006e" bm="0" origin="76,63" size="13x21" aw="12" lsb="0" />
+<glyph ch="o" code="006f" bm="0" origin="89,63" size="12x21" aw="11" lsb="0" />
+<glyph ch="p" code="0070" bm="0" origin="101,63" size="13x21" aw="12" lsb="0" />
+<glyph ch="q" code="0071" bm="0" origin="114,63" size="12x21" aw="11" lsb="0" />
+<glyph ch="r" code="0072" bm="0" origin="126,63" size="9x21" aw="8" lsb="0" />
+<glyph ch="s" code="0073" bm="0" origin="135,63" size="11x21" aw="10" lsb="0" />
+<glyph ch="t" code="0074" bm="0" origin="146,63" size="8x21" aw="7" lsb="0" />
+<glyph ch="u" code="0075" bm="0" origin="154,63" size="13x21" aw="12" lsb="0" />
+<glyph ch="v" code="0076" bm="0" origin="167,63" size="12x21" aw="11" lsb="0" />
+<glyph ch="w" code="0077" bm="0" origin="179,63" size="16x21" aw="15" lsb="0" />
+<glyph ch="x" code="0078" bm="0" origin="195,63" size="11x21" aw="11" lsb="0" />
+<glyph ch="y" code="0079" bm="0" origin="206,63" size="12x21" aw="11" lsb="0" />
+<glyph ch="z" code="007a" bm="0" origin="218,63" size="10x21" aw="10" lsb="0" />
+<glyph ch="{" code="007b" bm="0" origin="228,63" size="8x21" aw="7" lsb="0" />
+<glyph ch="|" code="007c" bm="0" origin="236,63" size="8x21" aw="7" lsb="0" />
+<glyph ch="}" code="007d" bm="0" origin="244,63" size="8x21" aw="7" lsb="0" />
+<glyph ch="~" code="007e" bm="0" origin="0,84" size="12x21" aw="11" lsb="0" />
+</glyphs>
+</font>

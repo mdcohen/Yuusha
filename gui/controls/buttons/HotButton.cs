@@ -10,9 +10,6 @@ namespace Yuusha.gui
         public int FadeIncrement = 10;
         public double FadeDelay = .035;
         readonly int m_originalVisualAlpha = 255;
-        private Border m_border;
-        
-        public Border Border { get { return m_border; } set { m_border = value; } }
 
         public HotButton(string name, string owner, Rectangle rectangle, string text, bool textVisible,
             Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor,
@@ -82,15 +79,20 @@ namespace Yuusha.gui
         {
             base.OnMouseDown(ms);
 
+            if (GuiManager.DraggedControl != null && GuiManager.DraggedControl.Name == Owner)
+                return;
+
             if (ms.LeftButton == ButtonState.Pressed)
             {
-                if (Text.Length <= 0)
+                if (Command.Length <= 0)
                     return;
 
                 m_visualAlpha = 40;
             }
             else if(ms.RightButton == ButtonState.Pressed)
             {
+                if (!Owner.Contains("HotButtonWindow")) return;
+
                 if(!Client.IsFullScreen)
                 {
                     TextCue.AddClientInfoTextCue("Hot Button Edit Mode requires full screen display.",
@@ -196,19 +198,24 @@ namespace Yuusha.gui
 
         public override void Draw(GameTime gameTime)
         {
-            if (!this.IsVisible)
+            if (!IsVisible)
                 return;
 
-            if(this.Text == "" || (this.VisualKey == "WhiteSpace" && GuiManager.GetControl(this.Owner) is HotButtonEditWindow))
+            if(VisualKey == "WhiteSpace" && GuiManager.GetControl(Owner) is HotButtonEditWindow)
             {
                 if (Border != null && Border.IsVisible) Border.Draw(gameTime);
                 return;
             }
 
+            Color color = new Color(m_tintColor, (byte)MathHelper.Clamp(m_visualAlpha, 0, 255));
+
+            if (Text == "" && Owner.Contains("HotButtonWindow"))
+                color = new Color(Color.Black, 160);
+
             VisualInfo vi = GuiManager.Visuals[m_visualKey.Key];
 
             Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], this.m_rectangle, vi.Rectangle,
-                new Color(m_tintColor.R, m_tintColor.G, m_tintColor.B, (byte)MathHelper.Clamp(m_visualAlpha, 0, 255)));
+                new Color(color.R, color.G, color.B, color.A));
 
             if (Border != null) Border.Draw(gameTime);
         }

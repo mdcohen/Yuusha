@@ -273,35 +273,37 @@ namespace Yuusha.gui
                             //        }
                             //    }
                             //}
-
-                            foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
+                            lock ((m_controls[index] as Window).Controls)
                             {
-                                if (name == c.Name)
-                                    return c;
-
-                                if (c is Window)
+                                foreach (Control c in new List<Control>(new List<Control>((m_controls[index] as Window).Controls)))
                                 {
-                                    foreach (Control c2 in new List<Control>((c as Window).Controls))
+                                    if (name == c.Name)
+                                        return c;
+
+                                    if (c is Window)
                                     {
-                                        if (name == c2.Name)
-                                            return c2;
-
-                                        if (c2 is Window)
+                                        foreach (Control c2 in new List<Control>((c as Window).Controls))
                                         {
-                                            foreach (Control c3 in new List<Control>((c2 as Window).Controls))
+                                            if (name == c2.Name)
+                                                return c2;
+
+                                            if (c2 is Window)
                                             {
-                                                if (name == c3.Name)
-                                                    return c3;
-
-                                                if (c3 is Window)
+                                                foreach (Control c3 in new List<Control>((c2 as Window).Controls))
                                                 {
-                                                    foreach (Control c4 in new List<Control>((c3 as Window).Controls))
-                                                    {
-                                                        if (name == c4.Name)
-                                                            return c4;
-                                                    }
-                                                }
+                                                    if (name == c3.Name)
+                                                        return c3;
 
+                                                    if (c3 is Window)
+                                                    {
+                                                        foreach (Control c4 in new List<Control>((c3 as Window).Controls))
+                                                        {
+                                                            if (name == c4.Name)
+                                                                return c4;
+                                                        }
+                                                    }
+
+                                                }
                                             }
                                         }
                                     }
@@ -611,11 +613,6 @@ namespace Yuusha.gui
                         if (c is Border)
                             (owner as DropDownMenu).Border = c as Border;
                     }
-                    else if (owner is HotButton)
-                    {
-                        if (c is Border)
-                            (owner as HotButton).Border = c as Border;
-                    }
                     else if (owner is DragAndDropButton)
                     {
                         if (c is Border)
@@ -624,8 +621,14 @@ namespace Yuusha.gui
                             (owner as DragAndDropButton).OriginalBorderColor = c.TintColor;
                             (owner as DragAndDropButton).HasOriginalBorderColor = true;
                         }
-                        else if (c is DropDownMenu)
+
+                        if (c is DropDownMenu)
                             (owner as DragAndDropButton).DropDownMenu = c as DropDownMenu;
+                    }
+                    else if (owner is Button)
+                    {
+                        if (c is Border)
+                            (owner as Button).Border = c as Border;
                     }
                     else if (owner is CheckboxButton)
                     {

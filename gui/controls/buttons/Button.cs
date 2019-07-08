@@ -9,6 +9,8 @@ namespace Yuusha.gui
         protected bool m_onMouseDownSent = false;
         public bool IsTextVisible
         { get; set; }
+        public Border Border
+        { get; set; }
 
         public Button(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
@@ -95,6 +97,15 @@ namespace Yuusha.gui
                 }
                 else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Button [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
             }
+
+            if (Border != null) Border.Draw(gameTime);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (Border != null) Border.Update(gameTime);
         }
 
         protected override void OnMouseDown(MouseState ms)

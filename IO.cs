@@ -499,7 +499,14 @@ namespace Yuusha
                                     Utility.Settings.StaticSettings.ServerVersion = Protocol.GetProtoInfoFromString(inData, Protocol.VERSION_SERVER, Protocol.VERSION_SERVER_END);
                                     return true;
                                 }
-
+                                else if(inData.IndexOf(Protocol.VERSION_CLIENT_END) != -1)
+                                {
+                                    Utility.Settings.StaticSettings.ClientVersion = Protocol.GetProtoInfoFromString(inData, Protocol.VERSION_CLIENT, Protocol.VERSION_CLIENT_END);
+                                }
+                                else if(inData.IndexOf(Protocol.VERSION_MASTERROUNDINTERVAL_END) != -1)
+                                {
+                                    Utility.Settings.StaticSettings.RoundDelayLength = Convert.ToDouble(Protocol.GetProtoInfoFromString(inData, Protocol.VERSION_MASTERROUNDINTERVAL, Protocol.VERSION_MASTERROUNDINTERVAL_END));
+                                }
                                 // capture world lands
                                 else if (inData.IndexOf(Protocol.WORLD_LANDS_END) != -1)
                                 {

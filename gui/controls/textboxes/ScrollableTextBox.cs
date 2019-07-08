@@ -292,8 +292,16 @@ namespace Yuusha.gui
                         //if (dropDownRectangle.Y + dropDownRectangle.Width > Client.Width)
                         //    dropDownRectangle.Y = Client.Width - dropDownRectangle.Width - 5;
 
-                        GuiManager.Sheets[Sheet].CreateDropDownMenu(Name + "DropDownMenu", Name, " Font Options ", dropDownRectangle, true,
-                            Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
+                        if (Sheet != "Generic")
+                        {
+                            GuiManager.Sheets[Sheet].CreateDropDownMenu(Name + "DropDownMenu", Name, " Font Options ", dropDownRectangle, true,
+                                Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
+                        }
+                        else
+                        {
+                            GuiManager.GenericSheet.CreateDropDownMenu(Name + "DropDownMenu", Name, " Font Options ", dropDownRectangle, true,
+                                Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
+                        }
 
                         DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
                         {
@@ -405,22 +413,12 @@ namespace Yuusha.gui
 
         private void OnFontChange()
         {
-            //List<string> allLines = new List<string>(m_allLines);
-            //List<Enums.ETextType> allTextTypes = new List<Enums.ETextType>(m_allTextTypes);
-
-            //Clear();
-
-            //for(int i = 0; i < allLines.Count; i++)
-            //    AddLine(allLines[i], allTextTypes[i]);
-
             m_formattedLines.Clear();
             m_formattedTextTypes.Clear();
             m_formattedTextColors.Clear();
 
             for (int a = 0; a < m_allLines.Count; a++)
-            {
                 FormatLine(m_allLines[a], m_allTextTypes[a], m_allTextColors[a]);
-            }
         }
 
         public void Clear()

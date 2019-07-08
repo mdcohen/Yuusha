@@ -28,7 +28,9 @@ namespace Yuusha.gui
             textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent,
             cursorOverride, anchors, popUpText)
         {
-            int x = rectangle.X; int y = rectangle.Y + rectangle.Height;
+            int x = rectangle.X;
+            int y = rectangle.Y + rectangle.Height;
+
             if(GuiManager.GetControl(owner) is Window w)
             {
                 x = w.Position.X + x;
@@ -36,7 +38,7 @@ namespace Yuusha.gui
             }
 
             HealthBar = new PercentageBarLabel(name + "PercentageBarLabel", name, new Rectangle(x, y, rectangle.Width, 2), "", Color.White,
-                true, false, "courier12", new VisualKey("WhiteSpace"), Color.Transparent, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");
+                true, false, "courier12", new VisualKey("WhiteSpace"), Color.Black, 0, 150, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");
             HealthBar.Segmented = false;
             HealthBar.ForeLabel = new Label(HealthBar.Name + "ForeLabel", HealthBar.Name, new Rectangle(x, y, rectangle.Width, 2), "", Color.White,
                 true, false, "courier12", new VisualKey("WhiteSpace"), Color.Red, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");

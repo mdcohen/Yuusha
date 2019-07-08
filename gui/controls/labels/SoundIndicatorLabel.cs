@@ -5,6 +5,8 @@ namespace Yuusha.gui
 {
     public class SoundIndicatorLabel : Label
     {
+        private static bool AllSoundIndicatorsCreated = false;
+
         public Audio.AudioManager.SoundDirection Direction
         { get; set; }
 
@@ -19,6 +21,8 @@ namespace Yuusha.gui
 
         public static void CreateAllSoundIndicators()
         {
+            if (AllSoundIndicatorsCreated) return;
+
             for(int i = 4; i < 7; i++)
             {
                 foreach (Audio.AudioManager.SoundDirection direction in System.Enum.GetValues(typeof(Audio.AudioManager.SoundDirection)))
@@ -30,6 +34,8 @@ namespace Yuusha.gui
             foreach (Control control in GuiManager.GenericSheet.Controls)
                 if (control is SoundIndicatorLabel)
                     control.IsVisible = false;
+
+            AllSoundIndicatorsCreated = true;
         }
 
         public static void CreateSoundIndicator(Audio.AudioManager.SoundDirection direction, int distance)
@@ -49,51 +55,51 @@ namespace Yuusha.gui
             int x = (Client.Width / 2) - (width / 2);
             int y = (Client.Height / 2) - (height / 2);
 
-            if(GuiManager.GetControl("Tile24") is SpinelTileLabel spinelLabel)
+            if(GuiManager.GetControl("Tile24") is MapTileLabel mapTileLabel)
             {
-                x = spinelLabel.Position.X + spinelLabel.Width / 2;
-                y = spinelLabel.Position.Y + spinelLabel.Height / 2;
+                x = mapTileLabel.Position.X + mapTileLabel.Width / 2;
+                y = mapTileLabel.Position.Y + mapTileLabel.Height / 2;
             }
 
             // dead center
-            string directionString = "";
+            //string directionString = "";
             switch(direction)
             {
                 case Audio.AudioManager.SoundDirection.East:
                     x += 50 * distance;
-                    directionString = "E";
+                    //directionString = "E";
                     break;
                 case Audio.AudioManager.SoundDirection.North:
                     y -= 50 * distance;
-                    directionString = "N";
+                    //directionString = "N";
                     break;
                 case Audio.AudioManager.SoundDirection.South:
                     y += 50 * distance;
-                    directionString = "S";
+                    //directionString = "S";
                     break;
                 case Audio.AudioManager.SoundDirection.West:
                     x -= 50 * distance;
-                    directionString = "W";
+                    //directionString = "W";
                     break;
                 case Audio.AudioManager.SoundDirection.Northeast:
                     y -= 50 * distance;
                     x += 50 * distance;
-                    directionString = "NE";
+                    //directionString = "NE";
                     break;
                 case Audio.AudioManager.SoundDirection.Southeast:
                     y += 50 * distance;
                     x += 50 * distance;
-                    directionString = "SE";
+                    //directionString = "SE";
                     break;
                 case Audio.AudioManager.SoundDirection.Northwest:
                     y -= 50 * distance;
                     x -= 50 * distance;
-                    directionString = "NW";
+                    //directionString = "NW";
                     break;
                 case Audio.AudioManager.SoundDirection.Southwest:
                     y += 50 * distance;
                     x -= 50 * distance;
-                    directionString = "SW";
+                    //directionString = "SW";
                     break;
             }
 
@@ -103,9 +109,9 @@ namespace Yuusha.gui
             while (x + width > Client.Width) x--;
             while (y + height > Client.Height) y--;
 
-            string text = directionString + " (" + distance.ToString() + ")";
+            //string text = directionString + " (" + distance.ToString() + ")";
 
-            label = new SoundIndicatorLabel(direction + "_" + distance + "_SoundIndicatorLabel", "", new Rectangle(x, y, width, height), text, Client.ClientSettings.SoundIndicatorTextColor,
+            label = new SoundIndicatorLabel(direction + "_" + distance + "_SoundIndicatorLabel", "", new Rectangle(x, y, width, height), "", Client.ClientSettings.SoundIndicatorTextColor,
                 true, false, Client.ClientSettings.SoundIndicatorFont, new VisualKey("SoundWavesIcon"), Client.ClientSettings.SoundIndicatorTintColor, (byte)(255 - (distance * 5)), 255, BitmapFont.TextAlignment.Center,
                 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>(), "")
             {

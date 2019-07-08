@@ -57,6 +57,7 @@ namespace Yuusha
             Set_Game_State,
             Set_Login_State,
             Set_Login_Status_Label,
+            Spellbook_Flip,
             Switch_Character_Next,
             Switch_Character_Back,
             TabControl,
@@ -68,6 +69,8 @@ namespace Yuusha
             Toggle_HorizontalHotbar,
             Toggle_Macros,
             Toggle_OptionsWindow,
+            Toggle_Spellring,
+            Toggle_Spellbook,
             Toggle_VerticalHotbar,
             User_Settings_Changed,
         }
@@ -465,22 +468,19 @@ namespace Yuusha
 
                             if (Client.ClientSettings.DisplayChantingTextCue)
                             {
-                                if (args[0].ToString().StartsWith("You warm the spell "))
-                                {
-                                    string findSpellName = args[0].ToString().Replace("You warm the spell ", "");
-                                    findSpellName = findSpellName.Replace(".", "");
-                                    //Utils.Log("Spells Count: " + Character.CurrentCharacter.Spells.Count + " Looking for: " + findSpellName);
-                                    foreach (Spell spell in Character.CurrentCharacter.Spells)
-                                    {
-                                        Utils.Log("Spellbook: " + spell.Name);
-                                        if (spell.Name == findSpellName)
-                                        {
-                                            Utils.Log("Found spell: " + findSpellName);
-                                            //TextCue.AddChantingTextCue(spell.Incantation);
-                                            break;
-                                        }
-                                    }
-                                }
+                                //if (args[0].ToString().StartsWith("You warm the spell "))
+                                //{
+                                //    string findSpellName = args[0].ToString().Replace("You warm the spell ", "");
+                                //    findSpellName = findSpellName.Replace(".", "");
+                                //    foreach (Spell spell in Character.CurrentCharacter.Spells)
+                                //    {
+                                //        if (spell.Name == findSpellName)
+                                //        {
+                                //            //TextCue.AddChantingTextCue(spell.Incantation);
+                                //            break;
+                                //        }
+                                //    }
+                                //}
                             }
                         }
                         break;
@@ -586,8 +586,8 @@ namespace Yuusha
                                 break;
                         }
                         ResetLoginGUI();
-                        RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
-                        RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
+                        RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Disconnected);
+                        RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Login);
                         break; 
                     #endregion
                     case EventName.Next_Visual:
@@ -778,14 +778,18 @@ namespace Yuusha
                     case EventName.Send_Command:
                         if (args[0] is Control)
                         {
-                            IO.Send((args[0] as Control).Command);
+                            if (GameHUD.CurrentTarget != null)
+                                IO.Send((args[0] as Control).Command.Replace("%t", GameHUD.CurrentTarget.ID.ToString()));
+                            else IO.Send((args[0] as Control).Command);
 #if DEBUG
                             TextCue.AddClientInfoTextCue("DEBUG: " + (args[0] as Control).Command);
 #endif
                         }
                         else if(args[0] is string)
                         {
-                            IO.Send(args[0] as string);
+                            if (GameHUD.CurrentTarget != null)
+                                IO.Send((args[0] as string).Replace("%t", GameHUD.CurrentTarget.ID.ToString()));
+                            else IO.Send(args[0] as string);
 #if DEBUG
                             TextCue.AddClientInfoTextCue("DEBUG: " + args[0] as string);
 #endif
@@ -1318,6 +1322,71 @@ namespace Yuusha
                             if (optWindow.IsVisible) optWindow.ZDepth = 1;
                         }
                         break;
+                    case EventName.Toggle_Spellring:
+                        if (GuiManager.GenericSheet["SpellringWindow"] is SpellRingWindow spellringWindow)
+                        {
+                            if (!Character.CurrentCharacter.IsHybrid)
+                            {
+                                spellringWindow.IsVisible = false;
+                                break;
+                            }
+
+                            if (!spellringWindow.IsVisible)
+                                spellringWindow.SetRingProfession(Character.CurrentCharacter.Profession);
+
+                            spellringWindow.IsVisible = !spellringWindow.IsVisible;
+                            spellringWindow.HasFocus = spellringWindow.IsVisible;
+                        }
+                        break;
+                    case EventName.Toggle_Spellbook:
+                        if (GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow spellbookWindow)
+                        {
+                            if (!Character.CurrentCharacter.HasSpellbook)
+                            {
+                                spellbookWindow.IsVisible = false;
+                                break;
+                            }
+                                // Spellbook will be visible...
+                            if (!spellbookWindow.IsVisible)
+                            {
+                                spellbookWindow.UpdateVisiblePages(spellbookWindow.PageSet - 1, spellbookWindow.PageSet);
+                                spellbookWindow.ZDepth = 1;
+                            }
+
+                            spellbookWindow.IsVisible = !spellbookWindow.IsVisible;
+                            spellbookWindow.HasFocus = spellbookWindow.IsVisible;
+                        }
+                        break;
+                    case EventName.Spellbook_Flip:
+                        if (GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow sWindow)
+                        {
+                            if(args[0] is Button)
+                            {
+                                if((args[0] as Button).Name.Contains("Forward"))
+                                {
+                                    if (Character.CurrentCharacter != null && Character.CurrentCharacter.Spells.Count > sWindow.PageSet + 1)
+                                    {
+                                        sWindow.PageSet += 2;
+
+                                        sWindow.UpdateVisiblePages(sWindow.PageSet - 1, sWindow.PageSet);
+
+                                        Audio.AudioManager.PlaySoundEffect("GUISounds/page_flip");
+                                    }
+                                }
+                                else if((args[0] as Button).Name.Contains("Back"))
+                                {
+                                    if(sWindow.PageSet > 2)
+                                    {
+                                        sWindow.PageSet -= 2;
+
+                                        sWindow.UpdateVisiblePages(sWindow.PageSet - 1, sWindow.PageSet);
+
+                                        Audio.AudioManager.PlaySoundEffect("GUISounds/page_flip");
+                                    }
+                                }
+                            }
+                        }
+                        break;
                     case EventName.Toggle_VerticalHotbar:
                         if (GuiManager.GenericSheet["VerticalHotButtonWindow"] is Window verticalHotbar)
                         {
@@ -1727,6 +1796,8 @@ namespace Yuusha
 
         public static void ResetLoginGUI()
         {
+            string loginSheet = Enums.EGameState.Login.ToString();
+
             try
             {
                 GuiManager.TextCues.Clear();
@@ -1738,15 +1809,15 @@ namespace Yuusha
                 }
 
                 Program.Client.GUIManager.LoadSheet(GuiManager.GenericSheet.FilePath);
-                Program.Client.GUIManager.LoadSheet(GuiManager.CurrentSheet.FilePath);
+                Program.Client.GUIManager.LoadSheet(GuiManager.Sheets[loginSheet].FilePath);
 
                 if (Client.IsFullScreen)
                 {
                     GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
-                    GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
+                    GuiManager.Sheets[loginSheet].OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
                 }
 
-                if (GuiManager.Sheets["Login"]["ServerHostTextBox"] is TextBox serverHostTextBox)
+                if (GuiManager.Sheets[loginSheet]["ServerHostTextBox"] is TextBox serverHostTextBox)
                 {
                     serverHostTextBox.Clear();
                     serverHostTextBox.AddText(Client.ClientSettings.ServerHost);
@@ -1757,17 +1828,17 @@ namespace Yuusha
                 {
                     if (Client.ClientSettings.ContainsStoredAccount(Utility.Encrypt.DecryptString(Client.ClientSettings.MostRecentStoredAccount, Utility.Settings.StaticSettings.DecryptionPassPhrase3), out Utility.Encrypt.EncryptedKeyValuePair<string, string> kvPair))
                     {
-                        TextBox at = GuiManager.Sheets["Login"]["AccountTextBox"] as TextBox;
-                        TextBox pt = GuiManager.Sheets["Login"]["PasswordTextBox"] as TextBox;
+                        TextBox at = GuiManager.Sheets[loginSheet]["AccountTextBox"] as TextBox;
+                        TextBox pt = GuiManager.Sheets[loginSheet]["PasswordTextBox"] as TextBox;
                         at.Text = Utility.Encrypt.DecryptString(kvPair.Key, Utility.Settings.StaticSettings.DecryptionPassPhrase1);
                         at.SelectAll();
                         pt.Text = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
                         pt.SelectAll();
 
-                        (GuiManager.Sheets["Login"]["RememberPasswordCheckboxButton"] as CheckboxButton).IsChecked = true;
+                        (GuiManager.Sheets[loginSheet]["RememberPasswordCheckboxButton"] as CheckboxButton).IsChecked = true;
                     }
                 }
-                else GuiManager.Sheets["Login"]["AccountTextBox"].HasFocus = true;
+                else GuiManager.Sheets[loginSheet]["AccountTextBox"].HasFocus = true;
             }
             catch(Exception e)
             {
@@ -1797,7 +1868,7 @@ namespace Yuusha
                         {
                             if (control is SoundIndicatorLabel) control.IsVisible = false;
                         }
-                        Audio.AudioManager.StopAllSounds();
+                        //Audio.AudioManager.StopAllSounds();
                         break;
                     case Enums.EGameState.Login:
                         if(GameHUD.PreviousGameState != Enums.EGameState.Login)
@@ -1820,9 +1891,16 @@ namespace Yuusha
                         foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
                             GridBoxWindow.RequestUpdateFromServer(purpose);
                         // create all sound indicator labels
-                        SoundIndicatorLabel.CreateAllSoundIndicators();
-                        if(Character.CurrentCharacter != null)
-                            TextCue.AddZNameTextCue(Character.CurrentCharacter.ZName);
+                        if (!currGameState.ToString().EndsWith("Game"))
+                        {
+                            SoundIndicatorLabel.CreateAllSoundIndicators();
+                            SpellBookWindow.CreateSpellBookWindow();
+                            SpellRingWindow.CreateSpellRingWindow();
+                            //if(Character.CurrentCharacter != null)
+                            //    TextCue.AddMapNameTextCue(Character.CurrentCharacter.MapName);
+                            if (Character.CurrentCharacter != null)
+                                TextCue.AddZNameTextCue(Character.CurrentCharacter.ZName);
+                        }
                         break;
                     case Enums.EGameState.Conference:
                         foreach (Control control in GuiManager.GenericSheet.Controls)

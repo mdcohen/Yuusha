@@ -19,8 +19,8 @@ namespace Yuusha.Utility.Settings
         public byte DefaultPopUpBackAlpha = 150; // foreground text is always 255
         public byte DefaultPopUpFadeOutSpeed = 1;
         public byte DefaultPopUpFadeInSpeed = 5;
-        public string DefaultPopUpFont = "changaone14";
-        public string DefaultDropDownMenuFont = "changaone14";
+        public string DefaultPopUpFont = "lemon12";
+        public string DefaultDropDownMenuFont = "lemon12";
         public bool DisplayChantingTextCue = true;
         public bool StartFullScreen = false;
 
@@ -30,10 +30,10 @@ namespace Yuusha.Utility.Settings
         public bool PlayModemDialOnConnect = true;
         public bool DisplaySoundIndicators = true;
         public bool DisplaySoundIndicatorsNearby = false;
-        public int SoundIndicatorDimensions = 60;
+        public int SoundIndicatorDimensions = 40;
         public Color SoundIndicatorTintColor = Color.AliceBlue;
         public Color SoundIndicatorTextColor = Color.Goldenrod;
-        public string SoundIndicatorFont = "changaone14";
+        public string SoundIndicatorFont = "courier14";
 
         // private messages specific
         public bool EchoPrivateMessagesToConference = true;
@@ -81,7 +81,8 @@ namespace Yuusha.Utility.Settings
         public int TargetBorderSize = 1;
         public int MapTileBorderSize = 1;
         public Color MapTileBorderColor = Color.Goldenrod;
-        public int DefaultWindowTitleHeight = 18;
+        public int DefaultWindowTitleHeight = 21;
+        public string DefaultWindowTitleFont = "lemon12";
 
         public Color Color_Gui_Spell_Warming_TextCue = Color.PaleGoldenrod;
 

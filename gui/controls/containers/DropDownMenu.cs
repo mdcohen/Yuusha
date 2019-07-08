@@ -94,18 +94,15 @@ namespace Yuusha.gui
 
         public override bool MouseHandler(MouseState ms)
         {
-            bool handled = false;
-
             foreach (DropDownMenuItem menuItem in m_menuItems)
             {
-                if (menuItem.MouseHandler(ms))
-                    handled = true;
+                if (menuItem.MouseHandler(ms)) return true;
             }
 
             if (base.MouseHandler(ms))
-                handled = true;
+                return true;
 
-            return handled;
+            return false;
         }
 
         public void AddDropDownMenuItem(string text, string owner, VisualKey visualKey, string onMouseDown, string command, bool isDisabled)

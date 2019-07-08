@@ -37,6 +37,7 @@ NOTE 2: This has changed with property value adjustment to HiDef 2/10/2017 MC.
   <Texture Name="yuusha_items.png" Path="textures\yuusha_items.png"></Texture>
   <Texture Name="inventory_male.png" Path="textures\inventory_male.png"></Texture>
   <Texture Name="inventory_female.png" Path="textures\inventory_female.png"></Texture>
+  <Texture Name="spellbook.png" Path="textures\spellbook.png"></Texture>
 
   <Texture Name="heartrate.png" Path="textures\effects\heartrate.png"></Texture>
   <Texture Name="circle.png" Path="textures\effects\circle.png"></Texture>

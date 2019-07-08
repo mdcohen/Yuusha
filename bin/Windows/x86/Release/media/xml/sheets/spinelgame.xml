@@ -2013,6 +2013,27 @@
      OnMouseDown="toggle_macros"
      PopUpText="Macros">
     </Control>
+    <Control
+         Type="Button"
+         Text=""
+         Name="VerticalAutoHidingSpellbookButton"
+         Owner="VerticalGameAutoHidingWindow"
+         X="0"
+         Y="210"
+         Width="40"
+         Height="40"
+         VisualKey="SpellbookIcon"
+         TintColor="MediumSeaGreen"
+         TextColor="Black"
+         TintOverColor="PaleGreen"
+         TextVisible="false"
+         IsVisible="true"
+         Font="courier12"
+         TextAlignment="Left"
+         TextOverColor="SlateGray"
+         OnMouseDown="toggle_spellbook"
+         PopUpText="Spellbook">
+    </Control>
   </VerticalGameAutoHidingWindow>
 
   <EffectsWindow>
@@ -2025,7 +2046,7 @@
      Height="70"
      IsVisible="false"
      IsLocked="false"
-     Font="changaone12"
+     Font="lemon12"
      VisualKey="WhiteSpace"
      VisualAlpha="0"
      TintColor="DarkSlateGray"

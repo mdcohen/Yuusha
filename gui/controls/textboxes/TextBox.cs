@@ -995,6 +995,7 @@ namespace Yuusha.gui
         protected override void OnMouseDown(MouseState ms)
         {
             if (!Client.HasFocus) return;
+            if (IsDisabled) return;
 
             m_hasFocus = true;
             
@@ -1002,7 +1003,7 @@ namespace Yuusha.gui
 
             if(ms.RightButton == ButtonState.Pressed)
             {
-                if (DropDownMenu == null && (this.Text.Length > 0 || Utils.GetClipboardText().Length > 0))
+                if (DropDownMenu == null && (Text.Length > 0 || Utils.GetClipboardText().Length > 0))
                 {
                     try
                     {
@@ -1012,8 +1013,16 @@ namespace Yuusha.gui
                         //if (dropDownRectangle.Y + dropDownRectangle.Width > Client.Width)
                         //    dropDownRectangle.Y = Client.Width - dropDownRectangle.Width - 5;
 
-                        GuiManager.Sheets[Sheet].CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
-                            Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
+                        if (Sheet != "Generic")
+                        {
+                            GuiManager.Sheets[Sheet].CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
+                                Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
+                        }
+                        else
+                        {
+                            GuiManager.GenericSheet.CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
+                                Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
+                        }
 
                         DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
                         {
@@ -1024,17 +1033,21 @@ namespace Yuusha.gui
                         int height = 0;
                         if (Text.Length > 0 && !m_passwordBox)
                         {
-                            height += 20;
-                            DropDownMenu.AddDropDownMenuItem("cut", Name + "DropDownMenu", new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
+                            if (m_editable)
+                            {
+                                height += 20;
+                                DropDownMenu.AddDropDownMenuItem("cut", Name + "DropDownMenu", new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
+                            }
+
                             height += 20;
                             DropDownMenu.AddDropDownMenuItem("copy", Name + "DropDownMenu", new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);
                         }
-                        if (Utils.GetClipboardText().Length > 0)
+                        if (Utils.GetClipboardText().Length > 0 && m_editable)
                         {
                             height += 20;
                             DropDownMenu.AddDropDownMenuItem("paste", Name + "DropDownMenu", new VisualKey("WhiteSpace"), "TextBox_DropDown", "", Utils.GetClipboardText().Length > 0 ? false : true);
                         }
-                        if (this.Text.Length > 0)
+                        if (this.Text.Length > 0 && m_editable)
                         {
                             height += 20;
                             DropDownMenu.AddDropDownMenuItem("delete", Name + "DropDownMenu", new VisualKey("WhiteSpace"), "TextBox_DropDown", "", false);

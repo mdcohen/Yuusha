@@ -51,6 +51,7 @@
 	<Visual ParentTexture="lok_people.png" Name="male_wizard_npc" X="420" Y="120" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="boar" X="480" Y="120" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="fire_salamander" X="540" Y="120" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="salamander" X="540" Y="120" Width="60" Height="60"></Visual>  <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="presence" X="600" Y="120" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="gray_duck" X="660" Y="120" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="beetle" X="720" Y="120" Width="60" Height="60"></Visual>
@@ -66,7 +67,6 @@
 	<Visual ParentTexture="lok_people.png" Name="skeleton" X="300" Y="180" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="minotaur" X="360" Y="180" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="snake" X="420" Y="180" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="lok_people.png" Name="viper" X="420" Y="180" Width="60" Height="60"></Visual> <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="shark" X="480" Y="180" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="brown_bear" X="540" Y="180" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="bear" X="540" Y="180" Width="60" Height="60"></Visual> <!-- identical to above -->
@@ -352,8 +352,13 @@
 <!-- Row 20 -->
   <Visual ParentTexture="lok_people.png" Name="green_troll" X="0" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="grey_troll" X="60" Y="1140" Width="60" Height="60"></Visual>
-  
-  
+  <Visual ParentTexture="lok_people.png" Name="bighorn" X="120" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="eagle" X="180" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="raven" X="240" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="viper" X="300" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="harpy" X="360" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="goblin_female" X="420" Y="1140" Width="60" Height="60"></Visual>
+
   <!-- Added temporary sorcerer visuals which duplicate wizard visuals, 8/14/2013 -->
   <Visual ParentTexture="lok_people.png" Name="male_sorcerer_pc_gray" X="240" Y="720" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="male_sorcerer_pc_green" X="300" Y="720" Width="60" Height="60"></Visual>

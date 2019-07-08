@@ -1728,7 +1728,7 @@ available in any game state. -->
       Type="WindowTitle"
       Name="NewsWindowTitle"
       Owner="NewsWindow"
-      Font="changaone12"
+      Font="lemon12"
       VisualKey="WhiteSpace"
       TintColor="Gray"
       CloseBoxVisualKey="WindowCloseBox"

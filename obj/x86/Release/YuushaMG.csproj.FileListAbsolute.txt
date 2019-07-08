@@ -260,7 +260,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles1.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\lok_tiles2.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\scroll.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\spell_icons.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\spinel_spells.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\spinel_tiles.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\splash1.png
@@ -625,8 +624,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier14-0.
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\courier14.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\conference.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\sheets\yuushagame.xml
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone12-0.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone12.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone14-0.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone14.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone16-0.png
@@ -641,3 +638,16 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\inventory
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\inventory_female.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\tips.txt
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\tip_notification.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\rocksalt20-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\rocksalt20-1.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\rocksalt20-2.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\rocksalt20.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\spellbook.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\sageadvice_cymbal.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon12-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon12.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon14-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon14.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\runenglish12-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\runenglish12.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\page_flip.xnb

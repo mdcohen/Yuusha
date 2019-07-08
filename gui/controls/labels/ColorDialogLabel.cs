@@ -10,7 +10,6 @@ namespace Yuusha.gui
 {
     public class ColorDialogButton : Button
     {
-        public Border Border { get; set; }
         private System.Windows.Forms.ColorDialog m_colorDialog;
 
         public ColorDialogButton(string name, string owner, Rectangle rectangle, bool visible, bool disabled, string font, Color tintColor, string cursorOverride, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string popUpText) :

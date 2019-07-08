@@ -9,8 +9,6 @@ namespace Yuusha.gui
     {
         public bool IsChecked
         { get; set; }
-        public Border Border
-        { get; set; }
         public Color VisualKeySelectedColor
         { get; set; }
 

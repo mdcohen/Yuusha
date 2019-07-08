@@ -21,6 +21,11 @@ namespace Yuusha
             Character.ClassType.Thaumaturge, Character.ClassType.Wizard, Character.ClassType.Thief, Character.ClassType.Ravager,
             Character.ClassType.Sorcerer, Character.ClassType.Druid, Character.ClassType.Ranger};
 
+        public static Character.ClassType[] SpellbookUser = new Character.ClassType[] { Character.ClassType.Thaumaturge,
+        Character.ClassType.Wizard, Character.ClassType.Thief, Character.ClassType.Sorcerer, Character.ClassType.Druid,
+            Character.ClassType.Ranger };
+
+
         public static int[] age_cycle = { 14400, 28800, 43200, 57600, 72000 };
 
         public static String[] ageTitle_humanoid = { "very young", "young", "middle aged", "old", "very old", "ancient" };

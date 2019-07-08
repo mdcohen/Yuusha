@@ -78,14 +78,14 @@ namespace Yuusha.Audio
             }
             else if (!gui.GameHUD.OverrideDisplayStates.Contains(Client.GameState)) MediaPlayer.Stop();
 
-            foreach (SoundEffectInstance inst in new List<SoundEffectInstance>(CurrentlyPlayingSoundEffects))
-            {
-                if (inst.State == SoundState.Stopped)
-                {
-                    CurrentlyPlayingSoundEffects.Remove(inst);
-                    inst.Dispose();
-                }
-            }
+            //foreach (SoundEffectInstance inst in new List<SoundEffectInstance>(CurrentlyPlayingSoundEffects))
+            //{
+            //    if (inst.State == SoundState.Stopped)
+            //    {
+            //        CurrentlyPlayingSoundEffects.Remove(inst);
+            //        inst.Dispose();
+            //    }
+            //}
             
             base.Update(gameTime);
         }
@@ -237,7 +237,7 @@ namespace Yuusha.Audio
                 inst.Pitch = pitch;
                 inst.Pan = pan;
 
-                CurrentlyPlayingSoundEffects.Add(inst);
+                //CurrentlyPlayingSoundEffects.Add(inst);
 
                 if (distance > 3 || Client.ClientSettings.DisplaySoundIndicatorsNearby)
                     gui.SoundIndicatorLabel.CreateSoundIndicator(direction, distance);
@@ -257,10 +257,10 @@ namespace Yuusha.Audio
         /// <summary>
         /// Stop all sound effect instances from playing. Typically called when exiting game mode.
         /// </summary>
-        public static void StopAllSounds()
-        {
-            foreach (SoundEffectInstance inst in new List<SoundEffectInstance>(CurrentlyPlayingSoundEffects))
-                inst.Stop();
-        }
+        //public static void StopAllSounds()
+        //{
+        //    foreach (SoundEffectInstance inst in new List<SoundEffectInstance>(CurrentlyPlayingSoundEffects))
+        //        inst.Stop();
+        //}
     }
 }

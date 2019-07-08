@@ -18,6 +18,9 @@ namespace Yuusha.gui
         public int FadeSpeed
         { get; set; } = DefaultFadeSpeed;
 
+        public bool IsFading
+        { get; set; } = true;
+
         public SpellEffectLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
@@ -125,16 +128,18 @@ namespace Yuusha.gui
 
             ZDepth = 1;
 
-            if (VisualAlpha > 201) VisualAlpha = 201;
-
-            VisualAlpha -= FadeSpeed;
-            TextAlpha = VisualAlpha + FadeSpeed; // Text, if displayed, fades slower
-
-            if (Border != null)
+            if (IsFading)
             {
-                Border.VisualAlpha = VisualAlpha - (FadeSpeed * 2); // Border fades faster
-                Border.Update(gameTime);
+                if (VisualAlpha > 201) VisualAlpha = 201;
+
+                VisualAlpha -= FadeSpeed;
+                TextAlpha = VisualAlpha + FadeSpeed; // Text, if displayed, fades slower.
+
+                if (Border != null)
+                    Border.VisualAlpha = VisualAlpha - (FadeSpeed * 2); // Border fades faster.
             }
+
+            if (Border != null) Border.Update(gameTime);
 
             if (VisualAlpha <= 0)
             {
@@ -151,12 +156,22 @@ namespace Yuusha.gui
                     Width = Width - 10;
                     Height = Height - 10;
 
+                    // Damage and heal labels slowly move upward.
                     if (Border != null && (Border.TintColor == new Color(DamageBorderColor, Border.VisualAlpha)
                         || Border.TintColor == new Color(HealBorderColor, Border.VisualAlpha)))
                     {
-                        Position = new Point(Position.X, Position.Y - 3);
+                        Position = new Point(Position.X, Position.Y - 2);
+
+                        // Stop shrinking and fading at 50 x 50.
+                        //if (Width <= 60 || Height <= 60)
+                        //{
+                        //    Width = 50; Height = 50;
+                        //    IsShrinking = false;
+                        //    IsFading = false;
+                        //}
                     }
 
+                    // Text disappears if it no longer fits inside the label.
                     if (Text != "")
                     {
                         if (BitmapFont.ActiveFonts[Font].MeasureString(Text) > Width)
@@ -166,9 +181,23 @@ namespace Yuusha.gui
                     if (Width <= 0 || Height <= 0)
                         IsVisible = false;
                 }
+                else
+                {
+                    // When damage and heal stop shrinking they still move upward.
+                    if (Border != null && (Border.TintColor == new Color(DamageBorderColor, Border.VisualAlpha)
+                            || Border.TintColor == new Color(HealBorderColor, Border.VisualAlpha)))
+                    {
+                        // Keep moving up slowly. Slower
+                        Position = new Point(Position.X, Position.Y - 2);
+
+                        // Remove the control after it disappears off screen.
+                        if (Position.Y + Height <= 0)
+                            IsVisible = false;
+                    }
+                }
             }
-            
-            if(!IsVisible)
+
+            if (!IsVisible)
                 GuiManager.CurrentSheet.RemoveControl(this);
         }
 

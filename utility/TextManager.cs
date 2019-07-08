@@ -18,6 +18,20 @@ namespace Yuusha
             "ziyilqa","luubluyi","luudnin","luuppatar","xul","ssaratu","zu","barra","kunushi","tamatunu","ega","cuthalu","egura","asaru",
             "urma","muxxisha","akki","ilani","gishtugbi","arrflug"};
 
+        public static string GenerateMagicWords(int amount)
+        {
+            string words = null;
+
+            for (int a = 1; a <= amount; a++)
+            {
+                if (words == null)
+                    words = MagicWords[new Random(Guid.NewGuid().GetHashCode()).Next(0, MagicWords.Length)];
+                else
+                    words += " " + MagicWords[new Random(Guid.NewGuid().GetHashCode()).Next(0, MagicWords.Length)];
+            }
+            return words;
+        }
+
         public static Color GetTextFilteredColor(Enums.EGameState gameState, string textLine, bool exactMatch)
         {
             Dictionary<string, Color> chosenDictionary = null;
@@ -158,7 +172,7 @@ namespace Yuusha
 
             if (lines.Count > 0)
             {
-                return lines[new Random().Next(lines.Count)].Split("|".ToCharArray());
+                return lines[new Random(Guid.NewGuid().GetHashCode()).Next(lines.Count)].Split("|".ToCharArray());
             }
             else
             {

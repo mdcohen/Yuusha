@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ClientSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ServerName>Dragon's Spine</ServerName>
-  <ServerHost>localhost</ServerHost>
+  <ServerHost>www.dragonsspine.com</ServerHost>
   <ServerPort>3000</ServerPort>
   <ShowSplash>false</ShowSplash>
   <DefaultFont>courier16</DefaultFont>
@@ -22,8 +22,8 @@
   <DefaultPopUpBackAlpha>150</DefaultPopUpBackAlpha>
   <DefaultPopUpFadeOutSpeed>1</DefaultPopUpFadeOutSpeed>
   <DefaultPopUpFadeInSpeed>5</DefaultPopUpFadeInSpeed>
-  <DefaultPopUpFont>changaone14</DefaultPopUpFont>
-  <DefaultDropDownMenuFont>changaone14</DefaultDropDownMenuFont>
+  <DefaultPopUpFont>lemon12</DefaultPopUpFont>
+  <DefaultDropDownMenuFont>lemon12</DefaultDropDownMenuFont>
   <DisplayChantingTextCue>true</DisplayChantingTextCue>
   <StartFullScreen>false</StartFullScreen>
   <PlayAudioWhenClientDeactivated>true</PlayAudioWhenClientDeactivated>
@@ -31,7 +31,7 @@
   <PlayModemDialOnConnect>true</PlayModemDialOnConnect>
   <DisplaySoundIndicators>true</DisplaySoundIndicators>
   <DisplaySoundIndicatorsNearby>false</DisplaySoundIndicatorsNearby>
-  <SoundIndicatorDimensions>60</SoundIndicatorDimensions>
+  <SoundIndicatorDimensions>40</SoundIndicatorDimensions>
   <SoundIndicatorTintColor>
     <B>255</B>
     <G>248</G>
@@ -46,7 +46,7 @@
     <A>255</A>
     <PackedValue>4280329690</PackedValue>
   </SoundIndicatorTextColor>
-  <SoundIndicatorFont>changaone14</SoundIndicatorFont>
+  <SoundIndicatorFont>courier14</SoundIndicatorFont>
   <EchoPrivateMessagesToConference>true</EchoPrivateMessagesToConference>
   <EchoPrivateMessagesToGame>true</EchoPrivateMessagesToGame>
   <DisplayPrivateMessageWindows>true</DisplayPrivateMessageWindows>
@@ -57,15 +57,15 @@
   <AlwaysOpenGridBoxWindowsUponActivity>false</AlwaysOpenGridBoxWindowsUponActivity>
   <StoredAccounts>
     <EncryptedKeyValuePairOfStringString>
-      <Key>1/vDctOy9dB3Mf0zOJBz4Q==</Key>
-      <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
-    </EncryptedKeyValuePairOfStringString>
-    <EncryptedKeyValuePairOfStringString>
       <Key>TL7JKi7e9HPChorCBUHc6w==</Key>
       <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
     </EncryptedKeyValuePairOfStringString>
+    <EncryptedKeyValuePairOfStringString>
+      <Key>1/vDctOy9dB3Mf0zOJBz4Q==</Key>
+      <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
+    </EncryptedKeyValuePairOfStringString>
   </StoredAccounts>
-  <MostRecentStoredAccount>DmheJJn42Woz+paW+RgPcUvtL4zDS1KM7XooVvQWYEI=</MostRecentStoredAccount>
+  <MostRecentStoredAccount>JUyMoMZ/fYbIwMLCcWKpxIQk2lnG9VNWDkxp+UgfB3M=</MostRecentStoredAccount>
   <OptionsWindowX>50</OptionsWindowX>
   <OptionsWindowY>50</OptionsWindowY>
   <MacrosWindowX>300</MacrosWindowX>
@@ -186,7 +186,8 @@
     <A>255</A>
     <PackedValue>4280329690</PackedValue>
   </MapTileBorderColor>
-  <DefaultWindowTitleHeight>18</DefaultWindowTitleHeight>
+  <DefaultWindowTitleHeight>21</DefaultWindowTitleHeight>
+  <DefaultWindowTitleFont>lemon12</DefaultWindowTitleFont>
   <Color_Gui_Spell_Warming_TextCue>
     <B>170</B>
     <G>232</G>

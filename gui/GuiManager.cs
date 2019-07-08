@@ -888,7 +888,37 @@ namespace Yuusha.gui
                     }
                     #endregion
 
-                    //GameHUD.UpdateCritterListWindow();
+                    Control spellbookButton = GetControl("VerticalAutoHidingSpellbookButton");
+                    Control spellringButton = GetControl("VerticalAutoHidingSpellringButton");
+
+                    if (spellbookButton != null && spellringButton != null)
+                    {
+                        if (Character.CurrentCharacter.HasSpellbook || Character.CurrentCharacter.knightRing)
+                        { 
+                            if (Character.CurrentCharacter.HasSpellbook)
+                            {
+                                spellbookButton.IsVisible = true;
+                                spellringButton.IsVisible = false;
+                            }
+                            else
+                            {
+                                spellbookButton.IsVisible = false;
+                                spellringButton.IsVisible = true;
+                            }
+
+                            if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha)
+                                GetControl(spellbookButton.Owner).Height = 250;
+                            else GetControl(spellbookButton.Owner).Height = 126;
+                        }
+                        else
+                        {
+                            spellbookButton.IsVisible = false;
+                            spellringButton.IsVisible = false;
+                            if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha)
+                                GetControl(spellbookButton.Owner).Height = 208;
+                            else GetControl(spellbookButton.Owner).Height = 105;
+                        }
+                    }
                 }
                 else
                 {

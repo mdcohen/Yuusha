@@ -62,7 +62,7 @@ namespace Yuusha.gui
 
         public override void Draw(GameTime gameTime)
         {
-            if (!m_visible)
+            if (!IsVisible)
                 return;
 
             base.Draw(gameTime);

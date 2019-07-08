@@ -6,3 +6,9 @@ Command|There is a fully functional game mail system where you may send and rece
 World|Throughout the known lands are remnants of ancient portals rumored built and enchanted by a long vanished sect of druids. Some portals still work properly if you know and recite the correct chant.
 Critter|Don't forget to bring fresh animal and beast corpses to a Tanner. There's no telling what could be salvaged.
 World|Beware of Ornic Hideouts; they're a safe haven for Ravagers, Sorcerers and followers of Nergal. However, they're a certain and quick death for all others.
+Command|Stock up on balms and use the "quaff" command to quickly take one from your sack, open it, drink it and then discard the empty bottle. It's a real lifesaver.
+Game|If you are poisoned find a priest or priestess who is aligned with, or friendly toward, you. They can even cure some diseases if you're unforatunate enough to become infected.
+Game|The sorcerer's contagion spell is horrendous. There is hope, however. Even applying simple cure remedies has a slim chance to remove the worst infection.
+Critter|Giants and their close relatives, such as ettins, firbolgs and ogres, have a longer reach than smaller humanoids. They'll be able to attack you even if they're out of your own melee range.
+Critter|Most undead are immune to cold based attacks. Unless they're spectral, they don't fare well versus fire and light based attacks. See if you can find some flame shield scrolls before moving into an area with many undead about.
+Game|Before resting to level up, see if you can find a dog to pet for some good luck. It's rumored moonstones have something to do with luck as well.

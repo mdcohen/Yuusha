@@ -232,7 +232,11 @@ namespace Yuusha
                                 //    Utils.Log(spell.Name);
                                 //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                                 //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
-                                IO.Send(Protocol.REQUEST_CHARACTER_STATS);
+                                //IO.Send(Protocol.REQUEST_CHARACTER_STATS);
+
+                                //SpellBookWindow.CreateSpellBookWindow();
+                                SpellRingWindow.CreateSpellRingWindow();
+
                                 result = true;
                             }
 
@@ -396,20 +400,6 @@ namespace Yuusha
                         }
                         else // menu, game, conf
                         {
-                            // Testing purposes ALT + W
-                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
-                            //{
-                            //    Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
-                            //    result = true;
-                            //}
-
-                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.E))
-                            //{
-                            //    TextCue.AddClientInfoTextCue("ALT + E");
-                            //    (GuiManager.GetControl("FogOfWarMapWindow") as MapWindow).EnlargeGrid(1);
-                            //    result = true;
-                            //}
-
                             // ALT + W Toggle Fog of War
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             {
@@ -417,28 +407,32 @@ namespace Yuusha
                                 result = true;
                             }
 
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
-                            {
-                                //Utils.LogCharacterFields();
-                                //Utils.LogCharacterEffects();
-                                //foreach (Spell spell in World.SpellsList)
-                                //    Utils.Log(spell.Name);
-                                //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
-                                //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
-                                IO.Send(Protocol.REQUEST_CHARACTER_STATS);
-                                result = true;
-                            }
+                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
+                            //{
+                            //    //Utils.LogCharacterFields();
+                            //    //Utils.LogCharacterEffects();
+                            //    //foreach (Spell spell in World.SpellsList)
+                            //    //    Utils.Log(spell.Name);
+                            //    //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
+                            //    //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
+                            //    //IO.Send(Protocol.REQUEST_CHARACTER_STATS);
+                            //    SpellBookWindow.CreateSpellBookWindow();
+                            //    result = true;
+                            //}
 
                             // Escape closes gridboxwindows if there is no target. Otherwise, target is cleared first.
                             if (ks.IsKeyDown(Keys.Escape))
                             {
-                                if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget == null)
+                                // Close spellbook. Close all GridBoxWindows. (target should always be cleared if GAMEINPUTTEXTBOX has focus)
+                                if (GuiManager.GetControl("SpellbookWindow") is SpellBookWindow w && w.IsVisible)
+                                    w.OnClose();
+                                else if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget == null)
                                     GuiManager.CloseAllGridBoxes();
                                 else if (!Client.GameState.ToString().EndsWith("Game"))
                                     GuiManager.CloseAllGridBoxes();
                             }
 
-                            if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1))
+                            if (ks.IsKeyDown(Keys.Tab) || (GuiManager.ControlWithFocus is TextBox && ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1))
                             {
                                 if (!ks.IsKeyDown(Keys.LeftAlt) && !ks.IsKeyDown(Keys.RightAlt))
                                 {
@@ -489,21 +483,19 @@ namespace Yuusha
                                 {
                                     if (!helpWindow.IsVisible)
                                     {
-                                        (helpWindow["HelpScrollableTextBox"] as gui.ScrollableTextBox).Clear();
+                                        (helpWindow["HelpScrollableTextBox"] as ScrollableTextBox).Clear();
 
                                         try
                                         {
                                             System.IO.StreamReader sr = new System.IO.StreamReader(Utils.GetMediaFile("help.txt"));
 
                                             while (!sr.EndOfStream)
-                                            {
-                                                (helpWindow["HelpScrollableTextBox"] as gui.ScrollableTextBox).AddLine(sr.ReadLine(), Enums.ETextType.Default);
-                                            }
+                                                (helpWindow["HelpScrollableTextBox"] as ScrollableTextBox).AddLine(sr.ReadLine(), Enums.ETextType.Default);
                                             sr.Close();
                                         }
                                         catch (System.IO.FileNotFoundException)
                                         {
-                                            (helpWindow["HelpScrollableTextBox"] as gui.ScrollableTextBox).AddLine("The help.txt file is missing from the media subdirectory.", Enums.ETextType.Default);
+                                            (helpWindow["HelpScrollableTextBox"] as ScrollableTextBox).AddLine("The help.txt file is missing from the media subdirectory.", Enums.ETextType.Default);
                                         }
                                     }
 
@@ -550,35 +542,35 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + N  News Window
-                                                        if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.N))
-                                                        {
-                                                            gui.Window newsWindow = gui.GuiManager.GenericSheet["NewsWindow"] as gui.Window;
-                                                            if (newsWindow != null)
-                                                            {
-                                                                if (!newsWindow.IsVisible)
-                                                                {
-                                                                    (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).Clear();
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.N))
+                            {
+                                gui.Window newsWindow = gui.GuiManager.GenericSheet["NewsWindow"] as gui.Window;
+                                if (newsWindow != null)
+                                {
+                                    if (!newsWindow.IsVisible)
+                                    {
+                                        (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).Clear();
 
-                                                                    try
-                                                                    {
-                                                                        for (int a = 0; a < World.News.Count; a++)
-                                                                        {
-                                                                            string[] nz = World.News[a].Split(Protocol.ISPLIT.ToCharArray());
-                                                                            foreach (string line in nz)
-                                                                            {
-                                                                                (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine(line.Trim(), Enums.ETextType.Default);
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    catch (System.IO.FileNotFoundException)
-                                                                    {
-                                                                        (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Failed to display news.", Enums.ETextType.Default);
-                                                                    }
-                                                                }
-                                                                newsWindow.IsVisible = !newsWindow.IsVisible;
-                                                                result = true;
-                                                            }
-                                                        }
+                                        try
+                                        {
+                                            for (int a = 0; a < World.News.Count; a++)
+                                            {
+                                                string[] nz = World.News[a].Split(Protocol.ISPLIT.ToCharArray());
+                                                foreach (string line in nz)
+                                                {
+                                                    (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine(line.Trim(), Enums.ETextType.Default);
+                                                }
+                                            }
+                                        }
+                                        catch (System.IO.FileNotFoundException)
+                                        {
+                                            (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Failed to display news.", Enums.ETextType.Default);
+                                        }
+                                    }
+                                    newsWindow.IsVisible = !newsWindow.IsVisible;
+                                    result = true;
+                                }
+                            }
                             #endregion
 
                             #region ALT + O  Options Window
@@ -613,24 +605,26 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + T  Reload Game Tiles (Mode Dependent)
-                                                        if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.T))
-                                                        {
-                                                            if (Client.GameDisplayMode == Enums.EGameDisplayMode.IOK)
-                                                            {
-                                                                gui.IOKMode.Tiles.Clear();
-                                                                Program.Client.GUIManager.ReloadIOKTiles();
-                                                            }
-                                                            result = true;
-                                                        }
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.T))
+                            {
+                                if (Client.GameDisplayMode == Enums.EGameDisplayMode.IOK)
+                                {
+                                    gui.IOKMode.Tiles.Clear();
+                                    Program.Client.GUIManager.ReloadIOKTiles();
+                                }
+                                result = true;
+                            }
                             #endregion
 
                             #region ALT + S  Toggle Sound
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.S))
                             {
                                 Client.UserSettings.SoundEffects = !Client.UserSettings.SoundEffects;
+                                Client.UserSettings.AudioEnabled = !Client.UserSettings.AudioEnabled;
+
                                 string onoff = "Enabled";
                                 if (!Client.UserSettings.SoundEffects) onoff = "Disabled";
-                                TextCue.AddClientInfoTextCue("Sound Effects " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 0, 2500, false, true, false);
+                                TextCue.AddClientInfoTextCue("Audio " + onoff, TextCue.TextCueTag.None, Color.Red, Color.Transparent, 0, 2500, false, true, false);
                                 result = true;
                             }
                             #endregion

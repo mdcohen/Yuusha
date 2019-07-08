@@ -228,8 +228,6 @@ C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Debug\YuushaMG.csproj.Core
 C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Debug\YuushaMG.csproj.CopyComplete
 C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Debug\YuushaMG.exe
 C:\Users\mikec\Desktop\DSpine Source\YuushaMG\obj\x86\Debug\YuushaMG.pdb
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\changaone12-0.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\changaone12.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\changaone14-0.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\changaone14.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\changaone16-0.png
@@ -275,7 +273,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\lok_tiles.p
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\lok_tiles1.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\lok_tiles2.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\scroll.png
-C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\spell_icons.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\spinel_spells.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\spinel_tiles.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\splash1.png
@@ -644,3 +641,11 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\rocksalt20-0.p
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\rocksalt20-1.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\rocksalt20-2.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\rocksalt20.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\textures\spellbook.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\lemon12-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\lemon12.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\lemon14-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\lemon14.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\runenglish12-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\runenglish12.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\GUISounds\page_flip.xnb

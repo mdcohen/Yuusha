@@ -683,7 +683,13 @@ namespace Yuusha
         public string MapName
         {
             get { return m_mapName; }
-            set { m_mapName = value; }
+            private set
+            {
+                if (value != m_mapName && Client.GameState.ToString().EndsWith("Game"))
+                    TextCue.AddMapNameTextCue(value);
+
+                m_mapName = value;
+            }
         }
         public string ZName
         {
@@ -691,9 +697,8 @@ namespace Yuusha
             private set
             {
                 if (value != m_zName && Client.GameState.ToString().EndsWith("Game"))
-                {
                     TextCue.AddZNameTextCue(value);
-                };
+
                 m_zName = value;
             }
         }
@@ -931,6 +936,20 @@ namespace Yuusha
             get
             {
                 return Array.IndexOf(World.ManaUser, Profession) > -1;
+            }
+        }
+        public bool HasSpellbook
+        {
+            get
+            {
+                return Array.IndexOf(World.SpellbookUser, Profession) > -1;
+            }
+        }
+        public bool IsHybrid
+        {
+            get
+            {
+                return Array.IndexOf(World.SpellbookUser, Profession) == -1 && Array.IndexOf(World.ManaUser, Profession) > -1;
             }
         }
         public bool IsPeeking

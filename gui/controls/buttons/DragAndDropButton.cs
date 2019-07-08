@@ -19,8 +19,6 @@ namespace Yuusha.gui
 
         public Item RepresentedItem
         { get; set; }
-        public Border Border
-        { get; set; }
 
         public bool HasEnteredGridBoxWindow { get; set; }
         public bool AcceptingDroppedButtons { get; set; }
@@ -83,20 +81,21 @@ namespace Yuusha.gui
                         if (dropDownRectangle.Y + dropDownRectangle.Width > Client.Width)
                             dropDownRectangle.Y = Client.Width - dropDownRectangle.Width - 5;
 
-                        // must come up with a solution for calling these
-                        if(Sheet != "Generic")
+                        //must come up with a solution for calling these
+                        if (Sheet != "Generic")
                         {
                             GuiManager.CurrentSheet.CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
                             Font, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, VisualAlpha, true, Map.Direction.Northwest, 5);
+
+                            //GuiManager.CurrentSheet.CreateSquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
                         }
-                        else GuiManager.GenericSheet.CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
+                        else
+                        {
+                            GuiManager.GenericSheet.CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
                             Font, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, VisualAlpha, true, Map.Direction.Northwest, 5);
 
-                        DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
-                        {
-                            IsVisible = true,
-                            VisualAlpha = 255
-                        };
+                            //GuiManager.GenericSheet.CreateSquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
+                        }
 
                         DropDownMenu.HasFocus = true;
                         int height = 0;
@@ -286,26 +285,29 @@ namespace Yuusha.gui
 
             MouseCursor cursor = GuiManager.Cursors[GuiManager.GenericSheet.Cursor];
 
-            if (cursor.DraggedButton == null || cursor.DraggedButton == this || AcceptingDroppedButtons)
+            if (GuiManager.ActiveDropDownMenu == null)
             {
-                if (Border == null && !IsLocked || (Border == null && AcceptingDroppedButtons && GuiManager.MouseOverDropAcceptingControl == this))
+                if (cursor.DraggedButton == null || cursor.DraggedButton == this || AcceptingDroppedButtons)
                 {
-                    SquareBorder border = new SquareBorder(this.Name + "SquareBorder", this.Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.DragAndDropBorderColor, 255);
-
-                    if (Sheet == "Generic")
-                        GuiManager.GenericSheet.AddControl(border);
-                    else GuiManager.CurrentSheet.AddControl(border);
-                }
-
-                if (Border != null)
-                {
-                    if (GuiManager.ActiveDropDownMenu == "" || (DropDownMenu != null && GuiManager.ActiveDropDownMenu == DropDownMenu.Name))
+                    if (Border == null && !IsLocked || (Border == null && AcceptingDroppedButtons && GuiManager.MouseOverDropAcceptingControl == this))
                     {
-                        Border.IsVisible = true;
+                        SquareBorder border = new SquareBorder(Name + "SquareBorder", Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.DragAndDropBorderColor, 255);
+
+                        if (Sheet == "Generic")
+                            GuiManager.GenericSheet.AddControl(border);
+                        else GuiManager.CurrentSheet.AddControl(border);
                     }
 
-                    if(OriginalBorderColor != null)
-                    { Border.TintColor = Client.ClientSettings.DragAndDropBorderColor; }
+                    if (Border != null)
+                    {
+                        if (GuiManager.ActiveDropDownMenu == "" || (DropDownMenu != null && GuiManager.ActiveDropDownMenu == DropDownMenu.Name))
+                        {
+                            Border.IsVisible = true;
+                        }
+
+                        if (OriginalBorderColor != null)
+                        { Border.TintColor = Client.ClientSettings.DragAndDropBorderColor; }
+                    }
                 }
             }
 

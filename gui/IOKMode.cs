@@ -174,8 +174,8 @@ namespace Yuusha.gui
                 }
 
                 // Overrides to focus on input text box.
-                // Options window and private messages have focus priority.
-                if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")))
+                // Spellbook window, Options window and private messages have focus priority.
+                if (!GuiManager.GenericSheet["SpellbookWindow"].IsVisible && !GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")))
                     sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
 
                 if (!Client.HasFocus)

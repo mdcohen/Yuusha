@@ -214,9 +214,6 @@ namespace Yuusha.gui
                             TextCue.AddXPLossTextCue(string.Format("-{0:n0}", pre.Experience - chr.Experience));
 
                         Character.PreviousRoundCharacter.Experience = chr.Experience;
-
-                        if (pre.ZName != chr.ZName)
-                            TextCue.AddZNameTextCue(chr.ZName);
                     }
 
                     if (sheet["ExpPercentageBarLabel"] is PercentageBarLabel expBar)
@@ -238,8 +235,9 @@ namespace Yuusha.gui
                 }
 
                 // Overrides to focus on input text box.
-                // Options window and private messages have focus priority.
-                if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")))
+                // Spellbook window, Options window and private messages have focus priority.
+
+                if (!GuiManager.GenericSheet["SpellbookWindow"].IsVisible && !GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")))
                     sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
 
                 if (!Client.HasFocus)

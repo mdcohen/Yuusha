@@ -21,25 +21,14 @@ namespace Yuusha.gui
         {
             // HintWindow exists, if this is called then another hint is desired.
             if(GuiManager.GenericSheet["TipWindow"] is TipWindow existingWindow)
-            {
                 existingWindow.OnClose();
-                //if (existingWindow[existingWindow.Name + "ScrollableTextBox"] is ScrollableTextBox existingTextBox)
-                //{
-                //    string[] tInfo = TextManager.GetRandomHintText();
-                //    existingTextBox.Clear();
-                //    existingTextBox.AddLine(tInfo[1], Enums.ETextType.Hint);
-                //    existingWindow.WindowTitle.Text = tInfo[0] + " Tip";
-                //    existingWindow.IsVisible = true;
-                //}
-                //return;
-            }
 
             TipWindow w = new TipWindow("TipWindow", "", new Rectangle(100, 50, 300, 250), true, false, false,
                 GuiManager.GenericSheet.Font, new VisualKey("WhiteSpace"), Color.Black, 255, true, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "Dragging");
 
-            WindowTitle wTitle = new WindowTitle(w.Name + "Title", w.Name, "changaone14", "Tip of the Trade", Color.PaleGreen, Color.MediumPurple,
+            WindowTitle wTitle = new WindowTitle(w.Name + "Title", w.Name, "lemon12", "Tip of the Trade", Color.PaleGreen, Color.MediumPurple,
                 255, BitmapFont.TextAlignment.Center, new VisualKey("WhiteSpace"), false,
-                new VisualKey("WindowCloseBox"), new VisualKey("WindowCloseBoxDown"), 18, 2, 17, 17, Color.Thistle, 20)
+                new VisualKey("WindowCloseBox"), new VisualKey("WindowCloseBoxDown"), 18, 2, 17, 17, Color.Thistle, 21)
             {
                 Width = w.Width
             };
@@ -82,9 +71,9 @@ namespace Yuusha.gui
             TipWindow w = new TipWindow("SageAdviceTipWindow", "", new Rectangle(Client.Width / 2 - 150, 50, 300, 250), true, false, false,
                 GuiManager.GenericSheet.Font, new VisualKey("WhiteSpace"), Color.Black, 180, true, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "Dragging");
 
-            WindowTitle wTitle = new WindowTitle(w.Name + "Title", w.Name, "changaone14", "Sage Advice", Color.PaleGreen, Color.DarkGreen,
+            WindowTitle wTitle = new WindowTitle(w.Name + "Title", w.Name, "lemon12", "Sage Advice", Color.PaleGreen, Color.DarkGreen,
                 255, BitmapFont.TextAlignment.Center, new VisualKey("WhiteSpace"), false,
-                new VisualKey("WindowCloseBox"), new VisualKey("WindowCloseBoxDown"), 18, 2, 17, 17, Color.LightGreen, 20)
+                new VisualKey("WindowCloseBox"), new VisualKey("WindowCloseBoxDown"), 18, 2, 17, 17, Color.LightGreen, 21)
             {
                 Width = w.Width
             };

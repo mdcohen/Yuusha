@@ -64,7 +64,9 @@
   <Visual ParentTexture="yuusha_items.png" Name="smallspinelgoldring" X="311" Y="1437" Width="42" Height="38"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="plainsilverband" X="0" Y="1620" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="knightsring" X="60" Y="1620" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="knightsringtransparent" X="0" Y="3120" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="ravagersring" X="180" Y="1620" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="ravagersringtransparent" X="60" Y="3120" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="goldringglowingredspinel" X="2287" Y="712" Width="174" Height="174"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="silverringblackstone" X="174" Y="1401" Width="40" Height="40"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="goldringsmallblackpearl" X="447" Y="1437" Width="40" Height="40"></Visual>

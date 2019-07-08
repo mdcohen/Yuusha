@@ -33,15 +33,16 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <Visual ParentTexture="damage_fog_skulls.png" Name="DamageFogSkulls" X="0" Y="0" Width="1920" Height="1080"></Visual>
   <Visual ParentTexture="inventory_male.png" Name="Inventory_Male" X="0" Y="0" Width="356" Height="429"></Visual>
   <Visual ParentTexture="inventory_female.png" Name="Inventory_Female" X="0" Y="0" Width="356" Height="429"></Visual>
-
+  <!-- Spellbook -->
+  <Visual ParentTexture="spellbook.png" Name="SpellbookBackground" X="0" Y="0" Width="1013" Height="647"></Visual>
   <!-- UI Helpers -->
   <Visual ParentTexture="ui_helpers.png" Name="TextBox" X="894" Y="302" Width="192" Height="34"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="NormalCursor" X="775" Y="962" Width="30" Height="30"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="QuestionCursor" X="807" Y="962" Width="30" Height="30"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="DraggingCursor" X="874" Y="998" Width="25" Height="25"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="WaitCursor" X="911" Y="999" Width="13" Height="22"></Visual>
-	<Visual ParentTexture="ui_helpers.png" Name="OpenSpellbook" X="4" Y="3" Width="382" Height="308"></Visual>
-	<Visual ParentTexture="ui_helpers.png" Name="OpenScroll" X="400" Y="3" Width="385" Height="311"></Visual>
+	<!-- <Visual ParentTexture="ui_helpers.png" Name="OpenSpellbook" X="4" Y="3" Width="382" Height="308"></Visual> -->
+  <!-- <Visual ParentTexture="ui_helpers.png" Name="OpenScroll" X="400" Y="3" Width="385" Height="311"></Visual> -->
 	<Visual ParentTexture="ui_helpers.png" Name="PlayButton" X="974" Y="7" Width="92" Height="40"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="PlayButtonDown" X="974" Y="48" Width="92" Height="40"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="BrownLeftArrowButton" X="857" Y="386" Width="19" Height="21"></Visual>
@@ -63,12 +64,12 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
 	<Visual ParentTexture="ui_helpers.png" Name="WindowMaximizeBoxDown" X="664" Y="1116" Width="12" Height="12"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="WindowCloseBoxDown" X="676" Y="1116" Width="12" Height="12"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="WindowCropBoxDown" X="688" Y="1116" Width="12" Height="12"></Visual>
-
+  <!-- Checkmarks -->
   <Visual ParentTexture="ui_helpers.png" Name="Checkmark1" X="960" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="Checkmark1WhiteSpace" X="1020" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="Checkmark2" X="960" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="Checkmark2WhiteSpace" X="1020" Y="1140" Width="60" Height="60"></Visual>
-
+  <!-- Icons -->
   <Visual ParentTexture="ui_helpers.png" Name="OptionGearsIcon" X="300" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="SackIcon" X="360" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="PouchIcon" X="420" Y="1200" Width="60" Height="60"></Visual>
@@ -77,10 +78,11 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <Visual ParentTexture="ui_helpers.png" Name="InventoryIcon" X="600" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="LockerIcon" X="660" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="MapIcon" X="720" Y="1200" Width="60" Height="60"></Visual>
-
-  <Visual ParentTexture="ui_helpers.png" Name="EmptyRoundIcon" X="660" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="SpellbookIcon" X="660" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="VerticalHotbarIcon" X="780" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="HorizontalHotbarIcon" X="840" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="MacrosIcon" X="900" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="SoundWavesIcon" X="960" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="ManaSymbol" X="0" Y="0" Width="289" Height="289"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="LevelUpSymbol" X="284" Y="0" Width="336" Height="293"></Visual>
 </VisualsIndex>

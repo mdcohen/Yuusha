@@ -16,7 +16,7 @@ namespace Yuusha
         private SpellType m_spellType; //
         private TargetType m_targetType; //
         private int m_mana; // mana cost to cast the spell
-        private int m_requiredLevel;
+        private int m_requiredLevel; // skill level
         private int m_trainingPrice; // purchase price
         private string m_description; // description of the spell
         private string m_command; // spell command
@@ -61,7 +61,17 @@ namespace Yuusha
         {
             get { return m_incantation; }
             set { m_incantation = value; }
-        } 
+        }
+
+        public int RequiredSkillLevel
+        {
+            get { return m_requiredLevel; }
+        }
+
+        public int ManaCost
+        {
+            get { return m_mana; }
+        }
         #endregion
 
         public bool IsClassSpell(Character.ClassType classType)

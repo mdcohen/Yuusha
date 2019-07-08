@@ -31,6 +31,12 @@
 /processorParam:Quality=Best
 /build:GUISounds/modem_dial.wav
 
+#begin GUISounds/page_flip.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/page_flip.wav
+
 #begin GUISounds/pm_alert.ogg
 /importer:OggImporter
 /processor:SoundEffectProcessor

@@ -63,9 +63,9 @@ namespace Yuusha.gui
             base.Update(gameTime);
 
             // update text
-            for (int a = TextCues.Count - 1; a >= 0; a--)
+            for (int a = GuiManager.Cursors["Normal"].TextCues.Count - 1; a >= 0; a--)
             {
-                TextCue tc = TextCues[a];
+                TextCue tc = GuiManager.Cursors["Normal"].TextCues[a];
                 tc.Update(gameTime, TextCues);
 
                 //if (BitmapFont.ActiveFonts.ContainsKey(tc.Font))
@@ -122,7 +122,7 @@ namespace Yuusha.gui
             }
 
             // Draw text last.
-            foreach (TextCue tc in TextCues)
+            foreach (TextCue tc in GuiManager.Cursors["Normal"].TextCues)
                 tc.Draw(gameTime);
         }
     }

@@ -34,7 +34,9 @@ namespace Yuusha
         public static string VERSION_SERVER = (char)27 + "V0" + (char)27;
         public static string VERSION_SERVER_END = (char)27 + "V1" + (char)27;
         public static string VERSION_CLIENT = (char)27 + "V2" + (char)27;
-        public static string VERSION_CLIENT_END = (char)27 + "V3" + (char)27; 
+        public static string VERSION_CLIENT_END = (char)27 + "V3" + (char)27;
+        public static string VERSION_MASTERROUNDINTERVAL = (char)27 + "V4" + (char)27;
+        public static string VERSION_MASTERROUNDINTERVAL_END = (char)27 + "V5" + (char)27;
         #endregion
 
         public static string ACCOUNT_INFO = (char)27 + "A0" + (char)27;
@@ -80,6 +82,10 @@ namespace Yuusha
         public static string CHARACTER_PROMPT_STATE_END = (char)27 + "C11" + (char)27;
         public static string CHARACTER_POUCH = (char)27 + "C12" + (char)27;
         public static string CHARACTER_POUCH_END = (char)27 + "C13" + (char)27;
+        public static string CHARACTER_TALENTS = (char)27 + "C14" + (char)27;
+        public static string CHARACTER_TALENTS_END = (char)27 + "C15" + (char)27;
+        public static string CHARACTER_MAIL = (char)27 + "C16" + (char)27;
+        public static string CHARACTER_MAIL_END = (char)27 + "C17" + (char)27;
 
         #endregion
 
@@ -151,6 +157,7 @@ namespace Yuusha
         public static string REQUEST_CHARACTER_SPELLS = (char)27 + "RI" + (char)27;
         public static string REQUEST_CHARACTER_EFFECTS = (char)27 + "RK" + (char)27;
         public static string REQUEST_CHARACTER_SKILLS = (char)27 + "RO" + (char)27;
+        public static string REQUEST_CHARACTER_TALENTS = (char)27 + "RP" + (char)27;
         #endregion
 
         #region Conference Room

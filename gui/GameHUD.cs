@@ -7,8 +7,10 @@ namespace Yuusha.gui
     {
         public static List<string> NonDiscreetlyDraggableWindows = new List<string>()
         {
-            //"EffectsWindow",
-            "TextVitalsWindow"
+            "EffectsWindow",
+            "TextVitalsWindow",
+            "SpellbookWindow",
+            "SpellringWindow"
         };
 
         public static Character CurrentTarget;
