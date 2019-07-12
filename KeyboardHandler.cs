@@ -36,6 +36,13 @@ namespace Yuusha
                 return true;
             }
 
+            // ALT + F
+            // frames per second text cue
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.F))
+            {
+                return true;
+            }
+
             // ALT + G
             // toggle client mode
             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.G))
@@ -170,6 +177,12 @@ namespace Yuusha
                         {
                             // Testing purposes ALT + C, ALT + W, ALT + Q
                             #region Testing Area aka the Playground
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.F))
+                            {
+                                TextCue.AddFPSTextCue(Math.Round(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds, 1).ToString());
+                                result = true;
+                            }
+
                             //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             //{
                             //Control mapWindow = GuiManager.GetControl("PrimaryMapWindow");
@@ -235,8 +248,15 @@ namespace Yuusha
                                 //IO.Send(Protocol.REQUEST_CHARACTER_STATS);
 
                                 //SpellBookWindow.CreateSpellBookWindow();
-                                SpellRingWindow.CreateSpellRingWindow();
-
+                                //SpellRingWindow.CreateSpellRingWindow();
+                                //SpellWarmingWindow.CreateSpellWarmingWindow("Icespear");
+                                if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window characterStatsWindow)
+                                {
+                                    characterStatsWindow.IsVisible = !characterStatsWindow.IsVisible;
+                                    characterStatsWindow.ZDepth = 1;
+                                    if(Character.CurrentCharacter != null)
+                                        Utils.LogCharacterFields();
+                                }
                                 result = true;
                             }
 
@@ -420,16 +440,31 @@ namespace Yuusha
                             //    result = true;
                             //}
 
+                            if(ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.F))
+                            {
+                                TextCue.AddFPSTextCue(Math.Round(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds, 1).ToString());
+                                result = true;
+                            }
+
                             // Escape closes gridboxwindows if there is no target. Otherwise, target is cleared first.
                             if (ks.IsKeyDown(Keys.Escape))
                             {
                                 // Close spellbook. Close all GridBoxWindows. (target should always be cleared if GAMEINPUTTEXTBOX has focus)
                                 if (GuiManager.GetControl("SpellbookWindow") is SpellBookWindow w && w.IsVisible)
+                                {
                                     w.OnClose();
+                                    result = true;
+                                }
                                 else if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget == null)
+                                {
                                     GuiManager.CloseAllGridBoxes();
+                                    result = true;
+                                }
                                 else if (!Client.GameState.ToString().EndsWith("Game"))
+                                {
                                     GuiManager.CloseAllGridBoxes();
+                                    result = true;
+                                }
                             }
 
                             if (ks.IsKeyDown(Keys.Tab) || (GuiManager.ControlWithFocus is TextBox && ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1))

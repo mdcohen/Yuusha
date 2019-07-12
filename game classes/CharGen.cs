@@ -215,7 +215,24 @@ namespace Yuusha
             string description = CharacterAge.ToLower() + " " + SelectedGender.ToLower() + " " + SelectedProfession.ToLower() + " from " + SelectedHomeland;
             (gui.GuiManager.CurrentSheet["CharGenInfoScrollableTextBox"] as gui.ScrollableTextBox).AddLine("You are a " + description + ".", Enums.ETextType.Default);
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Strength:     " + RolledStrength, Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Dexterity:    " + RolledDexterity, Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Intelligence: " + RolledStrength, Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Wisdom:       " + RolledStrength, Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Constitution: " + RolledStrength, Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Charisma:     " + RolledStrength, Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Hits:         " + RolledHits, Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Stamina:      " + RolledStamina, Enums.ETextType.Default);
+            if(ManaUser)
+                (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Mana:         " + RolledMana, Enums.ETextType.Default);
+            (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("", Enums.ETextType.Default);
             (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Please enter a name for your character:", Enums.ETextType.Default);
+        }
+
+        public static void CharGenSuccess()
+        {
+
         }
 
         public static void ReviewStats(string inData)
@@ -232,17 +249,21 @@ namespace Yuusha
             // Determine mana info visibility for casters/non-casters.
             if(!inData.Contains("Mana:"))
             {
-                (gui.GuiManager.CurrentSheet["ManaLabel"] as gui.Label).IsVisible = false;
-                (gui.GuiManager.CurrentSheet["ManaRollLabel"] as gui.Label).IsVisible = false;
-                (gui.GuiManager.CurrentSheet["HighestManaLabel"] as gui.Label).IsVisible = false;
+                gui.GuiManager.CurrentSheet["ManaLabel"].IsVisible = false;
+                gui.GuiManager.CurrentSheet["ManaRollLabel"].IsVisible = false;
+                gui.GuiManager.CurrentSheet["ManaDesiredTextBox"].IsVisible = false;
+                gui.GuiManager.CurrentSheet["HighestManaLabel"].IsVisible = false;
                 ManaUser = false;
+                // TODO: modify size of AutoRollerWindow
             }
             else
             {
-                (gui.GuiManager.CurrentSheet["ManaLabel"] as gui.Label).IsVisible = true;
-                (gui.GuiManager.CurrentSheet["ManaRollLabel"] as gui.Label).IsVisible = true;
-                (gui.GuiManager.CurrentSheet["HighestManaLabel"] as gui.Label).IsVisible = true;
+                gui.GuiManager.CurrentSheet["ManaLabel"].IsVisible = true;
+                gui.GuiManager.CurrentSheet["ManaRollLabel"].IsVisible = true;
+                gui.GuiManager.CurrentSheet["ManaDesiredTextBox"].IsVisible = true;
+                gui.GuiManager.CurrentSheet["HighestManaLabel"].IsVisible = true;
                 ManaUser = true;
+                // TODO: modify size of AutoRollerWindow
             }
 
             // Enable auto roller toggle button.

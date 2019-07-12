@@ -73,18 +73,39 @@ namespace Yuusha.gui
             if(!Contains(GuiManager.MouseState.Position))
                 OnMouseLeave(GuiManager.MouseState);
 
+            Point oldPosition = Position;
+
+            while (Position.X + Width > Client.Width)
+                Position = new Point(Position.X - 1, Position.Y);
+            while (Position.X < 0)
+                Position = new Point(Position.X + 1, Position.Y);
+            while (Position.Y + Height > Client.Height)
+                Position = new Point(Position.X, Position.Y - 1);
+            while (Position.Y < 0)
+                Position = new Point(Position.X, Position.Y + 1);
+
+            if (oldPosition.X != Position.X || oldPosition.Y != Position.Y)
+            {
+                foreach (DropDownMenuItem menuItem in MenuItems)
+                    menuItem.Position = new Point(menuItem.Position.X + (Position.X - oldPosition.X), menuItem.Position.Y + (Position.Y - oldPosition.Y));
+            }
+
             base.Update(gameTime);
 
             Width = 0;
+
             if(Title != "")
                 Width = BitmapFont.ActiveFonts[Font].MeasureString(Title);
+
             foreach(DropDownMenuItem menuItem in MenuItems)
             {
                 int textWidth = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultDropDownMenuFont].MeasureString(menuItem.Text);
+
                 if (Width < textWidth)
                     Width = textWidth + 1;
+
                 menuItem.Width = Width;
-            }           
+            }
 
             if (Border != null) Border.Update(gameTime);
 

@@ -139,14 +139,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YuushaMG.exe" size="723936">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YuushaMG.exe" size="746464">
       <assemblyIdentity name="YuushaMG" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>pE61YIUJcGCVYTJU6kub1jTPTDIFMfb3uPABMqrcl+g=</dsig:DigestValue>
+        <dsig:DigestValue>4A0sRs42UR9eVD1n/qEeMU1uvj9e6vMvg6OSPHACJHc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -2751,6 +2751,42 @@
       <dsig:DigestValue>Do9+eWVeob5vTHPCrJzfOlv3lEusvkIpodiR3sbPJbA=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="Content\KSND0279.xnb" size="268395">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>00ALp9K3WM0PMF9Bsk61qI0rBXEGoqoyQmmp9U5DamU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\KSND0280.xnb" size="326405">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>PUFToAqqAZ08D02M1dyFjAEINNbcPCskqhstYHrgi1k=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\KSND0281.xnb" size="355101">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>X6amtfhEufXQucc2S2d+/ohw12D552HpyvH2P7zFiF0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\KSND0282.xnb" size="400869">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>uhXoKEz3T5ZBC3Rwp+RHZslj3+7DZ4fvMNX2efL9TK0=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Content\KSNDint1.xnb" size="44418">
     <hash>
       <dsig:Transforms>
@@ -2796,7 +2832,7 @@
       <dsig:DigestValue>ARdADx3mujRVXgBjpXK+KGVpzm9LZ1TO51glQtGRaVM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\changaone14.xml" size="7861" writeableType="applicationData">
+  <file name="media\fonts\changaone\changaone14.xml" size="7861" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -2805,7 +2841,7 @@
       <dsig:DigestValue>hdyHbLmhgiShbFVeaXejFCNW7YK38N7eWNjJ6qdVGds=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\changaone14-0.png" size="8878">
+  <file name="media\fonts\changaone\changaone14-0.png" size="8878">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -2814,7 +2850,7 @@
       <dsig:DigestValue>UE0B8HV+f/7dUxcUACXkWY4d2TEbUuM9urP852AdDUE=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\changaone16.xml" size="7870" writeableType="applicationData">
+  <file name="media\fonts\changaone\changaone16.xml" size="7870" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -2823,7 +2859,7 @@
       <dsig:DigestValue>gNj+KyWFQpfP9ysHVRWCWnC1Uo64sSTIcwNx4e+zBQU=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\changaone16-0.png" size="10067">
+  <file name="media\fonts\changaone\changaone16-0.png" size="10067">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -2832,7 +2868,7 @@
       <dsig:DigestValue>kYu/m9b34d6LxSDOZJm5jhHobIz/GmP/K6AJGxpU22A=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\changaone20.xml" size="7928" writeableType="applicationData">
+  <file name="media\fonts\changaone\changaone20.xml" size="7928" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -2841,7 +2877,7 @@
       <dsig:DigestValue>xTGZBPU5EzQFr3XVwqEWIOE3tN5yqXfu9fMtqM2tHw8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\changaone20-0.png" size="12807">
+  <file name="media\fonts\changaone\changaone20-0.png" size="12807">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -2850,124 +2886,43 @@
       <dsig:DigestValue>9jUKMJH72MveP/QcGPdCt830sabHe1oIUu/pGcOxdyE=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\courier12.xml" size="8052" writeableType="applicationData">
+  <file name="media\fonts\dancingscript22.xml" size="7918" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>CP8V8q0JDZ5BAB77KTKximjigqvkXNzVJoygcuWn5xY=</dsig:DigestValue>
+      <dsig:DigestValue>bfIawfMwBOTemKyEY3NgmtXleu2mW1FEsllXOBRm5Jg=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\courier12-0.png" size="3620">
+  <file name="media\fonts\dancingscript22-0.png" size="16898">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>shVluIh1rZVyh4NrypY4j6OXG6VPkyulXGP5ilDcOJ0=</dsig:DigestValue>
+      <dsig:DigestValue>cdEZwbF9hJv6Ut8Uc4cPI79JQZRdYK8bfUYXbjnwK1M=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\courier14.xml" size="7914" writeableType="applicationData">
+  <file name="media\fonts\lemon\lemon10.xml" size="7785" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>VG+uqNwwRewKLruucuBqzkfw3YsolAUDCXd10UpI50E=</dsig:DigestValue>
+      <dsig:DigestValue>YHCHM9YG2INqE89sQfXYuQprECmIYYD5yGhahsxCo1g=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\courier14-0.png" size="3789">
+  <file name="media\fonts\lemon\lemon10-0.png" size="8299">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ZWcVRHTDjK7904Tmye1iZiAzxr0ffB2v/OEoX8b2H4A=</dsig:DigestValue>
+      <dsig:DigestValue>k0McmlGwkOKuWzcCZYiBHpkAuRpsjHoNPnxWOcz2yLE=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\courier16.xml" size="7966" writeableType="applicationData">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>4MNPG9aiL+/8SG53iRCk9HTi2bYi+LXYX+x2+AkjW3M=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="media\fonts\courier16-0.png" size="4739">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ZV7hYEDlyWBahEy12a3/w0y6C10HaagZ914xUv3nluQ=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="media\fonts\courier18.xml" size="7945" writeableType="applicationData">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>xoPhlAgvrEGhuMh6lIibZu5vht2NQ25SuXJGTF1V5OY=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="media\fonts\courier18-0.png" size="4946">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>iQdzlJGbywyF2So3l1I9MWEbmGm85ekMwMjIj25OAFU=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="media\fonts\courier20.xml" size="7956" writeableType="applicationData">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>AwW9nJJC9+fZmWpYUrx2HJCy9ND0DrgnSV7nwnW+HOY=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="media\fonts\courier20-0.png" size="5753">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>1kwZPJ7Y9+pFtr2gqjAHCIWEqYNn6znU8xYdB+0YGtU=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="media\fonts\courier28.xml" size="8044" writeableType="applicationData">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>BwYCAtAARiARMp0B112ofFgdyo0dM2vXNdq7cu+7UkU=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="media\fonts\courier28-0.png" size="11144">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>XmGdH0xCVzMl7ffOj6QA8VnWe216yen31IM+tWkfgyU=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="media\fonts\courier28-1.png" size="5634">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Crr2Sv+6TYKOA34oQErIwuMafF5gU80rTvdykon1adc=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="media\fonts\lemon12.xml" size="7851" writeableType="applicationData">
+  <file name="media\fonts\lemon\lemon12.xml" size="7851" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -2976,7 +2931,7 @@
       <dsig:DigestValue>iJmHLOrM6valCSxmwRSjBgZHepn2AcGfhkpb+acTEZk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\lemon12-0.png" size="10603">
+  <file name="media\fonts\lemon\lemon12-0.png" size="10603">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -2985,7 +2940,7 @@
       <dsig:DigestValue>VD3Cj6lIA+qFNCySFd0/MS8yO7RyAnpTw4wUD/iAyzc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\lemon14.xml" size="7896" writeableType="applicationData">
+  <file name="media\fonts\lemon\lemon14.xml" size="7896" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -2994,7 +2949,7 @@
       <dsig:DigestValue>CxQ0BOmRc/+bqcqmMajBbizjlHaidqFvRXJLpk2tggs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\lemon14-0.png" size="13234">
+  <file name="media\fonts\lemon\lemon14-0.png" size="13234">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -3003,58 +2958,328 @@
       <dsig:DigestValue>3Kdlq3NWuf3lrGDkc8BXipA9AlKcnLhrHPTFFDiHbN8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\rocksalt20.xml" size="8053" writeableType="applicationData">
+  <file name="media\fonts\lemon\lemon16.xml" size="7921" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>rJYklv7C6x8siO/iGnouTBsqtUEUqL6DKQk5HFDbUfc=</dsig:DigestValue>
+      <dsig:DigestValue>ZRLY5iup0AfBNQzl41M0vLYJABU//blbIfbdpMbBkO8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\rocksalt20-0.png" size="14193">
+  <file name="media\fonts\lemon\lemon16-0.png" size="14912">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>j8jye/YMItXy737TbZnQK7EbBfoaEfvMRNN0Zil7Gt4=</dsig:DigestValue>
+      <dsig:DigestValue>r/WrtmX6Fz3MZgQCZvyP7pfF/3dTQhrpcetRCwHzWMU=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\rocksalt20-1.png" size="13697">
+  <file name="media\fonts\lemon\lemon18.xml" size="7933" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>u45uupAlVkPYB8gVSNPEE+7rsina2Rinh9zDj3M+zX8=</dsig:DigestValue>
+      <dsig:DigestValue>kw9bztuMc4EbSeXZKM1EM9Ye4pRMK+rZqk3OtCGHH+w=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\rocksalt20-2.png" size="1708">
+  <file name="media\fonts\lemon\lemon18-0.png" size="17081">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>L4wmWIbwABBkOPdaiVBwd7OhwDLEFzEHmJ5A2Fk8JWk=</dsig:DigestValue>
+      <dsig:DigestValue>ErdQwVBMzJdOQf5tE33bMysNX6nSLunp5KSaHY8oTE8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\runenglish12.xml" size="7852" writeableType="applicationData">
+  <file name="media\fonts\lemon\lemon20.xml" size="8012" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Fe78pptzgCX4/clvNyc4drfybOKnrQRVPiMJCjz33lM=</dsig:DigestValue>
+      <dsig:DigestValue>/uKhS1TkWkCBMPJTO1uJe4FDMvnzSviAnh79VHiWrRM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\fonts\runenglish12-0.png" size="6538">
+  <file name="media\fonts\lemon\lemon20-0.png" size="19035">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>lmKl0/jXLsVXROSO9+6S1JxFCye99Z34lAgWK0b9AK0=</dsig:DigestValue>
+      <dsig:DigestValue>ZXU6B9nTo9MQlBXgIHCqHMq8Jdi1n1A9tTeQbZcUKBI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\lemon\lemon20-1.png" size="1395">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>yf0VHyNAgU4Rs/gDRqXgrlxpdzaFurWiotzRqaptnco=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\lobster22.xml" size="7931" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>LIJwsGT63n0n5iFlyvY+1UiZiQmFnMyoAgVAHiCPQ+g=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\lobster22-0.png" size="18045">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ZgmQZLUufI/Xkk2BfI2pEmiNCktSGDpJonZHYDPfVtI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\mogra22.xml" size="7947" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>P5+kKL2x2uQM9AmJNwUYXlSWV5enJhujvDIPcBivRsU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\mogra22-0.png" size="18107">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>lyvwRpefl7G9f9mShncRhfYUofSBdWPnXLj8joPTv/4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier12.xml" size="8072" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>HXCkgQj0vBba8qZdEJp4DVulM4BtSQ41BeizfDt3Twc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier12-0.png" size="3620">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>shVluIh1rZVyh4NrypY4j6OXG6VPkyulXGP5ilDcOJ0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier14.xml" size="7931" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Gpe+/WjlUdFwWRKaO7lcrgsGipQBxRsoXVHqgdIWGfA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier14-0.png" size="3789">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ZWcVRHTDjK7904Tmye1iZiAzxr0ffB2v/OEoX8b2H4A=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier16.xml" size="7983" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>6O26nG8MJL/mLE8VNr1AlJyvKuBb3chEEinwd0YwJew=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier16-0.png" size="4739">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ZV7hYEDlyWBahEy12a3/w0y6C10HaagZ914xUv3nluQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier18.xml" size="7962" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>J6GzgYpmyTSS/kEgKKLYWVeibbXOkamXYfayLPTTmEg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier18-0.png" size="4946">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>iQdzlJGbywyF2So3l1I9MWEbmGm85ekMwMjIj25OAFU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier20.xml" size="7974" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Z17AFJ7pzfUN/mbNmz1hkTO68KN4jz5hxJX5x4bLE3s=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier20-0.png" size="5753">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1kwZPJ7Y9+pFtr2gqjAHCIWEqYNn6znU8xYdB+0YGtU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier28.xml" size="8061" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>qjYqiucLG8zyoI3ayz1m4cW/JGhBNuDR+mlwhgU5KG4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier28-0.png" size="11144">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>XmGdH0xCVzMl7ffOj6QA8VnWe216yen31IM+tWkfgyU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\courier\courier28-1.png" size="5634">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Crr2Sv+6TYKOA34oQErIwuMafF5gU80rTvdykon1adc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\robotomono\robotomonobold11.xml" size="7845" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>6Vss5QNIYE/477pn4vtlRpg9PLq/TQYnIXJXkbQvFz0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\robotomono\robotomonobold11-0.png" size="6978">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>F6kE2TkSqOHurphjFMInK+Rkgk4Ix178sU9CsGBIBXk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\robotomono\robotomonobold14.xml" size="7948" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Px3wz9R/cOPc1a1TF8MJwl+v0iLh2HUIn1PYGkTMcYY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\monospace\robotomono\robotomonobold14-0.png" size="8987">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>KnyyQ00Wa1JwgMZGsKSvqfjuMjy9BtyOh+SBzZiWpEQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\rocksalt22.xml" size="7965" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>NVvty/C/J9PnPFt6p1/u6VkpKnVeRe0lehE4fRKeWis=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\rocksalt22-0.png" size="38458">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Jejv/0TJsFz00MqZCXSwxG+z2zwhq6K7fm08mfiJCmY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\shojumaru22.xml" size="7943" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>DUjHHfeI4wqYVHro8fsTUPyPtsPGJlDC4ILMdbMLujs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\shojumaru22-0.png" size="22767">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>wgUwGuR6dkDbt7s+oJ6V1nwDHRwvOOEDk6dSUJmZIhA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\simonetta22.xml" size="7925" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1wiXwdRew5uJ8hLAfitJwWoeer5sf4XMgxsL7MSZ3o4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\simonetta22-0.png" size="15810">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>GZYM7EZ7DvrM8/CIYAkP/4gP0R6nUwEPwVYk4Km7a1A=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\uncialantiqua22.xml" size="7926" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>sjEawbc3/SOMjcAr9wh+FkK8xMoZcgitw502V0CUmCg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="media\fonts\uncialantiqua22-0.png" size="20851">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>fe1HGLnMb2HhdnrHImMmf2Uzs1+yMRJZ4lUGl0WWZVo=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\help.txt" size="493">
@@ -3255,13 +3480,13 @@
       <dsig:DigestValue>uIGpVbK+otPwaqibxEkhkNGdPWFnUAQUd6DRw1Lxne8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\textures\lok_people.png" size="242883">
+  <file name="media\textures\lok_people.png" size="251771">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>imN5YeQ2m7C/vO+2WFVCn50TfCgbgsbsARNeBRmXzmk=</dsig:DigestValue>
+      <dsig:DigestValue>/hKkVn2jindN0AkdzLxft0nby+g7E/YWZv4LILKJ01s=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\textures\lok_spells.png" size="47526">
@@ -3399,13 +3624,13 @@
       <dsig:DigestValue>QmKH6aNpKQYhHUTM7BjT3y6kDYwQtmtyYyVB1QEzLOQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\textures\ui_helpers.png" size="857702">
+  <file name="media\textures\ui_helpers.png" size="920490">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>7NN8lqgxAbnoftK4tqsL6LwT0/WLXwekgAUdnaz6riU=</dsig:DigestValue>
+      <dsig:DigestValue>LeNewRdM3QjbGZBS8RokdKGnXm4YvBMP0KQraGOM2Xo=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\textures\worldmap.png" size="3934711">
@@ -3417,22 +3642,22 @@
       <dsig:DigestValue>PAB21jlIOvVVEtWniV2kgvWBBwkSOGS8+Ma2Mc6LS4k=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\textures\yuusha_items.png" size="8456527">
+  <file name="media\textures\yuusha_items.png" size="8469959">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>GU49GvuaxKo4a/KlHop0vAc4lX2zNmWOl6xEH2sYXew=</dsig:DigestValue>
+      <dsig:DigestValue>xVfgaBsMZofT4Sq0utm9iE7OscUYPzAZQ/ps2cDhdnM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\tips.txt" size="2236">
+  <file name="media\tips.txt" size="2369">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>5dXIwdnIbbWsftVKUAADWtG7Wr4o/KqEQUN18AaZzNs=</dsig:DigestValue>
+      <dsig:DigestValue>OgGOe1vhDkfWusSILz3XIOA9lbfkdwVXXXO62KF52nI=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\cursors.xml" size="475" writeableType="applicationData">
@@ -3444,13 +3669,13 @@
       <dsig:DigestValue>Yb9VHE00WXeHB5zc2mniDzJ+gl5L6GQJnD57wc4GkQs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\definitions\ioktiledefs.xml" size="8230" writeableType="applicationData">
+  <file name="media\xml\definitions\ioktiledefs.xml" size="8376" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>DZBib6znK5pf3XQOLynu4AOvXFFe+UYmo0FhLWU/PgU=</dsig:DigestValue>
+      <dsig:DigestValue>9DwPE6d+ahYDJPzctdvMqMaWCpaaKtMp7zqtOtExTQk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\definitions\loktiledefs.xml" size="18485" writeableType="applicationData">
@@ -3462,22 +3687,22 @@
       <dsig:DigestValue>3mdMfs4BwBqsWQUG2Sqpoa7bNeFTpGbDaMLgO9u703g=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\definitions\spineltiledefs.xml" size="10127" writeableType="applicationData">
+  <file name="media\xml\definitions\spineltiledefs.xml" size="10502" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>bpmj13zCKK3VC2QWzKYiYP4LfKmMqpV4FRWEdIgPdM0=</dsig:DigestValue>
+      <dsig:DigestValue>iqQ3qJhMYRdTC3GhwrhoL9gGDwAc2P/CxoU1RV7mtcY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\fonts.xml" size="823" writeableType="applicationData">
+  <file name="media\xml\fonts.xml" size="1610" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>utQF9JokpYbn3C+yJm5tAo6D3OgPCS5mJZyVjM49tkU=</dsig:DigestValue>
+      <dsig:DigestValue>zt/yvZzKZpeAKKOgeTqg1w66U4tTh7fRXyl5/iBmtiQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\lore.xml" size="31996" writeableType="applicationData">
@@ -3489,13 +3714,13 @@
       <dsig:DigestValue>WW552K9tHpnVXs8+SuzufS2uEB3677jEPkqglILnvlk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\charactergeneration.xml" size="25416" writeableType="applicationData">
+  <file name="media\xml\sheets\charactergeneration.xml" size="25392" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>XVc2ObOH9elBWbPo5Kj74bCROs3SHnP/aMHOiq+FUs0=</dsig:DigestValue>
+      <dsig:DigestValue>RuhprMfRo55nqhqFpeKgHaolB4Pp7TS+5qsInG+opdY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\sheets\conference.xml" size="7871" writeableType="applicationData">
@@ -3507,31 +3732,31 @@
       <dsig:DigestValue>bjwen3C3GFHJUju1ntSMVas8LwvV1yoTydACAAprzDU=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\generic.xml" size="90958" writeableType="applicationData">
+  <file name="media\xml\sheets\generic.xml" size="96140" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>GX1JUJlHT/IfIX6wWHYbkSsS9VW5QQ4+TIt4hPT/ZJ0=</dsig:DigestValue>
+      <dsig:DigestValue>cnaGJo0doNr840c2jlxObudttYVFJbTrUMnweziO8Ms=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\hotbuttoneditmode.xml" size="7285" writeableType="applicationData">
+  <file name="media\xml\sheets\hotbuttoneditmode.xml" size="7292" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>MVCK7OTxwV6cnMjqcwT1Byan1WwK8pylthNMDCggHTc=</dsig:DigestValue>
+      <dsig:DigestValue>qVO8ncYVnyqQCITgUBf/M1nG1VncUIdHm3DAM2SNca0=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\iokgame.xml" size="37905" writeableType="applicationData">
+  <file name="media\xml\sheets\iokgame.xml" size="38399" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>CUmBf45gqBrZNBETE2tjmXGoojlf2CgvKmFIAKRPhMI=</dsig:DigestValue>
+      <dsig:DigestValue>bJiXlfg3Kqe8YOnB3KRCZIFgdq5vO/ZWWD+nNMQKtd0=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\sheets\login.xml" size="17604" writeableType="applicationData">
@@ -3561,15 +3786,6 @@
       <dsig:DigestValue>y2Xo7Xe/6rS1hbcc5NNx4p9DLEStBgzNvTJQoKYtc3E=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\macroeditmode.xml" size="1094" writeableType="applicationData">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>rfA4fFTtRSbqHSAB6P9KpEpcXTMut769dnKTnozU8lE=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="media\xml\sheets\menu.xml" size="4967" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
@@ -3579,13 +3795,13 @@
       <dsig:DigestValue>IcoAKe9dlKxMW2lDAPdRHj07niPK9imIBB+vG34SayE=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\spinelgame.xml" size="41111" writeableType="applicationData">
+  <file name="media\xml\sheets\spinelgame.xml" size="41661" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>MQ7AD0yF2znDXzfEVxJdkAbs2aeD0Bw19yjjLoXmIZs=</dsig:DigestValue>
+      <dsig:DigestValue>O75svXCwDHDgd8a9yqoSLHhow8/bZvDRoLdohDdK05M=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\sheets\splash.xml" size="266" writeableType="applicationData">
@@ -3597,13 +3813,13 @@
       <dsig:DigestValue>6NNhw2CUQUltmjDiAs+oRtEHgqfETB94nMnLoZ8qjs8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\sheets\yuushagame.xml" size="43669" writeableType="applicationData">
+  <file name="media\xml\sheets\yuushagame.xml" size="47393" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>TGSRpM52ySsOyYbfkHzpjIStRyHgfcQ4gUpKaI2JFmw=</dsig:DigestValue>
+      <dsig:DigestValue>64j7NGYaOmmWq3QKfvn/N75VRTzAkrN8JXiTXDOzJ5o=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\textures.xml" size="3402" writeableType="applicationData">
@@ -3615,13 +3831,13 @@
       <dsig:DigestValue>Utm/XJh9HJmjRJloBHzQUYswYilN0N/RAZZilKJ57c0=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\visuals\gui_visuals.xml" size="8463" writeableType="applicationData">
+  <file name="media\xml\visuals\gui_visuals.xml" size="9033" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>48d8ne22tk3RhPVEgL1afILBxWXsg7cQaTwpG7KmFE8=</dsig:DigestValue>
+      <dsig:DigestValue>KneHjxD3rrZvfl1BNByO4VTBuX8z95MYLgCwuimXyns=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\visuals\hotbutton_icons.xml" size="219" writeableType="applicationData">
@@ -3642,13 +3858,13 @@
       <dsig:DigestValue>s1jYFDQVKZrirusjZl7Pc11golxPHdGy/BRPSGJqjrs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\visuals\lok_people.xml" size="42132" writeableType="applicationData">
+  <file name="media\xml\visuals\lok_people.xml" size="46031" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>03cdjermcqg5gX/6xynszOgu01pA8sT5wwpqgFqiolA=</dsig:DigestValue>
+      <dsig:DigestValue>g9lTC4jlj8VL1LJMa36kyl+CIGjEDNQyQvEel2YS5pM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="media\xml\visuals\lok_spells.xml" size="9802" writeableType="applicationData">
@@ -3696,13 +3912,13 @@
       <dsig:DigestValue>5aqw5vx4W2NBypzCcv0khLYnkz5rVIabeWvvbNqJns4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="media\xml\visuals\yuusha_items.xml" size="32055" writeableType="applicationData">
+  <file name="media\xml\visuals\yuusha_items.xml" size="32301" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>WIN4fAFuqLUZKrcmONKk9G/Meu0+VyfnjWsHzYRmX4s=</dsig:DigestValue>
+      <dsig:DigestValue>jbmfnsK7TzTUCUlZPZqjFs2ToNVVnByTl0YwQc/647k=</dsig:DigestValue>
     </hash>
   </file>
   <file name="YuushaMG.exe.config" size="159">

@@ -4,6 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/../../../Downloads/KSND0281.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Kesmai-Dungeon-Background.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Wind-Moderate.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/modem_dial.wav</File>
@@ -290,11 +291,18 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0276.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0277.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0278.WAV</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0279.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0280.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0282.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint1.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint2.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint3.WAV</File>
   </SourceFiles>
   <DestFiles>
+    <File>KSND0281.wav</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

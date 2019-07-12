@@ -10,6 +10,8 @@ namespace Yuusha
         public enum EventName
         {
             Attack_Critter,
+            Cast_Spell,
+            Cast_Spell_MessageBox,
             Character_Death,
             Character_Settings_Changed,
             CharGen_Lore,
@@ -194,6 +196,8 @@ namespace Yuusha
                         }
 
                     #endregion
+                    case EventName.Cast_Spell:
+                        break;
                     case EventName.Character_Death:
                         #region Character Death
                         {
@@ -692,10 +696,10 @@ namespace Yuusha
                         IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
                         if (args[0] is Button)
                         {
-                            if (GuiManager.GenericSheet["InventoryWindow"] is Window inventoryWindow)
+                            if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window fullStatsWindow)
                             {
-                                inventoryWindow.IsVisible = !inventoryWindow.IsVisible;
-                                inventoryWindow.ZDepth = 1;
+                                fullStatsWindow.IsVisible = !fullStatsWindow.IsVisible;
+                                fullStatsWindow.ZDepth = 1;
                             }
                         }
                         break;
@@ -720,10 +724,10 @@ namespace Yuusha
                     case EventName.Request_Rings:
                         IO.Send(Protocol.REQUEST_CHARACTER_RINGS);
                         if (args[0] is Button)
-                            if (GuiManager.GetControl("RingsGridBoxWindow") is GridBoxWindow gridBoxWindow)
+                            if (GuiManager.GetControl("RingsWindow") is Window ringsWindow)
                             {
-                                gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
-                                gridBoxWindow.ZDepth = 1;
+                                ringsWindow.IsVisible = !ringsWindow.IsVisible;
+                                ringsWindow.ZDepth = 1;
                             }
                         break;
                     case EventName.Request_Stats:
@@ -818,10 +822,10 @@ namespace Yuusha
                         {
                             case Enums.ECharGenState.ChooseGender:
                                 CharGen.ChooseGender();
-                                (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
+                                GuiManager.CurrentSheet["CharGenInputTextBox"].HasFocus = true;
                                 break;
                             case Enums.ECharGenState.ChooseHomeland:
-                                (gui.GuiManager.CurrentSheet["CharGenSelectionButton"] as gui.Button).IsVisible = true;
+                                GuiManager.CurrentSheet["CharGenSelectionButton"].IsVisible = true;
                                 CharGen.ChooseHomeland();
                                 break;
                             case Enums.ECharGenState.ChooseProfession:
@@ -829,13 +833,17 @@ namespace Yuusha
                                 break;
                             case Enums.ECharGenState.ChooseName:
                                 CharGen.ChooseName();
-                                (gui.GuiManager.CurrentSheet["CharGenInputTextBox"] as gui.TextBox).HasFocus = true;
+                                GuiManager.CurrentSheet["CharGenInputTextBox"].HasFocus = true;
                                 break;
                             case Enums.ECharGenState.ReviewStats:
-                                (gui.GuiManager.CurrentSheet["CharGenSelectionButton"] as gui.Button).IsVisible = false;
+                                GuiManager.CurrentSheet["CharGenSelectionButton"].IsVisible = false;
                                 CharGen.RemoveCharGenSelectionButtons(new List<string>(CharGen.Professions.Keys));
-                                (gui.GuiManager.CurrentSheet["CharGenScrollableTextBox"] as gui.ScrollableTextBox).Height = 357;
+                                GuiManager.CurrentSheet["CharGenScrollableTextBox"].Height = 357;
                                 CharGen.ReviewStats((string)args[1]);
+                                break;
+                            case Enums.ECharGenState.CharGenSuccess:
+                                TextCue.AddCharGenInfoTextCue("Character creation successful!", "lemon20");
+                                CharGen.CharGenSuccess();
                                 break;
                         }
                         break;
@@ -852,9 +860,11 @@ namespace Yuusha
                         break;
                     case EventName.Set_Game_State:
                         #region Set Game State
-                        OnSwitchGameState(Client.GameState, (Enums.EGameState)args[0]);
+                        Enums.EGameState gs = (Enums.EGameState)args[0];
 
-                        if ((Enums.EGameState) args[0] == Enums.EGameState.Game)
+                        OnSwitchGameState(Client.GameState, gs);
+
+                        if (gs == Enums.EGameState.Game)
                         {
                             switch (Client.GameDisplayMode)
                             {
@@ -877,24 +887,21 @@ namespace Yuusha
                         }
                         else
                         {
-                            Client.GameState = (Enums.EGameState) args[0];
+                            Client.GameState = gs;
 
-                            if(Client.GameState == Enums.EGameState.CharacterGeneration)
+                            if (Client.GameState == Enums.EGameState.CharacterGeneration)
                             {
                                 if (CharGen.RollNumber > 0) CharGen.ResetCharGen();
 
-                                if(CharGen.FirstCharacter)
-                                {
-                                    TextCue.AddClientInfoTextCue("There are currently no characters on your account. Please create one.", Color.Yellow, Color.Black, 3500);
-                                }
+                                if (CharGen.FirstCharacter)
+                                    TextCue.AddClientInfoTextCue("There are currently no characters on your account. Please create one.", Color.Tomato, Color.Black, 3500);
 
-                                TextCue.AddClientInfoTextCue("Welcome to the character generator.", Color.Yellow, Color.Black, 3500);
+                                TextCue.AddCharGenInfoTextCue("Welcome to the character generator.", TextManager.GetDisplayFont());
 
                                 RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
 
                                 (GuiManager.CurrentSheet["CharGenInputTextBox"] as TextBox).HasFocus = true;
                             }
-
                             else if (Client.GameState.ToString().EndsWith("Game"))
                             {
                                 RegisterEvent(EventName.Target_Cleared, null);
@@ -918,7 +925,6 @@ namespace Yuusha
 
                                 IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                             }
-
                             else if (Client.GameState == Enums.EGameState.Login)
                                 ResetLoginGUI();
                         }
@@ -1341,7 +1347,7 @@ namespace Yuusha
                     case EventName.Toggle_Spellbook:
                         if (GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow spellbookWindow)
                         {
-                            if (!Character.CurrentCharacter.HasSpellbook)
+                            if (!Character.CurrentCharacter.HasSpellbook || Character.CurrentCharacter.Spells.Count <= 0)
                             {
                                 spellbookWindow.IsVisible = false;
                                 break;
@@ -1871,7 +1877,7 @@ namespace Yuusha
                         //Audio.AudioManager.StopAllSounds();
                         break;
                     case Enums.EGameState.Login:
-                        if(GameHUD.PreviousGameState != Enums.EGameState.Login)
+                        if (GameHUD.PreviousGameState != Enums.EGameState.Login)
                             ResetLoginGUI();
                         break;
                     default:
@@ -1906,6 +1912,9 @@ namespace Yuusha
                         foreach (Control control in GuiManager.GenericSheet.Controls)
                             control.IsVisible = false;
                         break;
+                    //case Enums.EGameState.Login:
+                    //    ResetLoginGUI();
+                    //    break;
                 }
             }
             catch (Exception e)

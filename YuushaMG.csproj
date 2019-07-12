@@ -125,6 +125,7 @@
     <Compile Include="gui\controls\textboxes\TextBox.cs" />
     <Compile Include="gui\controls\windows\SpellBookWindow.cs" />
     <Compile Include="gui\controls\windows\SpellRingWindow.cs" />
+    <Compile Include="gui\controls\windows\SpellWarmingWindow.cs" />
     <Compile Include="gui\controls\windows\TipWindow.cs" />
     <Compile Include="gui\controls\windows\HotButtonEditWindow.cs" />
     <Compile Include="gui\controls\windows\MapWindow.cs" />
@@ -192,91 +193,154 @@
   <ItemGroup>
     <Content Include="GameThumbnail.png" />
     <Content Include="gold+dragon.ico" />
-    <Content Include="media\fonts\changaone14-0.png">
+    <Content Include="media\fonts\changaone\changaone14-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\changaone14.xml">
+    <Content Include="media\fonts\changaone\changaone14.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\changaone16-0.png">
+    <Content Include="media\fonts\changaone\changaone16-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\changaone16.xml">
+    <Content Include="media\fonts\changaone\changaone16.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\changaone20-0.png">
+    <Content Include="media\fonts\changaone\changaone20-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\changaone20.xml">
+    <Content Include="media\fonts\changaone\changaone20.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier12-0.png">
+    <Content Include="media\fonts\dancingscript22-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier12.xml">
+    <Content Include="media\fonts\dancingscript22.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier14-0.png">
+    <Content Include="media\fonts\lobster22-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier14.xml">
+    <Content Include="media\fonts\lobster22.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier16-0.png">
+    <Content Include="media\fonts\mogra22-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier16.xml">
+    <Content Include="media\fonts\mogra22.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier18-0.png">
+    <Content Include="media\fonts\monospace\courier\courier12-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier18.xml">
+    <Content Include="media\fonts\monospace\courier\courier12.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier20-0.png">
+    <Content Include="media\fonts\monospace\courier\courier14-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier20.xml">
+    <Content Include="media\fonts\monospace\courier\courier14.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier28-0.png">
+    <Content Include="media\fonts\monospace\courier\courier16-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier28-1.png">
+    <Content Include="media\fonts\monospace\courier\courier16.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\courier28.xml">
+    <Content Include="media\fonts\monospace\courier\courier18-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\lemon12-0.png">
+    <Content Include="media\fonts\monospace\courier\courier18.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\lemon12.xml">
+    <Content Include="media\fonts\monospace\courier\courier20-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\lemon14-0.png">
+    <Content Include="media\fonts\monospace\courier\courier20.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\lemon14.xml">
+    <Content Include="media\fonts\monospace\courier\courier28-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\rocksalt20-0.png">
+    <Content Include="media\fonts\monospace\courier\courier28-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\rocksalt20-1.png">
+    <Content Include="media\fonts\monospace\courier\courier28.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\rocksalt20-2.png">
+    <Content Include="media\fonts\lemon\lemon10-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\rocksalt20.xml">
+    <Content Include="media\fonts\lemon\lemon10.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\runenglish12-0.png">
+    <Content Include="media\fonts\lemon\lemon12-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\runenglish12.xml">
+    <Content Include="media\fonts\lemon\lemon12.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon14-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon14.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon16-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon16.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon18-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon18.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon20-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon20-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon20.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\monospace\robotomono\robotomonobold11-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\monospace\robotomono\robotomonobold11.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\monospace\robotomono\robotomonobold14-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\monospace\robotomono\robotomonobold14.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\rocksalt22-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\rocksalt22.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\shojumaru22-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\shojumaru22.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\simonetta22-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\simonetta22.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\uncialantiqua22-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\uncialantiqua22.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\help.txt">
@@ -417,6 +481,7 @@
     </Content>
     <Content Include="media\xml\definitions\spineltiledefs.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="media\xml\fonts.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -458,9 +523,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\xml\sheets\lokmapeditor.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\xml\sheets\macroeditmode.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\xml\sheets\menu.xml">

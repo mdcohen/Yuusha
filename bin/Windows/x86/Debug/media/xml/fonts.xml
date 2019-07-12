@@ -1,16 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FontIndex>
-  <Font Path="media\fonts\changaone14.xml"></Font>
-  <Font Path="media\fonts\changaone16.xml"></Font>
-  <Font Path="media\fonts\changaone20.xml"></Font>
-	<Font Path="media\fonts\courier12.xml"></Font>
-  <Font Path="media\fonts\courier14.xml"></Font>
-	<Font Path="media\fonts\courier16.xml"></Font>
-  <Font Path="media\fonts\courier18.xml"></Font>
-  <Font Path="media\fonts\courier20.xml"></Font>
-	<Font Path="media\fonts\courier28.xml"></Font>
-  <Font Path="media\fonts\rocksalt20.xml"></Font> <!-- Introduction to new Z Plane -->
-  <Font Path="media\fonts\lemon12.xml"></Font>
-  <Font Path="media\fonts\lemon14.xml"></Font> <!-- Spellbook spell title -->
-  <Font Path="media\fonts\runenglish12.xml"></Font> <!-- Spellbook spell chant -->
+  <Font Path="media\fonts\changaone\changaone14.xml"></Font>
+  <Font Path="media\fonts\changaone\changaone16.xml"></Font>
+  <Font Path="media\fonts\changaone\changaone20.xml"></Font>
+	<Font Path="media\fonts\monospace\courier\courier12.xml"></Font>
+  <Font Path="media\fonts\monospace\courier\courier14.xml"></Font>
+	<Font Path="media\fonts\monospace\courier\courier16.xml"></Font>
+  <Font Path="media\fonts\monospace\courier\courier18.xml"></Font>
+  <Font Path="media\fonts\monospace\courier\courier20.xml"></Font>
+  <!-- IOK Mode Map Text -->
+	<Font Path="media\fonts\monospace\courier\courier28.xml"></Font>
+  <!-- Introduction to new Z Plane -->
+  <Font Path="media\fonts\dancingscript20.xml"></Font>  
+  <Font Path="media\fonts\lobster20.xml"></Font>
+  <Font Path="media\fonts\mogra20.xml"></Font>
+  <Font Path="media\fonts\shojumaru20.xml"></Font>
+  <Font Path="media\fonts\simonetta20.xml"></Font>
+  <Font Path="media\fonts\unicalantiqua20.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon10.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon12.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon14.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon16.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon18.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon20.xml"></Font>
+  <!-- Yuusha Critter List-->
+  <Font Path="media\fonts\monospace\robotomono\robotomonobold11.xml"></Font>
+  <Font Path="media\fonts\monospace\robotomono\robotomonobold14.xml"></Font>
 </FontIndex>

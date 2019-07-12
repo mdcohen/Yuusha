@@ -84,8 +84,14 @@ namespace Yuusha
         public static string CHARACTER_POUCH_END = (char)27 + "C13" + (char)27;
         public static string CHARACTER_TALENTS = (char)27 + "C14" + (char)27;
         public static string CHARACTER_TALENTS_END = (char)27 + "C15" + (char)27;
-        public static string CHARACTER_MAIL = (char)27 + "C16" + (char)27;
-        public static string CHARACTER_MAIL_END = (char)27 + "C17" + (char)27;
+        public static string CHARACTER_SPELLCAST = (char)27 + "C16" + (char)27;
+        public static string CHARACTER_SPELLCAST_END = (char)27 + "C17" + (char)27;
+        public static string CHARACTER_MAIL = (char)27 + "C18" + (char)27;
+        public static string CHARACTER_MAIL_END = (char)27 + "C19" + (char)27;
+        public static string CHARACTER_RESISTS = (char)27 + "C20" + (char)27;
+        public static string CHARACTER_RESISTS_END = (char)27 + "C21" + (char)27;
+        public static string CHARACTER_PROTECTIONS = (char)27 + "C22" + (char)27;
+        public static string CHARACTER_PROTECTIONS_END = (char)27 + "C23" + (char)27;
 
         #endregion
 
@@ -223,12 +229,16 @@ namespace Yuusha
                 protoInfo = inData.Substring(inData.IndexOf(startProto) + startProto.Length, inData.IndexOf(endProto) - (inData.IndexOf(startProto) + startProto.Length));
             }
             catch (Exception e)
-            {                
-                Utils.Log("Failure at GetProtoInfoFromString(info, startProto, endProto)");
-                Utils.LogOnce("InData = " + inData);
-                Utils.LogOnce("STARTPROTO = " + startProto);
-                Utils.LogOnce("ENDPROTO = " + endProto);//" + info + ", " + startProto + ", " + endProto + ")");
-                Utils.LogException(e);
+            {
+                // Sometimes no info is sent for a Cell which makes it not visible.
+                if (startProto != GAME_CELL_INFO)
+                {
+                    Utils.Log("Failure at GetProtoInfoFromString(info, startProto, endProto)");
+                    Utils.LogOnce("InData = " + inData);
+                    Utils.LogOnce("STARTPROTO = " + startProto);
+                    Utils.LogOnce("ENDPROTO = " + endProto);//" + info + ", " + startProto + ", " + endProto + ")");
+                    Utils.LogException(e);
+                }
             }
 
             return protoInfo;

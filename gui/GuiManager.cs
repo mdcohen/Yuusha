@@ -56,7 +56,16 @@ namespace Yuusha.gui
         }
         public static Sheet CurrentSheet
         {
-            get { return m_sheets[Client.GameState.ToString()]; }
+            get
+            {
+                if (m_sheets.ContainsKey(Client.GameState.ToString()))
+                    return m_sheets[Client.GameState.ToString()];
+                else
+                {
+                    Utils.Log("m_sheets does not contain a key for " + Client.GameState.ToString());
+                    return null;
+                }
+            }
         }
         public static GenericSheet GenericSheet
         {
@@ -79,23 +88,19 @@ namespace Yuusha.gui
         { get; set; }
         public static string OpenComboBox
         { get; set;}
+        public static SpellWarmingWindow SpellWarmingWindow
+        { get; set; }
         public static KeyboardState KeyboardState
         {
             get { return Keyboard.GetState(); }
         }
         public static MouseState MouseState
-        {
-            get { return Mouse.GetState(); }
-        }
+        { get { return Mouse.GetState(); } }
         public static List<TextCue> TextCues
-        {
-            get { return m_textCues; }
-        }
+        { get { return m_textCues; } }
 
         public static Control MouseOverDropAcceptingControl
-        {
-            get; set;
-        }
+        { get; set; }
         public static bool TakingScreenshot
         { get; set; } = false;
         #endregion
@@ -450,7 +455,8 @@ namespace Yuusha.gui
 
                                 string tabControlledWindow = "";
 
-                                bool acceptingDroppedButtons = true;
+                                bool acceptingDroppedButtons = true; // drag and drop buttons
+                                bool segmented = true;
 
                                 if (reader.Name == "Background")
                                 {
@@ -677,6 +683,8 @@ namespace Yuusha.gui
                                             fadeSpeed = reader.ReadContentAsInt();
                                         else if (reader.Name == "AcceptingDroppedButtons")
                                             acceptingDroppedButtons = reader.ReadContentAsBoolean();
+                                        else if (reader.Name == "Segmented")
+                                            segmented = reader.ReadContentAsBoolean();
                                     }
                                     #endregion
                                 }
@@ -761,7 +769,7 @@ namespace Yuusha.gui
                                         sheet.CreatePercentageBarLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha,
                                             textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClick, cursorOnOver, anchors,
-                                            popUpText);
+                                            popUpText, segmented);
                                         break;
                                     case "CritterListLabel":
                                         sheet.CreateCritterListLabel(name, owner, new Rectangle(x, y, width, height), text, Utils.GetColor(textColor),
@@ -1175,6 +1183,11 @@ namespace Yuusha.gui
             return false;
         }
 
+        public static bool ContainsTextCue(TextCue tc)
+        {
+            return TextCues.Find(tc2 => tc.Text == tc2.Text) != null;
+        }
+
         public static void CloseAllGridBoxes()
         {
             foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
@@ -1183,8 +1196,11 @@ namespace Yuusha.gui
                     box.OnClose();
             }
 
-            if (GenericSheet["InventoryWindow"] is Window window && window.IsVisible)
+            if (GenericSheet["CharacterStatsWindow"] is Window window && window.IsVisible)
                 window.OnClose();
+
+            if (GenericSheet["RingsWindow"] is Window ringsWindow && ringsWindow.IsVisible)
+                ringsWindow.OnClose();
         }
     }
 }

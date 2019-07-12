@@ -92,7 +92,7 @@ namespace Yuusha.Utility.Settings
         public Color HotButtonPopUpText_BackColor = Color.Purple;
         public byte HotButtonPopUpText_BackColorAlpha = 255;
 
-        public Color GridBoxWindowTintColor = Color.DarkSlateGray;
+        public Color GridBoxWindowTintColor = Color.LightSteelBlue;
         public Color GridBoxTitleTextColor = Color.White;
         public Color GridBoxTitleTintColor = Color.DimGray;
         public Color GridBoxTitleCloseBoxTintColor = Color.LightSlateGray;
@@ -113,7 +113,7 @@ namespace Yuusha.Utility.Settings
         public Color DragAndDropTintOverColor = Color.White;
         public bool DragAndDropHasTintOverColor = false;
 
-        public byte GridBoxWindowVisualKeyAlpha = 160;
+        public byte GridBoxWindowVisualKeyAlpha = 200;
         public byte GridBoxWindowBorderAlpha = 255;
         public string GridBoxWindowFont = "courier16";
 

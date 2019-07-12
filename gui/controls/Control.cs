@@ -209,7 +209,13 @@ namespace Yuusha.gui
         public virtual int VisualAlpha
         {
             get { return m_visualAlpha; }
-            set { m_visualAlpha = value; }
+            set
+            {
+                if (value > 255) value = 255;
+                else if (value < 0) value = 0;
+
+                m_visualAlpha = value;
+            }
         }
 
         public virtual int TextAlpha
@@ -422,6 +428,8 @@ namespace Yuusha.gui
         {
             if (!Client.HasFocus) return true;  // returns that it was handled so as to not do any other handler calls
 
+            if (!IsVisible || IsDisabled) return false;
+
             // drop down menus take priority for mouse handling
             if (GuiManager.ActiveDropDownMenu != "")
             {
@@ -433,7 +441,6 @@ namespace Yuusha.gui
 
             Point mousePointer = new Point(ms.X, ms.Y); // point of the mouse
 
-            //if (!GuiManager.MouseAbove(this) && Contains(mousePointer) && !m_containsMousePointer)
             if (Contains(mousePointer) && !m_containsMousePointer)
             {
                 m_containsMousePointer = true;
@@ -447,14 +454,14 @@ namespace Yuusha.gui
             }
 
             // current sheet only (excludes generic sheet)
-            if (Sheet == GuiManager.CurrentSheet.Name)
-            {
-                foreach (Control c in new List<Control>(GuiManager.GenericSheet.Controls))
-                {
-                    if (c.IsVisible && c.Contains(mousePointer))
-                        return false;
-                }
-            }
+            //if (Sheet == GuiManager.CurrentSheet.Name)
+            //{
+            //    foreach (Control c in new List<Control>(GuiManager.CurrentSheet.Controls))
+            //    {
+            //        if (c.IsVisible && !c.Contains(mousePointer))
+            //            return false;
+            //    }
+            //}
 
             if (ms.LeftButton == ButtonState.Pressed || ms.RightButton == ButtonState.Pressed)
             {

@@ -35,9 +35,8 @@ namespace Yuusha
             get
             {
                 if (m_TcpClient != null && m_TcpClient.Client.Connected)
-                {
                     return true;
-                }
+
                 return false;
             }
         } 
@@ -63,8 +62,11 @@ namespace Yuusha
                             {
                                 if (CaptureInput(m_InData))
                                 {
-                                    m_InData = "";
+                                    //if (LoginState == Enums.ELoginState.WorldInformation)
+                                    //if (!m_InData.StartsWith(Protocol.GAME_CELL) && Client.GameState.ToString().EndsWith("Game"))
+                                    //    Utils.Log(m_InData);
 
+                                    m_InData = "";
                                     //if (LoginState == Enums.eLoginState.LoggedIn)
                                     //    IO.SendPing(Client.TotalGameTime);
                                 }
@@ -83,6 +85,7 @@ namespace Yuusha
                 System.Threading.Thread.Sleep(100);
             }
 
+            //Utils.Log("IO died.");
             Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
             Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
 
@@ -398,7 +401,7 @@ namespace Yuusha
                             // "Welcome to the character generator."
                             if (inData.IndexOf("Welcome to the character generator.") != -1)
                             {
-                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Welcome to the character generator.", "Lime");
+                                //Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Welcome to the character generator.", "Lime");
                                 Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.LoggedIn);
                                 Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
                                 return true;
@@ -475,7 +478,7 @@ namespace Yuusha
                             }
                             else if (inData.IndexOf("Welcome to the character generator.") != -1)
                             {
-                                if(IO.LoginState != Enums.ELoginState.LoggedIn)
+                                if (IO.LoginState != Enums.ELoginState.LoggedIn)
                                     Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.LoggedIn);
                                 if(Client.GameState != Enums.EGameState.CharacterGeneration)
                                     Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);                                
@@ -484,6 +487,7 @@ namespace Yuusha
                             break;
                             #endregion
                         case Enums.ELoginState.WorldInformation:
+                            #region WorldInformation
                             // Create a hint window because collecting world info sometimes takes a few seconds..
                             if (!gui.GuiManager.DisplayedLoginTip)
                             {
@@ -493,7 +497,6 @@ namespace Yuusha
 
                             try
                             {
-                                #region WorldInformation
                                 if (inData.IndexOf(Protocol.VERSION_SERVER_END) != -1)
                                 {
                                     Utility.Settings.StaticSettings.ServerVersion = Protocol.GetProtoInfoFromString(inData, Protocol.VERSION_SERVER, Protocol.VERSION_SERVER_END);
@@ -502,10 +505,12 @@ namespace Yuusha
                                 else if(inData.IndexOf(Protocol.VERSION_CLIENT_END) != -1)
                                 {
                                     Utility.Settings.StaticSettings.ClientVersion = Protocol.GetProtoInfoFromString(inData, Protocol.VERSION_CLIENT, Protocol.VERSION_CLIENT_END);
+                                    return true;
                                 }
                                 else if(inData.IndexOf(Protocol.VERSION_MASTERROUNDINTERVAL_END) != -1)
                                 {
                                     Utility.Settings.StaticSettings.RoundDelayLength = Convert.ToDouble(Protocol.GetProtoInfoFromString(inData, Protocol.VERSION_MASTERROUNDINTERVAL, Protocol.VERSION_MASTERROUNDINTERVAL_END));
+                                    return true;
                                 }
                                 // capture world lands
                                 else if (inData.IndexOf(Protocol.WORLD_LANDS_END) != -1)
@@ -522,6 +527,8 @@ namespace Yuusha
                                 // capture world spells
                                 else if (inData.IndexOf(Protocol.WORLD_SPELLS_END) != -1)
                                 {
+                                    //System.Threading.Tasks.Task t = new System.Threading.Tasks.Task(() => World.GatherWorldData(Protocol.GetProtoInfoFromString(inData, Protocol.WORLD_SPELLS, Protocol.WORLD_SPELLS_END), World.WorldUpdate.Spells));
+                                    //t.Start();
                                     World.GatherWorldData(Protocol.GetProtoInfoFromString(inData, Protocol.WORLD_SPELLS, Protocol.WORLD_SPELLS_END), World.WorldUpdate.Spells);
                                     return true;
                                 }
@@ -531,11 +538,12 @@ namespace Yuusha
                                     World.GatherWorldData(Protocol.GetProtoInfoFromString(inData, Protocol.WORLD_CHARGEN_INFO, Protocol.WORLD_CHARGEN_INFO_END), World.WorldUpdate.CharGen);
                                     return true;
                                 }
-                                #endregion
+                                
                             }
                             catch (Exception e)
                             { Utils.LogException(e); }
                             break;
+                            #endregion
                     }
                     #endregion
                 }
@@ -555,11 +563,13 @@ namespace Yuusha
                             #region CharGen
                             if(inData.ToLower().IndexOf("that was not an option") != -1)
                             {
-                                gui.TextCue.AddClientInfoTextCue("That was not an option.", Color.Tomato, Color.Black, 1500);
+                                gui.TextCue.AddCharGenNegativeTextCue("That was not an option.", "lemon16");
                                 return true;
                             }
                             else if(inData.ToLower().IndexOf("please select a gender:") != -1)
                             {
+                                IO.Send(Protocol.SET_CLIENT);
+                                IO.Send(Protocol.SET_PROTOCOL);
                                 Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
                                 return true;
                             }
@@ -585,12 +595,19 @@ namespace Yuusha
                             }
                             else if (inData.ToLower().IndexOf("a character with the name you have chosen already exists") != -1)
                             {
-                                gui.TextCue.AddClientInfoTextCue("A character with the name you have chosen already exists.", 3500);
+                                gui.TextCue.AddCharGenNegativeTextCue("A character with the name you have chosen already exists.", "lemon16");
                                 return true;
                             }
                             else if(inData.ToLower().IndexOf("that name is invalid.") != -1)
                             {
+                                gui.TextCue.AddCharGenNegativeTextCue("The name you have chosen is not available.", "lemon16");
                                 Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.ChooseName);
+                                return true;
+                            }
+                            else if(inData.ToLower().IndexOf("character creation successful!") != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Set_CharGen_State, Enums.ECharGenState.CharGenSuccess);
+                                // zoom in on map
                                 return true;
                             }
                             break;
@@ -707,8 +724,13 @@ namespace Yuusha
                             {
                                 Events.RegisterEvent(Events.EventName.Character_Death, inData.Substring(0, inData.IndexOf(Protocol.GAME_CHARACTER_DEATH)));
                                 return true;
-                            } 
+                            }
                             #endregion
+                            else if (inData.IndexOf(Protocol.CHARACTER_SPELLCAST_END) != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Cast_Spell, Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_SPELLCAST, Protocol.CHARACTER_SPELLCAST_END));
+                                return true;
+                            }
                             #region GAME_POINTER_UPDATE
                             else if (inData.IndexOf(Protocol.GAME_POINTER_UPDATE) != -1)
                             {
@@ -875,7 +897,8 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_RINGS_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_RINGS, Protocol.CHARACTER_RINGS_END), Enums.EPlayerUpdate.Rings);
-                                gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Rings);
+                                gui.GameHUD.UpdateRingsWindow();
+                                //gui.GridBoxWindow.CreateGridBox(gui.GridBoxWindow.GridBoxPurpose.Rings);
                                 return true;
                             }
                             #endregion

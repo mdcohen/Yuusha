@@ -1907,7 +1907,7 @@
     <Control
       Type="Button"
       Text=""
-      Name="VerticalAutoHidingSpellbookButton"
+      Name="VerticalAutoHidingSpellringButton"
       Owner="VerticalGameAutoHidingWindow"
       X="0"
       Y="106"

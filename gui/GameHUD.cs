@@ -7,14 +7,20 @@ namespace Yuusha.gui
     {
         public static List<string> NonDiscreetlyDraggableWindows = new List<string>()
         {
+            "GameTextScrollableTextBox",
             "EffectsWindow",
-            "TextVitalsWindow",
+            "CharacterStatsWindow",
+            //"InventoryWindow",
+            "RingsWindow",
             "SpellbookWindow",
-            "SpellringWindow"
+            "SpellringWindow",
+            "SpellWarmingWindow",
+            "TextVitalsWindow"
         };
 
         public static Character CurrentTarget;
         public static string TextSendOverride = "";
+        public static bool VitalsTextMode = false;
 
         public static Enums.EGameState PreviousGameState { get; set; }
         public static Cell ExaminedCell { get; set; }
@@ -431,13 +437,75 @@ namespace Yuusha.gui
             }
         }
 
+        public static void UpdateRingsWindow()
+        {
+            if (GuiManager.GenericSheet["RingsWindow"] is Window w)
+            {
+                Item item = null;
+
+                foreach (Control c in w.Controls)
+                {
+                    if (c is DragAndDropButton b)
+                    {
+                        string slot = b.Name.Replace("DragAndDropButton", "");
+
+                        switch (slot)
+                        {
+                            case "LeftRing1":
+                                item = Character.CurrentCharacter.GetRing(Character.WearOrientation.LeftRing1);
+                                break;
+                            case "LeftRing2":
+                                item = Character.CurrentCharacter.GetRing(Character.WearOrientation.LeftRing2);
+                                break;
+                            case "LeftRing3":
+                                item = Character.CurrentCharacter.GetRing(Character.WearOrientation.LeftRing3);
+                                break;
+                            case "LeftRing4":
+                                item = Character.CurrentCharacter.GetRing(Character.WearOrientation.LeftRing4);
+                                break;
+                            case "RightRing1":
+                                item = Character.CurrentCharacter.GetRing(Character.WearOrientation.RightRing1);
+                                break;
+                            case "RightRing2":
+                                item = Character.CurrentCharacter.GetRing(Character.WearOrientation.RightRing2);
+                                break;
+                            case "RightRing3":
+                                item = Character.CurrentCharacter.GetRing(Character.WearOrientation.RightRing3);
+                                break;
+                            case "RightRing4":
+                                item = Character.CurrentCharacter.GetRing(Character.WearOrientation.RightRing4);
+                                break;
+                        }
+
+                        if (item != null)
+                        {
+                            b.VisualKey = item.VisualKey;
+                            b.IsLocked = false;
+                            b.AcceptingDroppedButtons = false;
+                            b.PopUpText = item.Name;
+                            b.RepresentedItem = item;
+                        }
+                        else
+                        {
+                            b.AcceptingDroppedButtons = true;
+                            b.VisualKey = "";
+                            b.IsLocked = true;
+                            b.PopUpText = "";
+                            b.RepresentedItem = null;
+                        }
+                    }
+                }
+            }
+        }
+
         public static void UpdateEffectsWindow(Sheet sheet)
         {
             if (sheet["EffectsWindow"] is Window w)
             {
                 w.Controls.RemoveAll(c => c is Label);
-                int size = 30;
+                int size = 40;
                 int spacing = 1;
+                int borderWidth = w.WindowBorder != null ? w.WindowBorder.Width : 0;
 
                 //if (Character.CurrentCharacter.Effects.Count <= 0)
                 //{
@@ -448,9 +516,8 @@ namespace Yuusha.gui
                 //}
                 if (Character.CurrentCharacter.Effects.Count > 0)
                 {
-                    int x = 0;
-                    int y = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + 2;
-
+                    int x = borderWidth + spacing;
+                    int y = (w.WindowTitle != null ? w.WindowTitle.Height + spacing : 0) + borderWidth + spacing;
 
                     foreach (Effect effect in Character.CurrentCharacter.Effects)
                     {
@@ -475,6 +542,9 @@ namespace Yuusha.gui
                             visual = new VisualKey(Effect.IconsDictionary[Utils.FormatEnumString(effect.Name)]);
                             text = "";
                             tintColor = Color.White;
+
+                            if (Effect.IconsTintDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
+                                tintColor = Effect.IconsTintDictionary[Utils.FormatEnumString(effect.Name)];
                         }
 
                         EffectLabel label = new EffectLabel(effect.Name + "Label", w.Name, new Rectangle(x, y, size, size), text, Color.White, true, false, w.Font,
@@ -493,19 +563,23 @@ namespace Yuusha.gui
 
                         x += size + spacing;
 
-                        //count++;
-                        //if (count == 10) // make another row at 15 effects
-                        //{
-                        //    x = 0;
-                        //    y += size + spacing;
-                        //    count = 0;
-                        //}
+                        if(x >= 8 * (size + spacing) + borderWidth + 1)
+                        {
+                            x = borderWidth + 1;
+                            y += size + spacing;
+                        }
                     }
                 }
 
-                w.Width = (Character.CurrentCharacter.Effects.Count * (size + spacing)) - spacing;
+                int rowCount = 1;
+                if(Character.CurrentCharacter.Effects.Count > 8)
+                {
+                    rowCount = (int)System.Math.Ceiling(Character.CurrentCharacter.Effects.Count / 8d);
+                    w.Width = 8 * (size + spacing) + spacing + (borderWidth * 2);
+                }
+                else w.Width = Character.CurrentCharacter.Effects.Count * (size + spacing) + spacing + 1;
                 if (w.WindowTitle != null) w.WindowTitle.Width = w.Width;
-                w.Height = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + size + spacing;
+                w.Height = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + (rowCount * (size + spacing)) + (borderWidth * 2);
 
                 if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter.Effects.Count > 0)
                     w.IsVisible = true;

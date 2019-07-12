@@ -113,8 +113,8 @@
 		Y="313"
 		Width="290"
 		Height="40"
-		YTextOffset="8"
-    XTextOffset="-3"
+		YTextOffset="0"
+    XTextOffset="0"
 		IsVisible="false"
 		IsDisabled="false"
 		Font="courier16"
@@ -263,10 +263,9 @@
 		Y="50"
 		Width="310"
 		Height="40"
-		YTextOffset="8"
 		IsVisible="false"
 		IsDisabled="false"
-		Font="courier16"
+		Font="changaone16"
 		TextColor="White"
 		TextOverColor="Chartreuse"
 		VisualKey="RoundedButton"
@@ -305,7 +304,7 @@
       Type="WindowTitle"
       Name="AutoRollerWindowTitle"
       Owner="AutoRollerWindow"
-      Font="courier12"
+      Font="lemon12"
       TintColor="Gray"
       VisualKey="WhiteSpace"
       Text="Auto Roller Settings"
@@ -980,7 +979,7 @@
       Height="275"
       IsVisible="false"
       IsLocked="true"
-      Font="courier16"
+      Font="lemon12"
       VisualKey="WhiteSpace"
       VisualAlpha="85"
       TintColor="Black"
@@ -997,7 +996,7 @@
     Type="WindowTitle"
     Name="RollerStatsWindowTitle"
     Owner="RollerStatsWindow"
-    Font="courier12"
+    Font="lemon12"
     TintColor="Gray"
     VisualKey="WhiteSpace"
     Text="Roller Stats"
@@ -1033,7 +1032,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier12"
+    Font="courier16"
     TextAlignment="Left">
   </Control>
 
@@ -1048,7 +1047,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier12"
+    Font="courier16"
     TextAlignment="Left">
     </Control>
 
@@ -1063,7 +1062,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier12"
+    Font="courier16"
     TextAlignment="Left">
     </Control>
 
@@ -1078,7 +1077,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier12"
+    Font="courier16"
     TextAlignment="Left">
     </Control>
 
@@ -1093,7 +1092,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier12"
+    Font="courier16"
     TextAlignment="Left">
     </Control>
 </RollerStatsWindow>

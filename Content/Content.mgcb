@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../Downloads/KSND0281.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../../../Downloads/KSND0281.wav;KSND0281.wav
+
 #begin Ambience/Kesmai-Dungeon-Background.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -1728,6 +1734,24 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:KSND0278.WAV
+
+#begin KSND0279.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0279.wav
+
+#begin KSND0280.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0280.wav
+
+#begin KSND0282.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0282.wav
 
 #begin KSNDint1.WAV
 /importer:WavImporter

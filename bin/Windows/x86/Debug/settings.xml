@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ClientSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ServerName>Dragon's Spine</ServerName>
-  <ServerHost>www.dragonsspine.com</ServerHost>
+  <ServerHost>localhost</ServerHost>
   <ServerPort>3000</ServerPort>
   <ShowSplash>false</ShowSplash>
   <DefaultFont>courier16</DefaultFont>
@@ -65,7 +65,7 @@
       <Value>zUurtktm6OUlEdqc5r8hPA==</Value>
     </EncryptedKeyValuePairOfStringString>
   </StoredAccounts>
-  <MostRecentStoredAccount>JUyMoMZ/fYbIwMLCcWKpxIQk2lnG9VNWDkxp+UgfB3M=</MostRecentStoredAccount>
+  <MostRecentStoredAccount>DmheJJn42Woz+paW+RgPcUvtL4zDS1KM7XooVvQWYEI=</MostRecentStoredAccount>
   <OptionsWindowX>50</OptionsWindowX>
   <OptionsWindowY>50</OptionsWindowY>
   <MacrosWindowX>300</MacrosWindowX>
@@ -218,11 +218,11 @@
   </HotButtonPopUpText_BackColor>
   <HotButtonPopUpText_BackColorAlpha>255</HotButtonPopUpText_BackColorAlpha>
   <GridBoxWindowTintColor>
-    <B>79</B>
-    <G>79</G>
-    <R>47</R>
+    <B>222</B>
+    <G>196</G>
+    <R>176</R>
     <A>255</A>
-    <PackedValue>4283387695</PackedValue>
+    <PackedValue>4292789424</PackedValue>
   </GridBoxWindowTintColor>
   <GridBoxTitleTextColor>
     <B>255</B>
@@ -289,7 +289,7 @@
     <PackedValue>4294967295</PackedValue>
   </DragAndDropTintOverColor>
   <DragAndDropHasTintOverColor>false</DragAndDropHasTintOverColor>
-  <GridBoxWindowVisualKeyAlpha>160</GridBoxWindowVisualKeyAlpha>
+  <GridBoxWindowVisualKeyAlpha>200</GridBoxWindowVisualKeyAlpha>
   <GridBoxWindowBorderAlpha>255</GridBoxWindowBorderAlpha>
   <GridBoxWindowFont>courier16</GridBoxWindowFont>
   <AcceptingGridBoxBorderColor>

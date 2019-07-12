@@ -1868,7 +1868,7 @@
       X="367"
       Y="10"
       Width="20"
-      Height="104"
+      Height="105"
       IsVisible="false"
       IsLocked="true"
       Font="courier12"
@@ -2019,9 +2019,9 @@
          Name="VerticalAutoHidingSpellbookButton"
          Owner="VerticalGameAutoHidingWindow"
          X="0"
-         Y="210"
-         Width="40"
-         Height="40"
+         Y="106"
+         Width="20"
+         Height="20"
          VisualKey="SpellbookIcon"
          TintColor="MediumSeaGreen"
          TextColor="Black"
@@ -2033,6 +2033,27 @@
          TextOverColor="SlateGray"
          OnMouseDown="toggle_spellbook"
          PopUpText="Spellbook">
+    </Control>
+    <Control
+      Type="Button"
+      Text=""
+      Name="VerticalAutoHidingSpellringButton"
+      Owner="VerticalGameAutoHidingWindow"
+      X="0"
+      Y="106"
+      Width="20"
+      Height="20"
+      VisualKey="SpellringIcon"
+      TintColor="MediumSeaGreen"
+      TextColor="Black"
+      TintOverColor="PaleGreen"
+      TextVisible="false"
+      IsVisible="false"
+      Font="courier12"
+      TextAlignment="Left"
+      TextOverColor="SlateGray"
+      OnMouseDown="toggle_spellring"
+      PopUpText="Spells">
     </Control>
   </VerticalGameAutoHidingWindow>
 

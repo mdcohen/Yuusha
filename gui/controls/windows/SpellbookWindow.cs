@@ -153,24 +153,24 @@ namespace Yuusha.gui
 
             // Spell Name
             this["Spellbook" + leftOrRight + "PageSpellNameLabel"].Text = spell.Name.ToUpper();
-
             // Spell Icon
             if (Effect.IconsDictionary.ContainsKey(spell.Name))
                 this["Spellbook" + leftOrRight + "PageSpellIconLabel"].VisualKey = Effect.IconsDictionary[spell.Name];
             else this["Spellbook" + leftOrRight + "PageSpellIconLabel"].VisualKey = "question_mark";
-
+            // Level Symbol Text
             this["Spellbook" + leftOrRight + "LevelSymbolLabel"].Text = spell.RequiredSkillLevel.ToString();
+            // Mana Symbol Text
             this["Spellbook" + leftOrRight + "ManaSymbolLabel"].Text = spell.ManaCost.ToString();
 
             // Choose text box to display spell chant
-            int randomTextBox = new System.Random(System.Guid.NewGuid().GetHashCode()).Next(0, 13);
+            int randomTextBox = new Random(System.Guid.NewGuid().GetHashCode()).Next(0, 13);
 
             for (int i = 0; i <= 13; i++)
             {
                 TextBox tbxBox = this[Name + leftOrRight + "Chant" + i + "TextBox"] as TextBox;
                 if (i == randomTextBox)
                 {
-                    tbxBox.Text = spell.Incantation;
+                    tbxBox.Text = spell.Incantation.ToUpper();
                     tbxBox.TextColor = Color.Gold;
                     tbxBox.TextAlpha = 255;
                     if (leftPage)
@@ -179,8 +179,8 @@ namespace Yuusha.gui
                 }
                 else
                 {
-                    int seed = System.Guid.NewGuid().GetHashCode();
-                    tbxBox.Text = TextManager.GenerateMagicWords(new System.Random(seed).Next(4, 9)).ToUpper();
+                    int seed = Guid.NewGuid().GetHashCode();
+                    tbxBox.Text = TextManager.GenerateMagicWords(new Random(seed).Next(4, 9)).ToUpper();
                     tbxBox.TextColor = Color.Black;
                 }
             }
@@ -207,7 +207,7 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
-            if(Character.CurrentCharacter == null || Character.CurrentCharacter.Spells.Count == 0)
+            if(Character.CurrentCharacter == null || Character.CurrentCharacter.Spells.Count <= 0)
             {
                 IsVisible = false;
                 return;

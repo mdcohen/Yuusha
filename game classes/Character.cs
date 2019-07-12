@@ -961,6 +961,10 @@ namespace Yuusha
                 return false;
             }
         }
+        public bool HasFreeHand
+        {
+            get { return RightHand == null || LeftHand == null; }
+        }
         #endregion
 
         #region Constructor
@@ -1093,20 +1097,37 @@ namespace Yuusha
             Z = cell.zCord;
         }
 
-        public bool IsNextToCounter()
+        public Cell Cell
+        {
+            get
+            {
+                return Cell.GetCell(X, Y, Character.CurrentCharacter.Z);
+            }
+        }
+
+        public bool IsNextToCounter(out string locationName)
         {
             for (int ypos = -1; ypos <= 1; ypos += 1)
             {
                 for (int xpos = -1; xpos <= 1; xpos += 1)
                 {
-                    Cell curCell = Cell.GetCell(X + xpos, Y + ypos, Character.CurrentCharacter.Z);
+                    Cell curCell = Cell.GetCell(X + xpos, Y + ypos, CurrentCharacter.Z);
                     if (curCell != null)
                     {
-                        if (curCell.CellGraphic == Cell.GRAPHIC_COUNTER_PLACEABLE || curCell.CellGraphic == Cell.GRAPHIC_ALTAR_PLACEABLE)
+                        if (curCell.CellGraphic == Cell.GRAPHIC_COUNTER_PLACEABLE)
+                        {
+                            locationName = "counter";
                             return true;
+                        }
+                        else if(curCell.CellGraphic == Cell.GRAPHIC_ALTAR_PLACEABLE)
+                        {
+                            locationName = "altar";
+                            return true;
+                        }
                     }
                 }
             }
+            locationName = "";
             return false;
         }
 
@@ -1128,13 +1149,26 @@ namespace Yuusha
             return lhs + rhs;
         }
 
+        public Item GetRing(WearOrientation orientation)
+        {
+            foreach (Item item in Rings)
+            {
+              //Utils.LogOnce(Rings.Count + ":" + item.VisualKey + ", " + item.wearOrientation);
+                if (item.wearOrientation == orientation)
+                    return item;
+            }
+
+            return null;
+        }
+
         public Item GetInventoryItem(WearLocation location, WearOrientation orientation)
         {
-            foreach(Item item in Inventory)
+            foreach (Item item in Inventory)
             {
                 if (item.wearLocation == location && item.wearOrientation == orientation)
                     return item;
             }
+
             return null;
         }
 

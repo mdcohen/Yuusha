@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace Yuusha.gui
@@ -9,6 +10,9 @@ namespace Yuusha.gui
         private bool m_fadeOut;
         private bool m_fadeIn;
         private const int m_fadeSpeed = 4;
+        //private bool m_isEnlarged;
+        //private int m_originalX;
+        //private int m_originalY;
 
         public string EffectName
         { get; set; }
@@ -32,6 +36,7 @@ namespace Yuusha.gui
             m_originalVisualAlpha = visualAlpha;
             m_fadeIn = false;
             m_fadeOut = false;
+            //m_isEnlarged = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -87,5 +92,37 @@ namespace Yuusha.gui
                     IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
             }
         }
+
+        //protected override void OnMouseOver(MouseState ms)
+        //{
+        //    base.OnMouseOver(ms);
+
+        //    if(!m_isEnlarged)
+        //    {
+        //        Width = Width + Width / 2;
+        //        Height = Height + Height / 2;
+        //        m_originalX = Position.X;
+        //        m_originalY = Position.Y;
+        //        Position = new Point(Position.X - Width / 4, Position.Y - Height / 4);
+        //        ZDepth = 1;
+        //        if(GuiManager.GetControl(Owner) is Window w)
+        //            w.Controls.Sort(new ControlSorter());
+        //        m_isEnlarged = true;
+        //    }
+        //}
+
+        //protected override void OnMouseLeave(MouseState ms)
+        //{
+        //    base.OnMouseLeave(ms);
+
+        //    if(m_isEnlarged)
+        //    {
+        //        Position = new Point(m_originalX, m_originalY);
+        //        Width = Width / 3 * 2;
+        //        Height = Height / 3 * 2;
+
+        //        m_isEnlarged = false;
+        //    }
+        //}
     }
 }

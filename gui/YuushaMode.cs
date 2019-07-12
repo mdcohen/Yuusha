@@ -92,6 +92,26 @@ namespace Yuusha.gui
                     else sheet["HitsRemainingLabel"].TextColor = sheet["HitsAmountLabel"].TextColor;
                     sheet["HitsAmountLabel"].Text = "/" + chr.HitsFull.ToString();
 
+                    (sheet["HitsPercentageBarLabel"] as PercentageBarLabel).Percentage = (double)chr.Hits / chr.HitsFull * 100;
+                    //(sheet["HitsPercentageBarLabel"] as PercentageBarLabel).PopUpText = (sheet["HitsPercentageBarLabel"] as PercentageBarLabel).Percentage.ToString();
+                    (sheet["HitsPercentageBarLabel"] as PercentageBarLabel).ForeLabel.Text = chr.Hits + "/" + chr.HitsFull;
+
+                    if (!GameHUD.VitalsTextMode)
+                    {
+                        sheet["HitsRemainingLabel"].IsVisible = false;
+                        sheet["HitsAmountLabel"].IsVisible = false;
+                        sheet["HitsAmountLabel"].IsVisible = false;
+                        sheet["HitsPercentageBarLabel"].IsVisible = true;
+                    }
+                    else
+                    {
+                        sheet["HitsRemainingLabel"].IsVisible = true;
+                        sheet["HitsAmountLabel"].IsVisible = true;
+                        sheet["HitsAmountLabel"].IsVisible = true;
+                        sheet["HitsPercentageBarLabel"].IsVisible = false;
+                    }
+
+                    #region Stamina Labels
                     if (sheet["StaminaRemainingLabel"].Text.Length > 0)
                     {
                         int stamRemaining = Convert.ToInt32(sheet["StaminaRemainingLabel"].Text);
@@ -107,6 +127,26 @@ namespace Yuusha.gui
                         sheet["StaminaRemainingLabel"].TextColor = Color.DarkSalmon;
                     else sheet["StaminaRemainingLabel"].TextColor = sheet["StaminaAmountLabel"].TextColor;
                     sheet["StaminaAmountLabel"].Text = "/" + chr.StaminaFull.ToString();
+
+                    (sheet["StaminaPercentageBarLabel"] as PercentageBarLabel).Percentage = (double)chr.Stamina / chr.StaminaFull * 100;
+                    //(sheet["StaminaPercentageBarLabel"] as PercentageBarLabel).PopUpText = (sheet["StaminaPercentageBarLabel"] as PercentageBarLabel).Percentage.ToString();
+                    (sheet["StaminaPercentageBarLabel"] as PercentageBarLabel).ForeLabel.Text = chr.Stamina + "/" + chr.StaminaFull;
+
+                    if (!GameHUD.VitalsTextMode)
+                    {
+                        sheet["StaminaRemainingLabel"].IsVisible = false;
+                        sheet["StaminaAmountLabel"].IsVisible = false;
+                        sheet["StaminaAmountLabel"].IsVisible = false;
+                        sheet["StaminaPercentageBarLabel"].IsVisible = true;
+                    }
+                    else
+                    {
+                        sheet["StaminaRemainingLabel"].IsVisible = true;
+                        sheet["StaminaAmountLabel"].IsVisible = true;
+                        sheet["StaminaAmountLabel"].IsVisible = true;
+                        sheet["StaminaPercentageBarLabel"].IsVisible = false;
+                    } 
+                    #endregion
 
                     #region Magic Points Labels
                     if (chr.IsManaUser)
@@ -127,15 +167,31 @@ namespace Yuusha.gui
                         else sheet["MagicPtsRemainingLabel"].TextColor = sheet["MagicPtsAmountLabel"].TextColor;
                         sheet["MagicPtsAmountLabel"].Text = "/" + chr.ManaFull.ToString();
 
-                        sheet["MagicPtsLabel"].IsVisible = true;
-                        sheet["MagicPtsAmountLabel"].IsVisible = true;
-                        sheet["MagicPtsRemainingLabel"].IsVisible = true;
+                        (sheet["MagicPtsPercentageBarLabel"] as PercentageBarLabel).Percentage = (double)chr.Mana / chr.ManaFull * 100;
+                        //(sheet["MagicPtsPercentageBarLabel"] as PercentageBarLabel).PopUpText = (sheet["MagicPtsPercentageBarLabel"] as PercentageBarLabel).Percentage.ToString();
+                        (sheet["MagicPtsPercentageBarLabel"] as PercentageBarLabel).ForeLabel.Text = chr.Mana + "/" + chr.ManaFull;
+
+                        if (!GameHUD.VitalsTextMode)
+                        {
+                            sheet["MagicPtsRemainingLabel"].IsVisible = false;
+                            sheet["MagicPtsAmountLabel"].IsVisible = false;
+                            sheet["MagicPtsAmountLabel"].IsVisible = false;
+                            sheet["MagicPtsPercentageBarLabel"].IsVisible = true;
+                        }
+                        else
+                        {
+                            sheet["MagicPtsRemainingLabel"].IsVisible = true;
+                            sheet["MagicPtsAmountLabel"].IsVisible = true;
+                            sheet["MagicPtsAmountLabel"].IsVisible = true;
+                            sheet["MagicPtsPercentageBarLabel"].IsVisible = false;
+                        }
                     }
                     else
                     {
                         sheet["MagicPtsLabel"].IsVisible = false;
                         sheet["MagicPtsRemainingLabel"].IsVisible = false;
                         sheet["MagicPtsAmountLabel"].IsVisible = false;
+                        sheet["MagicPtsPercentageBarLabel"].IsVisible = false;
                     }
                     #endregion
 

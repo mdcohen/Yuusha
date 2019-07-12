@@ -42,7 +42,14 @@ namespace Yuusha.gui
                 int y = 180;
                 int width = 48; // 34
                 int height = 48; // 34
-                int padding = 2;
+                int padding = 3;
+
+                if (!Client.IsFullScreen)
+                {
+                    width = 31;
+                    height = 31;
+                    padding = 1;
+                }
 
                 foreach (string visualName in GuiManager.Visuals.Keys)
                 {
@@ -56,13 +63,13 @@ namespace Yuusha.gui
                 int rowCount = 0;
                 int a = 0;
 
-                VisualKey emptyKey = new gui.VisualKey("");
+                VisualKey emptyKey = new VisualKey("");
 
                 for (a = 0; a < IconVisualKeys.Count; a++)
                 {
                     GuiManager.CurrentSheet.CreateButton("IconImageSelectionButton", IconImagePrefix + "_" + a, Name,
-                        new Rectangle(x, y, width, height), Name, false, Color.White, true, false, GuiManager.Sheets[Sheet].Font, new VisualKey(IconVisualKeys[a]), Color.White,
-                        255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Center, 0, 0, Color.White, false, Color.White, false, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left },
+                        new Rectangle(x, y, width, height), a.ToString(), false, Color.White, true, false, GuiManager.Sheets[Sheet].Font, new VisualKey(IconVisualKeys[a]), Color.White,
+                        255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Center, 0, 30, Color.White, false, Color.White, false, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left },
                         false, Map.Direction.Northwest, 2, "", "", "", "", false);
 
                     columnCount++;
@@ -70,7 +77,10 @@ namespace Yuusha.gui
 
                     if (columnCount == 31)
                     {
-                        columnCount = 0; rowCount++; x = 6; y += height + padding;
+                        columnCount = 0;
+                        rowCount++;
+                        x = 6;
+                        y += height + padding;
                     }
                 }
 
@@ -87,6 +97,48 @@ namespace Yuusha.gui
             }
             catch(Exception e)
             { Utils.LogException(e); }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if(GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt))
+            {
+                foreach(Control c in Controls)
+                {
+                    if(c is IconImageSelectionButton b)
+                    {
+                        b.IsTextVisible = true;
+                    }
+                }
+            }
+            else
+            {
+                foreach (Control c in Controls)
+                {
+                    if (c is IconImageSelectionButton b)
+                    {
+                        b.IsTextVisible = false;
+                    }
+                }
+            }
+        }
+
+        public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
+        {
+            foreach(Control c in new System.Collections.Concurrent.ConcurrentBag<Control>(Controls))
+            {
+                if(c is IconImageSelectionButton)
+                {
+                    Controls.Remove(c);
+                }
+            }
+
+            base.OnClientResize(prev, now, ownerOverride);
+
+            IconSelectionButtonsCreated = false;
+            CreateIconSelectionButtons();
         }
     }
 }

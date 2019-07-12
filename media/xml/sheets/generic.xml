@@ -987,7 +987,7 @@ available in any game state. -->
       <Control
        Type="Label"
        Text="Function Key Mapping"
-       Name="OptionsKeyboardMappingLabel"
+       Name="OptionsFunctionKeyMappingLabel"
        Owner="SecondTabOptionsWindow"
        X="4"
        Y="205"
@@ -2593,8 +2593,7 @@ available in any game state. -->
       TextColor="White"
       TextAlignment="Center"
       VisualKey="WhiteSpace"
-      VisualAlpha="255"
-      BorderAlpha ="100"
+      VisualAlpha="235"
       TintColor="Indigo"
       DropShadow="true"
       ShadowDistance="3"
@@ -2636,7 +2635,7 @@ available in any game state. -->
       Type="SquareBorder"
       Name="VerticalHotButtonWindowBorder"
       Owner="VerticalHotButtonWindow"
-      Width="2"
+      Width="1"
       VisualKey="WhiteSpace"
       VisualAlpha ="200"
       TintColor="Gray">
@@ -3058,7 +3057,7 @@ available in any game state. -->
       TextColor="White"
       TextAlignment="Center"
       VisualKey="WhiteSpace"
-      VisualAlpha="255"
+      VisualAlpha="235"
       BorderAlpha ="100"
       TintColor="Indigo"
       DropShadow="true"
@@ -3406,19 +3405,19 @@ available in any game state. -->
       OnMouseDown="Send_Command">
     </Control>
   </HorizontalHotButtonWindow>
-  
-  <InventoryWindow>
+
+  <CharacterStatsWindow>
     <Control
       Type="Window"
-      Name="InventoryWindow"
-      X="200"
-      Y="200"
-      Width="356"
-      Height="429"
+      Name="CharacterStatsWindow"
+      X="100"
+      Y="50"
+      Width="656"
+      Height="629"
       IsVisible="false"
       IsLocked="false"
       Font="courier12"
-      VisualKey="Inventory_Male"
+      VisualKey="PurpleTileBackground"
       VisualAlpha="255"
       TintColor="White"
       DropShadow="true"
@@ -3426,7 +3425,58 @@ available in any game state. -->
       ShadowDirection="Northwest"
       CursorOnDrag="Dragging">
     </Control>
-    <!-- InventoryWindowTitle -->
+    <!-- FullStatsWindowTitle -->
+    <Control
+      Type="WindowTitle"
+      Name="CharacterStatsWindowTitle"
+      Owner="CharacterStatsWindow"
+      Font="lemon14"
+      TintColor="White"
+      VisualKey="GreenWeave"
+      Text="Ebony..rose"
+      TextColor="White"
+      VisualAlpha="255"
+      TextAlignment="Center"
+      CloseBoxVisualKey="WindowCloseBox"
+      CloseBoxVisualKeyDown="WindowCloseBoxDown"
+      CloseBoxDistanceFromRight="20"
+      CloseBoxDistanceFromTop="5"
+      CloseBoxWidth="18"
+      CloseBoxHeight="18"
+      Height="24">
+    </Control>
+    <!-- InventoryWindowBorder -->
+    <Control
+    Type="SquareBorder"
+    Name="CharacterStatsWindowBorder"
+    Owner="CharacterStatsWindow"
+    Width="1"
+    VisualKey="WhiteSpace"
+    TintColor="DimGray">
+    </Control>
+  </CharacterStatsWindow>
+  
+  <InventoryWindow>
+    <Control
+      Type="Window"
+      Owner="CharacterStatsWindow"
+      Name="InventoryWindow"
+      X="0"
+      Y="0"
+      Width="356"
+      Height="429"
+      IsVisible="true"
+      IsLocked="true"
+      Font="courier12"
+      VisualKey="Inventory_Male"
+      VisualAlpha="255"
+      TintColor="GhostWhite"
+      DropShadow="false"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      CursorOnDrag="Dragging">
+    </Control>
+    <!-- InventoryWindowTitle
     <Control
       Type="WindowTitle"
       Name="InventoryWindowTitle"
@@ -3444,8 +3494,8 @@ available in any game state. -->
       CloseBoxDistanceFromTop="5"
       CloseBoxWidth="18"
       CloseBoxHeight="18"
-      Height="24">
-    </Control>
+      Height="24"
+    </Control> -->
     <!-- InventoryWindowBorder -->
     <Control
     Type="SquareBorder"
@@ -3472,7 +3522,7 @@ available in any game state. -->
     IsLocked="true"
 		Font="courier12"
 		TextAlignment="Center">
-    </Control>    
+    </Control>
     <!-- Head -->
     <Control
 		Type="DragAndDropButton"
@@ -3695,4 +3745,192 @@ available in any game state. -->
 		TextAlignment="Center">
     </Control>
   </InventoryWindow>
+
+  <RingsWindow>
+    <Control
+      Type="Window"
+      Name="RingsWindow"
+      X="200"
+      Y="197"
+      Width="236"
+      Height="233"
+      IsVisible="false"
+      IsLocked="false"
+      Font="courier12"
+      VisualKey="RingsWindowBackground"
+      VisualAlpha="255"
+      TintColor="White"
+      DropShadow="true"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      CursorOnDrag="Dragging">
+    </Control>
+    <!-- RingsWindowTitle -->
+    <Control
+      Type="WindowTitle"
+      Name="RingsWindowTitle"
+      Owner="RingsWindow"
+      Font="courier16"
+      TintColor="DimGray"
+      VisualKey="WhiteSpace"
+      Text=""
+      TextColor="White"
+      VisualAlpha="0"
+      TextAlignment="Center"
+      CloseBoxVisualKey="WindowCloseBox"
+      CloseBoxVisualKeyDown="WindowCloseBoxDown"
+      CloseBoxDistanceFromRight="20"
+      CloseBoxDistanceFromTop="5"
+      CloseBoxWidth="18"
+      CloseBoxHeight="18"
+      Height="24">
+    </Control>
+    <!-- RingsWindowBorder -->
+    <Control
+    Type="SquareBorder"
+    Name="RingsWindowBorder"
+    Owner="RingsWindow"
+    Width="1"
+    VisualKey="WhiteSpace"
+    TintColor="DimGray">
+    </Control>
+
+  <!-- LeftRing1 -->
+  <Control
+  Type="DragAndDropButton"
+  Text=""
+  Name="LeftRing1DragAndDropButton"
+  Owner="RingsWindow"
+  X="17"
+  Y="51"
+  Width="40"
+  Height="40"
+  TextColor="White"
+  TextVisible="false"
+  IsVisible="true"
+  IsLocked="true"
+  Font="courier12"
+  TextAlignment="Center">
+  </Control>
+  <!-- LeftRing2 -->
+  <Control
+  Type="DragAndDropButton"
+  Text=""
+  Name="LeftRing2DragAndDropButton"
+  Owner="RingsWindow"
+  X="71"
+  Y="51"
+  Width="40"
+  Height="40"
+  TextColor="White"
+  TextVisible="false"
+  IsVisible="true"
+  IsLocked="true"
+  Font="courier12"
+  TextAlignment="Center">
+  </Control>
+  <!-- LeftRing3 -->
+  <Control
+  Type="DragAndDropButton"
+  Text=""
+  Name="LeftRing3DragAndDropButton"
+  Owner="RingsWindow"
+  X="125"
+  Y="51"
+  Width="40"
+  Height="40"
+  TextColor="White"
+  TextVisible="false"
+  IsVisible="true"
+  IsLocked="true"
+  Font="courier12"
+  TextAlignment="Center">
+  </Control>
+  <!-- LeftRing4 -->
+  <Control
+  Type="DragAndDropButton"
+  Text=""
+  Name="LeftRing4DragAndDropButton"
+  Owner="RingsWindow"
+  X="179"
+  Y="51"
+  Width="40"
+  Height="40"
+  TextColor="White"
+  TextVisible="false"
+  IsVisible="true"
+  IsLocked="true"
+  Font="courier12"
+  TextAlignment="Center">
+  </Control>
+
+    <!-- RightRing1 -->
+  <Control
+  Type="DragAndDropButton"
+  Text=""
+  Name="RightRing1DragAndDropButton"
+  Owner="RingsWindow"
+  X="17"
+  Y="146"
+  Width="40"
+  Height="40"
+  TextColor="White"
+  TextVisible="false"
+  IsVisible="true"
+  IsLocked="true"
+  Font="courier12"
+  TextAlignment="Center">
+  </Control>
+  <!-- RightRing2 -->
+  <Control
+  Type="DragAndDropButton"
+  Text=""
+  Name="RightRing2DragAndDropButton"
+  Owner="RingsWindow"
+  X="71"
+  Y="146"
+  Width="40"
+  Height="40"
+  TextColor="White"
+  TextVisible="false"
+  IsVisible="true"
+  IsLocked="true"
+  Font="courier12"
+  TextAlignment="Center">
+  </Control>
+  <!-- RightRing3 -->
+  <Control
+  Type="DragAndDropButton"
+  Text=""
+  Name="RightRing3DragAndDropButton"
+  Owner="RingsWindow"
+  X="125"
+  Y="146"
+  Width="40"
+  Height="40"
+  TextColor="White"
+  TextVisible="false"
+  IsVisible="true"
+  IsLocked="true"
+  Font="courier12"
+  TextAlignment="Center">
+  </Control>
+  <!-- RightRing4 -->
+  <Control
+  Type="DragAndDropButton"
+  Text=""
+  Name="RightRing4DragAndDropButton"
+  Owner="RingsWindow"
+  X="179"
+  Y="146"
+  Width="40"
+  Height="40"
+  TextColor="White"
+  TextVisible="false"
+  IsVisible="true"
+  IsLocked="true"
+  Font="courier12"
+  TextAlignment="Center">
+  </Control>
+  </RingsWindow>
 </GenericSheet>

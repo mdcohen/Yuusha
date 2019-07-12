@@ -113,7 +113,7 @@ namespace Yuusha.gui
 
                 if (!m_disabled)
                 {
-                    Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, m_foreTint);
+                    Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, new Color(m_foreTint, m_foreAlpha));
                 }
                 else
                 {

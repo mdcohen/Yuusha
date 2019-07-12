@@ -3,7 +3,7 @@
 	<!-- <SpinelTile Graphic="" Name="" ForeVisual="" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef> -->
 	<!-- Graphic and Name attributes must be unique. -->
   <!-- List of colors: http://www.flounder.com/csharp_color_table.htm#A -->
-	<SpinelTileDef Graphic="  " Name="Empty" ForeVisual="sptile_empty1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
+	<SpinelTileDef Graphic="  " Name="Empty" ForeVisual="sptile_empty1" BackVisual="WhiteSpace" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="Black"></SpinelTileDef>
 	<SpinelTileDef Graphic=". " Name="Room" ForeVisual="sptile_ground11" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="??" Name="Darkness" ForeVisual="sptile_empty1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="TT" Name="ImpassableTree" ForeVisual="sptile_tree1" BackVisual="sptile_ground4" ForeAlpha="255" BackAlpha="255" ForeTint="Gray" BackTint="Gray"></SpinelTileDef>
@@ -57,5 +57,6 @@
   <SpinelTileDef Graphic="-." Name="LocustSwarm" ForeVisual="sptile_unknown2" BackVisual="sptile_ground9" ForeAlpha="190" BackAlpha="255" ForeTint="DimGray" BackTint="White"></SpinelTileDef>
   <SpinelTileDef Graphic="ud" Name="UpDownStairs" ForeVisual="sptile_down1" BackVisual="sptile_up1" ForeAlpha="155" BackAlpha="155" ForeTint="White" BackTint="White"></SpinelTileDef>
   <SpinelTileDef Graphic="++" Name="Lightning" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="190" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
- 
+  <SpinelTileDef Graphic="FF" Name="Fog" ForeVisual="hotbuttonicon_423" BackVisual="WhiteSpace" ForeAlpha="200" BackAlpha="255" ForeTint="White" BackTint="DimGray"></SpinelTileDef>
+  <SpinelTileDef Graphic="tp" Name="Teleport" ForeVisual="sptile_portal1" BackVisual="WhiteSpace" ForeAlpha="150" BackAlpha="255" ForeTint="White" BackTint="CadetBlue"></SpinelTileDef>
 </SpinelTileDefinitions>

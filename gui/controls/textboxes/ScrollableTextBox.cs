@@ -312,7 +312,7 @@ namespace Yuusha.gui
                         int height = DropDownMenu.Title == "" ? 0 : BitmapFont.ActiveFonts[Font].LineHeight;
                         foreach (string _font in BitmapFont.ActiveFonts.Keys)
                         {
-                            if (_font.ToLower().StartsWith("courier"))
+                            if (BitmapFont.ActiveFonts[_font].IsMonospace)
                             {
                                 height += 20;
                                 DropDownMenu.AddDropDownMenuItem(BitmapFont.ActiveFonts[_font].Name, Name + "DropDownMenu", new VisualKey("WhiteSpace"), "ScrollableTextBox_DropDown", _font, Font == _font ? true : false);

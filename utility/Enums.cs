@@ -176,6 +176,7 @@ namespace Yuusha
             ChooseProfession,
             ReviewStats,
             ChooseName,
+            CharGenSuccess,
         }
 
         public enum ELoginState

@@ -1,4 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/mikec/Desktop/YuushaMG/Content/../../../Downloads/KSND0281.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSND0281.xnb","SoundEffectProcessor","SoundEffectContent",373732,355101,0.2854195
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Kesmai-Dungeon-Background.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Ambience/Kesmai-Dungeon-Background.xnb","SongProcessor","SongContent",13617206,143,0.6478861
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Wind-Moderate.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Ambience/Wind-Moderate.xnb","SongProcessor","SongContent",5504860,131,0.322853
 "C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/modem_dial.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/GUISounds/modem_dial.xnb","SoundEffectProcessor","SoundEffectContent",3285036,3285097,0.1954788
@@ -285,6 +286,9 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/mikec/Desktop/YuushaMG/Content/KSND0276.WAV","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSND0276.xnb","SoundEffectProcessor","SoundEffectContent",20872,20933,0.1246658
 "C:/Users/mikec/Desktop/YuushaMG/Content/KSND0277.WAV","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSND0277.xnb","SoundEffectProcessor","SoundEffectContent",20966,21027,0.1262801
 "C:/Users/mikec/Desktop/YuushaMG/Content/KSND0278.WAV","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSND0278.xnb","SoundEffectProcessor","SoundEffectContent",19858,19919,0.1396283
+"C:/Users/mikec/Desktop/YuushaMG/Content/KSND0279.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSND0279.xnb","SoundEffectProcessor","SoundEffectContent",268334,268395,0.3814083
+"C:/Users/mikec/Desktop/YuushaMG/Content/KSND0280.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSND0280.xnb","SoundEffectProcessor","SoundEffectContent",326344,326405,0.3761007
+"C:/Users/mikec/Desktop/YuushaMG/Content/KSND0282.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSND0282.xnb","SoundEffectProcessor","SoundEffectContent",400808,400869,0.215594
 "C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint1.WAV","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSNDint1.xnb","SoundEffectProcessor","SoundEffectContent",44357,44418,0.1332816
 "C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint2.WAV","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSNDint2.xnb","SoundEffectProcessor","SoundEffectContent",125879,125940,0.1256317
 "C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint3.WAV","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSNDint3.xnb","SoundEffectProcessor","SoundEffectContent",80519,80580,0.1278078

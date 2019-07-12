@@ -1,10 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Yuusha.gui
 {
     public class SpellEffectLabel : Label
     {
+        public static Dictionary<string, string> IconsTintDictionary = new Dictionary<string, string>()
+        {
+
+        };
+
         public const int BuffFadeSpeed = 2; // slower
         public const int DefaultFadeSpeed = 3;
         public const int DamageFadeSpeed = 4; // faster
@@ -24,7 +30,7 @@ namespace Yuusha.gui
         public SpellEffectLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
-            string cursorOverride, System.Collections.Generic.List<Enums.EAnchorType> anchors, string popUpText) : base(name, owner, rectangle, text,
+            string cursorOverride, List<Enums.EAnchorType> anchors, string popUpText) : base(name, owner, rectangle, text,
                 textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, textAlignment,
                 xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride, anchors, popUpText)
         {
@@ -61,9 +67,13 @@ namespace Yuusha.gui
             if (Client.ClientSettings.DisplaySpellEffectNameOnLabels)
                 text = effectName;
 
-            SpellEffectLabel label = new SpellEffectLabel(effectName + "_" + Program.Client.ClientGameTime + "_SpellEffectLabel", "",
-                new Rectangle(x, y, size, size), text, Color.White, true, false, "changaone16", new VisualKey(Effect.IconsDictionary[effectName]), Color.White,
-                255, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "")
+            Color tintColor = Color.White;
+            if (Effect.IconsTintDictionary.ContainsKey(effectName))
+                tintColor = Effect.IconsTintDictionary[effectName];
+
+            SpellEffectLabel label = new SpellEffectLabel(effectName + "_" + Program.Client.ClientGameTime.ElapsedGameTime.ToString() + "_SpellEffectLabel", "",
+                new Rectangle(x, y, size, size), text, Color.White, true, false, "changaone16", new VisualKey(Effect.IconsDictionary[effectName]), tintColor,
+                255, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "")
             {
                 IsShrinking = false // still fades out
             };
@@ -100,12 +110,14 @@ namespace Yuusha.gui
             if (Client.ClientSettings.DisplaySpellEffectNameOnLabels)
                 text = effectName;
 
-            Color textColor = borderColor;
+            Color tintColor = Color.White;
+            if (Effect.IconsTintDictionary.ContainsKey(effectName))
+                tintColor = Effect.IconsTintDictionary[effectName];
 
-            SpellEffectLabel label = new SpellEffectLabel(effectName + "_" + Program.Client.ClientGameTime + "_SpellEffectLabel", "",
-                new Rectangle(x, y, size, size), text, textColor, true, false, "changaone16", new VisualKey(Effect.IconsDictionary[effectName]), Color.White,
-                255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
-            SquareBorder border = new SquareBorder(label.Name + "Border", label.Name, 3, new gui.VisualKey("WhiteSpace"), false, borderColor, 255);
+            SpellEffectLabel label = new SpellEffectLabel(effectName + "_" + Program.Client.ClientGameTime.ElapsedGameTime.TotalMilliseconds + "_SpellEffectLabel", "",
+                new Rectangle(x, y, size, size), text, borderColor, true, false, "changaone16", new VisualKey(Effect.IconsDictionary[effectName]), tintColor,
+                255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
+            SquareBorder border = new SquareBorder(label.Name + "Border", label.Name, 3, new VisualKey("WhiteSpace"), false, borderColor, 255);
 
             if (borderColor == BuffBorderColor)
                 label.FadeSpeed = BuffFadeSpeed;

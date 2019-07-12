@@ -70,9 +70,9 @@ namespace Yuusha.gui
             Color textColor;
 
             if (!m_disabled)
-                textColor = new Color(m_textColor.R, m_textColor.G, m_textColor.B, TextAlpha);
+                textColor = new Color(m_textColor, TextAlpha);
             else
-                textColor = new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, TextAlpha);
+                textColor = new Color(ColorDisabledStandard, TextAlpha);
 
             if (BitmapFont.ActiveFonts.ContainsKey(Font))
             {
@@ -86,7 +86,7 @@ namespace Yuusha.gui
                 if (m_text != null && m_text.Length > 0)
                 {
                     if (!m_disabled && m_hasTextOverColor && m_controlState == Enums.EControlState.Over)
-                        BitmapFont.ActiveFonts[Font].TextBox(rect, m_textOverColor, m_text);
+                        BitmapFont.ActiveFonts[Font].TextBox(rect, new Color(m_textOverColor, TextAlpha), m_text);
                     else
                         BitmapFont.ActiveFonts[Font].TextBox(rect, textColor, m_text);
                 }

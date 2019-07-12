@@ -10,6 +10,11 @@ namespace Yuusha
         public static string YOU_HAVE_BEEN_BLINDED = "You have been blinded!";
         public static string YOU_ARE_SCARED = "You are scared!";
 
+        public static List<string> DisplayFontsList = new List<string>()
+        {
+            "simonetta20", "unicalantiqua20", "lobster20", "mogra20", "dancingscript20",
+        };
+
         public static readonly string[] MagicWords = {"aazag","alla","alsi","anaku","angarru","anghizidda","anna","annunna","ardata","ashak",
             "baad","dingir","duppira","edin","enaa","endul","enmeshir","enn","ennul","esha","gallu","gidim","gish","ia","idpa","igigi",
             "ina","isa","khitim","kia","kielgallal","kima","ku","lalartu","limutuma","lini","ma","mardukka","masqim","mass","na","naa",
@@ -150,6 +155,22 @@ namespace Yuusha
                 gui.SpellEffectLabel.CreateSpellEffectLabel("Disintegrate");
             else if (input.StartsWith("Sage: "))
                 gui.TipWindow.CreateSageAdviceHintWindow(input.Replace("Sage: ", ""));
+            else if(input.StartsWith("You warm the spell "))
+            {
+                string spellName = input.Replace("You warm the spell ", "");
+                spellName = spellName.Substring(0, spellName.Length - 1);
+
+                //if(World.SpellsList.Find(spell => spell.Name == spellName) != null)
+                    gui.SpellWarmingWindow.CreateSpellWarmingWindow(spellName);
+            }
+            else if(input.StartsWith("You cast "))
+            {
+
+            }
+            else if(input.StartsWith("locker description"))
+            {
+                // cell is lockers
+            }
         }
 
         public static string[] GetRandomHintText()
@@ -178,6 +199,15 @@ namespace Yuusha
             {
                 return new string[] { "Sage Advice", "Nothing to spend your gold on? A trip to the Sage is always worth it." };
             }
+        }
+
+        public static string GetDisplayFont()
+        {
+            if (Character.CurrentCharacter.MapName == "Torii" || Character.CurrentCharacter.MapName == "Shukumei")
+                return "shojumaru22";
+            else return "rocksalt22";
+            //else return "uncialantiqua22";
+            //else return DisplayFontsList[new Random(Guid.NewGuid().GetHashCode()).Next(0, DisplayFontsList.Count)];
         }
     }
 }

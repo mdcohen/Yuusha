@@ -52,11 +52,11 @@ namespace Yuusha
 		struct GlyphInfo
 		{
 			public ushort nBitmapID;
-			public byte pxLocX;
-			public byte pxLocY;
-			public byte pxWidth;
-			public byte pxHeight;
-			public byte pxAdvanceWidth;
+			public short pxLocX;
+			public short pxLocY;
+			public short pxWidth;
+			public short pxHeight;
+			public short pxAdvanceWidth;
 			public sbyte pxLeftSideBearing;
 			public GlyphFlags nFlags;
 		}
@@ -85,6 +85,7 @@ namespace Yuusha
 		private int m_nHeight = 0;
 		private float m_fpDepth = 0.0f;
 		private TextAlignment m_eAlign = TextAlignment.Left;
+        private bool m_monospace = false;
 
 		/// <summary>
 		/// A dictionary of all currently defined fonts
@@ -297,6 +298,11 @@ namespace Yuusha
 		{
 			get { return m_nBase; }
 		}
+
+        public bool IsMonospace
+        {
+            get { return m_monospace; }
+        }
 
 		/// <summary>
 		/// Distance from top to bottom of the font
@@ -765,6 +771,9 @@ namespace Yuusha
 					m_strName = GetXMLAttribute(xn, "name");
 					m_nBase = Int32.Parse(GetXMLAttribute(xn, "base"));
 					m_nHeight = Int32.Parse(GetXMLAttribute(xn, "height"));
+                    string monospace = GetXMLAttribute(xn, "monospace");
+                    if(monospace.Length > 0)
+                        m_monospace = Convert.ToBoolean(monospace);
 
 					LoadFontXML_font(xn.ChildNodes);
 				}
@@ -845,14 +854,26 @@ namespace Yuusha
                     GlyphInfo ginfo = new GlyphInfo
                     {
                         nBitmapID = UInt16.Parse(strBitmapID),
-                        pxLocX = Byte.Parse(aLoc[0]),
-                        pxLocY = Byte.Parse(aLoc[1]),
-                        pxWidth = Byte.Parse(aSize[0]),
-                        pxHeight = Byte.Parse(aSize[1]),
-                        pxAdvanceWidth = Byte.Parse(strAW),
+                        pxLocX = Int16.Parse(aLoc[0]),
+                        pxLocY = Int16.Parse(aLoc[1]),
+                        pxWidth = Int16.Parse(aSize[0]),
+                        pxHeight = Int16.Parse(aSize[1]),
+                        pxAdvanceWidth = Int16.Parse(strAW),
                         pxLeftSideBearing = SByte.Parse(strLSB),
                         nFlags = 0
                     };
+
+                    //GlyphInfo ginfo = new GlyphInfo
+                    //{
+                    //    nBitmapID = UInt16.Parse(strBitmapID),
+                    //    pxLocX = Byte.Parse(aLoc[0]),
+                    //    pxLocY = Byte.Parse(aLoc[1]),
+                    //    pxWidth = Byte.Parse(aSize[0]),
+                    //    pxHeight = Byte.Parse(aSize[1]),
+                    //    pxAdvanceWidth = Byte.Parse(strAW),
+                    //    pxLeftSideBearing = SByte.Parse(strLSB),
+                    //    nFlags = 0
+                    //};
                     ginfo.nFlags |= (strForceWhite == "true" ? GlyphFlags.ForceWhite : GlyphFlags.None);
 
 					m_dictUnicode2GlyphInfo[strChar[0]] = ginfo;

@@ -1,14 +1,35 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace Yuusha.gui
 {
     public class PercentageBarLabel : Label
     {
+        //private int m_originalWidth;
+        //private int m_originalHeight;
+
         public Enums.EAnchorType Orientation
         { get; set; } = Enums.EAnchorType.Left;
 
+        private double m_percentage = 91;
+
         public double Percentage
-        { get; set; } = 91;
+        {
+            get { return m_percentage; }
+            set
+            {
+                if (value < 0) value = 0;
+                else if (value > 100) value = 100;
+
+                m_percentage = value;
+            }
+        }
+
+        public Label MidLabel
+        { get; set; }
+
+        public Border MidBorder
+        { get; set; }
 
         public Label ForeLabel
         { get; set; }
@@ -21,7 +42,7 @@ namespace Yuusha.gui
         { get; set; } = true;
 
         public int SegmentGapSize
-        { get; set; } = 3;
+        { get; set; } = 2;
 
         public Color SegmentGapColor
         { get; set; } = Color.Black;
@@ -32,20 +53,53 @@ namespace Yuusha.gui
         public PercentageBarLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
-            string cursorOverride, System.Collections.Generic.List<Enums.EAnchorType> anchors, string popUpText) : base(name, owner, rectangle, text,
+            string cursorOverride, System.Collections.Generic.List<Enums.EAnchorType> anchors, string popUpText, bool segmented) : base(name, owner, rectangle, text,
                 textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, textAlignment,
                 xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride, anchors, popUpText)
         {
+            Segmented = segmented;
+
+            MidLabel = new Label(Name + "MidLabel", Name, new Rectangle(Position.X, Position.Y, Width, Height), "", Color.White, true, false,
+                    Font, new VisualKey(""), Color.Transparent, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>(), "");
+            ForeLabel = new Label(Name + "ForeLabel", Name, new Rectangle(Position.X, Position.Y, Width, Height), "", Color.White, true, false,
+                    Font, new VisualKey(""), Color.Transparent, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>(), "");
+
+            //m_originalHeight = Height;
+            //m_originalWidth = Width;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if (Percentage > 100) Percentage = 100;
-            else if (Percentage < 0) Percentage = 0;
+            try
+            {
+                switch (Orientation)
+                {
+                    case Enums.EAnchorType.Left:
+                        MidLabel.Width = Convert.ToInt32(Width * Percentage / 100);
+                        break;
+                    case Enums.EAnchorType.Bottom:
+                        MidLabel.Height = Convert.ToInt32(Height * Percentage / 100);
+                        break;
+                }
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
+            }
 
-            ForeLabel.Width = System.Convert.ToInt32(Width * Percentage / 100);
+            if (MidLabel != null)
+            {
+                MidLabel.Update(gameTime);
+                MidLabel.Position = Position;
+            }
+
+            //if (MidBorder != null)
+            //{
+            //    MidBorder.Update(gameTime);
+            //    MidBorder.Position = MidLabel.Position;
+            //}
 
             if (ForeLabel != null)
             {
@@ -53,11 +107,11 @@ namespace Yuusha.gui
                 ForeLabel.Position = Position;
             }
 
-            if (ForeBorder != null)
-            {
-                ForeBorder.Update(gameTime);
-                ForeBorder.Position = ForeLabel.Position;
-            }
+            //if (ForeBorder != null)
+            //{
+            //    ForeBorder.Update(gameTime);
+            //    ForeBorder.Position = Position;
+            //}
         }
 
         public override void Draw(GameTime gameTime)
@@ -67,8 +121,8 @@ namespace Yuusha.gui
 
             base.Draw(gameTime);
 
-            if (ForeLabel != null) ForeLabel.Draw(gameTime);
-            if (ForeBorder != null) ForeBorder.Draw(gameTime);
+            if (MidLabel != null) MidLabel.Draw(gameTime);
+            if (MidBorder != null) MidBorder.Draw(gameTime);            
 
             if (Segmented)
             {
@@ -80,6 +134,9 @@ namespace Yuusha.gui
                     Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], segRec, vi.Rectangle, new Color(Color.Black, VisualAlpha));
                 }
             }
+
+            if (ForeLabel != null) ForeLabel.Draw(gameTime);
+            if (ForeBorder != null) ForeBorder.Draw(gameTime);
         }
     }
 }

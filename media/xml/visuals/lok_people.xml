@@ -32,7 +32,7 @@
 	<Visual ParentTexture="lok_people.png" Name="gray_wolf" X="480" Y="60" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="wolf" X="480" Y="60" Width="60" Height="60"></Visual> <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="griffin" X="540" Y="60" Width="60" Height="60"></Visual>
-	<Visual ParentTexture="lok_people.png" Name="eidolon" X="600" Y="60" Width="60" Height="60"></Visual>
+	<Visual ParentTexture="lok_people.png" Name="waft" X="600" Y="60" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="hyena" X="660" Y="60" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="cat" X="720" Y="60" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="panda" X="780" Y="60" Width="60" Height="60"></Visual>
@@ -361,7 +361,40 @@
   <Visual ParentTexture="lok_people.png" Name="alu_cultist" X="480" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="alu" X="540" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="cambion" X="600" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="eidolon" X="660" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="marid" X="720" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="kraken" X="780" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="laurelena" X="840" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="rhed" X="900" Y="1140" Width="60" Height="60"></Visual>
 
+  <!-- Added temporary ranger visuals which duplicate wizard visuals, 8/14/2013 -->
+  <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_gray" X="900" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_green" X="900" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_yellow" X="900" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_brown" X="900" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_purple" X="900" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_red" X="900" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_ranger_pc_red" X="60" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_ranger_pc_brown" X="60" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_ranger_pc_purple" X="60" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_ranger_pc_gray" X="60" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_ranger_pc_yellow" X="60" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_ranger_pc_green" X="60" Y="1200" Width="60" Height="60"></Visual>
+
+  <!-- Added temporary sorcerer visuals which duplicate wizard visuals, 8/14/2013 -->
+  <Visual ParentTexture="lok_people.png" Name="male_druid_pc_gray" X="0" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="male_druid_pc_green" X="0" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="male_druid_pc_yellow" X="0" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="male_druid_pc_brown" X="0" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="male_druid_pc_purple" X="0" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="male_druid_pc_red" X="0" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_druid_pc_red" X="840" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_druid_pc_brown" X="840" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_druid_pc_purple" X="840" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_druid_pc_gray" X="840" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_druid_pc_yellow" X="840" Y="1140" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="female_druid_pc_green" X="840" Y="1140" Width="60" Height="60"></Visual>
+  
   <!-- Added temporary sorcerer visuals which duplicate wizard visuals, 8/14/2013 -->
   <Visual ParentTexture="lok_people.png" Name="male_sorcerer_pc_gray" X="240" Y="720" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="male_sorcerer_pc_green" X="300" Y="720" Width="60" Height="60"></Visual>

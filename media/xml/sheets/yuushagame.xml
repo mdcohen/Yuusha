@@ -13,7 +13,7 @@
 		IsCentered="false"
     IsTiled="true"
     TintColor="White"
-		VisualAlpha="100">
+		VisualAlpha="180">
 	</Background>
 
   <!-- Damage Fog -->
@@ -72,7 +72,7 @@
     TextColor="Black"
     TextAlignment="Center"
     Height="13"
-    VisualAlpha="100">
+    VisualAlpha="0">
   </Control>
   <!-- Scrollable Text Box Window Border -->
   <Control
@@ -89,10 +89,10 @@
 		Type="ScrollableTextBox"
 		Name="GameTextScrollableTextBox"
 		Owner="ScrollableTextBoxWindow"
-		X="4"
+		X="0"
 		Y="15"
 		Width="860"
-		Height="216"
+		Height="220"
 		XTextOffset="0"
 		YTextOffset="0"
 		TextColor="White"
@@ -195,6 +195,55 @@
     VisualAlpha="100">
   </Control> -->
 
+  <!-- Hits Percentage Bar-->
+  <Control
+	Type="PercentageBarLabel"
+	Text=""
+	Name="HitsPercentageBarLabel"
+  Owner="TextVitalsWindow"
+	X="0"
+	Y="5"
+	Width="250"
+	Height="23"
+	TextColor="White"
+	IsVisible="true"
+  VisualKey="WhiteSpace"
+  TintColor="Red"
+  VisualAlpha="130"
+	Font="changaone16"
+	TextAlignment="Left"
+	AnchorBottom="true"
+	AnchorRight="true"
+  Segmented="false">
+  </Control>
+  <Control
+	Type="SquareBorder"
+	Name="HitsPercentageBarLabelBorder"
+	Owner="HitsPercentageBarLabel"
+	Width="1"
+	VisualKey="WhiteSpace"
+	TintColor="Red"
+  VisualAlpha="255">
+  </Control>
+  <Control
+		Type="Label"
+		Text=""
+		Name="HitsPercentageBarLabelMidLabel"
+    Owner="HitsPercentageBarLabel"
+		X="0"
+		Y="5"
+		Width="60"
+		Height="23"
+		TextColor="White"
+		IsVisible="true"
+    VisualKey="WhiteSpace"
+    TintColor="Red"
+    VisualAlpha="235"
+		Font="changaone16"
+		TextAlignment="Left"
+		AnchorBottom="true"
+		AnchorRight="true">
+    </Control>
   <!-- Hits -->
 	<Control
 		Type="Label"
@@ -206,13 +255,13 @@
 		Width="105"
 		Height="25"
 		TextColor="Plum"
-		IsVisible="true"
+		IsVisible="false"
 		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
 	</Control>
-     <!-- Hits Remaining -->
+  <!-- Hits Remaining -->
 	<Control
 		Type="Label"
 		Text=""
@@ -223,7 +272,7 @@
 		Width="50"
 		Height="25"
 		TextColor="Plum"
-		IsVisible="true"
+		IsVisible="false"
 		Font="changaone16"
 		TextAlignment="Right"
 		AnchorBottom="true"
@@ -240,12 +289,62 @@
 		Width="60"
 		Height="25"
 		TextColor="Plum"
-		IsVisible="true"
+		IsVisible="false"
 		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
 	</Control>
+
+  <!-- Stamina Percentage Bar-->
+  <Control
+	Type="PercentageBarLabel"
+	Text=""
+	Name="StaminaPercentageBarLabel"
+  Owner="TextVitalsWindow"
+	X="0"
+	Y="30"
+	Width="250"
+	Height="23"
+	TextColor="White"
+	IsVisible="true"
+  VisualKey="WhiteSpace"
+  TintColor="ForestGreen"
+  VisualAlpha="130"
+	Font="changaone16"
+	TextAlignment="Left"
+	AnchorBottom="true"
+	AnchorRight="true"
+  Segmented="false">
+  </Control>
+  <Control
+	Type="SquareBorder"
+	Name="StaminaPercentageBarLabelBorder"
+	Owner="StaminaPercentageBarLabel"
+	Width="1"
+	VisualKey="WhiteSpace"
+	TintColor="ForestGreen"
+  VisualAlpha="255">
+  </Control>
+  <Control
+		Type="Label"
+		Text=""
+		Name="StaminaPercentageBarLabelMidLabel"
+    Owner="StaminaPercentageBarLabel"
+		X="0"
+		Y="30"
+		Width="60"
+		Height="23"
+		TextColor="White"
+		IsVisible="true"
+    VisualKey="WhiteSpace"
+    TintColor="ForestGreen"
+    VisualAlpha="235"
+		Font="changaone16"
+		TextAlignment="Left"
+		AnchorBottom="true"
+		AnchorRight="true">
+    </Control>
 	<!-- Stamina -->
 	<Control
 		Type="Label"
@@ -257,7 +356,7 @@
 		Width="100"
 		Height="25"
 		TextColor="Plum"
-		IsVisible="true"
+		IsVisible="false"
 		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
@@ -274,7 +373,7 @@
     Width="50"
     Height="25"
     TextColor="Plum"
-    IsVisible="true"
+    IsVisible="false"
     Font="changaone16"
     TextAlignment="Right"
     AnchorBottom="true"
@@ -291,12 +390,62 @@
 		Width="60"
 		Height="25"
 		TextColor="Plum"
-		IsVisible="true"
+		IsVisible="false"
 		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
 	</Control>
+  
+  <!-- Magic Points Percentage Bar -->
+  <Control
+    Type="PercentageBarLabel"
+    Text=""
+    Name="MagicPtsPercentageBarLabel"
+    Owner="TextVitalsWindow"
+    X="0"
+    Y="55"
+    Width="250"
+    Height="23"
+    TextColor="White"
+    IsVisible="true"
+    VisualKey="WhiteSpace"
+    TintColor="RoyalBlue"
+    VisualAlpha="130"
+    Font="changaone16"
+    TextAlignment="Left"
+    AnchorBottom="true"
+    AnchorRight="true"
+    Segmented="false">
+  </Control>
+  <Control
+	Type="SquareBorder"
+	Name="MagicPtsPercentageBarLabelBorder"
+	Owner="MagicPtsPercentageBarLabel"
+	Width="1"
+	VisualKey="WhiteSpace"
+	TintColor="RoyalBlue"
+  VisualAlpha="255">
+  </Control>
+  <Control
+	  Type="Label"
+	  Text=""
+	  Name="MagicPtsPercentageBarLabelMidLabel"
+    Owner="MagicPtsPercentageBarLabel"
+	  X="0"
+	  Y="55"
+	  Width="60"
+	  Height="23"
+	  TextColor="White"
+	  IsVisible="true"
+    VisualKey="WhiteSpace"
+    TintColor="RoyalBlue"
+    VisualAlpha="235"
+	  Font="changaone16"
+	  TextAlignment="Left"
+	  AnchorBottom="true"
+	  AnchorRight="true">
+    </Control>
 	<!-- Magic Points -->
 	<Control
 		Type="Label"
@@ -308,13 +457,13 @@
 		Width="140"
 		Height="25"
 		TextColor="Plum"
-		IsVisible="true"
+		IsVisible="false"
 		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
 	</Control>
-     <!-- Magic Points Remaining -->
+  <!-- Magic Points Remaining -->
 	<Control
 		Type="Label"
 		Text=""
@@ -325,7 +474,7 @@
 		Width="50"
 		Height="25"
 		TextColor="Plum"
-		IsVisible="true"
+		IsVisible="false"
 		Font="changaone16"
 		TextAlignment="Right"
 		AnchorBottom="true"
@@ -342,45 +491,46 @@
 		Width="60"
 		Height="25"
 		TextColor="Plum"
-		IsVisible="true"
+		IsVisible="false"
 		Font="changaone16"
 		TextAlignment="Left"
 		AnchorBottom="true"
 		AnchorRight="true">
 	</Control>
-  <!-- Experience Percentage Bar -->
-    <Control
-		Type="PercentageBarLabel"
-		Text=""
-		Name="ExpPercentageBarLabel"
-    Owner="TextVitalsWindow"
-		X="0"
-		Y="83"
-		Width="250"
-		Height="7"
-		TextColor="Plum"
-		IsVisible="true"
-    VisualKey="WhiteSpace"
-    TintColor="Yellow"
-    VisualAlpha="130"
-		Font="changaone16"
-		TextAlignment="Left"
-		AnchorBottom="true"
-		AnchorRight="true">
-    </Control>
-    <Control
-		Type="SquareBorder"
-		Name="ExpPercentageBarLabelBorder"
-		Owner="ExpPercentageBarLabel"
-		Width="1"
-		VisualKey="WhiteSpace"
-		TintColor="Yellow"
-    VisualAlpha="255">
-    </Control>
-    <Control
+  
+    <!-- Experience Percentage Bar -->
+  <Control
+	Type="PercentageBarLabel"
+	Text=""
+	Name="ExpPercentageBarLabel"
+  Owner="TextVitalsWindow"
+	X="0"
+	Y="83"
+	Width="250"
+	Height="7"
+	TextColor="Plum"
+	IsVisible="true"
+  VisualKey="WhiteSpace"
+  TintColor="Yellow"
+  VisualAlpha="130"
+	Font="changaone16"
+	TextAlignment="Left"
+	AnchorBottom="true"
+	AnchorRight="true">
+  </Control>
+  <Control
+	Type="SquareBorder"
+	Name="ExpPercentageBarLabelBorder"
+	Owner="ExpPercentageBarLabel"
+	Width="1"
+	VisualKey="WhiteSpace"
+	TintColor="Yellow"
+  VisualAlpha="255">
+  </Control>
+  <Control
 		Type="Label"
 		Text=""
-		Name="ExpPercentageBarForeLabel"
+		Name="ExpPercentageBarMidLabel"
     Owner="ExpPercentageBarLabel"
 		X="193"
 		Y="85"
@@ -549,7 +699,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -567,7 +717,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -585,7 +735,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -603,7 +753,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -621,7 +771,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -639,7 +789,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -657,7 +807,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -675,7 +825,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -693,7 +843,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -711,7 +861,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -729,7 +879,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -747,7 +897,7 @@
 		TextColor="White"
 		TintColor="Plum"
 		IsVisible="false"
-		Font="courier12"
+		Font="robotomonobold11"
 		TextAlignment="Left"
 		AnchorTop="true"
 		AnchorLeft="true">
@@ -2150,14 +2300,14 @@
      Name="EffectsWindow"
      X="660"
      Y="320"
-     Width="120"
+     Width="328"
      Height="70"
      IsVisible="false"
      IsLocked="false"
      Font="lemon12"
      VisualKey="WhiteSpace"
      VisualAlpha="0"
-     TintColor="DarkSlateGray"
+     TintColor="LightSteelBlue"
      DropShadow="true"
      ShadowDistance="0"
      ShadowDirection="Northwest"

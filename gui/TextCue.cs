@@ -9,7 +9,7 @@ namespace Yuusha.gui
     public class TextCue : GameComponent
     {
         public enum TextCueTag { None, PromptState, WarmedSpell, XPGain, XPLoss, HealthGain, HealthLoss, StaminaGain, StaminaLoss,
-            ManaGain, ManaLoss, MapName, ZName }
+            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS }
 
         #region Private Data
         private string m_text;
@@ -36,6 +36,7 @@ namespace Yuusha.gui
         public string Text
         {
             get { return m_text; }
+            set { m_text = value; }
         }
         public int X
         {
@@ -109,6 +110,9 @@ namespace Yuusha.gui
                 case TextCueTag.ManaLoss:
                 case TextCueTag.StaminaLoss:
                     X += 2;
+                    break;
+                case TextCueTag.FPS:
+                    Text = Math.Round(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds, 1).ToString();
                     break;
                 default:
                     break;
@@ -194,7 +198,7 @@ namespace Yuusha.gui
 
             if (m_dropShadow)
             {
-                Color shadowColor = new Color((int)Color.Black.R, (int)Color.Black.G, (int)Color.Black.B, 50);
+                Color shadowColor = new Color(Color.Black, 50);
                 BitmapFont.ActiveFonts[m_font].DrawString(X + GetXShadow(), Y + GetYShadow(), shadowColor, m_text);
             }
 
@@ -393,10 +397,66 @@ namespace Yuusha.gui
             if (!centered)
                 GuiManager.TextCues.Clear();
 
-            if(!GuiManager.TextCues.Contains(tc))
+            if(!GuiManager.ContainsTextCue(tc))
                 GuiManager.TextCues.Add(tc);
         }
         #endregion
+
+        public static void AddCharGenInfoTextCue(string text, string font)
+        {
+            foreach (TextCue cue in GuiManager.TextCues)
+            {
+                if (cue.Text == text)
+                    return;
+            }
+
+            if(!BitmapFont.ActiveFonts.ContainsKey(font))
+            {
+                Utils.Log("TextCue.AddCharGenInfoTextCue: Font [ " + font + " ] does not exist.");
+                return;
+            }
+
+            int x = Client.Width / 2 - BitmapFont.ActiveFonts[font].MeasureString(text) / 2;
+            int y = Client.Height / 2;
+            
+
+            TextCue tc = new TextCue(text, x, y, 255, Color.Yellow, Color.Transparent, 0, font, 3500,
+                true, 2, Map.Direction.None, false, false, true, TextCueTag.CharGen);
+
+            // only one text cure allowed?? this should be changed
+            GuiManager.TextCues.Clear();
+
+            if (!GuiManager.ContainsTextCue(tc))
+                GuiManager.TextCues.Add(tc);
+        }
+
+        public static void AddCharGenNegativeTextCue(string text, string font)
+        {
+            foreach (TextCue cue in GuiManager.TextCues)
+            {
+                if (cue.Text == text)
+                    return;
+            }
+
+            if (!BitmapFont.ActiveFonts.ContainsKey(font))
+            {
+                Utils.Log("TextCue.AddCharGenNegativeTextCue: Font [ " + font + " ] does not exist.");
+                return;
+            }
+
+            int x = Client.Width / 2 - BitmapFont.ActiveFonts[font].MeasureString(text) / 2;
+            int y = Client.Height / 2;
+
+
+            TextCue tc = new TextCue(text, x, y, 255, Color.Tomato, Color.Transparent, 0, font, 3500,
+                true, 2, Map.Direction.None, false, false, false, TextCueTag.CharGen);
+
+            // only one text cure allowed?? this should be changed
+            GuiManager.TextCues.Clear();
+
+            if (!GuiManager.ContainsTextCue(tc))
+                GuiManager.TextCues.Add(tc);
+        }
 
         public static void AddPromptStateTextCue(Protocol.PromptStates promptState)
         {
@@ -534,7 +594,7 @@ namespace Yuusha.gui
             if (GuiManager.GetControl("Tile24") is Control control)
                 y = control.Position.Y + (control.Height / 2);
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Orange, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.StaminaGain);
+            TextCue tc = new TextCue(text, x, y, 255, Color.ForestGreen, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.StaminaGain);
 
             if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -545,7 +605,7 @@ namespace Yuusha.gui
             int x = Client.Width / 2;
             int y = Client.Height / 2;
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.DarkOrange, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.StaminaLoss);
+            TextCue tc = new TextCue(text, x, y, 255, Color.DarkGreen, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.StaminaLoss);
 
             if (GuiManager.GetControl("Tile24") is Control control)
             {
@@ -564,7 +624,7 @@ namespace Yuusha.gui
 
             GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.MapName);
 
-            string font = "rocksalt20";
+            string font = TextManager.GetDisplayFont();
 
             int x = Client.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
             int y = Client.Height / 2;
@@ -575,9 +635,9 @@ namespace Yuusha.gui
                 y = mapWindow.Position.Y - BitmapFont.ActiveFonts[font].LineHeight * 2;
             }
 
-            TextCue textCue = new TextCue(text, x, y, 0, Color.GhostWhite, Color.Transparent, 200, font, 4500, false, 2, Map.Direction.Southwest, false, true, true, TextCueTag.ZName);
+            TextCue textCue = new TextCue(text, x, y, 0, Color.GhostWhite, Color.Transparent, 200, font, 3500, false, 2, Map.Direction.Southwest, false, true, true, TextCueTag.ZName);
 
-            if (!GuiManager.TextCues.Contains(textCue))
+            if (!GuiManager.ContainsTextCue(textCue))
                 GuiManager.TextCues.Add(textCue);
         }
 
@@ -588,21 +648,40 @@ namespace Yuusha.gui
 
             GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.ZName);
 
-            string font = "rocksalt20";
+            string font = TextManager.GetDisplayFont();
 
             int x = Client.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
-            int y = Client.Height / 2;
+            int y = Client.Height / 2 - BitmapFont.ActiveFonts[font].LineHeight / 2;
 
             if(GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()]["MapDisplayWindow"] is Window mapWindow)
             {
                 x = mapWindow.Position.X + mapWindow.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
-                y = mapWindow.Position.Y - BitmapFont.ActiveFonts[font].LineHeight;
+                y = mapWindow.Position.Y - 10 - BitmapFont.ActiveFonts[font].LineHeight;
             }
 
-            TextCue textCue = new TextCue(text, x, y, 0, Color.GhostWhite, Color.Transparent, 200, font, 4500, false, 2, Map.Direction.Southwest, false, true, true, TextCueTag.ZName);
+            TextCue textCue = new TextCue(text, x, y, 0, Color.GhostWhite, Color.Transparent, 200, font, 3500, false, 2, Map.Direction.Southwest, false, true, true, TextCueTag.ZName);
 
-            if (!GuiManager.TextCues.Contains(textCue))
+            if (!GuiManager.ContainsTextCue(textCue))
                 GuiManager.TextCues.Add(textCue);
+        }
+
+        public static void AddFPSTextCue(string text)
+        {
+            TextCue exists = GuiManager.TextCues.Find(tc => tc.Tag == TextCueTag.FPS);
+            if (exists != null)
+            {
+                exists.Text = text;
+                return;
+            }
+
+            string font = "changaone16";
+
+            int x = Client.Width - BitmapFont.ActiveFonts[font].MeasureString(text);
+            int y = 5;
+
+            TextCue textCue = new TextCue(text, x, y, 255, Color.GhostWhite, Color.Black, 150, font, 10000, false, 2, Map.Direction.Southwest, false, false, false, TextCueTag.FPS);
+
+            GuiManager.TextCues.Add(textCue);
         }
 
         public void OnClientResize(Rectangle prev, Rectangle now)

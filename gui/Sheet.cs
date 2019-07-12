@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -273,37 +274,35 @@ namespace Yuusha.gui
                             //        }
                             //    }
                             //}
-                            lock ((m_controls[index] as Window).Controls)
+
+                            foreach (Control c in new List<Control>(new List<Control>((m_controls[index] as Window).Controls)))
                             {
-                                foreach (Control c in new List<Control>(new List<Control>((m_controls[index] as Window).Controls)))
+                                if (name == c.Name)
+                                    return c;
+
+                                if (c is Window)
                                 {
-                                    if (name == c.Name)
-                                        return c;
-
-                                    if (c is Window)
+                                    foreach (Control c2 in new List<Control>(new List<Control>((c as Window).Controls)))
                                     {
-                                        foreach (Control c2 in new List<Control>((c as Window).Controls))
+                                        if (name == c2.Name)
+                                            return c2;
+
+                                        if (c2 is Window)
                                         {
-                                            if (name == c2.Name)
-                                                return c2;
-
-                                            if (c2 is Window)
+                                            foreach (Control c3 in new List<Control>(new List<Control>((c2 as Window).Controls)))
                                             {
-                                                foreach (Control c3 in new List<Control>((c2 as Window).Controls))
+                                                if (name == c3.Name)
+                                                    return c3;
+
+                                                if (c3 is Window)
                                                 {
-                                                    if (name == c3.Name)
-                                                        return c3;
-
-                                                    if (c3 is Window)
+                                                    foreach (Control c4 in new List<Control>(new List<Control>((c3 as Window).Controls)))
                                                     {
-                                                        foreach (Control c4 in new List<Control>((c3 as Window).Controls))
-                                                        {
-                                                            if (name == c4.Name)
-                                                                return c4;
-                                                        }
+                                                        if (name == c4.Name)
+                                                            return c4;
                                                     }
-
                                                 }
+
                                             }
                                         }
                                     }
@@ -540,7 +539,7 @@ namespace Yuusha.gui
             // control does not have an owner (Window), find highest z depth
             if (c.Owner == "")
             {
-                if(m_controls.Contains(c))
+                if(m_controls.Find(ct => ct.Name == c.Name) != null)
                 {
                     Utils.Log("Attempted to add same Control [" + c.Name + "] to Sheet [" + Name + "].");
                     return;
@@ -589,11 +588,11 @@ namespace Yuusha.gui
                         {
                             if ((owner as PercentageBarLabel).Border == null)
                                 (owner as PercentageBarLabel).Border = c as Border;
-                            else (owner as PercentageBarLabel).ForeBorder = c as Border;
+                            else (owner as PercentageBarLabel).MidBorder = c as Border;
                         }
 
                         if (c is Label)
-                            (owner as PercentageBarLabel).ForeLabel = c as Label;
+                            (owner as PercentageBarLabel).MidLabel = c as Label;
                     }
                     else if (owner is Label)
                     {
@@ -606,7 +605,7 @@ namespace Yuusha.gui
                                 (owner as CritterListLabel).DropDownMenu = c as DropDownMenu;
                         }
                         else if(owner is PercentageBarLabel)
-                            (owner as PercentageBarLabel).ForeLabel = c as Label;
+                            (owner as PercentageBarLabel).MidLabel = c as Label;
                     }
                     else if (owner is DropDownMenu)
                     {
@@ -655,7 +654,7 @@ namespace Yuusha.gui
         {
             Control w = this[c.Owner];
 
-            if ((w as Window).Controls.Contains(c))
+            if ((w as Window).Controls.Find(ct => ct.Name == c.Name) != null)
             {
                 Utils.Log("Attempted to add same Control [" + c.Name + "] to Window [" + w.Name + "] in Sheet [" + Name + "].");
                 return;
@@ -1046,11 +1045,11 @@ namespace Yuusha.gui
         public void CreatePercentageBarLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
-            string cursorOverride, List<Enums.EAnchorType> anchors, string popUpText)
+            string cursorOverride, List<Enums.EAnchorType> anchors, string popUpText, bool segmented)
         {
             AddControl(new PercentageBarLabel(name, owner, rectangle, text, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                 textAlpha, textAlignment, xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride,
-                anchors, popUpText));
+                anchors, popUpText, segmented));
         }
 
         public void CreateCritterListLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,

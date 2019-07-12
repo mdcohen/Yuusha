@@ -77,10 +77,12 @@ namespace Yuusha.gui
 
         protected override void OnMouseDown(MouseState ms)
         {
-            base.OnMouseDown(ms);
-
             if (GuiManager.DraggedControl != null && GuiManager.DraggedControl.Name == Owner)
                 return;
+
+            if(Owner.Contains("HotButtonWindow") ||
+                (!GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt) && !GuiManager.KeyboardState.IsKeyDown(Keys.RightAlt)))
+                base.OnMouseDown(ms);            
 
             if (ms.LeftButton == ButtonState.Pressed)
             {
@@ -93,12 +95,12 @@ namespace Yuusha.gui
             {
                 if (!Owner.Contains("HotButtonWindow")) return;
 
-                if(!Client.IsFullScreen)
-                {
-                    TextCue.AddClientInfoTextCue("Hot Button Edit Mode requires full screen display.",
-                        TextCue.TextCueTag.None, Color.Red, Color.Black, 255, 2000, false, false, true);
-                    return;
-                }
+                //if(!Client.IsFullScreen)
+                //{
+                //    TextCue.AddClientInfoTextCue("Hot Button Edit Mode requires full screen display.",
+                //        TextCue.TextCueTag.None, Color.Red, Color.Black, 255, 2000, false, false, true);
+                //    return;
+                //}
 
                 try
                 {
@@ -206,6 +208,10 @@ namespace Yuusha.gui
                 if (Border != null && Border.IsVisible) Border.Draw(gameTime);
                 return;
             }
+
+            if (!Owner.Contains("HotButtonWindow") && !Owner.Contains("HotButtonEditWindow") &&
+                (GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt) || GuiManager.KeyboardState.IsKeyDown(Keys.RightAlt)))
+                return;
 
             Color color = new Color(m_tintColor, (byte)MathHelper.Clamp(m_visualAlpha, 0, 255));
 

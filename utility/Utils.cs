@@ -211,6 +211,26 @@ namespace Yuusha
                 Directory.CreateDirectory(Utils.StartupPath + Utils.LogsFolder);
                 Utils.Log(dnfEx.Message);
             }
+            catch(Exception)
+            {
+                try
+                {
+                    FileStream file = new FileStream(Utils.StartupPath + Utils.LogsFolder + "Yuusha_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + "_" + DateTime.Now.Year.ToString().Substring(2) + "_LOGERROR.log", FileMode.Append, FileAccess.Write);
+                    StreamWriter rw = new StreamWriter(file);
+                    rw.WriteLine(DateTime.Now.ToString() + ": " + message);
+                    rw.Close();
+                    file.Close();
+                }
+                catch (DirectoryNotFoundException dnfEx)
+                {
+                    Directory.CreateDirectory(Utils.StartupPath + Utils.LogsFolder);
+                    Utils.Log(dnfEx.Message);
+                }
+                catch(Exception)
+                {
+                    // Do nothing.
+                }
+            }
         }
 
         public static void LogOnceToFile(string message, string fileName)
@@ -412,9 +432,7 @@ namespace Yuusha
                                               BindingFlags.Instance);
 
             foreach(FieldInfo f in fields)
-            {
-                Utils.Log(f.Name + ": " + f.GetValue(Character.CurrentCharacter));
-            }
+                LogOnceToFile(f.Name + ": " + f.GetValue(Character.CurrentCharacter), "CharacterFields");
         }
 
         public static void LogCharacterEffects()
@@ -429,9 +447,7 @@ namespace Yuusha
                                               BindingFlags.Instance);
 
                 foreach (FieldInfo f in fields)
-                {
-                    Utils.Log(f.Name + ": " + f.GetValue(effect));
-                }
+                    Log(f.Name + ": " + f.GetValue(effect));
             }
         }
     }

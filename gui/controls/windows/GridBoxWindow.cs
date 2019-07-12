@@ -190,7 +190,7 @@ namespace Yuusha.gui
                 DragAndDropButton button;
 
                 if (!Client.ClientSettings.GroupSimiliarItemsInGridBoxes ||
-                    (Client.ClientSettings.GroupSimiliarItemsInGridBoxes && (!countDictionary.ContainsKey(item.VisualKey) || item.VisualKey.ToLower() == "unknown")))
+                    (Client.ClientSettings.GroupSimiliarItemsInGridBoxes && item.VisualKey != null && (!countDictionary.ContainsKey(item.VisualKey) || item.VisualKey.ToLower() == "unknown")))
 
                 {
                     if (Client.ClientSettings.GroupSimiliarItemsInGridBoxes && item.VisualKey.ToLower() != "unknown")

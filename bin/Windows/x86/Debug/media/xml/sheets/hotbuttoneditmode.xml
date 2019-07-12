@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sheet Name="HotButtonEditMode"
 	   Description="Click on an image to select it for HotButton editing."
-	   Font="legends16"
+	   Font="robotomonobold11"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"
@@ -171,7 +171,7 @@
 		VisualAlpha="255"
 		BorderAlpha="255"
 		TextAlpha="255"
-		MaxLength="100"
+		xLength="100"
 		IsPasswordBox="false"
 		HasBlinkingCursor="true"
 		CursorColor="White"
@@ -303,7 +303,7 @@
   <Control
 		Type="Button"
 		Text="Cancel"
-		Name="HotButtonEditWindowSaveButton"
+		Name="HotButtonEditWindowCancelButton"
 		Owner="HotButtonEditWindow"
 		X="755"
 		Y="122"

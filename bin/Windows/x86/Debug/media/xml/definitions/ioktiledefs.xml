@@ -56,4 +56,5 @@
   <IOKTileDef Graphic="ud" Name="UpDownStairs" DisplayGraphic="ud" ForeColor="Cyan" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
   <IOKTileDef Graphic="++" Name="Lightning" DisplayGraphic="++" ForeColor="OldLace" BackColor="Black" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
   <IOKTileDef Graphic="pp" Name="Portal" DisplayGraphic="::" ForeColor="LightCyan" BackColor="NavyBlue" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
+  <IOKTileDef Graphic="FF" Name="Fog" DisplayGraphic="FF" ForeColor="Silver" BackColor="SlateGray" ForeAlpha="255" BackAlpha="255"></IOKTileDef>
 </IOKTileDefinitions>

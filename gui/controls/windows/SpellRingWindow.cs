@@ -29,15 +29,12 @@ namespace Yuusha.gui
                 return;
             }
 
-            SpellRingWindow spellring = new SpellRingWindow("SpellringWindow", "", new Rectangle(200, 200, 60, 60), false, false, false, GuiManager.GenericSheet.Font,
+            SpellRingWindow spellring = new SpellRingWindow("SpellringWindow", "", new Rectangle(160, 200, 60, 60), false, false, false, GuiManager.GenericSheet.Font,
                 new VisualKey("knightsringtransparent"), Color.White, 255, false, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "Dragging")
             {
                 PopUpText = "Symbol of the Order"
             };
-            GuiManager.GenericSheet.AddControl(spellring);
-
-            //Label SpellringFillerLabel = new Label("SpellringFillerLabel", spellring.Name, new Rectangle(-80, -50, 180, 150),
-            
+            GuiManager.GenericSheet.AddControl(spellring);            
 
             HotButton RingSpell0Button = new HotButton("RingSpell0Button", spellring.Name, new Rectangle(-2, -2, 64, 64), "", false, Color.White,
                 true, false, spellring.Font, new VisualKey(Effect.IconsDictionary["Cure"]), Color.White, 255, 0, new VisualKey(""), new VisualKey(""),
@@ -98,7 +95,7 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
-            if (Client.GameState != Enums.EGameState.Login && (Character.CurrentCharacter == null || !Character.CurrentCharacter.knightRing))
+            if (Character.CurrentCharacter == null || !Character.CurrentCharacter.knightRing)
                 IsVisible = false;
 
             base.Update(gameTime);
