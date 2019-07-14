@@ -34,6 +34,8 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <Visual ParentTexture="inventory_male.png" Name="Inventory_Male" X="0" Y="0" Width="356" Height="429"></Visual>
   <Visual ParentTexture="inventory_female.png" Name="Inventory_Female" X="0" Y="0" Width="356" Height="429"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="RingsWindowBackground" X="9" Y="565" Width="236" Height="233"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="LootPileLarge" X="540" Y="319" Width="50" Height="50"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="LootPileSmall" X="540" Y="406" Width="50" Height="50"></Visual>
   <!-- Spellbook -->
   <Visual ParentTexture="spellbook.png" Name="SpellbookBackground" X="0" Y="0" Width="1013" Height="647"></Visual>
   <!-- UI Helpers -->

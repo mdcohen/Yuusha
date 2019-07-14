@@ -11,6 +11,7 @@ namespace Yuusha.gui
         private byte m_foreAlpha;
         private Color m_foreTint;
         private VisualKey m_lootVisual;
+        private byte m_lootVisualAlpha = 255;
         private List<VisualKey> m_critterVisuals;
         #endregion
 
@@ -35,6 +36,8 @@ namespace Yuusha.gui
             get { return m_lootVisual.Key; }
             set { m_lootVisual.Key = value; }
         }
+        public byte LootVisualAlpha
+        { set { m_lootVisualAlpha = value; } }
         public string FogVisual
         { get; set; }
         public List<VisualKey> CritterVisuals
@@ -99,7 +102,7 @@ namespace Yuusha.gui
                 return;
 
             base.Draw(gameTime);
-            
+
             if (m_foreVisual != null && m_foreVisual.Key != "")
             {
                 if (!GuiManager.Visuals.ContainsKey(m_foreVisual.Key))
@@ -148,7 +151,7 @@ namespace Yuusha.gui
 
                 if (!m_disabled)
                 {
-                    Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, Color.White);
+                    Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, new Color(Color.White, m_lootVisualAlpha));
                 }
                 else
                 {
@@ -198,6 +201,8 @@ namespace Yuusha.gui
                 }
             }
 
+            if (Border != null) Border.Draw(gameTime); // draws the border again
+
             if (BitmapFont.ActiveFonts.ContainsKey(Font))
             {
                 // override BitmapFont sprite batch
@@ -216,12 +221,19 @@ namespace Yuusha.gui
 
         }
 
-        //protected override void OnMouseOver(MouseState ms)
-        //{
-        //    base.OnMouseOver(ms);
+        protected override void OnMouseOver(MouseState ms)
+        {
+            base.OnMouseOver(ms);
 
-        //    if(FogOfWarDetail != null)
-        //        TextCue.AddMouseCursorTextCue(FogOfWarDetail.XCord + ", " + FogOfWarDetail.YCord);
-        //}
+            if (Owner == "MapDisplayWindow")
+            {
+                var border = new SquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Color.White, 255);
+                Border = border;
+                ZDepth = 1;
+            }
+
+            //if (FogOfWarDetail != null)
+            //    TextCue.AddMouseCursorTextCue(FogOfWarDetail.XCord + ", " + FogOfWarDetail.YCord);
+        }
     }
 }

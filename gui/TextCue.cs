@@ -9,7 +9,7 @@ namespace Yuusha.gui
     public class TextCue : GameComponent
     {
         public enum TextCueTag { None, PromptState, WarmedSpell, XPGain, XPLoss, HealthGain, HealthLoss, StaminaGain, StaminaLoss,
-            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS }
+            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS, SkillUp }
 
         #region Private Data
         private string m_text;
@@ -680,6 +680,35 @@ namespace Yuusha.gui
             int y = 5;
 
             TextCue textCue = new TextCue(text, x, y, 255, Color.GhostWhite, Color.Black, 150, font, 10000, false, 2, Map.Direction.Southwest, false, false, false, TextCueTag.FPS);
+
+            GuiManager.TextCues.Add(textCue);
+        }
+
+        public static void AddSkillUpTextCue(string text)
+        {
+            if (GuiManager.TextCues.Find(tc => tc.Text == text) != null)
+                return;
+
+            //GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.SkillUp);
+
+            string font = TextManager.GetDisplayFont(TextCueTag.SkillUp);
+
+            int x = Client.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
+            int y = Client.Height / 2 - BitmapFont.ActiveFonts[font].LineHeight / 2;
+
+            if (GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()]["MapDisplayWindow"] is Window mapWindow)
+            {
+                x = mapWindow.Position.X + mapWindow.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
+                y = mapWindow.Position.Y - 10 - BitmapFont.ActiveFonts[font].LineHeight;
+            }
+
+            // another skill up text cue exists, place this one above it -- hopefully only one other skill up exists
+            if(GuiManager.TextCues.Find(c => c.Tag == TextCueTag.SkillUp) != null)
+            {
+                y -= 5 - BitmapFont.ActiveFonts[font].LineHeight;
+            }
+
+            TextCue textCue = new TextCue(text, x, y, 255, Color.GhostWhite, Color.Transparent, 200, font, 3500, false, 2, Map.Direction.Southwest, false, false, true, TextCueTag.SkillUp);
 
             GuiManager.TextCues.Add(textCue);
         }

@@ -38,9 +38,9 @@ namespace Yuusha.gui
             }
 
             HealthBar = new PercentageBarLabel(name + "PercentageBarLabel", name, new Rectangle(x, y, rectangle.Width, 2), "", Color.White,
-                true, false, "courier12", new VisualKey("WhiteSpace"), Color.Black, 0, 150, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "", false);
+                true, false, Font, new VisualKey("WhiteSpace"), Color.Black, 0, 150, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "", false);
             HealthBar.MidLabel = new Label(HealthBar.Name + "ForeLabel", HealthBar.Name, new Rectangle(x, y, rectangle.Width, 2), "", Color.White,
-                true, false, "courier12", new VisualKey("WhiteSpace"), Color.Red, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");
+                true, false, Font, new VisualKey("WhiteSpace"), Color.Red, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");
         }
 
         public override bool MouseHandler(Microsoft.Xna.Framework.Input.MouseState ms)
@@ -135,12 +135,12 @@ namespace Yuusha.gui
         {
             base.OnMouseDown(ms);
 
-            if (ms.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && (DropDownMenu == null || !DropDownMenu.IsVisible))
+            if (ms.LeftButton == ButtonState.Pressed && (DropDownMenu == null || !DropDownMenu.IsVisible))
             {
                 if (Critter != null && Critter != GameHUD.CurrentTarget)
                     Events.RegisterEvent(Events.EventName.Target_Select, Critter);
             }
-            else if (ms.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+            else if (ms.RightButton == ButtonState.Pressed)
             {
                 if (Critter != null && DropDownMenu == null)
                 {

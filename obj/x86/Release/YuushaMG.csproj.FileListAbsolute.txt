@@ -675,3 +675,14 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\rocksalt22-0
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\rocksalt22.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0281.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0282.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\skillup.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\yuusha_icons.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\visuals\yuusha_icons.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon28-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon28.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon22-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon22.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon24-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon24.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon26-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon26.xml

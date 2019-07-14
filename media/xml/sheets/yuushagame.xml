@@ -638,7 +638,7 @@
   <CritterListWindow>
   <!-- Critter List Window -->
   <Control
-		Type="Window"
+		Type="CritterListWindow"
 		Name="CritterListWindow"
 		X="500"
 		Y="7"
@@ -675,7 +675,7 @@
       Height="13"
       VisualAlpha="100">
     </Control>
-  <!-- Critter List Border
+  <!-- Critter List Border -->
   <Control
 		Type="SquareBorder"
 		Name="CritterListWindowBorder"
@@ -683,8 +683,8 @@
 		Width="1"
 		VisualKey="WhiteSpace"
 		TintColor="DimGray"
-    VisualAlpha="75">
-  </Control> -->
+    VisualAlpha="175">
+  </Control>
   <!-- Critter List -->
   <Control
 		Type="CritterListLabel"
@@ -2072,7 +2072,7 @@
       TextAlignment="Left"
       TextOverColor="SlateGray"
       OnMouseDown="request_inventory"
-      PopUpText="Inventory">
+      PopUpText="Stats &amp; Inventory">
     </Control>
     <Control
       Type="Button"

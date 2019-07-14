@@ -20,15 +20,10 @@ namespace Yuusha.gui
 			"R","S","T","U","V","W","X","Y","Z" };
         private static string[] m_alignment = new string[] { " ", " ", "!", "*", "+", " ", "+" };
         private static string m_usedLetters = "";
-        private static List<Cell> m_cells = new List<Cell>(); // this is where currently visible cells are stored every round
-        public static List<Cell> Cells
-        {
-            get { return m_cells; }
-        }
         private static TimeSpan m_lastExpUpdate;
-        private static TimeSpan m_lastHealthUpdate;
-        private static TimeSpan m_lastStaminaUpdate;
-        private static TimeSpan m_lastManaUpdate;
+        //private static TimeSpan m_lastHealthUpdate;
+        //private static TimeSpan m_lastStaminaUpdate;
+        //private static TimeSpan m_lastManaUpdate;
         #endregion
 
         #region Public Properties
@@ -196,7 +191,7 @@ namespace Yuusha.gui
         public static void NewGameRound()
         {
             m_usedLetters = string.Empty;
-            m_cells.Clear();
+            GameHUD.Cells.Clear();
         }
 
         public static void EndGameRound()
@@ -273,12 +268,12 @@ namespace Yuusha.gui
                 }
                 else cell = new Cell();
 
-                if (m_cells.Count <= 49)
-                    m_cells.Add(cell);
+                if (GameHUD.Cells.Count <= 49)
+                    GameHUD.Cells.Add(cell);
                 else
                 {
-                    while (m_cells.Count > 49)
-                        m_cells.RemoveAt(49);
+                    while (GameHUD.Cells.Count > 49)
+                        GameHUD.Cells.RemoveAt(49);
                     //Utils.Log("Attempt to add more than 49 cells in IOKMode.FormatCells.m_Cells Count: " + m_cells.Count + " inData: " + inData);
                 }
             }
@@ -373,7 +368,7 @@ namespace Yuusha.gui
         {
             try
             {
-                if (m_cells.Count > 0)
+                if (GameHUD.Cells.Count > 0)
                 {
                     int labelNum = 0;
 
@@ -387,9 +382,9 @@ namespace Yuusha.gui
 
                     Cell cell;
 
-                    if (m_cells.Count >= 25)
+                    if (GameHUD.Cells.Count >= 25)
                     {
-                        cell = m_cells[24]; // start with our cell
+                        cell = GameHUD.Cells[24]; // start with our cell
 
                         if (cell.Characters.Count > 0)
                         {
@@ -460,7 +455,7 @@ namespace Yuusha.gui
                         }
                     }
 
-                    for (int a = 0; a < m_cells.Count; a++) // move through each cell and update the map and mobs list
+                    for (int a = 0; a < GameHUD.Cells.Count; a++) // move through each cell and update the map and mobs list
                     {
                         if (labelNum >= m_critterListNames.Length - 1)
                             break;
@@ -468,7 +463,7 @@ namespace Yuusha.gui
                         #region Create Critter Label (Non Center Cells)
                         if (a != 24)
                         {
-                            cell = m_cells[a];
+                            cell = GameHUD.Cells[a];
 
                             if (cell.Characters.Count > 0)
                             {
@@ -538,15 +533,15 @@ namespace Yuusha.gui
         {
             try
             {
-                if (m_cells.Count > 0)
+                if (GameHUD.Cells.Count > 0)
                 {
                     IOKTileLabel label = null;
                     Cell cell = null;
                     IOKTileDefinition currTile = null;
 
-                    for (int count = 0; count < m_cells.Count; count++) // move through each cell and update the map and mobs list
+                    for (int count = 0; count < GameHUD.Cells.Count; count++) // move through each cell and update the map and mobs list
                     {
-                        cell = m_cells[count];
+                        cell = GameHUD.Cells[count];
 
                         label = GuiManager.GetControl(Enums.EGameState.IOKGame.ToString(), "Tile" + count.ToString()) as IOKTileLabel;
 

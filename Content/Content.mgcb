@@ -61,6 +61,12 @@
 /processorParam:Quality=Best
 /build:GUISounds/sageadvice_cymbal.wav
 
+#begin GUISounds/skillup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/skillup.wav
+
 #begin GUISounds/tip_notification.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

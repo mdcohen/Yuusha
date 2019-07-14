@@ -12,6 +12,7 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/pm_alert.ogg</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/pm_alert_short.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/sageadvice_cymbal.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/skillup.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/tip_notification.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0001.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0002.WAV</File>
@@ -300,6 +301,7 @@
   </SourceFiles>
   <DestFiles>
     <File>KSND0281.wav</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

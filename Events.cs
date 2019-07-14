@@ -491,14 +491,15 @@ namespace Yuusha
                         #endregion
                     case EventName.End_Game_Round:
                         #region End Game Round
-
                         switch (Client.GameDisplayMode)
                         {
                             case Enums.EGameDisplayMode.IOK:
-                            case Enums.EGameDisplayMode.Spinel:
-                            case Enums.EGameDisplayMode.Yuusha:
                                 IOKMode.EndGameRound();
+                                break;
+                            case Enums.EGameDisplayMode.Spinel:
                                 SpinelMode.EndGameRound();
+                                break;
+                            case Enums.EGameDisplayMode.Yuusha:                                
                                 YuushaMode.EndGameRound();
                                 break;
                             case Enums.EGameDisplayMode.LOK:
@@ -507,7 +508,6 @@ namespace Yuusha
                                 break;
                         }
                         break;
-
                         #endregion
                     case EventName.Format_Cell:
                         #region Format Cell
@@ -1931,12 +1931,15 @@ namespace Yuusha
             switch (newDisplayMode)
             {
                 case Enums.EGameDisplayMode.IOK:
+                    IOKMode.EndGameRound();
                     IOKMode.UpdateGUI();
                     break;
                 case Enums.EGameDisplayMode.Spinel:
+                    SpinelMode.EndGameRound();
                     SpinelMode.UpdateGUI();
                     break;
                 case Enums.EGameDisplayMode.Yuusha:
+                    YuushaMode.EndGameRound();
                     YuushaMode.UpdateGUI();
                     break;
             }

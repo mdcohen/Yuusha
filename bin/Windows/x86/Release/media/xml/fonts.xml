@@ -24,6 +24,10 @@
   <Font Path="media\fonts\lemon\lemon16.xml"></Font>
   <Font Path="media\fonts\lemon\lemon18.xml"></Font>
   <Font Path="media\fonts\lemon\lemon20.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon22.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon24.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon26.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon28.xml"></Font>
   <!-- Yuusha Critter List-->
   <Font Path="media\fonts\monospace\robotomono\robotomonobold11.xml"></Font>
   <Font Path="media\fonts\monospace\robotomono\robotomonobold14.xml"></Font>

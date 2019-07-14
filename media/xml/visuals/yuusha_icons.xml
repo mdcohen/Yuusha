@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VisualsIndex>
+  <AutoVisuals ParentTexture="yuusha_icons.png" StartName="yuushaicon_" Columns="10" Rows="10" Width="128" Height="128"></AutoVisuals>
+</VisualsIndex>

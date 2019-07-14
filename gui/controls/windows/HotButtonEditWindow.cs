@@ -12,7 +12,7 @@ namespace Yuusha.gui
         public string SelectedHotButton; // The name of the button being edited
         public Label SelectedIconLabel;
         public string SelectedVisualKey;
-        public string IconImagePrefix;
+        public string IconImagePrefix = "";
         private bool IconSelectionButtonsCreated = false;
 
         public HotButtonEditWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride) : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
@@ -53,7 +53,7 @@ namespace Yuusha.gui
 
                 foreach (string visualName in GuiManager.Visuals.Keys)
                 {
-                    if (visualName.StartsWith(IconImagePrefix))
+                    if (IconImagePrefix != "" && visualName.StartsWith(IconImagePrefix))
                         IconVisualKeys.Add(visualName);
                 }
 

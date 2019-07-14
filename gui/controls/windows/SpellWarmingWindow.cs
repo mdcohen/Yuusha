@@ -50,7 +50,8 @@ namespace Yuusha.gui
 
             Label spellIconLabel = new Label(spellName + "SpellWarmingLabel", w.Name,
                 new Rectangle(0, 0, 96, 96), "", Color.White, true, false, "changaone16", new VisualKey(iconVisual), tintColor,
-                40, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
+                40, 255, BitmapFont.TextAlignment.Center, 0, 0, "send_command", "", new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
+            spellIconLabel.Command = "cast";
             w.SpellIconLabel = spellIconLabel;
 
             SquareBorder spellIconBorder = new SquareBorder(spellIconLabel.Name + "Border", spellIconLabel.Name, 1, new VisualKey("WhiteSpace"), false, Color.White, spellIconLabel.VisualAlpha);

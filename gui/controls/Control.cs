@@ -123,6 +123,8 @@ namespace Yuusha.gui
             {
                 m_zDepth = value;
                 ZDepthDateTime = DateTime.Now;
+                if (GuiManager.GetControl(Owner) is Window w)
+                    w.SortControls();
             }
         }
 
@@ -305,8 +307,8 @@ namespace Yuusha.gui
                 m_visualKey = m_visuals[ControlState];
 
             // update colors using alpha settings
-            m_textColor = new Color(m_textColor.R, m_textColor.G, m_textColor.B, this.TextAlpha);
-            m_tintColor = new Color(m_tintColor.R, m_tintColor.G, m_tintColor.B, this.VisualAlpha);
+            m_textColor = new Color(m_textColor.R, m_textColor.G, m_textColor.B, TextAlpha);
+            m_tintColor = new Color(m_tintColor.R, m_tintColor.G, m_tintColor.B, VisualAlpha);
 
             if (m_leftClickCount == 2)
             {

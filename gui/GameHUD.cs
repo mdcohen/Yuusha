@@ -18,12 +18,42 @@ namespace Yuusha.gui
             "TextVitalsWindow"
         };
 
+        public static Dictionary<string, string> GameIconsDictionary = new Dictionary<string, string>()
+        {
+            // skills
+            {"bow", "yuushaicon_0" },
+            {"dagger", "yuushaicon_1" },
+            {"flail", "yuushaicon_2" },
+            {"polearm", "yuushaicon_3" },
+            {"mace", "yuushaicon_4" },
+            {"rapier", "yuushaicon_5" },
+            {"shuriken", "yuushaicon_6" },
+            {"staff", "yuushaicon_7" },
+            {"sword", "yuushaicon_8" },
+            {"threestaff", "yuushaicon_9" },
+            {"two handed", "yuushaicon_10" },
+            {"unarmed", "yuushaicon_11" },
+            {"magic", "yuushaicon_12" },
+            {"thievery", "yuushaicon_13" },
+            {"bash", "yuushaicon_14" },
+            {"poisoned", "yuushaicon_15" },
+            {"throwing", "yuushaicon_16" },
+            {"stunned", "yuushaicon_17" },
+            {"resting", "yuushaicon_18" },
+            {"meditating", "yuushaicon_19" },
+            {"thirdeye", "yuushaicon_20" },
+        };
+
+        public static List<AchievementLabel> AchievementLabelList = new List<AchievementLabel>();
+
         public static Character CurrentTarget;
         public static string TextSendOverride = "";
         public static bool VitalsTextMode = false;
 
         public static Enums.EGameState PreviousGameState { get; set; }
         public static Cell ExaminedCell { get; set; }
+
+        public static List<Cell> Cells = new List<Cell>();
 
         // TODO a boolean here to prevent ZName pop up
 
@@ -342,16 +372,6 @@ namespace Yuusha.gui
                     Events.RegisterEvent(Events.EventName.Send_Command, swapbefore + "remove" + (wearOrientation != Character.WearOrientation.None ? wearOrientation.ToString() + " " : " ") + b.RepresentedItem.Name + swapafter);
                 }
             }
-        }
-
-        public static Cell GetCurrentCharacterCell()
-        {
-            if (Client.GameState == Enums.EGameState.IOKGame)
-                return IOKMode.Cells[24];
-            else if (Client.GameState == Enums.EGameState.SpinelGame)
-                return SpinelMode.Cells[24];
-            else//if (Client.GameState == Enums.EGameState.YuushaGame)
-                return YuushaMode.Cells[24];
         }
 
         public static void UpdateInventoryWindow()

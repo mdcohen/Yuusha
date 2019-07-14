@@ -700,6 +700,7 @@ namespace Yuusha.gui
                                     case "Window":
                                     case "HotButtonEditWindow":
                                     case "GridBoxWindow":
+                                    case "CritterListWindow":
                                         sheet.CreateWindow(name, type, owner, new Rectangle(x, y, width, height), visible,
                                             locked, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor),
                                             visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOnDrag);

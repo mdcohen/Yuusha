@@ -12,7 +12,12 @@ namespace Yuusha
 
         public static List<string> DisplayFontsList = new List<string>()
         {
-            "simonetta20", "unicalantiqua20", "lobster20", "mogra20", "dancingscript20",
+            "simonetta22", "unicalantiqua22", "lobster22", "mogra22", "dancingscript22",
+        };
+
+        public static List<string> ScalingFontList = new List<string>()
+        {
+            "lemon10", "lemon12", "lemon14", "lemon16", "lemon18", "lemon20", "lemon22", "lemon24", "lemon26", "lemon28"
         };
 
         public static readonly string[] MagicWords = {"aazag","alla","alsi","anaku","angarru","anghizidda","anna","annunna","ardata","ashak",
@@ -67,10 +72,10 @@ namespace Yuusha
         public static Dictionary<string, Color> GAME_TEXT_COLOR_FILTERS = new Dictionary<string, Color>()
         {
             // Gains
-            {"You have risen from ", Color.Orchid},
+            {"You have risen from ", Color.MediumOrchid},
             {"You have earned enough experience for your next level! Type REST ", Color.LightGoldenrodYellow },
-            {"You are now a level ", Color.Gold },
-            {"You have gained ", Color.Orchid},
+            {"You are now a level ", Color.Goldenrod },
+            {"You have gained ", Color.MediumOrchid},
 
             // Looking around
             {"You are looking at ", Color.LightBlue },
@@ -93,7 +98,7 @@ namespace Yuusha
 
             // Magic
             {"You warm the spell", Color.LightSeaGreen },
-            {"You cast", Color.SeaGreen},
+            {"You cast", Color.LightSeaGreen},
             {"You have been enchanted with", Color.MediumSeaGreen },
             
             // Important messages
@@ -169,8 +174,24 @@ namespace Yuusha
             }
             else if(input.StartsWith("locker description"))
             {
-                // cell is lockers
+                // open locker grid box window
             }
+            else if(input.StartsWith("You have risen from "))
+            {
+                // You have risen from <old skill title> to <new skill title> in your <skill name> skill.
+                string start = input.Replace("You have risen from ", "");
+                start = start.Replace(" to ", "|");
+                start = start.Replace(" in your ", "|");
+                start = start.Replace(" skill.", "");
+                
+                string[] s = start.Split("|".ToCharArray());
+                // 0 = old skill title, 1 = new skill title, 2 = skill
+                //string text = char.ToUpper(s[2][0]) + s[2].Substring(1) + ": " + s[1];
+
+                gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingFontList[7], false, gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.White, "", true);
+                //gui.AchievementLabel.CreateAchievementLabel("Mistress of Earth and Sky", ScalingFontList[7], false, gui.GameHUD.GameIconsDictionary["magic"], Color.Indigo, Color.White, "GUISounds/skillup", false);
+            }
+
         }
 
         public static string[] GetRandomHintText()
@@ -208,6 +229,16 @@ namespace Yuusha
             else return "rocksalt22";
             //else return "uncialantiqua22";
             //else return DisplayFontsList[new Random(Guid.NewGuid().GetHashCode()).Next(0, DisplayFontsList.Count)];
+        }
+
+        public static string GetDisplayFont(gui.TextCue.TextCueTag tag)
+        {
+            switch (tag)
+            {
+                case gui.TextCue.TextCueTag.SkillUp:
+                    return "lemon28";
+            }
+            return "courier16";
         }
     }
 }

@@ -107,12 +107,14 @@
     <Compile Include="gui\controls\labels\Label.cs" />
     <Compile Include="gui\controls\labels\MapTileLabel.cs" />
     <Compile Include="gui\controls\labels\PercentageBarLabel.cs" />
+    <Compile Include="gui\controls\labels\AchievementLabel.cs" />
     <Compile Include="gui\controls\labels\SoundIndicatorLabel.cs" />
     <Compile Include="gui\controls\labels\SpellEffectLabel.cs" />
     <Compile Include="gui\controls\labels\SpinelTileLabel.cs" />
     <Compile Include="gui\controls\buttons\TabControlButton.cs" />
     <Compile Include="gui\controls\TabControl.cs" />
     <Compile Include="gui\controls\windows\AutoHidingWindow.cs" />
+    <Compile Include="gui\controls\windows\CritterListWindow.cs" />
     <Compile Include="gui\controls\windows\GridBoxWindow.cs" />
     <Compile Include="gui\controls\MouseCursor.cs" />
     <Compile Include="gui\controls\textboxes\NumericTextBox.cs" />
@@ -215,6 +217,30 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\dancingscript22.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon22-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon22.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon24-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon24.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon26-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon26.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon28-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon28.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\lobster22-0.png">
@@ -464,6 +490,9 @@
     <Content Include="media\textures\worldmap.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="media\textures\yuusha_icons.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\textures\yuusha_items.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -567,6 +596,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\xml\visuals\spinel_tiles.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\xml\visuals\yuusha_icons.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\xml\visuals\yuusha_items.xml">

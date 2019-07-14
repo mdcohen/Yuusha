@@ -5,7 +5,7 @@ namespace Yuusha
 {
     public class Cell
     {
-        #region Display constants
+        #region Cell graphic constants
         public const string GRAPHIC_WATER = "~~";
         public const string GRAPHIC_AIR = "%%";
         public const string GRAPHIC_WEB = "ww";
@@ -17,6 +17,7 @@ namespace Yuusha
         public const string GRAPHIC_ICE = "~.";
         public const string GRAPHIC_ICE_WALL = "~,";
         public const string GRAPHIC_FIRE = "**";
+        public const string GRAPHIC_FOG = "FF";
         public const string GRAPHIC_WALL = "[]";
         public const string GRAPHIC_WALL_IMPENETRABLE = "DD";
         public const string GRAPHIC_MOUNTAIN = "/\\";
@@ -33,7 +34,6 @@ namespace Yuusha
         public const string GRAPHIC_REEF = "WW";
         public const string GRAPHIC_GRATE = "##";
         public const string GRAPHIC_EMPTY = ". ";
-        public const string GRAPHIC_OUTOFBOUNDS = "  ";
         public const string GRAPHIC_RUINS_LEFT = "_]";
         public const string GRAPHIC_RUINS_RIGHT = "[_";
         public const string GRAPHIC_SAND = ".\\";
@@ -52,6 +52,7 @@ namespace Yuusha
 
         public const string GRAPHIC_GRASS_THICK = "\"\"";
         public const string GRAPHIC_GRASS_LIGHT = "''";
+        public const string GRAPHIC_GRASS_FROZEN = ", ";
 
         public const string GRAPHIC_UPSTAIRS = "up";
         public const string GRAPHIC_DOWNSTAIRS = "dn";
@@ -130,14 +131,48 @@ namespace Yuusha
             {
                 switch (DisplayGraphic)
                 {
-                    case "~~": // water
-                    case "**": // fire
-                    case "[]": // wall
+                    case GRAPHIC_WATER: // water
+                        if (Character.CurrentCharacter != null && Character.CurrentCharacter.Cell != this)
+                            return false;
+                        break;
+                    case GRAPHIC_FIRE: // fire
+                    case GRAPHIC_ICE_STORM:
+                    case GRAPHIC_WALL: // wall
                     case "  ": // empty
-                    case "??": // darkness
+                    case GRAPHIC_DARKNESS: // darkness
                         return false;
                     default:
+                        break;
+                }
+
+                return true;
+            }
+        }
+
+        public bool IsLootPartiallyVisible
+        {
+            get
+            {
+                switch (DisplayGraphic)
+                {
+                    case GRAPHIC_FOREST_FULL:
+                    case GRAPHIC_FOREST_LEFT:
+                    case GRAPHIC_FOREST_RIGHT:
+                    case GRAPHIC_FOREST_FROSTY_FULL:
+                    case GRAPHIC_FOREST_FROSTY_LEFT:
+                    case GRAPHIC_FOREST_FROSTY_RIGHT:
+                    case GRAPHIC_FOREST_BURNT_FULL:
+                    case GRAPHIC_FOREST_BURNT_LEFT:
+                    case GRAPHIC_FOREST_BURNT_RIGHT:
+                    case GRAPHIC_GRASS_THICK:
+                    case GRAPHIC_UPSTAIRS:
+                    case GRAPHIC_DOWNSTAIRS:
+                    case GRAPHIC_UP_AND_DOWNSTAIRS:
+                    case GRAPHIC_SAND:
+                    case GRAPHIC_WATER: // water loot is only visible when it is the current cell
                         return true;
+                    default:
+                        return false;
                 }
             }
         }
@@ -249,17 +284,87 @@ namespace Yuusha
         {
             try
             {
-                if (Client.GameState == Enums.EGameState.SpinelGame)
-                    return gui.SpinelMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
-                else if (Client.GameState == Enums.EGameState.YuushaGame)
-                    return gui.YuushaMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
-                else return gui.IOKMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
+                return gui.GameHUD.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
+                //if (Client.GameState == Enums.EGameState.SpinelGame)
+                //    return gui.SpinelMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
+                //else if (Client.GameState == Enums.EGameState.YuushaGame)
+                //    return gui.GameHUD.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
+                //else return gui.IOKMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
             }
             catch(Exception e)
             {
                 Utils.LogException(e);
             }
             return null;
+        }
+
+        public static int GetCellDistance(int startXCord, int startYCord, int goalXCord, int goalYCord) // determine distance between two cells
+        {
+            try
+            {
+                if (startXCord == goalXCord && startYCord == goalYCord)
+                {
+                    return 0;
+                }
+
+                if (goalXCord <= Int32.MinValue || goalYCord <= Int32.MinValue)
+                {
+                    return 0;
+                }
+
+                int xAbsolute = Math.Abs(startXCord - goalXCord); // get absolute value of StartX - GoalX
+                int yAbsolute = Math.Abs(startYCord - goalYCord); // get absolute value of StartY - GoalY
+
+                if (xAbsolute > yAbsolute)
+                {
+                    return xAbsolute;
+                }
+                else
+                {
+                    return yAbsolute;
+                }
+            }
+            catch (Exception e)
+            {
+                Utils.Log("Failure at Cell.GetCellDistance(" + startXCord + ", " + startYCord + ", " + goalXCord + ", " + goalYCord + ")");
+                Utils.LogException(e);
+                return 0;
+            }
+        }
+
+        public int MovementWeight()
+        {
+            if (IsImpassable())
+                return 10000;
+
+            switch(DisplayGraphic)
+            {
+                case GRAPHIC_RUINS_LEFT:
+                case GRAPHIC_RUINS_RIGHT:
+                case GRAPHIC_SAND:
+                    return 1;
+                case GRAPHIC_WATER:
+                    if (Character.CurrentCharacter.breatheWater) return 0;
+                    else return 1;
+            }
+
+            return 0;
+        }
+
+        public bool IsImpassable()
+        {
+            switch(DisplayGraphic)
+            {
+                case GRAPHIC_WALL:
+                case GRAPHIC_FOREST_IMPASSABLE:
+                case GRAPHIC_REEF:
+                case GRAPHIC_MOUNTAIN:
+                case GRAPHIC_COUNTER:
+                case GRAPHIC_ALTAR:
+                    return true;
+            }
+
+            return false;
         }
 
         public static bool operator ==(Cell c1, Cell c2)

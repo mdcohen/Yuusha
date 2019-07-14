@@ -71,5 +71,105 @@ namespace Yuusha
             get { return this.m_name; }
         }
         #endregion
+
+        public static Direction GetDirection(XYCoordinate xy1, XYCoordinate xy2)
+        {
+            if (xy1 == null || xy2 == null) return Direction.None;
+
+            try
+            {
+                if (xy1.X < xy2.X && xy1.Y < xy2.Y)
+                {
+                    return Direction.Southeast;
+                }
+                else if (xy1.X < xy2.X && xy1.Y > xy2.Y)
+                {
+                    return Direction.Northeast;
+                }
+                else if (xy1.X > xy2.X && xy1.Y < xy2.Y)
+                {
+                    return Direction.Southwest;
+                }
+                else if (xy1.X > xy2.X && xy1.Y > xy2.Y)
+                {
+                    return Direction.Northwest;
+                }
+                else if (xy1.X == xy2.X && xy1.Y > xy2.Y)
+                {
+                    return Direction.North;
+                }
+                else if (xy1.X == xy2.X && xy1.Y < xy2.Y)
+                {
+                    return Direction.South;
+                }
+                else if (xy1.X < xy2.X && xy1.Y == xy2.Y)
+                {
+                    return Direction.East;
+                }
+                else if (xy1.X > xy2.X && xy1.Y == xy2.Y)
+                {
+                    return Direction.West;
+                }
+                else
+                {
+                    return Direction.None; // same cell
+                }
+            }
+            catch (Exception e)
+            {
+                Utils.LogException(e);
+                return Direction.None;
+            }
+        }
+
+        public static Direction GetDirection(Cell from, Cell to)
+        {
+            if (from == null || to == null) return Direction.None;
+
+            try
+            {
+                if (from.xCord < to.xCord && from.yCord < to.yCord)
+                {
+                    return Direction.Southeast;
+                }
+                else if (from.xCord < to.xCord && from.yCord > to.yCord)
+                {
+                    return Direction.Northeast;
+                }
+                else if (from.xCord > to.xCord && from.yCord < to.yCord)
+                {
+                    return Direction.Southwest;
+                }
+                else if (from.xCord > to.xCord && from.yCord > to.yCord)
+                {
+                    return Direction.Northwest;
+                }
+                else if (from.xCord == to.xCord && from.yCord > to.yCord)
+                {
+                    return Direction.North;
+                }
+                else if (from.xCord == to.xCord && from.yCord < to.yCord)
+                {
+                    return Direction.South;
+                }
+                else if (from.xCord < to.xCord && from.yCord == to.yCord)
+                {
+                    return Direction.East;
+                }
+                else if (from.xCord > to.xCord && from.yCord == to.yCord)
+                {
+                    return Direction.West;
+                }
+                else
+                {
+                    return Direction.None; // same cell
+                }
+            }
+            catch (Exception e)
+            {
+                Utils.LogException(e);
+                return Direction.None;
+            }
+        }
     }
 }

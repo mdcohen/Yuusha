@@ -31,29 +31,35 @@ namespace Yuusha
             return this == (XYCoordinate)obj;
         }
 
-        public static bool operator ==(XYCoordinate lhs, XYCoordinate rhs)
+        public static bool operator ==(XYCoordinate xy1, XYCoordinate xy2)
         {
-            if (lhs is null && rhs == null)
-                return true;
-
-            if (lhs == null || rhs == null)
+            if (xy1 is null && !(xy2 is null))
                 return false;
 
-            if (lhs.X == rhs.X && lhs.Y == rhs.Y)
+            if (!(xy1 is null) && xy2 is null)
+                return false;
+
+            if (xy1 is null && xy2 is null)
+                return false;
+
+            if (xy1.X == xy2.X && xy1.Y == xy2.Y)
                 return true;
             else
                 return false;
         }
 
-        public static bool operator !=(XYCoordinate lhs, XYCoordinate rhs)
+        public static bool operator !=(XYCoordinate xy1, XYCoordinate xy2)
         {
-            if (lhs == null && rhs == null)
-                return false;
-
-            if (lhs == null || rhs == null)
+            if (xy1 is null && !(xy2 is null))
                 return true;
 
-            if (lhs.X == rhs.X && lhs.Y == rhs.Y)
+            if (!(xy1 is null) && xy2 is null)
+                return true;
+
+            if (xy1 is null && xy2 is null)
+                return false;
+
+            if (xy1.X == xy2.X && xy1.Y == xy2.Y)
                 return false;
             else
                 return true;

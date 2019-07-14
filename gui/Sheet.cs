@@ -911,6 +911,11 @@ namespace Yuusha.gui
                 AddControl(new HotButtonEditWindow(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor,
                     visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride));
             }
+            else if(type == "CritterListWindow")
+            {
+                AddControl(new CritterListWindow(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor,
+                    visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride));
+            }
         }
 
         public void CreateWindowTitle(string name, string owner, string font, string text, Color textColor, Color tintColor, byte visualAlpha,

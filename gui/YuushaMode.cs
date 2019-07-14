@@ -11,11 +11,6 @@ namespace Yuusha.gui
         #region Private Data
         private static string m_tileXMLFile = "";
         private static Dictionary<string, SpinelTileDefinition> m_tilesDict = new Dictionary<string, SpinelTileDefinition>();
-        private static List<Cell> m_cells = new List<Cell>();
-        public static List<Cell> Cells
-        {
-            get { return m_cells; }
-        }
         private static string[] m_critterListNames = new string[12];
         private static string[] m_letters = new string[] {"A",
             "B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
@@ -314,7 +309,7 @@ namespace Yuusha.gui
         public static void NewGameRound()
         {
             m_usedLetters = string.Empty;
-            m_cells.Clear();
+            GameHUD.Cells.Clear();
         }
 
         public static void EndGameRound()
@@ -390,7 +385,7 @@ namespace Yuusha.gui
                 }
                 else cell = new Cell();
 
-                m_cells.Add(cell);
+                GameHUD.Cells.Add(cell);
             }
             catch (Exception e)
             {
@@ -493,23 +488,23 @@ namespace Yuusha.gui
         {
             try
             {
-                if (m_cells.Count > 0)
+                if (GameHUD.Cells.Count > 0)
                 {
                     int labelNum = 0;
 
                     for (int a = 0; a < 12; a++)
                     {
-                        Control critterList = GuiManager.GetControl("CritterList" + a.ToString());
-                        if (critterList != null)
-                            critterList.IsVisible = false;
+                        Control critterListLabel = GuiManager.GetControl("CritterList" + a.ToString());
+                        if (critterListLabel != null)
+                            critterListLabel.IsVisible = false;
                         m_critterListNames[a] = "";
                     }
 
                     Cell cell;
 
-                    if (m_cells.Count >= 25)
+                    if (GameHUD.Cells.Count >= 25)
                     {
-                        cell = m_cells[24]; // start with our cell
+                        cell = GameHUD.Cells[24]; // start with our cell
 
                         if (cell.Characters.Count > 0)
                         {
@@ -580,7 +575,7 @@ namespace Yuusha.gui
                         }
                     }
 
-                    for (int a = 0; a < m_cells.Count; a++) // move through each cell and update the map and mobs list
+                    for (int a = 0; a < GameHUD.Cells.Count; a++) // move through each cell and update the map and mobs list
                     {
                         if (labelNum > m_critterListNames.Length - 1)
                             break;
@@ -588,7 +583,7 @@ namespace Yuusha.gui
                         #region Create Critter Label (Non Center Cells)
                         if (a != 24)
                         {
-                            cell = m_cells[a];
+                            cell = GameHUD.Cells[a];
 
                             if (cell.Characters != null && cell.Characters.Count > 0)
                             {
@@ -660,15 +655,15 @@ namespace Yuusha.gui
         {
             try
             {
-                if (m_cells.Count > 0)
+                if (GameHUD.Cells.Count > 0)
                 {
                     SpinelTileLabel spLabel;
                     Cell cell;
                     SpinelTileDefinition currTile;
 
-                    for (int count = 0; count < m_cells.Count; count++) // move through each cell and update the map and mobs list
+                    for (int count = 0; count < GameHUD.Cells.Count; count++) // move through each cell and update the map and mobs list
                     {
-                        cell = m_cells[count];
+                        cell = GameHUD.Cells[count];
 
                         //spLabel = GuiManager.GetControl("Tile" + count.ToString()) as SpinelTileLabel;
                         spLabel = GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "Tile" + count.ToString()) as SpinelTileLabel;
@@ -736,7 +731,21 @@ namespace Yuusha.gui
 
                             if (cell.HasItems && cell.IsLootVisible)
                             {
-                                spLabel.LootVisual = m_tilesDict[" $"].ForeVisual.Key;
+                                if(cell.Items.Count <= 7)
+                                {
+                                    spLabel.LootVisual = "LootPileSmall";
+                                    
+                                }
+                                else
+                                {
+                                    spLabel.LootVisual = "LootPileLarge";
+                                }
+
+                                if (cell.IsLootPartiallyVisible)
+                                    spLabel.LootVisualAlpha = 150;
+                                else spLabel.LootVisualAlpha = 255;
+
+                                //spLabel.LootVisual = m_tilesDict[" $"].ForeVisual.Key;
                             }
                         }
                         else
