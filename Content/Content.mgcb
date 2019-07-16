@@ -13,12 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../Downloads/KSND0281.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../../../Downloads/KSND0281.wav;KSND0281.wav
-
 #begin Ambience/Kesmai-Dungeon-Background.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -67,11 +61,23 @@
 /processorParam:Quality=Best
 /build:GUISounds/skillup.wav
 
+#begin GUISounds/sword_draw.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/sword_draw.wav
+
 #begin GUISounds/tip_notification.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:GUISounds/tip_notification.wav
+
+#begin GUISounds/upgrade.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/upgrade.wav
 
 #begin KSND0001.WAV
 /importer:WavImporter
@@ -1752,6 +1758,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:KSND0280.wav
+
+#begin KSND0281.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0281.wav
 
 #begin KSND0282.wav
 /importer:WavImporter

@@ -1112,11 +1112,15 @@ namespace Yuusha.gui
                 }
             }
 
-            foreach (string sheetName in Sheets.Keys)
+            foreach (string sheetName in new List<string>(Sheets.Keys))
             {
                 if (sheetName != CurrentSheet.Name && (GenericSheet == null || sheetName != GenericSheet.Name))
+                {
                     if (Sheets[sheetName][name] != null)
+                    {
                         return Sheets[sheetName][name];
+                    }
+                }
             }
             
             return null;
@@ -1151,6 +1155,8 @@ namespace Yuusha.gui
         public static void StartDragging(Control control, MouseState ms)
         {
             if (Dragging) return;
+            if (Cursors[GenericSheet.Cursor].DraggedButton != null) return;
+            if (DraggedControl != null) return;
 
             m_draggedControl = control;
             Dragging = true;

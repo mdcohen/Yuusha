@@ -370,7 +370,8 @@
 		Font="courier16"
 		TextAlignment="Left"
 		AnchorBottom="true"
-		AnchorLeft="true">
+		AnchorLeft="true"
+    AcceptingDroppedButtons="true">
 	</Control>
 	<!-- Left Hand -->
 	<Control
@@ -402,7 +403,8 @@
 		Font="courier16"
 		TextAlignment="Left"
 		AnchorBottom="true"
-		AnchorLeft="true">
+		AnchorLeft="true"
+    AcceptingDroppedButtons="true">
 	</Control>
   </Hands>
 
@@ -1932,7 +1934,7 @@
      Type="Window"
      Name="EffectsWindow"
      X="660"
-     Y="320"
+     Y="315"
      Width="120"
      Height="70"
      IsVisible="false"

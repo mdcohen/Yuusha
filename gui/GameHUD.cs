@@ -15,7 +15,7 @@ namespace Yuusha.gui
             "SpellbookWindow",
             "SpellringWindow",
             "SpellWarmingWindow",
-            "TextVitalsWindow"
+            "VitalsWindow"
         };
 
         public static Dictionary<string, string> GameIconsDictionary = new Dictionary<string, string>()
@@ -42,6 +42,9 @@ namespace Yuusha.gui
             {"resting", "yuushaicon_18" },
             {"meditating", "yuushaicon_19" },
             {"thirdeye", "yuushaicon_20" },
+            {"swap", "yuushaicon_21" },
+            {"upgrade", "yuushaicon_22" },
+            {"downgrade", "yuushaicon_22" },
         };
 
         public static List<AchievementLabel> AchievementLabelList = new List<AchievementLabel>();
@@ -121,12 +124,10 @@ namespace Yuusha.gui
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                 {
                     // when returning to original position prevent a swap command
-                    if(GuiManager.MouseOverDropAcceptingControl.Name.Substring(0, 2) != b.Name.Substring(0, 2))
+                    if(GuiManager.MouseOverDropAcceptingControl.Name != b.Name)
                         Events.RegisterEvent(Events.EventName.Send_Command, "swap");
                 }
-                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground") ||
-                    GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Altar") ||
-                    GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Counter"))
+                else if (AcceptingGridBoxIsLocation(GuiManager.MouseOverDropAcceptingControl.Name))
                 {
                     GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
 
@@ -177,7 +178,7 @@ namespace Yuusha.gui
                     Events.RegisterEvent(Events.EventName.Send_Command,"wield " + b.RepresentedItem.Name + ";put " + b.RepresentedItem.Name + " in pouch");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
                 }
-                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
+                else if (AcceptingGridBoxIsLocation(GuiManager.MouseOverDropAcceptingControl.Name))
                 {
                     GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
                     if (window.WindowTitle != null)
@@ -230,7 +231,7 @@ namespace Yuusha.gui
                     Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " in pouch");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
                 }
-                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
+                else if (AcceptingGridBoxIsLocation(GuiManager.MouseOverDropAcceptingControl.Name))
                 {
                     GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
                     if (window.WindowTitle != null)
@@ -283,7 +284,7 @@ namespace Yuusha.gui
                     Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from pouch;put " + b.RepresentedItem.Name + " in sack");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
                 }
-                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Ground"))
+                else if (AcceptingGridBoxIsLocation(GuiManager.MouseOverDropAcceptingControl.Name))
                 {
                     GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
                     if (window.WindowTitle != null)
@@ -307,7 +308,7 @@ namespace Yuusha.gui
 
                 GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
             }
-            else if (b.Name.StartsWith("Ground") || b.Name.StartsWith("Altar") || b.Name.StartsWith("Counter"))
+            else if (AcceptingGridBoxIsLocation(b.Name))
             {
                 string fromLocation = "";
                 if (b.Name.StartsWith("Altar"))
@@ -583,16 +584,19 @@ namespace Yuusha.gui
 
                         x += size + spacing;
 
-                        if(x >= 8 * (size + spacing) + borderWidth + 1)
+                        if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha)
                         {
-                            x = borderWidth + 1;
-                            y += size + spacing;
+                            if (x >= 8 * (size + spacing) + borderWidth + 1)
+                            {
+                                x = borderWidth + 1;
+                                y += size + spacing;
+                            }
                         }
                     }
                 }
 
                 int rowCount = 1;
-                if(Character.CurrentCharacter.Effects.Count > 8)
+                if(Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha && Character.CurrentCharacter.Effects.Count > 8)
                 {
                     rowCount = (int)System.Math.Ceiling(Character.CurrentCharacter.Effects.Count / 8d);
                     w.Width = 8 * (size + spacing) + spacing + (borderWidth * 2);
@@ -630,5 +634,10 @@ namespace Yuusha.gui
         //{
 
         //}
+
+        private static bool AcceptingGridBoxIsLocation(string name)
+        {
+            return name.StartsWith("Ground") || name.StartsWith("Altar") || name.StartsWith("Counter");
+        }
     }
 }

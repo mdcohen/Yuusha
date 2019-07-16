@@ -250,13 +250,14 @@ namespace Yuusha
                                 //SpellBookWindow.CreateSpellBookWindow();
                                 //SpellRingWindow.CreateSpellRingWindow();
                                 //SpellWarmingWindow.CreateSpellWarmingWindow("Icespear");
-                                if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window characterStatsWindow)
-                                {
-                                    characterStatsWindow.IsVisible = !characterStatsWindow.IsVisible;
-                                    characterStatsWindow.ZDepth = 1;
-                                    if(Character.CurrentCharacter != null)
-                                        Utils.LogCharacterFields();
-                                }
+                                
+                                //if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window characterStatsWindow)
+                                //{
+                                //    characterStatsWindow.IsVisible = !characterStatsWindow.IsVisible;
+                                //    characterStatsWindow.ZDepth = 1;
+                                //    if(Character.CurrentCharacter != null)
+                                //        Utils.LogCharacterFields();
+                                //}
                                 result = true;
                             }
 
@@ -427,18 +428,18 @@ namespace Yuusha
                                 result = true;
                             }
 
-                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
-                            //{
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
+                            {
                             //    //Utils.LogCharacterFields();
                             //    //Utils.LogCharacterEffects();
                             //    //foreach (Spell spell in World.SpellsList)
                             //    //    Utils.Log(spell.Name);
                             //    //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                             //    //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
-                            //    //IO.Send(Protocol.REQUEST_CHARACTER_STATS);
+                                  IO.Send(Protocol.REQUEST_CHARACTER_STATS);
                             //    SpellBookWindow.CreateSpellBookWindow();
-                            //    result = true;
-                            //}
+                                    result = true;
+                            }
 
                             if(ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.F))
                             {

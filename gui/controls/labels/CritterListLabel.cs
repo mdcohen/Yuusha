@@ -92,8 +92,8 @@ namespace Yuusha.gui
                 HealthBar.Update(gameTime);
             }
 
-            if (DropDownMenu != null)
-                DropDownMenu.Update(gameTime);
+            //if (DropDownMenu != null)
+            //    DropDownMenu.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)

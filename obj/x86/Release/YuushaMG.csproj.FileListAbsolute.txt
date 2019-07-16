@@ -686,3 +686,13 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon2
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon24.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon26-0.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\lemon\lemon26.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone\changaone22-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone\changaone22.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone\changaone24-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone\changaone24.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone\changaone26-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone\changaone26.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone\changaone28-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\changaone\changaone28.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\upgrade.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\sword_draw.xnb

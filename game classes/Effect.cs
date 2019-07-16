@@ -67,7 +67,7 @@ namespace Yuusha
 
         public static Dictionary<string, Color> IconsTintDictionary = new Dictionary<string, Color>()
         {
-            { "Mark of Vitality", Color.PaleGreen }, {"Minor Protection from Fire", Color.DimGray },
+            
         };
 
         public Effect(string info)

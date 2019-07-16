@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FontIndex>
+  <!-- Numbers -->
   <Font Path="media\fonts\changaone\changaone14.xml"></Font>
   <Font Path="media\fonts\changaone\changaone16.xml"></Font>
   <Font Path="media\fonts\changaone\changaone20.xml"></Font>
+  <Font Path="media\fonts\changaone\changaone22.xml"></Font>
+  <Font Path="media\fonts\changaone\changaone24.xml"></Font>
+  <Font Path="media\fonts\changaone\changaone26.xml"></Font>
+  <Font Path="media\fonts\changaone\changaone28.xml"></Font>
+  <!-- Courier New -->
 	<Font Path="media\fonts\monospace\courier\courier12.xml"></Font>
   <Font Path="media\fonts\monospace\courier\courier14.xml"></Font>
 	<Font Path="media\fonts\monospace\courier\courier16.xml"></Font>
@@ -18,6 +24,7 @@
   <Font Path="media\fonts\simonetta22.xml"></Font>
   <Font Path="media\fonts\uncialantiqua22.xml"></Font>
   <Font Path="media\fonts\rocksalt22.xml"></Font>
+  <!-- Lemon -->
   <Font Path="media\fonts\lemon\lemon10.xml"></Font>
   <Font Path="media\fonts\lemon\lemon12.xml"></Font>
   <Font Path="media\fonts\lemon\lemon14.xml"></Font>

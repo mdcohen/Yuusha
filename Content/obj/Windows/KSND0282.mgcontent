@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0282.wav</SourceFile>
-  <SourceTime>2019-07-12T17:32:29.7203124+02:00</SourceTime>
+  <SourceTime>2019-07-15T14:54:09.1786601+02:00</SourceTime>
   <DestFile>C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/KSND0282.xnb</DestFile>
-  <DestTime>2019-07-12T17:33:18.3068338+02:00</DestTime>
+  <DestTime>2019-07-15T14:58:26.8533041+02:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

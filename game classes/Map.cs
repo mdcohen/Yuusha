@@ -171,5 +171,55 @@ namespace Yuusha
                 return Direction.None;
             }
         }
+
+        public static Direction GetDirection(gui.Control c1, gui.Control c2)
+        {
+            if (c1 == null || c2 == null) return Direction.None;
+
+            try
+            {
+                if (c1.Position.X < c2.Position.X && c1.Position.Y < c2.Position.Y)
+                {
+                    return Direction.Southeast;
+                }
+                else if (c1.Position.X < c2.Position.X && c1.Position.Y > c2.Position.Y)
+                {
+                    return Direction.Northeast;
+                }
+                else if (c1.Position.X > c2.Position.X && c1.Position.Y < c2.Position.Y)
+                {
+                    return Direction.Southwest;
+                }
+                else if (c1.Position.X > c2.Position.X && c1.Position.Y > c2.Position.Y)
+                {
+                    return Direction.Northwest;
+                }
+                else if (c1.Position.X == c2.Position.X && c1.Position.Y > c2.Position.Y)
+                {
+                    return Direction.North;
+                }
+                else if (c1.Position.X == c2.Position.X && c1.Position.Y < c2.Position.Y)
+                {
+                    return Direction.South;
+                }
+                else if (c1.Position.X < c2.Position.X && c1.Position.Y == c2.Position.Y)
+                {
+                    return Direction.East;
+                }
+                else if (c1.Position.X > c2.Position.X && c1.Position.Y == c2.Position.Y)
+                {
+                    return Direction.West;
+                }
+                else
+                {
+                    return Direction.None; // same cell
+                }
+            }
+            catch (Exception e)
+            {
+                Utils.LogException(e);
+                return Direction.None;
+            }
+        }
     }
 }

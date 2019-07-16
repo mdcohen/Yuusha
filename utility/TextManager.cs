@@ -15,9 +15,14 @@ namespace Yuusha
             "simonetta22", "unicalantiqua22", "lobster22", "mogra22", "dancingscript22",
         };
 
-        public static List<string> ScalingFontList = new List<string>()
+        public static List<string> ScalingTextFontList = new List<string>()
         {
             "lemon10", "lemon12", "lemon14", "lemon16", "lemon18", "lemon20", "lemon22", "lemon24", "lemon26", "lemon28"
+        };
+
+        public static List<string> ScalingNumberFontList = new List<string>()
+        {
+            "changaone14", "changaone16", "changaone18", "changaone20", "changaone22", "changaone24", "changaone26", "changaone28"
         };
 
         public static readonly string[] MagicWords = {"aazag","alla","alsi","anaku","angarru","anghizidda","anna","annunna","ardata","ashak",
@@ -188,10 +193,38 @@ namespace Yuusha
                 // 0 = old skill title, 1 = new skill title, 2 = skill
                 //string text = char.ToUpper(s[2][0]) + s[2].Substring(1) + ": " + s[1];
 
-                gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingFontList[7], false, gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.White, "", true);
+                gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingTextFontList[7], gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.White, "", true, Map.Direction.Southwest);
                 //gui.AchievementLabel.CreateAchievementLabel("Mistress of Earth and Sky", ScalingFontList[7], false, gui.GameHUD.GameIconsDictionary["magic"], Color.Indigo, Color.White, "GUISounds/skillup", false);
             }
 
+        }
+
+        public static Color GetAlignmentColor(bool fore, World.Alignment alignment)
+        {
+            switch (alignment)
+            {
+                case World.Alignment.Amoral:
+                    if(fore) return Client.ClientSettings.Color_Gui_Amoral_Fore;
+                    else return Client.ClientSettings.Color_Gui_Amoral_Back;
+                case World.Alignment.Chaotic:
+                    if(fore) return Client.ClientSettings.Color_Gui_Chaotic_Fore;
+                    else return Client.ClientSettings.Color_Gui_Chaotic_Back;
+                case World.Alignment.ChaoticEvil:
+                    if(fore) return Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
+                    else return Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
+                case World.Alignment.Evil:
+                    if(fore) return Client.ClientSettings.Color_Gui_Evil_Fore;
+                    else return Client.ClientSettings.Color_Gui_Evil_Back;
+                case World.Alignment.Lawful:
+                    if(fore) return Client.ClientSettings.Color_Gui_Lawful_Fore;
+                    else return Client.ClientSettings.Color_Gui_Lawful_Back;
+                case World.Alignment.Neutral:
+                    if(fore) return Client.ClientSettings.Color_Gui_Neutral_Fore;
+                    else return Client.ClientSettings.Color_Gui_Neutral_Back;
+            }
+
+            if (fore) return Color.White;
+            return Color.Gray;
         }
 
         public static string[] GetRandomHintText()

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
@@ -437,33 +436,21 @@ namespace Yuusha.gui
             {
                 DropDownMenu menu = GuiManager.GetControl(GuiManager.ActiveDropDownMenu) as DropDownMenu;
 
-                if (!(this is DropDownMenu) && !(this is DropDownMenuItem) && (menu != null && Name != menu.Owner))
+                if (!(this is DropDownMenu) && !(this is DropDownMenuItem) && menu != null && Name != menu.Owner)
                     return false;
             }
 
-            Point mousePointer = new Point(ms.X, ms.Y); // point of the mouse
-
-            if (Contains(mousePointer) && !m_containsMousePointer)
+            if (Contains(ms.Position) && !m_containsMousePointer)
             {
                 m_containsMousePointer = true;
                 OnMouseOver(ms);
             }
 
-            if (!Contains(mousePointer) && m_containsMousePointer)
+            if (!Contains(ms.Position) && m_containsMousePointer)
             {
                 m_containsMousePointer = false;
                 OnMouseLeave(ms);
             }
-
-            // current sheet only (excludes generic sheet)
-            //if (Sheet == GuiManager.CurrentSheet.Name)
-            //{
-            //    foreach (Control c in new List<Control>(GuiManager.CurrentSheet.Controls))
-            //    {
-            //        if (c.IsVisible && !c.Contains(mousePointer))
-            //            return false;
-            //    }
-            //}
 
             if (ms.LeftButton == ButtonState.Pressed || ms.RightButton == ButtonState.Pressed)
             {
@@ -471,12 +458,30 @@ namespace Yuusha.gui
                 m_mouseRightDown = ms.RightButton == ButtonState.Pressed;
             }
 
-            if (!m_hasTouchDownPoint && (ms.LeftButton == ButtonState.Pressed || ms.RightButton == ButtonState.Pressed))
+            if (!m_hasTouchDownPoint && (ms.LeftButton == ButtonState.Pressed || ms.RightButton == ButtonState.Pressed) && Contains(ms.Position))
             {
-                m_touchDownPoint = new Point(ms.X, ms.Y);
-                m_hasTouchDownPoint = true;
+                bool allowTouchDown = true;
+                if (Sheet != "Generic")
+                {
+                    foreach (Control c in GuiManager.GenericSheet.Controls)
+                    {
+                        //(c.ZDepth > ZDepth || (c.ZDepth == ZDepth && c.ZDepthDateTime > ZDepthDateTime))
+                        if (c != this && c.IsVisible && c.m_hasTouchDownPoint && c.Contains(ms.Position))
+                        {
+                            //TextCue.AddClientInfoTextCue(c.Name + " has touch down point...");
+                            allowTouchDown = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (allowTouchDown)
+                {
+                    m_touchDownPoint = new Point(ms.X, ms.Y);
+                    m_hasTouchDownPoint = true;
+                }
             }
-            else if (m_hasTouchDownPoint && (ms.LeftButton != ButtonState.Pressed && ms.RightButton != ButtonState.Pressed))
+            else if (m_hasTouchDownPoint && ms.LeftButton != ButtonState.Pressed && ms.RightButton != ButtonState.Pressed)
             {
                 m_hasTouchDownPoint = false;
             }
@@ -484,7 +489,7 @@ namespace Yuusha.gui
             // Not a TextBox, contains mouse cursor or has focus.
             // OR
             // Textbox and contains mouse cursor.
-            if ((!(this is TextBox) && (Contains(mousePointer) || HasFocus)) || ((this is TextBox) && Contains(mousePointer)))
+            if ((!(this is TextBox) && (Contains(ms.Position) || HasFocus)) || ((this is TextBox) && Contains(ms.Position)))
             {
                 // there was a change in scroll wheel values since last MouseHandler
                 if ((this is ScrollableTextBox || this is MapWindow) && GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
@@ -505,7 +510,7 @@ namespace Yuusha.gui
                         if (!(this is TextBox))
                             HasFocus = false;
 
-                        if (Contains(mousePointer))
+                        if (Contains(ms.Position))
                         {
                             GuiManager.AwaitMouseButtonRelease = false;
                             OnMouseRelease(ms);
@@ -524,7 +529,7 @@ namespace Yuusha.gui
                         m_doubleClickTimer.Start();
                         m_mouseRightDown = false;
 
-                        if (Contains(mousePointer))
+                        if (Contains(ms.Position))
                         {
                             GuiManager.AwaitMouseButtonRelease = false;
                             OnMouseRelease(ms);
@@ -573,7 +578,7 @@ namespace Yuusha.gui
                 }
             }
             //else if (this is Button && ControlState != Enums.EControlState.Normal)
-            else if ((!Contains(mousePointer) || (this is Button)) && ControlState != Enums.EControlState.Normal)
+            else if ((!Contains(ms.Position) || (this is Button)) && ControlState != Enums.EControlState.Normal)
             {
                 if (ms.LeftButton != ButtonState.Pressed && !(this is TextBox))
                     HasFocus = false;

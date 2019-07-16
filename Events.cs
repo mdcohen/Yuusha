@@ -147,9 +147,11 @@ namespace Yuusha
                                         {
                                             if (control.Text.Contains("%t"))
                                             {
-                                                Events.RegisterEvent(Events.EventName.Target_Select,
-                                                                     (menu.DropDownMenuOwner as CritterListLabel).
-                                                                         Critter);
+                                                if ((menu.DropDownMenuOwner as CritterListLabel).Critter.ID != GameHUD.CurrentTarget.ID)
+                                                {
+                                                    RegisterEvent(EventName.Target_Select, (menu.DropDownMenuOwner as CritterListLabel).Critter);
+                                                }
+
                                                 GameHUD.TextSendOverride = control.Text.Replace("%t",
                                                                                                 GameHUD.CurrentTarget.ID
                                                                                                     .ToString());
@@ -491,6 +493,9 @@ namespace Yuusha
                         #endregion
                     case EventName.End_Game_Round:
                         #region End Game Round
+                        if (Character.CurrentCharacter != null)
+                            Character.CurrentCharacter.CurrentRoundsPlayed++;
+
                         switch (Client.GameDisplayMode)
                         {
                             case Enums.EGameDisplayMode.IOK:
@@ -1282,12 +1287,12 @@ namespace Yuusha
                             if (Char.IsDigit(targetName[0]))
                             {
                                 targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
-                                    // remove the digit and space for grouped critters
-                                targetName = targetName.Substring(0, targetName.Length - 1); // remove the s
+                                targetName = TextManager.ConvertPluralToSingular(targetName);
+                                // remove the digit and space for grouped critters
+                                //targetName = targetName.Substring(0, targetName.Length - 1); // remove the s
                             }
 
-                            TextCue.AddClientInfoTextCue("Target: " + targetName, TextCue.TextCueTag.None, Color.Red,
-                                                         Color.Transparent, 0, 2000, false, false, false);
+                            TextCue.AddTargetInfoTextCue(" Target: " + targetName + " ", GameHUD.CurrentTarget.Alignment);
                         }
                         break;
                     case EventName.Toggle_FogOfWar:
@@ -1891,6 +1896,7 @@ namespace Yuusha
                 switch(newGameState)
                 {
                     case Enums.EGameState.Game:
+                        Character.CurrentCharacter.CurrentRoundsPlayed = 0;
                         IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS); // update effects
                         GameHUD.UpdateInventoryWindow(); // update inventory window
                         // request updates for all gridboxwindows

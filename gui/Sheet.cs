@@ -277,26 +277,26 @@ namespace Yuusha.gui
 
                             foreach (Control c in new List<Control>(new List<Control>((m_controls[index] as Window).Controls)))
                             {
-                                if (name == c.Name)
+                                if (c != null && name == c.Name)
                                     return c;
 
                                 if (c is Window)
                                 {
-                                    foreach (Control c2 in new List<Control>(new List<Control>((c as Window).Controls)))
+                                    foreach (Control c2 in new List<Control>((c as Window).Controls))
                                     {
-                                        if (name == c2.Name)
+                                        if (c2 != null && name == c2.Name)
                                             return c2;
 
                                         if (c2 is Window)
                                         {
-                                            foreach (Control c3 in new List<Control>(new List<Control>((c2 as Window).Controls)))
+                                            foreach (Control c3 in new List<Control>((c2 as Window).Controls))
                                             {
                                                 if (name == c3.Name)
                                                     return c3;
 
                                                 if (c3 is Window)
                                                 {
-                                                    foreach (Control c4 in new List<Control>(new List<Control>((c3 as Window).Controls)))
+                                                    foreach (Control c4 in new List<Control>((c3 as Window).Controls))
                                                     {
                                                         if (name == c4.Name)
                                                             return c4;
@@ -416,7 +416,7 @@ namespace Yuusha.gui
                     }
 
                     // Confirm only one RadioButton of a group is selected.
-                    if ((m_controls[i] is RadioButton) && ((m_controls[i] as RadioButton).NeedToDeselectOthers))
+                    if ((m_controls[i] is RadioButton) && (m_controls[i] as RadioButton).NeedToDeselectOthers)
                     {
                         (m_controls[i] as RadioButton).NeedToDeselectOthers = false;
                         for (int j = 0; j < m_controls.Count; j++)

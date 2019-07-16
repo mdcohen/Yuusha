@@ -40,7 +40,12 @@ namespace Yuusha
         public static Character CurrentCharacter
         {
             get { return m_currentCharacter; }
-            set { m_currentCharacter = value; }
+            set
+            {
+                m_currentCharacter = value;
+
+                PreviousRoundCharacter = CurrentCharacter.Clone();
+            }
         }
 
         public static Character PreviousRoundCharacter
@@ -725,13 +730,13 @@ namespace Yuusha
         }
         public string ClassFullName
         {
-            get { return this.m_classFullName; }
-            set { this.m_classFullName = value; }
+            get { return m_classFullName; }
+            set { m_classFullName = value; }
         }
         public ClassType Profession
         {
-            get { return this.m_profession; }
-            set { this.m_profession = value; }
+            get { return m_profession; }
+            set { m_profession = value; }
         }
         public int Hits
         {
@@ -965,6 +970,9 @@ namespace Yuusha
         {
             get { return RightHand == null || LeftHand == null; }
         }
+
+        public int CurrentRoundsPlayed
+        { get; set; } = 0;
         #endregion
 
         #region Constructor

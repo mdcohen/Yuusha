@@ -169,6 +169,7 @@ namespace Yuusha
                     case GRAPHIC_DOWNSTAIRS:
                     case GRAPHIC_UP_AND_DOWNSTAIRS:
                     case GRAPHIC_SAND:
+                    case GRAPHIC_WEB:
                     case GRAPHIC_WATER: // water loot is only visible when it is the current cell
                         return true;
                     default:
@@ -349,6 +350,21 @@ namespace Yuusha
             }
 
             return 0;
+        }
+
+        public bool IsExaminable()
+        {
+            switch(DisplayGraphic)
+            {
+                case GRAPHIC_WALL:
+                case GRAPHIC_FOREST_IMPASSABLE:
+                case GRAPHIC_REEF:
+                case GRAPHIC_MOUNTAIN:
+                case GRAPHIC_TRASHCAN:
+                    return false;
+            }
+
+            return true;
         }
 
         public bool IsImpassable()

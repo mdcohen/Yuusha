@@ -4,7 +4,6 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/mikec/Desktop/YuushaMG/Content/../../../Downloads/KSND0281.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Kesmai-Dungeon-Background.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Wind-Moderate.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/modem_dial.wav</File>
@@ -13,7 +12,9 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/pm_alert_short.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/sageadvice_cymbal.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/skillup.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/sword_draw.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/tip_notification.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/upgrade.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0001.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0002.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0003.WAV</File>
@@ -294,13 +295,16 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0278.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0279.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0280.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0281.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0282.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint1.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint2.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint3.WAV</File>
   </SourceFiles>
   <DestFiles>
-    <File>KSND0281.wav</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

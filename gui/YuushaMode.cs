@@ -71,14 +71,18 @@ namespace Yuusha.gui
             {
                 if (chr != null)
                 {
+                    #region Hits Labels
                     if (sheet["HitsRemainingLabel"].Text.Length > 0)
                     {
                         int hitsRemaining = Convert.ToInt32(sheet["HitsRemainingLabel"].Text);
 
-                        if (hitsRemaining < chr.Hits)
-                            TextCue.AddHealthGainTextCue(string.Format("+{0}", Convert.ToString(chr.Hits - hitsRemaining)));
-                        else if (hitsRemaining > chr.Hits)
-                            TextCue.AddHealthLossTextCue(string.Format("-{0}", Convert.ToString(hitsRemaining - chr.Hits)));
+                        if (Character.CurrentCharacter.CurrentRoundsPlayed > 0)
+                        {
+                            if (hitsRemaining < chr.Hits)
+                                TextCue.AddHealthGainTextCue(string.Format("+{0}", Convert.ToString(chr.Hits - hitsRemaining)));
+                            else if (hitsRemaining > chr.Hits)
+                                TextCue.AddHealthLossTextCue(string.Format("-{0}", Convert.ToString(hitsRemaining - chr.Hits)));
+                        }
                     }
 
                     sheet["HitsRemainingLabel"].Text = chr.Hits.ToString();
@@ -86,9 +90,8 @@ namespace Yuusha.gui
                         sheet["HitsRemainingLabel"].TextColor = Color.DarkSalmon;
                     else sheet["HitsRemainingLabel"].TextColor = sheet["HitsAmountLabel"].TextColor;
                     sheet["HitsAmountLabel"].Text = "/" + chr.HitsFull.ToString();
-
+                    
                     (sheet["HitsPercentageBarLabel"] as PercentageBarLabel).Percentage = (double)chr.Hits / chr.HitsFull * 100;
-                    //(sheet["HitsPercentageBarLabel"] as PercentageBarLabel).PopUpText = (sheet["HitsPercentageBarLabel"] as PercentageBarLabel).Percentage.ToString();
                     (sheet["HitsPercentageBarLabel"] as PercentageBarLabel).ForeLabel.Text = chr.Hits + "/" + chr.HitsFull;
 
                     if (!GameHUD.VitalsTextMode)
@@ -104,17 +107,21 @@ namespace Yuusha.gui
                         sheet["HitsAmountLabel"].IsVisible = true;
                         sheet["HitsAmountLabel"].IsVisible = true;
                         sheet["HitsPercentageBarLabel"].IsVisible = false;
-                    }
+                    } 
+                    #endregion
 
                     #region Stamina Labels
                     if (sheet["StaminaRemainingLabel"].Text.Length > 0)
                     {
                         int stamRemaining = Convert.ToInt32(sheet["StaminaRemainingLabel"].Text);
 
-                        if (stamRemaining < chr.Stamina)
-                            TextCue.AddStaminaGainTextCue(string.Format("+{0}", Convert.ToString(chr.Stamina - stamRemaining)));
-                        else if (stamRemaining > chr.Stamina)
-                            TextCue.AddStaminaLossTextCue(string.Format("-{0}", Convert.ToString(stamRemaining - chr.Stamina)));
+                        if (Character.CurrentCharacter.CurrentRoundsPlayed > 0)
+                        {
+                            if (stamRemaining < chr.Stamina)
+                                TextCue.AddStaminaGainTextCue(string.Format("+{0}", Convert.ToString(chr.Stamina - stamRemaining)));
+                            else if (stamRemaining > chr.Stamina)
+                                TextCue.AddStaminaLossTextCue(string.Format("-{0}", Convert.ToString(stamRemaining - chr.Stamina)));
+                        }
                     }
 
                     sheet["StaminaRemainingLabel"].Text = chr.Stamina.ToString();
@@ -150,10 +157,13 @@ namespace Yuusha.gui
                         {
                             int manaRemaining = Convert.ToInt32(sheet["MagicPtsRemainingLabel"].Text);
 
-                            if (manaRemaining < chr.Mana)
-                                TextCue.AddManaGainTextCue(string.Format("+{0}", Convert.ToString(chr.Mana - manaRemaining)));
-                            else if (manaRemaining > chr.Mana)
-                                TextCue.AddManaLossTextCue(string.Format("-{0}", Convert.ToString(manaRemaining - chr.Mana)));
+                            if (Character.CurrentCharacter.CurrentRoundsPlayed > 0)
+                            {
+                                if (manaRemaining < chr.Mana)
+                                    TextCue.AddManaGainTextCue(string.Format("+{0}", Convert.ToString(chr.Mana - manaRemaining)));
+                                else if (manaRemaining > chr.Mana)
+                                    TextCue.AddManaLossTextCue(string.Format("-{0}", Convert.ToString(manaRemaining - chr.Mana)));
+                            }
                         }
 
                         sheet["MagicPtsRemainingLabel"].Text = chr.Mana.ToString();
@@ -256,8 +266,32 @@ namespace Yuusha.gui
                     }
                     #endregion
 
-                    if (pre != null)
+                    if (pre != null && Character.CurrentCharacter.CurrentRoundsPlayed > -1)
                     {
+                        if(chr.HitsMax != pre.HitsMax)
+                        {
+                            if (chr.HitsMax > pre.HitsMax)
+                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.HitsMax - pre.HitsMax), AchievementLabel.AchievementType.VitalsGain_HitsMax);
+
+                            Character.PreviousRoundCharacter.HitsMax = chr.HitsMax;
+                        }
+
+                        if(chr.StaminaMax != pre.StaminaMax)
+                        {
+                            if (chr.StaminaMax > pre.StaminaMax)
+                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.StaminaMax - pre.StaminaMax), AchievementLabel.AchievementType.VitalsGain_StaminaMax);
+
+                            Character.PreviousRoundCharacter.StaminaMax = chr.StaminaMax;
+                        }
+
+                        if(chr.IsManaUser && chr.ManaMax != pre.ManaMax)
+                        {
+                            if (chr.ManaMax > pre.ManaMax)
+                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.ManaMax - pre.ManaMax), AchievementLabel.AchievementType.VitalsGain_ManaMax);
+
+                            Character.PreviousRoundCharacter.ManaMax = chr.ManaMax;
+                        }
+
                         // Experience adjustments.
                         if (pre.Experience < chr.Experience && pre.Experience > 0)
                             TextCue.AddXPGainTextCue(string.Format("+{0:n0}", chr.Experience - pre.Experience));
@@ -279,9 +313,9 @@ namespace Yuusha.gui
                             expBar.Percentage = (double)expIntoLevel / expNeededForLevelUp * 100;
                         }
 
-                        if (expBar.Percentage < 100)
+                        if (expBar != null && expBar.Percentage < 100)
                             expBar.PopUpText = string.Format("{0:0.00}%", expBar.Percentage);
-                        else expBar.PopUpText = "100%";
+                        else if(expBar != null) expBar.PopUpText = "100%";
                     }
                 }
 
@@ -310,6 +344,7 @@ namespace Yuusha.gui
         {
             m_usedLetters = string.Empty;
             GameHUD.Cells.Clear();
+            //Character.PreviousRoundCharacter = Character.CurrentCharacter.Clone();
         }
 
         public static void EndGameRound()
@@ -526,44 +561,13 @@ namespace Yuusha.gui
 
                                 critterInfo += ch.visibleArmor;
 
-                                Color foreColor = Color.White;
-                                Color backColor = Color.Black;
-
-                                switch (ch.Alignment)
-                                {
-                                    case World.Alignment.Amoral:
-                                        foreColor = Client.ClientSettings.Color_Gui_Amoral_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_Amoral_Back;
-                                        break;
-                                    case World.Alignment.Chaotic:
-                                        foreColor = Client.ClientSettings.Color_Gui_Chaotic_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_Chaotic_Back;
-                                        break;
-                                    case World.Alignment.ChaoticEvil:
-                                        foreColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
-                                        break;
-                                    case World.Alignment.Evil:
-                                        foreColor = Client.ClientSettings.Color_Gui_Evil_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_Evil_Back;
-                                        break;
-                                    case World.Alignment.Lawful:
-                                        foreColor = Client.ClientSettings.Color_Gui_Lawful_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_Lawful_Back;
-                                        break;
-                                    case World.Alignment.Neutral:
-                                        foreColor = Client.ClientSettings.Color_Gui_Neutral_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_Neutral_Back;
-                                        break;
-                                }
-
                                 m_critterListNames[labelNum] = ch.Name;
                                 CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
                                 label.Critter = ch;
                                 label.CenterCell = true;
                                 label.Text = critterInfo;
-                                label.TextColor = foreColor;
-                                label.TintColor = backColor;
+                                label.TextColor = TextManager.GetAlignmentColor(true, ch.Alignment);
+                                label.TintColor = TextManager.GetAlignmentColor(false, ch.Alignment);
                                 label.IsVisible = true;
                                 #endregion
 

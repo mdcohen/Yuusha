@@ -415,44 +415,13 @@ namespace Yuusha.gui
 
                                 critterInfo += ch.visibleArmor;
 
-                                Color foreColor = Color.White;
-                                Color backColor = Color.Black;
-
-                                switch (ch.Alignment)
-                                {
-                                    case World.Alignment.Amoral:
-                                        foreColor = Client.ClientSettings.Color_Gui_Amoral_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_Amoral_Back;
-                                        break;
-                                    case World.Alignment.Chaotic:
-                                        foreColor = Client.ClientSettings.Color_Gui_Chaotic_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_Chaotic_Back;
-                                        break;
-                                    case World.Alignment.ChaoticEvil:
-                                        foreColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
-                                        break;
-                                    case World.Alignment.Evil:
-                                        foreColor = Client.ClientSettings.Color_Gui_Evil_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_Evil_Back;
-                                        break;
-                                    case World.Alignment.Lawful:
-                                        foreColor = Client.ClientSettings.Color_Gui_Lawful_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_Lawful_Back;
-                                        break;
-                                    case World.Alignment.Neutral:
-                                        foreColor = Client.ClientSettings.Color_Gui_Neutral_Fore;
-                                        backColor = Client.ClientSettings.Color_Gui_Neutral_Back;
-                                        break;
-                                }
-
                                 m_critterListNames[labelNum] = ch.Name;
                                 CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
                                 label.Critter = ch;
                                 label.CenterCell = true;
                                 label.Text = critterInfo;
-                                label.TextColor = foreColor;
-                                label.TintColor = backColor;
+                                label.TextColor = TextManager.GetAlignmentColor(true, ch.Alignment);
+                                label.TintColor = TextManager.GetAlignmentColor(false, ch.Alignment);
                                 label.IsVisible = true;
                                 #endregion
 

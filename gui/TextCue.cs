@@ -9,7 +9,7 @@ namespace Yuusha.gui
     public class TextCue : GameComponent
     {
         public enum TextCueTag { None, PromptState, WarmedSpell, XPGain, XPLoss, HealthGain, HealthLoss, StaminaGain, StaminaLoss,
-            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS, SkillUp }
+            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS, SkillUp, Target }
 
         #region Private Data
         private string m_text;
@@ -371,10 +371,7 @@ namespace Yuusha.gui
 
             switch (Client.GameState)
             {
-                //case Enums.EGameState.Game:
                 case Enums.EGameState.IOKGame:
-                //case Enums.EGameState.LOKGame:
-                //case Enums.EGameState.YuushaGame:
                 case Enums.EGameState.SpinelGame:
                     x = 10;
                     y = Client.Height - Convert.ToInt32(BitmapFont.ActiveFonts[GuiManager.CurrentSheet.Font].LineHeight * 1.25);
@@ -401,6 +398,30 @@ namespace Yuusha.gui
                 GuiManager.TextCues.Add(tc);
         }
         #endregion
+
+        public static void AddTargetInfoTextCue(string text, World.Alignment alignment)
+        {
+            if (GuiManager.TextCues.Find(tc => tc.Text == text) != null)
+                return;
+
+            GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.Target);
+
+            string font = TextManager.ScalingTextFontList[6];
+
+            int x = Client.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
+            int y = Client.Height / 2 - BitmapFont.ActiveFonts[font].LineHeight / 2;
+
+            if (GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()]["MapDisplayWindow"] is Window mapWindow)
+            {
+                x = mapWindow.Position.X + mapWindow.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
+                y = mapWindow.Position.Y - 10 - BitmapFont.ActiveFonts[font].LineHeight;
+            }
+
+            TextCue textCue = new TextCue(text, x, y, 255, TextManager.GetAlignmentColor(true, alignment), TextManager.GetAlignmentColor(false, alignment), 255, font, 2000, false, 2, Map.Direction.Southwest, false, false, false, TextCueTag.Target);
+
+            if (!GuiManager.ContainsTextCue(textCue))
+                GuiManager.TextCues.Add(textCue);
+        }
 
         public static void AddCharGenInfoTextCue(string text, string font)
         {

@@ -113,9 +113,9 @@ namespace Yuusha.Utility.Settings
         public Color DragAndDropTintOverColor = Color.White;
         public bool DragAndDropHasTintOverColor = false;
 
-        public byte GridBoxWindowVisualKeyAlpha = 200;
+        public byte GridBoxWindowVisualKeyAlpha = 175;
         public byte GridBoxWindowBorderAlpha = 255;
-        public string GridBoxWindowFont = "courier16";
+        public string GridBoxWindowFont = "lemon14";
 
         public Color AcceptingGridBoxBorderColor = Color.PaleGreen;
         public Color AcceptingGridBoxTitleColor = Color.PaleGreen;
