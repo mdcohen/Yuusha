@@ -31,6 +31,12 @@
 /processorParam:Quality=Best
 /build:GUISounds/modem_dial.wav
 
+#begin GUISounds/new_spell.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/new_spell.wav
+
 #begin GUISounds/page_flip.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -1770,6 +1776,24 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:KSND0282.wav
+
+#begin KSND0283.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0283.wav
+
+#begin KSND0284.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0284.wav
+
+#begin KSND0285.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0285.wav
 
 #begin KSNDint1.WAV
 /importer:WavImporter

@@ -34,6 +34,7 @@ namespace Yuusha
             Load_Client_Settings,
             Logout,
             New_Game_Round,
+            New_Spell,
             NextLOKTile,
             Next_Visual,
             None,
@@ -493,7 +494,7 @@ namespace Yuusha
                         #endregion
                     case EventName.End_Game_Round:
                         #region End Game Round
-                        if (Character.CurrentCharacter != null)
+                        if(Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter != null)
                             Character.CurrentCharacter.CurrentRoundsPlayed++;
 
                         switch (Client.GameDisplayMode)
@@ -663,7 +664,28 @@ namespace Yuusha
                         }
                         break;
 
-                        #endregion
+                    #endregion
+                    case EventName.New_Spell:
+                        List<Spell> prevSpellsList = (List<Spell>) args[0];
+                        foreach (Spell spell in Character.CurrentCharacter.Spells)
+                        {
+                            if (!prevSpellsList.Contains(spell))
+                            {
+                                if (Character.CurrentCharacter.HasSpellbook && GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow spbWindow)
+                                {
+                                    RegisterEvent(EventName.Toggle_Spellbook);
+                                    spbWindow.FlipTo(spell.Name);
+
+                                    if (spbWindow.LeftPageSpell != null && spbWindow.LeftPageSpell != spell && spbWindow.RightPageSpell == null)
+                                        spbWindow.ScribePage(spell, false);
+
+                                    spbWindow.IsVisible = true;
+                                }
+
+                                AchievementLabel.CreateAchievementLabel(" New Spell: " + spell.Name + " ", AchievementLabel.AchievementType.NewSpell);
+                            }
+                        }
+                        break;
                     case EventName.NextLOKTile:
                         #region NextLOKTile
                         {
@@ -1260,7 +1282,7 @@ namespace Yuusha
                     case EventName.TabControl:
                         try
                         {
-                            TabControlButton button = (args[0] as TabControlButton);
+                            TabControlButton button = args[0] as TabControlButton;
                             if (button.TabControl != null)
                                 button.TabControl.ConfirmOneTabWindowVisible(args[0] as TabControlButton);
                         }
@@ -1270,29 +1292,30 @@ namespace Yuusha
                         }
                         break;
                     case EventName.Target_Cleared:
-                        GameHUD.CurrentTarget = null;
                         if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
                         {
-                            TextCue.AddClientInfoTextCue("No Target", TextCue.TextCueTag.None, Color.Red,
-                               Color.Black, 255, 2000, false, false, false);
+                            TextCue.AddTargetInfoTextCue(" No Target ", World.Alignment.None);
                             GameHUD.CurrentTarget = null;
                         }
                         break;
                     case EventName.Target_Select:
-                        GameHUD.CurrentTarget = (Character) args[0];
-                        if (GameHUD.CurrentTarget != null && Client.GameState.ToString().EndsWith("Game"))
+                        if (GameHUD.CurrentTarget != (Character)args[0])
                         {
-                            string targetName = GameHUD.CurrentTarget.Name;
-
-                            if (Char.IsDigit(targetName[0]))
+                            GameHUD.CurrentTarget = (Character)args[0];
+                            if (GameHUD.CurrentTarget != null && Client.GameState.ToString().EndsWith("Game"))
                             {
-                                targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
-                                targetName = TextManager.ConvertPluralToSingular(targetName);
-                                // remove the digit and space for grouped critters
-                                //targetName = targetName.Substring(0, targetName.Length - 1); // remove the s
-                            }
+                                string targetName = GameHUD.CurrentTarget.Name;
 
-                            TextCue.AddTargetInfoTextCue(" Target: " + targetName + " ", GameHUD.CurrentTarget.Alignment);
+                                if (Char.IsDigit(targetName[0]))
+                                {
+                                    targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
+                                    targetName = TextManager.ConvertPluralToSingular(targetName);
+                                    // remove the digit and space for grouped critters
+                                    //targetName = targetName.Substring(0, targetName.Length - 1); // remove the s
+                                }
+
+                                TextCue.AddTargetInfoTextCue(" Target: " + targetName + " ", GameHUD.CurrentTarget.Alignment);
+                            }
                         }
                         break;
                     case EventName.Toggle_FogOfWar:
@@ -1371,29 +1394,29 @@ namespace Yuusha
                     case EventName.Spellbook_Flip:
                         if (GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow sWindow)
                         {
-                            if(args[0] is Button)
+                            bool isString = args[0] is string;
+                            bool isButton = args[0] is Button;
+
+                            if((isString && (args[0] as string).ToLower() == "forward") || (isButton && (args[0] as Button).Name.Contains("Forward")))
                             {
-                                if((args[0] as Button).Name.Contains("Forward"))
+                                if (Character.CurrentCharacter != null && Character.CurrentCharacter.Spells.Count > sWindow.PageSet + 1)
                                 {
-                                    if (Character.CurrentCharacter != null && Character.CurrentCharacter.Spells.Count > sWindow.PageSet + 1)
-                                    {
-                                        sWindow.PageSet += 2;
+                                    sWindow.PageSet += 2;
 
-                                        sWindow.UpdateVisiblePages(sWindow.PageSet - 1, sWindow.PageSet);
+                                    sWindow.UpdateVisiblePages(sWindow.PageSet - 1, sWindow.PageSet);
 
-                                        Audio.AudioManager.PlaySoundEffect("GUISounds/page_flip");
-                                    }
+                                    Audio.AudioManager.PlaySoundEffect("GUISounds/page_flip");
                                 }
-                                else if((args[0] as Button).Name.Contains("Back"))
+                            }
+                            else if((isString && (args[0] as string).ToLower() == "back") || (isButton && (args[0] as Button).Name.Contains("Back")))
+                            {
+                                if(sWindow.PageSet > 2)
                                 {
-                                    if(sWindow.PageSet > 2)
-                                    {
-                                        sWindow.PageSet -= 2;
+                                    sWindow.PageSet -= 2;
 
-                                        sWindow.UpdateVisiblePages(sWindow.PageSet - 1, sWindow.PageSet);
+                                    sWindow.UpdateVisiblePages(sWindow.PageSet - 1, sWindow.PageSet);
 
-                                        Audio.AudioManager.PlaySoundEffect("GUISounds/page_flip");
-                                    }
+                                    Audio.AudioManager.PlaySoundEffect("GUISounds/page_flip");
                                 }
                             }
                         }
@@ -1745,8 +1768,32 @@ namespace Yuusha
                                 sheet["CurrentNameLabel"].Text = chr.Name;
                             if (sheet["CurrentLevelLabel"] != null)
                                 sheet["CurrentLevelLabel"].Text = string.Format("{0} {1}", chr.Level, chr.ClassFullName);
-                            if (sheet["CurrentLocationLabel"] != null)
-                                sheet["CurrentLocationLabel"].Text = chr.MapName;
+                            if (sheet["CurrentMapNameLabel"] != null)
+                                sheet["CurrentMapNameLabel"].Text = chr.MapName;
+                            if (sheet["CurrentZNameLabel"] != null)
+                            {
+                                sheet["CurrentZNameLabel"].Text = chr.ZName;
+                                while (BitmapFont.ActiveFonts[sheet["CurrentZNameLabel"].Font].MeasureString(chr.ZName) > sheet["CurrentZNameLabel"].Width)
+                                    sheet["CurrentZNameLabel"].Font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.FindIndex(f => f.ToString() == sheet["CurrentZNameLabel"].Font) - 1];
+                            }
+                            if (sheet["SwitchCharacterBack"] != null)
+                            {
+                                Character prevChar = Account.GetPreviousCharacter();
+                                if(prevChar != Character.CurrentCharacter)
+                                    sheet["SwitchCharacterBack"].PopUpText = "Switch to " + prevChar.Name;
+                            }
+                            if (sheet["SwitchCharacterBackButton"] != null)
+                            {
+                                Character prevChar = Account.GetPreviousCharacter();
+                                if (prevChar != Character.CurrentCharacter)
+                                    sheet["SwitchCharacterBackButton"].PopUpText = prevChar.Name;
+                            }
+                            if (sheet["SwitchCharacterNextButton"] != null)
+                            {
+                                Character nextChar = Account.GetNextCharacter();
+                                if (nextChar != Character.CurrentCharacter)
+                                    sheet["SwitchCharacterNextButton"].PopUpText = nextChar.Name;
+                            }
                         }
                         break;
                     #endregion
@@ -1764,8 +1811,26 @@ namespace Yuusha
                                 sheet["CurrentNameLabel"].Text = chr.Name;
                             if (sheet["CurrentLevelLabel"] != null)
                                 sheet["CurrentLevelLabel"].Text = string.Format("{0} {1}", chr.Level, chr.ClassFullName);
-                            if (sheet["CurrentLocationLabel"] != null)
-                                sheet["CurrentLocationLabel"].Text = chr.MapName;
+                            if (sheet["CurrentMapNameLabel"] != null)
+                                sheet["CurrentMapNameLabel"].Text = chr.MapName;
+                            if (sheet["CurrentZNameLabel"] != null)
+                            {
+                                sheet["CurrentZNameLabel"].Text = chr.ZName;
+                                while (BitmapFont.ActiveFonts[sheet["CurrentZNameLabel"].Font].MeasureString(chr.ZName) > sheet["CurrentZNameLabel"].Width)
+                                    sheet["CurrentZNameLabel"].Font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.FindIndex(f => f.ToString() == sheet["CurrentZNameLabel"].Font) - 1];
+                            }
+                            if (sheet["SwitchCharacterBackButton"] != null)
+                            {
+                                Character prevChar = Account.GetPreviousCharacter();
+                                if (prevChar != Character.CurrentCharacter)
+                                    sheet["SwitchCharacterBackButton"].PopUpText = prevChar.Name;
+                            }
+                            if (sheet["SwitchCharacterNextButton"] != null)
+                            {
+                                Character nextChar = Account.GetNextCharacter();
+                                if (nextChar != Character.CurrentCharacter)
+                                    sheet["SwitchCharacterNextButton"].PopUpText = nextChar.Name;
+                            }
                         }
 
                         if (sheet[Globals.CONFINPUTTEXTBOX] != null)

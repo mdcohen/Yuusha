@@ -135,6 +135,12 @@ namespace Yuusha.Audio
             if (!Client.UserSettings.SoundEffects)
                 return;
 
+            if(soundName.StartsWith("Songs"))
+            {
+                PlaySong(soundName);
+                return;
+            }
+
             try
             {
                 SoundEffect soundEffect;
@@ -150,12 +156,38 @@ namespace Yuusha.Audio
 
                 inst.Volume = 1.0f;
 
-                CurrentlyPlayingSoundEffects.Add(inst);
+                //CurrentlyPlayingSoundEffects.Add(inst);
                 inst.Play();
             }
             catch(Exception e)
             {
                 Utils.LogException(e);
+                Utils.Log("soundName: " + soundName);
+            }
+        }
+
+        public static void PlaySong(string songName)
+        {
+            if (!Client.UserSettings.SoundEffects)
+                return;
+
+            try
+            {
+                Song song;
+
+                if (!m_songs.ContainsKey(songName))
+                {
+                    song = Program.Client.Content.Load<Song>(songName);
+                    m_songs.Add(songName, song);
+                }
+                else song = m_songs[songName];
+
+                MediaPlayer.Play(song);
+            }
+            catch (Exception e)
+            {
+                Utils.LogException(e);
+                Utils.Log("songName: " + songName);
             }
         }
 

@@ -28,80 +28,85 @@ namespace Yuusha.gui
             {
                 if (!m_onMouseDownSent && ms.RightButton == ButtonState.Pressed)
                 {
-                    Cell cell = GameHUD.Cells[Convert.ToInt32(Name.Replace("Tile", ""))];
-                    if (cell.IsExaminable())
+                    Int32.TryParse(Name.Replace("Tile", ""), out int num);
+
+                    if (GameHUD.Cells.Count >= num + 1)
                     {
-                        Cell.SendCellItemsRequest(cell);
-
-                        // if client.client settings echo ground items
-                        if (Client.ClientSettings.EchoGroundItemsOnExamination)
+                        Cell cell = GameHUD.Cells[num];
+                        if (cell.IsExaminable())
                         {
-                            switch (Name.ToLower())
-                            {
-                                case "tile24":
-                                    IO.Send("look");
-                                    // create a pop up list of items on the ground
-                                    break;
-                                case "tile16":
-                                    if (Text.ToLower() == "==" || Text.ToLower() == "mm")
-                                    {
-                                        IO.Send("look on counter");
-                                    }
-                                    else IO.Send("look nw");
-                                    break;
-                                case "tile17":
-                                    if (Text.ToLower() == "==" || Text.ToLower() == "mm")
-                                    {
-                                        IO.Send("look on counter");
-                                    }
-                                    else IO.Send("look n");
-                                    break;
-                                case "tile18":
-                                    if (Text.ToLower() == "==" || Text.ToLower() == "mm")
-                                    {
-                                        IO.Send("look on counter");
-                                    }
-                                    else IO.Send("look ne");
-                                    break;
-                                case "tile23":
-                                    if (Text.ToLower() == "==" || Text.ToLower() == "mm")
-                                    {
-                                        IO.Send("look on counter");
-                                    }
-                                    else IO.Send("look w");
-                                    break;
-                                case "tile25":
-                                    if (Text.ToLower() == "==" || Text.ToLower() == "mm")
-                                    {
-                                        IO.Send("look on counter");
-                                    }
-                                    else IO.Send("look e");
-                                    break;
-                                case "tile30":
-                                    if (Text.ToLower() == "==" || Text.ToLower() == "mm")
-                                    {
-                                        IO.Send("look on counter");
-                                    }
-                                    else IO.Send("look sw");
-                                    break;
-                                case "tile31":
-                                    if (Text.ToLower() == "==" || Text.ToLower() == "mm")
-                                    {
-                                        IO.Send("look on counter");
-                                    }
-                                    else IO.Send("look s");
-                                    break;
-                                case "tile32":
-                                    if (Text.ToLower() == "==" || Text.ToLower() == "mm")
-                                    {
-                                        IO.Send("look on counter");
-                                    }
-                                    else IO.Send("look se");
-                                    break;
-                            }
-                        }
+                            Cell.SendCellItemsRequest(cell);
 
-                        m_onMouseDownSent = true;
+                            // if client.client settings echo ground items
+                            if (Client.ClientSettings.EchoGroundItemsOnExamination)
+                            {
+                                switch (Name.ToLower())
+                                {
+                                    case "tile24":
+                                        IO.Send("look");
+                                        // create a pop up list of items on the ground
+                                        break;
+                                    case "tile16":
+                                        if (Text.ToLower() == "==" || Text.ToLower() == "mm")
+                                        {
+                                            IO.Send("look on counter");
+                                        }
+                                        else IO.Send("look nw");
+                                        break;
+                                    case "tile17":
+                                        if (Text.ToLower() == "==" || Text.ToLower() == "mm")
+                                        {
+                                            IO.Send("look on counter");
+                                        }
+                                        else IO.Send("look n");
+                                        break;
+                                    case "tile18":
+                                        if (Text.ToLower() == "==" || Text.ToLower() == "mm")
+                                        {
+                                            IO.Send("look on counter");
+                                        }
+                                        else IO.Send("look ne");
+                                        break;
+                                    case "tile23":
+                                        if (Text.ToLower() == "==" || Text.ToLower() == "mm")
+                                        {
+                                            IO.Send("look on counter");
+                                        }
+                                        else IO.Send("look w");
+                                        break;
+                                    case "tile25":
+                                        if (Text.ToLower() == "==" || Text.ToLower() == "mm")
+                                        {
+                                            IO.Send("look on counter");
+                                        }
+                                        else IO.Send("look e");
+                                        break;
+                                    case "tile30":
+                                        if (Text.ToLower() == "==" || Text.ToLower() == "mm")
+                                        {
+                                            IO.Send("look on counter");
+                                        }
+                                        else IO.Send("look sw");
+                                        break;
+                                    case "tile31":
+                                        if (Text.ToLower() == "==" || Text.ToLower() == "mm")
+                                        {
+                                            IO.Send("look on counter");
+                                        }
+                                        else IO.Send("look s");
+                                        break;
+                                    case "tile32":
+                                        if (Text.ToLower() == "==" || Text.ToLower() == "mm")
+                                        {
+                                            IO.Send("look on counter");
+                                        }
+                                        else IO.Send("look se");
+                                        break;
+                                }
+                            }
+
+                            m_onMouseDownSent = true;
+                        }
                     }
 
                     if (m_visuals.ContainsKey(Enums.EControlState.Down))

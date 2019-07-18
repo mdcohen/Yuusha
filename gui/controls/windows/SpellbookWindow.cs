@@ -7,7 +7,9 @@ namespace Yuusha.gui
     public class SpellBookWindow : Window
     {
         public TextBox LeftChantTextBox = null;
+        public Spell LeftPageSpell = null;
         public TextBox RightChantTextBox = null;
+        public Spell RightPageSpell = null;
         public int PageSet = 1;
         private bool ChantsFading = true;
 
@@ -118,7 +120,7 @@ namespace Yuusha.gui
                 y += height;
                 GuiManager.GenericSheet.AddControl(textBox);
             }
-            // Left Flip Button
+            // Right Flip Button
             Button SpellbookRightForwardFlipButton = new Button("SpellbookRightForwardFlipButton", spellbook.Name, new Rectangle(spellbook.Width - 60, 25, 30, spellbook.Height - 50), "", false, Color.White,
                 true, false, spellbook.Font, new VisualKey("WhiteSpace"), Color.Transparent, 30, 0, new VisualKey(""), new VisualKey(""), new VisualKey(""), "Spellbook_Flip", BitmapFont.TextAlignment.Left,
                 0, 0, Color.White, false, Color.Yellow, true, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, "", "");
@@ -150,6 +152,10 @@ namespace Yuusha.gui
         public void ScribePage(Spell spell, bool leftPage)
         {
             string leftOrRight = leftPage ? "Left" : "Right";
+
+            if (leftPage)
+                LeftPageSpell = spell;
+            else RightPageSpell = spell;
 
             // Spell Name
             this["Spellbook" + leftOrRight + "PageSpellNameLabel"].Text = spell.Name.ToUpper();
@@ -201,8 +207,25 @@ namespace Yuusha.gui
                     c.IsVisible = false;
 
             if (leftPage)
+            {
                 LeftChantTextBox = null;
-            else RightChantTextBox = null;
+                LeftPageSpell = null;
+            }
+            else
+            {
+                RightChantTextBox = null;
+                RightPageSpell = null;
+            }
+        }
+
+        public void FlipTo(string spellName)
+        {
+            int count = 0;
+            while (LeftPageSpell != null && LeftPageSpell.Name != spellName && RightPageSpell != null && RightPageSpell.Name != spellName && count < Character.CurrentCharacter.Spells.Count)
+            {
+                Events.RegisterEvent(Events.EventName.Spellbook_Flip, "forward");
+                count++;
+            }
         }
 
         public override void Update(GameTime gameTime)

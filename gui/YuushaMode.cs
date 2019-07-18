@@ -266,30 +266,36 @@ namespace Yuusha.gui
                     }
                     #endregion
 
-                    if (pre != null && Character.CurrentCharacter.CurrentRoundsPlayed > -1)
+                    if (pre != null && Character.CurrentCharacter.CurrentRoundsPlayed > 1)
                     {
-                        if(chr.HitsMax != pre.HitsMax)
+                        // Level check is done in TextManager.CheckTriggers.
+
+                        if (chr.HitsFull != pre.HitsFull)
                         {
-                            if (chr.HitsMax > pre.HitsMax)
-                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.HitsMax - pre.HitsMax), AchievementLabel.AchievementType.VitalsGain_HitsMax);
+                            if (chr.HitsFull > pre.HitsFull)
+                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.HitsFull - pre.HitsFull), AchievementLabel.AchievementType.VitalsGain_HitsMax);
 
                             Character.PreviousRoundCharacter.HitsMax = chr.HitsMax;
+                            Character.PreviousRoundCharacter.HitsAdjustment = chr.HitsAdjustment;
+                            Character.PreviousRoundCharacter.HitsDoctored = chr.HitsDoctored;
                         }
 
-                        if(chr.StaminaMax != pre.StaminaMax)
+                        if (chr.StaminaFull != pre.StaminaFull)
                         {
-                            if (chr.StaminaMax > pre.StaminaMax)
-                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.StaminaMax - pre.StaminaMax), AchievementLabel.AchievementType.VitalsGain_StaminaMax);
+                            if (chr.StaminaFull > pre.StaminaFull)
+                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.StaminaFull - pre.StaminaFull), AchievementLabel.AchievementType.VitalsGain_StaminaMax);
 
                             Character.PreviousRoundCharacter.StaminaMax = chr.StaminaMax;
+                            Character.PreviousRoundCharacter.StaminaAdjustment = chr.StaminaAdjustment;
                         }
 
-                        if(chr.IsManaUser && chr.ManaMax != pre.ManaMax)
+                        if (chr.IsManaUser && chr.ManaFull != pre.ManaFull)
                         {
-                            if (chr.ManaMax > pre.ManaMax)
-                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.ManaMax - pre.ManaMax), AchievementLabel.AchievementType.VitalsGain_ManaMax);
+                            if (chr.ManaFull > pre.ManaFull)
+                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.ManaFull - pre.ManaFull), AchievementLabel.AchievementType.VitalsGain_ManaMax);
 
                             Character.PreviousRoundCharacter.ManaMax = chr.ManaMax;
+                            Character.PreviousRoundCharacter.ManaAdjustment = chr.ManaAdjustment;
                         }
 
                         // Experience adjustments.
@@ -313,9 +319,16 @@ namespace Yuusha.gui
                             expBar.Percentage = (double)expIntoLevel / expNeededForLevelUp * 100;
                         }
 
-                        if (expBar != null && expBar.Percentage < 100)
-                            expBar.PopUpText = string.Format("{0:0.00}%", expBar.Percentage);
-                        else if(expBar != null) expBar.PopUpText = "100%";
+                        try
+                        {
+                            if (expBar != null && expBar.Percentage < 100)
+                                expBar.PopUpText = string.Format("{0:0.00}%", expBar.Percentage);
+                            else if (expBar != null) expBar.PopUpText = "100%";
+                        }
+                        catch(Exception e)
+                        {
+                            Utils.LogException(e);
+                        }
                     }
                 }
 

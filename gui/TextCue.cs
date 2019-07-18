@@ -401,7 +401,7 @@ namespace Yuusha.gui
 
         public static void AddTargetInfoTextCue(string text, World.Alignment alignment)
         {
-            if (GuiManager.TextCues.Find(tc => tc.Text == text) != null)
+            if (GuiManager.TextCues.Exists(tc => tc.Text == text))
                 return;
 
             GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.Target);
@@ -420,7 +420,7 @@ namespace Yuusha.gui
             TextCue textCue = new TextCue(text, x, y, 255, TextManager.GetAlignmentColor(true, alignment), TextManager.GetAlignmentColor(false, alignment), 255, font, 2000, false, 2, Map.Direction.Southwest, false, false, false, TextCueTag.Target);
 
             if (!GuiManager.ContainsTextCue(textCue))
-                GuiManager.TextCues.Add(textCue);
+                GuiManager.TextCues.Insert(0, textCue);
         }
 
         public static void AddCharGenInfoTextCue(string text, string font)
@@ -640,7 +640,7 @@ namespace Yuusha.gui
 
         public static void AddMapNameTextCue(string text)
         {
-            if (GuiManager.TextCues.Find(tc => tc.Text == text) != null)
+            if (GuiManager.TextCues.Exists(tc => tc.Text == text))
                 return;
 
             GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.MapName);
@@ -664,7 +664,7 @@ namespace Yuusha.gui
 
         public static void AddZNameTextCue(string text)
         {
-            if (GuiManager.TextCues.Find(tc => tc.Text == text) != null)
+            if (GuiManager.TextCues.Exists(tc => tc.Text == text))
                 return;
 
             GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.ZName);
@@ -707,7 +707,7 @@ namespace Yuusha.gui
 
         public static void AddSkillUpTextCue(string text)
         {
-            if (GuiManager.TextCues.Find(tc => tc.Text == text) != null)
+            if (GuiManager.TextCues.Exists(tc => tc.Text == text))
                 return;
 
             //GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.SkillUp);
@@ -724,7 +724,7 @@ namespace Yuusha.gui
             }
 
             // another skill up text cue exists, place this one above it -- hopefully only one other skill up exists
-            if(GuiManager.TextCues.Find(c => c.Tag == TextCueTag.SkillUp) != null)
+            if(GuiManager.TextCues.Exists(c => c.Tag == TextCueTag.SkillUp))
             {
                 y -= 5 - BitmapFont.ActiveFonts[font].LineHeight;
             }

@@ -1192,7 +1192,7 @@ namespace Yuusha.gui
 
         public static bool ContainsTextCue(TextCue tc)
         {
-            return TextCues.Find(tc2 => tc.Text == tc2.Text) != null;
+            return TextCues.Exists(tc2 => tc.Text == tc2.Text);
         }
 
         public static void CloseAllGridBoxes()

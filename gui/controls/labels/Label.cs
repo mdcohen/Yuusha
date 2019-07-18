@@ -8,6 +8,11 @@ namespace Yuusha.gui
     {
         protected Rectangle m_textRectangle;
 
+        /// <summary>
+        /// TextRectangle always modifies size to fit font.
+        /// </summary>
+        public bool EnlargenTextRectangle
+        { get; set; }
         public Border Border
         { get; set; }
 
@@ -53,7 +58,28 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
-            m_textRectangle = m_rectangle;
+            m_textRectangle = new Rectangle(m_rectangle.X, m_rectangle.Y, m_rectangle.Width, m_rectangle.Height);
+
+            if(EnlargenTextRectangle)
+            {
+                if(BitmapFont.ActiveFonts[Font].MeasureString(Text) > m_textRectangle.Width)
+                {
+                    switch(TextAlignment)
+                    {
+                        case BitmapFont.TextAlignment.Left:
+                            m_textRectangle.Width = BitmapFont.ActiveFonts[Font].MeasureString(Text);
+                            break;
+                        case BitmapFont.TextAlignment.Right:
+                            m_textRectangle.Width = BitmapFont.ActiveFonts[Font].MeasureString(Text);
+                            m_textRectangle.X = m_textRectangle.X - (m_textRectangle.Width - m_rectangle.Width);
+                            break;
+                        case BitmapFont.TextAlignment.Center:
+                            m_textRectangle.Width = BitmapFont.ActiveFonts[Font].MeasureString(Text);
+                            m_textRectangle.X = m_textRectangle.X - m_textRectangle.Width / 2;
+                            break;
+                    }
+                }
+            }
 
             base.Update(gameTime);
 

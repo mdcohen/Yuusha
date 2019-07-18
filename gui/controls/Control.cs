@@ -761,10 +761,13 @@ namespace Yuusha.gui
                     //y = now.Top;
                 }
 
-                if (m_anchors.Contains(Enums.EAnchorType.Center))
+                if (m_anchors.Contains(Enums.EAnchorType.Center) && m_anchors.Count == 1)
                 {
-                    x += (now.Width - prev.Width) / 2;
-                    y += (now.Height - prev.Height) / 2;
+                    x = now.Width / 2 - Width / 2;
+                    y = now.Height / 2 - Height / 2;
+
+                    //x += (now.Width - prev.Width) / 2;
+                    //y += (now.Height - prev.Height) / 2;
                 }
             }
             else // no anchors, just adjust x and y position

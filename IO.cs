@@ -741,6 +741,7 @@ namespace Yuusha
                             #region GAME_END_ROUND
                             else if (inData.IndexOf(Protocol.GAME_END_ROUND) != -1)
                             {
+                                //gui.TextCue.AddClientInfoTextCue("GAME_END_ROUND " + Program.Client.ClientGameTime.TotalGameTime.ToString());
                                 Events.RegisterEvent(Events.EventName.End_Game_Round);
                                 return true;
                             }

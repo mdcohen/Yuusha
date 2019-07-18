@@ -17,7 +17,7 @@ namespace Yuusha
 
         public static List<string> ScalingTextFontList = new List<string>()
         {
-            "lemon10", "lemon12", "lemon14", "lemon16", "lemon18", "lemon20", "lemon22", "lemon24", "lemon26", "lemon28"
+            "lemon8", "lemon9", "lemon10", "lemon12", "lemon14", "lemon16", "lemon18", "lemon20", "lemon22", "lemon24", "lemon26", "lemon28"
         };
 
         public static List<string> ScalingNumberFontList = new List<string>()
@@ -80,7 +80,7 @@ namespace Yuusha
             {"You have risen from ", Color.MediumOrchid},
             {"You have earned enough experience for your next level! Type REST ", Color.LightGoldenrodYellow },
             {"You are now a level ", Color.Goldenrod },
-            {"You have gained ", Color.MediumOrchid},
+            {"You have gained ", Color.Plum},
 
             // Looking around
             {"You are looking at ", Color.LightBlue },
@@ -181,6 +181,13 @@ namespace Yuusha
             {
                 // open locker grid box window
             }
+            else if(input.StartsWith("You are now a level "))
+            {
+                // "You are now a level " + chr.Level + " " + chr.classFullName.ToLower() + "!!"
+                string level = input.Replace("You are now a level ", "");
+                level = level.Substring(0, level.IndexOf(" "));
+                gui.AchievementLabel.CreateAchievementLabel(level, gui.AchievementLabel.AchievementType.LevelUp);
+            }
             else if(input.StartsWith("You have risen from "))
             {
                 // You have risen from <old skill title> to <new skill title> in your <skill name> skill.
@@ -193,10 +200,9 @@ namespace Yuusha
                 // 0 = old skill title, 1 = new skill title, 2 = skill
                 //string text = char.ToUpper(s[2][0]) + s[2].Substring(1) + ": " + s[1];
 
-                gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingTextFontList[7], gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.White, "", true, Map.Direction.Southwest);
+                gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingTextFontList[ScalingTextFontList.Count - 1], gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.White, "", true, Map.Direction.Southwest);
                 //gui.AchievementLabel.CreateAchievementLabel("Mistress of Earth and Sky", ScalingFontList[7], false, gui.GameHUD.GameIconsDictionary["magic"], Color.Indigo, Color.White, "GUISounds/skillup", false);
             }
-
         }
 
         public static Color GetAlignmentColor(bool fore, World.Alignment alignment)
@@ -224,7 +230,7 @@ namespace Yuusha
             }
 
             if (fore) return Color.White;
-            return Color.Gray;
+            return Color.Black;
         }
 
         public static string[] GetRandomHintText()

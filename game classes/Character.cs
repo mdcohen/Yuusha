@@ -470,7 +470,13 @@ namespace Yuusha
                     #region Spells
                     try
                     {
-                        m_currentCharacter.Spells.Clear();
+                        List<Spell> prevSpells = null;
+
+                        if (Client.GameState.ToString().EndsWith("Game") && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.ID))
+                            prevSpells = new List<Spell>(CurrentCharacter.Spells);
+
+                        CurrentCharacter.Spells.Clear();
+
                         string[] pcSpellbook = info.Split(Protocol.ISPLIT.ToCharArray());
                         if (pcSpellbook[0].Length > 0)
                         {
@@ -481,10 +487,18 @@ namespace Yuusha
                                 if (spell != null)
                                 {
                                     spell.Incantation = spellInfo[1];
-                                    m_currentCharacter.Spells.Add(spell);
+                                    CurrentCharacter.Spells.Add(spell);
                                 }
                             }
                         }
+
+                        if (prevSpells != null && Client.GameState.ToString().EndsWith("Game") && CurrentCharacter.Spells.Count > prevSpells.Count &&
+                            GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.ID))
+                        {
+                            Events.RegisterEvent(Events.EventName.New_Spell, prevSpells);
+                        }
+                        else if (!GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.ID))
+                            GameHUD.InitialSpellbookUpdated.Add(CurrentCharacter.ID);
                     }
                     catch (Exception e)
                     {
@@ -1093,6 +1107,19 @@ namespace Yuusha
             {
                 Events.RegisterEvent(Events.EventName.Request_Stats);
                 statsRequested = true;
+            }
+
+            // Character has moved.
+            if (X != cell.xCord || Y != cell.yCord || Z != cell.zCord || m_mapID != cell.MapID)
+            {
+                if (GuiManager.GenericSheet["CounterGridBoxWindow"] is GridBoxWindow counterWindow)
+                    counterWindow.OnClose();
+                if (GuiManager.GenericSheet["AltarGridBoxWindow"] is GridBoxWindow altarWindow)
+                    altarWindow.OnClose();
+                if (GuiManager.GenericSheet["GroundGridBoxWindow"] is GridBoxWindow groundWindow)
+                    groundWindow.OnClose();
+                if (GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow spellbookWindow)
+                    spellbookWindow.OnClose();
             }
 
             m_mapID = cell.MapID;

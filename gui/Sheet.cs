@@ -539,7 +539,7 @@ namespace Yuusha.gui
             // control does not have an owner (Window), find highest z depth
             if (c.Owner == "")
             {
-                if(m_controls.Find(ct => ct.Name == c.Name) != null)
+                if(m_controls.Exists(ct => ct.Name == c.Name))
                 {
                     Utils.Log("Attempted to add same Control [" + c.Name + "] to Sheet [" + Name + "].");
                     return;
@@ -654,7 +654,7 @@ namespace Yuusha.gui
         {
             Control w = this[c.Owner];
 
-            if ((w as Window).Controls.Find(ct => ct.Name == c.Name) != null)
+            if ((w as Window).Controls.Exists(ct => ct.Name == c.Name))
             {
                 Utils.Log("Attempted to add same Control [" + c.Name + "] to Window [" + w.Name + "] in Sheet [" + Name + "].");
                 return;

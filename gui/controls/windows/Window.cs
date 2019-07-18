@@ -962,17 +962,34 @@ namespace Yuusha.gui
             // rectangle has been adjusted on resize
             if (oldWindowRect != m_rectangle)
             {
-                for (int j = this.Controls.Count - 1; j >= 0; j--)
+                for (int j = Controls.Count - 1; j >= 0; j--)
                 {
                     //m_controls[j].OnClientResize(oldWindowRect, m_rectangle, true);
                     Point position = m_controls[j].Position;
-                    position.X += (m_rectangle.X - oldWindowRect.X);
-                    position.Y += (m_rectangle.Y - oldWindowRect.Y);
+                    Point oldPosition = new Point(position.X, position.Y);
+                    position.X += m_rectangle.X - oldWindowRect.X;
+                    position.Y += m_rectangle.Y - oldWindowRect.Y;
                     m_controls[j].Position = position;
 
                     // TODO: fix this. get anchors working or whatever, this is ridiculous. 6/16/2019 Eb
                     if (m_controls[j] is ScrollableTextBox && Sheet != GuiManager.GenericSheet.Name && Client.GameDisplayMode != Enums.EGameDisplayMode.Yuusha)
                         m_controls[j].OnClientResize(prev, now, true);
+
+                    if(m_controls[j] is Window)
+                    {
+                        for(int k = (m_controls[j] as Window).Controls.Count - 1; k >= 0; k--)
+                        {
+                            position = m_controls[k].Position;
+                            // oldPosition -- for a window inside a window inside a window (doesn't exist yet as of 7/16/2019)
+                            position.X += m_controls[j].Position.X - oldPosition.X;
+                            position.Y += m_controls[j].Position.Y - oldPosition.Y;
+                            m_controls[k].Position = position;
+
+                            // TODO: fix this. get anchors working or whatever, this is ridiculous. 6/16/2019 Eb
+                            if (m_controls[k] is ScrollableTextBox && Sheet != GuiManager.GenericSheet.Name && Client.GameDisplayMode != Enums.EGameDisplayMode.Yuusha)
+                                m_controls[k].OnClientResize(prev, now, true);
+                        }
+                    }
                 }
             }
         }

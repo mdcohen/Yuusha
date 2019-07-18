@@ -8,10 +8,13 @@ namespace Yuusha.gui
     {
         public enum AchievementType
         {
+            None,
             SkillUp,
             VitalsGain_HitsMax,
             VitalsGain_StaminaMax,
             VitalsGain_ManaMax,
+            LevelUp,
+            NewSpell,
         }
 
         bool m_fadeIn = true;
@@ -25,6 +28,7 @@ namespace Yuusha.gui
         bool m_soundPlayed = false;
         bool m_slideOffScreen = true;
         Map.Direction m_slideDirection = Map.Direction.None;
+        AchievementType m_achievementType = AchievementType.None;
 
         public DateTime TimeAdded
         {
@@ -39,7 +43,7 @@ namespace Yuusha.gui
                 xTextOffset, yTextOffset, onDoubleClickEvent, cursorOverride, anchors, popUpText)
         {
             m_stopColor = tintColor;
-            TintColor = new Color(0, 0, 0);
+            //TintColor = new Color(0, 0, 0);
         }
 
         public static void CreateAchievementLabel(string text, AchievementType achievement)
@@ -52,23 +56,24 @@ namespace Yuusha.gui
             bool slideOffScreen = true;
             string visualKey = "";
             Map.Direction slideDirection = Map.Direction.Southwest;
+            int yTextOffset = 0;
+            int enlargenRate = 14;
 
             int x = Client.Width / 2;
             int y = Client.Height / 2;
-            int size = 25;
+            int height = 25;
+            int width = 25;
 
             if (GuiManager.CurrentSheet["Tile24"] is SpinelTileLabel spLabel)
             {
                 x = spLabel.Position.X;
                 y = spLabel.Position.Y;
-                size = spLabel.Width;
+                width = spLabel.Width;
+                height = spLabel.Height;
 
-                if (achievement.ToString().StartsWith("VitalsGain"))
+                if (achievement.ToString().StartsWith("VitalsGain") && GuiManager.CurrentSheet["VitalsWindow"] is Window w)
                 {
-                    if (GuiManager.CurrentSheet["VitalsWindow"] is Window w)
-                    {
-                        slideDirection = Map.GetDirection(spLabel, w);
-                    }
+                    slideDirection = Map.GetDirection(spLabel, w);
                 }
             }
 
@@ -80,7 +85,7 @@ namespace Yuusha.gui
                     visualKey = GameHUD.GameIconsDictionary["upgrade"];
                     soundFile = "GUISounds/sword_draw";
                     stopSize = 256;
-                    font = TextManager.ScalingNumberFontList[7];
+                    font = TextManager.ScalingNumberFontList[TextManager.ScalingNumberFontList.Count - 1];
                     break;
                 case AchievementType.VitalsGain_ManaMax:
                     tintColor = Color.RoyalBlue;
@@ -88,7 +93,7 @@ namespace Yuusha.gui
                     visualKey = GameHUD.GameIconsDictionary["upgrade"];
                     soundFile = "GUISounds/sword_draw";
                     stopSize = 256;
-                    font = TextManager.ScalingNumberFontList[7];
+                    font = TextManager.ScalingNumberFontList[TextManager.ScalingNumberFontList.Count - 1];
                     break;
                 case AchievementType.VitalsGain_StaminaMax:
                     tintColor = Color.ForestGreen;
@@ -96,12 +101,43 @@ namespace Yuusha.gui
                     visualKey = GameHUD.GameIconsDictionary["upgrade"];
                     soundFile = "GUISounds/sword_draw";
                     stopSize = 256;
-                    font = TextManager.ScalingNumberFontList[7];
+                    font = TextManager.ScalingNumberFontList[TextManager.ScalingNumberFontList.Count - 1];
+                    break;
+                case AchievementType.LevelUp:
+                    tintColor = Color.White;
+                    textColor = Color.Indigo;
+                    visualKey = "GoldDragonLogo";
+                    soundFile = ""; // sound info from server
+                    stopSize = 584;
+                    slideOffScreen = false;
+                    font = "lobster156";
+                    enlargenRate = 10;
+                    break;
+                case AchievementType.NewSpell:
+                    tintColor = TextManager.GetAlignmentColor(false, Character.CurrentCharacter.Alignment);
+                    textColor = TextManager.GetAlignmentColor(true, Character.CurrentCharacter.Alignment);
+                    visualKey = "WhiteSpace";
+                    soundFile = "GUISounds/new_spell";
+                    font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.Count - 1];
+                    stopSize = BitmapFont.ActiveFonts[font].MeasureString(text);
+                    slideOffScreen = false;
+                    enlargenRate = 40;
+                    x = Client.Width / 2 - BitmapFont.ActiveFonts[font].MeasureString(text) / 2;
+                    y = 30;
+                    width = BitmapFont.ActiveFonts[font].MeasureString(text);
+                    height = BitmapFont.ActiveFonts[font].LineHeight;
+                    //if (GuiManager.CurrentSheet["MapDisplayWindow"] is Window mapDispWindow)
+                    //{
+                    //    x = mapDispWindow.Position.X + (mapDispWindow.Width / 2) - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
+                    //    y = mapDispWindow.Position.Y - (BitmapFont.ActiveFonts[font].LineHeight + 10);
+                    //    width = BitmapFont.ActiveFonts[font].MeasureString(text);
+                    //    height = BitmapFont.ActiveFonts[font].LineHeight;
+                    //}
                     break;
             }
 
-            AchievementLabel label = new AchievementLabel("AchievementLabel_" + Program.Client.ClientGameTime.ElapsedGameTime.ToString() + "_" + text, "",
-                new Rectangle(x, y, size, size), text, textColor, true, false, font,
+            AchievementLabel label = new AchievementLabel("AchievementLabel_" + Program.Client.ClientGameTime.TotalGameTime.ToString() + "_" + achievement.ToString() + "_" + text, "",
+                new Rectangle(x, y, width, height), text, textColor, true, false, font,
                 new VisualKey(visualKey), tintColor, 40, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>() { }, "")
             {
                 m_soundFile = soundFile,
@@ -109,6 +145,10 @@ namespace Yuusha.gui
                 m_stopSize = stopSize,
                 m_stopColor = tintColor,
                 m_slideDirection = slideDirection,
+                YTextOffset = yTextOffset,
+                //EnlargenTextRectangle = true,
+                m_enlargenRate = enlargenRate,
+                m_achievementType = achievement,
             };
 
             if (GameHUD.AchievementLabelList.Count <= 0)
@@ -137,8 +177,10 @@ namespace Yuusha.gui
                 new VisualKey(visualKey), tintColor, 40, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "")
             {
                 m_soundFile = soundFile,
+                m_soundPlayed = soundFile == "" || soundFile == null,
                 m_slideOffScreen = slideOffScreen,
                 m_slideDirection = slideDirection,
+                EnlargenTextRectangle = true,
             };
 
             //if (scaleFont)
@@ -166,16 +208,19 @@ namespace Yuusha.gui
 
             base.Update(gameTime);
 
+            // The time for this achievement label has expired, or other conditions have been met.
             if(DateTime.Now - m_timeAdded > TimeSpan.FromSeconds(6.0) || VisualAlpha <= 0 || Width <= 10 || Height <= 10)
             {
                 IsVisible = false;
                 GameHUD.AchievementLabelList.Remove(this);
+
                 if(GameHUD.AchievementLabelList.Count > 0)
                 {
-                    GameHUD.AchievementLabelList[0].TimeAdded = DateTime.Now;
+                    (GameHUD.AchievementLabelList[0] as AchievementLabel).TimeAdded = DateTime.Now;
                     GuiManager.GenericSheet.AddControl(GameHUD.AchievementLabelList[0]);
                 }
-                GuiManager.RemoveControl(this);
+
+                GuiManager.Dispose(this);
                 return;
             }
 
@@ -183,18 +228,22 @@ namespace Yuusha.gui
             {
                 if (IsVisible)
                 {
+                    ZDepth = 0;
+
                     if (m_fadeIn)
                     {
-                        byte r = TintColor.R;
-                        byte g = TintColor.G;
-                        byte b = TintColor.B;
-                        if (r < m_stopColor.R) r += 3;
-                        if (g < m_stopColor.G) g += 3;
-                        if (b < m_stopColor.B) b += 3;
-                        TintColor = new Color(r, g, b);
+                        //byte r = TintColor.R;
+                        //byte g = TintColor.G;
+                        //byte b = TintColor.B;
+                        //if (r < m_stopColor.R) r += 3;
+                        //if (g < m_stopColor.G) g += 3;
+                        //if (b < m_stopColor.B) b += 3;
+                        //TintColor = new Color(r, g, b);
                         VisualAlpha += 10;
+
                         if (BitmapFont.ActiveFonts[Font].MeasureString(Text) <= Width)
                             TextAlpha = VisualAlpha;
+
                         //if (m_scaleFont)
                         //{
                         //    if (TextManager.ScalingFontList.Count > m_scaleFontIndex + 1 && (BitmapFont.ActiveFonts[TextManager.ScalingFontList[m_scaleFontIndex + 1]].MeasureString(Text) <= Width))
@@ -205,6 +254,7 @@ namespace Yuusha.gui
                         //    else if (TextManager.ScalingFontList.Count < m_scaleFontIndex + 1)
                         //        m_scaleFont = false;
                         //}
+
                         Position = new Point(Position.X - m_enlargenRate, Position.Y - m_enlargenRate);
                         Width += m_enlargenRate * 2;
                         Height += m_enlargenRate * 2;
@@ -230,19 +280,19 @@ namespace Yuusha.gui
                             switch(m_slideDirection)
                             {
                                 case Map.Direction.Southwest:
-                                    xMove = -10;
+                                    xMove = -15;
                                     yMove = 15;
                                     break;
                                 case Map.Direction.Southeast:
-                                    xMove = 30;
+                                    xMove = 35;
                                     yMove = 35;
                                     break;
                                 case Map.Direction.Northwest:
-                                    xMove = -10;
+                                    xMove = -15;
                                     yMove = -15;
                                     break;
                                 case Map.Direction.Northeast:
-                                    xMove = 30;
+                                    xMove = 35;
                                     yMove = -15;
                                     break;
                                 case Map.Direction.North:
@@ -252,10 +302,10 @@ namespace Yuusha.gui
                                     yMove = 15;
                                     break;
                                 case Map.Direction.East:
-                                    xMove = 30;
+                                    xMove = 35;
                                     break;
                                 case Map.Direction.West:
-                                    xMove = -10;
+                                    xMove = -15;
                                     break;
                             }
 

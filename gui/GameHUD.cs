@@ -17,7 +17,7 @@ namespace Yuusha.gui
             "SpellWarmingWindow",
             "VitalsWindow"
         };
-
+        public static List<int> InitialSpellbookUpdated = new List<int>();
         public static Dictionary<string, string> GameIconsDictionary = new Dictionary<string, string>()
         {
             // skills
@@ -47,7 +47,7 @@ namespace Yuusha.gui
             {"downgrade", "yuushaicon_22" },
         };
 
-        public static List<AchievementLabel> AchievementLabelList = new List<AchievementLabel>();
+        public static List<Control> AchievementLabelList = new List<Control>(); // level up label also goes here to prevent achievements from showing until it's done
 
         public static Character CurrentTarget;
         public static string TextSendOverride = "";
@@ -292,13 +292,13 @@ namespace Yuusha.gui
                         switch (window.WindowTitle.Text.ToLower())
                         {
                             case "altar":
-                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on altar");
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from pouch;put " + b.RepresentedItem.Name + " on altar");
                                 break;
                             case "counter":
-                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;put " + b.RepresentedItem.Name + " on counter");
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from pouch;put " + b.RepresentedItem.Name + " on counter");
                                 break;
                             default:
-                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from sack;drop " + b.RepresentedItem.Name);
+                                Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from pouch;drop " + b.RepresentedItem.Name);
                                 break;
                         }
 

@@ -19,12 +19,15 @@
   <!-- Introduction to new Z Plane -->
   <Font Path="media\fonts\dancingscript22.xml"></Font>  
   <Font Path="media\fonts\lobster22.xml"></Font>
+  <Font Path="media\fonts\lobster156.xml"></Font>
   <Font Path="media\fonts\mogra22.xml"></Font>
   <Font Path="media\fonts\shojumaru22.xml"></Font>
   <Font Path="media\fonts\simonetta22.xml"></Font>
   <Font Path="media\fonts\uncialantiqua22.xml"></Font>
   <Font Path="media\fonts\rocksalt22.xml"></Font>
   <!-- Lemon -->
+  <Font Path="media\fonts\lemon\lemon8.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon9.xml"></Font>
   <Font Path="media\fonts\lemon\lemon10.xml"></Font>
   <Font Path="media\fonts\lemon\lemon12.xml"></Font>
   <Font Path="media\fonts\lemon\lemon14.xml"></Font>

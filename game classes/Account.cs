@@ -57,6 +57,9 @@ namespace Yuusha
         /// <returns></returns>
         public static Character GetNextCharacter()
         {
+            if (m_characters.Count == 1)
+            { return m_characters[0]; }
+
             if (m_characters.IndexOf(Character.CurrentCharacter) + 1 >= m_characters.Count)
                 return m_characters[0];
 
@@ -69,6 +72,9 @@ namespace Yuusha
         /// <returns></returns>
         public static Character GetPreviousCharacter()
         {
+            if(m_characters.Count == 1)
+            { return m_characters[0]; }
+
             if ((m_characters.IndexOf(Character.CurrentCharacter) - 1) < 0)
             {
                 return m_characters[m_characters.Count - 1];

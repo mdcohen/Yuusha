@@ -286,11 +286,6 @@ namespace Yuusha
             try
             {
                 return gui.GameHUD.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
-                //if (Client.GameState == Enums.EGameState.SpinelGame)
-                //    return gui.SpinelMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
-                //else if (Client.GameState == Enums.EGameState.YuushaGame)
-                //    return gui.GameHUD.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
-                //else return gui.IOKMode.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
             }
             catch(Exception e)
             {

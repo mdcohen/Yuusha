@@ -251,7 +251,7 @@ namespace Yuusha.gui
                                             }
                                             if (Character.CurrentCharacter.Cell.IsLockers)
                                                 dropDownMenuItemTextList.Add(Tuple.Create("locker", "remove" + (wearOrientation != Character.WearOrientation.None ? " " + wearOrientation.ToString().ToLower() + " " : " ") + RepresentedItem.Name + ";put it in locker", GridBoxWindow.GridBoxPurpose.Locker));
-                                            if(GridBoxUpdateRequests.Find(r => r.ToString() == "Inventory") != GridBoxWindow.GridBoxPurpose.Inventory) GridBoxUpdateRequests.Add(GridBoxWindow.GridBoxPurpose.Inventory);
+                                            if(!GridBoxUpdateRequests.Exists(r => r.ToString() == "Inventory")) GridBoxUpdateRequests.Add(GridBoxWindow.GridBoxPurpose.Inventory);
                                         }
                                         break;
                                     case "Rings":

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sheet Name="Conference"
 	   Description="Conference Room GUI" 
-	   Font="changaone16"
+	   Font="lemon16"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"
@@ -10,7 +10,7 @@
 
   <!-- Backgrounds -->
 	<Background
-		Font="changaone16"
+		Font="lemon16"
 		VisualKey="BlackTileBackground"
 		IsCentered="false"
 		IsTiled="true"
@@ -20,7 +20,7 @@
 
   <!-- Backgrounds
   <Background
-		Font="changaone16"
+		Font="lemon16"
 		VisualKey="IslandBackground"
 		IsCentered="true"
 		IsTiled="false"
@@ -30,7 +30,7 @@
 
   <!-- Elvish City Background
   <Background
-		Font="changaone16"
+		Font="lemon16"
 		VisualKey="ElvishCityBackground"
 		IsCentered="true"
 		IsTiled="false"
@@ -40,7 +40,7 @@
 
   <!-- Druidic Revival Background
   <Background
-		Font="changaone16"
+		Font="lemon16"
 		VisualKey="DruidicRevivalBackground"
 		IsCentered="true"
 		IsTiled="false"
@@ -122,59 +122,14 @@
   <CharacterInfo>
     <Control
       Type="Label"
-      Text=""
-      Name="CurrentNameLabel"
-      X="805"
-      Y="580"
-      Width="200"
-      Height="30"
-      TextColor="White"
-      IsVisible="true"
-      Font="changaone16"
-      TextAlignment="Center"
-      AnchorBottom="true"
-      AnchorRight="true">
-    </Control>
-    <Control
-      Type="Label"
-      Text=""
-      Name="CurrentLevelLabel"
-      X="805"
-      Y="605"
-      Width="200"
-      Height="30"
-      TextColor="White"
-      IsVisible="true"
-      Font="changaone16"
-      TextAlignment="Center"
-      AnchorBottom="true"
-      AnchorRight="true">
-    </Control>
-    <Control
-      Type="Label"
-      Text=""
-      Name="CurrentLocationLabel"
-      X="805"
-      Y="630"
-      Width="200"
-      Height="30"
-      TextColor="White"
-      IsVisible="true"
-      Font="changaone16"
-      TextAlignment="Center"
-      AnchorBottom="true"
-      AnchorRight="true">
-    </Control>
-    <Control
-      Type="Label"
       Name="CurrentPictureLabel"
       X="865"
-      Y="510"
+      Y="485"
       Width="60"
       Height="60"
       IsVisible="true"
       VisualKey=""
-      Font="changaone16"
+      Font="lemon16"
       AnchorBottom="true"
       AnchorRight="true">
     </Control>
@@ -185,12 +140,12 @@
       Text=""
       Name="SwitchCharacterNextButton"
       X="965"
-      Y="535"
+      Y="515"
       Width="20"
       Height="20"
       IsVisible="true"
       IsDisabled="false"
-      Font="changaone16"
+      Font="lemon16"
       VisualKey="BrownRightArrowButton"
       VisualKeyDown="BrownRightArrowButtonDown"
       TintColor="Gold"
@@ -200,24 +155,85 @@
       AnchorBottom="true"
       AnchorRight="true">
     </Control>
-    
+
     <!-- Switch Character Back Button -->
     <Control
       Type="Button"
       Text=""
       Name="SwitchCharacterBackButton"
       X="825"
-      Y="535"
+      Y="515"
       Width="20"
       Height="20"
       IsVisible="true"
       IsDisabled="false"
-      Font="changaone16"
+      Font="lemon16"
       VisualKey="BrownLeftArrowButton"
       VisualKeyDown="BrownLeftArrowButtonDown"
       TintColor="Gold"
       TintOverColor="White"
       OnMouseDown="switch_character_back"
+      TextAlignment="Center"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+    
+    <Control
+      Type="Label"
+      Text=""
+      Name="CurrentNameLabel"
+      X="780"
+      Y="555"
+      Width="240"
+      Height="30"
+      TextColor="GhostWhite"
+      IsVisible="true"
+      Font="lemon16"
+      TextAlignment="Center"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+    <Control
+      Type="Label"
+      Text=""
+      Name="CurrentLevelLabel"
+      X="780"
+      Y="580"
+      Width="240"
+      Height="30"
+      TextColor="GhostWhite"
+      IsVisible="true"
+      Font="lemon14"
+      TextAlignment="Center"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+    <Control
+      Type="Label"
+      Text=""
+      Name="CurrentMapNameLabel"
+      X="780"
+      Y="615"
+      Width="240"
+      Height="30"
+      TextColor="GhostWhite"
+      IsVisible="true"
+      Font="lemon16"
+      TextAlignment="Center"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+    <Control
+      Type="Label"
+      Text=""
+      Name="CurrentZNameLabel"
+      X="780"
+      Y="640"
+      Width="240"
+      Height="30"
+      TextColor="GhostWhite"
+      IsVisible="true"
+      Font="lemon14"
       TextAlignment="Center"
       AnchorBottom="true"
       AnchorRight="true">
@@ -236,7 +252,7 @@
 		YTextOffSet="0" 
 		IsVisible="true"
 		IsDisabled="false" 
-		Font="changaone16"
+		Font="lemon16"
 		TextColor="White"
 		TextOverColor="Chartreuse" 
 		VisualKey="RoundedButton"
@@ -263,7 +279,7 @@
 		YTextOffSet="0" 
 		IsVisible="true"
 		IsDisabled="false" 
-		Font="changaone16"
+		Font="lemon16"
 		TextColor="White"
 		TextOverColor="Chartreuse" 
 		VisualKey="RoundedButton"
@@ -290,7 +306,7 @@
 		YTextOffSet="0"
 		IsVisible="true"
 		IsDisabled="false"
-		Font="changaone16"
+		Font="lemon16"
 		TextColor="White"
 		TextOverColor="Chartreuse"
 		VisualKey="RoundedButton"
@@ -318,7 +334,7 @@
 		YTextOffSet="0"
 		IsVisible="true"
 		IsDisabled="false"
-		Font="changaone16"
+		Font="lemon16"
 		TextColor="White"
 		TextOverColor="Lime"
 		VisualKey="RoundedButton"
@@ -338,14 +354,14 @@
 		Type="Button"
 		Text="New Character"
 		Name="ConfNewCharacterButton"
-		X="815"
-		Y="675"
-		Width="180"
+		X="805"
+		Y="685"
+		Width="200"
 		Height="40"
 		YTextOffSet="0"
 		IsVisible="true"
 		IsDisabled="false"
-		Font="changaone16"
+		Font="lemon16"
 		TextColor="White"
 		TextOverColor="Chartreuse"
 		VisualKey="RoundedButton"

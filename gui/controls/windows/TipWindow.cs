@@ -23,7 +23,7 @@ namespace Yuusha.gui
             if(GuiManager.GenericSheet["TipWindow"] is TipWindow existingWindow)
                 existingWindow.OnClose();
 
-            TipWindow w = new TipWindow("TipWindow", "", new Rectangle(100, 50, 300, 250), true, false, false,
+            TipWindow w = new TipWindow("TipWindow", "", new Rectangle(100, 50, 300, 250), false, false, false,
                 GuiManager.GenericSheet.Font, new VisualKey("WhiteSpace"), Color.Black, 255, true, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "Dragging");
 
             WindowTitle wTitle = new WindowTitle(w.Name + "Title", w.Name, "lemon12", "Tip of the Trade", Color.PaleGreen, Color.MediumPurple,
@@ -48,8 +48,9 @@ namespace Yuusha.gui
             string[] tipInfo = TextManager.GetRandomHintText();
             s.AddLine(tipInfo[1], Enums.ETextType.Hint);
             w.WindowTitle.Text = tipInfo[0] + " Tip";
-
+            w.AdjustHeight();
             Audio.AudioManager.PlaySoundEffect("GUISounds/tip_notification");
+            w.IsVisible = true;
         }
 
         public static void CreateSageAdviceHintWindow(string advice)
@@ -68,7 +69,7 @@ namespace Yuusha.gui
                 //return;
             }
 
-            TipWindow w = new TipWindow("SageAdviceTipWindow", "", new Rectangle(Client.Width / 2 - 150, 50, 300, 250), true, false, false,
+            TipWindow w = new TipWindow("SageAdviceTipWindow", "", new Rectangle(Client.Width / 2 - 150, 50, 300, 250), false, false, false,
                 GuiManager.GenericSheet.Font, new VisualKey("WhiteSpace"), Color.Black, 180, true, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "Dragging");
 
             WindowTitle wTitle = new WindowTitle(w.Name + "Title", w.Name, "lemon12", "Sage Advice", Color.PaleGreen, Color.DarkGreen,
@@ -91,7 +92,9 @@ namespace Yuusha.gui
             GuiManager.GenericSheet.AddControl(border);
             GuiManager.GenericSheet.AddControl(s);
 
+            w.AdjustHeight();
             Audio.AudioManager.PlaySoundEffect("GUISounds/sageadvice_cymbal");
+            w.IsVisible = true;
         }
 
         public override void OnClose()
@@ -105,6 +108,11 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
+            AdjustHeight();
+        }
+
+        private void AdjustHeight()
+        {
             int height = BitmapFont.ActiveFonts[TipTextBox.Font].LineHeight * TipTextBox.FormattedLinesCount;
 
             TipTextBox.Height = height;

@@ -101,6 +101,7 @@
     <Compile Include="gui\controls\containers\DropDownMenu.cs" />
     <Compile Include="gui\controls\containers\DropDownMenuItem.cs" />
     <Compile Include="gui\controls\labels\ColorDialogLabel.cs" />
+    <Compile Include="gui\controls\labels\LevelUpLabel.cs" />
     <Compile Include="gui\controls\labels\CritterListLabel.cs" />
     <Compile Include="gui\controls\labels\EffectLabel.cs" />
     <Compile Include="gui\controls\labels\IOKTileLabel.cs" />
@@ -265,6 +266,33 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\lemon\lemon28.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon8-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon8.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon9-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lemon\lemon9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lobster156-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lobster156-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lobster156-2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lobster156-3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\lobster156.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\lobster22-0.png">

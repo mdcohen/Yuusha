@@ -3,7 +3,7 @@
 	<!-- <SpinelTile Graphic="" Name="" ForeVisual="" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef> -->
 	<!-- Graphic and Name attributes must be unique. -->
   <!-- List of colors: http://www.flounder.com/csharp_color_table.htm#A -->
-	<SpinelTileDef Graphic="  " Name="Empty" ForeVisual="sptile_empty1" BackVisual="WhiteSpace" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="Black"></SpinelTileDef>
+	<SpinelTileDef Graphic="  " Name="Empty" ForeVisual="sptile_empty1" BackVisual="WhiteSpace" ForeAlpha="0" BackAlpha="0" ForeTint="White" BackTint="Black"></SpinelTileDef>
 	<SpinelTileDef Graphic=". " Name="Room" ForeVisual="sptile_ground11" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="??" Name="Darkness" ForeVisual="sptile_empty1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="TT" Name="ImpassableTree" ForeVisual="sptile_tree1" BackVisual="sptile_ground4" ForeAlpha="255" BackAlpha="255" ForeTint="Gray" BackTint="Gray"></SpinelTileDef>

@@ -37,7 +37,7 @@ namespace Yuusha.gui
         }
 
         /// <summary>
-        /// Create a SpellEffectLabel without a border, and isn't shrinking.
+        /// Create a SpellEffectLabel without a border and isn't shrinking. It shows up center screen then fades away.
         /// </summary>
         /// <param name="effectName"></param>
         public static void CreateSpellEffectLabel(string effectName)
@@ -81,6 +81,11 @@ namespace Yuusha.gui
             GuiManager.CurrentSheet.AddControl(label);
         }
 
+        /// <summary>
+        /// Create a SpellEffectLabel with a border. Generally this is used for when the player is cast upon. This label will fade out or appear differently than a standard SpellEffectLabel.
+        /// </summary>
+        /// <param name="effectName"></param>
+        /// <param name="borderColor"></param>
         public static void CreateSpellEffectLabel(string effectName, Color borderColor)
         {
             if (!Effect.IconsDictionary.ContainsKey(effectName))
@@ -132,7 +137,7 @@ namespace Yuusha.gui
         {
             if (!IsVisible)
             {
-                GuiManager.CurrentSheet.RemoveControl(this);
+                GuiManager.Dispose(this);//.CurrentSheet.RemoveControl(this);
                 return;
             }
 
@@ -210,7 +215,7 @@ namespace Yuusha.gui
             }
 
             if (!IsVisible)
-                GuiManager.CurrentSheet.RemoveControl(this);
+                GuiManager.Dispose(this);
         }
 
         public override void Draw(GameTime gameTime)
