@@ -102,16 +102,10 @@ namespace Yuusha
                                         CritterListLabel label = control as CritterListLabel;
 
                                         // TODO: currently only %t is used to put in target ID
-                                        GameHUD.TextSendOverride =
-                                            Character.Settings.DoubleLeftClickNearbyTarget.Replace("%t",
-                                                                                                   label.Critter.ID.
-                                                                                                       ToString());
+                                        GameHUD.TextSendOverride = Character.Settings.DoubleLeftClickNearbyTarget.Replace("%t", label.Critter.ID.ToString());
 
                                         if (!label.CenterCell) // what to do if ranged attack
-                                            GameHUD.TextSendOverride =
-                                                Character.Settings.DoubleLeftClickDistantTarget.Replace("%t",
-                                                                                                        label.Critter.ID
-                                                                                                            .ToString());
+                                            GameHUD.TextSendOverride = Character.Settings.DoubleLeftClickDistantTarget.Replace("%t", label.Critter.ID.ToString());
 
                                         IO.Send(GameHUD.TextSendOverride);
 
@@ -125,12 +119,10 @@ namespace Yuusha
                                             {
                                                 targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
                                                 // remove the digit and space for grouped critters
-                                                targetName = targetName.Substring(0, targetName.Length - 1);
-                                                // remove the s
+                                                targetName = TextManager.ConvertPluralToSingular(targetName);
                                             }
 
-                                            control.Text = GameHUD.TextSendOverride.Replace(
-                                                label.Critter.ID.ToString(), targetName);
+                                            control.Text = GameHUD.TextSendOverride.Replace(label.Critter.ID.ToString(), targetName);
                                             (control as TextBox).SelectAll();
                                             control.HasFocus = true;
                                         }
@@ -143,26 +135,20 @@ namespace Yuusha
 
                                         bool targetSelected = false;
 
-                                        if (menu != null && menu.DropDownMenuOwner != null &&
-                                            menu.DropDownMenuOwner is CritterListLabel)
+                                        if (menu != null && menu.DropDownMenuOwner != null &&  menu.DropDownMenuOwner is CritterListLabel)
                                         {
                                             if (control.Text.Contains("%t"))
                                             {
-                                                if ((menu.DropDownMenuOwner as CritterListLabel).Critter.ID != GameHUD.CurrentTarget.ID)
-                                                {
+                                                if (GameHUD.CurrentTarget == null || ((menu.DropDownMenuOwner as CritterListLabel).Critter.ID != GameHUD.CurrentTarget.ID))
                                                     RegisterEvent(EventName.Target_Select, (menu.DropDownMenuOwner as CritterListLabel).Critter);
-                                                }
 
-                                                GameHUD.TextSendOverride = control.Text.Replace("%t",
-                                                                                                GameHUD.CurrentTarget.ID
-                                                                                                    .ToString());
+                                                GameHUD.TextSendOverride = control.Text.Replace("%t", GameHUD.CurrentTarget.ID.ToString());
                                                 targetSelected = true;
                                             }
 
                                             (menu.DropDownMenuOwner as CritterListLabel).DropDownMenu.IsDisabled = true;
                                             (menu.DropDownMenuOwner as CritterListLabel).DropDownMenu.IsVisible = false;
                                             GuiManager.Dispose((menu.DropDownMenuOwner as CritterListLabel).DropDownMenu);
-                                            //(menu.DropDownMenuOwner as CritterListLabel).DropDownMenu = null;
                                         }
 
                                         IO.Send(GameHUD.TextSendOverride);
@@ -179,13 +165,10 @@ namespace Yuusha
                                                 {
                                                     targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
                                                     // remove the digit and space for grouped critters
-                                                    targetName = targetName.Substring(0, targetName.Length - 1);
-                                                    // remove the s
+                                                    targetName = TextManager.ConvertPluralToSingular(targetName);
                                                 }
 
-                                                control.Text =
-                                                    GameHUD.TextSendOverride.Replace(
-                                                        GameHUD.CurrentTarget.ID.ToString(), targetName);
+                                                control.Text = GameHUD.TextSendOverride.Replace(GameHUD.CurrentTarget.ID.ToString(), targetName);
                                             }
                                             else control.Text = GameHUD.TextSendOverride;
 

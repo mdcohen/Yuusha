@@ -116,16 +116,16 @@ namespace Yuusha.gui
                 case AchievementType.NewSpell:
                     tintColor = TextManager.GetAlignmentColor(false, Character.CurrentCharacter.Alignment);
                     textColor = TextManager.GetAlignmentColor(true, Character.CurrentCharacter.Alignment);
-                    visualKey = "WhiteSpace";
+                    visualKey = "RoundedButton";
                     soundFile = "GUISounds/new_spell";
                     font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.Count - 1];
                     stopSize = BitmapFont.ActiveFonts[font].MeasureString(text);
                     slideOffScreen = false;
                     enlargenRate = 40;
                     x = Client.Width / 2 - BitmapFont.ActiveFonts[font].MeasureString(text) / 2;
-                    y = 30;
+                    y = 60;
                     width = BitmapFont.ActiveFonts[font].MeasureString(text);
-                    height = BitmapFont.ActiveFonts[font].LineHeight;
+                    height = BitmapFont.ActiveFonts[font].LineHeight / 4;
                     //if (GuiManager.CurrentSheet["MapDisplayWindow"] is Window mapDispWindow)
                     //{
                     //    x = mapDispWindow.Position.X + (mapDispWindow.Width / 2) - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);

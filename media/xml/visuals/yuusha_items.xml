@@ -146,6 +146,11 @@
   <Visual ParentTexture="yuusha_items.png" Name="obsidianegg" X="1800" Y="960" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="goldenegg" X="1860" Y="960" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="snarlingtigerfigurine" X="1860" Y="960" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="bloodwoodtotem" X="1920" Y="1920" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="basiclockpick" X="1920" Y="1980" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="rustykeysilverrunes" X="1920" Y="2040" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="ironkeysilverrunes" X="1920" Y="2100" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="jeweledkey" X="1920" Y="2160" Width="60" Height="60"></Visual>
   <!-- Edibles -->
   <Visual ParentTexture="yuusha_items.png" Name="neutralizesprig" X="834" Y="1393" Width="40" Height="40"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="brightredberries" X="1744" Y="1325" Width="38" Height="38"></Visual>

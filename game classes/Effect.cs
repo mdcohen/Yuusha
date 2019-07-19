@@ -21,14 +21,14 @@ namespace Yuusha
         public static Dictionary<string, string> IconsDictionary = new Dictionary<string, string>()
         {
             // A
-            { "Animal Affinity", "hotbuttonicon_463" }, { "Ataraxia", "hotbuttonicon_221" },
+            { "Acid Orb", "hotbuttonicon_197" }, { "Animal Affinity", "hotbuttonicon_463" }, { "Ataraxia", "hotbuttonicon_221" },
             // B
             { "Banish", "hotbuttonicon_91" }, { "Bless", "hotbuttonicon_274" }, { "Blessing of the Faithful", "hotbuttonicon_274" },
             { "Blind", "hotbuttonicon_483" }, { "Bonfire", "hotbuttonicon_132" }, { "Breathe Water", "hotbuttonicon_249" },
             // C
-            { "Close Or Open Door", "hotbuttonicon_396" }, { "Concussion", "hotbuttonicon_157" }, { "Create Illusion", "hotbuttonicon_3" },
-            { "Create Portal", "hotbuttonicon_306" }, { "Create Snake", "hotbuttonicon_215" }, { "Create Web", "hotbuttonicon_386" },
-            { "Cure", "hotbuttonicon_468" }, { "Curse", "hotbuttonicon_186" },
+            { "Charm Animal", "hotbuttonicon_259" }, { "Close Or Open Door", "hotbuttonicon_396" }, { "Concussion", "hotbuttonicon_157" },
+            { "Create Illusion", "hotbuttonicon_3" }, { "Create Portal", "hotbuttonicon_306" }, { "Create Snake", "hotbuttonicon_215" },
+            { "Create Web", "hotbuttonicon_386" }, { "Cure", "hotbuttonicon_468" }, { "Curse", "hotbuttonicon_186" },
             // D
             { "Darkness", "hotbuttonicon_424" }, { "Death", "hotbuttonicon_266" }, { "Disintegrate", "hotbuttonicon_206" },
             { "Dispel Illusion", "hotbuttonicon_243" }, { "Dragon's Breath", "hotbuttonicon_137" },
@@ -66,7 +66,7 @@ namespace Yuusha
             { "Temporary Strength", "hotbuttonicon_146" }, {"Thunderwave", "hotbuttonicon_298" }, {"Transmute", "hotbuttonicon_163" },
             { "Turn Undead", "hotbuttonicon_476" },
             // W
-            { "Wall of Fog", "hotbuttonicon_423" }, { "Wizard Eye", "hotbuttonicon_66" },
+            { "Wall of Fog", "hotbuttonicon_423" }, { "Wizard Eye", "hotbuttonicon_46" },
         };
 
         public static Dictionary<string, Color> IconsTintDictionary = new Dictionary<string, Color>()

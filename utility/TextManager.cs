@@ -164,38 +164,41 @@ namespace Yuusha
             else if (input.ToLower().Equals("you have been hit by disintegrate!"))
                 gui.SpellEffectLabel.CreateSpellEffectLabel("Disintegrate");
             else if (input.StartsWith("Sage: "))
-                gui.TipWindow.CreateSageAdviceHintWindow(input.Replace("Sage: ", ""));
-            else if(input.StartsWith("You warm the spell "))
+            {
+                if(!input.ToLower().Contains("i do not know how to do that"))
+                    gui.TipWindow.CreateSageAdviceHintWindow(input.Replace("Sage: ", ""));
+            }
+            else if (input.StartsWith("You warm the spell "))
             {
                 string spellName = input.Replace("You warm the spell ", "");
                 spellName = spellName.Substring(0, spellName.Length - 1);
 
                 //if(World.SpellsList.Find(spell => spell.Name == spellName) != null)
-                    gui.SpellWarmingWindow.CreateSpellWarmingWindow(spellName);
+                gui.SpellWarmingWindow.CreateSpellWarmingWindow(spellName);
             }
-            else if(input.StartsWith("You cast "))
+            else if (input.StartsWith("You cast "))
             {
 
             }
-            else if(input.StartsWith("locker description"))
+            else if (input.StartsWith("locker description"))
             {
                 // open locker grid box window
             }
-            else if(input.StartsWith("You are now a level "))
+            else if (input.StartsWith("You are now a level "))
             {
                 // "You are now a level " + chr.Level + " " + chr.classFullName.ToLower() + "!!"
                 string level = input.Replace("You are now a level ", "");
                 level = level.Substring(0, level.IndexOf(" "));
                 gui.AchievementLabel.CreateAchievementLabel(level, gui.AchievementLabel.AchievementType.LevelUp);
             }
-            else if(input.StartsWith("You have risen from "))
+            else if (input.StartsWith("You have risen from "))
             {
                 // You have risen from <old skill title> to <new skill title> in your <skill name> skill.
                 string start = input.Replace("You have risen from ", "");
                 start = start.Replace(" to ", "|");
                 start = start.Replace(" in your ", "|");
                 start = start.Replace(" skill.", "");
-                
+
                 string[] s = start.Split("|".ToCharArray());
                 // 0 = old skill title, 1 = new skill title, 2 = skill
                 //string text = char.ToUpper(s[2][0]) + s[2].Substring(1) + ": " + s[1];

@@ -55,7 +55,7 @@ namespace Yuusha.gui
 
         public static void CreateSageAdviceHintWindow(string advice)
         {
-            // HintWindow exists, if this is called then another hint is desired.
+            // Window exists, if this is called then another hint is desired.
             if (GuiManager.GenericSheet["SageAdviceTipWindow"] is TipWindow existingWindow)
             {
                 existingWindow.OnClose();

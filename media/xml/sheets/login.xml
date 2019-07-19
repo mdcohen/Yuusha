@@ -76,12 +76,12 @@
       Name="AccountLabel"
       Owner="LoginWindow"
       X="73"
-      Y="179"
+      Y="178"
       Width="110"
       Height="25"
       TextColor="Aquamarine"
       IsVisible="true"
-      Font="courier16"
+      Font="lemon14"
       TextAlignment="Left">
     </Control>
 
@@ -131,12 +131,12 @@
       Name="PasswordLabel"
       Owner="LoginWindow"
       X="73"
-      Y="234"
-      Width="110"
+      Y="233"
+      Width="112"
       Height="25"
       TextColor="Aquamarine"
       IsVisible="true"
-      Font="courier16"
+      Font="lemon14"
       TextAlignment="Left">
     </Control>
 
@@ -184,7 +184,7 @@
       Name="RememberPasswordCheckboxButton"
       Owner="LoginWindow"
       X="73"
-      Y="286"
+      Y="287"
       Width="14"
       Height="14"
       IsVisible="true"
@@ -215,7 +215,7 @@
      Height="20"
      TextColor="LightCyan"
      IsVisible="true"
-     Font="courier12"
+     Font="lemon10"
      TextAlignment="Left">
     </Control>
     
@@ -226,12 +226,12 @@
       Name="ServerHostLabel"
       Owner="LoginWindow"
       X="36"
-      Y="309"
+      Y="308"
       Width="332"
       Height="25"
       TextColor="Aquamarine"
       IsVisible="true"
-      Font="courier16"
+      Font="lemon12"
       TextAlignment="Left">
     </Control>
 
@@ -288,7 +288,7 @@
       TextColor="White"
       IsVisible="false"
       IsDisabled="false"
-      Font="courier16"
+      Font="lemon14"
       VisualKey="RoundedButton"
       VisualKeyDown=""
       VisualKeyOver=""
@@ -308,13 +308,13 @@
       Text="Click here to create a new account."
       Name="CreateNewAccountButton"
       Owner="LoginWindow"
-      X="38"
+      X="41"
       Y="383"
-      Width="320"
-      Height="20"
+      Width="315"
+      Height="21"
       TextColor="White"
       IsVisible="true"
-      Font="courier12"
+      Font="lemon12"
       VisualKey="WhiteSpace"
       VisualKeyDown=""
       VisualKeyOver=""
@@ -732,14 +732,14 @@
 		Text="" 
 		Name="LoginStatusLabel"
 		X="0"
-		Y="625"
+		Y="623"
 		Width="1024"
-		Height="30"
+		Height="34"
 		TextColor="White"
 		IsVisible="true"
     VisualAlpha="115"
     BorderAlpha="115"
-		Font="changaone20"
+		Font="lemon18"
 		TextAlignment="Center">
 	</Control>
 </Sheet>

@@ -131,13 +131,13 @@ namespace Yuusha.gui
             if (HealthBar != null) HealthBar.OnClientResize(prev, now, true);
         }
 
-        protected override void OnMouseDown(Microsoft.Xna.Framework.Input.MouseState ms)
+        protected override void OnMouseDown(MouseState ms)
         {
             base.OnMouseDown(ms);
 
             if (ms.LeftButton == ButtonState.Pressed && (DropDownMenu == null || !DropDownMenu.IsVisible))
             {
-                if (Critter != null && Critter != GameHUD.CurrentTarget)
+                if (GameHUD.CurrentTarget == null || (Critter != null && Critter != GameHUD.CurrentTarget))
                     Events.RegisterEvent(Events.EventName.Target_Select, Critter);
             }
             else if (ms.RightButton == ButtonState.Pressed)
@@ -153,10 +153,10 @@ namespace Yuusha.gui
                     GuiManager.Sheets[Sheet].CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
                         Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, VisualAlpha, true, Map.Direction.Northwest, 5);
 
-                    DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
-                    {
-                        IsVisible = true
-                    };
+                    //DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
+                    //{
+                    //    IsVisible = true
+                    //};
 
                     DropDownMenu.HasFocus = true;
                     int height = 0;
@@ -184,7 +184,7 @@ namespace Yuusha.gui
                     if (Character.Settings.CritterListDropDownMenuItem5 != "")
                     {
                         height += 20;
-                        this.DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem5, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
+                        DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem5, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
 
                     DropDownMenu.Height = height;
