@@ -116,7 +116,7 @@ namespace Yuusha.gui
                 case AchievementType.NewSpell:
                     tintColor = TextManager.GetAlignmentColor(false, Character.CurrentCharacter.Alignment);
                     textColor = TextManager.GetAlignmentColor(true, Character.CurrentCharacter.Alignment);
-                    visualKey = "RoundedButton";
+                    visualKey = "WhiteSpace";
                     soundFile = "GUISounds/new_spell";
                     font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.Count - 1];
                     stopSize = BitmapFont.ActiveFonts[font].MeasureString(text);

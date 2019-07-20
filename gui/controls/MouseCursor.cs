@@ -9,7 +9,7 @@ namespace Yuusha.gui
         private int m_xDrawOffset;
         private int m_yDrawOffset;
         
-        public DragAndDropButton DraggedButton
+        public Control DraggedControl
         { get; set; }
 
         public List<TextCue> TextCues { get; }
@@ -62,27 +62,17 @@ namespace Yuusha.gui
 
             base.Update(gameTime);
 
+            if(DraggedControl != null)
+            {
+                DraggedControl.Position = new Point(Position.X + 1, Position.Y + 1);
+                DraggedControl.ZDepth = 0;
+            }
+
             // update text
             for (int a = GuiManager.Cursors["Normal"].TextCues.Count - 1; a >= 0; a--)
             {
                 TextCue tc = GuiManager.Cursors["Normal"].TextCues[a];
                 tc.Update(gameTime, TextCues);
-
-                //if (BitmapFont.ActiveFonts.ContainsKey(tc.Font))
-                //{
-                //    tc.X = ms.X;
-                //    tc.Y = ms.Y - BitmapFont.ActiveFonts[tc.Font].LineHeight;
-
-                //    while (tc.X < 0) tc.X++;
-
-                //    while (tc.Y < 0) tc.Y++;
-
-                //    while (tc.X + BitmapFont.ActiveFonts[tc.Font].MeasureString(tc.Text) > Client.Width)
-                //        tc.X--;
-
-                //    while (tc.Y > Client.Height) tc.Y--;
-                //}
-                //else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + tc.Font + " ] for TextCue [ " + tc.Text + " ] ");
             }
         }
 
@@ -92,8 +82,8 @@ namespace Yuusha.gui
                 return;
 
             // Instead of messing with zDepth, this does another call to draw the dragged button to confirm it is visible just "under" the mouse cursor.
-            if (DraggedButton != null)
-                DraggedButton.Draw(gameTime);
+            if (DraggedControl != null)
+                DraggedControl.Draw(gameTime);
 
             if (m_visualKey != null && m_visualKey.Key != "")
             {

@@ -419,7 +419,7 @@ namespace Yuusha
                                 result = true;
                             }
                         }
-                        else // menu, game, conf
+                        else // Menu, Game, Conference
                         {
                             // ALT + W Toggle Fog of War
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
@@ -451,6 +451,16 @@ namespace Yuusha
                             if (ks.IsKeyDown(Keys.Escape))
                             {
                                 // Close spellbook. Close all GridBoxWindows. (target should always be cleared if GAMEINPUTTEXTBOX has focus)
+                                if(GuiManager.Cursors[GuiManager.GenericSheet.Cursor] is gui.MouseCursor cursor && cursor.DraggedControl != null)
+                                {
+                                    if (cursor.DraggedControl is DragAndDropButton dadButton)
+                                        dadButton.StopDragging();
+                                    else
+                                    {
+                                        GuiManager.Dispose(cursor.DraggedControl);
+                                        cursor.DraggedControl = null;
+                                    }
+                                }
                                 if (GuiManager.GetControl("SpellbookWindow") is SpellBookWindow w && w.IsVisible)
                                 {
                                     w.OnClose();

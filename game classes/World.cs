@@ -257,6 +257,18 @@ namespace Yuusha
             return null;
         }
 
+        public static Spell GetSpellByName(string name)
+        {
+            foreach (Spell spell in m_spells)
+            {
+                if (spell.Name == name)
+                {
+                    return spell;
+                }
+            }
+            return null;
+        }
+
         public static Character GetUserByName(string name)
         {
             foreach (Character ch in m_users)

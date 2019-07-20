@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
 {
@@ -50,12 +51,15 @@ namespace Yuusha.gui
                     0, 0, "", "", new List<Enums.EAnchorType>(), "");
             GuiManager.GenericSheet.AddControl(SpellbookLeftPageSpellNameLabel);
             // Spell Icon
-            Label SpellbookLeftPageSpellIconLabel = new Label("SpellbookLeftPageSpellIconLabel", spellbook.Name, new Rectangle(217, 100, 128, 128),
-                "", Color.Black, true, false, "lemon14", new VisualKey("hotbuttonicon_471"), Color.White, 255, 255, BitmapFont.TextAlignment.Center,
-                0, 0, "", "", new List<Enums.EAnchorType>(), "");
-            GuiManager.GenericSheet.AddControl(SpellbookLeftPageSpellIconLabel);
+            HotButton SpellbookLeftPageSpellHotButton = new HotButton("SpellbookLeftPageSpellHotButton", spellbook.Name, new Rectangle(217, 100, 128, 128),
+                "", false, Color.Black, true, false, "lemon14", new VisualKey("hotbuttonicon_471"), Color.White, 255, 255, new VisualKey(""), new VisualKey(""),
+                new VisualKey(""), "send_command", BitmapFont.TextAlignment.Center, 0, 0, Color.White, false, Color.White, false, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, "", "")
+            {
+                IsLocked = false  // allows for dragging a label copy to make a hotbutton copy
+            };
+            GuiManager.GenericSheet.AddControl(SpellbookLeftPageSpellHotButton);
             // Spell Icon Border
-            SquareBorder iconLabelBorder = new SquareBorder("SpellbookLeftPageSpellIconLabelBorder", SpellbookLeftPageSpellIconLabel.Name, 1, new VisualKey("WhiteSpace"), false, Color.White, 255);
+            SquareBorder iconLabelBorder = new SquareBorder("SpellbookLeftPageSpellIconLabelBorder", SpellbookLeftPageSpellHotButton.Name, 1, new VisualKey("WhiteSpace"), false, Color.White, 255);
             GuiManager.GenericSheet.AddControl(iconLabelBorder);
             // Level Symbol
             Label SpellbookLeftLevelSymbolLabel = new Label("SpellbookLeftLevelSymbolLabel", spellbook.Name, new Rectangle(125, 134, 50, 50),
@@ -92,12 +96,16 @@ namespace Yuusha.gui
                     0, 0, "", "", new List<Enums.EAnchorType>(), "");
             GuiManager.GenericSheet.AddControl(SpellbookRightPageSpellNameLabel);
 
-            Label SpellbookRightPageSpellIconLabel = new Label("SpellbookRightPageSpellIconLabel", spellbook.Name, new Rectangle(667, 100, 128, 128),
-                "", Color.Black, true, false, "lemon14", new VisualKey("hotbuttonicon_280"), Color.White, 255, 255, BitmapFont.TextAlignment.Center,
-                0, 0, "", "", new List<Enums.EAnchorType>(), "");
-            GuiManager.GenericSheet.AddControl(SpellbookRightPageSpellIconLabel);
+            HotButton SpellbookRightPageSpellHotButton = new HotButton("SpellbookRightPageSpellHotButton", spellbook.Name, new Rectangle(667, 100, 128, 128),
+                "", false, Color.Black, true, false, "lemon14", new VisualKey("hotbuttonicon_280"), Color.White, 255, 255, new VisualKey(""), new VisualKey(""),
+                new VisualKey(""), "send_command", BitmapFont.TextAlignment.Center, 0, 0, Color.White, false, Color.White, false, new List<Enums.EAnchorType>(), false, Map.Direction.None,
+                0, "", "")
+            {
+                IsLocked = false // allows for dragging a label copy to make a hotbutton copy
+            };
+            GuiManager.GenericSheet.AddControl(SpellbookRightPageSpellHotButton);
 
-            SquareBorder iconRightLabelBorder = new SquareBorder("SpellbookRightPageSpellIconLabelBorder", SpellbookRightPageSpellIconLabel.Name, 1, new gui.VisualKey("WhiteSpace"), false, Color.White, 255);
+            SquareBorder iconRightLabelBorder = new SquareBorder("SpellbookRightPageSpellIconLabelBorder", SpellbookRightPageSpellHotButton.Name, 1, new gui.VisualKey("WhiteSpace"), false, Color.White, 255);
             GuiManager.GenericSheet.AddControl(iconRightLabelBorder);
 
             Label SpellbookRightLevelSymbolLabel = new Label("SpellbookRightLevelSymbolLabel", spellbook.Name, new Rectangle(574, 134, 50, 50),
@@ -161,8 +169,16 @@ namespace Yuusha.gui
             this["Spellbook" + leftOrRight + "PageSpellNameLabel"].Text = spell.Name.ToUpper();
             // Spell Icon
             if (Effect.IconsDictionary.ContainsKey(spell.Name))
-                this["Spellbook" + leftOrRight + "PageSpellIconLabel"].VisualKey = Effect.IconsDictionary[spell.Name];
-            else this["Spellbook" + leftOrRight + "PageSpellIconLabel"].VisualKey = "question_mark";
+            {
+                this["Spellbook" + leftOrRight + "PageSpellHotButton"].VisualKey = Effect.IconsDictionary[spell.Name];
+                //(this["Spellbook" + leftOrRight + "PageSpellHotButton"] as HotButton).
+                (this["Spellbook" + leftOrRight + "PageSpellHotButton"] as HotButton).Command = spell.Incantation;
+            }
+            else
+            {
+                this["Spellbook" + leftOrRight + "PageSpellHotButton"].VisualKey = "question_mark";
+                (this["Spellbook" + leftOrRight + "PageSpellHotButton"] as HotButton).Command = "";
+            }
             // Level Symbol Text
             this["Spellbook" + leftOrRight + "LevelSymbolLabel"].Text = spell.RequiredSkillLevel.ToString();
             // Mana Symbol Text
@@ -283,6 +299,14 @@ namespace Yuusha.gui
                         ChantsFading = true;
                 }
             }
+        }
+
+        protected override void OnMouseLeave(MouseState ms)
+        {
+            base.OnMouseLeave(ms);
+
+            if (GuiManager.DraggedControl == this)
+                GuiManager.StopDragging();
         }
     }
 }

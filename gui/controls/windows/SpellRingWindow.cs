@@ -158,6 +158,14 @@ namespace Yuusha.gui
                 MouseEnteredRing = true;
         }
 
+        protected override void OnMouseLeave(MouseState ms)
+        {
+            base.OnMouseLeave(ms);
+
+            if (GuiManager.DraggedControl == this)
+                GuiManager.StopDragging();
+        }
+
         public void SetRingProfession(Character.ClassType profession)
         {
             switch(profession)

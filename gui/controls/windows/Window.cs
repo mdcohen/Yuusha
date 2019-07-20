@@ -868,11 +868,11 @@ namespace Yuusha.gui
                         int adjustX = owner.Position.X - m_rectangle.X;
                         m_rectangle.X += adjustX;
                         m_touchDownPoint.X += adjustX;
-                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        for (int j = Controls.Count - 1; j >= 0; j--)
                         {
-                            Point position = this.Controls[j].Position;
+                            Point position = Controls[j].Position;
                             position.X += adjustX;
-                            this.Controls[j].Position = position;
+                            Controls[j].Position = position;
                         }
                     }
 
@@ -881,11 +881,11 @@ namespace Yuusha.gui
                         int adjustY = owner.Position.Y - m_rectangle.Y;
                         m_rectangle.Y += adjustY;
                         m_touchDownPoint.Y += adjustY;
-                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        for (int j = Controls.Count - 1; j >= 0; j--)
                         {
-                            Point position = this.Controls[j].Position;
+                            Point position = Controls[j].Position;
                             position.Y += adjustY;
-                            this.Controls[j].Position = position;
+                            Controls[j].Position = position;
                         }
                     }
 
@@ -896,9 +896,9 @@ namespace Yuusha.gui
                         m_touchDownPoint.X -= adjustX;
                         for (int j = this.Controls.Count - 1; j >= 0; j--)
                         {
-                            Point position = this.Controls[j].Position;
+                            Point position = Controls[j].Position;
                             position.X -= adjustX;
-                            this.Controls[j].Position = position;
+                            Controls[j].Position = position;
                         }
                     }
 
@@ -912,11 +912,11 @@ namespace Yuusha.gui
                         int adjustY = (heightCheck) - (owner.Position.Y + owner.Height);
                         m_rectangle.Y -= adjustY;
                         m_touchDownPoint.Y -= adjustY;
-                        for (int j = this.Controls.Count - 1; j >= 0; j--)
+                        for (int j = Controls.Count - 1; j >= 0; j--)
                         {
-                            Point position = this.Controls[j].Position;
+                            Point position = Controls[j].Position;
                             position.Y -= adjustY;
-                            this.Controls[j].Position = position;
+                            Controls[j].Position = position;
                         }
                     }
                 }

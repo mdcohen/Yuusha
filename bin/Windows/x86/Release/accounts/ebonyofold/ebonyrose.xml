@@ -34,8 +34,8 @@
   <CritterListDropDownMenuItem3>look closely at %t</CritterListDropDownMenuItem3>
   <CritterListDropDownMenuItem4>jumpkick %t;look at %t</CritterListDropDownMenuItem4>
   <CritterListDropDownMenuItem5>shoot %t;look at %t</CritterListDropDownMenuItem5>
-  <VerticalHotButtonVisualKey0>WhiteSpace</VerticalHotButtonVisualKey0>
-  <VerticalHotButtonVisualKey1>WhiteSpace</VerticalHotButtonVisualKey1>
+  <VerticalHotButtonVisualKey0>hotbuttonicon_393</VerticalHotButtonVisualKey0>
+  <VerticalHotButtonVisualKey1>hotbuttonicon_424</VerticalHotButtonVisualKey1>
   <VerticalHotButtonVisualKey2>WhiteSpace</VerticalHotButtonVisualKey2>
   <VerticalHotButtonVisualKey3>WhiteSpace</VerticalHotButtonVisualKey3>
   <VerticalHotButtonVisualKey4>WhiteSpace</VerticalHotButtonVisualKey4>
@@ -54,8 +54,8 @@
   <VerticalHotButtonVisualKey17>WhiteSpace</VerticalHotButtonVisualKey17>
   <VerticalHotButtonVisualKey18>WhiteSpace</VerticalHotButtonVisualKey18>
   <VerticalHotButtonVisualKey19>WhiteSpace</VerticalHotButtonVisualKey19>
-  <VerticalHotButtonText0 />
-  <VerticalHotButtonText1 />
+  <VerticalHotButtonText0>Hide in Shadows</VerticalHotButtonText0>
+  <VerticalHotButtonText1>Darkness</VerticalHotButtonText1>
   <VerticalHotButtonText2 />
   <VerticalHotButtonText3 />
   <VerticalHotButtonText4 />
@@ -74,8 +74,8 @@
   <VerticalHotButtonText17 />
   <VerticalHotButtonText18 />
   <VerticalHotButtonText19 />
-  <VerticalHotButtonCommand0 />
-  <VerticalHotButtonCommand1 />
+  <VerticalHotButtonCommand0>ega ashak ninda arrflug</VerticalHotButtonCommand0>
+  <VerticalHotButtonCommand1>kunushi zu ku ega</VerticalHotButtonCommand1>
   <VerticalHotButtonCommand2 />
   <VerticalHotButtonCommand3 />
   <VerticalHotButtonCommand4 />

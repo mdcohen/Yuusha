@@ -230,6 +230,7 @@ namespace Yuusha.gui
                         (sheet["RHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = null;
                         sheet["RHNameDragAndDropButton"].VisualKey = "WhiteSpace";
                         sheet["RHNameDragAndDropButton"].TintColor = Color.Black;
+                        sheet["RHNameDragAndDropButton"].PopUpText = "";
                     }
                     #endregion
 
@@ -263,6 +264,7 @@ namespace Yuusha.gui
                         (sheet["LHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = null;
                         sheet["LHNameDragAndDropButton"].VisualKey = "WhiteSpace";
                         sheet["LHNameDragAndDropButton"].TintColor = Color.Black;
+                        sheet["LHNameDragAndDropButton"].PopUpText = "";
                     }
                     #endregion
 

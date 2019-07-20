@@ -33,7 +33,13 @@ namespace Yuusha.gui
 
         public void CreateIconSelectionButtons()
         {
-            if (IconSelectionButtonsCreated) return;
+            foreach (Control c in new System.Collections.Concurrent.ConcurrentBag<Control>(Controls))
+            {
+                if (c is IconImageSelectionButton)
+                {
+                    Controls.Remove(c);
+                }
+            }
 
             try
             {
@@ -57,8 +63,6 @@ namespace Yuusha.gui
                         IconVisualKeys.Add(visualName);
                 }
 
-                //IconVisualKeys.Sort();
-
                 int columnCount = 0;
                 int rowCount = 0;
                 int a = 0;
@@ -69,7 +73,7 @@ namespace Yuusha.gui
                 {
                     GuiManager.CurrentSheet.CreateButton("IconImageSelectionButton", IconImagePrefix + "_" + a, Name,
                         new Rectangle(x, y, width, height), a.ToString(), false, Color.White, true, false, GuiManager.Sheets[Sheet].Font, new VisualKey(IconVisualKeys[a]), Color.White,
-                        255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Center, 0, 30, Color.White, false, Color.White, false, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left },
+                        255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Center, 0, 30, Color.White, false, Color.White, false, new List<Enums.EAnchorType>(),
                         false, Map.Direction.Northwest, 2, "", "", "", "", false);
 
                     columnCount++;
@@ -84,16 +88,7 @@ namespace Yuusha.gui
                     }
                 }
 
-                //// Move down two rows.
-                //rowCount++;
-                //x = 6; y += height + padding;
-
-                //// Create one more for blank appearance icon.
-                //GuiManager.CurrentSheet.CreateButton("IconImageSelectionButton", "WhiteSpace", this.Name,
-                //        new Rectangle(x, y, width + 20, height), "No Icon", true, Color.Black, true, false, GuiManager.Sheets[this.Sheet].Font, new VisualKey("WhiteSpace"), Color.FloralWhite,
-                //        255, 255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Center, 0, 0, Color.White, false, new List<Enums.eAnchorType>() { Enums.eAnchorType.Top, Enums.eAnchorType.Left }, false, Map.Direction.Northwest, 2, "");
-
-                IconSelectionButtonsCreated = true;
+                //IconSelectionButtonsCreated = true;
             }
             catch(Exception e)
             { Utils.LogException(e); }
@@ -125,20 +120,15 @@ namespace Yuusha.gui
             }
         }
 
-        public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
-        {
-            foreach(Control c in new System.Collections.Concurrent.ConcurrentBag<Control>(Controls))
-            {
-                if(c is IconImageSelectionButton)
-                {
-                    Controls.Remove(c);
-                }
-            }
+        //public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
+        //{
+        //    base.OnClientResize(prev, now, false);
+            
 
-            base.OnClientResize(prev, now, ownerOverride);
+        //    //base.OnClientResize(prev, now, ownerOverride);
 
-            IconSelectionButtonsCreated = false;
-            CreateIconSelectionButtons();
-        }
+        //    //IconSelectionButtonsCreated = false;
+        //    //CreateIconSelectionButtons();
+        //}
     }
 }

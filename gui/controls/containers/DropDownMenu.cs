@@ -43,6 +43,7 @@ namespace Yuusha.gui
             m_shadowDirection = shadowDirection;
             m_shadowDistance = shadowDistance;
             m_menuItems = new List<DropDownMenuItem>();
+            IsLocked = true;
 
             GuiManager.ActiveDropDownMenu = Name;
         }
@@ -116,9 +117,7 @@ namespace Yuusha.gui
         public override bool MouseHandler(MouseState ms)
         {
             foreach (DropDownMenuItem menuItem in m_menuItems)
-            {
                 if (menuItem.MouseHandler(ms)) return true;
-            }
 
             if (base.MouseHandler(ms))
                 return true;

@@ -1155,7 +1155,7 @@ namespace Yuusha.gui
         public static void StartDragging(Control control, MouseState ms)
         {
             if (Dragging) return;
-            if (Cursors[GenericSheet.Cursor].DraggedButton != null) return;
+            if (Cursors[GenericSheet.Cursor].DraggedControl != null) return;
             if (DraggedControl != null) return;
 
             m_draggedControl = control;

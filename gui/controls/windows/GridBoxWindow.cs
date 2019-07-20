@@ -257,13 +257,13 @@ namespace Yuusha.gui
 
             MouseCursor cursor = GuiManager.Cursors[GuiManager.GenericSheet.Cursor];
 
-            if (cursor != null && cursor.DraggedButton != null && (cursor.Owner == "" || cursor.DraggedButton.Owner != this.Owner))
+            if (cursor != null && cursor.DraggedControl is DragAndDropButton dadButton && (cursor.Owner == "" || cursor.DraggedControl.Owner != this.Owner))
             {
                 GuiManager.MouseOverDropAcceptingControl = this;
-                cursor.DraggedButton.HasEnteredGridBoxWindow = true;
+                dadButton.HasEnteredGridBoxWindow = true;
             }
 
-            if ((GuiManager.Cursors[GuiManager.GenericSheet.Cursor] as MouseCursor).DraggedButton != null)
+            if ((GuiManager.Cursors[GuiManager.GenericSheet.Cursor] as MouseCursor).DraggedControl != null)
             {
                 if (WindowBorder != null)
                     WindowBorder.TintColor = Client.ClientSettings.AcceptingGridBoxBorderColor;
@@ -282,10 +282,10 @@ namespace Yuusha.gui
 
             MouseCursor cursor = GuiManager.Cursors[GuiManager.GenericSheet.Cursor];
 
-            if (cursor != null && cursor.DraggedButton != null && cursor.DraggedButton.Owner == this.Owner)
+            if (cursor != null && cursor.DraggedControl is DragAndDropButton dadButton && cursor.DraggedControl.Owner == this.Owner)
             {
                 if (GuiManager.MouseOverDropAcceptingControl == this) GuiManager.MouseOverDropAcceptingControl = null;
-                cursor.DraggedButton.HasEnteredGridBoxWindow = false;
+                dadButton.HasEnteredGridBoxWindow = false;
             }
 
             if (WindowBorder != null)

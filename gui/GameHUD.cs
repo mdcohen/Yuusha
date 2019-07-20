@@ -53,6 +53,7 @@ namespace Yuusha.gui
         public static string TextSendOverride = "";
         public static bool VitalsTextMode = false;
 
+        public static Spell DraggedSpell { get; set; }
         public static Enums.EGameState PreviousGameState { get; set; }
         public static Cell ExaminedCell { get; set; }
 

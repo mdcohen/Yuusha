@@ -54,7 +54,7 @@ namespace Yuusha.gui
             // -50 offset because that's where the map starts.
             // 0, -50
             MapWindow window = new MapWindow("FogOfWarMapWindow", "", new Rectangle(0, -50, Client.Width, Client.Height + 50), true, true, false, "courier28", new gui.VisualKey("WhiteSpace"), Color.Black,
-                255, false, Map.Direction.None, 0, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
+                255, false, Map.Direction.None, 0, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Bottom, Enums.EAnchorType.Left, Enums.EAnchorType.Right }, "");
          
             GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()].AddControl(window);
 
@@ -77,7 +77,7 @@ namespace Yuusha.gui
                 for(int x = 0; x < m_columns * DEFAULT_TILE_SIZE; x += DEFAULT_TILE_SIZE)
                 {
                     SpinelTileLabel sptLabel = new SpinelTileLabel(Name + "SpinelTileLabel" + Controls.Count, Name, new Rectangle(x, y, DEFAULT_TILE_SIZE, DEFAULT_TILE_SIZE), "", Color.White,
-                        true, false, "courier12", new gui.VisualKey("WhiteSpace"), Color.Black, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+                        true, false, "courier12", new gui.VisualKey("WhiteSpace"), Color.Black, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
 
                     sptLabel.TextAlignment = BitmapFont.TextAlignment.Center;
                     //sptLabel.IsVisible = false;
@@ -120,6 +120,11 @@ namespace Yuusha.gui
             }
 
             base.Update(gameTime);
+
+            //if(GuiManager.GetControl("MapDisplayWindow") is Window mapDispWindow)
+            //{
+            //    Position.X = mapDispWindow.X
+            //}
 
             if (IsVisible && Character.CurrentCharacter != null)
             {

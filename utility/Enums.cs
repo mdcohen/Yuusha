@@ -32,7 +32,8 @@ namespace Yuusha
             Bottom,
             Left,
             Right,
-            Center // Login Window
+            Center, // Login Window
+            All
         }
 
         public enum ETextType

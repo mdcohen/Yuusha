@@ -26,14 +26,15 @@ namespace Yuusha
             { "Banish", "hotbuttonicon_91" }, { "Bless", "hotbuttonicon_274" }, { "Blessing of the Faithful", "hotbuttonicon_274" },
             { "Blind", "hotbuttonicon_483" }, { "Bonfire", "hotbuttonicon_132" }, { "Breathe Water", "hotbuttonicon_249" },
             // C
-            { "Charm Animal", "hotbuttonicon_259" }, { "Close Or Open Door", "hotbuttonicon_396" }, { "Concussion", "hotbuttonicon_157" },
-            { "Create Illusion", "hotbuttonicon_3" }, { "Create Portal", "hotbuttonicon_306" }, { "Create Snake", "hotbuttonicon_215" },
-            { "Create Web", "hotbuttonicon_386" }, { "Cure", "hotbuttonicon_468" }, { "Curse", "hotbuttonicon_186" },
+            { "Charm Animal", "hotbuttonicon_259" }, { "Close Or Open Door", "hotbuttonicon_396" }, { "Command Undead", "hotbuttonicon_70" },
+            { "Concussion", "hotbuttonicon_157" }, { "Create Illusion", "hotbuttonicon_3" }, { "Create Portal", "hotbuttonicon_306" },
+            { "Create Snake", "hotbuttonicon_215" }, { "Create Web", "hotbuttonicon_386" }, { "Cure", "hotbuttonicon_468" },
+            { "Curse", "hotbuttonicon_186" },
             // D
             { "Darkness", "hotbuttonicon_424" }, { "Death", "hotbuttonicon_266" }, { "Disintegrate", "hotbuttonicon_206" },
-            { "Dispel Illusion", "hotbuttonicon_243" }, { "Dragon's Breath", "hotbuttonicon_137" },
+            { "Dismiss Undead", "hotbuttonicon_190" }, { "Dispel Illusion", "hotbuttonicon_243" }, { "Dragon's Breath", "hotbuttonicon_137" },
             // E
-            { "Ensnare", "hotbuttonicon_185" },
+            { "Ensnare", "hotbuttonicon_225" },
             // F
             { "Fear", "hotbuttonicon_433" }, { "Feather Fall", "hotbuttonicon_402" }, { "Find Secret Door", "hotbuttonicon_372" },
             { "Fireball", "hotbuttonicon_130" }, { "Firewall", "hotbuttonicon_100" }, { "FlameShield", "hotbuttonicon_59" }, // FlameShield can be removed after server update 7/18/2019
@@ -65,6 +66,8 @@ namespace Yuusha
             // T
             { "Temporary Strength", "hotbuttonicon_146" }, {"Thunderwave", "hotbuttonicon_298" }, {"Transmute", "hotbuttonicon_163" },
             { "Turn Undead", "hotbuttonicon_476" },
+            // V
+            { "Venom", "hotbuttonicon_0" },
             // W
             { "Wall of Fog", "hotbuttonicon_423" }, { "Wizard Eye", "hotbuttonicon_46" },
         };

@@ -50,6 +50,8 @@ namespace Yuusha.gui
             m_tintColor = Client.ClientSettings.ColorDropDownMenuItemBackground;
             m_textOverColor = Client.ClientSettings.ColorDropDownMenuItemHighlight;
             m_font = Client.ClientSettings.DefaultDropDownMenuFont;
+
+            IsLocked = true;
         }
 
         public override void Draw(GameTime gameTime)

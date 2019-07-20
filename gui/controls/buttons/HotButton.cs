@@ -39,12 +39,15 @@ namespace Yuusha.gui
                 else if(controlDown && altDown && ms.LeftButton == ButtonState.Pressed)
                 {
                     Text = ""; // Hmm. This is how we bypass drawing a cleared HotButton.
+                    Command = "";
+                    VisualKey = "WhiteSpace";
 
                     TextCue.ClearMouseCursorTextCue();
 
                     TextCue.AddClientInfoTextCue("Hot Button Cleared", Color.LimeGreen, Color.Black, 1000);
 
-                    Events.RegisterEvent(Events.EventName.Save_Character_Settings);
+                    Events.StoreHotButtons(Name.ToLower().Contains("horizontal"), GuiManager.GetControl(Owner) as Window);
+                    Character.Settings.Save();
 
                     return true;
                 }
@@ -80,20 +83,106 @@ namespace Yuusha.gui
             if (GuiManager.DraggedControl != null && GuiManager.DraggedControl.Name == Owner)
                 return;
 
-            if(Owner.Contains("HotButtonWindow") ||
-                (!GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt) && !GuiManager.KeyboardState.IsKeyDown(Keys.RightAlt)))
-                base.OnMouseDown(ms);            
+            bool controlDown = GuiManager.KeyboardState.IsKeyDown(Keys.LeftControl) || GuiManager.KeyboardState.IsKeyDown(Keys.RightControl);
+            bool altDown = GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt) || GuiManager.KeyboardState.IsKeyDown(Keys.RightAlt);
+
+            if ((Owner.Contains("HotButtonWindow") || !altDown) && !controlDown)
+                base.OnMouseDown(ms);
 
             if (ms.LeftButton == ButtonState.Pressed)
             {
+                // TODO: drop dragged HotButton
+
                 if (Command.Length <= 0)
+                {
+                    if (Owner.Contains("HotButtonWindow") && GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl.Name.ToLower().Contains("hotbutton") && GameHUD.DraggedSpell != null)
+                    {
+                        VisualKey = GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl.VisualKey;
+                        Text = GameHUD.DraggedSpell.Name;
+                        Command = GameHUD.DraggedSpell.Incantation;
+
+                        // Not sure if to call Character_Save event here
+                        Events.StoreHotButtons(Name.ToLower().Contains("horizontal"), GuiManager.GetControl(Owner) as Window);
+                        Character.Settings.Save();
+
+                        GuiManager.Dispose(GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl);
+                        GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl = null;
+                        GameHUD.DraggedSpell = null;
+                    }
+
                     return;
+                }
 
                 m_visualAlpha = 40;
             }
             else if(ms.RightButton == ButtonState.Pressed)
             {
-                if (!Owner.Contains("HotButtonWindow")) return;
+                if (!Owner.Contains("HotButtonWindow"))
+                {
+                    // SpellbookWindow.
+                    if(Owner.ToLower().Contains("spellbookwindow"))// || Owner.ToLower().Contains("spellringwindow"))
+                    {
+                        if (!m_locked)
+                        {
+                            MouseCursor cursor = GuiManager.Cursors[GuiManager.GenericSheet.Cursor];
+                            if (cursor.DraggedControl != null)
+                                return;
+                            else
+                            {
+                                Label label = new Label(Name + "DraggingLabel", "", new Rectangle(cursor.Position.X + 1, cursor.Position.Y + 1, Width, Height), Text, TextColor, true,
+                                    false, Font, new VisualKey(VisualKey), TintColor, 255, 255, TextAlignment, XTextOffset, YTextOffset, "", "", new List<Enums.EAnchorType>(), "");
+                                GuiManager.GenericSheet.AddControl(label);
+                                SquareBorder border = new SquareBorder(label.Name + "Border", label.Name, 1, new VisualKey("WhiteSpace"), false, Color.PaleGreen, 255);
+                                GuiManager.GenericSheet.AddControl(border);
+                                cursor.DraggedControl = label;
+
+                                //if (Owner.ToLower().Contains("spellbookwindow"))
+                                //{
+                                    if (Name.ToLower().Contains("right"))
+                                        GameHUD.DraggedSpell = (GuiManager.GetControl("SpellbookWindow") as SpellBookWindow).RightPageSpell;
+                                    else if (Name.ToLower().Contains("left"))
+                                        GameHUD.DraggedSpell = (GuiManager.GetControl("SpellbookWindow") as SpellBookWindow).LeftPageSpell;
+                                //}
+                                //else if(Owner.ToLower().Contains("spellringwindow"))
+                                //{
+                                //    GameHUD.DraggedSpell = World.GetSpellByName(PopUpText);
+                                //}
+                            }
+
+                            //m_originalPosition = new Point(Position.X, Position.Y);
+
+                            // puts the control dead center under mouse cursor
+                            //Position = new Point(cursor.Position.X - 10, cursor.Position.Y - 10);
+                            //Position = new Point(cursor.Position.X - (this.m_rectangle.Width / 2), cursor.Position.Y - (this.m_rectangle.Width / 2));
+
+                            // Attach to cursor.
+                            //m_draggingToDrop = true;
+                        }
+                    }
+
+                    return;
+                }
+                else
+                {
+                    if (GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl != null && GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl.Name.ToLower().Contains("hotbutton") && GameHUD.DraggedSpell != null)
+                    {
+                        // Decision time: clear the dragged control, or allow it to set
+
+                        VisualKey = GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl.VisualKey;
+                        Text = GameHUD.DraggedSpell.Name;
+                        Command = GameHUD.DraggedSpell.Incantation;
+
+                        // Not sure if to call Character_Save event here
+                        Events.StoreHotButtons(Name.ToLower().Contains("horizontal"), GuiManager.GetControl(Owner) as Window);
+                        Character.Settings.Save();
+
+                        GuiManager.Dispose(GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl);
+                        GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl = null;
+                        GameHUD.DraggedSpell = null;
+
+                        return;
+                    }
+                }
 
                 //if(!Client.IsFullScreen)
                 //{
@@ -113,11 +202,11 @@ namespace Yuusha.gui
                             // Register game state change event.
                             Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.HotButtonEditMode);
                             // Set edit mode variables.
-                            window.SelectedHotButton = this.Name;
+                            window.SelectedHotButton = Name;
 
                             try
                             {
-                                window.IconImagePrefix = this.VisualKey.Substring(0, this.VisualKey.IndexOf("_"));
+                                window.IconImagePrefix = VisualKey.Substring(0, this.VisualKey.IndexOf("_"));
                             }
                             catch
                             {
@@ -131,14 +220,14 @@ namespace Yuusha.gui
                             window.SelectedVisualKey = VisualKey;
                             if (window.SelectedVisualKey == "")
                                 window.SelectedVisualKey = "WhiteSpace";
-                            window.OriginatingWindow = this.Owner;
+                            window.OriginatingWindow = Owner;
 
                             // Set textbox text.
-                            window["HotButtonEditWindowTextBox"].Text = this.Text;
+                            window["HotButtonEditWindowTextBox"].Text = Text;
                             (window["HotButtonEditWindowTextBox"] as TextBox).SelectAll();
                             (window["HotButtonEditWindowTextBox"] as TextBox).DeselectText();
 
-                            window["HotButtonEditWindowCommandTextBox"].Text = this.Command;
+                            window["HotButtonEditWindowCommandTextBox"].Text = Command;
 
                             // Create labels for choosing a macro icon.
                             window.CreateIconSelectionButtons();
@@ -209,8 +298,8 @@ namespace Yuusha.gui
                 return;
             }
 
-            if (!Owner.Contains("HotButtonWindow") && !Owner.Contains("HotButtonEditWindow") &&
-                (GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt) || GuiManager.KeyboardState.IsKeyDown(Keys.RightAlt)))
+            // don't draw HotButtons for SpellringWindow if ALT key down.
+            if (Owner.ToLower().Contains("spellringwindow") && (GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt) || GuiManager.KeyboardState.IsKeyDown(Keys.RightAlt)))
                 return;
 
             Color color = new Color(m_tintColor, (byte)MathHelper.Clamp(m_visualAlpha, 0, 255));
@@ -218,10 +307,13 @@ namespace Yuusha.gui
             if (Text == "" && Owner.Contains("HotButtonWindow"))
                 color = new Color(Color.Black, 160);
 
-            VisualInfo vi = GuiManager.Visuals[m_visualKey.Key];
+            if (GuiManager.Visuals.ContainsKey(m_visualKey.Key))
+            {
+                VisualInfo vi = GuiManager.Visuals[m_visualKey.Key];
 
-            Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], this.m_rectangle, vi.Rectangle,
-                new Color(color.R, color.G, color.B, color.A));
+                Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], this.m_rectangle, vi.Rectangle,
+                    new Color(color.R, color.G, color.B, color.A));
+            }
 
             if (Border != null) Border.Draw(gameTime);
         }

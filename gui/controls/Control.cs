@@ -697,7 +697,7 @@ namespace Yuusha.gui
                     // y stays the same
                     //if (prev.Y > now.Y)
                     //    y -= prev.Y - now.Y;
-                    //else if (prev.X < now.X)
+                    //else if (prev.Y < now.Y)
                     //    y += now.Y - prev.Y;
                 }
 
@@ -707,8 +707,7 @@ namespace Yuusha.gui
                     // y stays the same
                     //if (prev.Y > now.Y)
                     //    y -= prev.Y - now.Y;
-
-                    //else if (prev.X < now.X)
+                    //else if (prev.Y < now.Y)
                     //    y += now.Y - prev.Y;
                     // height is increased or decreased
                     height += now.Height - prev.Height;

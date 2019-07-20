@@ -51,12 +51,12 @@ namespace Yuusha.gui
 
             if (ms.LeftButton == ButtonState.Pressed && (DropDownMenu == null || !DropDownMenu.IsVisible))
             {
-                if (!m_draggingToDrop && !m_locked)
+                if (!m_draggingToDrop && !m_locked && RepresentedItem != null)
                 {
                     MouseCursor cursor = GuiManager.Cursors[GuiManager.GenericSheet.Cursor];
-                    if (cursor.DraggedButton != null)
+                    if (cursor.DraggedControl != null)
                         return;
-                    else cursor.DraggedButton = this;
+                    else cursor.DraggedControl = this;
 
                     m_originalPosition = new Point(Position.X, Position.Y);
 
@@ -86,15 +86,11 @@ namespace Yuusha.gui
                         {
                             GuiManager.CurrentSheet.CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
                             Font, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, VisualAlpha, true, Map.Direction.Northwest, 5);
-
-                            //GuiManager.CurrentSheet.CreateSquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
                         }
                         else
                         {
                             GuiManager.GenericSheet.CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
                             Font, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, VisualAlpha, true, Map.Direction.Northwest, 5);
-
-                            //GuiManager.GenericSheet.CreateSquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
                         }
 
                         DropDownMenu.HasFocus = true;
@@ -313,8 +309,7 @@ namespace Yuusha.gui
                                 if (RepresentedItem.Name != "corpse" && !RepresentedItem.Name.StartsWith("coin"))
                                     dropDownMenuItemTextList.Add(Tuple.Create("pouch", "put " + (Name.StartsWith("RH") ? "right" : "left") + " in pouch", GridBoxWindow.GridBoxPurpose.Sack));
                                 dropDownMenuItemTextList.Add(Tuple.Create("drop", "drop " + (Name.StartsWith("RH") ? "right" : "left"), GridBoxWindow.GridBoxPurpose.Ground));
-                                string locationName = "counter";
-                                if (Character.CurrentCharacter != null && Character.CurrentCharacter.IsNextToCounter(out locationName))
+                                if (Character.CurrentCharacter != null && Character.CurrentCharacter.IsNextToCounter(out string locationName))
                                     dropDownMenuItemTextList.Add(Tuple.Create("put on " + locationName, "put " + (Name.StartsWith("RH") ? "right" : "left") + " on " + locationName, GridBoxWindow.GridBoxPurpose.Sack));
                             }
 
@@ -385,7 +380,7 @@ namespace Yuusha.gui
 
             if (GuiManager.ActiveDropDownMenu == null)
             {
-                if (cursor.DraggedButton == null || cursor.DraggedButton == this || AcceptingDroppedButtons)
+                if (cursor.DraggedControl == null || cursor.DraggedControl == this || AcceptingDroppedButtons)
                 {
                     if (Border == null && !IsLocked || (Border == null && AcceptingDroppedButtons && GuiManager.MouseOverDropAcceptingControl == this))
                     {
@@ -409,10 +404,10 @@ namespace Yuusha.gui
                 }
             }
 
-            if (AcceptingDroppedButtons && cursor != null && cursor.DraggedButton != null)// && GuiManager.MouseState.LeftButton == ButtonState.Pressed)
+            if (AcceptingDroppedButtons && cursor != null && cursor.DraggedControl is DragAndDropButton dadButton)// && GuiManager.MouseState.LeftButton == ButtonState.Pressed)
             {
                 GuiManager.MouseOverDropAcceptingControl = this;
-                cursor.DraggedButton.HasEnteredGridBoxWindow = true;
+                dadButton.HasEnteredGridBoxWindow = true;
                 if (Border != null)
                     Border.TintColor = Client.ClientSettings.AcceptingGridBoxBorderColor;
             }
@@ -471,8 +466,8 @@ namespace Yuusha.gui
             //        DropDownMenu = null;
             //}
 
-            //if (DropDownMenu != null)
-            //    DropDownMenu.Update(gameTime);
+            if (DropDownMenu != null)
+                DropDownMenu.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -494,7 +489,7 @@ namespace Yuusha.gui
         public void StopDragging()
         {
             Position = new Point(m_originalPosition.X, m_originalPosition.Y);
-            GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedButton = null;
+            GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl = null;
             m_draggingToDrop = false;
         }
 

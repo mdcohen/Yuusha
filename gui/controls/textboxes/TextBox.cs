@@ -408,8 +408,8 @@ namespace Yuusha.gui
                             if (Client.GameState.ToString().EndsWith("Game"))
                                 Events.RegisterEvent(Events.EventName.Target_Cleared, null);
 
-                            if(GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedButton != null)
-                                GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedButton.StopDragging();
+                            if(GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl is DragAndDropButton dadButton)
+                                dadButton.StopDragging();
                             
                         }
                         else if (k == Keys.Tab)
@@ -853,7 +853,7 @@ namespace Yuusha.gui
 
             if (Border != null) Border.Update(gameTime);
 
-            //if (DropDownMenu != null) DropDownMenu.Update(gameTime);
+            if (DropDownMenu != null) DropDownMenu.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
