@@ -98,14 +98,20 @@ namespace Yuusha.gui
                     Y -= 1;
                     break;
                 case TextCueTag.HealthGain:
-                    Y -= 2;
+                    if (GuiManager.GetControl("Tile24") is Control control && Y <= control.Position.Y)
+                    {
+                        Y += 2; // moves toward center screen
+                    }
                     break;
                 case TextCueTag.HealthLoss:
                     Y -= 2;
                     break;
                 case TextCueTag.ManaGain:
                 case TextCueTag.StaminaGain:
-                    X -= 2;
+                    if (GuiManager.GetControl("Tile24") is Control control2 && X >= control2.Position.X + control2.Width)
+                    {
+                        X -= 2; // moves toward center screen
+                    }
                     break;
                 case TextCueTag.ManaLoss:
                 case TextCueTag.StaminaLoss:
@@ -514,12 +520,12 @@ namespace Yuusha.gui
 
         public static void AddXPGainTextCue(string text)
         {
-            int measureStringHalved = BitmapFont.ActiveFonts["changaone20"].MeasureString(text) / 2;
-            int lineHeightHalved = BitmapFont.ActiveFonts["changaone20"].LineHeight / 2;
+            int measureStringHalved = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].MeasureString(text) / 2;
+            int lineHeightHalved = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].LineHeight / 2;
             int x = Client.Width / 2 - measureStringHalved;
             int y = Client.Height / 2 - lineHeightHalved - 100;
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Lime, Color.Transparent, 0, "changaone20", 4500, false, 0, Map.Direction.None, false, false, false, TextCueTag.XPGain);
+            TextCue tc = new TextCue(text, x, y, 255, Color.Lime, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 4500, false, 0, Map.Direction.None, false, false, false, TextCueTag.XPGain);
 
             if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -527,12 +533,12 @@ namespace Yuusha.gui
 
         public static void AddXPLossTextCue(string text)
         {
-            int measureStringHalved = BitmapFont.ActiveFonts["changaone20"].MeasureString(text) / 2;
-            int lineHeightHalved = BitmapFont.ActiveFonts["changaone20"].LineHeight / 2;
+            int measureStringHalved = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].MeasureString(text) / 2;
+            int lineHeightHalved = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].LineHeight / 2;
             int x = Client.Width / 2 - measureStringHalved;
             int y = Client.Height / 2 - lineHeightHalved - 100;
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Red, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.XPLoss);
+            TextCue tc = new TextCue(text, x, y, 255, Color.Red, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.XPLoss);
 
             if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -540,18 +546,19 @@ namespace Yuusha.gui
 
         public static void AddHealthGainTextCue(string text)
         {
-            int lineHeight = BitmapFont.ActiveFonts["changaone20"].LineHeight;
+            int lineHeight = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].LineHeight;
             int x = Client.Width / 2;
-            int y = Client.Height / 2 - (lineHeight * 2);
+            int y = 5;
 
-            Control control = GuiManager.GetControl("Tile24");
-            if(control != null)
+            if (GuiManager.GetControl("Tile24") is Control control)
             {
                 x = control.Position.X;
-                y = control.Position.Y;
+                if (Client.IsFullScreen)
+                    y = control.Position.Y - 400;
+                if (y < 0) y = 5;
             }
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.PaleGreen, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.HealthGain);
+            TextCue tc = new TextCue(text, x, y, 255, Color.PaleGreen, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.HealthGain);
 
             if(!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -559,11 +566,11 @@ namespace Yuusha.gui
 
         public static void AddHealthLossTextCue(string text)
         {
-            int lineHeight = BitmapFont.ActiveFonts["changaone20"].LineHeight;
+            int lineHeight = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].LineHeight;
             int x = Client.Width / 2;
             int y = Client.Height / 2 - (lineHeight * 2);
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Red, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.HealthLoss);
+            TextCue tc = new TextCue(text, x, y, 255, Color.Red, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.HealthLoss);
 
             if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -571,17 +578,17 @@ namespace Yuusha.gui
 
         public static void AddManaGainTextCue(string text)
         {
-            int measureString = BitmapFont.ActiveFonts["changaone20"].MeasureString(text);
+            int measureString = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].MeasureString(text);
             int x = Client.Width - (measureString * 2);
             int y = Client.Height / 2;
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.DeepSkyBlue, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.ManaGain);
-
-            if (GuiManager.GetControl("Tile24") is Control control)
+            if (Client.IsFullScreen && GuiManager.GetControl("MapDisplayWindow") is Control control)
             {
-                x = control.Position.X + (control.Width / 2);
-                y = control.Position.Y + (control.Height / 2);
+                y = control.Position.Y + (control.Height / 2) + BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].LineHeight;
+                x = control.Position.X + control.Width + 300;
             }
+
+            TextCue tc = new TextCue(text, x, y, 255, Color.DeepSkyBlue, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.ManaGain);
 
             if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -589,7 +596,7 @@ namespace Yuusha.gui
 
         public static void AddManaLossTextCue(string text)
         {
-            int measureString = BitmapFont.ActiveFonts["changaone20"].MeasureString(text);
+            int measureString = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].MeasureString(text);
             int x = Client.Width / 2;
             int y = Client.Height / 2;
 
@@ -599,7 +606,7 @@ namespace Yuusha.gui
                 y = control.Position.Y + (control.Height / 2);
             }
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.RoyalBlue, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.ManaLoss);
+            TextCue tc = new TextCue(text, x, y, 255, Color.RoyalBlue, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.ManaLoss);
 
             if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -607,15 +614,20 @@ namespace Yuusha.gui
 
         public static void AddStaminaGainTextCue(string text)
         {
-            int measureString = BitmapFont.ActiveFonts["changaone20"].MeasureString(text);
-            int lineHeight = BitmapFont.ActiveFonts["changaone20"].LineHeight;
+            int measureString = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].MeasureString(text);
+            int lineHeight = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].LineHeight;
             int x = Client.Width - (measureString * 2);
             int y = Client.Height / 2 + (lineHeight * 2);
 
-            if (GuiManager.GetControl("Tile24") is Control control)
+            if (GuiManager.GetControl("MapDisplayWindow") is Control control)
+            {
                 y = control.Position.Y + (control.Height / 2);
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.ForestGreen, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.StaminaGain);
+                if(Client.IsFullScreen)
+                    x = control.Position.X + control.Width + 300;
+            }
+
+            TextCue tc = new TextCue(text, x, y, 255, Color.ForestGreen, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.StaminaGain);
 
             if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -626,7 +638,7 @@ namespace Yuusha.gui
             int x = Client.Width / 2;
             int y = Client.Height / 2;
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.DarkGreen, Color.Transparent, 0, "changaone20", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.StaminaLoss);
+            TextCue tc = new TextCue(text, x, y, 255, Color.DarkGreen, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.StaminaLoss);
 
             if (GuiManager.GetControl("Tile24") is Control control)
             {
@@ -695,7 +707,7 @@ namespace Yuusha.gui
                 return;
             }
 
-            string font = "changaone16";
+            string font = Client.ClientSettings.DefaultHUDNumbersFont;
 
             int x = Client.Width - BitmapFont.ActiveFonts[font].MeasureString(text);
             int y = 5;

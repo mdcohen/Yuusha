@@ -378,7 +378,7 @@ namespace Yuusha.gui
 
             MouseCursor cursor = GuiManager.Cursors[GuiManager.GenericSheet.Cursor];
 
-            if (GuiManager.ActiveDropDownMenu == null)
+            if (string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
             {
                 if (cursor.DraggedControl == null || cursor.DraggedControl == this || AcceptingDroppedButtons)
                 {
@@ -393,7 +393,7 @@ namespace Yuusha.gui
 
                     if (Border != null)
                     {
-                        if (GuiManager.ActiveDropDownMenu == "" || (DropDownMenu != null && GuiManager.ActiveDropDownMenu == DropDownMenu.Name))
+                        if (string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu) || (DropDownMenu != null && GuiManager.ActiveDropDownMenu == DropDownMenu.Name))
                         {
                             Border.IsVisible = true;
                         }

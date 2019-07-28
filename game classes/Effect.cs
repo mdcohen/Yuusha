@@ -21,13 +21,15 @@ namespace Yuusha
         public static Dictionary<string, string> IconsDictionary = new Dictionary<string, string>()
         {
             // A
-            { "Acid Orb", "hotbuttonicon_197" }, { "Animal Affinity", "hotbuttonicon_463" }, { "Ataraxia", "hotbuttonicon_221" },
+            { "Acid Orb", "hotbuttonicon_197" }, { "Acid Rain", "hotbuttonicon_247" },{ "Animal Affinity", "hotbuttonicon_463" },
+            { "Ataraxia", "hotbuttonicon_221" },
             // B
-            { "Banish", "hotbuttonicon_91" }, { "Bless", "hotbuttonicon_274" }, { "Blessing of the Faithful", "hotbuttonicon_274" },
+            { "Barkskin", "hotbuttonicon_185" }, { "Banish", "hotbuttonicon_91" }, { "Bless", "hotbuttonicon_274" },
+            { "Blessing of the Faithful", "hotbuttonicon_274" },
             { "Blind", "hotbuttonicon_483" }, { "Bonfire", "hotbuttonicon_132" }, { "Breathe Water", "hotbuttonicon_249" },
             // C
             { "Charm Animal", "hotbuttonicon_259" }, { "Close Or Open Door", "hotbuttonicon_396" }, { "Command Undead", "hotbuttonicon_70" },
-            { "Concussion", "hotbuttonicon_157" }, { "Create Illusion", "hotbuttonicon_3" }, { "Create Portal", "hotbuttonicon_306" },
+            { "Concussion", "hotbuttonicon_157" }, { "Contagion", "hotbuttonicon_41" }, { "Create Illusion", "hotbuttonicon_3" }, { "Create Portal", "hotbuttonicon_306" },
             { "Create Snake", "hotbuttonicon_215" }, { "Create Web", "hotbuttonicon_386" }, { "Cure", "hotbuttonicon_468" },
             { "Curse", "hotbuttonicon_186" },
             // D
@@ -40,7 +42,7 @@ namespace Yuusha
             { "Fireball", "hotbuttonicon_130" }, { "Firewall", "hotbuttonicon_100" }, { "FlameShield", "hotbuttonicon_59" }, // FlameShield can be removed after server update 7/18/2019
             { "Flame Shield", "hotbuttonicon_59" },
             // H
-            { "Hide Door", "hotbuttonicon_388" }, { "Hide in Shadows", "hotbuttonicon_393" }, {"Hunter's Mark", "hotbuttonicon_234"},
+            { "Halt Undead", "hotbuttonicon_201" }, { "Hide Door", "hotbuttonicon_388" }, { "Hide in Shadows", "hotbuttonicon_393" }, {"Hunter's Mark", "hotbuttonicon_234"},
             // I
             { "Icespear", "hotbuttonicon_362" }, { "Icestorm", "hotbuttonicon_342" }, { "Identify", "hotbuttonicon_261" }, { "Improved Disguise", "hotbuttonicon_358" },
             // L
@@ -61,8 +63,8 @@ namespace Yuusha
             // S
             { "Shelter", "hotbuttonicon_174" }, { "Shield", "hotbuttonicon_211" }, { "Speed", "hotbuttonicon_305" },
             { "Summon Hellhound", "hotbuttonicon_16" }, { "Summon Lamassu", "hotbuttonicon_407" }, { "Summon Lammasu", "hotbuttonicon_407" }, // 7/8/2019 misspelled in server logic
-            { "Summon Nature's Ally", "hotbuttonicon_218" }, { "Summon Phantasm", "hotbuttonicon_280" }, { "Strength", "hotbuttonicon_146" },
-            { "Stun", "hotbuttonicon_217" },
+            { "Summon Nature's Ally", "hotbuttonicon_218" }, { "Summon Phantasm", "hotbuttonicon_280" }, { "Stoneskin", "hotbuttonicon_227" },
+            { "Strength", "hotbuttonicon_146" }, { "Stun", "hotbuttonicon_217" },
             // T
             { "Temporary Strength", "hotbuttonicon_146" }, {"Thunderwave", "hotbuttonicon_298" }, {"Transmute", "hotbuttonicon_163" },
             { "Turn Undead", "hotbuttonicon_476" },
@@ -72,6 +74,9 @@ namespace Yuusha
             { "Wall of Fog", "hotbuttonicon_423" }, { "Wizard Eye", "hotbuttonicon_46" },
         };
 
+        /// <summary>
+        /// Change the tint color for hotbuttonicons. (normal tint color is white for SpellWarmingLabels and SpellEffectLabels)
+        /// </summary>
         public static Dictionary<string, Color> IconsTintDictionary = new Dictionary<string, Color>()
         {
             

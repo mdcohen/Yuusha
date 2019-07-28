@@ -126,6 +126,8 @@ namespace Yuusha.gui
                 {
                     Events.RegisterEvent((Events.EventName)System.Enum.Parse(typeof(Events.EventName), m_onMouseDown, true), this);
                     MouseDownSent = true;
+                    DropDownMenu.IsVisible = false;
+                    GuiManager.ActiveDropDownMenu = "";
                 }
 
                 if(DropDownMenu != null)
@@ -144,8 +146,11 @@ namespace Yuusha.gui
 
                     DropDownMenu.IsVisible = false;
                     GuiManager.ActiveDropDownMenu = "";
-                    DropDownMenu = null;
+                    //DropDownMenu = null;
                 }
+
+                if (DropDownMenu != null)
+                    GuiManager.Dispose(DropDownMenu);
             }
         }
 
@@ -157,6 +162,9 @@ namespace Yuusha.gui
                 return;
 
             MouseDownSent = false;
+
+            if(GuiManager.ActiveDropDownMenu == Owner)
+                GuiManager.ActiveDropDownMenu = "";
         }
     }
 }

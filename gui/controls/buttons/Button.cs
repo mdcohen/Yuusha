@@ -113,6 +113,10 @@ namespace Yuusha.gui
             if (m_disabled || !m_visible)
                 return;
 
+            if (Owner != "" && GuiManager.GetControl(Owner) is Control c)
+                if (c.IsDisabled || !c.IsVisible)
+                    return;
+
             if (m_owner != "")
                 if (!GuiManager.GetControl(m_owner).IsVisible) return;
 
@@ -142,7 +146,7 @@ namespace Yuusha.gui
 
         protected override void OnMouseRelease(MouseState ms)
         {
-            if (m_disabled)
+            if (m_disabled || !m_visible)
                 return;
 
             m_onMouseDownSent = false;
@@ -167,11 +171,6 @@ namespace Yuusha.gui
             }
 
             return base.OnKeyDown(ks);
-        }
-
-        protected override void OnMouseOver(MouseState ms)
-        {
-            base.OnMouseOver(ms);
         }
 
         protected override void OnMouseLeave(MouseState ms)

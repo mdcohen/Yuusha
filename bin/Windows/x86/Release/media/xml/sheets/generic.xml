@@ -3,7 +3,7 @@
 available in any game state. -->
 <GenericSheet Name="Generic"
 	   Description="Generic GUI"
-	   Font="lemon12"
+	   Font="lemon14"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"

@@ -3,7 +3,7 @@
 available in any game state. -->
 <GenericSheet Name="Generic"
 	   Description="Generic GUI"
-	   Font="courier12"
+	   Font="lemon14"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"
@@ -2627,7 +2627,8 @@ available in any game state. -->
       CropBoxTintColor="LightSteelBlue"
       Text=""
       TextColor="Black"
-      TextAlignment="Center">
+      TextAlignment="Center"
+      Height="18">
     </Control>
 
     <!-- Vertical HotButton Window Border -->

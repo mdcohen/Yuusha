@@ -277,6 +277,7 @@ namespace Yuusha.gui
                             if (chr.HitsFull > pre.HitsFull)
                                 AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.HitsFull - pre.HitsFull), AchievementLabel.AchievementType.VitalsGain_HitsMax);
 
+                            // Currently only displays a +Hits achievement when HitsFull increases.
                             Character.PreviousRoundCharacter.HitsMax = chr.HitsMax;
                             Character.PreviousRoundCharacter.HitsAdjustment = chr.HitsAdjustment;
                             Character.PreviousRoundCharacter.HitsDoctored = chr.HitsDoctored;
@@ -298,6 +299,22 @@ namespace Yuusha.gui
 
                             Character.PreviousRoundCharacter.ManaMax = chr.ManaMax;
                             Character.PreviousRoundCharacter.ManaAdjustment = chr.ManaAdjustment;
+                        }
+
+                        if(chr.StrengthAdd != pre.StrengthAdd)
+                        {
+                            if(chr.StrengthAdd > pre.StrengthAdd)
+                                AchievementLabel.CreateAchievementLabel(string.Format("Strength Add: +{0}", chr.StrengthAdd - pre.StrengthAdd), AchievementLabel.AchievementType.StrengthAdd);
+
+                            Character.PreviousRoundCharacter.StrengthAdd = chr.StrengthAdd;
+                        }
+
+                        if (chr.StrengthAdd != pre.StrengthAdd)
+                        {
+                            if (chr.DexterityAdd > pre.DexterityAdd)
+                                AchievementLabel.CreateAchievementLabel(string.Format("Dexterity Add: +{0}", chr.DexterityAdd - pre.DexterityAdd), AchievementLabel.AchievementType.DexterityAdd);
+
+                            Character.PreviousRoundCharacter.DexterityAdd = chr.DexterityAdd;
                         }
 
                         // Experience adjustments.
@@ -534,7 +551,7 @@ namespace Yuusha.gui
             }
         }
 
-        private static void BuildCritterList()
+        public static void BuildCritterList()
         {
             try
             {
@@ -544,9 +561,11 @@ namespace Yuusha.gui
 
                     for (int a = 0; a < 12; a++)
                     {
-                        Control critterListLabel = GuiManager.GetControl("CritterList" + a.ToString());
-                        if (critterListLabel != null)
+                        if (GuiManager.GetControl("CritterList" + a.ToString()) is CritterListLabel critterListLabel)
+                        {
                             critterListLabel.IsVisible = false;
+                            critterListLabel.DropDownMenu = null;
+                        }
                         m_critterListNames[a] = "";
                     }
 
@@ -670,7 +689,7 @@ namespace Yuusha.gui
             }
         }
 
-        private static void BuildMap()
+        public static void BuildMap()
         {
             try
             {

@@ -257,19 +257,24 @@ namespace Yuusha
         #region Add Methods
         public void Add(Character ch)
         {
-            this.m_characters.Add(ch);
+            m_characters.Add(ch);
         }
 
         public void Add(Item item)
         {
-            this.m_items.Add(item);
+            m_items.Add(item);
         }
 
         public void Add(Effect effect)
         {
-            this.m_effects.Add(effect);
+            m_effects.Add(effect);
         } 
         #endregion
+
+        public void Remove(Character ch)
+        {
+            m_characters.Remove(ch);
+        }
 
         public static void SendCellItemsRequest(Cell cell)
         {

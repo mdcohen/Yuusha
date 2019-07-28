@@ -65,7 +65,9 @@
     DropShadow="true"
     ShadowDistance="5"
     ShadowDirection="Northwest"
-    CursorOnDrag="Dragging">
+    CursorOnDrag="Dragging"
+    AnchorTop="true"
+    AnchorLeft="true">
     </Control>
 
     <!-- MainMenuCharSelectionWindow Border -->
@@ -209,7 +211,9 @@
       DropShadow="true"
       ShadowDistance="5"
       ShadowDirection="Northwest"
-      CursorOnDrag="Dragging">
+      CursorOnDrag="Dragging"
+      AnchorTop="true"
+      AnchorLeft="true">
   </Control>
 
   <!-- MainMenuWindow Border -->

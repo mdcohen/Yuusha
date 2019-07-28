@@ -60,7 +60,7 @@ namespace Yuusha.gui
 
                 if (m_dropShadow)
                 {
-                    Rectangle shadowRect = new Rectangle(m_rectangle.X + GetXShadow(), m_rectangle.Y + GetYShadow(), m_rectangle.Width, m_rectangle.Height);
+                    Rectangle shadowRect = new Rectangle(m_rectangle.X + GetXShadow(m_shadowDirection, m_shadowDistance), m_rectangle.Y + GetYShadow(m_shadowDirection, m_shadowDistance), m_rectangle.Width, m_rectangle.Height);
                     Color shadowColor = new Color((int)Color.Black.R, (int)Color.Black.G, (int)Color.Black.B, 50);
                     Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], shadowRect, sourceRect, shadowColor);
                 }

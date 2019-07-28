@@ -78,7 +78,7 @@ namespace Yuusha
         {
             // Gains
             {"You have risen from ", Color.MediumOrchid},
-            {"You have earned enough experience for your next level! Type REST ", Color.LightGoldenrodYellow },
+            {"You have earned enough experience for your next level! Type REST ", Color.PaleGoldenrod },
             {"You are now a level ", Color.Goldenrod },
             {"You have gained ", Color.Plum},
 
@@ -94,12 +94,15 @@ namespace Yuusha
             {"Kick hits with ", Color.PeachPuff },
             {"Jumpkick hits with ", Color.PeachPuff },
             {"Shot hits with ", Color.PeachPuff },
+            {"You have scored a critical hit", Color.Peru },            
 
             // Combat: others
             {"misses you.", Color.MintCream },
             {" is blocked by your ", Color.Lime },
             {" is slain!", Color.Aquamarine },
             {" hits with ", Color.Tomato },
+            {"You have suffered a critical hit", Color.OrangeRed },
+            {"You have been stunned by the blow!", Color.Orange },
 
             // Magic
             {"You warm the spell", Color.LightSeaGreen },
@@ -108,8 +111,8 @@ namespace Yuusha
             
             // Important messages
             {" has worn off.", Color.SandyBrown },
-            {"WHUMP! You are stunned!", Color.Red },
-            {"You fumble", Color.Red },
+            {"WHUMP! You are stunned!", Color.Orange },
+            {"You fumble", Color.Orange },
         };
 
         public static Dictionary<string, Color> CONF_TEXT_COLOR_FILTERS = new Dictionary<string, Color>()
@@ -146,6 +149,26 @@ namespace Yuusha
                 string effectName = input.Replace("You have been enchanted with ", "");
                 effectName = effectName.Substring(0, effectName.Length - 1);
                 gui.SpellEffectLabel.CreateSpellEffectLabel(effectName, gui.SpellEffectLabel.BuffBorderColor);
+
+                if(Character.CurrentCharacter.WarmedSpell == effectName)
+                {
+                    if(gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
+                    {
+                        w.OnClose();
+                    }
+                }
+            }
+            else if (input.StartsWith("You are surrounded by the blue glow of a Shield spell"))
+            {
+                gui.SpellEffectLabel.CreateSpellEffectLabel("Shield", gui.SpellEffectLabel.BuffBorderColor);
+
+                if (Character.CurrentCharacter.WarmedSpell == "Shield")
+                {
+                    if (gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
+                    {
+                        w.OnClose();
+                    }
+                }
             }
             else if (input.Equals("You fade into the shadows."))
                 gui.SpellEffectLabel.CreateSpellEffectLabel("Hide in Shadows", Color.DarkViolet);
@@ -172,13 +195,30 @@ namespace Yuusha
             {
                 string spellName = input.Replace("You warm the spell ", "");
                 spellName = spellName.Substring(0, spellName.Length - 1);
-
-                //if(World.SpellsList.Find(spell => spell.Name == spellName) != null)
                 gui.SpellWarmingWindow.CreateSpellWarmingWindow(spellName);
+                Character.CurrentCharacter.WarmedSpell = spellName;
             }
             else if (input.StartsWith("You cast "))
             {
-
+                if(input.Contains(Character.CurrentCharacter.WarmedSpell))
+                {
+                    if(gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
+                    {
+                        w.OnClose();
+                    }
+                }
+            }
+            else if(input.StartsWith("You have lost your warmed spell"))
+            {
+                if (gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
+                {
+                    w.OnClose();
+                }
+            }
+            else if(input.StartsWith("You don't have any balms to quaff."))
+            {
+                gui.TextCue.AddClientInfoTextCue(input, Color.White, Color.Crimson, Utility.Settings.StaticSettings.RoundDelayLength);
+                // TODO sound effect?
             }
             else if (input.StartsWith("locker description"))
             {
@@ -203,8 +243,7 @@ namespace Yuusha
                 // 0 = old skill title, 1 = new skill title, 2 = skill
                 //string text = char.ToUpper(s[2][0]) + s[2].Substring(1) + ": " + s[1];
 
-                gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingTextFontList[ScalingTextFontList.Count - 1], gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.White, "", true, Map.Direction.Southwest);
-                //gui.AchievementLabel.CreateAchievementLabel("Mistress of Earth and Sky", ScalingFontList[7], false, gui.GameHUD.GameIconsDictionary["magic"], Color.Indigo, Color.White, "GUISounds/skillup", false);
+                gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingTextFontList[ScalingTextFontList.Count - 1], gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.PaleGreen, "", true, Map.Direction.Southwest);
             }
         }
 
@@ -280,7 +319,8 @@ namespace Yuusha
                 case gui.TextCue.TextCueTag.SkillUp:
                     return "lemon28";
             }
-            return "courier16";
+
+            return GetDisplayFont();
         }
     }
 }

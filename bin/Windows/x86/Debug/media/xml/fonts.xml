@@ -26,6 +26,8 @@
   <Font Path="media\fonts\uncialantiqua22.xml"></Font>
   <Font Path="media\fonts\rocksalt22.xml"></Font>
   <!-- Lemon -->
+  <Font Path="media\fonts\lemon\lemon8.xml"></Font>
+  <Font Path="media\fonts\lemon\lemon9.xml"></Font>
   <Font Path="media\fonts\lemon\lemon10.xml"></Font>
   <Font Path="media\fonts\lemon\lemon12.xml"></Font>
   <Font Path="media\fonts\lemon\lemon14.xml"></Font>

@@ -53,8 +53,8 @@ namespace Yuusha.gui
         {
             // -50 offset because that's where the map starts.
             // 0, -50
-            MapWindow window = new MapWindow("FogOfWarMapWindow", "", new Rectangle(0, -50, Client.Width, Client.Height + 50), true, true, false, "courier28", new gui.VisualKey("WhiteSpace"), Color.Black,
-                255, false, Map.Direction.None, 0, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Bottom, Enums.EAnchorType.Left, Enums.EAnchorType.Right }, "");
+            MapWindow window = new MapWindow("FogOfWarMapWindow", "", new Rectangle(0, -50, Client.Width, Client.Height + 50), true, true, false,
+                "courier28", new VisualKey("WhiteSpace"), Color.Black, 0, false, Map.Direction.None, 0, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
          
             GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()].AddControl(window);
 
@@ -63,9 +63,12 @@ namespace Yuusha.gui
             window.m_xMod = 9; // 9
             window.m_yMod = 7; // 7 (-50 position offset)
 
-            //window.EnlargeGrid(20);
+            window.EnlargeGrid(10);
 
             window.CreateGrid();
+
+            if (Client.IsFullScreen)
+                window.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds, false);
         }
 
         private void CreateGrid()
@@ -77,9 +80,10 @@ namespace Yuusha.gui
                 for(int x = 0; x < m_columns * DEFAULT_TILE_SIZE; x += DEFAULT_TILE_SIZE)
                 {
                     SpinelTileLabel sptLabel = new SpinelTileLabel(Name + "SpinelTileLabel" + Controls.Count, Name, new Rectangle(x, y, DEFAULT_TILE_SIZE, DEFAULT_TILE_SIZE), "", Color.White,
-                        true, false, "courier12", new gui.VisualKey("WhiteSpace"), Color.Black, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
-
-                    sptLabel.TextAlignment = BitmapFont.TextAlignment.Center;
+                        true, false, "courier12", new gui.VisualKey("WhiteSpace"), Color.Black, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "")
+                    {
+                        TextAlignment = BitmapFont.TextAlignment.Center
+                    };
                     //sptLabel.IsVisible = false;
                     GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()].AddControl(sptLabel);
                     SpinelLabels.Add(sptLabel);
@@ -103,7 +107,7 @@ namespace Yuusha.gui
             SpinelLabels.Clear();
 
             m_columns += amount * 2;
-            m_rows += amount;
+            m_rows += amount * 2;
             m_xMod += amount;
             m_yMod += amount;
             Position = new Point(Position.X - (DEFAULT_TILE_SIZE * amount), Position.Y - (DEFAULT_TILE_SIZE * amount));
@@ -119,6 +123,26 @@ namespace Yuusha.gui
                     ZDepth = 1000; // always in the back
             }
 
+            //if(Position.X < 0 || Position.Y < 0 || Position.X + Width > Client.Width || Position.Y + Height > Client.Height)
+            //{
+            //    // automatically make labels out of view not visible
+            //    foreach(Control c in Controls)
+            //    {
+            //        if(c is SpinelTileLabel sptLabel)
+            //        {
+            //            sptLabel.IsVisible = true;
+            //            if (Position.X + c.Position.X + c.Width < 0)
+            //                sptLabel.IsVisible = false;
+            //            if (Position.X + Width - c.Position.X > Client.Width)
+            //                sptLabel.IsVisible = false;
+            //            if (Position.Y + c.Position.Y + c.Height < 0)
+            //                sptLabel.IsVisible = false;
+            //            if (Position.Y + Height - c.Position.Y > Client.Height)
+            //                sptLabel.IsVisible = false;
+            //        }
+            //    }
+            //}
+
             base.Update(gameTime);
 
             //if(GuiManager.GetControl("MapDisplayWindow") is Window mapDispWindow)
@@ -131,8 +155,9 @@ namespace Yuusha.gui
                 // Update if it hasn't been done yet, and if the CurrentCharacter hasn't moved.
                 if (LatestUpdateFromCell == null || (Cell.GetCell(Character.CurrentCharacter.X, Character.CurrentCharacter.Y, Character.CurrentCharacter.Z) is Cell cell && cell != LatestUpdateFromCell))
                 {
-                    m_fogCallingTask = new System.Threading.Tasks.Task(CallUponTheFog);
-                    m_fogCallingTask.Start();
+                    CallUponTheFog();
+                    //m_fogCallingTask = new System.Threading.Tasks.Task(CallUponTheFog);
+                    //m_fogCallingTask.Start();
                 }
             }
         }

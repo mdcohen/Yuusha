@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sheet Name="Menu"
 	   Description="Menu GUI" 
-	   Font="changaone16"
+	   Font="lemon16"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"
@@ -10,7 +10,7 @@
   
   <!-- Green Tile Background
 	<Background
-		Font="changaone16"
+		Font="lemon16"
 		VisualKey="GreenTileBackground"
 		IsCentered="false"
 		IsTiled="true"
@@ -20,7 +20,7 @@
 
   <!-- Dragon Over Island Background
   <Background
-		Font="changaone16"
+		Font="lemon16"
 		VisualKey="DragonOverIslandBackground"
 		IsCentered="false"
 		IsTiled="false"
@@ -30,7 +30,7 @@
   
   <!-- Elvish City Background -->
   <Background
-		Font="changaone16"
+		Font="lemon16"
 		VisualKey="ElvishCityBackground"
 		IsCentered="false"
 		IsTiled="false"
@@ -40,26 +40,111 @@
 
   <!-- Blank Background
   <Background
-		Font="changaone16"
+		Font="lemon16"
 		VisualKey="WhiteSpace"
 		IsCentered="true"
 		IsTiled="false"
 		TintColor="Black"
 		VisualAlpha="65">
   </Background> -->
-  
-  <CharacterSelection>
-	<Control
+
+  <MainMenuCharSelectionWindow>
+    <Control
+    Type="Window"
+    Name="MainMenuCharSelectionWindow"
+    X="100"
+    Y="305"
+    Width="216"
+    Height="235"
+    IsVisible="true"
+    IsLocked="true"
+    Font="courier12"
+    VisualKey="WhiteSpace"
+    VisualAlpha="100"
+    TintColor="DimGray"
+    DropShadow="true"
+    ShadowDistance="5"
+    ShadowDirection="Northwest"
+    CursorOnDrag="Dragging"
+    AnchorTop="true"
+    AnchorLeft="true">
+    </Control>
+
+    <!-- MainMenuCharSelectionWindow Border -->
+    <Control
+      Type="SquareBorder"
+      Name="MainMenuCharSelectionWindowBorder"
+      Owner="MainMenuCharSelectionWindow"
+      Width="1"
+      VisualKey="WhiteSpace"
+      TintColor="PaleGreen">
+    </Control>
+
+    <Control
+		Type="Label"
+		Name="CurrentPictureLabel"
+    Owner="MainMenuCharSelectionWindow"
+		X="75"
+		Y="20"
+		Width="60"
+		Height="60"
+		IsVisible="true"
+    Font="lemon16"
+		VisualKey="">
+    </Control>
+
+    <Control
+      Type="Button"
+      Text=""
+      Name="SwitchCharacterNextButton"
+      Owner="MainMenuCharSelectionWindow"
+      X="165"
+      Y="65"
+      Width="20"
+      Height="20"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="lemon16"
+      VisualKey="BrownRightArrowButton"
+      VisualKeyDown="BrownRightArrowButtonDown"
+      TintColor="Gold"
+      TintOverColor="White"
+      OnMouseDown="switch_character_next"
+      TextAlignment="Center">
+    </Control>
+
+    <Control
+      Type="Button"
+      Text=""
+      Name="SwitchCharacterBackButton"
+      Owner="MainMenuCharSelectionWindow"
+      X="35"
+      Y="65"
+      Width="20"
+      Height="20"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="lemon16"
+      VisualKey="BrownLeftArrowButton"
+      VisualKeyDown="BrownLeftArrowButtonDown"
+      TintColor="Gold"
+      TintOverColor="White"
+      OnMouseDown="switch_character_back"
+      TextAlignment="Center">
+    </Control>
+
+    <Control
 		Type="Label"
 		Text="" 
 		Name="CurrentNameLabel"
-		X="570"
-		Y="510"
-		Width="200"
+    Owner="MainMenuCharSelectionWindow"
+		X="0"
+		Y="110"
+		Width="216"
 		Height="30"
 		TextColor="White"
 		IsVisible="true"
-		Font="changaone16"
+		Font="lemon16"
 		TextAlignment="Center">
 	</Control>
   
@@ -67,93 +152,93 @@
 		Type="Label"
 		Text=""
 		Name="CurrentLevelLabel"
-		X="570"
-		Y="535"
-		Width="200"
+    Owner="MainMenuCharSelectionWindow"
+		X="0"
+		Y="135"
+		Width="216"
 		Height="30"
 		TextColor="White"
 		IsVisible="true"
-		Font="changaone16"
+		Font="lemon14"
 		TextAlignment="Center">
 	</Control>
   
 	<Control
 		Type="Label"
 		Text=""
-		Name="CurrentLocationLabel"
-		X="570"
-		Y="560"
-		Width="200"
+		Name="CurrentMapNameLabel"
+    Owner="MainMenuCharSelectionWindow"
+		X="0"
+		Y="170"
+		Width="216"
 		Height="30"
 		TextColor="White"
 		IsVisible="true"
-		Font="changaone16"
+		Font="lemon16"
 		TextAlignment="Center">
 	</Control>
-  
-	<Control
+
+    <Control
 		Type="Label"
-		Name="CurrentPictureLabel"
-		X="635"
-		Y="440"
-		Width="60"
-		Height="60"
-		IsVisible="true"
-    Font="changaone16"
-		VisualKey="">
-	</Control>
-  
-	<Control
-		Type="Button"
 		Text=""
-		Name="SwitchCharacterNextButton"
-		X="725"
-		Y="465"
-		Width="20"
-		Height="20"
+		Name="CurrentZNameLabel"
+    Owner="MainMenuCharSelectionWindow"
+		X="0"
+		Y="195"
+		Width="216"
+		Height="30"
+		TextColor="White"
 		IsVisible="true"
-		IsDisabled="false" 
-		Font="changaone16"
-		VisualKey="BrownRightArrowButton"
-		VisualKeyDown="BrownRightArrowButtonDown"
-		TintColor="Gold"
-    TintOverColor="White"
-		OnMouseDown="switch_character_next"
+		Font="lemon12"
 		TextAlignment="Center">
-	</Control>
-  
-	<Control
-		Type="Button"
-		Text=""
-		Name="SwitchCharacterBackButton"
-		X="595"
-		Y="465"
-		Width="20"
-		Height="20"
-		IsVisible="true"
-		IsDisabled="false" 
-		Font="changaone16"
-		VisualKey="BrownLeftArrowButton"
-		VisualKeyDown="BrownLeftArrowButtonDown"
-		TintColor="Gold"
-    TintOverColor="White"
-		OnMouseDown="switch_character_back"
-		TextAlignment="Center">
-	</Control>
-  </CharacterSelection>
-  
-	<Control
+    </Control>
+  </MainMenuCharSelectionWindow>
+
+  <MainMenuWindow>
+  <Control
+      Type="Window"
+      Name="MainMenuWindow"
+      X="100"
+      Y="50"
+      Width="216"
+      Height="235"
+      IsVisible="true"
+      IsLocked="true"
+      Font="courier12"
+      VisualKey="WhiteSpace"
+      VisualAlpha="100"
+      TintColor="DimGray"
+      DropShadow="true"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      CursorOnDrag="Dragging"
+      AnchorTop="true"
+      AnchorLeft="true">
+  </Control>
+
+  <!-- MainMenuWindow Border -->
+  <Control
+    Type="SquareBorder"
+    Name="MainMenuWindowBorder"
+    Owner="MainMenuWindow"
+    Width="1"
+    VisualKey="WhiteSpace"
+    TintColor="PaleGreen">
+  </Control>
+
+  <Control
 		Type="Button"
 		Text="Play"
 		Name="PlayButton"
-		X="200"
-		Y="300"
+    Owner="MainMenuWindow"
+		X="10"
+		Y="10"
 		Width="200"
 		Height="40"
 		YTextOffSet="0" 
 		IsVisible="true"
 		IsDisabled="false" 
-		Font="changaone16"
+		Font="lemon16"
 		TextColor="White"
 		TextOverColor="Lime" 
 		VisualKey="RoundedButton"
@@ -172,14 +257,15 @@
 		Type="Button"
 		Text="Conference"
 		Name="EnterConfButton"
-		X="200"
-		Y="350"
+    Owner="MainMenuWindow"
+		X="10"
+		Y="60"
 		Width="200"
 		Height="40"
 		YTextOffSet="0" 
 		IsVisible="true"
 		IsDisabled="false" 
-		Font="changaone16"
+		Font="lemon16"
 		TextColor="White"
 		TextOverColor="Lime" 
 		VisualKey="RoundedButton"
@@ -199,14 +285,15 @@
 		Type="Button"
 		Text="New Character"
 		Name="CharGenButton"
-		X="200"
-		Y="400"
+    Owner="MainMenuWindow"
+		X="10"
+		Y="110"
 		Width="200"
 		Height="40"
 		YTextOffSet="0" 
 		IsVisible="true"
 		IsDisabled="false" 
-		Font="changaone16"
+		Font="lemon16"
 		TextColor="White"
 		TextOverColor="Lime" 
 		VisualKey="RoundedButton"
@@ -225,14 +312,15 @@
 		Type="Button"
 		Text="Logout"
 		Name="MenuLogoutButton"
-		X="200"
-		Y="475"
+    Owner="MainMenuWindow"
+		X="10"
+		Y="185"
 		Width="200"
 		Height="40"
 		YTextOffSet="0"
 		IsVisible="true"
 		IsDisabled="false"
-		Font="changaone16"
+		Font="lemon16"
 		TextColor="White"
 		TextOverColor="Lime"
 		VisualKey="RoundedButton"
@@ -246,4 +334,5 @@
 		AnchorTop="true"
 		AnchorLeft="true">
   </Control>
+  </MainMenuWindow> 
 </Sheet>

@@ -91,11 +91,10 @@ namespace Yuusha.gui
 
             if (ms.LeftButton == ButtonState.Pressed)
             {
-                // TODO: drop dragged HotButton
-
                 if (Command.Length <= 0)
                 {
-                    if (Owner.Contains("HotButtonWindow") && GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl.Name.ToLower().Contains("hotbutton") && GameHUD.DraggedSpell != null)
+                    if (Owner.Contains("HotButtonWindow") && GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl != null &&
+                        GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl.Name.ToLower().Contains("hotbutton") && GameHUD.DraggedSpell != null)
                     {
                         VisualKey = GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl.VisualKey;
                         Text = GameHUD.DraggedSpell.Name;

@@ -76,14 +76,34 @@ namespace Yuusha.gui
 
             Point oldPosition = Position;
 
-            while (Position.X + Width > Client.Width)
-                Position = new Point(Position.X - 1, Position.Y);
-            while (Position.X < 0)
-                Position = new Point(Position.X + 1, Position.Y);
-            while (Position.Y + Height > Client.Height)
-                Position = new Point(Position.X, Position.Y - 1);
-            while (Position.Y < 0)
-                Position = new Point(Position.X, Position.Y + 1);
+            if (Position.X + Width > Client.Width)
+            {
+                while (Position.X + Width > Client.Width)
+                {
+                    Position = new Point(Position.X - 1, Position.Y);
+                }
+            }
+            if (Position.X < 0)
+            {
+                while (Position.X < 0)
+                {
+                    Position = new Point(Position.X + 1, Position.Y);
+                }
+            }
+            if (Position.Y + Height > Client.Height)
+            {
+                while (Position.Y + Height > Client.Height)
+                {
+                    Position = new Point(Position.X, Position.Y - 1);
+                }
+            }
+            if (Position.Y < 0)
+            {
+                while (Position.Y < 0)
+                {
+                    Position = new Point(Position.X, Position.Y + 1);
+                }
+            }
 
             if (oldPosition.X != Position.X || oldPosition.Y != Position.Y)
             {

@@ -15,12 +15,14 @@ namespace Yuusha.gui
             VitalsGain_ManaMax,
             LevelUp,
             NewSpell,
+            StrengthAdd,
+            DexterityAdd,
         }
 
         bool m_fadeIn = true;
         DateTime m_timeAdded;
-        Color m_stopColor = Color.Indigo;
-        int m_stopSize = 640;
+        Color m_stopColor = Color.PaleGreen;
+        int m_stopSize = 512; // 640
         //bool m_scaleFont;
         //int m_scaleFontIndex;
         int m_enlargenRate = 14; // factor of 2
@@ -79,13 +81,22 @@ namespace Yuusha.gui
 
             switch(achievement)
             {
+                case AchievementType.DexterityAdd:
+                case AchievementType.StrengthAdd:
+                    tintColor = Color.Indigo;
+                    textColor = Color.PaleGreen;
+                    visualKey = GameHUD.GameIconsDictionary["upgrade"];
+                    soundFile = "GUISounds/sword_draw";
+                    stopSize = 256;
+                    font = Client.ClientSettings.DefaultHUDNumbersFont;
+                    break;
                 case AchievementType.VitalsGain_HitsMax:
                     tintColor = Color.Red;
                     textColor = Color.White;
                     visualKey = GameHUD.GameIconsDictionary["upgrade"];
                     soundFile = "GUISounds/sword_draw";
                     stopSize = 256;
-                    font = TextManager.ScalingNumberFontList[TextManager.ScalingNumberFontList.Count - 1];
+                    font = Client.ClientSettings.DefaultHUDNumbersFont;
                     break;
                 case AchievementType.VitalsGain_ManaMax:
                     tintColor = Color.RoyalBlue;
@@ -93,7 +104,7 @@ namespace Yuusha.gui
                     visualKey = GameHUD.GameIconsDictionary["upgrade"];
                     soundFile = "GUISounds/sword_draw";
                     stopSize = 256;
-                    font = TextManager.ScalingNumberFontList[TextManager.ScalingNumberFontList.Count - 1];
+                    font = Client.ClientSettings.DefaultHUDNumbersFont;
                     break;
                 case AchievementType.VitalsGain_StaminaMax:
                     tintColor = Color.ForestGreen;
@@ -101,7 +112,7 @@ namespace Yuusha.gui
                     visualKey = GameHUD.GameIconsDictionary["upgrade"];
                     soundFile = "GUISounds/sword_draw";
                     stopSize = 256;
-                    font = TextManager.ScalingNumberFontList[TextManager.ScalingNumberFontList.Count - 1];
+                    font = Client.ClientSettings.DefaultHUDNumbersFont;
                     break;
                 case AchievementType.LevelUp:
                     tintColor = Color.White;
@@ -149,6 +160,14 @@ namespace Yuusha.gui
                 //EnlargenTextRectangle = true,
                 m_enlargenRate = enlargenRate,
                 m_achievementType = achievement,
+
+                TextShadow = true,
+                TextShadowDirection = Map.Direction.Northwest,
+                TextShadowDistance = 5,
+                TextShadowAlpha = 130,
+                m_dropShadow = true,
+                m_shadowDirection = Map.Direction.Northwest,
+                m_shadowDistance = 5
             };
 
             if (GameHUD.AchievementLabelList.Count <= 0)
@@ -181,6 +200,13 @@ namespace Yuusha.gui
                 m_slideOffScreen = slideOffScreen,
                 m_slideDirection = slideDirection,
                 EnlargenTextRectangle = true,
+                TextShadow = true,
+                TextShadowDirection = Map.Direction.Northwest,
+                TextShadowDistance = 5,
+                TextShadowAlpha = 130,
+                m_dropShadow = true,
+                m_shadowDirection = Map.Direction.Northwest,
+                m_shadowDistance = 5
             };
 
             //if (scaleFont)
@@ -270,6 +296,7 @@ namespace Yuusha.gui
                     }
                     else if (DateTime.Now - m_timeAdded >= TimeSpan.FromSeconds(1.75))
                     {
+                        EnlargenTextRectangle = false;
                         VisualAlpha -= 3;
                         TextAlpha = VisualAlpha;
                         if (m_slideOffScreen)

@@ -44,7 +44,8 @@ namespace Yuusha
             {
                 m_currentCharacter = value;
 
-                PreviousRoundCharacter = CurrentCharacter.Clone();
+                if(value != null)
+                    PreviousRoundCharacter = CurrentCharacter.Clone();
             }
         }
 
@@ -869,18 +870,18 @@ namespace Yuusha
         }
         public World.Alignment Alignment
         {
-            get { return this.m_alignment; }
-            set { this.m_alignment = value; }
+            get { return m_alignment; }
+            set { m_alignment = value; }
         }
         public string Location
         {
-            get { return this.m_location; }
-            set { this.m_location = value; }
+            get { return m_location; }
+            set { m_location = value; }
         }
         public World.ImpLevel ImpLevel
         {
-            get { return this.m_impLevel; }
-            set { this.m_impLevel = value; }
+            get { return m_impLevel; }
+            set { m_impLevel = value; }
         }
         public bool IsImmortal
         {
@@ -984,6 +985,8 @@ namespace Yuusha
         {
             get { return RightHand == null || LeftHand == null; }
         }
+        public string WarmedSpell
+        { get; set; }
 
         public int CurrentRoundsPlayed
         { get; set; } = 0;

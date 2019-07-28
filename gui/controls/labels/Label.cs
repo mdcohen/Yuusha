@@ -15,6 +15,14 @@ namespace Yuusha.gui
         { get; set; }
         public Border Border
         { get; set; }
+        public bool TextShadow
+        { get; set; } = false;
+        public int TextShadowDistance
+        { get; set; } = 5;
+        public Map.Direction TextShadowDirection
+        { get; set; } = Map.Direction.Northwest;
+        public byte TextShadowAlpha
+        { get; set; } = 80;
 
         public Label()
             : base()
@@ -111,6 +119,14 @@ namespace Yuusha.gui
                 // change color of text if mouse over text color is not null
                 if (m_text != null && m_text.Length > 0)
                 {
+                    // draw shadow
+                    if (TextShadow)
+                    {
+                        Rectangle shadowRect = new Rectangle(rect.X + GetXShadow(TextShadowDirection, TextShadowDistance), rect.Y + GetYShadow(TextShadowDirection, TextShadowDistance), rect.Width, rect.Height);
+                        Color shadowColor = new Color((int)Color.Black.R, (int)Color.Black.G, (int)Color.Black.B, TextShadowAlpha);
+                        BitmapFont.ActiveFonts[Font].TextBox(shadowRect, shadowColor, m_text);
+                    }
+
                     if (!m_disabled && m_hasTextOverColor && m_controlState == Enums.EControlState.Over)
                         BitmapFont.ActiveFonts[Font].TextBox(rect, new Color(m_textOverColor, TextAlpha), m_text);
                     else

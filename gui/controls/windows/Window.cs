@@ -206,7 +206,7 @@ namespace Yuusha.gui
                     VisualInfo vi = GuiManager.Visuals[m_visualKey.Key];
                     Rectangle sourceRect = new Rectangle(vi.X, vi.Y, vi.Width, vi.Height);
 
-                    Rectangle shadowRect = new Rectangle(WindowTitle.Position.X + GetXShadow(), WindowTitle.Position.Y + GetYShadow(),
+                    Rectangle shadowRect = new Rectangle(WindowTitle.Position.X + GetXShadow(m_shadowDirection, m_shadowDistance), WindowTitle.Position.Y + GetYShadow(m_shadowDirection, m_shadowDistance),
                         WindowTitle.Width, WindowTitle.Height);
                     Color shadowColor = new Color((int)Color.Black.R, (int)Color.Black.G, (int)Color.Black.B, 50);
                     Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], shadowRect, sourceRect, shadowColor);
@@ -257,8 +257,15 @@ namespace Yuusha.gui
             for (int i = m_controls.Count - 1; i >= 0; i--)
             {
                 // skip this control if disabled
-                if (m_controls[i].IsDisabled || !m_controls[i].IsVisible)
-                    continue;
+                try
+                {
+                    if (m_controls[i].IsDisabled || !m_controls[i].IsVisible)
+                        continue;
+                }
+                catch(ArgumentOutOfRangeException)
+                {
+                    break;
+                }
 
                 // stop dragging if the left button is no longer pressed
                 if (GuiManager.DraggedControl == this && ms.LeftButton != ButtonState.Pressed)

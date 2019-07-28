@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sheet Name="YuushaGame"
 	   Description="Normal Game GUI" 
-	   Font="courier16"
+	   Font="lemon14"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"

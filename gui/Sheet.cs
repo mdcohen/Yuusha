@@ -275,7 +275,7 @@ namespace Yuusha.gui
                             //    }
                             //}
 
-                            foreach (Control c in new List<Control>(new List<Control>((m_controls[index] as Window).Controls)))
+                            foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
                             {
                                 if (c != null && name == c.Name)
                                     return c;
@@ -552,7 +552,11 @@ namespace Yuusha.gui
                 if (c.TabOrder >= 0)
                     m_currentTabOrder = 0;
 
-                m_controls.Add(c);
+                lock (m_controls)
+                {
+                    m_controls.Add(c);
+                }
+
                 SortControls();
             }
             else
@@ -646,8 +650,13 @@ namespace Yuusha.gui
 
         public void RemoveControl(Control c)
         {
-            if (m_controls.Contains(c))
+            if (!m_controls.Contains(c))
+                return;
+
+            lock (m_controls)
+            {
                 m_controls.Remove(c);
+            }
         }
 
         public void AttachControlToWindow(Control c)
@@ -677,7 +686,10 @@ namespace Yuusha.gui
                 (w as Window).CurrentTabOrder = 0;
 
             // add the control to the Window's list of controls
-            (w as Window).Controls.Add(c);
+            lock ((w as Window).Controls)
+            {
+                (w as Window).Controls.Add(c);
+            }
 
             // sort the controls
             (w as Window).SortControls();

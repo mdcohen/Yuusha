@@ -14,6 +14,7 @@ namespace Yuusha.Utility.Settings
         public int ServerPort = 3000;
         public bool ShowSplash = false;
         public string DefaultFont = "courier16";
+        public string DefaultHUDNumbersFont = "changaone24";
         public Color ColorDefaultPopUpFore = Color.GhostWhite;
         public Color ColorDefaultPopUpBack = Color.Black;
         public byte DefaultPopUpBackAlpha = 150; // foreground text is always 255
@@ -31,7 +32,7 @@ namespace Yuusha.Utility.Settings
         public bool DisplaySoundIndicators = true;
         public bool DisplaySoundIndicatorsNearby = false;
         public int SoundIndicatorDimensions = 40;
-        public Color SoundIndicatorTintColor = Color.AliceBlue;
+        public Color SoundIndicatorTintColor = Color.Azure;
         public Color SoundIndicatorTextColor = Color.Goldenrod;
         public string SoundIndicatorFont = "courier14";
 

@@ -113,7 +113,7 @@ namespace Yuusha.gui
 
             label = new SoundIndicatorLabel(direction + "_" + distance + "_SoundIndicatorLabel", "", new Rectangle(x, y, width, height), "", Client.ClientSettings.SoundIndicatorTextColor,
                 true, false, Client.ClientSettings.SoundIndicatorFont, new VisualKey("SoundWavesIcon"), Client.ClientSettings.SoundIndicatorTintColor, (byte)(255 - (distance * 5)), 255, BitmapFont.TextAlignment.Center,
-                0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>(), "")
+                0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "")
             {
                 Direction = direction,
             };
@@ -176,33 +176,35 @@ namespace Yuusha.gui
             }
 
             Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, color, rotation, Vector2.Zero, spriteEffect, 0);
-            //Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, color);
 
-            Color textColor;
-
-            if (!m_disabled)
-                textColor = new Color(m_textColor.R, m_textColor.G, m_textColor.B, TextAlpha);
-            else
-                textColor = new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, TextAlpha);
-
-            if (BitmapFont.ActiveFonts.ContainsKey(Font))
+            if (TextAlpha > 0)
             {
-                // override BitmapFont sprite batch
-                BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
-                // set font alignment
-                BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
-                // draw string
-                Rectangle rect = new Rectangle(m_textRectangle.X + XTextOffset, m_textRectangle.Y + YTextOffset, m_textRectangle.Width, m_textRectangle.Height);
-                // change color of text if mouse over text color is not null
-                if (m_text != null && m_text.Length > 0)
+                Color textColor;
+
+                if (!m_disabled)
+                    textColor = new Color(m_textColor.R, m_textColor.G, m_textColor.B, TextAlpha);
+                else
+                    textColor = new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, TextAlpha);
+
+                if (BitmapFont.ActiveFonts.ContainsKey(Font))
                 {
-                    if (!m_disabled && m_hasTextOverColor && m_controlState == Enums.EControlState.Over)
-                        BitmapFont.ActiveFonts[Font].TextBox(rect, m_textOverColor, m_text);
-                    else
-                        BitmapFont.ActiveFonts[Font].TextBox(rect, textColor, m_text);
+                    // override BitmapFont sprite batch
+                    BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
+                    // set font alignment
+                    BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
+                    // draw string
+                    Rectangle rect = new Rectangle(m_textRectangle.X + XTextOffset, m_textRectangle.Y + YTextOffset, m_textRectangle.Width, m_textRectangle.Height);
+                    // change color of text if mouse over text color is not null
+                    if (m_text != null && m_text.Length > 0)
+                    {
+                        if (!m_disabled && m_hasTextOverColor && m_controlState == Enums.EControlState.Over)
+                            BitmapFont.ActiveFonts[Font].TextBox(rect, m_textOverColor, m_text);
+                        else
+                            BitmapFont.ActiveFonts[Font].TextBox(rect, textColor, m_text);
+                    }
                 }
+                else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Label [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
             }
-            else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Label [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
 
             if (Border != null) Border.Draw(gameTime);
         }

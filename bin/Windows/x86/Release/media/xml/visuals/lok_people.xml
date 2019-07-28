@@ -312,6 +312,7 @@
   <Visual ParentTexture="lok_people.png" Name="jaguar" X="660" Y="960" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="ursen" X="720" Y="960" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="ent" X="780" Y="960" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="ent_female" X="780" Y="960" Width="60" Height="60"></Visual> <!-- identical to above -->
   <Visual ParentTexture="lok_people.png" Name="stallion" X="840" Y="960" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="broodmare" X="900" Y="960" Width="60" Height="60"></Visual>
   <!-- Row 18 -->
@@ -370,6 +371,8 @@
   <!-- Male Druid Player defined below -->
   <!-- Female Ranger Player defined below -->
   <Visual ParentTexture="lok_people.png" Name="lamassu" X="120" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="alligator" X="180" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="pixie" X="240" Y="1200" Width="60" Height="60"></Visual>
 
   <!-- Added temporary ranger visuals which duplicate wizard visuals, 8/14/2013 -->
   <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_gray" X="900" Y="1140" Width="60" Height="60"></Visual>

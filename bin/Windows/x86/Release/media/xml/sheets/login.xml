@@ -740,6 +740,7 @@
     VisualAlpha="115"
     BorderAlpha="115"
 		Font="lemon18"
-		TextAlignment="Center">
+		TextAlignment="Center"
+    AnchorCenter="true">
 	</Control>
 </Sheet>

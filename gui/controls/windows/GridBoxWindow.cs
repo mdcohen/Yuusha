@@ -52,7 +52,7 @@ namespace Yuusha.gui
             }
 
             GridBoxWindow box = new GridBoxWindow(purpose.ToString() + "GridBoxWindow", "",
-                new Rectangle(40, 40, (columns * columnWidth) + (Client.ClientSettings.GridBoxButtonsBorderWidth * 2), (rows * rowHeight) + Client.ClientSettings.GridBoxTitleHeight + (Client.ClientSettings.GridBoxButtonsBorderWidth * 2)),
+                new Rectangle(40, 40, (columns * columnWidth) + (Client.ClientSettings.GridBoxButtonsBorderWidth * 2), (rows * rowHeight) + Client.ClientSettings.GridBoxTitleHeight + (Client.ClientSettings.GridBoxButtonsBorderWidth * 4)),
                 false, false, false, Client.ClientSettings.GridBoxWindowFont, new VisualKey("WhiteSpace"),
                 Client.ClientSettings.GridBoxWindowTintColor, Client.ClientSettings.GridBoxWindowVisualKeyAlpha, true,
                 Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left }, "", rows, columns, purpose)
@@ -82,16 +82,16 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            int count = 0;
-            foreach(Control control in Controls)
-            {
-                if (control is DragAndDropButton)
-                    count++;
-            }
+            int count = Controls.FindAll(c => c is DragAndDropButton).Count;
+            //foreach(Control control in new List<Control>(Controls))
+            //{
+            //    if (control is DragAndDropButton)
+            //        count++;
+            //}
 
             if (count > (Rows * Columns))
                 Height = (count++ / Columns) * RowHeight + (WindowTitle is null ? 0 : WindowTitle.Height) + RowHeight;
-            else Height = RowHeight * Rows + (WindowTitle is null ? 0 : WindowTitle.Height);
+            else Height = RowHeight * Rows + (WindowTitle is null ? 0 : WindowTitle.Height) + (WindowBorder is null ? 0 : WindowBorder.Height);
         }
 
         public static void CreateGridBox(GridBoxPurpose purpose)

@@ -364,7 +364,7 @@ namespace Yuusha.gui
             }
         }
 
-        private static void BuildCritterList()
+        public static void BuildCritterList()
         {
             try
             {
@@ -374,9 +374,11 @@ namespace Yuusha.gui
 
                     for (int a = 0; a < 12; a++)
                     {
-                        Control c = GuiManager.GetControl("CritterList" + a.ToString());
-                        if (c is null) continue;
-                        c.IsVisible = false;
+                        if (GuiManager.GetControl("CritterList" + a.ToString()) is CritterListLabel critterListLabel)
+                        {
+                            critterListLabel.IsVisible = false;
+                            critterListLabel.DropDownMenu = null;
+                        }
                         m_critterListNames[a] = "";
                     }
 

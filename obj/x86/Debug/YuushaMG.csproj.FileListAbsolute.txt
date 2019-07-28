@@ -701,3 +701,11 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\lobster156-3.p
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\lobster156.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0283.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0284.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\lemon\lemon8-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\lemon\lemon8.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\lemon\lemon9-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\media\fonts\lemon\lemon9.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\GUISounds\level_up.wma
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\GUISounds\level_up.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\GUISounds\new_spell.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Debug\Content\KSND0285.xnb

@@ -368,7 +368,7 @@ namespace Yuusha.gui
 
                 if (m_dropShadow)
                 {
-                    Rectangle shadowRect = new Rectangle(m_rectangle.X + GetXShadow(), m_rectangle.Y + GetYShadow(), m_rectangle.Width, m_rectangle.Height);
+                    Rectangle shadowRect = new Rectangle(m_rectangle.X + GetXShadow(m_shadowDirection, m_shadowDistance), m_rectangle.Y + GetYShadow(m_shadowDirection, m_shadowDistance), m_rectangle.Width, m_rectangle.Height);
                     Color shadowColor = new Color((int)Color.Black.R, (int)Color.Black.G, (int)Color.Black.B, 50);
                     Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], shadowRect, vi.Rectangle, shadowColor);
                 }
@@ -405,7 +405,7 @@ namespace Yuusha.gui
 
             if (!m_disabled)
             {
-                if (PopUpText != "" && m_controlState == Enums.EControlState.Over && GuiManager.ActiveDropDownMenu == "")
+                if (PopUpText != "" && m_controlState == Enums.EControlState.Over && string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
                     TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpBackAlpha, Client.ClientSettings.DefaultPopUpFont);
             }
         }
@@ -432,12 +432,13 @@ namespace Yuusha.gui
             if (!IsVisible || IsDisabled) return false;
 
             // drop down menus take priority for mouse handling
-            if (GuiManager.ActiveDropDownMenu != "")
+            if (!string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu) && !(this is DropDownMenu) && !(this is DropDownMenuItem))
             {
-                DropDownMenu menu = GuiManager.GetControl(GuiManager.ActiveDropDownMenu) as DropDownMenu;
+                return false;
+                //DropDownMenu menu = GuiManager.GetControl(GuiManager.ActiveDropDownMenu) as DropDownMenu;
 
-                if (!(this is DropDownMenu) && !(this is DropDownMenuItem) && menu != null && Name != menu.Owner)
-                    return false;
+                //if (!(this is DropDownMenu) && !(this is DropDownMenuItem) && menu != null && Name != menu.Owner)
+                //return false;
             }
 
             if (Contains(ms.Position) && !m_containsMousePointer)
@@ -615,6 +616,9 @@ namespace Yuusha.gui
 
         protected virtual void OnMouseDown(MouseState ms)
         {
+            if (m_disabled || !m_visible)
+                return;
+
             if (TabOrder > -1)
             {
                 if (Owner == "")
@@ -657,23 +661,28 @@ namespace Yuusha.gui
             // empty
         }
 
-        protected virtual void OnPositionChange(int xOffset, int yOffset)
-        {
-            // empty
-        }
-
         public virtual void OnDispose()
         {
-            if (Sheet != "Generic")
-            {
-                if (GuiManager.Sheets[Sheet][Owner] is Window)
-                    (GuiManager.Sheets[Sheet][Owner] as Window).Controls.Remove(this);
-            }
-            else
-            {
-                if (GuiManager.GenericSheet[Owner] is Window)
-                    (GuiManager.GenericSheet[Owner] as Window).Controls.Remove(this);
-            }
+            //if (Sheet != "Generic")
+            //{
+            //    if (GuiManager.Sheets[Sheet][Owner] is Window w && w.Controls.Contains(this))
+            //    {
+            //        lock (w.Controls)
+            //        {
+            //            w.Controls.Remove(this);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    if (GuiManager.GenericSheet[Owner] is Window w && w.Controls.Contains(this))
+            //    {
+            //        lock (w.Controls)
+            //        {
+            //            w.Controls.Remove(this);
+            //        }
+            //    }
+            //}
 
             GuiManager.RemoveControl(this);
         }
@@ -771,8 +780,7 @@ namespace Yuusha.gui
             }
             else // no anchors, just adjust x and y position
             {
-                x += (now.Width - prev.Width) / 2;
-                y += (now.Height - prev.Height) / 2;
+                
             }
 
             m_rectangle.X = x;
@@ -781,49 +789,49 @@ namespace Yuusha.gui
             m_rectangle.Height = height;
         }
 
-        public int GetXShadow()
+        public static int GetXShadow(Map.Direction direction, int distance)
         {
-            switch (m_shadowDirection)
+            switch (direction)
             {
                 case Map.Direction.East:
-                    return m_shadowDistance;
+                    return distance;
                 case Map.Direction.North:
                     return 0;
                 case Map.Direction.Northeast:
-                    return m_shadowDistance;
+                    return distance;
                 case Map.Direction.Northwest:
-                    return -(m_shadowDistance);
+                    return -distance;
                 case Map.Direction.South:
                     return 0;
                 case Map.Direction.Southeast:
-                    return m_shadowDistance;
+                    return distance;
                 case Map.Direction.Southwest:
-                    return -(m_shadowDistance);
+                    return -distance;
                 case Map.Direction.West:
-                    return -(m_shadowDistance);
+                    return -distance;
                 default:
                     return 0;
             }
         }
 
-        public int GetYShadow()
+        public static int GetYShadow(Map.Direction direction, int distance)
         {
-            switch (m_shadowDirection)
+            switch (direction)
             {
                 case Map.Direction.East:
                     return 0;
                 case Map.Direction.North:
-                    return -(m_shadowDistance);
+                    return -distance;
                 case Map.Direction.Northeast:
-                    return -(m_shadowDistance);
+                    return -distance;
                 case Map.Direction.Northwest:
-                    return -(m_shadowDistance);
+                    return -distance;
                 case Map.Direction.South:
-                    return m_shadowDistance;
+                    return distance;
                 case Map.Direction.Southeast:
-                    return m_shadowDistance;
+                    return distance;
                 case Map.Direction.Southwest:
-                    return m_shadowDistance;
+                    return distance;
                 case Map.Direction.West:
                     return 0;
                 default:

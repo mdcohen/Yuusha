@@ -10,7 +10,7 @@ namespace Yuusha.gui
         private DateTime timeCreated;
         private bool spellWarmed = false;
         private DateTime timeWarmed;
-        private Label SpellIconLabel
+        public Label SpellIconLabel
         { get; set; }
         private PercentageBarLabel PercentageBar
         { get; set; }
@@ -50,8 +50,10 @@ namespace Yuusha.gui
 
             Label spellIconLabel = new Label(spellName + "SpellWarmingLabel", w.Name,
                 new Rectangle(0, 0, 96, 96), "", Color.White, true, false, "changaone16", new VisualKey(iconVisual), tintColor,
-                40, 255, BitmapFont.TextAlignment.Center, 0, 0, "send_command", "", new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "");
-            spellIconLabel.Command = "cast";
+                40, 255, BitmapFont.TextAlignment.Center, 0, 0, "send_command", "", new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "")
+            {
+                Command = "cast"
+            };
             w.SpellIconLabel = spellIconLabel;
 
             SquareBorder spellIconBorder = new SquareBorder(spellIconLabel.Name + "Border", spellIconLabel.Name, 1, new VisualKey("WhiteSpace"), false, Color.White, spellIconLabel.VisualAlpha);
@@ -131,8 +133,7 @@ namespace Yuusha.gui
             if (!IsVisible)
                 return;
 
-            base.Draw(gameTime);
-
+            // Draw a rotating sprite around the outside of the window.
             VisualInfo vi = GuiManager.Visuals["SmokeCircle"];
             Color color = new Color(Color.White, SpellIconLabel.VisualAlpha);
 
@@ -163,6 +164,8 @@ namespace Yuusha.gui
 
             Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], new Vector2(SpellIconLabel.Position.X + SpellIconLabel.Width / 2, SpellIconLabel.Position.Y + SpellIconLabel.Height / 2),
                     vi.Rectangle, color, circleRotation, new Vector2(vi.Width / 2, vi.Height / 2), .78f, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1);
+
+            base.Draw(gameTime);            
         }
 
         public override void OnClose()

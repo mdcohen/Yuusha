@@ -850,6 +850,16 @@ namespace Yuusha.gui
         {
             try
             {
+                if(!string.IsNullOrEmpty(ActiveDropDownMenu))
+                {
+                    Control ddMenu = GetControl(ActiveDropDownMenu);
+                    if (ddMenu is null || !ddMenu.IsVisible)
+                    {
+                        ActiveDropDownMenu = "";
+                        if (ddMenu != null) Dispose(ddMenu);
+                    }
+                }
+
                 string state = Client.GameState.ToString();
 
                 base.Update(gameTime);
@@ -1137,11 +1147,20 @@ namespace Yuusha.gui
                 Utils.Log("Control already null on call to GuiManager.Dispose.");
             }
 
+            if(c is DropDownMenu)
+            {
+                (c as DropDownMenu).MenuItems.Clear();
+                if (c.Name == ActiveDropDownMenu) ActiveDropDownMenu = "";
+            }
+
             if(c.Owner != "")
             {
                 if(GetControl(c.Owner) is Window w)
                 {
-                    w.Controls.Remove(c);
+                    lock (w.Controls)
+                    {
+                        w.Controls.Remove(c);
+                    }
                 }
             }
 
@@ -1173,10 +1192,14 @@ namespace Yuusha.gui
         public static void RemoveControl(Control control)
         {
             if (CurrentSheet.Controls.Contains(control))
+            {
                 CurrentSheet.RemoveControl(control);
+            }
 
             if (GenericSheet.Controls.Contains(control))
+            {
                 GenericSheet.RemoveControl(control);
+            }
         }
 
         public static bool ContainsVitalsUpdateTextCue(TextCue tc)

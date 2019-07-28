@@ -9,6 +9,7 @@ namespace Yuusha.gui
         {
             "GameTextScrollableTextBox",
             "EffectsWindow",
+            //"FogOfWarWindow",
             "CharacterStatsWindow",
             //"InventoryWindow",
             "RingsWindow",

@@ -460,7 +460,7 @@ namespace Yuusha.gui
                         #endregion
                         else
                         {
-                            if (GuiManager.ActiveDropDownMenu != "")
+                            if (!string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
                                 return false;
 
                             // eliminate F (function) keys

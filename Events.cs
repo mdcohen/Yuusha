@@ -48,6 +48,7 @@ namespace Yuusha
             Request_Sack,
             Request_Skills,
             Request_Spells,
+            Reset_Characters,
             Save_Character_Settings,
             ScrollableTextBox_DropDown,
             Send_Command,
@@ -190,8 +191,31 @@ namespace Yuusha
                             if (Int32.TryParse(args[0].ToString(), out int id))
                             {
                                 // currently just clear target
-                                if (GameHUD.CurrentTarget != null && GameHUD.CurrentTarget.ID == id)
-                                    Events.RegisterEvent(EventName.Target_Cleared, null);
+                                if (GameHUD.CurrentTarget != null)
+                                {
+                                    try
+                                    {
+                                        if (GameHUD.CurrentTarget.ID == id)
+                                            Events.RegisterEvent(EventName.Target_Cleared, false);
+                                    }
+                                    catch { }
+
+                                    GameHUD.CurrentTarget.Cell.Remove(GameHUD.CurrentTarget);
+
+                                    switch(Client.GameDisplayMode)
+                                    {
+                                        case Enums.EGameDisplayMode.IOK:
+                                            IOKMode.BuildCritterList();
+                                            break;
+                                        case Enums.EGameDisplayMode.Spinel:
+                                            SpinelMode.BuildCritterList();
+                                            break;
+                                        case Enums.EGameDisplayMode.Yuusha:
+                                            //YuushaMode.BuildMap();
+                                            YuushaMode.BuildCritterList();
+                                            break;
+                                    }
+                                }
                             }
                         }
                         break;
@@ -242,6 +266,7 @@ namespace Yuusha
 
                                 if (IO.Connect())
                                 {
+                                    RegisterEvent(EventName.Reset_Characters);
                                     RegisterEvent(EventName.Set_Login_Status_Label, "Connecting to " + Client.ClientSettings.ServerName + "...", "Lime");
                                     RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Connected);
 
@@ -760,6 +785,10 @@ namespace Yuusha
                     case EventName.Request_Spells:
                         IO.Send(Protocol.REQUEST_CHARACTER_SPELLS);
                         break;
+                    case EventName.Reset_Characters:
+                        Character.CurrentCharacter = null;
+                        Character.PreviousRoundCharacter = null;
+                        break;
                     case EventName.Send_Account_Name:
                         IO.Send((GuiManager.CurrentSheet["LoginWindow"] as gui.Window)["AccountTextBox"].Text);
                         break;
@@ -808,23 +837,6 @@ namespace Yuusha
                             TextCue.AddClientInfoTextCue("DEBUG: " + args[0] as string);
 #endif
                         }
-                        //if(args[0] is DropDownMenuItem sendCommandMenuItem)
-                        //{
-                        //    if(sendCommandMenuItem.DropDownMenu != null && sendCommandMenuItem.DropDownMenu.DropDownMenuOwner is DragAndDropButton)
-                        //    {
-                        //        TextCue.AddClientInfoTextCue("sendCommandMenuItem.DropDownMenu.DropDownMenuOwner.Owner: " + sendCommandMenuItem.DropDownMenu.DropDownMenuOwner.Owner);
-
-                        //        if (sendCommandMenuItem.DropDownMenu.DropDownMenuOwner.Owner.Contains("GridBoxWindow"))
-                        //        {
-                        //            TextCue.AddClientInfoTextCue("...and here.");
-                        //            GridBoxWindow.GridBoxPurpose purpose = (sendCommandMenuItem.DropDownMenu.DropDownMenuOwner as DragAndDropButton).GridBoxUpdateRequests[sendCommandMenuItem.DropDownMenu.MenuItems.IndexOf(sendCommandMenuItem)];
-                        //            GridBoxWindow.GridBoxPurpose ownerPurpose = (GuiManager.GetControl(sendCommandMenuItem.DropDownMenu.DropDownMenuOwner.Owner) as GridBoxWindow).GridBoxPurposeType;
-
-                        //            GridBoxWindow.RequestUpdateFromServer(purpose);
-                        //            GridBoxWindow.RequestUpdateFromServer(ownerPurpose);
-                        //        }
-                        //    }
-                        //}
                         break;
                     case EventName.Set_CharGen_State:
                         CharGen.CharGenState = (Enums.ECharGenState)args[0];
@@ -898,21 +910,21 @@ namespace Yuusha
                             RegisterEvent(EventName.Target_Cleared, null);
 
                             // update containers GUI when entering the game
-                            foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
-                                GridBoxWindow.RequestUpdateFromServer(purpose);
+                            //foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
+                            //    GridBoxWindow.RequestUpdateFromServer(purpose);
 
-                            if (AwaitInitialRequestsData == null)
-                            {
-                                AwaitInitialRequestsData = new System.Timers.Timer(1000);
-                                AwaitInitialRequestsData.Elapsed += AwaitInitialRequests_Elapsed;
-                                AwaitInitialRequestsData.Start();
-                            }
+                            //if (AwaitInitialRequestsData == null)
+                            //{
+                            //    AwaitInitialRequestsData = new System.Timers.Timer(1000);
+                            //    AwaitInitialRequestsData.Elapsed += AwaitInitialRequests_Elapsed;
+                            //    AwaitInitialRequestsData.Start();
+                            //}
 
-                            if (GuiManager.GetControl("FogOfWarMapWindow") == null)
-                            {
-                                MapWindow.CreateFogOfWarMapWindow();
-                                GuiManager.GetControl("FogOfWarMapWindow").IsVisible = false;
-                            }
+                            //if (GuiManager.GetControl("FogOfWarMapWindow") == null)
+                            //{
+                            //    MapWindow.CreateFogOfWarMapWindow();
+                            //    GuiManager.GetControl("FogOfWarMapWindow").IsVisible = false;
+                            //}
 
                             IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                         }
@@ -1164,8 +1176,11 @@ namespace Yuusha
                     case EventName.Target_Cleared:
                         if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
                         {
-                            TextCue.AddTargetInfoTextCue(" No Target ", World.Alignment.None);
                             GameHUD.CurrentTarget = null;
+
+                            if (args == null || (args != null && args[0].ToString() != Boolean.FalseString))
+                                TextCue.AddTargetInfoTextCue(" No Target ", World.Alignment.None);
+                            
                         }
                         break;
                     case EventName.Target_Select:
@@ -1554,12 +1569,12 @@ namespace Yuusha
                     case Enums.EGameState.Login:
                         #region Login
 
-                        Button cb = (sheet["LoginWindow"] as gui.Window)["ConnectButton"] as Button;
-                        TextBox at = (sheet["LoginWindow"] as gui.Window)["AccountTextBox"] as TextBox;
-                        TextBox pt = (sheet["LoginWindow"] as gui.Window)["PasswordTextBox"] as TextBox;
-                        TextBox sh = (sheet["LoginWindow"] as gui.Window)["ServerHostTextBox"] as TextBox;
-                        Button na = (sheet["LoginWindow"] as gui.Window)["CreateNewAccountButton"] as Button;
-                        CheckboxButton rcheck = (sheet["LoginWindow"] as gui.Window)["RememberPasswordCheckboxButton"] as CheckboxButton;
+                        Button cb = (sheet["LoginWindow"] as Window)["ConnectButton"] as Button;
+                        TextBox at = (sheet["LoginWindow"] as Window)["AccountTextBox"] as TextBox;
+                        TextBox pt = (sheet["LoginWindow"] as Window)["PasswordTextBox"] as TextBox;
+                        TextBox sh = (sheet["LoginWindow"] as Window)["ServerHostTextBox"] as TextBox;
+                        Button na = (sheet["LoginWindow"] as Window)["CreateNewAccountButton"] as Button;
+                        CheckboxButton rcheck = (sheet["LoginWindow"] as Window)["RememberPasswordCheckboxButton"] as CheckboxButton;
 
                         if (IO.LoginState != Enums.ELoginState.Disconnected)
                         {
@@ -1713,7 +1728,7 @@ namespace Yuusha
                                     // Overrides to focus on input text box.
                                     // Options window and private messages have focus priority.
                                     if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || GuiManager.ControlWithFocus != null && 
-                                        !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")) && GuiManager.ActiveDropDownMenu == "")
+                                        !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")) && string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
                                         sheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
                                 }
                             }
@@ -1808,12 +1823,14 @@ namespace Yuusha
                         if (GuiManager.GetControl("ConfInputTextBox") is TextBox confInputTextBox)
                             confInputTextBox.Clear();
                         break;
+                    case Enums.EGameState.IOKGame:
+                    case Enums.EGameState.SpinelGame:
+                    case Enums.EGameState.YuushaGame:
                     case Enums.EGameState.Game: // switching out of the game
+                        Character.FogOfWarSettings.Save();
                         GuiManager.TextCues.Clear();
                         foreach (Control control in GuiManager.GenericSheet.Controls)
-                        {
                             if (control is SoundIndicatorLabel) control.IsVisible = false;
-                        }
                         //Audio.AudioManager.StopAllSounds();
                         break;
                     case Enums.EGameState.Login:
@@ -1853,9 +1870,11 @@ namespace Yuusha
                         foreach (Control control in GuiManager.GenericSheet.Controls)
                             control.IsVisible = false;
                         break;
-                    //case Enums.EGameState.Login:
-                    //    ResetLoginGUI();
-                    //    break;
+                    case Enums.EGameState.Login:
+                        //Character.CurrentCharacter = null;
+                        //Character.PreviousRoundCharacter = null;
+                        //    ResetLoginGUI();
+                        break;
                 }
             }
             catch (Exception e)

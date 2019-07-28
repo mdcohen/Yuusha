@@ -443,15 +443,46 @@ namespace Yuusha.gui
         {
             try
             {
+                bool lineHandled = false;
                 int lineLength = BitmapFont.ActiveFonts[Font].MeasureString(line);
                 string newLine = "";
-                if (lineLength > m_rectangle.Width - XTextOffset)
+
+                if (lineLength > m_rectangle.Width - XTextOffset && line.StartsWith(" ") && !line.Substring(1, line.Length - 1).Contains(" "))
+                    goto lineHandling;
+                else if (lineLength > m_rectangle.Width - XTextOffset && !line.Contains(" "))
+                    goto lineHandling;
+
+                try
                 {
-                    while (lineLength > m_rectangle.Width - XTextOffset)
+                    if (lineLength > m_rectangle.Width - XTextOffset && line.Contains(" "))
                     {
-                        newLine = newLine.Insert(0, line.Substring(line.LastIndexOf(' '), line.Length - line.LastIndexOf(' ')));
-                        line = line.Remove(line.LastIndexOf(' '), line.Length - line.LastIndexOf(' '));
+                        int loopCount = 0;
+                        while (lineLength > m_rectangle.Width - XTextOffset && loopCount < 300)
+                        {
+                            try
+                            {
+                                newLine = newLine.Insert(0, line.Substring(line.LastIndexOf(' '), line.Length - line.LastIndexOf(' ')));
+                                line = line.Remove(line.LastIndexOf(' '), line.Length - line.LastIndexOf(' '));
+                                lineLength = BitmapFont.ActiveFonts[Font].MeasureString(line);
+                                loopCount++;
+                            }
+                            catch { lineHandled = false; goto lineHandling; }
+                        }
+                        lineHandled = true;
+                    }
+                }
+                catch { lineHandled = false; goto lineHandling; }
+
+                lineHandling:
+                if (!lineHandled) // splits the line in half
+                {
+                    int loopCount = 0;
+                    while (lineLength > m_rectangle.Width - XTextOffset && loopCount < 200)
+                    {
+                        newLine = line.Substring(line.Length / 2);
+                        line = line.Substring(0, line.Length / 2);
                         lineLength = BitmapFont.ActiveFonts[Font].MeasureString(line);
+                        loopCount++;
                     }
                 }
 

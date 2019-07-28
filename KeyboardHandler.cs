@@ -450,8 +450,16 @@ namespace Yuusha
                             // Escape closes gridboxwindows if there is no target. Otherwise, target is cleared first.
                             if (ks.IsKeyDown(Keys.Escape))
                             {
+                                // Close DropDownMenu
+                                if(!string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
+                                {
+                                    if(GuiManager.GetControl(GuiManager.ActiveDropDownMenu) is DropDownMenu ddMenu)
+                                    {
+                                        GuiManager.Dispose(ddMenu);
+                                    }
+                                }
                                 // Close spellbook. Close all GridBoxWindows. (target should always be cleared if GAMEINPUTTEXTBOX has focus)
-                                if(GuiManager.Cursors[GuiManager.GenericSheet.Cursor] is gui.MouseCursor cursor && cursor.DraggedControl != null)
+                                if (GuiManager.Cursors[GuiManager.GenericSheet.Cursor] is gui.MouseCursor cursor && cursor.DraggedControl != null)
                                 {
                                     if (cursor.DraggedControl is DragAndDropButton dadButton)
                                         dadButton.StopDragging();
