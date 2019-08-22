@@ -1767,7 +1767,7 @@ available in any game state. -->
       TextColor="OldLace"
       TintColor="White"
       IsVisible="true"
-      Font="courier12"
+      Font="robotomonobold12"
       VisualAlpha="0"
       BorderAlpha="255"
       TextAlpha="255"

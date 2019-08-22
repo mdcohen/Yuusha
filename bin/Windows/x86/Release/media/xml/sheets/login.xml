@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <Sheet Name="Login" 
 	   Description="Login Screen GUI" 
-	   Font="courier16"
+	   Font="lemon16"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"
@@ -118,7 +117,7 @@
       Type="SquareBorder"
       Name="AccountTextBoxBorder"
       Owner="AccountTextBox"
-      Width="2"
+      Width="1"
       VisualKey="WhiteSpace"
       VisualAlpha="255"
       TintColor="BlueViolet">
@@ -173,7 +172,7 @@
       Type="SquareBorder"
       Name="PasswordTextBoxBorder"
       Owner="PasswordTextBox"
-      Width="2"
+      Width="1"
       VisualKey="WhiteSpace"
       VisualAlpha="255"
       TintColor="BlueViolet">
@@ -267,7 +266,7 @@
       Type="SquareBorder"
       Name="ServerHostTextBoxBorder"
       Owner="ServerHostTextBox"
-      Width="2"
+      Width="1"
       VisualKey="WhiteSpace"
       VisualAlpha="255"
       TintColor="SlateGray">
@@ -299,7 +298,8 @@
       OnMouseDown="Connect"
       TextAlignment="Center"
       TextOverColor="Lime"
-      TabOrder="3">
+      TabOrder="3"
+      ClickSound="GUISounds/click_short">
     </Control>
 
     <!-- Create New Account Button -->
@@ -722,7 +722,6 @@
     IsVisible="true"
     Font="courier16"
     TextAlignment="Center"
-    OnMouseDown="nothing"
     IsLocked="true">
   </Control>
 

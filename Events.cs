@@ -33,6 +33,8 @@ namespace Yuusha
             Load_Character_Settings,
             Load_Client_Settings,
             Logout,
+            MapDisplay_Decrease,
+            MapDisplay_Increase,
             New_Game_Round,
             New_Spell,
             NextLOKTile,
@@ -68,8 +70,10 @@ namespace Yuusha
             Target_Cleared,
             Target_Select,
             TextBox_DropDown,
+            Toggle_Ambience,
             Toggle_AutoRoller,
             Toggle_FogOfWar,
+            Toggle_FullScreen,
             Toggle_HorizontalHotbar,
             Toggle_Macros,
             Toggle_OptionsWindow,
@@ -77,13 +81,12 @@ namespace Yuusha
             Toggle_Spellbook,
             Toggle_VerticalHotbar,
             User_Settings_Changed,
+            WebLink,
         }
-
-        private static System.Timers.Timer AwaitInitialRequestsData = null;
 
         public static void RegisterEvent(EventName name, params object[] args)
         {
-            //if (Client.GameState == Enums.eGameState.Splash) return;
+            if (Client.GameState == Enums.EGameState.Splash) return;
 
             try
             {
@@ -110,23 +113,24 @@ namespace Yuusha
 
                                         IO.Send(GameHUD.TextSendOverride);
 
-                                        control = GuiManager.GetControl(Globals.GAMEINPUTTEXTBOX);
+                                        // TODO? Make this an option to set game input text box text to this attack command
+                                        //control = GuiManager.GetControl(Globals.GAMEINPUTTEXTBOX);
 
-                                        if (control != null && control is TextBox)
-                                        {
-                                            string targetName = label.Critter.Name;
+                                        //if (control != null && control is TextBox)
+                                        //{
+                                        //    string targetName = label.Critter.Name;
 
-                                            if (Char.IsDigit(targetName[0]))
-                                            {
-                                                targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
-                                                // remove the digit and space for grouped critters
-                                                targetName = TextManager.ConvertPluralToSingular(targetName);
-                                            }
+                                        //    if (Char.IsDigit(targetName[0]))
+                                        //    {
+                                        //        targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
+                                        //        // remove the digit and space for grouped critters
+                                        //        targetName = TextManager.ConvertPluralToSingular(targetName);
+                                        //    }
 
-                                            control.Text = GameHUD.TextSendOverride.Replace(label.Critter.ID.ToString(), targetName);
-                                            (control as TextBox).SelectAll();
-                                            control.HasFocus = true;
-                                        }
+                                        //    control.Text = GameHUD.TextSendOverride.Replace(label.Critter.ID.ToString(), targetName);
+                                        //    (control as TextBox).SelectAll();
+                                        //    control.HasFocus = true;
+                                        //}
                                     }
                                     else if (control is DropDownMenuItem)
                                     {
@@ -136,7 +140,7 @@ namespace Yuusha
 
                                         bool targetSelected = false;
 
-                                        if (menu != null && menu.DropDownMenuOwner != null &&  menu.DropDownMenuOwner is CritterListLabel)
+                                        if (menu != null && menu.DropDownMenuOwner != null && menu.DropDownMenuOwner is CritterListLabel)
                                         {
                                             if (control.Text.Contains("%t"))
                                             {
@@ -187,6 +191,7 @@ namespace Yuusha
                         break;
                     case EventName.Character_Death:
                         #region Character Death
+                        try
                         {
                             if (Int32.TryParse(args[0].ToString(), out int id))
                             {
@@ -202,7 +207,7 @@ namespace Yuusha
 
                                     GameHUD.CurrentTarget.Cell.Remove(GameHUD.CurrentTarget);
 
-                                    switch(Client.GameDisplayMode)
+                                    switch (Client.GameDisplayMode)
                                     {
                                         case Enums.EGameDisplayMode.IOK:
                                             IOKMode.BuildCritterList();
@@ -218,6 +223,7 @@ namespace Yuusha
                                 }
                             }
                         }
+                        catch { }
                         break;
                     #endregion
                     case EventName.CharGen_Lore:
@@ -234,8 +240,8 @@ namespace Yuusha
                                 dictionaryInfo = CharGen.Professions;
                                 break;
                         }
-                        (gui.GuiManager.CurrentSheet["CharGenSelectionButton"] as gui.Button).Text = "Select: " + (args[0] as Button).Text;
-                        (gui.GuiManager.CurrentSheet["CharGenSelectionButton"] as gui.Button).Command = CharGen.CommandsToSend[(args[0] as Button).Text];
+                        (GuiManager.CurrentSheet["CharGenSelectionButton"] as Button).Text = "Select: " + (args[0] as Button).Text;
+                        (GuiManager.CurrentSheet["CharGenSelectionButton"] as Button).Command = CharGen.CommandsToSend[(args[0] as Button).Text];
                         System.Threading.Tasks.Task task = new System.Threading.Tasks.Task(() => CharGen.PopulateInfoTextBox((args[0] as Button).Text, dictionaryInfo));
                         task.Start();
                         task.Wait();
@@ -606,8 +612,14 @@ namespace Yuusha
                         ResetLoginGUI();
                         RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Disconnected);
                         RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Login);
-                        break; 
+                        break;
                     #endregion
+                    case EventName.MapDisplay_Decrease:
+                        GameHUD.ChangeMapDisplayWindowSize(-5);
+                        break;
+                    case EventName.MapDisplay_Increase:
+                        GameHUD.ChangeMapDisplayWindowSize(5);
+                        break;
                     case EventName.Next_Visual:
                         #region Next Visual
                         Window VisualKeyWindow = GuiManager.GenericSheet["VisualKeyWindow"] as Window;
@@ -1184,7 +1196,7 @@ namespace Yuusha
                         }
                         break;
                     case EventName.Target_Select:
-                        if (GameHUD.CurrentTarget != (Character)args[0])
+                        if (GameHUD.CurrentTarget == null || GameHUD.CurrentTarget.ID != ((Character)args[0]).ID)
                         {
                             GameHUD.CurrentTarget = (Character)args[0];
                             if (GameHUD.CurrentTarget != null && Client.GameState.ToString().EndsWith("Game"))
@@ -1203,18 +1215,46 @@ namespace Yuusha
                             }
                         }
                         break;
+                    case EventName.Toggle_Ambience:
+                        Client.UserSettings.BackgroundAmbience = !Client.UserSettings.BackgroundAmbience;
+                        Microsoft.Xna.Framework.Media.MediaPlayer.IsMuted = !Client.UserSettings.BackgroundAmbience;
+                        break;
                     case EventName.Toggle_FogOfWar:
-                        Control mapWindow = GuiManager.GetControl("FogOfWarMapWindow");
-                        if (mapWindow == null)
+                        //Control mapWindow = GuiManager.GetControl("FogOfWarMapWindow");
+                        bool makeFog = true;
+                        if(GuiManager.GetControl("FogOfWarWindow") is MapWindow m)
+                        {
+                            makeFog = false;
+                            GuiManager.RemoveControl(GuiManager.GetControl("FogOfWarMapWindow"));
+                        }
+                        if (makeFog)
+                        //if (mapWindow == null)
+                        //{
                         {
                             MapWindow.CreateFogOfWarMapWindow();
-                            (GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "MapDisplayWindow") as Window).WindowBorder.IsVisible = false;
+
+                            if (GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "MapDisplayWindow") is Window mapDisplayWindow && mapDisplayWindow.WindowBorder != null)
+                            {
+                                if (Client.ClientSettings.ShowMapDisplayWindowBorderWhenFogOfWarVisible)
+                                    mapDisplayWindow.WindowBorder.IsVisible = true;
+                                else mapDisplayWindow.WindowBorder.IsVisible = false;
+                            }
                         }
-                        else
-                        {
-                            mapWindow.IsVisible = !mapWindow.IsVisible;
-                            (GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "MapDisplayWindow") as Window).WindowBorder.IsVisible = !mapWindow.IsVisible;
-                        }
+                        //}
+                        //else
+                        //{
+                        //    mapWindow.IsVisible = !mapWindow.IsVisible;
+
+                        //    if (GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "MapDisplayWindow") is Window mapDisplayWindow && mapDisplayWindow.WindowBorder != null)
+                        //    {
+                        //        if (Client.ClientSettings.ShowMapDisplayWindowBorderWhenFogOfWarVisible)
+                        //            mapDisplayWindow.WindowBorder.IsVisible = true;
+                        //        else mapDisplayWindow.WindowBorder.IsVisible = !mapWindow.IsVisible;
+                        //    }
+                        //}
+                        break;
+                    case EventName.Toggle_FullScreen:
+                        Program.Client.ToggleFullScreen();
                         break;
                     case EventName.Toggle_HorizontalHotbar: // ALT + K
                         if(GuiManager.GenericSheet["HorizontalHotButtonWindow"]  is Window horizontalHotbar)
@@ -1526,27 +1566,21 @@ namespace Yuusha
                         break;
                     case EventName.Load_Client_Settings:
                         break;
+                    case EventName.WebLink:
+                        if(args[0] is Button webLinkButton)
+                        {
+                            if(webLinkButton.Command != "")
+                            {
+                                System.Diagnostics.Process.Start(webLinkButton.Command);
+                            }
+                        }
+                        break;
                 }
             }
             catch (Exception e)
             {
                 Utils.LogException(e);
             }
-        }
-
-        private static void AwaitInitialRequests_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            foreach(GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
-            {
-                if((int)purpose > 3 && (int)purpose < 9)
-                {
-                    if (GuiManager.GetControl(purpose.ToString() + "GridBoxWindow") is null)
-                    {
-                        return;
-                    }
-                }
-            }
-            AwaitInitialRequestsData.Stop();
         }
 
         public static void UpdateGUI(GameTime gameTime)
@@ -1568,78 +1602,80 @@ namespace Yuusha
                 {
                     case Enums.EGameState.Login:
                         #region Login
-
-                        Button cb = (sheet["LoginWindow"] as Window)["ConnectButton"] as Button;
-                        TextBox at = (sheet["LoginWindow"] as Window)["AccountTextBox"] as TextBox;
-                        TextBox pt = (sheet["LoginWindow"] as Window)["PasswordTextBox"] as TextBox;
-                        TextBox sh = (sheet["LoginWindow"] as Window)["ServerHostTextBox"] as TextBox;
-                        Button na = (sheet["LoginWindow"] as Window)["CreateNewAccountButton"] as Button;
-                        CheckboxButton rcheck = (sheet["LoginWindow"] as Window)["RememberPasswordCheckboxButton"] as CheckboxButton;
-
-                        if (IO.LoginState != Enums.ELoginState.Disconnected)
+                        if (sheet["LoginWindow"] is Window loginWindow)
                         {
-                            if (cb != null)
-                                cb.IsVisible = false;
-                            if (at != null)
-                                at.IsDisabled = true;
-                            if (pt != null)
-                                pt.IsDisabled = true;
-                            if(sh != null)
-                                sh.IsDisabled = true;
-                            if (rcheck != null)
-                                rcheck.IsDisabled = true;
-                            if (na != null)
-                                na.IsVisible = false;
-                        }
-                        else
-                        {
-                            if (at != null)
+                            Button cb = loginWindow["ConnectButton"] as Button;
+                            TextBox at = loginWindow["AccountTextBox"] as TextBox;
+                            TextBox pt = loginWindow["PasswordTextBox"] as TextBox;
+                            TextBox sh = loginWindow["ServerHostTextBox"] as TextBox;
+                            Button na = loginWindow["CreateNewAccountButton"] as Button;
+                            CheckboxButton rcheck = loginWindow["RememberPasswordCheckboxButton"] as CheckboxButton;
+
+                            if (IO.LoginState != Enums.ELoginState.Disconnected)
                             {
-                                at.IsDisabled = false;
-
-                                if (Client.ClientSettings.ContainsStoredAccount(Utility.Encrypt.EncryptString(at.Text, Utility.Settings.StaticSettings.DecryptionPassPhrase1), out Utility.Encrypt.EncryptedKeyValuePair<string, string> kvPair))
+                                if (cb != null)
+                                    cb.IsVisible = false;
+                                if (at != null)
+                                    at.IsDisabled = true;
+                                if (pt != null)
+                                    pt.IsDisabled = true;
+                                if (sh != null)
+                                    sh.IsDisabled = true;
+                                if (rcheck != null)
+                                    rcheck.IsDisabled = true;
+                                if (na != null)
+                                    na.IsVisible = false;
+                            }
+                            else
+                            {
+                                if (at != null)
                                 {
-                                    if (!pt.HasFocus)
+                                    at.IsDisabled = false;
+
+                                    if (Client.ClientSettings.ContainsStoredAccount(Utility.Encrypt.EncryptString(at.Text, Utility.Settings.StaticSettings.DecryptionPassPhrase1), out Utility.Encrypt.EncryptedKeyValuePair<string, string> kvPair))
                                     {
-                                        string unencryptedPassword = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
-                                        if (pt.Text != unencryptedPassword)
+                                        if (!pt.HasFocus)
                                         {
-                                            at.SelectAll();
-                                            pt.Text = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
-                                            pt.SelectAll();
-                                            pt.HasFocus = true;
-                                            if (rcheck != null) rcheck.IsChecked = true;
+                                            string unencryptedPassword = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
+                                            if (pt.Text != unencryptedPassword)
+                                            {
+                                                at.SelectAll();
+                                                pt.Text = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
+                                                pt.SelectAll();
+                                                pt.HasFocus = true;
+                                                if (rcheck != null) rcheck.IsChecked = true;
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            if (pt != null)
-                                pt.IsDisabled = false;
-                            if(sh != null)
-                                sh.IsDisabled = false;
-                            if (cb != null && !cb.IsVisible && na != null) na.IsVisible = true;
+                                if (pt != null)
+                                    pt.IsDisabled = false;
+                                if (sh != null)
+                                    sh.IsDisabled = false;
+                                if (cb != null && !cb.IsVisible && na != null) na.IsVisible = true;
 
-                            if (cb != null && at != null && pt != null && sh != null)
-                            {
-                                // there is text in all text boxes, make the connect button visible
-                                if (at.Text.Length > 0 && pt.Text.Length > 0 && sh.Text.Length > 0)
+                                if (cb != null && at != null && pt != null && sh != null)
                                 {
-                                    na.IsVisible = false;
-                                    cb.IsVisible = true;
+                                    // there is text in all text boxes, make the connect button visible
+                                    if (at.Text.Length > 0 && pt.Text.Length > 0 && sh.Text.Length > 0)
+                                    {
+                                        na.IsVisible = false;
+                                        cb.IsVisible = true;
+                                    }
+                                    else
+                                    {
+                                        cb.IsVisible = false;
+                                        if (IO.LoginState == Enums.ELoginState.Disconnected)
+                                            na.IsVisible = true;
+                                    }
                                 }
-                                else
-                                {
-                                    cb.IsVisible = false;
-                                    if (IO.LoginState == Enums.ELoginState.Disconnected)
-                                        na.IsVisible = true;
-                                }
+
+                                if (rcheck != null)
+                                    rcheck.IsDisabled = false;
+
+                                if (sheet["LoginStatusLabel"] is Label lsl && lsl.TextColor != Color.Red)
+                                    lsl.Text = "";
                             }
-
-                            if (rcheck != null)
-                                rcheck.IsDisabled = false;
-
-                            if (GuiManager.CurrentSheet["LoginStatusLabel"] is Label lsl && lsl.TextColor != Color.Red)
-                                lsl.Text = "";
                         }
                         break; 
                         #endregion
@@ -1661,23 +1697,28 @@ namespace Yuusha
                                 while (BitmapFont.ActiveFonts[sheet["CurrentZNameLabel"].Font].MeasureString(chr.ZName) > sheet["CurrentZNameLabel"].Width)
                                     sheet["CurrentZNameLabel"].Font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.FindIndex(f => f.ToString() == sheet["CurrentZNameLabel"].Font) - 1];
                             }
-                            if (sheet["SwitchCharacterBack"] != null)
-                            {
-                                Character prevChar = Account.GetPreviousCharacter();
-                                if(prevChar != Character.CurrentCharacter)
-                                    sheet["SwitchCharacterBack"].PopUpText = "Switch to " + prevChar.Name;
-                            }
-                            if (sheet["SwitchCharacterBackButton"] != null)
+                            if (sheet["PrevCharPictureButton"] != null)
                             {
                                 Character prevChar = Account.GetPreviousCharacter();
                                 if (prevChar != Character.CurrentCharacter)
-                                    sheet["SwitchCharacterBackButton"].PopUpText = prevChar.Name;
+                                {
+                                    //sheet["SwitchCharacterBackButton"].PopUpText = prevChar.Name;
+                                    sheet["PrevCharPictureButton"].PopUpText = prevChar.Name;
+                                    sheet["PrevCharPictureButton"].VisualKey = prevChar.VisualKey;
+                                    sheet["PrevCharPictureButton"].IsVisible = true;
+                                }
                             }
-                            if (sheet["SwitchCharacterNextButton"] != null)
+                            if (sheet["NextCharPictureButton"] != null)
                             {
                                 Character nextChar = Account.GetNextCharacter();
                                 if (nextChar != Character.CurrentCharacter)
-                                    sheet["SwitchCharacterNextButton"].PopUpText = nextChar.Name;
+                                {
+                                    //sheet["SwitchCharacterNextButton"].PopUpText = nextChar.Name;
+                                    sheet["NextCharPictureButton"].PopUpText = nextChar.Name;
+                                    sheet["NextCharPictureButton"].VisualKey = nextChar.VisualKey;
+                                    sheet["NextCharPictureButton"].IsVisible = true;
+                                }
+                                else sheet["PrevCharPictureLabel"].IsVisible = false;
                             }
                         }
                         break;
@@ -1704,17 +1745,28 @@ namespace Yuusha
                                 while (BitmapFont.ActiveFonts[sheet["CurrentZNameLabel"].Font].MeasureString(chr.ZName) > sheet["CurrentZNameLabel"].Width)
                                     sheet["CurrentZNameLabel"].Font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.FindIndex(f => f.ToString() == sheet["CurrentZNameLabel"].Font) - 1];
                             }
-                            if (sheet["SwitchCharacterBackButton"] != null)
+                            if (sheet["PrevCharPictureButton"] != null)
                             {
                                 Character prevChar = Account.GetPreviousCharacter();
                                 if (prevChar != Character.CurrentCharacter)
-                                    sheet["SwitchCharacterBackButton"].PopUpText = prevChar.Name;
+                                {
+                                    //sheet["SwitchCharacterBackButton"].PopUpText = prevChar.Name;
+                                    sheet["PrevCharPictureButton"].PopUpText = prevChar.Name;
+                                    sheet["PrevCharPictureButton"].VisualKey = prevChar.VisualKey;
+                                    sheet["PrevCharPictureButton"].IsVisible = true;
+                                }
                             }
-                            if (sheet["SwitchCharacterNextButton"] != null)
+                            if (sheet["NextCharPictureButton"] != null)
                             {
                                 Character nextChar = Account.GetNextCharacter();
                                 if (nextChar != Character.CurrentCharacter)
-                                    sheet["SwitchCharacterNextButton"].PopUpText = nextChar.Name;
+                                {
+                                    //sheet["SwitchCharacterNextButton"].PopUpText = nextChar.Name;
+                                    sheet["NextCharPictureButton"].PopUpText = nextChar.Name;
+                                    sheet["NextCharPictureButton"].VisualKey = nextChar.VisualKey;
+                                    sheet["NextCharPictureButton"].IsVisible = true;
+                                }
+                                else sheet["PrevCharPictureLabel"].IsVisible = false;
                             }
                         }
 
@@ -1749,9 +1801,25 @@ namespace Yuusha
                         IOKMode.UpdateGUI();
                         break;
                     case Enums.EGameState.YuushaGame:
-                        YuushaMode.UpdateGUI();
+                        if(!GameHUD.ChangingMapDisplaySize)
+                            YuushaMode.UpdateGUI();
                         break;
                 }
+            }
+
+            if(state == Enums.EGameState.Login || state == Enums.EGameState.Menu)
+            {
+                if (GuiManager.GenericSheet["LogoWindow"] is Window logoWindow)
+                    logoWindow.IsVisible = true;
+                if (GuiManager.GenericSheet["CommunitySiteLogoWindow"] is Window cslWindow)
+                    cslWindow.IsVisible = true;
+            }
+            else
+            {
+                if (GuiManager.GenericSheet["LogoWindow"] is Window logoWindow)
+                    logoWindow.IsVisible = false;
+                if (GuiManager.GenericSheet["CommunitySiteLogoWindow"] is Window cslWindow)
+                    cslWindow.IsVisible = false;
             }
         }
 
@@ -1785,7 +1853,7 @@ namespace Yuusha
                     serverHostTextBox.SelectAll();
                 }
 
-                if (Client.ClientSettings.MostRecentStoredAccount != "")
+                if (!string.IsNullOrEmpty(Client.ClientSettings.MostRecentStoredAccount))
                 {
                     if (Client.ClientSettings.ContainsStoredAccount(Utility.Encrypt.DecryptString(Client.ClientSettings.MostRecentStoredAccount, Utility.Settings.StaticSettings.DecryptionPassPhrase3), out Utility.Encrypt.EncryptedKeyValuePair<string, string> kvPair))
                     {
@@ -1799,7 +1867,15 @@ namespace Yuusha
                         (GuiManager.Sheets[loginSheet]["RememberPasswordCheckboxButton"] as CheckboxButton).IsChecked = true;
                     }
                 }
-                else GuiManager.Sheets[loginSheet]["AccountTextBox"].HasFocus = true;
+                else if(GuiManager.Sheets[loginSheet]["AccountTextBox"] is TextBox at)
+                {
+                    at.HasFocus = true;
+                    at.IsCursorVisible = true;
+
+                    if (GuiManager.GetControl(at.Owner) is Window w) w.CurrentTabOrder = at.TabOrder;
+
+                    GuiManager.ActiveTextBox = at.Name;
+                }
             }
             catch(Exception e)
             {
@@ -1818,9 +1894,9 @@ namespace Yuusha
                 switch (currGameState)
                 {
                     case Enums.EGameState.Conference:
-                        if (!GameHUD.OverrideDisplayStates.Contains(newGameState) && GuiManager.GetControl("ConfScrollableTextBox") is ScrollableTextBox confScrollableTextBox)
+                        if (!GameHUD.OverrideDisplayStates.Contains(newGameState) && GuiManager.GetControl(Globals.CONFSCROLLABLETEXTBOX) is ScrollableTextBox confScrollableTextBox)
                             confScrollableTextBox.Clear();
-                        if (GuiManager.GetControl("ConfInputTextBox") is TextBox confInputTextBox)
+                        if (GuiManager.GetControl(Globals.CONFINPUTTEXTBOX) is TextBox confInputTextBox)
                             confInputTextBox.Clear();
                         break;
                     case Enums.EGameState.IOKGame:
@@ -1830,7 +1906,9 @@ namespace Yuusha
                         Character.FogOfWarSettings.Save();
                         GuiManager.TextCues.Clear();
                         foreach (Control control in GuiManager.GenericSheet.Controls)
+                        {
                             if (control is SoundIndicatorLabel) control.IsVisible = false;
+                        }
                         //Audio.AudioManager.StopAllSounds();
                         break;
                     case Enums.EGameState.Login:
@@ -1847,7 +1925,16 @@ namespace Yuusha
                 // New Game State
                 switch(newGameState)
                 {
+                    case Enums.EGameState.IOKGame:
+                    case Enums.EGameState.SpinelGame:
+                    case Enums.EGameState.YuushaGame:
                     case Enums.EGameState.Game:
+                        // switched characters so clear the main display text box
+                        if(Character.PreviousRoundCharacter != null && Character.CurrentCharacter.ID != Character.PreviousRoundCharacter.ID)
+                        {
+                            if (GuiManager.CurrentSheet[Globals.GAMESCROLLABLETEXTBOX] is ScrollableTextBox gameTextBox)
+                                gameTextBox.Clear();
+                        }
                         Character.CurrentCharacter.CurrentRoundsPlayed = 0;
                         IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS); // update effects
                         GameHUD.UpdateInventoryWindow(); // update inventory window
@@ -1865,10 +1952,17 @@ namespace Yuusha
                             if (Character.CurrentCharacter != null)
                                 TextCue.AddZNameTextCue(Character.CurrentCharacter.ZName);
                         }
+
+                        //if (GuiManager.GetControl("FogOfWarMapWindow") == null)
+                        //    MapWindow.CreateFogOfWarMapWindow(false);
+
                         break;
                     case Enums.EGameState.Conference:
                         foreach (Control control in GuiManager.GenericSheet.Controls)
-                            control.IsVisible = false;
+                        {
+                            if(!control.Name.StartsWith("Helper")) // may need a better solution here to keep the HelperWindow visible
+                                control.IsVisible = false;
+                        }
                         break;
                     case Enums.EGameState.Login:
                         //Character.CurrentCharacter = null;

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sheet Name="CharacterGeneration"
 	   Description="Character Generation GUI"
-	   Font="courier16"
+	   Font="lemon14"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"
@@ -28,7 +28,7 @@
 		Height="715"
 		IsVisible="true"
 		IsLocked="true"
-		Font="courier16"
+		Font="lemon12"
 		VisualKey="WhiteSpace"
     VisualAlpha="150"
 		TintColor="Black"
@@ -37,9 +37,9 @@
 		ShadowDirection="Northwest"
 		CursorOnDrag="Dragging"
     AnchorTop="true"
-		AnchorBottom="false"
+		AnchorBottom="true"
 		AnchorLeft="true"
-		AnchorRight="false">
+		AnchorRight="true">
   </Control>
   <!-- Character Generation Window Title -->
   <Control
@@ -48,124 +48,9 @@
 		Owner="CharacterGenerationWindow"
 		Font="courier12"
 		VisualKey="WhiteSpace"
-		TintColor="Black"
-    VisualAlpha="0"
+		TintColor="LightSteelBlue"
+    VisualAlpha="140"
     MinimizeBoxVisualKey="WindowMinimizeBox"
-		MinimizeBoxVisualKeyDown="WindowMinimizeBoxDown"
-		MinimizeBoxDistanceFromRight="17"
-		MinimizeBoxDistanceFromTop="2"
-		MinimizeBoxWidth="15"
-		MinimizeBoxHeight="15"
-    MinimizeBoxTintColor="LightSteelBlue"
-		CropBoxVisualKey="WindowCropBox"
-		CropBoxVisualKeyDown="WindowCropBoxDown"
-		CropBoxDistanceFromRight="34"
-		CropBoxDistanceFromTop="2"
-		CropBoxWidth="17"
-		CropBoxHeight="17"
-    CropBoxTintColor="LightSteelBlue"
-	  Text=""
-	  TextColor="PaleGreen"
-	  TextAlignment="Center">
-  </Control>
-  <!-- Character Generation Window Border -->
-  <Control
-		Type="SquareBorder"
-		Name="CharacterGenerationWindowBorder"
-		Owner="CharacterGenerationWindow"
-		Width="1"
-		VisualKey="WhiteSpace"
-    VisualAlpha="150"
-		TintColor="DarkMagenta">
-  </Control>
-  <!-- Character Generation Scrollable TextBox -->
-  <Control
-		Type="ScrollableTextBox"
-		Name="CharGenScrollableTextBox"
-    Owner="CharacterGenerationWindow"
-		X="5"
-		Y="18"
-		Width="660"
-		Height="100"
-		XTextOffset="0"
-		YTextOffset="0"
-		TextColor="White"
-		IsVisible="true"
-		Font="courier16"
-		TintColor="Black"
-		VisualKey="WhiteSpace"
-		VisualAlpha="0"
-		BorderAlpha="0"
-		TextAlpha="255"
-		TextAlignment="Left"
-		AnchorTop="true"
-		AnchorBottom="true"
-		AnchorLeft="true"
-		AnchorRight="true">
-  </Control>
-
-    <Control
-		Type="Button"
-		Text="Select: Barbarian"
-		Name="CharGenSelectionButton"
-    Owner="CharacterGenerationWindow"
-		X="10"
-		Y="313"
-		Width="290"
-		Height="40"
-		YTextOffset="0"
-    XTextOffset="0"
-		IsVisible="false"
-		IsDisabled="false"
-		Font="courier16"
-		TextColor="White"
-		TextOverColor="Chartreuse"
-		VisualKey="RoundedButton"
-		TintColor="DarkMagenta"
-		OnMouseDown="send_command"
-		TextAlignment="Center"
-		DropShadow="true"
-		ShadowDistance="5"
-		ShadowDirection="Northwest"
-		AnchorTop="true"
-		AnchorRight="true"
-    Command="b">
-    </Control>
-</CharacterGenerationWindow>
-
-<CharacterGenerationInfoWindow>
-  <!--<Control
-		Type="Window"
-		Name="CharacterGenerationInfoWindow"
-		X="10"
-		Y="390"
-		Width="665"
-		Height="338"
-		IsVisible="true"
-		IsLocked="true"
-		Font="courier16"
-		VisualKey="WhiteSpace"
-    VisualAlpha="0"
-		TintColor="Black"
-		DropShadow="false"
-		ShadowDistance="5"
-		ShadowDirection="Northwest"
-		CursorOnDrag="Dragging"
-    AnchorTop="true"
-		AnchorBottom="true"
-		AnchorLeft="true"
-		AnchorRight="true">
-  </Control>
-  Character Generation Info Window Title -->
-  <!--<Control
-		Type="WindowTitle"
-		Name="CharacterGenerationInfoWindowTitle"
-		Owner="CharacterGenerationInfoWindow"
-		Font="courier12"
-		VisualKey="WhiteSpace"
-		TintColor="Black"
-    VisualAlpha="150"
-		MinimizeBoxVisualKey="WindowMinimizeBox"
 		MinimizeBoxVisualKeyDown="WindowMinimizeBoxDown"
 		MinimizeBoxDistanceFromRight="17"
 		MinimizeBoxDistanceFromTop="2"
@@ -183,23 +68,71 @@
 	  TextColor="PaleGreen"
 	  TextAlignment="Center"
     AnchorTop="true"
-		AnchorBottom="true"
-		AnchorLeft="true"
 		AnchorRight="true">
   </Control>
-  Character Generation Window Border -->
-  <!--<Control
+  <!-- Character Generation Window Border -->
+  <Control
 		Type="SquareBorder"
-		Name="CharacterGenerationInfoWindowBorder"
-		Owner="CharacterGenerationInfoWindow"
+		Name="CharacterGenerationWindowBorder"
+		Owner="CharacterGenerationWindow"
 		Width="1"
 		VisualKey="WhiteSpace"
     VisualAlpha="150"
 		TintColor="DarkMagenta">
   </Control>
-  CharGen Info Scrollable TextBox -->
-  
+  <!-- Character Generation Scrollable TextBox -->
   <Control
+		Type="ScrollableTextBox"
+		Name="CharGenScrollableTextBox"
+    Owner="CharacterGenerationWindow"
+		X="5"
+		Y="19"
+		Width="660"
+		Height="100"
+		XTextOffset="0"
+		YTextOffset="0"
+		TextColor="White"
+		IsVisible="true"
+		Font="robotomonobold14"
+		TintColor="Black"
+		VisualKey="WhiteSpace"
+		VisualAlpha="0"
+		BorderAlpha="0"
+		TextAlpha="255"
+		TextAlignment="Left"
+		AnchorTop="true"
+		AnchorLeft="true">
+  </Control>
+
+  <Control
+		Type="Button"
+		Text="Select: Barbarian"
+		Name="CharGenSelectionButton"
+    Owner="CharacterGenerationWindow"
+		X="10"
+		Y="313"
+		Width="290"
+		Height="40"
+		YTextOffset="0"
+    XTextOffset="0"
+		IsVisible="false"
+		IsDisabled="false"
+		Font="lemon16"
+		TextColor="White"
+		TextOverColor="Chartreuse"
+		VisualKey="RoundedButton"
+		TintColor="DarkMagenta"
+		OnMouseDown="send_command"
+		TextAlignment="Center"
+		DropShadow="false"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		AnchorTop="true"
+		AnchorLeft="true"
+    Command="b">
+    </Control>
+
+    <Control
 		Type="ScrollableTextBox"
 		Name="CharGenInfoScrollableTextBox"
     Owner="CharacterGenerationWindow"
@@ -209,9 +142,9 @@
 		Height="335"
 		XTextOffset="0"
 		YTextOffset="0"
-		TextColor="White"
+		TextColor="GhostWhite"
 		IsVisible="true"
-		Font="courier16"
+		Font="lemon14"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
 		VisualAlpha="0"
@@ -222,22 +155,22 @@
 		AnchorBottom="true"
 		AnchorLeft="true"
 		AnchorRight="true">
-  </Control>
-</CharacterGenerationInfoWindow>
+    </Control>
+</CharacterGenerationWindow>
   
   <Control
 		Type="TextBox"
 		Name="CharGenInputTextBox"
 		X="10"
-		Y="735"
+		Y="732"
 		Width="1004"
-		Height="25"
+		Height="27"
 		XTextOffset="0"
 		YTextOffset="0"
 		TextColor="White"
 		IsVisible="true"
 		IsEditable="true"
-		Font="courier16"
+		Font="robotomonobold14"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
 		VisualAlpha="55"
@@ -249,7 +182,7 @@
 		CursorColor="Gray"
 		SelectionColor="Navy"
 		OnKeyboardEnter="send_text"
-    ANchorTop="false"
+    AnchorTop="false"
 		AnchorBottom="true"
 		AnchorLeft="true"
 		AnchorRight="true">
@@ -1032,7 +965,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier16"
+    Font="robotomonobold12"
     TextAlignment="Left">
   </Control>
 
@@ -1047,7 +980,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier16"
+    Font="robotomonobold12"
     TextAlignment="Left">
     </Control>
 
@@ -1062,7 +995,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier16"
+    Font="robotomonobold12"
     TextAlignment="Left">
     </Control>
 
@@ -1077,7 +1010,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier16"
+    Font="robotomonobold12"
     TextAlignment="Left">
     </Control>
 
@@ -1092,7 +1025,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier16"
+    Font="robotomonobold12"
     TextAlignment="Left">
     </Control>
 </RollerStatsWindow>

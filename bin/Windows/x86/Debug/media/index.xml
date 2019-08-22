@@ -32,6 +32,8 @@
 	<File Name="xml\definitions\spineltiledefs.xml"></File>
 	<!-- LOK Tile Definitions-->
 	<File Name="xml\definitions\loktiledefs.xml"></File>
+  <!-- Splash Screen(s) -->
+  <File Name="xml\sheets\splash.xml"></File>
 	<!-- Login GUI -->
 	<File Name="xml\sheets\login.xml"></File>
 	<!-- Menu GUI -->
@@ -54,8 +56,6 @@
 	<File Name="xml\sheets\lokmapeditor.xml"></File>
   <!-- Hotbutton Mode GUI -->
   <File Name="xml\sheets\hotbuttoneditmode.xml"></File>
-  <!-- Splash Screens -->
-  <File Name="xml\sheets\splash.xml"></File>
   <!-- Lore -->
   <File Name="xml\lore.xml"></File>
 </Index>

@@ -8,13 +8,6 @@ namespace Yuusha.gui
     {
         protected bool m_onMouseDownSent = false;
 
-        protected override void OnMouseOver(MouseState ms)
-        {
-            base.OnMouseOver(ms);
-            
-            //TextCue.AddMouseCursorTextCue(Name);
-        }
-
         protected override void OnMouseLeave(MouseState ms)
         {
             base.OnMouseLeave(ms);
@@ -152,7 +145,6 @@ namespace Yuusha.gui
                     IO.Send("u");
                     return;
                 }
-                //TODO what to do with an up/down stairs
 
                 Cell moveToCell = GameHUD.Cells[Convert.ToInt32(Name.Replace("Tile", ""))];
                 if (moveToCell == null || !moveToCell.IsVisible || moveToCell.MovementWeight() >= 10000)
@@ -219,6 +211,7 @@ namespace Yuusha.gui
 
                     for (int i = 0; i < tup.Count; i++)
                     {
+                        direction = "";
                         Cell check = Cell.GetCell(currXY.X + tup[i].Item1, currXY.Y + tup[i].Item2, Character.CurrentCharacter.Z);
                         if (check != null)
                         {

@@ -20,7 +20,7 @@ namespace Yuusha.gui
             Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection,
             int shadowDistance, string tabControlledWindow) : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey,
                 tintColor, visualAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, "TabControl", textAlignment,
-                xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", "")
+                xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", "", Client.ClientSettings.DefaultOnClickSound)
         {
             TabControlledWindow = tabControlledWindow;
             m_onMouseDown = "TabControl";

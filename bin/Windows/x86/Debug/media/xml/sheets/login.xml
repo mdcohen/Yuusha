@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <Sheet Name="Login" 
 	   Description="Login Screen GUI" 
-	   Font="courier16"
+	   Font="lemon16"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"
@@ -118,7 +117,7 @@
       Type="SquareBorder"
       Name="AccountTextBoxBorder"
       Owner="AccountTextBox"
-      Width="2"
+      Width="1"
       VisualKey="WhiteSpace"
       VisualAlpha="255"
       TintColor="BlueViolet">
@@ -173,7 +172,7 @@
       Type="SquareBorder"
       Name="PasswordTextBoxBorder"
       Owner="PasswordTextBox"
-      Width="2"
+      Width="1"
       VisualKey="WhiteSpace"
       VisualAlpha="255"
       TintColor="BlueViolet">
@@ -267,7 +266,7 @@
       Type="SquareBorder"
       Name="ServerHostTextBoxBorder"
       Owner="ServerHostTextBox"
-      Width="2"
+      Width="1"
       VisualKey="WhiteSpace"
       VisualAlpha="255"
       TintColor="SlateGray">
@@ -299,7 +298,8 @@
       OnMouseDown="Connect"
       TextAlignment="Center"
       TextOverColor="Lime"
-      TabOrder="3">
+      TabOrder="3"
+      ClickSound="GUISounds/click_short">
     </Control>
 
     <!-- Create New Account Button -->
@@ -722,7 +722,6 @@
     IsVisible="true"
     Font="courier16"
     TextAlignment="Center"
-    OnMouseDown="nothing"
     IsLocked="true">
   </Control>
 
@@ -743,4 +742,216 @@
 		TextAlignment="Center"
     AnchorCenter="true">
 	</Control>
+
+  <LogoWindow>
+    <Control
+      Type="Window"
+      Name="LogoWindow"
+      X="790"
+      Y="729"
+      Width="230"
+      Height="30"
+      IsVisible="true"
+      IsLocked="false"
+      Font="courier16"
+      VisualKey="WhiteSpace"
+      VisualAlpha="0"
+      BorderAlpha="0"
+      TintColor="Transparent"
+      DropShadow="false"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      AnchorRight="true"
+      AnchorBottom="true">
+    </Control>
+    <!-- Create New Account Window Border
+    <Control
+      Type="SquareBorder"
+      Name="LogoWindowBorder"
+      Owner="LogoWindow"
+      Width="1"
+      VisualKey="WhiteSpace"
+      VisualAlpha="255"
+      TintColor="SlateGray">
+    </Control> -->
+    <!-- Patreon Logo -->
+    <Control
+      Type="Button"
+      Text=""
+      Name="PatreonLogoButton"
+      Owner="LogoWindow"
+      X="0"
+      Y="0"
+      Width="30"
+      Height="30"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="lemon14"
+      VisualKey="PatreonLogo"
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="White"
+      TintOverColor="White"
+      VisualAlpha="255"
+      OnMouseDown="WebLink"
+      TextAlignment="Center"
+      TextOverColor="Lime"
+      Command="https://www.patreon.com/ebonyofold"
+      PopUpText="patreon.com/ebonyofold"
+      ClickSound="GUISounds/clicks_two">
+    </Control>
+    <!-- PayPal Logo -->
+    <Control
+      Type="Button"
+      Text=""
+      Name="PayPalLogoButton"
+      Owner="LogoWindow"
+      X="40"
+      Y="0"
+      Width="30"
+      Height="30"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="lemon14"
+      VisualKey="PayPalLogo"
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="White"
+      TintOverColor="White"
+      VisualAlpha="255"
+      OnMouseDown="WebLink"
+      TextAlignment="Center"
+      TextOverColor="Lime"
+      Command="https://paypal.me/ebonyofold"
+      PopUpText="paypal.me/ebonyofold"
+      ClickSound="GUISounds/clicks_two">
+    </Control>
+    <!-- Facebook Logo -->
+    <Control
+      Type="Button"
+      Text=""
+      Name="FacebookLogoButton"
+      Owner="LogoWindow"
+      X="80"
+      Y="0"
+      Width="30"
+      Height="30"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="lemon14"
+      VisualKey="FacebookLogo"
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="White"
+      TintOverColor="White"
+      VisualAlpha="255"
+      OnMouseDown="WebLink"
+      TextAlignment="Center"
+      TextOverColor="Lime"
+      Command="https://www.facebook.com/dragonsspine"
+      PopUpText="facebook.com/dragonsspine"
+      ClickSound="GUISounds/clicks_two">
+    </Control>
+    <!-- Twitter Logo -->
+    <Control
+      Type="Button"
+      Text=""
+      Name="TwitterLogoButton"
+      Owner="LogoWindow"
+      X="120"
+      Y="0"
+      Width="30"
+      Height="30"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="lemon14"
+      VisualKey="TwitterLogo"
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="White"
+      TintOverColor="White"
+      VisualAlpha="255"
+      OnMouseDown="WebLink"
+      TextAlignment="Center"
+      TextOverColor="Lime"
+      Command="https://www.twitter.com/ebonyofold"
+      PopUpText="twitter.com/ebonyofold"
+      ClickSound="GUISounds/clicks_two">
+    </Control>
+    <!-- Itch.io Logo -->
+    <Control
+      Type="Button"
+      Text=""
+      Name="ItchIoLogoButton"
+      Owner="LogoWindow"
+      X="160"
+      Y="0"
+      Width="30"
+      Height="30"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="lemon14"
+      VisualKey="ItchIoLogo"
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="White"
+      TintOverColor="White"
+      VisualAlpha="255"
+      OnMouseDown="WebLink"
+      TextAlignment="Center"
+      TextOverColor="Lime"
+      Command="https://www.ebonyofold.itch.io/dragonsspine"
+      PopUpText="ebonyofold.itch.io/dragonsspine"
+      ClickSound="GUISounds/clicks_two">
+    </Control>
+    <!-- Dragon's Spine Logo -->
+    <Control
+      Type="Button"
+      Text=""
+      Name="DragonsSpineWebsiteLogoButton"
+      Owner="LogoWindow"
+      X="200"
+      Y="0"
+      Width="29"
+      Height="30"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="lemon14"
+      VisualKey="GoldDragonLogo"
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="White"
+      TintOverColor="White"
+      VisualAlpha="255"
+      OnMouseDown="WebLink"
+      TextAlignment="Center"
+      TextOverColor="Lime"
+      Command="https://www.dragonsspine.com"
+      PopUpText="dragonsspine.com">
+    </Control>
+  </LogoWindow>
 </Sheet>

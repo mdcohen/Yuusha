@@ -40,5 +40,6 @@
   <Font Path="media\fonts\lemon\lemon28.xml"></Font>
   <!-- Yuusha Critter List-->
   <Font Path="media\fonts\monospace\robotomono\robotomonobold11.xml"></Font>
+  <Font Path="media\fonts\monospace\robotomono\robotomonobold12.xml"></Font>
   <Font Path="media\fonts\monospace\robotomono\robotomonobold14.xml"></Font>
 </FontIndex>

@@ -30,7 +30,7 @@ namespace Yuusha.gui
         /// Dragged from a GridWindow to a GridWindow or a HotButton a GridWindow is attached to.
         /// </summary>
         public DragAndDropButton(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string popUpText, bool isLocked)
-            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText)
+            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText, Client.ClientSettings.DefaultOnClickSound)
         {
             HasEnteredGridBoxWindow = false;
             AcceptingDroppedButtons = false; // anything created dynamically in code should be wary of this property
@@ -38,7 +38,7 @@ namespace Yuusha.gui
         }
 
         public DragAndDropButton(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string popUpText, bool isLocked, bool acceptingDroppedButtons)
-            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText)
+            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText, Client.ClientSettings.DefaultOnClickSound)
         {
             HasEnteredGridBoxWindow = false;
             AcceptingDroppedButtons = acceptingDroppedButtons;
@@ -404,12 +404,15 @@ namespace Yuusha.gui
                 }
             }
 
-            if (AcceptingDroppedButtons && cursor != null && cursor.DraggedControl is DragAndDropButton dadButton)// && GuiManager.MouseState.LeftButton == ButtonState.Pressed)
+            if (string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
             {
-                GuiManager.MouseOverDropAcceptingControl = this;
-                dadButton.HasEnteredGridBoxWindow = true;
-                if (Border != null)
-                    Border.TintColor = Client.ClientSettings.AcceptingGridBoxBorderColor;
+                if (AcceptingDroppedButtons && cursor != null && cursor.DraggedControl is DragAndDropButton dadButton)// && GuiManager.MouseState.LeftButton == ButtonState.Pressed)
+                {
+                    GuiManager.MouseOverDropAcceptingControl = this;
+                    dadButton.HasEnteredGridBoxWindow = true;
+                    if (Border != null)
+                        Border.TintColor = Client.ClientSettings.AcceptingGridBoxBorderColor;
+                }
             }
         }
 
@@ -443,8 +446,8 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            if (GuiManager.MouseState.LeftButton != ButtonState.Pressed)
-                OnMouseRelease(GuiManager.MouseState);
+            //if (GuiManager.MouseState.LeftButton != ButtonState.Pressed)
+            //    OnMouseRelease(GuiManager.MouseState);
 
             if (m_draggingToDrop)
                 Position = new Point(GuiManager.MouseState.X - 10, GuiManager.MouseState.Y - 10);

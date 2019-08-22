@@ -241,7 +241,7 @@ namespace Yuusha
                 }
             }
 
-            return protoInfo;
+            return protoInfo.Replace("\r\n", "");
         }
 
         public static void DisplayMessageBox(string info)

@@ -41,8 +41,7 @@ namespace Yuusha
         readonly ContentManager m_contentManager;
         GuiManager m_guiManager;
         GameHUD m_gameHUD;
-        Yuusha.Audio.AudioManager m_audioManager;
-        //Yuusha.gui.SplashScreen m_splashScreen;
+        Audio.AudioManager m_audioManager;
         bool m_firstFullScreen;
         bool m_noDraw;
         #endregion
@@ -152,9 +151,6 @@ namespace Yuusha
             m_audioManager = new Audio.AudioManager(this);
             Components.Add(m_audioManager);
 
-            //m_splashScreen = new Yuusha.gui.SplashScreen(this);
-            //Components.Add(m_splashScreen);
-
             Deactivated += new EventHandler<EventArgs>(Client_Deactivated);
             Activated += new EventHandler<EventArgs>(Client_Activated);
             Disposed += Client_Disposed;
@@ -226,12 +222,6 @@ namespace Yuusha
             m_graphics.PreferredDepthStencilFormat = m_preferredDepthFormat;
 
             m_graphics.ApplyChanges();
-            
-            // initialize sound
-            //Sound.Initialize();
-
-            // create sprite batch
-            //m_spriteBatch = new SpriteBatch(this.m_graphics.GraphicsDevice);
 
             // create necessary directories
             Utils.CreateDirectories();
@@ -241,7 +231,7 @@ namespace Yuusha
             m_clientSettings = ClientSettings.Load();
             Character.LoadSettings(); // loads default values
             m_gameState = Enums.EGameState.Login;
-            //m_splashScreen.Enabled = false;
+            //m_gameState = Enums.EGameState.Splash;
             m_preferredWindowWidth = 1024;
             m_preferredWindowHeight = 768;
             m_isFullScreen = UserSettings.FullScreen;
@@ -284,7 +274,7 @@ namespace Yuusha
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            this.ClientGameTime = gameTime;
+            ClientGameTime = gameTime;
 
             // update game time
             //m_totalGameTime = gameTime.TotalGameTime;
@@ -305,14 +295,12 @@ namespace Yuusha
 
             // allows the default game to exit on Xbox 360 and Windows
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+                Exit();
 
-            this.Window.Title = m_title;
+            Window.Title = m_title;
 
             m_height = Window.ClientBounds.Height;
             m_width = Window.ClientBounds.Width;
-
-            //Sound.Update(gameTime);
 
             base.Update(gameTime);
 
@@ -335,10 +323,10 @@ namespace Yuusha
             if (m_noDraw)
                 return;
 
-            //if (false)//(m_gameState == Enums.eGameState.Splash)
-            //    //m_splashScreen.Draw();
+            //if (m_splashScreen.SplashActive)
+            //    m_splashScreen.Draw(gameTime);
             //else
-                m_guiManager.Draw(gameTime);
+            m_guiManager.Draw(gameTime);
 
             base.Draw(gameTime);
         }
@@ -346,6 +334,8 @@ namespace Yuusha
         protected override void OnExiting(object sender, EventArgs args)
         {
             base.OnExiting(sender, args);
+
+            Microsoft.Xna.Framework.Media.MediaPlayer.Stop();
 
             // save client settings
             ClientSettings.Save();

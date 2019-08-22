@@ -240,69 +240,83 @@ namespace Yuusha.gui
             {
                 try
                 {
-                    for (int index = 0; index < m_controls.Count; index++)
+                    lock (m_controls)
                     {
-                        if (name == m_controls[index].Name)
-                            return m_controls[index];
-
-                        if (m_controls[index] is Window)
+                        for (int index = 0; index < m_controls.Count; index++)
                         {
-                            //for (int index1 = 0; index1 < (m_controls[index] as Window).Controls.Count; index1++)
-                            //{
-                            //    if (name == (m_controls[index] as Window).Controls[index1].Name)
-                            //    {
-                            //        return (m_controls[index] as Window).Controls[index1];
-                            //    }
-                            //    else if ((m_controls[index] as Window).Controls[index1] is Window)
-                            //    {
-                            //        for (int index2 = 0; index2 < ((m_controls[index] as Window).Controls[index1] as Window).Controls.Count; index2++)
-                            //        {
-                            //            if (name == ((m_controls[index] as Window).Controls[index1] as Window).Controls[index2].Name)
-                            //            {
-                            //                return ((m_controls[index] as Window).Controls[index1] as Window).Controls[index2];
-                            //            }
-                            //            else if (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] is Window)
-                            //            {
-                            //                for (int index3 = 0; index3 < (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] as Window).Controls.Count; index3++)
-                            //                {
-                            //                    if (name == (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] as Window).Controls[index3].Name)
-                            //                    {
-                            //                        return (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] as Window).Controls[index3];
-                            //                    }
-                            //                }
-                            //            }
-                            //        }
-                            //    }
-                            //}
+                            if (name == m_controls[index].Name)
+                                return m_controls[index];
 
-                            foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
+                            if (m_controls[index] is Window)
                             {
-                                if (c != null && name == c.Name)
-                                    return c;
+                                //for (int index1 = 0; index1 < (m_controls[index] as Window).Controls.Count; index1++)
+                                //{
+                                //    if (name == (m_controls[index] as Window).Controls[index1].Name)
+                                //    {
+                                //        return (m_controls[index] as Window).Controls[index1];
+                                //    }
+                                //    else if ((m_controls[index] as Window).Controls[index1] is Window)
+                                //    {
+                                //        for (int index2 = 0; index2 < ((m_controls[index] as Window).Controls[index1] as Window).Controls.Count; index2++)
+                                //        {
+                                //            if (name == ((m_controls[index] as Window).Controls[index1] as Window).Controls[index2].Name)
+                                //            {
+                                //                return ((m_controls[index] as Window).Controls[index1] as Window).Controls[index2];
+                                //            }
+                                //            else if (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] is Window)
+                                //            {
+                                //                for (int index3 = 0; index3 < (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] as Window).Controls.Count; index3++)
+                                //                {
+                                //                    if (name == (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] as Window).Controls[index3].Name)
+                                //                    {
+                                //                        return (((m_controls[index] as Window).Controls[index1] as Window).Controls[index2] as Window).Controls[index3];
+                                //                    }
+                                //                }
+                                //            }
+                                //        }
+                                //    }
+                                //}
 
-                                if (c is Window)
+                                lock ((m_controls[index] as Window).Controls)
                                 {
-                                    foreach (Control c2 in new List<Control>((c as Window).Controls))
+                                    foreach (Control c in new List<Control>((m_controls[index] as Window).Controls))
                                     {
-                                        if (c2 != null && name == c2.Name)
-                                            return c2;
+                                        if (c != null && name == c.Name)
+                                            return c;
 
-                                        if (c2 is Window)
+                                        if (c is Window)
                                         {
-                                            foreach (Control c3 in new List<Control>((c2 as Window).Controls))
+                                            lock ((c as Window).Controls)
                                             {
-                                                if (name == c3.Name)
-                                                    return c3;
-
-                                                if (c3 is Window)
+                                                foreach (Control c2 in new List<Control>((c as Window).Controls))
                                                 {
-                                                    foreach (Control c4 in new List<Control>((c3 as Window).Controls))
+                                                    if (c2 != null && name == c2.Name)
+                                                        return c2;
+
+                                                    if (c2 is Window)
                                                     {
-                                                        if (name == c4.Name)
-                                                            return c4;
+                                                        lock ((c2 as Window).Controls)
+                                                        {
+                                                            foreach (Control c3 in new List<Control>((c2 as Window).Controls))
+                                                            {
+                                                                if (name == c3.Name)
+                                                                    return c3;
+
+                                                                if (c3 is Window)
+                                                                {
+                                                                    lock ((c3 as Window).Controls)
+                                                                    {
+                                                                        foreach (Control c4 in new List<Control>((c3 as Window).Controls))
+                                                                        {
+                                                                            if (name == c4.Name)
+                                                                                return c4;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
                                                     }
                                                 }
-
                                             }
                                         }
                                     }
@@ -319,6 +333,7 @@ namespace Yuusha.gui
                 catch (Exception e)
                 {
                     Utils.LogException(e);
+                    Utils.Log("Exception detail: this[" + name + "] for Sheet: " + Name);
                     return null;
                 }
             }            
@@ -392,7 +407,7 @@ namespace Yuusha.gui
                     // Remove focus from any focus from a TextBox that is not the ActiveTextBox.
                     if ((m_controls[i] is TextBox) && m_controls[i].HasFocus)
                     {
-                        if (GuiManager.ActiveTextBox != "" && GuiManager.ActiveTextBox != m_controls[i].Name)
+                        if (!string.IsNullOrEmpty(GuiManager.ActiveTextBox) && GuiManager.ActiveTextBox != m_controls[i].Name)
                         {
                             if (this[GuiManager.ActiveTextBox] != null)
                                 this[GuiManager.ActiveTextBox].HasFocus = false;
@@ -402,8 +417,7 @@ namespace Yuusha.gui
 
                     // for controls in a window, mouse may have just been released from another 
                     // control's focus, so we need to make sure we reset that control's state
-                    if ((m_controls[i].ControlState == Enums.EControlState.Over) && (m_controls[i].Owner != "")
-                        && !(m_controls[i] is Window))
+                    if ((m_controls[i].ControlState == Enums.EControlState.Over) && !string.IsNullOrEmpty(m_controls[i].Owner) && !(m_controls[i] is Window))
                     {
                         for (int j = m_controls.Count - 1; j >= 0 && m_controls[j].ZDepth == 1; j--)
                         {
@@ -459,7 +473,7 @@ namespace Yuusha.gui
                         }
 
                         // Release TextBox Focus.
-                        if ((GuiManager.ActiveTextBox != "") && (GuiManager.ActiveTextBox != m_controls[i].Name))
+                        if (!string.IsNullOrEmpty(GuiManager.ActiveTextBox) && (GuiManager.ActiveTextBox != m_controls[i].Name))
                         {
                             // release textbox focus
                             if (this[GuiManager.ActiveTextBox] != null)
@@ -477,7 +491,7 @@ namespace Yuusha.gui
                             {
                                 m_controls[i].ZDepth = 1;
                             }
-                            else if (m_controls[i].Owner != "")
+                            else if (!string.IsNullOrEmpty(m_controls[i].Owner))
                             {
                                 // control is inside a window, move window and controls to the front
                                 this[m_controls[i].Owner].ZDepth = 1;
@@ -507,7 +521,7 @@ namespace Yuusha.gui
                 else if (ms.LeftButton == ButtonState.Pressed)
                 {
                     // clicked off a control so close any open combobox
-                    if (GuiManager.OpenComboBox != null && GuiManager.OpenComboBox != "")
+                    if (GuiManager.OpenComboBox != null && !string.IsNullOrEmpty(GuiManager.OpenComboBox))
                     {
                         ComboBox openComboBox = this[GuiManager.OpenComboBox] as ComboBox;
                         Point cursor = new Point(ms.X, ms.Y);
@@ -519,7 +533,7 @@ namespace Yuusha.gui
                         }
                     }
 
-                    if (GuiManager.ActiveTextBox != null && (GuiManager.ActiveTextBox != "") && (GuiManager.ActiveTextBox != m_controls[i].Name))
+                    if (!string.IsNullOrEmpty(GuiManager.ActiveTextBox) && (GuiManager.ActiveTextBox != m_controls[i].Name))
                     {
                         // release textbox focus
                         if (this[GuiManager.ActiveTextBox] != null)
@@ -1002,7 +1016,7 @@ namespace Yuusha.gui
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string clickEvent,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
             List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
-            string command, string popUpText, string tabControlledWindow, string cursorOverride, bool locked)
+            string command, string popUpText, string tabControlledWindow, string cursorOverride, bool locked, string clickSound)
         {
             if (type == "HotButton")
             {
@@ -1039,7 +1053,7 @@ namespace Yuusha.gui
                 AddControl(new Button(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha,
                     textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, clickEvent, textAlignment,
                     xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection,
-                    shadowDistance, command, popUpText));
+                    shadowDistance, command, popUpText, clickSound));
             }
         }
 

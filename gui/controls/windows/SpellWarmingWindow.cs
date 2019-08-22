@@ -94,13 +94,7 @@ namespace Yuusha.gui
                 SpellIconLabel.VisualAlpha -= 3;
                 SpellIconLabel.TextAlpha = SpellIconLabel.VisualAlpha;
                 if (SpellIconLabel.Border != null)
-                {
-                    //SpellIconLabel.Border.IsVisible = !SpellIconLabel.Border.IsVisible;
                     SpellIconLabel.Border.VisualAlpha = SpellIconLabel.VisualAlpha;
-                }
-
-                //if((timeWarmed - timeCreated).TotalSeconds % 2 == 0)
-                //    SpellIconLabel.IsVisible = !SpellIconLabel.IsVisible;
 
                 if (SpellIconLabel.VisualAlpha <= 0 || (DateTime.Now - timeCreated).TotalSeconds >= Utility.Settings.StaticSettings.RoundDelayLength * 2 / 2)
                 {
@@ -109,15 +103,11 @@ namespace Yuusha.gui
                 }
             }
 
-            //SpellIconLabel.PopUpText = (DateTime.Now - timeCreated).TotalSeconds.ToString();
-
             if (!spellWarmed)
             {
                 PercentageBar.Percentage = (DateTime.Now - timeCreated).TotalMilliseconds / Utility.Settings.StaticSettings.RoundDelayLength * 100;
                 if (PercentageBar.Percentage >= 100)
                 {
-                    //SpellIconLabel.TextColor = Color.Yellow;
-                    //SpellIconLabel.Text = "WARMED";
                     PercentageBar.IsVisible = false;
                     spellWarmed = true;
                     SpellIconLabel.VisualAlpha = 255;
@@ -165,7 +155,7 @@ namespace Yuusha.gui
             Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], new Vector2(SpellIconLabel.Position.X + SpellIconLabel.Width / 2, SpellIconLabel.Position.Y + SpellIconLabel.Height / 2),
                     vi.Rectangle, color, circleRotation, new Vector2(vi.Width / 2, vi.Height / 2), .78f, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1);
 
-            base.Draw(gameTime);            
+            base.Draw(gameTime);
         }
 
         public override void OnClose()

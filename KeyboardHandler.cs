@@ -141,6 +141,18 @@ namespace Yuusha
                 return true;
             }
 
+            // CTRL + Add
+            if (IsCtrlKeyDown(ks) && ks.IsKeyDown(Keys.Add))
+            {
+                return true;
+            }
+
+            // CTRL + Minus
+            if (IsCtrlKeyDown(ks) && ks.IsKeyDown(Keys.Subtract))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -168,6 +180,10 @@ namespace Yuusha
                             PressedKeys = newKeys;
                             return IsClientKeyboardHandled();
                         }
+                        //else
+                        //{
+                        //    gui.TextCue.AddClientInfoTextCue(k.ToString());
+                        //}
                     }
 
                     if (!bFound)
@@ -192,9 +208,10 @@ namespace Yuusha
                             //else mapWindow.IsVisible = !mapWindow.IsVisible;
                             //result = true;
                             //}
+
                             //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.C))
                             //{
-                            //Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
+                            //    Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
                             //}
 
                             //if(IsAltKeyDown(ks) && ks.IsKeyDown(Keys.F))
@@ -250,7 +267,7 @@ namespace Yuusha
                                 //SpellBookWindow.CreateSpellBookWindow();
                                 //SpellRingWindow.CreateSpellRingWindow();
                                 //SpellWarmingWindow.CreateSpellWarmingWindow("Icespear");
-                                
+
                                 //if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window characterStatsWindow)
                                 //{
                                 //    characterStatsWindow.IsVisible = !characterStatsWindow.IsVisible;
@@ -300,8 +317,8 @@ namespace Yuusha
                                     result = true;
                                 }
                             }
-                            #endregion                            
-                            
+                            #endregion
+
                             #region Tilde Saves a Screenshot
                             if (ks.IsKeyDown(Keys.OemTilde))
                             {
@@ -400,7 +417,7 @@ namespace Yuusha
                                     GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
                                 }
 
-                                gui.TextCue.AddClientInfoTextCue("Reloaded " + gui.GuiManager.CurrentSheet.Description + " and Generic Sheet.", gui.TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 0, 2000, false, true, false);
+                                TextCue.AddClientInfoTextCue("Reloaded " + GuiManager.CurrentSheet.Description + " and Generic Sheet.", TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 0, 2500, false, true, false);
 
                                 result = true;
 
@@ -412,7 +429,7 @@ namespace Yuusha
                         else if (Client.GameState == Enums.EGameState.HotButtonEditMode)
                         {
                             // nothing
-                            if(ks.IsKeyDown(Keys.Escape))
+                            if (ks.IsKeyDown(Keys.Escape))
                             {
                                 if (GuiManager.GetControl("HotButtonEditWindow") is Window hbeWindow)
                                     hbeWindow.OnClose();
@@ -430,18 +447,18 @@ namespace Yuusha
 
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
                             {
-                            //    //Utils.LogCharacterFields();
-                            //    //Utils.LogCharacterEffects();
-                            //    //foreach (Spell spell in World.SpellsList)
-                            //    //    Utils.Log(spell.Name);
-                            //    //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
-                            //    //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
-                                  IO.Send(Protocol.REQUEST_CHARACTER_STATS);
-                            //    SpellBookWindow.CreateSpellBookWindow();
-                                    result = true;
+                                //    //Utils.LogCharacterFields();
+                                //    //Utils.LogCharacterEffects();
+                                //    //foreach (Spell spell in World.SpellsList)
+                                //    //    Utils.Log(spell.Name);
+                                //    //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
+                                //    //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
+                                IO.Send(Protocol.REQUEST_CHARACTER_STATS);
+                                //    SpellBookWindow.CreateSpellBookWindow();
+                                result = true;
                             }
 
-                            if(ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.F))
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.F))
                             {
                                 TextCue.AddFPSTextCue(Math.Round(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds, 1).ToString());
                                 result = true;
@@ -450,10 +467,19 @@ namespace Yuusha
                             // Escape closes gridboxwindows if there is no target. Otherwise, target is cleared first.
                             if (ks.IsKeyDown(Keys.Escape))
                             {
-                                // Close DropDownMenu
-                                if(!string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
+                                if (Client.GameState == Enums.EGameState.Splash)
                                 {
-                                    if(GuiManager.GetControl(GuiManager.ActiveDropDownMenu) is DropDownMenu ddMenu)
+                                    Client.GameState = Enums.EGameState.Login;
+                                    Events.ResetLoginGUI();
+                                    //Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
+                                    //gui.TextCue.AddClientInfoTextCue("GameState: " + Client.GameState.ToString());
+                                    //result = true;
+                                }
+
+                                // Close DropDownMenu
+                                if (!string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
+                                {
+                                    if (GuiManager.GetControl(GuiManager.ActiveDropDownMenu) is DropDownMenu ddMenu)
                                     {
                                         GuiManager.Dispose(ddMenu);
                                     }
@@ -654,7 +680,7 @@ namespace Yuusha
                                     IO.Send("redraw");
 
                                 Character.LoadSettings();
-                                gui.GenericSheet.LoadMacros();
+                                GenericSheet.LoadMacros();
                             }
                             #endregion
 
@@ -710,6 +736,20 @@ namespace Yuusha
                             }
                             #endregion
 #endif
+                            // Only in YuushaMode?
+                            if (Client.GameState == Enums.EGameState.YuushaGame)
+                            {
+                                if (IsCtrlKeyDown(ks) && ks.IsKeyDown(Keys.Add))
+                                {
+                                    Events.RegisterEvent(Events.EventName.MapDisplay_Increase);
+                                }
+
+                                if (IsCtrlKeyDown(ks) && ks.IsKeyDown(Keys.Subtract))
+                                {
+                                    Events.RegisterEvent(Events.EventName.MapDisplay_Decrease);
+                                }
+                            }
+
                             #region Tilde  Saves a Screenshot
                             if (ks.IsKeyDown(Keys.OemTilde))
                             {

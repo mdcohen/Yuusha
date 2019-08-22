@@ -198,11 +198,11 @@ namespace Yuusha
                 return;
 
             gui.Button button = new gui.Button(selection + "Button", "CharacterGenerationWindow",
-                new Rectangle(point.X, point.Y, BitmapFont.ActiveFonts[gui.GuiManager.CurrentSheet.Font].MeasureString(selection), 23),
+                new Rectangle(point.X, point.Y, BitmapFont.ActiveFonts[gui.GuiManager.CurrentSheet.Font].MeasureString(selection), BitmapFont.ActiveFonts[gui.GuiManager.CurrentSheet.Font].LineHeight + 3),
                 selection, true, Color.White, true, false, gui.GuiManager.CurrentSheet.Font, new gui.VisualKey("WhiteSpace"),
                 Color.Black, 0, 255, new gui.VisualKey("WhiteSpace"), new gui.VisualKey(""), new gui.VisualKey(""),
                 Events.EventName.CharGen_Lore.ToString(), BitmapFont.TextAlignment.Left, 0, 0, Color.Lime, true, Color.DarkGray, true,
-                new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top }, false, Map.Direction.Northwest, 5, "", "");
+                new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top }, false, Map.Direction.Northwest, 5, "", "", Client.ClientSettings.DefaultOnClickSound);
 
             button.ZDepth = zDepth;
 

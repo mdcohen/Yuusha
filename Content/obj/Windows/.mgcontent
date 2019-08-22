@@ -4,8 +4,13 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/A_Death_Song.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Birth_of_a_Champion.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Cave-Ambience.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Kesmai-Dungeon-Background.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Wind-Moderate.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/click_short.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/clicks_two.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/modem_dial.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/new_spell.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/page_flip.wav</File>
@@ -301,11 +306,20 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0283.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0284.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0285.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0286.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0287.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint1.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint2.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint3.WAV</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

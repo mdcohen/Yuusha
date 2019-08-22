@@ -37,15 +37,15 @@
   <VerticalHotButtonVisualKey0>hotbuttonicon_393</VerticalHotButtonVisualKey0>
   <VerticalHotButtonVisualKey1>hotbuttonicon_424</VerticalHotButtonVisualKey1>
   <VerticalHotButtonVisualKey2>WhiteSpace</VerticalHotButtonVisualKey2>
-  <VerticalHotButtonVisualKey3>WhiteSpace</VerticalHotButtonVisualKey3>
+  <VerticalHotButtonVisualKey3>hotbuttonicon_372</VerticalHotButtonVisualKey3>
   <VerticalHotButtonVisualKey4>WhiteSpace</VerticalHotButtonVisualKey4>
-  <VerticalHotButtonVisualKey5>WhiteSpace</VerticalHotButtonVisualKey5>
+  <VerticalHotButtonVisualKey5>hotbuttonicon_249</VerticalHotButtonVisualKey5>
   <VerticalHotButtonVisualKey6>WhiteSpace</VerticalHotButtonVisualKey6>
-  <VerticalHotButtonVisualKey7>WhiteSpace</VerticalHotButtonVisualKey7>
+  <VerticalHotButtonVisualKey7>hotbuttonicon_402</VerticalHotButtonVisualKey7>
   <VerticalHotButtonVisualKey8>WhiteSpace</VerticalHotButtonVisualKey8>
-  <VerticalHotButtonVisualKey9>WhiteSpace</VerticalHotButtonVisualKey9>
+  <VerticalHotButtonVisualKey9>hotbuttonicon_261</VerticalHotButtonVisualKey9>
   <VerticalHotButtonVisualKey10>WhiteSpace</VerticalHotButtonVisualKey10>
-  <VerticalHotButtonVisualKey11>WhiteSpace</VerticalHotButtonVisualKey11>
+  <VerticalHotButtonVisualKey11>hotbuttonicon_388</VerticalHotButtonVisualKey11>
   <VerticalHotButtonVisualKey12>WhiteSpace</VerticalHotButtonVisualKey12>
   <VerticalHotButtonVisualKey13>WhiteSpace</VerticalHotButtonVisualKey13>
   <VerticalHotButtonVisualKey14>WhiteSpace</VerticalHotButtonVisualKey14>
@@ -57,15 +57,15 @@
   <VerticalHotButtonText0>Hide in Shadows</VerticalHotButtonText0>
   <VerticalHotButtonText1>Darkness</VerticalHotButtonText1>
   <VerticalHotButtonText2 />
-  <VerticalHotButtonText3 />
+  <VerticalHotButtonText3>Find Secret Door</VerticalHotButtonText3>
   <VerticalHotButtonText4 />
-  <VerticalHotButtonText5 />
+  <VerticalHotButtonText5>Breathe Water</VerticalHotButtonText5>
   <VerticalHotButtonText6 />
-  <VerticalHotButtonText7 />
+  <VerticalHotButtonText7>Feather Fall</VerticalHotButtonText7>
   <VerticalHotButtonText8 />
-  <VerticalHotButtonText9 />
+  <VerticalHotButtonText9>Identify</VerticalHotButtonText9>
   <VerticalHotButtonText10 />
-  <VerticalHotButtonText11 />
+  <VerticalHotButtonText11>Hide Door</VerticalHotButtonText11>
   <VerticalHotButtonText12 />
   <VerticalHotButtonText13 />
   <VerticalHotButtonText14 />
@@ -77,15 +77,15 @@
   <VerticalHotButtonCommand0>ega ashak ninda arrflug</VerticalHotButtonCommand0>
   <VerticalHotButtonCommand1>kunushi zu ku ega</VerticalHotButtonCommand1>
   <VerticalHotButtonCommand2 />
-  <VerticalHotButtonCommand3 />
+  <VerticalHotButtonCommand3>xul anaku gishtugbi enmeshir</VerticalHotButtonCommand3>
   <VerticalHotButtonCommand4 />
-  <VerticalHotButtonCommand5 />
+  <VerticalHotButtonCommand5>masqim uruki anna enn</VerticalHotButtonCommand5>
   <VerticalHotButtonCommand6 />
-  <VerticalHotButtonCommand7 />
+  <VerticalHotButtonCommand7>isa annunna edin ningi</VerticalHotButtonCommand7>
   <VerticalHotButtonCommand8 />
-  <VerticalHotButtonCommand9 />
+  <VerticalHotButtonCommand9>luubluyi muxxisha zu barra</VerticalHotButtonCommand9>
   <VerticalHotButtonCommand10 />
-  <VerticalHotButtonCommand11 />
+  <VerticalHotButtonCommand11>luubluyi ya isa qutri</VerticalHotButtonCommand11>
   <VerticalHotButtonCommand12 />
   <VerticalHotButtonCommand13 />
   <VerticalHotButtonCommand14 />
@@ -101,7 +101,7 @@
   <HorizontalHotButtonVisualKey4>WhiteSpace</HorizontalHotButtonVisualKey4>
   <HorizontalHotButtonVisualKey5>WhiteSpace</HorizontalHotButtonVisualKey5>
   <HorizontalHotButtonVisualKey6>WhiteSpace</HorizontalHotButtonVisualKey6>
-  <HorizontalHotButtonVisualKey7>WhiteSpace</HorizontalHotButtonVisualKey7>
+  <HorizontalHotButtonVisualKey7>hotbuttonicon_306</HorizontalHotButtonVisualKey7>
   <HorizontalHotButtonVisualKey8>WhiteSpace</HorizontalHotButtonVisualKey8>
   <HorizontalHotButtonVisualKey9>WhiteSpace</HorizontalHotButtonVisualKey9>
   <HorizontalHotButtonVisualKey10>WhiteSpace</HorizontalHotButtonVisualKey10>
@@ -116,7 +116,7 @@
   <HorizontalHotButtonText4 />
   <HorizontalHotButtonText5 />
   <HorizontalHotButtonText6 />
-  <HorizontalHotButtonText7 />
+  <HorizontalHotButtonText7>Create Portal</HorizontalHotButtonText7>
   <HorizontalHotButtonText8 />
   <HorizontalHotButtonText9 />
   <HorizontalHotButtonText10 />
@@ -131,7 +131,7 @@
   <HorizontalHotButtonCommand4 />
   <HorizontalHotButtonCommand5 />
   <HorizontalHotButtonCommand6 />
-  <HorizontalHotButtonCommand7 />
+  <HorizontalHotButtonCommand7>shammash anaku gishtugbi telal</HorizontalHotButtonCommand7>
   <HorizontalHotButtonCommand8 />
   <HorizontalHotButtonCommand9 />
   <HorizontalHotButtonCommand10 />

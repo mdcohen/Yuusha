@@ -584,7 +584,6 @@ C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0272.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSNDint1.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSNDint2.xnb
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSNDint3.xnb
-C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csprojAssemblyReference.cache
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\textures\worldmap.png
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\xml\lore.xml
 C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\pm_alert.wma
@@ -711,3 +710,16 @@ C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\DragonsSpine.exe.manifest
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\DragonsSpine.application
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\DragonsSpine.exe
 C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\DragonsSpine.pdb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\monospace\robotomono\robotomonobold12-0.png
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\media\fonts\monospace\robotomono\robotomonobold12.xml
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Cave-Ambience.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Cave-Ambience.wma
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\clicks_two.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\GUISounds\click_short.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Birth_of_a_Champion.wma
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\Birth_of_a_Champion.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\A_Death_Song.wma
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\Ambience\A_Death_Song.xnb
+C:\Users\mikec\Desktop\YuushaMG\obj\x86\Release\YuushaMG.csprojAssemblyReference.cache
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0286.xnb
+C:\Users\mikec\Desktop\YuushaMG\bin\Windows\x86\Release\Content\KSND0287.xnb

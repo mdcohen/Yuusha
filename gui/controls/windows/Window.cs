@@ -197,7 +197,16 @@ namespace Yuusha.gui
                 base.Draw(gameTime);
 
                 foreach (Control control in new List<Control>(m_controls))
-                    control.Draw(gameTime);
+                {
+                    if(control != WindowBorder && control != WindowTitle)
+                        control.Draw(gameTime);
+                }
+
+                if (WindowTitle != null)
+                    WindowTitle.Draw(gameTime);
+
+                if (WindowBorder != null)
+                    WindowBorder.Draw(gameTime);
             }
             else
             {
@@ -213,7 +222,9 @@ namespace Yuusha.gui
 
                 }
 
-                WindowTitle.Draw(gameTime);
+                if(WindowTitle != null)
+                    WindowTitle.Draw(gameTime);
+
                 if (!m_minimized && !m_cropped)
                     WindowBorder.Draw(gameTime);
             }
@@ -979,11 +990,52 @@ namespace Yuusha.gui
                     m_controls[j].Position = position;
 
                     // TODO: fix this. get anchors working or whatever, this is ridiculous. 6/16/2019 Eb
-                    if (m_controls[j] is ScrollableTextBox && Sheet != GuiManager.GenericSheet.Name && Client.GameDisplayMode != Enums.EGameDisplayMode.Yuusha)
-                        m_controls[j].OnClientResize(prev, now, true);
+                    //if (m_controls[j] is ScrollableTextBox && Sheet != GuiManager.GenericSheet.Name && Client.GameState != Enums.EGameState.YuushaGame)
+                    //if(!m_controls[j].Owner.Contains("FogOfWar"))
+                    if(oldWindowRect.Width != m_rectangle.Width || oldWindowRect.Height != m_rectangle.Height)
+                        m_controls[j].OnClientResize(oldWindowRect, m_rectangle, true);
 
-                    if(m_controls[j] is Window)
+                    if (WindowTitle != null)
                     {
+                        WindowTitle.Width = Width;
+
+                        if (WindowTitle.CloseBox != null)
+                        {
+                            position = WindowTitle.CloseBox.Position;
+                            position.X += m_controls[j].Position.X - oldPosition.X;
+                            position.Y += m_controls[j].Position.Y - oldPosition.Y;
+                            WindowTitle.CloseBox.Position = position;
+                        }
+
+                        if (WindowTitle.MaximizeBox != null)
+                        {
+                            position = WindowTitle.MaximizeBox.Position;
+                            position.X += m_controls[j].Position.X - oldPosition.X;
+                            position.Y += m_controls[j].Position.Y - oldPosition.Y;
+                            WindowTitle.MaximizeBox.Position = position;
+                        }
+
+                        if (WindowTitle.MinimizeBox != null)
+                        {
+                            position = WindowTitle.MinimizeBox.Position;
+                            position.X += m_controls[j].Position.X - oldPosition.X;
+                            position.Y += m_controls[j].Position.Y - oldPosition.Y;
+                            WindowTitle.MinimizeBox.Position = position;
+                        }
+
+                        if (WindowTitle.CropBox != null)
+                        {
+                            position = WindowTitle.CropBox.Position;
+                            position.X += m_controls[j].Position.X - oldPosition.X;
+                            position.Y += m_controls[j].Position.Y - oldPosition.Y;
+                            WindowTitle.CropBox.Position = position;
+                        }
+                    }
+
+                    if (m_controls[j] is Window w)
+                    {
+                        Rectangle oldWindowRect2 = new Rectangle(m_controls[j].Position.X, m_controls[j].Position.Y, m_controls[j].Width, m_controls[j].Height);
+
                         for(int k = (m_controls[j] as Window).Controls.Count - 1; k >= 0; k--)
                         {
                             position = m_controls[k].Position;
@@ -993,8 +1045,46 @@ namespace Yuusha.gui
                             m_controls[k].Position = position;
 
                             // TODO: fix this. get anchors working or whatever, this is ridiculous. 6/16/2019 Eb
-                            if (m_controls[k] is ScrollableTextBox && Sheet != GuiManager.GenericSheet.Name && Client.GameDisplayMode != Enums.EGameDisplayMode.Yuusha)
+                            //if (m_controls[k] is ScrollableTextBox && Sheet != GuiManager.GenericSheet.Name && Client.GameDisplayMode != Enums.EGameDisplayMode.Yuusha)
+                            if (oldWindowRect2.Width != m_controls[j].Width || oldWindowRect2.Height != m_controls[j].Height)
                                 m_controls[k].OnClientResize(prev, now, true);
+                        }
+
+                        if(w.WindowTitle != null)
+                        {
+                            w.WindowTitle.Width = w.Width;
+
+                            if(w.WindowTitle.CloseBox != null)
+                            {
+                                position = w.WindowTitle.CloseBox.Position;
+                                position.X += m_controls[j].Position.X - oldPosition.X;
+                                position.Y += m_controls[j].Position.Y - oldPosition.Y;
+                                w.WindowTitle.CloseBox.Position = position;
+                            }
+
+                            if(w.WindowTitle.MaximizeBox != null)
+                            {
+                                position = w.WindowTitle.MaximizeBox.Position;
+                                position.X += m_controls[j].Position.X - oldPosition.X;
+                                position.Y += m_controls[j].Position.Y - oldPosition.Y;
+                                w.WindowTitle.MaximizeBox.Position = position;
+                            }
+
+                            if(w.WindowTitle.MinimizeBox != null)
+                            {
+                                position = w.WindowTitle.MinimizeBox.Position;
+                                position.X += m_controls[j].Position.X - oldPosition.X;
+                                position.Y += m_controls[j].Position.Y - oldPosition.Y;
+                                w.WindowTitle.MinimizeBox.Position = position;
+                            }
+
+                            if(w.WindowTitle.CropBox != null)
+                            {
+                                position = w.WindowTitle.CropBox.Position;
+                                position.X += m_controls[j].Position.X - oldPosition.X;
+                                position.Y += m_controls[j].Position.Y - oldPosition.Y;
+                                w.WindowTitle.CropBox.Position = position;
+                            }
                         }
                     }
                 }

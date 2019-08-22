@@ -1,10 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sheet Name="Splash"
 	   Description="Splash Screen(s)"
-	   Font="legends16"
+	   Font="lemon16"
 	   Cursor="Normal"
 	   PreferredWidth="1024"
 	   PreferredHeight="768"
 	   DeviceClearColor="Black"
 	   AllowFullScreen="true">
+
+  <!-- Teen ESRB Label -->
+  <Control
+    Type="Label"
+    Text=""
+    Name="TeenESRBLabel"
+    X="5"
+    Y="646"
+    Width="200"
+    Height="117"
+    VisualKey="TeenESRBLogo"
+    VisualAlpha="255"
+    TextColor="White"
+    IsVisible="true"
+    Font="courier16"
+    TextAlignment="Center"
+    IsLocked="true">
+  </Control>
 </Sheet>

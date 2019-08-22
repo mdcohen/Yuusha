@@ -13,7 +13,7 @@ namespace Yuusha.gui
         private System.Windows.Forms.ColorDialog m_colorDialog;
 
         public ColorDialogButton(string name, string owner, Rectangle rectangle, bool visible, bool disabled, string font, Color tintColor, string cursorOverride, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string popUpText) :
-            base(name, owner, rectangle, "", false, Color.Black, visible, disabled, font, new gui.VisualKey("WhiteSpace"), tintColor, 255, 0, new VisualKey(""), new VisualKey(""), new VisualKey(""), "", BitmapFont.TextAlignment.Left, 0, 0, Color.White, false, Color.White, false, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText)
+            base(name, owner, rectangle, "", false, Color.Black, visible, disabled, font, new gui.VisualKey("WhiteSpace"), tintColor, 255, 0, new VisualKey(""), new VisualKey(""), new VisualKey(""), "", BitmapFont.TextAlignment.Left, 0, 0, Color.White, false, Color.White, false, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText, Client.ClientSettings.DefaultOnClickSound)
         { 
         }
 

@@ -257,7 +257,7 @@ namespace Yuusha.gui
 
             MouseCursor cursor = GuiManager.Cursors[GuiManager.GenericSheet.Cursor];
 
-            if (cursor != null && cursor.DraggedControl is DragAndDropButton dadButton && (cursor.Owner == "" || cursor.DraggedControl.Owner != this.Owner))
+            if (cursor != null && cursor.DraggedControl is DragAndDropButton dadButton && dadButton.Owner != Name)//(cursor.Owner == "" || cursor.DraggedControl.Owner != this.Owner))
             {
                 GuiManager.MouseOverDropAcceptingControl = this;
                 dadButton.HasEnteredGridBoxWindow = true;

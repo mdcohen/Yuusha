@@ -13,6 +13,24 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Ambience/A_Death_Song.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/A_Death_Song.mp3
+
+#begin Ambience/Birth_of_a_Champion.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Birth_of_a_Champion.mp3
+
+#begin Ambience/Cave-Ambience.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Cave-Ambience.wav
+
 #begin Ambience/Kesmai-Dungeon-Background.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -24,6 +42,18 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Ambience/Wind-Moderate.wav
+
+#begin GUISounds/click_short.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/click_short.wav
+
+#begin GUISounds/clicks_two.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/clicks_two.wav
 
 #begin GUISounds/modem_dial.wav
 /importer:WavImporter
@@ -1794,6 +1824,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:KSND0285.wav
+
+#begin KSND0286.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0286.wav
+
+#begin KSND0287.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0287.wav
 
 #begin KSNDint1.WAV
 /importer:WavImporter

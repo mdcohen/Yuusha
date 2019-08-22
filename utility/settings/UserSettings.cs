@@ -15,7 +15,7 @@ namespace Yuusha.Utility.Settings
     {
         public bool AudioEnabled = true;
         public bool SoundEffects = true; // master setting for sound
-        public bool BackgroundAmbience = true;
+        public bool BackgroundAmbience = true; // currently ambience and music since they are both controlled by MediaPlayer
         public bool FullScreen = false;
         public string DefaultGameDisplayMode = "Yuusha";
         public bool AutoDisplayNews = true;

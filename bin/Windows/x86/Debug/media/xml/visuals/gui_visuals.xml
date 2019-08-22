@@ -96,4 +96,14 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <Visual ParentTexture="ui_helpers.png" Name="LevelUpQuad3" X="284" Y="148" Width="168" Height="146"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="LevelUpQuad4" X="453" Y="148" Width="168" Height="146"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="SmokeCircle" X="286" Y="577" Width="212" Height="212"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="DragonCircle" X="0" Y="1290" Width="212" Height="212"></Visual>
+  <!-- Logos -->
+  <Visual ParentTexture="ui_helpers.png" Name="FacebookLogo" X="620" Y="0" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="TwitterLogo" X="680" Y="0" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="PatreonLogo" X="620" Y="60" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="ItchIoLogo" X="680" Y="60" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="SteamLogo" X="620" Y="120" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="PayPalLogo" X="680" Y="120" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="TeenESRBLogo" X="256" Y="1280" Width="400" Height="233"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="MonoGameLogo" X="0" Y="1513" Width="1216" Height="125"></Visual>
 </VisualsIndex>

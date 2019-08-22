@@ -17,7 +17,7 @@ namespace Yuusha.gui
             VisualKey visualKeyDisabled, string onMouseDownEvent, BitmapFont.TextAlignment textAlignment,
             int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
             List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string command, string popUpText)
-            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, popUpText)
+            : base(name, owner, rectangle, text, textVisible, textColor, visible, disabled, font, visualKey, tintColor, visualAlpha, textAlpha, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDownEvent, textAlignment, xTextOffset, yTextOffset, textOverColor, hasTextOverColor, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, command, popUpText, Client.ClientSettings.DefaultOnClickSound)
         {
             m_originalVisualAlpha = visualAlpha;
         }
@@ -33,7 +33,7 @@ namespace Yuusha.gui
                 if ((controlDown || altDown) && ms.LeftButton != ButtonState.Pressed)
                 {
                     if(Text.Length > 0)
-                        TextCue.AddMouseCursorTextCue(Text, Client.ClientSettings.HotButtonPopUpText_ForeColor, Client.ClientSettings.HotButtonPopUpText_BackColor, Client.ClientSettings.HotButtonPopUpText_BackColorAlpha, Font);
+                        TextCue.AddMouseCursorTextCue(Text, Client.ClientSettings.HotButtonPopUpText_ForeColor, Client.ClientSettings.HotButtonPopUpText_BackColor, Client.ClientSettings.HotButtonPopUpText_BackColorAlpha, Client.ClientSettings.DefaultPopUpFont);
                     return true;
                 }
                 else if(controlDown && altDown && ms.LeftButton == ButtonState.Pressed)
@@ -178,11 +178,13 @@ namespace Yuusha.gui
                         GuiManager.Dispose(GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl);
                         GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl = null;
                         GameHUD.DraggedSpell = null;
-
+                        GuiManager.AwaitMouseButtonRelease = true;
                         return;
                     }
                 }
 
+                if (GuiManager.AwaitMouseButtonRelease)
+                    return;
                 //if(!Client.IsFullScreen)
                 //{
                 //    TextCue.AddClientInfoTextCue("Hot Button Edit Mode requires full screen display.",

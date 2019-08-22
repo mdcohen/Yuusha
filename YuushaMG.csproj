@@ -149,7 +149,6 @@
     <Compile Include="gui\Sheet.cs" />
     <Compile Include="gui\SpinelMode.cs" />
     <Compile Include="gui\SpinelTileDefinition.cs" />
-    <Compile Include="gui\SplashScreen.cs" />
     <Compile Include="gui\TextCue.cs" />
     <Compile Include="gui\VisualInfo.cs" />
     <Compile Include="gui\VisualKey.cs" />
@@ -389,6 +388,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\monospace\robotomono\robotomonobold11.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\monospace\robotomono\robotomonobold12-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\monospace\robotomono\robotomonobold12.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\monospace\robotomono\robotomonobold14-0.png">

@@ -97,7 +97,7 @@ namespace Yuusha
             {"You have scored a critical hit", Color.Peru },            
 
             // Combat: others
-            {"misses you.", Color.MintCream },
+            {"misses you.", Color.LightGreen },
             {" is blocked by your ", Color.Lime },
             {" is slain!", Color.Aquamarine },
             {" hits with ", Color.Tomato },
@@ -138,112 +138,124 @@ namespace Yuusha
 
         public static void CheckTextTriggers(string input)
         {
-            if (input.StartsWith("You have been hit by a death spell"))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Death", gui.SpellEffectLabel.DamageBorderColor);
-            else if (input.StartsWith("You have been hit by a curse spell"))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Curse", gui.SpellEffectLabel.DamageBorderColor);
-            else if (input.Equals("You have been healed."))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Cure", gui.SpellEffectLabel.HealBorderColor);
-            else if (input.StartsWith("You have been enchanted with "))
+            try
             {
-                string effectName = input.Replace("You have been enchanted with ", "");
-                effectName = effectName.Substring(0, effectName.Length - 1);
-                gui.SpellEffectLabel.CreateSpellEffectLabel(effectName, gui.SpellEffectLabel.BuffBorderColor);
-
-                if(Character.CurrentCharacter.WarmedSpell == effectName)
+                if (input.StartsWith("You have been hit by a death spell"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Death", gui.SpellEffectLabel.DamageBorderColor);
+                else if (input.StartsWith("You have been hit by a curse spell"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Curse", gui.SpellEffectLabel.DamageBorderColor);
+                else if (input.Equals("You have been healed."))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Cure", gui.SpellEffectLabel.HealBorderColor);
+                else if (input.StartsWith("You have been enchanted with "))
                 {
-                    if(gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
+                    string effectName = input.Replace("You have been enchanted with ", "");
+                    effectName = effectName.Substring(0, effectName.Length - 1);
+                    gui.SpellEffectLabel.CreateSpellEffectLabel(effectName, gui.SpellEffectLabel.BuffBorderColor);
+
+                    if (Character.CurrentCharacter.WarmedSpell == effectName)
+                    {
+                        if (gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
+                        {
+                            w.OnClose();
+                        }
+                    }
+                }
+                else if (input.StartsWith("You are surrounded by the blue glow of a Shield spell"))
+                {
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Shield", gui.SpellEffectLabel.BuffBorderColor);
+
+                    if (Character.CurrentCharacter.WarmedSpell == "Shield")
+                    {
+                        if (gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
+                        {
+                            w.OnClose();
+                        }
+                    }
+                }
+                else if (input.Equals("You fade into the shadows."))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Hide in Shadows", Color.DarkViolet);
+                else if (input.Equals("You have been hit by a lightning bolt!"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Lightning Bolt");
+                else if (input.ToLower().Equals("you have been hit by magic missile!"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Magic Missile", gui.SpellEffectLabel.DamageBorderColor);
+                else if (input.ToLower().Equals("you have been hit by a fireball!"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Fireball");
+                else if (input.ToLower().Equals("you have been hit by a raging ice storm!"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Icestorm");
+                else if (input.ToLower().Equals("you have been hit by icespear!"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Icespear", gui.SpellEffectLabel.DamageBorderColor);
+                else if (input.ToLower().Equals("you have been hit by concussion!"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Concussion");
+                else if (input.ToLower().Equals("you have been hit by disintegrate!"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Disintegrate");
+                else if (input.StartsWith("Sage: "))
+                {
+                    if (!input.ToLower().Contains("i do not know how to do that"))
+                        gui.TipWindow.CreateSageAdviceHintWindow(input.Replace("Sage: ", ""));
+                }
+                else if (input.StartsWith("You warm the spell "))
+                {
+                    string spellName = input.Replace("You warm the spell ", "");
+                    spellName = spellName.Substring(0, spellName.Length - 1);
+                    gui.SpellWarmingWindow.CreateSpellWarmingWindow(spellName);
+                    Character.CurrentCharacter.WarmedSpell = spellName;
+                }
+                else if (input.StartsWith("You cast "))
+                {
+                    if (!string.IsNullOrEmpty(Character.CurrentCharacter.WarmedSpell) && input.Contains(Character.CurrentCharacter.WarmedSpell))
+                    {
+                        if (gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
+                        {
+                            w.OnClose();
+                        }
+                    }
+                }
+                else if (input.StartsWith("You have lost your warmed spell"))
+                {
+                    if (gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w &&
+                        !string.IsNullOrEmpty(Character.CurrentCharacter.WarmedSpell) && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
                     {
                         w.OnClose();
                     }
                 }
-            }
-            else if (input.StartsWith("You are surrounded by the blue glow of a Shield spell"))
-            {
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Shield", gui.SpellEffectLabel.BuffBorderColor);
-
-                if (Character.CurrentCharacter.WarmedSpell == "Shield")
+                else if (input.StartsWith("You don't have any balms to quaff."))
                 {
-                    if (gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
-                    {
-                        w.OnClose();
-                    }
+                    gui.TextCue.AddClientInfoTextCue(input, Color.White, Color.Crimson, 4500);
+                    // TODO sound effect?
+                }
+                else if (input.StartsWith("locker description"))
+                {
+                    // open locker grid box window
+                }
+                else if (input.StartsWith("You are now a level "))
+                {
+                    // "You are now a level " + chr.Level + " " + chr.classFullName.ToLower() + "!!"
+                    string level = input.Replace("You are now a level ", "");
+                    level = level.Substring(0, level.IndexOf(" "));
+                    gui.AchievementLabel.CreateAchievementLabel(level, gui.AchievementLabel.AchievementType.LevelUp);
+                }
+                else if (input.StartsWith("You have risen from "))
+                {
+                    // You have risen from <old skill title> to <new skill title> in your <skill name> skill.
+                    string start = input.Replace("You have risen from ", "");
+                    start = start.Replace(" to ", "|");
+                    start = start.Replace(" in your ", "|");
+                    start = start.Replace(" skill.", "");
+
+                    string[] s = start.Split("|".ToCharArray());
+                    // 0 = old skill title, 1 = new skill title, 2 = skill
+                    //string text = char.ToUpper(s[2][0]) + s[2].Substring(1) + ": " + s[1];
+
+                    gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingTextFontList[ScalingTextFontList.Count - 1], gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.PaleGreen, "", true, Map.Direction.Southwest);
+                }
+                else if (input.Equals("You have been slain!"))
+                {
+                    Audio.AudioManager.PlaySecondarySong("A_Death_Song", false, false, 1f);
                 }
             }
-            else if (input.Equals("You fade into the shadows."))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Hide in Shadows", Color.DarkViolet);
-            else if (input.Equals("You have been hit by a lightning bolt!"))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Lightning Bolt");
-            else if (input.ToLower().Equals("you have been hit by magic missile!"))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Magic Missile", gui.SpellEffectLabel.DamageBorderColor);
-            else if (input.ToLower().Equals("you have been hit by a fireball!"))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Fireball");
-            else if (input.ToLower().Equals("you have been hit by a raging ice storm!"))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Icestorm");
-            else if (input.ToLower().Equals("you have been hit by icespear!"))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Icespear", gui.SpellEffectLabel.DamageBorderColor);
-            else if (input.ToLower().Equals("you have been hit by concussion!"))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Concussion");
-            else if (input.ToLower().Equals("you have been hit by disintegrate!"))
-                gui.SpellEffectLabel.CreateSpellEffectLabel("Disintegrate");
-            else if (input.StartsWith("Sage: "))
+            catch(Exception e)
             {
-                if(!input.ToLower().Contains("i do not know how to do that"))
-                    gui.TipWindow.CreateSageAdviceHintWindow(input.Replace("Sage: ", ""));
-            }
-            else if (input.StartsWith("You warm the spell "))
-            {
-                string spellName = input.Replace("You warm the spell ", "");
-                spellName = spellName.Substring(0, spellName.Length - 1);
-                gui.SpellWarmingWindow.CreateSpellWarmingWindow(spellName);
-                Character.CurrentCharacter.WarmedSpell = spellName;
-            }
-            else if (input.StartsWith("You cast "))
-            {
-                if(input.Contains(Character.CurrentCharacter.WarmedSpell))
-                {
-                    if(gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
-                    {
-                        w.OnClose();
-                    }
-                }
-            }
-            else if(input.StartsWith("You have lost your warmed spell"))
-            {
-                if (gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
-                {
-                    w.OnClose();
-                }
-            }
-            else if(input.StartsWith("You don't have any balms to quaff."))
-            {
-                gui.TextCue.AddClientInfoTextCue(input, Color.White, Color.Crimson, Utility.Settings.StaticSettings.RoundDelayLength);
-                // TODO sound effect?
-            }
-            else if (input.StartsWith("locker description"))
-            {
-                // open locker grid box window
-            }
-            else if (input.StartsWith("You are now a level "))
-            {
-                // "You are now a level " + chr.Level + " " + chr.classFullName.ToLower() + "!!"
-                string level = input.Replace("You are now a level ", "");
-                level = level.Substring(0, level.IndexOf(" "));
-                gui.AchievementLabel.CreateAchievementLabel(level, gui.AchievementLabel.AchievementType.LevelUp);
-            }
-            else if (input.StartsWith("You have risen from "))
-            {
-                // You have risen from <old skill title> to <new skill title> in your <skill name> skill.
-                string start = input.Replace("You have risen from ", "");
-                start = start.Replace(" to ", "|");
-                start = start.Replace(" in your ", "|");
-                start = start.Replace(" skill.", "");
-
-                string[] s = start.Split("|".ToCharArray());
-                // 0 = old skill title, 1 = new skill title, 2 = skill
-                //string text = char.ToUpper(s[2][0]) + s[2].Substring(1) + ": " + s[1];
-
-                gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingTextFontList[ScalingTextFontList.Count - 1], gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.PaleGreen, "", true, Map.Direction.Southwest);
+                Utils.LogException(e);
             }
         }
 

@@ -870,7 +870,7 @@ namespace Yuusha.gui
                 textColor = new Color(Control.ColorDisabledStandard.R, Control.ColorDisabledStandard.G, Control.ColorDisabledStandard.B, m_textAlpha);
             }
 
-            if (Border != null) Border.Draw(gameTime);
+            
 
             // difference between lineheight and this height / 2
 
@@ -987,6 +987,8 @@ namespace Yuusha.gui
                     Client.SpriteBatch.Draw(GuiManager.Textures[cursorVisual.ParentTexture], cursorRectangle, cursorVisual.Rectangle, m_cursorColor);
                 }
             }
+
+            if (Border != null) Border.Draw(gameTime);
 
             if (DropDownMenu != null)
                 DropDownMenu.Draw(gameTime);

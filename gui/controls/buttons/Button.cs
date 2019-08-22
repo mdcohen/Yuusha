@@ -17,7 +17,7 @@ namespace Yuusha.gui
             VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, string onMouseDownEvent,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, Color textOverColor, bool hasTextOverColor, Color tintOverColor, bool hasTintOverColor,
             System.Collections.Generic.List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection,
-            int shadowDistance, string command, string popUpText)
+            int shadowDistance, string command, string popUpText, string clickSound)
             : base()
         {
             m_name = name;
@@ -57,6 +57,7 @@ namespace Yuusha.gui
             m_shadowDistance = shadowDistance;
             Command = command;
             PopUpText = popUpText;
+            ClickSound = clickSound;
 
             m_onMouseDownSent = false;
         }
@@ -142,6 +143,8 @@ namespace Yuusha.gui
                     Utils.LogOnce("Failed OnMouseDown event for Button [ " + m_name + " ] with Event [" + m_onMouseDown + "] of Sheet [ " + this.Sheet + " ]");
                 }
             }
+
+            base.OnMouseDown(ms);
         }
 
         protected override void OnMouseRelease(MouseState ms)
@@ -159,6 +162,8 @@ namespace Yuusha.gui
 
             if (m_visuals.ContainsKey(Enums.EControlState.Normal))
                 m_visualKey = m_visuals[Enums.EControlState.Normal];
+
+            base.OnMouseRelease(ms);
         }
 
         protected override bool OnKeyDown(KeyboardState ks)

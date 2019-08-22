@@ -344,9 +344,7 @@ namespace Yuusha
                 case GRAPHIC_RUINS_RIGHT:
                 case GRAPHIC_SAND:
                     return 1;
-                case GRAPHIC_WATER:
-                    if (Character.CurrentCharacter.breatheWater) return 0;
-                    else return 1;
+                case GRAPHIC_WATER: return 1;
             }
 
             return 0;

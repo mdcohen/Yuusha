@@ -32,7 +32,7 @@ namespace Yuusha.gui
             SpellRingWindow spellring = new SpellRingWindow("SpellringWindow", "", new Rectangle(160, 200, 60, 60), false, false, false, GuiManager.GenericSheet.Font,
                 new VisualKey("knightsringtransparent"), Color.White, 255, false, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "Dragging")
             {
-                PopUpText = "Symbol of the Order"
+                PopUpText = "" // "Symbol of the Order"
             };
             GuiManager.GenericSheet.AddControl(spellring);            
 
@@ -171,7 +171,7 @@ namespace Yuusha.gui
             switch(profession)
             {
                 case Character.ClassType.Knight:
-                    PopUpText = "Symbol of the Order";
+                    //PopUpText = "Symbol of the Order";
                     m_fillerLabelRotateClockwise = true;
                     VisualKey = "knightsringtransparent";
                     FillerLabel.TintColor = Color.White;
@@ -195,7 +195,7 @@ namespace Yuusha.gui
                     this["RingSpell5Button"].PopUpText = "Summon Lamassu";
                     break;
                 case Character.ClassType.Ravager:
-                    PopUpText = "Ring of Nergal";
+                    //PopUpText = "Ring of Nergal";
                     m_fillerLabelRotateClockwise = false;
                     VisualKey = "ravagersringtransparent";
                     FillerLabel.TintColor = Color.Crimson;

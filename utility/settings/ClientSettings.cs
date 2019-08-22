@@ -14,7 +14,7 @@ namespace Yuusha.Utility.Settings
         public int ServerPort = 3000;
         public bool ShowSplash = false;
         public string DefaultFont = "courier16";
-        public string DefaultHUDNumbersFont = "changaone24";
+        public string DefaultHUDNumbersFont = "changaone26";
         public Color ColorDefaultPopUpFore = Color.GhostWhite;
         public Color ColorDefaultPopUpBack = Color.Black;
         public byte DefaultPopUpBackAlpha = 150; // foreground text is always 255
@@ -22,6 +22,7 @@ namespace Yuusha.Utility.Settings
         public byte DefaultPopUpFadeInSpeed = 5;
         public string DefaultPopUpFont = "lemon12";
         public string DefaultDropDownMenuFont = "lemon12";
+        public string DefaultOnClickSound = "GUISounds/click_short";
         public bool DisplayChantingTextCue = true;
         public bool StartFullScreen = false;
 
@@ -46,6 +47,8 @@ namespace Yuusha.Utility.Settings
         public bool EchoGroundItemsOnExamination = false;
         public bool GroupSimiliarItemsInGridBoxes = true;
         public bool AlwaysOpenGridBoxWindowsUponActivity = false;
+
+        public bool ShowMapDisplayWindowBorderWhenFogOfWarVisible = true;
 
         // saving accounts and passwords (encrypted)
         public List<Encrypt.EncryptedKeyValuePair<string, string>> StoredAccounts = new List<Encrypt.EncryptedKeyValuePair<string, string>>();

@@ -24,7 +24,7 @@ namespace Yuusha
             { "Acid Orb", "hotbuttonicon_197" }, { "Acid Rain", "hotbuttonicon_247" },{ "Animal Affinity", "hotbuttonicon_463" },
             { "Ataraxia", "hotbuttonicon_221" },
             // B
-            { "Barkskin", "hotbuttonicon_185" }, { "Banish", "hotbuttonicon_91" }, { "Bless", "hotbuttonicon_274" },
+            { "Barkskin", "hotbuttonicon_185" }, { "Banish", "hotbuttonicon_91" }, { "Balm", "balm" }, { "Bless", "hotbuttonicon_274" },
             { "Blessing of the Faithful", "hotbuttonicon_274" },
             { "Blind", "hotbuttonicon_483" }, { "Bonfire", "hotbuttonicon_132" }, { "Breathe Water", "hotbuttonicon_249" },
             // C
@@ -33,27 +33,30 @@ namespace Yuusha
             { "Create Snake", "hotbuttonicon_215" }, { "Create Web", "hotbuttonicon_386" }, { "Cure", "hotbuttonicon_468" },
             { "Curse", "hotbuttonicon_186" },
             // D
-            { "Darkness", "hotbuttonicon_424" }, { "Death", "hotbuttonicon_266" }, { "Disintegrate", "hotbuttonicon_206" },
+            { "Darkness", "hotbuttonicon_424" }, { "Death", "hotbuttonicon_266" }, { "Detect Undead", "hotbuttonicon_14" }, { "Disintegrate", "hotbuttonicon_206" },
             { "Dismiss Undead", "hotbuttonicon_190" }, { "Dispel Illusion", "hotbuttonicon_243" }, { "Dragon's Breath", "hotbuttonicon_137" },
             // E
             { "Ensnare", "hotbuttonicon_225" },
             // F
             { "Fear", "hotbuttonicon_433" }, { "Feather Fall", "hotbuttonicon_402" }, { "Find Secret Door", "hotbuttonicon_372" },
-            { "Fireball", "hotbuttonicon_130" }, { "Firewall", "hotbuttonicon_100" }, { "FlameShield", "hotbuttonicon_59" }, // FlameShield can be removed after server update 7/18/2019
+            { "Fireball", "hotbuttonicon_130" }, { "Firebolt", "hotbuttonicon_103" }, { "Firestorm", "hotbuttonicon_68" }, {"Firewall", "hotbuttonicon_100" }, { "FlameShield", "hotbuttonicon_59" }, // FlameShield can be removed after server update 7/18/2019
             { "Flame Shield", "hotbuttonicon_59" },
             // H
             { "Halt Undead", "hotbuttonicon_201" }, { "Hide Door", "hotbuttonicon_388" }, { "Hide in Shadows", "hotbuttonicon_393" }, {"Hunter's Mark", "hotbuttonicon_234"},
             // I
-            { "Icespear", "hotbuttonicon_362" }, { "Icestorm", "hotbuttonicon_342" }, { "Identify", "hotbuttonicon_261" }, { "Improved Disguise", "hotbuttonicon_358" },
+            { "Icespear", "hotbuttonicon_362" }, { "Icestorm", "hotbuttonicon_342" }, { "Identify", "hotbuttonicon_261" }, { "Image", "hotbuttonicon_273" },
             // L
             { "Lifeleech", "hotbuttonicon_314" }, { "Light", "hotbuttonicon_279" }, { "Lightning Bolt", "hotbuttonicon_345" }, { "Locate Entity", "hotbuttonicon_23" },
             // M
             { "Magic Missile", "hotbuttonicon_486" }, { "Make Recall", "recallring" }, { "Mark of Vitality", "hotbuttonicon_464" },
             { "Minor Protection from Fire", "hotbuttonicon_51" }, // same icon as Protection from Fire...
             { "Neutralize Poison", "hotbuttonicon_244" }, { "Night Vision", "hotbuttonicon_123" },
+            // O
+            { "Obfuscation", "hotbuttonicon_358" },
             // P
-            { "Power Word: Silence", "hotbuttonicon_490" }, { "Protection from Acid", "hotbuttonicon_201" }, { "Protection from Cold", "hotbuttonicon_309" },
-            //{ "Protection from Fire", "hotbuttonicon_51" },
+            { "Peek", "hotbuttonicon_251" }, { "Power Word: Silence", "hotbuttonicon_490" }, { "Protection from Acid", "hotbuttonicon_201" },
+            { "Protection from Cold", "hotbuttonicon_309" },
+                        //{ "Protection from Fire", "hotbuttonicon_51" },
             { "Protection from Fire", "hotbuttonicon_119" }, { "Protection from Fire and Ice", "hotbuttonicon_135" }, { "Protection from Poison", "hotbuttonicon_199" },
             { "Protection from Stun and Death", "hotbuttonicon_471" }, { "Protection from Undead", "hotbuttonicon_492" },
             // R

@@ -151,6 +151,8 @@ namespace Yuusha.gui
 
                 if (DropDownMenu != null)
                     GuiManager.Dispose(DropDownMenu);
+
+                base.OnMouseDown(ms);
             }
         }
 

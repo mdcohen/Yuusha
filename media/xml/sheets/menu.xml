@@ -53,7 +53,7 @@
     Type="Window"
     Name="MainMenuCharSelectionWindow"
     X="100"
-    Y="305"
+    Y="355"
     Width="216"
     Height="235"
     IsVisible="true"
@@ -69,6 +69,21 @@
     AnchorTop="true"
     AnchorLeft="true">
     </Control>
+
+    <!-- CritterListWindowTitle
+    <Control
+        Type="WindowTitle"
+        Name="MainMenuCharSelectionWindowTitle"
+        Owner="MainMenuCharSelectionWindow"
+        Font="lemon12"
+        Text="Character Selection"
+        VisualKey="WhiteSpace"
+        TintColor="LightSteelBlue"
+        TextColor="White"
+        TextAlignment="Center"
+        Height="21"
+        VisualAlpha="100">
+    </Control> -->
 
     <!-- MainMenuCharSelectionWindow Border -->
     <Control
@@ -94,6 +109,38 @@
     </Control>
 
     <Control
+		Type="Button"
+		Name="PrevCharPictureButton"
+    Owner="MainMenuCharSelectionWindow"
+		X="25"
+		Y="30"
+		Width="40"
+		Height="40"
+		IsVisible="false"
+    Font="lemon16"
+		VisualKey="WhiteSpace"
+    TintColor="White"
+    VisualAlpha="255"
+    OnMouseDown="switch_character_back">
+    </Control>
+
+    <Control
+		Type="Button"
+		Name="NextCharPictureButton"
+    Owner="MainMenuCharSelectionWindow"
+		X="155"
+		Y="30"
+		Width="40"
+		Height="40"
+		IsVisible="false"
+    Font="lemon16"
+		VisualKey="WhiteSpace"
+    TintColor="White"
+    VisualAlpha="255"
+    OnMouseDown="switch_character_next">
+    </Control>
+
+    <Control
       Type="Button"
       Text=""
       Name="SwitchCharacterNextButton"
@@ -102,7 +149,7 @@
       Y="65"
       Width="20"
       Height="20"
-      IsVisible="true"
+      IsVisible="false"
       IsDisabled="false"
       Font="lemon16"
       VisualKey="BrownRightArrowButton"
@@ -122,7 +169,7 @@
       Y="65"
       Width="20"
       Height="20"
-      IsVisible="true"
+      IsVisible="false"
       IsDisabled="false"
       Font="lemon16"
       VisualKey="BrownLeftArrowButton"
@@ -201,7 +248,7 @@
       X="100"
       Y="50"
       Width="216"
-      Height="235"
+      Height="285"
       IsVisible="true"
       IsLocked="true"
       Font="courier12"
@@ -283,8 +330,8 @@
   <!-- New Character Button -->
 	<Control
 		Type="Button"
-		Text="New Character"
-		Name="CharGenButton"
+		Text="Account"
+		Name="AccountButton"
     Owner="MainMenuWindow"
 		X="10"
 		Y="110"
@@ -299,7 +346,7 @@
 		VisualKey="RoundedButton"
 		TintColor="DarkMagenta"
     TintOverColor="MediumOrchid"
-		OnMouseDown="goto_chargen"
+		OnMouseDown=""
 		TextAlignment="Center"
 		DropShadow="true"
 		ShadowDistance="5"
@@ -308,13 +355,41 @@
 		AnchorLeft="true">
 	</Control>
 
+  <!-- New Character Button -->
+  <Control
+    Type="Button"
+    Text="New Character"
+    Name="CharGenButton"
+    Owner="MainMenuWindow"
+    X="10"
+    Y="160"
+    Width="200"
+    Height="40"
+    YTextOffSet="0"
+    IsVisible="true"
+    IsDisabled="false"
+    Font="lemon16"
+    TextColor="White"
+    TextOverColor="Lime"
+    VisualKey="RoundedButton"
+    TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
+    OnMouseDown="goto_chargen"
+    TextAlignment="Center"
+    DropShadow="true"
+    ShadowDistance="5"
+    ShadowDirection="Northwest"
+    AnchorTop="true"
+    AnchorLeft="true">
+  </Control>
+
   <Control
 		Type="Button"
 		Text="Logout"
 		Name="MenuLogoutButton"
     Owner="MainMenuWindow"
 		X="10"
-		Y="185"
+		Y="235"
 		Width="200"
 		Height="40"
 		YTextOffSet="0"

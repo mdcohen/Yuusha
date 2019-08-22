@@ -98,11 +98,11 @@ namespace Yuusha.gui
                     Y -= 1;
                     break;
                 case TextCueTag.HealthGain:
-                    if (GuiManager.GetControl("Tile24") is Control control && Y <= control.Position.Y)
-                    {
-                        Y += 2; // moves toward center screen
-                    }
-                    break;
+                    //if (GuiManager.GetControl("Tile24") is Control control && Y <= control.Position.Y)
+                    //{
+                    //    Y += 2; // moves toward center screen
+                    //}
+                    //break;
                 case TextCueTag.HealthLoss:
                     Y -= 2;
                     break;
@@ -444,11 +444,10 @@ namespace Yuusha.gui
             }
 
             int x = Client.Width / 2 - BitmapFont.ActiveFonts[font].MeasureString(text) / 2;
-            int y = Client.Height / 2;
+            int y = Client.Height / 2 - BitmapFont.ActiveFonts[font].LineHeight / 2;
             
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Yellow, Color.Transparent, 0, font, 3500,
-                true, 2, Map.Direction.None, false, false, true, TextCueTag.CharGen);
+            TextCue tc = new TextCue(text, x, y, 255, Color.Yellow, Color.Black, 0, font, 4500, true, 2, Map.Direction.None, false, false, true, TextCueTag.CharGen);
 
             // only one text cure allowed?? this should be changed
             GuiManager.TextCues.Clear();
@@ -472,11 +471,10 @@ namespace Yuusha.gui
             }
 
             int x = Client.Width / 2 - BitmapFont.ActiveFonts[font].MeasureString(text) / 2;
-            int y = Client.Height / 2;
+            int y = Client.Height / 2 - BitmapFont.ActiveFonts[font].LineHeight / 2;
 
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Tomato, Color.Transparent, 0, font, 3500,
-                true, 2, Map.Direction.None, false, false, false, TextCueTag.CharGen);
+            TextCue tc = new TextCue(text, x, y, 255, Color.Tomato, Color.Black, 0, font, 4500, true, 2, Map.Direction.None, false, false, false, TextCueTag.CharGen);
 
             // only one text cure allowed?? this should be changed
             GuiManager.TextCues.Clear();
@@ -548,14 +546,14 @@ namespace Yuusha.gui
         {
             int lineHeight = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].LineHeight;
             int x = Client.Width / 2;
-            int y = 5;
+            int y = Client.Height / 2 - (lineHeight * 2);
 
             if (GuiManager.GetControl("Tile24") is Control control)
             {
                 x = control.Position.X;
-                if (Client.IsFullScreen)
-                    y = control.Position.Y - 400;
-                if (y < 0) y = 5;
+                //if (Client.IsFullScreen)
+                y = control.Position.Y - (lineHeight * 2);
+                //if (y < 0) y = 5;
             }
 
             TextCue tc = new TextCue(text, x, y, 255, Color.PaleGreen, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.HealthGain);

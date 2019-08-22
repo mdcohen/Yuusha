@@ -91,7 +91,7 @@
 		YTextOffset="0"
 		TextColor="White"
 		IsVisible="true"
-		Font="courier16"
+		Font="robotomonobold14"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
 		VisualAlpha="0"
@@ -237,7 +237,7 @@
 		TextColor="White"
 		IsVisible="true"
 		IsEditable="true"
-		Font="courier16"
+		Font="robotomonobold14"
 		TintColor="Black"
 		VisualKey="WhiteSpace"
 		VisualAlpha="55"
@@ -1032,7 +1032,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier16"
+    Font="robotomonobold12"
     TextAlignment="Left">
   </Control>
 
@@ -1047,7 +1047,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier16"
+    Font="robotomonobold12"
     TextAlignment="Left">
     </Control>
 
@@ -1062,7 +1062,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier16"
+    Font="robotomonobold12"
     TextAlignment="Left">
     </Control>
 
@@ -1077,7 +1077,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier16"
+    Font="robotomonobold12"
     TextAlignment="Left">
     </Control>
 
@@ -1092,7 +1092,7 @@
     Height="25"
     TextColor="White"
     IsVisible="true"
-    Font="courier16"
+    Font="robotomonobold12"
     TextAlignment="Left">
     </Control>
 </RollerStatsWindow>

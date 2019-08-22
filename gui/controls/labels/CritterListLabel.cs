@@ -114,12 +114,14 @@ namespace Yuusha.gui
         {
             if (!Client.HasFocus) return;
 
-            if (this.Critter != null)
+            if (Critter != null)
             {
-                GameHUD.CurrentTarget = this.Critter;
+                GameHUD.CurrentTarget = Critter;
                 
                 Events.RegisterEvent(Events.EventName.Attack_Critter, this);
             }
+
+            Audio.AudioManager.PlaySoundEffect(Client.ClientSettings.DefaultOnClickSound);
 
             m_leftClickCount = 0;
         }

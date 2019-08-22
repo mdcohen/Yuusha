@@ -230,10 +230,25 @@ namespace Yuusha.gui
                 var border = new SquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Color.White, 255);
                 Border = border;
                 ZDepth = 1;
-            }
 
-            //if (FogOfWarDetail != null)
-            //    TextCue.AddMouseCursorTextCue(FogOfWarDetail.XCord + ", " + FogOfWarDetail.YCord);
+                (GuiManager.GetControl("MapDisplayWindow") as Window).Controls.ForEach(c => { if (c is SpinelTileLabel && c.Name != Name) { (c as SpinelTileLabel).Border = null; } });
+            }
+        }
+
+        protected override void OnZDelta(MouseState ms)
+        {
+            // Currently only the MapDisplayWindow in YuushaMode may be adjusted.
+            if (Owner != "MapDisplayWindow" || Client.GameState != Enums.EGameState.YuushaGame)
+                return;
+
+            if(ms.ScrollWheelValue > GuiManager.CurrentSheet.PreviousScrollWheelValue)
+            {
+                Events.RegisterEvent(Events.EventName.MapDisplay_Increase);
+            }
+            else if(ms.ScrollWheelValue < GuiManager.CurrentSheet.PreviousScrollWheelValue)
+            {
+                Events.RegisterEvent(Events.EventName.MapDisplay_Decrease);
+            }
         }
     }
 }

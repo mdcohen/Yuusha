@@ -1,5 +1,5 @@
 ALT + Enter: Toggle Fullscreen Mode
-ALT + A: Toggle Ambient Sounds
+ALT + A: Toggle Ambient Sounds / Music
 ALT + G: Switch Game Mode
 ALT + H: Help Window
 ALT + I: Toggle Vertical Hot Button Window
@@ -13,3 +13,12 @@ ALT + S: Toggle Sound Effects
 ALT + T: Reload Map Tiles (Game Mode Only)
 ALT + W: Toggle Fog of War (Yuusha Game Mode)
 CTRL + ~ : Save Screenshot
+CTRL + B: Belt Window
+CTRL + I: Inventory Window
+CTRL + L: Locker Window
+CTRL + P: Pouch Window
+CTRL + S: Sack Window
+
+CTRL + A: Again Last Command
+CTRL + R: Rest
+CTRL + M: Meditate

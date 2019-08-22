@@ -16,7 +16,7 @@ namespace Yuusha.gui
         private Color m_originalTintColor;
 
         public CheckboxButton(string name, string owner, Rectangle rectangle, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, VisualKey visualKeySelected, Color visualKeySelectedTintColor, Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string popUpText)
-            : base(name, owner, rectangle, "", false, Color.Black, visible, disabled, font, visualKey, tintColor, visualAlpha, 0, visualKeyOver, visualKeyDown, visualKeyDisabled, "", BitmapFont.TextAlignment.Left, 0, 0, Color.White, false, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText)
+            : base(name, owner, rectangle, "", false, Color.Black, visible, disabled, font, visualKey, tintColor, visualAlpha, 0, visualKeyOver, visualKeyDown, visualKeyDisabled, "", BitmapFont.TextAlignment.Left, 0, 0, Color.White, false, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText, Client.ClientSettings.DefaultOnClickSound)
         {
             IsChecked = false;
             if (visualKeySelected.Key != "")

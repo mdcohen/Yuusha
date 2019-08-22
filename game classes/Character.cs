@@ -214,8 +214,7 @@ namespace Yuusha
                         m_currentCharacter.HitsDoctored = Convert.ToInt32(pcStats[69]);
                         m_currentCharacter.lastOnline = pcStats[70];
                         m_currentCharacter.MapName = pcStats[71];
-                        if (pcStats.Length >= 73)
-                            m_currentCharacter.ZName = pcStats[72];
+                        m_currentCharacter.ZName = pcStats[72];
                     }
                     catch (Exception e)
                     {
@@ -963,6 +962,13 @@ namespace Yuusha
             get
             {
                 return Array.IndexOf(World.SpellbookUser, Profession) > -1;
+            }
+        }
+        public bool IsDead
+        {
+            get
+            {
+                return Hits <= 0;
             }
         }
         public bool IsHybrid

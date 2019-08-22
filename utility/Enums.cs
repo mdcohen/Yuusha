@@ -117,7 +117,7 @@ namespace Yuusha
             /// <summary>
             /// Splash screen.
             /// </summary>
-            //Splash,
+            Splash,
 
             /// <summary>
             /// Login.

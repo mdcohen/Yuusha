@@ -102,7 +102,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="flawlessbluepearl" X="864" Y="370" Width="45" Height="41"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="fossilizedgastropodshell" X="1375" Y="203" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="glowingredgem" X="795" Y="267" Width="41" Height="40"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="glowingblackgem" X="863" Y="0" Width="41" Height="40"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="glowingblackgem" X="864" Y="0" Width="37" Height="35"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="jadelotus" X="829" Y="66" Width="42" Height="42"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="lapislazuli" X="912" Y="1568" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="cutsapphire" X="794" Y="471" Width="43" Height="43"></Visual> <!-- not used as of 6/8/2019-->
@@ -124,7 +124,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="swallowsapphire" X="720" Y="1680" Width="60" Height="60"></Visual>  
   <Visual ParentTexture="yuusha_items.png" Name="rainbowtourmaline" X="780" Y="1680" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="polishedagate" X="900" Y="1680" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="alabasterankh" X="870" Y="1495" Width="39" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="silveralabasterankh" X="870" Y="1494" Width="40" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="dazzlinggreentsavorite" X="660" Y="1680" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="brilliantpurplesapphire" X="864" Y="403" Width="43" Height="43"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="flawlessblackpearl" X="960" Y="1680" Width="60" Height="60"></Visual>
@@ -175,6 +175,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="glossyblackrobe" X="997" Y="1101" Width="69" Height="94"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="burlaprobe" X="1061" Y="1234" Width="78" Height="92"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="sharkskinjacket" X="1920" Y="1320" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="greenkimono" X="927" Y="843" Width="78" Height="92"></Visual>
   <!-- Feet -->
   <Visual ParentTexture="yuusha_items.png" Name="silverthreadedbrownboots" X="1920" Y="1860" Width="60" Height="60"></Visual>
   <!-- Hands -->
@@ -265,15 +266,12 @@
   <Visual ParentTexture="yuusha_items.png" Name="ironthrowinghammer" X="1860" Y="1380" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="steelthrowinghammer" X="1800" Y="1380" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="thorhammer" X="1860" Y="1320" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="spikedwarhammer" X="1980" Y="2340" Width="60" Height="60"></Visual>
   <!-- Bone -->
   <Visual ParentTexture="yuusha_items.png" Name="thighbone" X="1140" Y="1680" Width="60" Height="60"></Visual>
   <!-- Boomerangs -->
   <Visual ParentTexture="yuusha_items.png" Name="hickoryboomerang" X="1200" Y="1680" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="graybirchboomerang" X="1260" Y="1680" Width="60" Height="60"></Visual>
-  <!-- Two Handed -->
-  <Visual ParentTexture="yuusha_items.png" Name="blackbroadsword" X="1320" Y="1680" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="greataxe" X="1800" Y="1500" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="runedclaymore" X="1440" Y="1680" Width="60" Height="60"></Visual>
   <!-- Broom -->
   <Visual ParentTexture="yuusha_items.png" Name="broom" X="1380" Y="1680" Width="60" Height="60"></Visual>
   <!-- Crossbows -->
@@ -307,6 +305,8 @@
   <!-- Katanas *** Needs update-->
   <Visual ParentTexture="yuusha_items.png" Name="katana" X="1860" Y="2220" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="ivorykatana" X="1980" Y="2220" Width="60" Height="60"></Visual>
+  <!-- Kukri -->
+  <Visual ParentTexture="yuusha_items.png" Name="duneshadowkukri" X="1980" Y="2700" Width="60" Height="60"></Visual>
   <!-- Longbows -->
   <Visual ParentTexture="yuusha_items.png" Name="yewlongbow" X="1920" Y="2220" Width="60" Height="60"></Visual>
   <!-- Longswords *** Needs update-->
@@ -334,6 +334,8 @@
   <Visual ParentTexture="yuusha_items.png" Name="runedshortbow" X="1860" Y="2040" Width="60" Height="60"></Visual>
   <!-- Shortsword -->
   <Visual ParentTexture="yuusha_items.png" Name="shortsword" X="1860" Y="2520" Width="60" Height="60"></Visual>
+  <!-- Shuriken -->
+  <Visual ParentTexture="yuusha_items.png" Name="steelshuriken" X="2040" Y="2700" Width="60" Height="60"></Visual>
   <!-- Spears -->
   <Visual ParentTexture="yuusha_items.png" Name="woodenspear" X="1980" Y="2280" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="doublemithrilbladedspear" X="2040" Y="2280" Width="60" Height="60"></Visual>
@@ -342,8 +344,18 @@
   <Visual ParentTexture="yuusha_items.png" Name="woodenstaff" X="1920" Y="2520" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="lightbluestaff" X="1860" Y="2580" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="ebonwoodcobrastaff" X="1920" Y="2580" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="pinestaff" X="1980" Y="2580" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="mithrilstaff" X="2040" Y="2580" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="necromancystaff" X="2100" Y="2580" Width="60" Height="60"></Visual>
   <!-- Threestaves *** Needs update-->
   <Visual ParentTexture="yuusha_items.png" Name="threestaff" X="1860" Y="2400" Width="60" Height="60"></Visual>
+  <!-- Two Handed -->
+  <Visual ParentTexture="yuusha_items.png" Name="blackbroadsword" X="1320" Y="1680" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="greataxe" X="1800" Y="1500" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="runedclaymore" X="1440" Y="1680" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="zweihander" X="1860" Y="2700" Width="60" Height="60"></Visual>
   <!-- Wands -->
   <Visual ParentTexture="yuusha_items.png" Name="pinewand" X="1860" Y="2460" Width="60" Height="60"></Visual>
+  <!-- Whips -->
+  <Visual ParentTexture="yuusha_items.png" Name="stoneheartwhip" X="1920" Y="2700" Width="60" Height="60"></Visual>
 </VisualsIndex>

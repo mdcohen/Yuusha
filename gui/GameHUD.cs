@@ -48,6 +48,8 @@ namespace Yuusha.gui
             {"downgrade", "yuushaicon_22" },
         };
 
+        public static bool ChangingMapDisplaySize = false; // used in Events.UpdateGUI to prevent issues while changing map display size
+
         public static List<Control> AchievementLabelList = new List<Control>(); // level up label also goes here to prevent achievements from showing until it's done
 
         public static Character CurrentTarget;
@@ -576,7 +578,7 @@ namespace Yuusha.gui
                             EffectName = effect.Name,
                             TimeCreated = System.DateTime.Now,
                             Duration = effect.Duration,
-                            Timeless = effect.Duration == 0
+                            Timeless = effect.Duration <= 0,
                         };
 
                         GuiManager.CurrentSheet.AddControl(label);
@@ -640,6 +642,78 @@ namespace Yuusha.gui
         private static bool AcceptingGridBoxIsLocation(string name)
         {
             return name.StartsWith("Ground") || name.StartsWith("Altar") || name.StartsWith("Counter");
+        }
+
+        public static void TestChangeMapDisplayWindowSize(int tileSizeChange)
+        {
+            if (GuiManager.GetControl("MapDisplayWindow") is Window w)
+            {
+                Rectangle rect = new Rectangle(w.Position.X, w.Position.Y, w.Width, w.Height);
+
+                w.Position = new Point(w.Position.X - tileSizeChange * 7 / 2, w.Position.Y - tileSizeChange * 7 / 2);
+
+                w.Width = ((w["Tile0"].Width + tileSizeChange) * 7) + 4; // 2 pixel padding on each side
+                w.Height = ((w["Tile0"].Width + tileSizeChange) * 7) + 4;
+
+                w.OnClientResize(rect, new Rectangle(w.Position.X, w.Position.Y, w.Width, w.Height), false);
+            }
+        }
+
+        public static void ChangeMapDisplayWindowSize(int tileSizeChange)
+        {
+            if (GuiManager.GetControl("MapDisplayWindow") is Window w)
+            {
+                int currentSize = w["Tile0"].Width;
+
+                // Maximum or minimum size decided here...
+                if (currentSize + tileSizeChange < 10 || currentSize + tileSizeChange > 100)
+                    return;
+
+                List<Control> copiedControls = new List<Control>(w.Controls);
+
+                ChangingMapDisplaySize = true;
+
+                w.Controls.RemoveAll(c => c is SpinelTileLabel);
+
+                w.Position = new Point(w.Position.X - (tileSizeChange / 2 * 7), w.Position.Y - (tileSizeChange / 2 * 7));
+                w.Width = ((currentSize + tileSizeChange) * 7) + 4; // 2 pixel padding on each side
+                w.Height = ((currentSize + tileSizeChange) * 7) + 4;
+
+                int x = 2;
+                int y = 2;
+                int count = 0;
+                for (int a = 0; a < 49; a++, count++, x += currentSize + tileSizeChange)
+                {
+                    if (count == 7) // new row, reset column
+                    {
+                        x = 2;
+                        y += currentSize + tileSizeChange;
+                        count = 0;
+                    }
+
+                    GuiManager.Sheets[w.Sheet].CreateSpinelTileLabel("Tile" + a, w.Name, new Rectangle(x, y, currentSize + tileSizeChange, currentSize + tileSizeChange), "", copiedControls[a].TextColor, copiedControls[a].IsVisible,
+                        copiedControls[a].IsDisabled, copiedControls[a].Font, new VisualKey(copiedControls[a].VisualKey), copiedControls[a].TintColor, 255, 255, copiedControls[a].TextAlignment, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+                }
+
+                if (w.WindowBorder != null)
+                    w.WindowBorder.Width = w.Width;
+                w.WindowBorder.Height = w.Height;
+
+                if (w.WindowTitle != null)
+                    w.WindowTitle.Width = w.Width;
+
+                YuushaMode.BuildMap();
+
+                if(GuiManager.GetControl("FogOfWarMapWindow") is MapWindow m)
+                {
+                    GuiManager.RemoveControl(GuiManager.GetControl("FogOfWarMapWindow"));
+                    System.Threading.Tasks.Task t = new System.Threading.Tasks.Task(() => Events.RegisterEvent(Events.EventName.Toggle_FogOfWar));
+                    t.Start();
+                    t.Wait();
+                }
+
+                ChangingMapDisplaySize = false;
+            }
         }
     }
 }

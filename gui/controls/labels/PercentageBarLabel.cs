@@ -5,9 +5,6 @@ namespace Yuusha.gui
 {
     public class PercentageBarLabel : Label
     {
-        //private int m_originalWidth;
-        //private int m_originalHeight;
-
         public Enums.EAnchorType Orientation
         { get; set; } = Enums.EAnchorType.Left;
 

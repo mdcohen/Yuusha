@@ -10,13 +10,13 @@ namespace Yuusha.Audio
     {
         public static string CommonSoundClick1 = "0085";
         public static string CommonSoundClick2 = "0086";
+        private static bool m_secondaryMusicPlaying = false;
 
         public enum SoundDirection { None, South, North, West, East, Southwest, Northwest, Southeast, Northeast }
 
         private static Dictionary<string, SoundEffect> m_soundEffects = new Dictionary<string, SoundEffect>();
         private static Dictionary<string, Song> m_songs = new Dictionary<string, Song>();
         private static List<AmbienceAudio> CurrentlyPlayingAmbience = new List<AmbienceAudio>();
-        private static List<SoundEffectInstance> CurrentlyPlayingSoundEffects = new List<SoundEffectInstance>();
 
         public AudioManager(Game game) : base(game)
         {
@@ -35,33 +35,43 @@ namespace Yuusha.Audio
                 if (!MediaPlayer.IsMuted) MediaPlayer.IsMuted = false;
             }
 
-            foreach (AmbienceAudio ambience in new List<AmbienceAudio>(CurrentlyPlayingAmbience))
-            {
-                if (MediaPlayer.Queue != null && (MediaPlayer.Queue.ActiveSong == null || MediaPlayer.Queue.ActiveSong != ambience.Track))
-                {
-                    CurrentlyPlayingAmbience.Remove(ambience);
-                    ambience.Dispose();
-                }
-            }
+            //foreach (AmbienceAudio ambience in new List<AmbienceAudio>(CurrentlyPlayingAmbience))
+            //{
+            //    if (MediaPlayer.Queue != null && (MediaPlayer.Queue.ActiveSong == null || MediaPlayer.Queue.ActiveSong != ambience.Track))
+            //    {
+            //        CurrentlyPlayingAmbience.Remove(ambience);
+            //        ambience.Dispose();
+            //    }
+            //}
 
             foreach (AmbienceAudio ambience in new List<AmbienceAudio>(CurrentlyPlayingAmbience))
                 ambience.Update(gameTime);
 
-            if (Client.GameState.ToString().EndsWith("Game"))
+            if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter != null && !Character.CurrentCharacter.IsDead)
             {
                 // Get sound by map ID -- then zone ID -- then Rectangle??
                 if (Character.CurrentCharacter != null && Character.CurrentCharacter.m_mapID == 2)
                 {
-                    if (MediaPlayer.Queue != null && MediaPlayer.Queue.ActiveSong != null)
+                    if (Character.CurrentCharacter != null && (Character.CurrentCharacter.ZName.Contains("Vulcan") || Character.CurrentCharacter.ZName.Contains("Sloping")))
                     {
-                        if (MediaPlayer.Queue.ActiveSong.Name != "Wind-Moderate")
-                            PlayAmbience("Wind-Moderate", true, true, .5f);
+                        MediaPlayer.Stop();
                     }
-                    else if(MediaPlayer.Queue == null || MediaPlayer.State == MediaState.Stopped)
-                        PlayAmbience("Wind-Moderate", true, true, .5f);
-                        
+                    else if (MediaPlayer.Queue != null && MediaPlayer.Queue.ActiveSong != null)
+                    {
+                        if (Character.CurrentCharacter.ZName != "Caverns of Doom" && MediaPlayer.Queue.ActiveSong.Name != "Wind-Moderate")
+                            PlayAmbience("Wind-Moderate", true, true, .5f);
+                        else if (Character.CurrentCharacter.ZName == "Caverns of Doom" && MediaPlayer.Queue.ActiveSong.Name != "Cave-Ambience")
+                            PlayAmbience("Cave-Ambience", true, true, .8f);
+                    }
+                    else if (MediaPlayer.Queue == null || MediaPlayer.State == MediaState.Stopped)
+                    {
+                        if (Character.CurrentCharacter.ZName != "Caverns of Doom")
+                            PlayAmbience("Wind-Moderate", true, true, .5f);
+                        else PlayAmbience("Cave-Ambience", true, true, .8f);
+                    }
+
                 }
-                else if(Character.CurrentCharacter != null && Character.CurrentCharacter.m_mapID == 0)
+                else if (Character.CurrentCharacter != null && Character.CurrentCharacter.m_mapID == 0)
                 {
                     if (Character.CurrentCharacter.Z < 0)
                     {
@@ -75,8 +85,23 @@ namespace Yuusha.Audio
                     }
                     else MediaPlayer.Stop();
                 }
+                else MediaPlayer.Pause();
             }
-            else if (!gui.GameHUD.OverrideDisplayStates.Contains(Client.GameState)) MediaPlayer.Stop();
+            else if (Client.GameState == Enums.EGameState.Splash || Client.GameState == Enums.EGameState.Login || Client.GameState == Enums.EGameState.Menu || Client.GameState == Enums.EGameState.CharacterGeneration)
+            {
+                if (MediaPlayer.Queue != null && (MediaPlayer.Queue.ActiveSong == null || MediaPlayer.Queue.ActiveSong.Name != "Birth_of_a_Champion") || MediaPlayer.State != MediaState.Playing)
+                {
+                    if (MediaPlayer.Queue.ActiveSong != null && MediaPlayer.Queue.ActiveSong.Name == "Birth_of_a_Champion")
+                        MediaPlayer.Resume();//.Play(MediaPlayer.Queue.ActiveSong);
+                    else PlayAmbience("Birth_of_a_Champion", true, false, .4f);
+                }
+            }
+            else if (!m_secondaryMusicPlaying && !gui.GameHUD.OverrideDisplayStates.Contains(Client.GameState))
+            {
+                MediaPlayer.Pause();
+            }
+            else if (m_secondaryMusicPlaying)
+                MediaPlayer.Pause();
 
             //foreach (SoundEffectInstance inst in new List<SoundEffectInstance>(CurrentlyPlayingSoundEffects))
             //{
@@ -97,6 +122,48 @@ namespace Yuusha.Audio
 
             return false;
         }
+
+        public static void PlaySecondarySong(string songName, bool repeating, bool fadeIn, float volume)
+        {
+            {
+                if (!Client.UserSettings.BackgroundAmbience)
+                    return;
+
+                if (string.IsNullOrEmpty(songName))
+                    return;
+
+                if (MediaPlayer.State == MediaState.Playing) MediaPlayer.Stop();
+
+                Song song;
+
+                if (!m_songs.ContainsKey(songName))
+                {
+                    song = Program.Client.Content.Load<Song>("Ambience/" + songName);
+                    m_songs.Add(songName, song);
+                }
+                else song = m_songs[songName];
+
+                AmbienceAudio ambience = new AmbienceAudio(song, fadeIn, volume);
+
+                if (!AmbienceExists(ambience))
+                    CurrentlyPlayingAmbience.Add(ambience);
+
+                float playerVolume = fadeIn ? .1f : volume;
+
+                m_secondaryMusicPlaying = true;
+                MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
+                MediaPlayer.IsRepeating = repeating;
+                MediaPlayer.Volume = playerVolume;
+                MediaPlayer.Play(song);
+            }
+        }
+
+        private static void MediaPlayer_MediaStateChanged(object sender, EventArgs e)
+        {
+            if (m_secondaryMusicPlaying && (MediaPlayer.State == MediaState.Stopped || MediaPlayer.State == MediaState.Paused))
+                m_secondaryMusicPlaying = false;
+        }
+
         /// <summary>
         /// Background AmbienceAudio object to be played based on the location of the CurrentCharacter.
         /// </summary>
@@ -104,6 +171,9 @@ namespace Yuusha.Audio
         public static void PlayAmbience(string songName, bool repeating, bool fadeIn, float volume)
         {
             if (!Client.UserSettings.BackgroundAmbience)
+                return;
+
+            if (string.IsNullOrEmpty(songName))
                 return;
 
             Song song;
@@ -123,6 +193,7 @@ namespace Yuusha.Audio
             float playerVolume = fadeIn ? .1f : volume;
             MediaPlayer.IsRepeating = repeating;
             MediaPlayer.Volume = playerVolume;
+            m_secondaryMusicPlaying = false;
             MediaPlayer.Play(song);
         }
 
@@ -133,6 +204,9 @@ namespace Yuusha.Audio
         public static void PlaySoundEffect(string soundName)
         {
             if (!Client.UserSettings.SoundEffects)
+                return;
+
+            if (string.IsNullOrEmpty(soundName))
                 return;
 
             if(soundName.StartsWith("Songs"))
@@ -156,7 +230,6 @@ namespace Yuusha.Audio
 
                 inst.Volume = 1.0f;
 
-                //CurrentlyPlayingSoundEffects.Add(inst);
                 inst.Play();
             }
             catch(Exception e)
@@ -169,6 +242,9 @@ namespace Yuusha.Audio
         public static void PlaySong(string songName)
         {
             if (!Client.UserSettings.SoundEffects)
+                return;
+
+            if (string.IsNullOrEmpty(songName))
                 return;
 
             try
@@ -248,18 +324,18 @@ namespace Yuusha.Audio
                 switch (direction)
                 {
                     case SoundDirection.West:
-                        pan = -.5f;
+                        pan = .5f;
                         break;
                     case SoundDirection.Northwest:
                     case SoundDirection.Southwest:
-                        pan = -.3f;
+                        pan = .3f;
                         break;
                     case SoundDirection.East:
-                        pan = .5f;
+                        pan = -.5f;
                         break;
                     case SoundDirection.Northeast:
                     case SoundDirection.Southeast:
-                        pan = .3f;
+                        pan = -.3f;
                         break;
                 }
 

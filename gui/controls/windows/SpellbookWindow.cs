@@ -86,7 +86,7 @@ namespace Yuusha.gui
             // Left Flip Button
             Button SpellbookLeftBackFlipButton = new Button("SpellbookLeftBackFlipButton", spellbook.Name, new Rectangle(30, 27, 30, spellbook.Height - 53), "", false, Color.White,
                 true, false, spellbook.Font, new VisualKey("WhiteSpace"), Color.Transparent, 30, 0, new VisualKey(""), new VisualKey(""), new VisualKey(""), "Spellbook_Flip", BitmapFont.TextAlignment.Left,
-                0, 0, Color.White, false, Color.Yellow, true, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, "", "");
+                0, 0, Color.White, false, Color.Yellow, true, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, "", "", "");
             GuiManager.GenericSheet.AddControl(SpellbookLeftBackFlipButton);
             #endregion
 
@@ -131,7 +131,7 @@ namespace Yuusha.gui
             // Right Flip Button
             Button SpellbookRightForwardFlipButton = new Button("SpellbookRightForwardFlipButton", spellbook.Name, new Rectangle(spellbook.Width - 60, 25, 30, spellbook.Height - 50), "", false, Color.White,
                 true, false, spellbook.Font, new VisualKey("WhiteSpace"), Color.Transparent, 30, 0, new VisualKey(""), new VisualKey(""), new VisualKey(""), "Spellbook_Flip", BitmapFont.TextAlignment.Left,
-                0, 0, Color.White, false, Color.Yellow, true, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, "", "");
+                0, 0, Color.White, false, Color.Yellow, true, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, "", "", "");
             GuiManager.GenericSheet.AddControl(SpellbookRightForwardFlipButton);
             #endregion
         }
@@ -192,7 +192,7 @@ namespace Yuusha.gui
                 TextBox tbxBox = this[Name + leftOrRight + "Chant" + i + "TextBox"] as TextBox;
                 if (i == randomTextBox)
                 {
-                    tbxBox.Text = spell.Incantation.ToUpper();
+                    tbxBox.Text = spell.Incantation;
                     tbxBox.TextColor = Color.Gold;
                     tbxBox.TextAlpha = 255;
                     if (leftPage)
@@ -202,7 +202,7 @@ namespace Yuusha.gui
                 else
                 {
                     int seed = Guid.NewGuid().GetHashCode();
-                    tbxBox.Text = TextManager.GenerateMagicWords(new Random(seed).Next(4, 9)).ToUpper();
+                    tbxBox.Text = TextManager.GenerateMagicWords(new Random(seed).Next(4, 9));
                     tbxBox.TextColor = Color.Black;
                 }
             }
@@ -271,15 +271,15 @@ namespace Yuusha.gui
             {
                 if(LeftChantTextBox != null)
                 {
-                    LeftChantTextBox.TextAlpha -= 1;
-                    if (LeftChantTextBox.TextAlpha <= 75)
+                    LeftChantTextBox.TextAlpha -= 5;
+                    if (LeftChantTextBox.TextAlpha <= 100)
                         ChantsFading = false;
                 }
 
                 if(RightChantTextBox != null)
                 {
-                    RightChantTextBox.TextAlpha -= 1;
-                    if (RightChantTextBox.TextAlpha <= 75)
+                    RightChantTextBox.TextAlpha -= 5;
+                    if (RightChantTextBox.TextAlpha <= 100)
                         ChantsFading = false;
                 }
             }
@@ -287,14 +287,14 @@ namespace Yuusha.gui
             {
                 if (LeftChantTextBox != null)
                 {
-                    LeftChantTextBox.TextAlpha += 3;
+                    LeftChantTextBox.TextAlpha += 5;
                     if (LeftChantTextBox.TextAlpha >= 255)
                         ChantsFading = true;
                 }
 
                 if (RightChantTextBox != null)
                 {
-                    RightChantTextBox.TextAlpha += 3;
+                    RightChantTextBox.TextAlpha += 5;
                     if (RightChantTextBox.TextAlpha >= 255)
                         ChantsFading = true;
                 }

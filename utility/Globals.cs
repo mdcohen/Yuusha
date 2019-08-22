@@ -9,7 +9,9 @@ namespace Yuusha
     {
         // Control unique names.
         public static string GAMEINPUTTEXTBOX = "GameInputTextBox";
+        public static string GAMESCROLLABLETEXTBOX = "GameTextScrollableTextBox";
         public static string CONFINPUTTEXTBOX = "ConfInputTextBox";
+        public static string CONFSCROLLABLETEXTBOX = "ConfScrollableTextBox";
 
         public const int MAX_EXP_LEVEL = 40;
         public const short EXP_LEVEL_3 = 1600;

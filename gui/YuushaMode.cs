@@ -309,7 +309,7 @@ namespace Yuusha.gui
                             Character.PreviousRoundCharacter.StrengthAdd = chr.StrengthAdd;
                         }
 
-                        if (chr.StrengthAdd != pre.StrengthAdd)
+                        if (chr.DexterityAdd != pre.DexterityAdd)
                         {
                             if (chr.DexterityAdd > pre.DexterityAdd)
                                 AchievementLabel.CreateAchievementLabel(string.Format("Dexterity Add: +{0}", chr.DexterityAdd - pre.DexterityAdd), AchievementLabel.AchievementType.DexterityAdd);
@@ -756,14 +756,19 @@ namespace Yuusha.gui
                                     spLabel.CritterVisuals.Add(new VisualKey(cell.Characters[0].VisualKey));
                                     if (!Character.CurrentCharacter.IsPeeking)
                                     {
-                                        spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
+                                        if (Character.CurrentCharacter.IsDead)
+                                            spLabel.CritterVisuals.Add(new VisualKey("ghost"));
+                                        else spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
                                         Character.CurrentCharacter.UpdateCoordinates(cell);
                                     }
                                 }
                             }
                             else if (count == 24)
                             {
-                                spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
+                                if (Character.CurrentCharacter.IsDead)
+                                    spLabel.CritterVisuals.Add(new VisualKey("ghost"));
+                                else spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
+
                                 Character.CurrentCharacter.UpdateCoordinates(cell);
                             }
 

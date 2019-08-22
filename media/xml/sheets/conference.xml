@@ -134,6 +134,40 @@
       AnchorRight="true">
     </Control>
 
+    <Control
+		  Type="Button"
+		  Name="PrevCharPictureButton"
+		  X="815"
+		  Y="495"
+		  Width="40"
+		  Height="40"
+		  IsVisible="false"
+      Font="lemon16"
+		  VisualKey="WhiteSpace"
+      TintColor="White"
+      VisualAlpha="255"
+      OnMouseDown="switch_character_back"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+
+    <Control
+		  Type="Button"
+		  Name="NextCharPictureButton"
+		  X="945"
+		  Y="495"
+		  Width="40"
+		  Height="40"
+		  IsVisible="false"
+      Font="lemon16"
+		  VisualKey="WhiteSpace"
+      TintColor="White"
+      VisualAlpha="255"
+      OnMouseDown="switch_character_next"
+      AnchorBottom="true"
+      AnchorRight="true">
+    </Control>
+    
     <!-- Switch Character Next Button -->
     <Control
       Type="Button"
@@ -143,7 +177,7 @@
       Y="515"
       Width="20"
       Height="20"
-      IsVisible="true"
+      IsVisible="false"
       IsDisabled="false"
       Font="lemon16"
       VisualKey="BrownRightArrowButton"
@@ -165,7 +199,7 @@
       Y="515"
       Width="20"
       Height="20"
-      IsVisible="true"
+      IsVisible="false"
       IsDisabled="false"
       Font="lemon16"
       VisualKey="BrownLeftArrowButton"

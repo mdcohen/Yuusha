@@ -575,14 +575,18 @@ namespace Yuusha.gui
                                     spLabel.CritterVisuals.Add(new VisualKey(cell.Characters[0].VisualKey));
                                     if (!Character.CurrentCharacter.IsPeeking)
                                     {
-                                        spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
+                                        if (Character.CurrentCharacter.IsDead)
+                                            spLabel.CritterVisuals.Add(new VisualKey("ghost"));
+                                        else spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
                                         Character.CurrentCharacter.UpdateCoordinates(cell);
                                     }
                                 }
                             }
                             else if (count == 24)
                             {
-                                spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
+                                if (Character.CurrentCharacter.IsDead)
+                                    spLabel.CritterVisuals.Add(new VisualKey("ghost"));
+                                else spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
                                 Character.CurrentCharacter.UpdateCoordinates(cell);
                             }
 

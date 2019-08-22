@@ -326,13 +326,10 @@ namespace Yuusha
                 int id = Convert.ToInt32(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_CURRENT, Protocol.CHARACTER_CURRENT_END));
 
                 if (Character.CurrentCharacter == null || id != Character.CurrentCharacter.ID)
-                {
                     Character.CurrentCharacter = Account.GetCharacterByID(Convert.ToInt32(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_CURRENT, Protocol.CHARACTER_CURRENT_END)));
-                }
 
                 Character.LoadSettings();
                 gui.GenericSheet.LoadMacros();
-
                 return true;
             }
             #endregion
@@ -430,8 +427,8 @@ namespace Yuusha
                             else if (inData.IndexOf("That account name was not found") != -1)
                             {
                                 Events.RegisterEvent(Events.EventName.Disconnect);
-                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account does not exist.", "Red");
                                 gui.TextCue.AddClientInfoTextCue("Account does not exist.", Color.Red, Color.Transparent, 4000);
+                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account does not exist.", "Red");
                                 return true;
                             }
                             break;
@@ -441,12 +438,14 @@ namespace Yuusha
                             if (inData.IndexOf("Invalid password.") != -1)
                             {
                                 Events.RegisterEvent(Events.EventName.Disconnect);
+                                gui.TextCue.AddClientInfoTextCue("Invalid password.", Color.Red, Color.Transparent, 4000);
                                 Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Invalid password.", "Red");
                                 return true;
                             }
                             else if (inData.IndexOf("That account is already logged in") != -1)
                             {
                                 Events.RegisterEvent(Events.EventName.Disconnect);
+                                gui.TextCue.AddClientInfoTextCue("Account already logged in.", Color.Yellow, Color.Transparent, 4000);
                                 Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account already logged in.", "Yellow");
                                 return true;
                             }
@@ -558,6 +557,15 @@ namespace Yuusha
                                     Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.CharacterGeneration);
                                 return true;
                             }
+                            //else if (inData.IndexOf("You have") != -1 && inData.IndexOf("unread message") != -1)
+                            //{
+                            //    string numMessages = inData.Substring(inData.IndexOf("You have"), inData.IndexOf("unread message") - inData.IndexOf("You have"));
+                            //    numMessages = numMessages.Replace("You have", "");
+                            //    numMessages = numMessages.Trim();
+                            //    // make new message icon visible with number indicator
+                            //    gui.TextCue.AddClientInfoTextCue("You have " + numMessages + " unread mail " + (numMessages == "1" ? "message" : "messages") + ".", Color.Lime, Color.Black, 5000);
+                            //    return true;
+                            //}
                             break;
                         case Enums.EGameState.CharacterGeneration:
                             #region CharGen

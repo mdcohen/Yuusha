@@ -402,6 +402,7 @@ namespace Yuusha.gui
                                 string tintOverColor = "White";
 
                                 string popUpText = "";
+                                string clickSound = "";
 
                                 string closeBoxVisualKey = ""; // WindowTitle (WindowControlBox)
                                 string closeBoxVisualKeyDown = ""; // WindowTitle (WindowControlBox)
@@ -685,6 +686,8 @@ namespace Yuusha.gui
                                             acceptingDroppedButtons = reader.ReadContentAsBoolean();
                                         else if (reader.Name == "Segmented")
                                             segmented = reader.ReadContentAsBoolean();
+                                        else if (reader.Name == "ClickSound")
+                                            clickSound = reader.Value;
                                     }
                                     #endregion
                                 }
@@ -745,7 +748,7 @@ namespace Yuusha.gui
                                             visible, disabled, font, new VisualKey(visualKey), Utils.GetColor(tintColor), visualAlpha, textAlpha, new VisualKey(visualKeyOver), new VisualKey(visualKeyDown), new VisualKey(visualKeyDisabled),
                                             onMouseDown, textAlignment, xTextOffset, yTextOffset, Utils.GetColor(textOverColor), hasTextOverColor,
                                             Utils.GetColor(tintOverColor), hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance,
-                                            command, popUpText, tabControlledWindow, cursorOnOver, locked);
+                                            command, popUpText, tabControlledWindow, cursorOnOver, locked, clickSound);
                                         break;
                                     case "DragAndDropButton":
                                         sheet.CreateDragAndDropButton(type, name, owner, new Rectangle(x, y, width, height), text, textVisible, Utils.GetColor(textColor),
@@ -957,9 +960,8 @@ namespace Yuusha.gui
                 {
                     if (m_textCues[a].IsCentered)
                     {
-                        m_textCues[a].X = (int)((Client.Width / 2) - (BitmapFont.ActiveFonts[m_textCues[a].Font].MeasureString(m_textCues[a].Text) / 2));
-                        m_textCues[a].Y = (int)(((m_textCues.Count + 1) * BitmapFont.ActiveFonts[CurrentSheet.Font].LineHeight) / 2) +
-                            (a * BitmapFont.ActiveFonts[CurrentSheet.Font].LineHeight);
+                        m_textCues[a].X = (Client.Width / 2) - (BitmapFont.ActiveFonts[m_textCues[a].Font].MeasureString(m_textCues[a].Text) / 2);
+                        m_textCues[a].Y = ((m_textCues.Count + 1) * BitmapFont.ActiveFonts[CurrentSheet.Font].LineHeight / 2) + (a * BitmapFont.ActiveFonts[CurrentSheet.Font].LineHeight);
                     }
                 }
             }
@@ -997,11 +999,19 @@ namespace Yuusha.gui
             catch(Exception e)
             {
                 Utils.LogException(e);
+                Client.SpriteBatch.End();
             }
         }
 
         public static Control GetControl(string sheet, string name)
         {
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(sheet))
+            {
+                // TODO RESOLVE THIS ISSUE
+                //Utils.Log("Error in GuiManager.GetControl during " + Client.GameState.ToString() + " GameState, " + Client.GameDisplayMode.ToString() + " DisplayMode. Name variable is null or empty.");
+                return null;
+            }
+
             try
             {
                 foreach (Control c1 in new List<Control>(Sheets[sheet].Controls))
@@ -1043,6 +1053,13 @@ namespace Yuusha.gui
         /// <returns></returns>
         public static Control GetControl(string name)
         {
+            if(string.IsNullOrEmpty(name))
+            {
+                // TODO RESOLVE THIS ISSUE
+                //Utils.Log("Error in GuiManager.GetControl during " + Client.GameState.ToString() + " GameState, " + Client.GameDisplayMode.ToString() + " DisplayMode. Name variable is null or empty.");
+                return null;
+            }
+
             // Check current sheet.
             if (CurrentSheet != null && CurrentSheet[name] != null)
                 return CurrentSheet[name];

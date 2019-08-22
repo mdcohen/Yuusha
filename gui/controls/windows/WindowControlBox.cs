@@ -31,7 +31,7 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            if(GuiManager.GetControl(Owner) is Window window)
+            if(GuiManager.GetControl(Owner) is Window window && window.WindowTitle != null)
             {
                 // window title is not being drawn, but still has control boxes. make sure these are visible.
                 if (window.WindowTitle.VisualAlpha <= 0)

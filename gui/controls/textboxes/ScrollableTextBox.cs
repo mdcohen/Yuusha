@@ -331,7 +331,7 @@ namespace Yuusha.gui
             base.OnMouseDown(ms);
         }
 
-        protected override void OnZDelta(Microsoft.Xna.Framework.Input.MouseState ms)
+        protected override void OnZDelta(MouseState ms)
         {
             if (m_scrollbar != null && !m_scrollbar.IsDisabled)
             {
@@ -375,6 +375,14 @@ namespace Yuusha.gui
 
         public void AddLine(string line, Enums.ETextType textType)
         {
+            if (line.Contains("\r\n"))
+            {
+                string[] newLines = line.Split("\r\n".ToCharArray());
+                foreach (string newLine in newLines)
+                    AddLine(newLine, textType);
+                return;
+            }
+
             // buffer capacity
             if (m_allLines.Count >= m_maxLineBuffer)
             {
@@ -457,7 +465,7 @@ namespace Yuusha.gui
                     if (lineLength > m_rectangle.Width - XTextOffset && line.Contains(" "))
                     {
                         int loopCount = 0;
-                        while (lineLength > m_rectangle.Width - XTextOffset && loopCount < 300)
+                        while (lineLength > m_rectangle.Width - XTextOffset && loopCount < 2400)
                         {
                             try
                             {

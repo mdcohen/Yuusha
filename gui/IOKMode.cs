@@ -548,13 +548,15 @@ namespace Yuusha.gui
                                 }
                                 else
                                 {
-                                    label.CreatureText = Character.CurrentCharacter.directionPointer + " ";
+                                    if (!Character.CurrentCharacter.IsDead) label.CreatureText = Character.CurrentCharacter.directionPointer + " ";
+                                    else label.CreatureText = "";
                                     Character.CurrentCharacter.UpdateCoordinates(cell);
                                 }
                             }
                             else if(count == 24)
                             {
-                                label.CreatureText = Character.CurrentCharacter.directionPointer + " ";
+                                if (!Character.CurrentCharacter.IsDead) label.CreatureText = Character.CurrentCharacter.directionPointer + " ";
+                                else label.CreatureText = "";
                                 Character.CurrentCharacter.UpdateCoordinates(cell);
                             }
 

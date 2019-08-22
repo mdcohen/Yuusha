@@ -66,6 +66,10 @@ namespace Yuusha.gui
         public string Command // all controls may have an associated command
         { get; set; }
 
+        public string ClickSound
+        { get; set; }
+        private bool m_clickSoundPlayed = false;
+
         public event GuiManager.ControlDelegate OnControl;
 
         #region Public Properties
@@ -433,13 +437,7 @@ namespace Yuusha.gui
 
             // drop down menus take priority for mouse handling
             if (!string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu) && !(this is DropDownMenu) && !(this is DropDownMenuItem))
-            {
                 return false;
-                //DropDownMenu menu = GuiManager.GetControl(GuiManager.ActiveDropDownMenu) as DropDownMenu;
-
-                //if (!(this is DropDownMenu) && !(this is DropDownMenuItem) && menu != null && Name != menu.Owner)
-                //return false;
-            }
 
             if (Contains(ms.Position) && !m_containsMousePointer)
             {
@@ -493,7 +491,7 @@ namespace Yuusha.gui
             if ((!(this is TextBox) && (Contains(ms.Position) || HasFocus)) || ((this is TextBox) && Contains(ms.Position)))
             {
                 // there was a change in scroll wheel values since last MouseHandler
-                if ((this is ScrollableTextBox || this is MapWindow) && GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
+                if ((this is ScrollableTextBox || this is MapWindow || this is SpinelTileLabel) && GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
                 {
                     OnZDelta(ms);
                 }
@@ -621,10 +619,24 @@ namespace Yuusha.gui
 
             if (TabOrder > -1)
             {
-                if (Owner == "")
+                if (string.IsNullOrEmpty(Owner))
                     GuiManager.CurrentSheet.CurrentTabOrder = TabOrder;
                 else if (GuiManager.GetControl(Owner) is Window)
                     (GuiManager.GetControl(Owner) as Window).CurrentTabOrder = TabOrder;
+            }
+
+            if(!m_clickSoundPlayed)
+            {
+                if (!string.IsNullOrEmpty(ClickSound))
+                    Audio.AudioManager.PlaySoundEffect(ClickSound);
+                else if(((this is Button) || GetType().IsSubclassOf(typeof(Button))) && !string.IsNullOrEmpty(m_onMouseDown))
+                    Audio.AudioManager.PlaySoundEffect(Client.ClientSettings.DefaultOnClickSound);
+                else if(this is DropDownMenuItem)
+                    Audio.AudioManager.PlaySoundEffect(Client.ClientSettings.DefaultOnClickSound);
+                //else if(this is CritterListLabel)
+                //    Audio.AudioManager.PlaySoundEffect(Client.ClientSettings.DefaultOnClickSound);
+
+                m_clickSoundPlayed = true;
             }
         }
 
@@ -643,7 +655,7 @@ namespace Yuusha.gui
 
         protected virtual void OnMouseRelease(MouseState ms)
         {
-            // empty
+            m_clickSoundPlayed = false;
         }
 
         protected virtual bool OnKeyDown(KeyboardState ks)
