@@ -12,6 +12,7 @@ namespace Yuusha.gui
         private const int GRIDLINE_SIZE = 1;
         public static int FogAlpha = 150;
         public static Color FogColor = Color.Black;
+        public static int EnlargenGridSize = 10;
 
         private bool m_savedMap = false;
 
@@ -69,7 +70,7 @@ namespace Yuusha.gui
             window.m_xMod = 9;
             window.m_yMod = 7;
 
-            window.EnlargeGrid(10);
+            window.EnlargeGrid(EnlargenGridSize);
 
             window.CreateGrid();
 

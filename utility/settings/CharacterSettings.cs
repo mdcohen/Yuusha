@@ -25,7 +25,7 @@ namespace Yuusha.Utility.Settings
         public string NumPadMultiply = "belt left;remove ring";
         public string NumPadSubtract = "belt left;remove 2 ring from right";
         public string NumPadAdd = "look in sack;quaff";
-        public string NumPadDelete = "ashtug ninda anghizidda arrflug";
+        public string NumPadDelete = TextManager.PORTAL_CHANT;
 
         public string FunctionKey1 = "";
         public string FunctionKey2 = "";

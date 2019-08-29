@@ -221,5 +221,10 @@ namespace Yuusha
                 return Direction.None;
             }
         }
+
+        //public static List<Tuple<int, int, string>> GetDirectionCoordinates()
+        //{
+
+        //}
     }
 }

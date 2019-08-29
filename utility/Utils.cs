@@ -447,7 +447,17 @@ namespace Yuusha
                                               BindingFlags.Instance);
 
                 foreach (FieldInfo f in fields)
-                    Log(f.Name + ": " + f.GetValue(effect));
+                    Log("[SpellEffect] " + f.Name.Replace("k__BackingField", "") + ": " + f.GetValue(effect));
+            }
+
+            foreach (Effect effect in Character.CurrentCharacter.WornEffects)
+            {
+                fields = effect.GetType().GetFields(BindingFlags.Public |
+                                              BindingFlags.NonPublic |
+                                              BindingFlags.Instance);
+
+                foreach (FieldInfo f in fields)
+                    Log("[WornEffect] " + f.Name.Replace("k__BackingField", "") + ": " + f.GetValue(effect));
             }
         }
     }

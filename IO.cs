@@ -112,7 +112,7 @@ namespace Yuusha
         }
 
         /// <summary>
-        /// Tests internet connectivity.
+        /// Tests internet connectivity with a ping to Google.
         /// </summary>
         /// <returns>False if not connected or exception.</returns>
         private static bool TestConnection()
@@ -491,7 +491,7 @@ namespace Yuusha
                             if (!gui.GuiManager.DisplayedLoginTip)
                             {
                                 gui.GuiManager.DisplayedLoginTip = true;
-                                gui.TipWindow.CreateTipWindow();
+                                gui.MessageWindow.CreateTipMessageWindow();
                             }
 
                             try
@@ -529,6 +529,14 @@ namespace Yuusha
                                     //System.Threading.Tasks.Task t = new System.Threading.Tasks.Task(() => World.GatherWorldData(Protocol.GetProtoInfoFromString(inData, Protocol.WORLD_SPELLS, Protocol.WORLD_SPELLS_END), World.WorldUpdate.Spells));
                                     //t.Start();
                                     World.GatherWorldData(Protocol.GetProtoInfoFromString(inData, Protocol.WORLD_SPELLS, Protocol.WORLD_SPELLS_END), World.WorldUpdate.Spells);
+                                    return true;
+                                }
+                                // capture world talents
+                                else if (inData.IndexOf(Protocol.WORLD_TALENTS_END) != -1)
+                                {
+                                    //System.Threading.Tasks.Task t = new System.Threading.Tasks.Task(() => World.GatherWorldData(Protocol.GetProtoInfoFromString(inData, Protocol.WORLD_SPELLS, Protocol.WORLD_SPELLS_END), World.WorldUpdate.Spells));
+                                    //t.Start();
+                                    World.GatherWorldData(Protocol.GetProtoInfoFromString(inData, Protocol.WORLD_TALENTS, Protocol.WORLD_TALENTS_END), World.WorldUpdate.Talents);
                                     return true;
                                 }
                                 // capture newbie chargen info
@@ -926,11 +934,27 @@ namespace Yuusha
                                 return true;
                             }
                             #endregion
+                            #region CHARACTER_TALENTS_END
+                            else if (inData.IndexOf(Protocol.CHARACTER_TALENTS_END) != -1)
+                            {
+                                Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_TALENTS, Protocol.CHARACTER_TALENTS_END), Enums.EPlayerUpdate.Talents);
+                                gui.TalentsWindow.CreateTalentsWindow();
+                                return true;
+                            }
+                            #endregion
                             #region CHARACTER_EFFECTS_END
                             else if (inData.IndexOf(Protocol.CHARACTER_EFFECTS_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_EFFECTS, Protocol.CHARACTER_EFFECTS_END), Enums.EPlayerUpdate.Effects);
                                 gui.GameHUD.UpdateEffectsWindow(gui.GuiManager.CurrentSheet);
+                                return true;
+                            }
+                            #endregion
+                            #region CHARACTER_WORNEFFECTS_END
+                            else if (inData.IndexOf(Protocol.CHARACTER_WORNEFFECTS_END) != -1)
+                            {
+                                Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_WORNEFFECTS, Protocol.CHARACTER_WORNEFFECTS_END), Enums.EPlayerUpdate.WornEffects);
+                                gui.GameHUD.UpdateWornEffectsWindow();
                                 return true;
                             }
                             #endregion

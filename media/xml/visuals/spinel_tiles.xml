@@ -58,6 +58,8 @@
 	<Visual ParentTexture="spinel_tiles.png" Name="sptile_closeddoor1" X="160" Y="160" Width="40" Height="40"></Visual>
 	<Visual ParentTexture="spinel_tiles.png" Name="sptile_opendoor1" X="200" Y="160" Width="40" Height="40"></Visual>
   <Visual ParentTexture="spinel_tiles.png" Name="sptile_loot1" X="240" Y="160" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_pit1" X="280" Y="160" Width="40" Height="40"></Visual>
+  <Visual ParentTexture="spinel_tiles.png" Name="sptile_ground12" X="320" Y="160" Width="40" Height="40"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="sptile_loot3" X="545" Y="410" Width="40" Height="40"></Visual>
 	<Visual ParentTexture="spinel_tiles.png" Name="sptile_air" X="360" Y="160" Width="40" Height="40"></Visual>
 	<Visual ParentTexture="spinel_tiles.png" Name="sptile_water" X="400" Y="160" Width="40" Height="40"></Visual>

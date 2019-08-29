@@ -196,6 +196,9 @@ namespace Yuusha.gui
             {
                 base.Draw(gameTime);
 
+                if (WindowBorder != null)
+                    WindowBorder.Draw(gameTime);
+
                 foreach (Control control in new List<Control>(m_controls))
                 {
                     if(control != WindowBorder && control != WindowTitle)
@@ -204,9 +207,6 @@ namespace Yuusha.gui
 
                 if (WindowTitle != null)
                     WindowTitle.Draw(gameTime);
-
-                if (WindowBorder != null)
-                    WindowBorder.Draw(gameTime);
             }
             else
             {

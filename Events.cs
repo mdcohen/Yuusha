@@ -37,11 +37,12 @@ namespace Yuusha
             MapDisplay_Increase,
             New_Game_Round,
             New_Spell,
-            NextLOKTile,
+            New_Talent,
             Next_Visual,
             None,
             Request_Belt,
             Request_Effects,
+            Request_WornEffects,
             Request_Inventory,
             Request_Locker,
             Request_Pouch,
@@ -50,6 +51,7 @@ namespace Yuusha
             Request_Sack,
             Request_Skills,
             Request_Spells,
+            Request_Talents,
             Reset_Characters,
             Save_Character_Settings,
             ScrollableTextBox_DropDown,
@@ -79,6 +81,7 @@ namespace Yuusha
             Toggle_OptionsWindow,
             Toggle_Spellring,
             Toggle_Spellbook,
+            Toggle_Talents,
             Toggle_VerticalHotbar,
             User_Settings_Changed,
             WebLink,
@@ -158,28 +161,29 @@ namespace Yuusha
 
                                         IO.Send(GameHUD.TextSendOverride);
 
-                                        control = GuiManager.GetControl(Globals.GAMEINPUTTEXTBOX);
+                                        // Place the sent text into the game input text box, replacing %t and critter ID numbers with the critter's name.
+                                        //control = GuiManager.GetControl(Globals.GAMEINPUTTEXTBOX);
 
-                                        if (control != null && control is TextBox)
-                                        {
-                                            if (targetSelected)
-                                            {
-                                                string targetName = GameHUD.CurrentTarget.Name;
+                                        //if (control != null && control is TextBox)
+                                        //{
+                                        //    if (targetSelected)
+                                        //    {
+                                        //        string targetName = GameHUD.CurrentTarget.Name;
 
-                                                if (Char.IsDigit(targetName[0]))
-                                                {
-                                                    targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
-                                                    // remove the digit and space for grouped critters
-                                                    targetName = TextManager.ConvertPluralToSingular(targetName);
-                                                }
+                                        //        if (Char.IsDigit(targetName[0]))
+                                        //        {
+                                        //            targetName = targetName.Substring(targetName.IndexOf(" ") + 1);
+                                        //            // remove the digit and space for grouped critters
+                                        //            targetName = TextManager.ConvertPluralToSingular(targetName);
+                                        //        }
 
-                                                control.Text = GameHUD.TextSendOverride.Replace(GameHUD.CurrentTarget.ID.ToString(), targetName);
-                                            }
-                                            else control.Text = GameHUD.TextSendOverride;
+                                        //        control.Text = GameHUD.TextSendOverride.Replace(GameHUD.CurrentTarget.ID.ToString(), targetName);
+                                        //    }
+                                        //    else control.Text = GameHUD.TextSendOverride;
 
-                                            (control as TextBox).SelectAll();
-                                            control.HasFocus = true;
-                                        }
+                                        //    (control as TextBox).SelectAll();
+                                        //    control.HasFocus = true;
+                                        //}
                                     }
                                 }
                             }
@@ -706,18 +710,27 @@ namespace Yuusha
                             }
                         }
                         break;
-                    case EventName.NextLOKTile:
-                        #region NextLOKTile
+                    case EventName.New_Talent:
+                        List<Talent> prevTalentsList = (List<Talent>)args[0];
+                        foreach (Talent talent in Character.CurrentCharacter.Talents)
                         {
-                            Control control = (Control)args[0];
-                            string code = gui.LOKMode.GetCodeByVisualKey(control.VisualKey);
-                            int index = gui.LOKMode.Codes.IndexOf(code);
-                            if (index + 1 > gui.LOKMode.Codes.Count)
-                                control.VisualKey = gui.LOKMode.Tiles[gui.LOKMode.Codes[0]].VisualKey;
-                            else control.VisualKey = gui.LOKMode.Tiles[gui.LOKMode.Codes[index]].VisualKey;
-                            break;
+                            if (!prevTalentsList.Contains(talent))
+                            {
+                                //if (Character.CurrentCharacter.HasSpellbook && GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow spbWindow)
+                                //{
+                                //    RegisterEvent(EventName.Toggle_Spellbook);
+                                //    spbWindow.FlipTo(spell.Name);
+
+                                //    if (spbWindow.LeftPageSpell != null && spbWindow.LeftPageSpell != spell && spbWindow.RightPageSpell == null)
+                                //        spbWindow.ScribePage(spell, false);
+
+                                //    spbWindow.IsVisible = true;
+                                //}
+
+                                AchievementLabel.CreateAchievementLabel(" New Talent: " + talent.Name + " ", AchievementLabel.AchievementType.NewTalent);
+                            }
                         }
-                    #endregion
+                        break;
                     case EventName.Request_Belt:
                         // get belt grid box, if not visible send request
                         IO.Send(Protocol.REQUEST_CHARACTER_BELT);
@@ -739,12 +752,27 @@ namespace Yuusha
                             }
                         }
                         break;
+                    case EventName.Request_WornEffects:
+                        IO.Send(Protocol.REQUEST_CHARACTER_WORNEFFECTS);
+                        //if (args[0] is Button)
+                        //{
+                        //    if (GuiManager.GenericSheet["EffectsWindow"] is Window effectsWindow)
+                        //    {
+                        //        effectsWindow.IsVisible = !effectsWindow.IsVisible;
+                        //        effectsWindow.ZDepth = 1;
+                        //    }
+                        //}
+                        break;
                     case EventName.Request_Inventory:
                         IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
+                        IO.Send(Protocol.REQUEST_CHARACTER_WORNEFFECTS); // currently with inventory/stats window
                         if (args[0] is Button)
                         {
                             if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window fullStatsWindow)
                             {
+                                if (fullStatsWindow.WindowTitle is WindowTitle fullStatsWindowTitle)
+                                    fullStatsWindowTitle.Text = Character.CurrentCharacter.Name;
+
                                 fullStatsWindow.IsVisible = !fullStatsWindow.IsVisible;
                                 fullStatsWindow.ZDepth = 1;
                             }
@@ -796,6 +824,9 @@ namespace Yuusha
                         break;
                     case EventName.Request_Spells:
                         IO.Send(Protocol.REQUEST_CHARACTER_SPELLS);
+                        break;
+                    case EventName.Request_Talents:
+                        IO.Send(Protocol.REQUEST_CHARACTER_TALENTS);
                         break;
                     case EventName.Reset_Characters:
                         Character.CurrentCharacter = null;
@@ -1080,47 +1111,127 @@ namespace Yuusha
                                 if (GuiManager.GenericSheet["OptionsWindow"] is Window optionsWindow && optionsWindow.IsVisible)
                                 {
                                     #region Options Window
-                                    if (optionsWindow["DoubleLeftClickNearbyTargetTextBox"] is TextBox tbx)
+                                    if (optionsWindow["DoubleLeftClickNearbyTargetTextBox"] is Control tbx)
                                         Character.Settings.DoubleLeftClickNearbyTarget = tbx.Text;
-                                    tbx = optionsWindow["DoubleLeftClickDistantTargetTextBox"] as TextBox;
+                                    tbx = optionsWindow["DoubleLeftClickDistantTargetTextBox"];
                                     if (tbx != null)
                                         Character.Settings.DoubleLeftClickDistantTarget = tbx.Text;
-                                    tbx = optionsWindow["OptionsNumPadDivideTextBox"] as TextBox;
+                                    tbx = optionsWindow["OptionsNumPadDivideTextBox"];
                                     if (tbx != null)
                                         Character.Settings.NumPadDivide = tbx.Text;
-                                    tbx = optionsWindow["OptionsNumPadMultiplyTextBox"] as TextBox;
+                                    tbx = optionsWindow["OptionsNumPadMultiplyTextBox"];
                                     if (tbx != null)
                                         Character.Settings.NumPadMultiply = tbx.Text;
-                                    tbx = optionsWindow["OptionsNumPadSubtractTextBox"] as TextBox;
+                                    tbx = optionsWindow["OptionsNumPadSubtractTextBox"];
                                     if (tbx != null)
                                         Character.Settings.NumPadSubtract = tbx.Text;
-                                    tbx = optionsWindow["OptionsNumPadAddTextBox"] as TextBox;
+                                    tbx = optionsWindow["OptionsNumPadAddTextBox"];
                                     if (tbx != null)
                                         Character.Settings.NumPadAdd = tbx.Text;
-                                    tbx = optionsWindow["OptionsNumPadZeroTextBox"] as TextBox;
+                                    tbx = optionsWindow["OptionsNumPadZeroTextBox"];
                                     if (tbx != null)
                                         Character.Settings.NumLock0 = tbx.Text;
-                                    tbx = optionsWindow["OptionsNumPadFiveTextBox"] as TextBox;
+                                    tbx = optionsWindow["OptionsNumPadFiveTextBox"];
                                     if (tbx != null)
                                         Character.Settings.NumLock5 = tbx.Text;
-                                    tbx = optionsWindow["OptionsNumPadDeleteTextBox"] as TextBox;
+                                    tbx = optionsWindow["OptionsNumPadDeleteTextBox"];
                                     if (tbx != null)
                                         Character.Settings.NumPadDelete = tbx.Text;
-                                    tbx = optionsWindow["OptionsCritterDropDownTextBox1"] as TextBox;
+                                    tbx = optionsWindow["OptionsCritterDropDownTextBox1"];
                                     if (tbx != null)
                                         Character.Settings.CritterListDropDownMenuItem1 = tbx.Text;
-                                    tbx = optionsWindow["OptionsCritterDropDownTextBox2"] as TextBox;
+                                    tbx = optionsWindow["OptionsCritterDropDownTextBox2"];
                                     if (tbx != null)
                                         Character.Settings.CritterListDropDownMenuItem2 = tbx.Text;
-                                    tbx = optionsWindow["OptionsCritterDropDownTextBox3"] as TextBox;
+                                    tbx = optionsWindow["OptionsCritterDropDownTextBox3"];
                                     if (tbx != null)
                                         Character.Settings.CritterListDropDownMenuItem3 = tbx.Text;
-                                    tbx = optionsWindow["OptionsCritterDropDownTextBox4"] as TextBox;
+                                    tbx = optionsWindow["OptionsCritterDropDownTextBox4"];
                                     if (tbx != null)
                                         Character.Settings.CritterListDropDownMenuItem4 = tbx.Text;
-                                    tbx = optionsWindow["OptionsCritterDropDownTextBox5"] as TextBox;
+                                    tbx = optionsWindow["OptionsCritterDropDownTextBox5"];
                                     if (tbx != null)
                                         Character.Settings.CritterListDropDownMenuItem5 = tbx.Text;
+
+                                    #region Number Pad
+                                    tbx = optionsWindow["OptionsNumPadDivideTextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.NumPadDivide = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsNumPadMultiplyTextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.NumPadMultiply = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsNumPadSubtractTextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.NumPadSubtract = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsNumPadAddTextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.NumPadAdd = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsNumPadZeroTextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.NumLock0 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsNumPadFiveTextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.NumLock5 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsNumPadDeleteTextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.NumPadDelete = tbx.Text;
+                                    #endregion
+
+                                    #region Function Keys
+                                    tbx = optionsWindow["OptionsFunctionKey1TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey1 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey2TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey2 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey3TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey3 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey4TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey4 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey5TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey5 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey6TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey6 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey7TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey7 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey8TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey8 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey9TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey9 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey10TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey10 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey11TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey11 = tbx.Text;
+
+                                    tbx = optionsWindow["OptionsFunctionKey12TextBox"];
+                                    if (tbx != null)
+                                        Character.Settings.FunctionKey12 = tbx.Text; 
+                                    #endregion
                                     #endregion
 
                                     TextCue.AddClientInfoTextCue("Character Options Saved", Color.Lime, Color.Black, 1500);
@@ -1222,14 +1333,12 @@ namespace Yuusha
                     case EventName.Toggle_FogOfWar:
                         //Control mapWindow = GuiManager.GetControl("FogOfWarMapWindow");
                         bool makeFog = true;
-                        if(GuiManager.GetControl("FogOfWarWindow") is MapWindow m)
+                        if(GuiManager.GetControl("FogOfWarMapWindow") is MapWindow m)
                         {
                             makeFog = false;
                             GuiManager.RemoveControl(GuiManager.GetControl("FogOfWarMapWindow"));
                         }
                         if (makeFog)
-                        //if (mapWindow == null)
-                        //{
                         {
                             MapWindow.CreateFogOfWarMapWindow();
 
@@ -1240,18 +1349,6 @@ namespace Yuusha
                                 else mapDisplayWindow.WindowBorder.IsVisible = false;
                             }
                         }
-                        //}
-                        //else
-                        //{
-                        //    mapWindow.IsVisible = !mapWindow.IsVisible;
-
-                        //    if (GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "MapDisplayWindow") is Window mapDisplayWindow && mapDisplayWindow.WindowBorder != null)
-                        //    {
-                        //        if (Client.ClientSettings.ShowMapDisplayWindowBorderWhenFogOfWarVisible)
-                        //            mapDisplayWindow.WindowBorder.IsVisible = true;
-                        //        else mapDisplayWindow.WindowBorder.IsVisible = !mapWindow.IsVisible;
-                        //    }
-                        //}
                         break;
                     case EventName.Toggle_FullScreen:
                         Program.Client.ToggleFullScreen();
@@ -1315,6 +1412,9 @@ namespace Yuusha
                             spellbookWindow.IsVisible = !spellbookWindow.IsVisible;
                             spellbookWindow.HasFocus = spellbookWindow.IsVisible;
                         }
+                        break;
+                    case EventName.Toggle_Talents:
+                        RegisterEvent(EventName.Request_Talents);
                         break;
                     case EventName.Spellbook_Flip:
                         if (GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow sWindow)
@@ -1693,9 +1793,17 @@ namespace Yuusha
                                 sheet["CurrentMapNameLabel"].Text = chr.MapName;
                             if (sheet["CurrentZNameLabel"] != null)
                             {
+                                sheet["CurrentZNameLabel"].Font = TextManager.ScalingTextFontList[3];
                                 sheet["CurrentZNameLabel"].Text = chr.ZName;
-                                while (BitmapFont.ActiveFonts[sheet["CurrentZNameLabel"].Font].MeasureString(chr.ZName) > sheet["CurrentZNameLabel"].Width)
-                                    sheet["CurrentZNameLabel"].Font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.FindIndex(f => f.ToString() == sheet["CurrentZNameLabel"].Font) - 1];
+                                try
+                                {
+                                    while (BitmapFont.ActiveFonts[sheet["CurrentZNameLabel"].Font].MeasureString(chr.ZName) > sheet["CurrentZNameLabel"].Width)
+                                        sheet["CurrentZNameLabel"].Font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.FindIndex(f => f.ToString() == sheet["CurrentZNameLabel"].Font) - 1];
+                                }
+                                catch
+                                {
+                                    sheet["CurrentZNameLabel"].Text = "";
+                                }
                             }
                             if (sheet["PrevCharPictureButton"] != null)
                             {
@@ -1741,9 +1849,17 @@ namespace Yuusha
                                 sheet["CurrentMapNameLabel"].Text = chr.MapName;
                             if (sheet["CurrentZNameLabel"] != null)
                             {
+                                sheet["CurrentZNameLabel"].Font = TextManager.ScalingTextFontList[3];
                                 sheet["CurrentZNameLabel"].Text = chr.ZName;
-                                while (BitmapFont.ActiveFonts[sheet["CurrentZNameLabel"].Font].MeasureString(chr.ZName) > sheet["CurrentZNameLabel"].Width)
-                                    sheet["CurrentZNameLabel"].Font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.FindIndex(f => f.ToString() == sheet["CurrentZNameLabel"].Font) - 1];
+                                try
+                                {
+                                    while (BitmapFont.ActiveFonts[sheet["CurrentZNameLabel"].Font].MeasureString(chr.ZName) > sheet["CurrentZNameLabel"].Width)
+                                        sheet["CurrentZNameLabel"].Font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.FindIndex(f => f.ToString() == sheet["CurrentZNameLabel"].Font) - 1];
+                                }
+                                catch
+                                {
+                                    sheet["CurrentZNameLabel"].Text = "";
+                                }
                             }
                             if (sheet["PrevCharPictureButton"] != null)
                             {
@@ -1820,6 +1936,28 @@ namespace Yuusha
                     logoWindow.IsVisible = false;
                 if (GuiManager.GenericSheet["CommunitySiteLogoWindow"] is Window cslWindow)
                     cslWindow.IsVisible = false;
+            }
+
+            if(state.ToString().EndsWith("Game"))
+            {
+                if (GuiManager.GenericSheet["HelperConferenceButton"] is Control c)
+                    c.IsVisible = true;
+            }
+            else
+            {
+                if (GuiManager.GenericSheet["HelperConferenceButton"] is Control c)
+                    c.IsVisible = false;
+            }
+
+            if(state != Enums.EGameState.Login)
+            {
+                if (GuiManager.GenericSheet["HelperMailButton"] is Control c)
+                    c.IsVisible = true;
+            }
+            else
+            {
+                if (GuiManager.GenericSheet["HelperMailButton"] is Control c)
+                    c.IsVisible = false;
             }
         }
 
@@ -1938,9 +2076,17 @@ namespace Yuusha
                         Character.CurrentCharacter.CurrentRoundsPlayed = 0;
                         IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS); // update effects
                         GameHUD.UpdateInventoryWindow(); // update inventory window
+                        
                         // request updates for all gridboxwindows
+                        List<GridBoxWindow.GridBoxPurpose> omittedPurposes = new List<GridBoxWindow.GridBoxPurpose>()
+                        {
+                            GridBoxWindow.GridBoxPurpose.Altar, GridBoxWindow.GridBoxPurpose.Counter, GridBoxWindow.GridBoxPurpose.Ground
+                        };
                         foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
-                            GridBoxWindow.RequestUpdateFromServer(purpose);
+                        {
+                            if(!omittedPurposes.Contains(purpose))
+                                GridBoxWindow.RequestUpdateFromServer(purpose);
+                        }
                         // create all sound indicator labels
                         if (!currGameState.ToString().EndsWith("Game"))
                         {
@@ -1951,10 +2097,12 @@ namespace Yuusha
                             //    TextCue.AddMapNameTextCue(Character.CurrentCharacter.MapName);
                             if (Character.CurrentCharacter != null)
                                 TextCue.AddZNameTextCue(Character.CurrentCharacter.ZName);
-                        }
+                            if(!GameHUD.InitialSpellbookUpdated.Contains(Character.CurrentCharacter.ID))
+                                RegisterEvent(EventName.Request_Spells);
+                            if (!GameHUD.InitialTalentbookUpdated.Contains(Character.CurrentCharacter.ID))
+                                RegisterEvent(EventName.Request_Talents);
 
-                        //if (GuiManager.GetControl("FogOfWarMapWindow") == null)
-                        //    MapWindow.CreateFogOfWarMapWindow(false);
+                        }
 
                         break;
                     case Enums.EGameState.Conference:
@@ -2010,6 +2158,7 @@ namespace Yuusha
             TextCue.ClearMouseCursorTextCue();
             // update effects window
             GameHUD.UpdateEffectsWindow(GuiManager.CurrentSheet);
+            GameHUD.UpdateWornEffectsWindow();
         }
 
         public static void StoreHotButtons(bool horizontal, Window window)

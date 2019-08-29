@@ -163,6 +163,7 @@
 	<Visual ParentTexture="lok_people.png" Name="kobold_prophet" X="780" Y="420" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="blue_dragon2" X="840" Y="420" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="orc_shaman" X="900" Y="420" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="troglodyte_female" X="960" Y="420" Width="60" Height="60"></Visual>
   <!-- Row 9 -->
 	<Visual ParentTexture="lok_people.png" Name="female_fighter_pc_gray" X="0" Y="480" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="female_fighter_pc_yellow" X="60" Y="480" Width="60" Height="60"></Visual>

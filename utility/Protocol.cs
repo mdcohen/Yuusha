@@ -92,6 +92,12 @@ namespace Yuusha
         public static string CHARACTER_RESISTS_END = (char)27 + "C21" + (char)27;
         public static string CHARACTER_PROTECTIONS = (char)27 + "C22" + (char)27;
         public static string CHARACTER_PROTECTIONS_END = (char)27 + "C23" + (char)27;
+        public static string CHARACTER_WORNEFFECTS = (char)27 + "C24" + (char)27;
+        public static string CHARACTER_WORNEFFECTS_END = (char)27 + "C25" + (char)27;
+        public static string CHARACTER_COMBATINFO = (char)27 + "C26" + (char)27;
+        public static string CHARACTER_COMBATINFO_END = (char)27 + "C27" + (char)27;
+        public static string CHARACTER_SAVINGTHROWS = (char)27 + "C28" + (char)27;
+        public static string CHARACTER_SAVINGTHROWS_END = (char)27 + "C29" + (char)27;
 
         #endregion
 
@@ -164,6 +170,11 @@ namespace Yuusha
         public static string REQUEST_CHARACTER_EFFECTS = (char)27 + "RK" + (char)27;
         public static string REQUEST_CHARACTER_SKILLS = (char)27 + "RO" + (char)27;
         public static string REQUEST_CHARACTER_TALENTS = (char)27 + "RP" + (char)27;
+        public static string REQUEST_CHARACTER_WORNEFFECTS = (char)27 + "RQ" + (char)27;
+        public static string REQUEST_CHARACTER_RESISTS = (char)27 + "RR" + (char)27;
+        public static string REQUEST_CHARACTER_PROTECTIONS = (char)27 + "RS" + (char)27;
+        public static string REQUEST_CHARACTER_COMBATINFO = (char)27 + "RT" + (char)27; // armor class variables and THAC0
+        public static string REQUEST_CHARACTER_SAVINGTHROWS = (char)27 + "RU" + (char)27;
         #endregion
 
         #region Conference Room
@@ -218,6 +229,8 @@ namespace Yuusha
         public static string WORLD_CELL_INFO_END = (char)27 + "WE" + (char)27;
         public static string WORLD_ITEMS = (char)27 + "WF" + (char)27;
         public static string WORLD_ITEMS_END = (char)27 + "WG" + (char)27;
+        public static string WORLD_TALENTS = (char)27 + "WH" + (char)27;
+        public static string WORLD_TALENTS_END = (char)27 + "WI" + (char)27;
         #endregion
 
         public static string GetProtoInfoFromString(string inData, string startProto, string endProto)

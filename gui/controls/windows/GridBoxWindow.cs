@@ -18,9 +18,7 @@ namespace Yuusha.gui
             Locker,
             Pouch,
             Rings,
-            Sack,
-            Skills,
-            Spellbook,            
+            Sack,          
         }
 
         protected List<Button> GridBoxItemsList;
@@ -365,12 +363,6 @@ namespace Yuusha.gui
                     break;
                 case GridBoxPurpose.Sack:
                     IO.Send(Protocol.REQUEST_CHARACTER_SACK);
-                    break;
-                case GridBoxPurpose.Skills:
-                    IO.Send(Protocol.REQUEST_CHARACTER_SKILLS);
-                    break;
-                case GridBoxPurpose.Spellbook:
-                    IO.Send(Protocol.REQUEST_CHARACTER_SPELLS);
                     break;
                 default:
                     break;

@@ -6,16 +6,17 @@ namespace Yuusha
 {
     public class World
     {
-        public enum WorldUpdate { Lands, Maps, Spells, Users, Scores, CharGen, Items }
+        public enum WorldUpdate { Lands, Maps, Spells, Users, Scores, CharGen, Items, Talents }
         public enum Alignment { None, Lawful, Neutral, Chaotic, Evil, Amoral, ChaoticEvil }
         public enum ImpLevel { USER, GMA, GMA2, GMA3, GMA4, GM, GM2, GM3, GM4, DEVJR, DEV }
 
         private static List<Spell> m_spells = new List<Spell>(); // world spells
+        private static List<Talent> m_talents = new List<Talent>(); // world talents
         private static List<Character> m_users = new List<Character>(); // world users list
         private static List<Character> m_scores = new List<Character>(); // world scores list
         private static List<Land> m_lands = new List<Land>(); // lands list
         private static List<Character> m_newbies = new List<Character>(); // new characters
-        private static List<string> m_news = new List<string>(); // server news
+        private static string m_news = ""; // server news
 
         public static Character.ClassType[] ManaUser = new Character.ClassType[] { Character.ClassType.Knight,
             Character.ClassType.Thaumaturge, Character.ClassType.Wizard, Character.ClassType.Thief, Character.ClassType.Ravager,
@@ -25,14 +26,9 @@ namespace Yuusha
         Character.ClassType.Wizard, Character.ClassType.Thief, Character.ClassType.Sorcerer, Character.ClassType.Druid,
             Character.ClassType.Ranger };
 
+        private static bool NewsHasBeenDisplayed = false;
 
-        public static int[] age_cycle = { 14400, 28800, 43200, 57600, 72000 };
-
-        public static String[] ageTitle_humanoid = { "very young", "young", "middle aged", "old", "very old", "ancient" };
-
-        public static String[] ageTitle_wyrmkin = { "hatchling", "baby", "adolescent", "mature", "aged", "ancient" };
-
-        public static List<string> News
+        public static string News
         {
             get { return m_news; }
         }
@@ -84,17 +80,29 @@ namespace Yuusha
                         m_spells.Clear();
                         string[] worldSpellList = info.Split(Protocol.ISPLIT.ToCharArray());
                         for (a = 0; a < worldSpellList.Length; a++)
-                        {
-                            Spell spell = new Spell(worldSpellList[a]);
-                            m_spells.Add(spell);
-                        }
+                            m_spells.Add(new Spell(worldSpellList[a]));
                     }
                     catch (Exception e)
                     {
                         Utils.LogException(e);
                     }
-                    break; 
-                    #endregion
+                    break;
+                #endregion
+                case WorldUpdate.Talents:
+                    #region Spells
+                    try
+                    {
+                        m_talents.Clear();
+                        string[] worldTalentList = info.Split(Protocol.ISPLIT.ToCharArray());
+                        for (a = 0; a < worldTalentList.Length; a++)
+                            m_talents.Add(new Talent(worldTalentList[a]));
+                    }
+                    catch (Exception e)
+                    {
+                        Utils.LogException(e);
+                    }
+                    break;
+                #endregion
                 case WorldUpdate.Users:
                     #region Users
                     try
@@ -269,6 +277,18 @@ namespace Yuusha
             return null;
         }
 
+        public static Talent GetTalentByCommand(string command)
+        {
+            foreach (Talent talent in m_talents)
+            {
+                if (talent.Command == command)
+                {
+                    return talent;
+                }
+            }
+            return null;
+        }
+
         public static Character GetUserByName(string name)
         {
             foreach (Character ch in m_users)
@@ -395,44 +415,47 @@ namespace Yuusha
 
         public static void AddNews(string news)
         {
-            if (m_news.Contains(news))
-                return;
+            m_news = news;
 
-            m_news.Add(news);
-
-            try
+            if (Client.UserSettings.AutoDisplayNews && !NewsHasBeenDisplayed)
             {
-                if (Client.UserSettings.AutoDisplayNews)
-                {
-                    gui.Window newsWindow = gui.GuiManager.GenericSheet["NewsWindow"] as gui.Window;
-                    if (newsWindow != null)
-                    {
-                        (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).Clear();
-                        try
-                        {
-                            for (int a = 0; a < m_news.Count; a++)
-                            {
-                                string[] nz = m_news[a].Split(Protocol.ISPLIT.ToCharArray());
-                                foreach (string line in nz)
-                                {
-                                    (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine(line.Trim(), Enums.ETextType.Default);
-                                }
-                            }
-                        }
-                        catch (System.IO.FileNotFoundException)
-                        {
-                            (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Failed to display news.", Enums.ETextType.Default);
-                        }
-
-                        newsWindow.IsVisible = !newsWindow.IsVisible;
-                    }
-                }
-
+                gui.MessageWindow.CreateNewsMessageWindow(news);
+                NewsHasBeenDisplayed = true;
             }
-            catch(Exception e)
-            {
-                Utils.LogException(e);
-            }
+
+            //try
+            //{
+            //    if (Client.UserSettings.AutoDisplayNews)
+            //    {
+            //        gui.Window newsWindow = gui.GuiManager.GenericSheet["NewsWindow"] as gui.Window;
+            //        if (newsWindow != null)
+            //        {
+            //            (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).Clear();
+            //            try
+            //            {
+            //                for (int a = 0; a < m_news.Count; a++)
+            //                {
+            //                    string[] nz = m_news[a].Split(Protocol.ISPLIT.ToCharArray());
+            //                    foreach (string line in nz)
+            //                    {
+            //                        (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine(line.Trim(), Enums.ETextType.Default);
+            //                    }
+            //                }
+            //            }
+            //            catch (System.IO.FileNotFoundException)
+            //            {
+            //                (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Failed to display news.", Enums.ETextType.Default);
+            //            }
+
+            //            newsWindow.IsVisible = !newsWindow.IsVisible;
+            //        }
+            //    }
+            //
+            //}
+            //catch(Exception e)
+            //{
+            //    Utils.LogException(e);
+            //}
         }
 
         public static string GetImpLevelFullTitle(World.ImpLevel impLevel)

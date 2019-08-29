@@ -44,6 +44,15 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
 	<Visual ParentTexture="ui_helpers.png" Name="QuestionCursor" X="807" Y="962" Width="30" Height="30"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="DraggingCursor" X="874" Y="998" Width="25" Height="25"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="WaitCursor" X="911" Y="999" Width="13" Height="22"></Visual>
+  <!-- Pathing -->
+  <Visual ParentTexture="ui_helpers.png" Name="NorthFootstepsCyan" X="12" Y="814" Width="50" Height="50"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="NorthEastFootstepsCyan" X="64" Y="814" Width="50" Height="50"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="EastFootstepsCyan" X="117" Y="814" Width="50" Height="50"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="SouthEastFootstepsCyan" X="176" Y="814" Width="50" Height="50"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="SouthFootstepsCyan" X="226" Y="814" Width="50" Height="50"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="SouthWestFootstepsCyan" X="286" Y="814" Width="50" Height="50"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="WestFootstepsCyan" X="338" Y="810" Width="50" Height="50"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="NorthWestFootstepsCyan" X="395" Y="810" Width="50" Height="50"></Visual>
 	<!-- <Visual ParentTexture="ui_helpers.png" Name="OpenSpellbook" X="4" Y="3" Width="382" Height="308"></Visual> -->
   <!-- <Visual ParentTexture="ui_helpers.png" Name="OpenScroll" X="400" Y="3" Width="385" Height="311"></Visual> -->
 	<Visual ParentTexture="ui_helpers.png" Name="PlayButton" X="974" Y="7" Width="92" Height="40"></Visual>

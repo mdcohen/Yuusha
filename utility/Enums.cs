@@ -64,6 +64,7 @@ namespace Yuusha
             PrivateMessageReceiver,
             PrivateMessageSender,
             SageAdvice,
+            News
         }
 
         public enum EPlayerUpdate
@@ -79,7 +80,9 @@ namespace Yuusha
             Rings,
             Locker,
             Spells,
+            Talents,
             Effects,
+            WornEffects,
             Hits,
             Stamina,
             Mana,

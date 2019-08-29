@@ -314,17 +314,6 @@ namespace Yuusha.gui
                             YuushaMode.Tiles.Add(spinelTileDef.Graphic, spinelTileDef);
                         else Utils.Log("SpinelTileDef dictionary already contains Graphic [ " + spinelTileDef.Graphic + " ]");
                     }
-                    else if (reader.Name == "LOKTileDef")
-                    {
-                        if (LOKMode.TileXMLFile != xmlFile) LOKMode.TileXMLFile = xmlFile;
-                        LOKTileDefinition lokTileDef = new LOKTileDefinition(reader);
-                        if (!LOKMode.Tiles.ContainsKey(lokTileDef.Code))
-                        {
-                            LOKMode.Tiles.Add(lokTileDef.Code, lokTileDef);
-                            LOKMode.Codes.Add(lokTileDef.Code);
-                        }
-                        else Utils.Log("LOKTileDef dictionary already contains Code [ " + lokTileDef.Code + " ]");
-                    }
                     else if (reader.Name == "Sheet" || reader.Name == "GenericSheet")
                     {
                         #region Sheet
@@ -1209,14 +1198,10 @@ namespace Yuusha.gui
         public static void RemoveControl(Control control)
         {
             if (CurrentSheet.Controls.Contains(control))
-            {
                 CurrentSheet.RemoveControl(control);
-            }
 
             if (GenericSheet.Controls.Contains(control))
-            {
                 GenericSheet.RemoveControl(control);
-            }
         }
 
         public static bool ContainsVitalsUpdateTextCue(TextCue tc)

@@ -9,7 +9,7 @@ namespace Yuusha.gui
         public string TabControlledWindow;
         public TabControl TabControl;
         private Rectangle m_typicalRectangle;
-        private VisualKey m_typicalVisualKey;
+        private readonly VisualKey m_typicalVisualKey;
         private Color m_typicalTintColor;
 
 
@@ -34,9 +34,7 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            Window w = GuiManager.GetControl(TabControlledWindow) as Window;
-
-            if (w != null)
+            if (GuiManager.GetControl(TabControlledWindow) is Window w)
             {
                 if (w.IsVisible)
                 {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,6 +15,7 @@
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -69,6 +70,34 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="audio\AmbienceAudio.cs" />
     <Compile Include="Client.cs" />
@@ -82,8 +111,10 @@
     <Compile Include="game classes\Land.cs" />
     <Compile Include="game classes\LOKMap.cs" />
     <Compile Include="game classes\Lore.cs" />
+    <Compile Include="game classes\Mail.cs" />
     <Compile Include="game classes\Map.cs" />
     <Compile Include="game classes\Spell.cs" />
+    <Compile Include="game classes\Talent.cs" />
     <Compile Include="game classes\World.cs" />
     <Compile Include="gui\controls\Background.cs" />
     <Compile Include="gui\controls\borders\Border.cs" />
@@ -129,10 +160,11 @@
     <Compile Include="gui\controls\windows\SpellBookWindow.cs" />
     <Compile Include="gui\controls\windows\SpellRingWindow.cs" />
     <Compile Include="gui\controls\windows\SpellWarmingWindow.cs" />
-    <Compile Include="gui\controls\windows\TipWindow.cs" />
+    <Compile Include="gui\controls\windows\MessageWindow.cs" />
     <Compile Include="gui\controls\windows\HotButtonEditWindow.cs" />
     <Compile Include="gui\controls\windows\MapWindow.cs" />
     <Compile Include="gui\controls\windows\PrivateMessageWindow.cs" />
+    <Compile Include="gui\controls\windows\TalentsWindow.cs" />
     <Compile Include="gui\controls\windows\Window.cs" />
     <Compile Include="gui\controls\windows\WindowControlBox.cs" />
     <Compile Include="gui\controls\windows\WindowTitle.cs" />
@@ -144,8 +176,6 @@
     <Compile Include="gui\GuiManager.cs" />
     <Compile Include="gui\IOKMode.cs" />
     <Compile Include="gui\IOKTileDefinitiion.cs" />
-    <Compile Include="gui\LOKMode.cs" />
-    <Compile Include="gui\LOKTileDefinition.cs" />
     <Compile Include="gui\Sheet.cs" />
     <Compile Include="gui\SpinelMode.cs" />
     <Compile Include="gui\SpinelTileDefinition.cs" />
@@ -442,27 +472,6 @@
     <Content Include="media\textures\druidic_revival.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\effects\blue.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\effects\circle.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\effects\diamond.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\effects\green.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\effects\heartrate.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\effects\red.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\effects\star.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="media\textures\elvish_city.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -487,16 +496,7 @@
     <Content Include="media\textures\island.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\lok_deadpeople.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\lok_items.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="media\textures\lok_people.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\lok_spells.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\lok_tiles.png">
@@ -514,19 +514,7 @@
     <Content Include="media\textures\spellbook.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\spinel_spells.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="media\textures\spinel_tiles.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\splash1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\splash2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\textures\splash3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\tile_black1.png">
@@ -633,23 +621,14 @@
     <Content Include="media\xml\visuals\hotbutton_icons.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\xml\visuals\lok_items.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="media\xml\visuals\lok_people.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="media\xml\visuals\lok_spells.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\xml\visuals\lok_tiles.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\xml\visuals\spell_icons.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\xml\visuals\spinel_icons.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\xml\visuals\spinel_tiles.xml">
@@ -665,6 +644,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

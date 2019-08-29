@@ -9,6 +9,7 @@ namespace Yuusha
         public static string YOU_ARE_STUNNED = "You are stunned!";
         public static string YOU_HAVE_BEEN_BLINDED = "You have been blinded!";
         public static string YOU_ARE_SCARED = "You are scared!";
+        public static string PORTAL_CHANT = "ashtug ninda anghizidda arrflug";
 
         public static List<string> DisplayFontsList = new List<string>()
         {
@@ -25,7 +26,7 @@ namespace Yuusha
             "changaone14", "changaone16", "changaone18", "changaone20", "changaone22", "changaone24", "changaone26", "changaone28"
         };
 
-        public static readonly string[] MagicWords = {"aazag","alla","alsi","anaku","angarru","anghizidda","anna","annunna","ardata","ashak",
+        public static readonly List<string> MagicWords = new List<string>() {"aazag","alla","alsi","anaku","angarru","anghizidda","anna","annunna","ardata","ashak",
             "baad","dingir","duppira","edin","enaa","endul","enmeshir","enn","ennul","esha","gallu","gidim","gish","ia","idpa","igigi",
             "ina","isa","khitim","kia","kielgallal","kima","ku","lalartu","limutuma","lini","ma","mardukka","masqim","mass","na","naa",
             "namtar","nebo","nenlil","nergal","ninda","ningi","ninn","ninnda","ninnghizhidda","ninnme","nngi","nushi","qutri","raa","sagba",
@@ -40,9 +41,9 @@ namespace Yuusha
             for (int a = 1; a <= amount; a++)
             {
                 if (words == null)
-                    words = MagicWords[new Random(Guid.NewGuid().GetHashCode()).Next(0, MagicWords.Length)];
+                    words = MagicWords[new Random(Guid.NewGuid().GetHashCode()).Next(0, MagicWords.Count)];
                 else
-                    words += " " + MagicWords[new Random(Guid.NewGuid().GetHashCode()).Next(0, MagicWords.Length)];
+                    words += " " + MagicWords[new Random(Guid.NewGuid().GetHashCode()).Next(0, MagicWords.Count)];
             }
             return words;
         }
@@ -77,7 +78,7 @@ namespace Yuusha
         public static Dictionary<string, Color> GAME_TEXT_COLOR_FILTERS = new Dictionary<string, Color>()
         {
             // Gains
-            {"You have risen from ", Color.MediumOrchid},
+            {"You have risen from ", Color.Orchid},
             {"You have earned enough experience for your next level! Type REST ", Color.PaleGoldenrod },
             {"You are now a level ", Color.Goldenrod },
             {"You have gained ", Color.Plum},
@@ -113,16 +114,27 @@ namespace Yuusha
             {" has worn off.", Color.SandyBrown },
             {"WHUMP! You are stunned!", Color.Orange },
             {"You fumble", Color.Orange },
+
+            // Gage messages
+            {" appears far more experienced than you.", Color.Crimson },
+            {" appears more experienced than you.", Color.Yellow },
+            {" appears as experienced as you are.", Color.Azure },
+            {" appears less experienced than you.", Color.ForestGreen },
+            {" appears far less experienced than you.", Color.LightGray },
+
         };
 
         public static Dictionary<string, Color> CONF_TEXT_COLOR_FILTERS = new Dictionary<string, Color>()
         {
             // Conference room header
-            {"You are in Conference Room", Color.White },
-            {"You are the only player present.", Color.White },
+            {"You are in Conference Room", Color.Azure },
+            {"You are the only player present.", Color.Azure },
             {"players present.", Color.SlateBlue },
-            {"Type /help for a list of commands.", Color.White },
-            {"adventurers in Dragon's Spine.", Color.White }
+            {"Type /help for a list of commands.", Color.Azure },
+            {"adventurers in Dragon's Spine.", Color.Azure },
+
+            //{"has entered the room", Color.Lime}
+            //{"has" }
         };
 
         public static string ConvertPluralToSingular(string str)
@@ -191,7 +203,7 @@ namespace Yuusha
                 else if (input.StartsWith("Sage: "))
                 {
                     if (!input.ToLower().Contains("i do not know how to do that"))
-                        gui.TipWindow.CreateSageAdviceHintWindow(input.Replace("Sage: ", ""));
+                        gui.MessageWindow.CreateSageAdviceMessageWindow(input.Replace("Sage: ", ""));
                 }
                 else if (input.StartsWith("You warm the spell "))
                 {

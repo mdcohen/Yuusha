@@ -118,7 +118,8 @@ namespace Yuusha.gui
                     X += 2;
                     break;
                 case TextCueTag.FPS:
-                    Text = Math.Round(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds, 1).ToString();
+                    Text = GameHUD.UpdateCumulativeMovingAverageFPS((float)(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds)).ToString("0.00");
+                    //Text = Math.Round(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds, 1).ToString();
                     break;
                 default:
                     break;
@@ -362,14 +363,8 @@ namespace Yuusha.gui
 
         public static void AddClientInfoTextCue(string text, TextCueTag tag, Color color, Color backgroundColor, byte backgroundAlpha, double lifeCycle, bool fadeIn, bool fadeOut, bool addOnce)
         {
-            if (addOnce)
-            {
-                foreach (TextCue cue in GuiManager.TextCues)
-                {
-                    if (cue.Text == text)
-                        return;
-                }
-            }
+            if (addOnce && GuiManager.TextCues.Find(cue => cue.Text == text) != null)
+                return;
 
             int x = 0;
             int y = 0;

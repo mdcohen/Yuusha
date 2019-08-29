@@ -13,6 +13,7 @@ namespace Yuusha.gui
         private VisualKey m_lootVisual;
         private byte m_lootVisualAlpha = 255;
         private List<VisualKey> m_critterVisuals;
+        private VisualKey m_pathingVisual; // footsteps and ?
         #endregion
 
         #region Public Properties
@@ -38,7 +39,7 @@ namespace Yuusha.gui
         }
         public byte LootVisualAlpha
         { set { m_lootVisualAlpha = value; } }
-        public string FogVisual
+        public string FogVisual // FogOfWar
         { get; set; }
         public List<VisualKey> CritterVisuals
         {
@@ -46,6 +47,11 @@ namespace Yuusha.gui
         }
         public MapWindow.FogOfWarDetail FogOfWarDetail
         { get; set; }
+        public string PathingVisual
+        {
+            get { return m_pathingVisual.Key; }
+            set { m_pathingVisual.Key = value; }
+        }
         #endregion
 
         #region Constructor
@@ -98,7 +104,7 @@ namespace Yuusha.gui
 
         public override void Draw(GameTime gameTime)
         {
-            if (!m_visible)
+            if (!m_visible || IsOffscreen())
                 return;
 
             base.Draw(gameTime);
@@ -189,16 +195,22 @@ namespace Yuusha.gui
 
                     VisualInfo vi = GuiManager.Visuals[vk.Key];
                     Rectangle sourceRect = new Rectangle(vi.X, vi.Y, vi.Width, vi.Height);
+                    Color tintColor = vk.OverrideTintColor;
                     
                     if (!m_disabled)
                     {
-                        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, sourceRect, Color.White);
+                        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, sourceRect, tintColor);
                     }
                     else
                     {
                         Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, sourceRect, new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, m_visualAlpha));
                     }
                 }
+            }
+
+            if(m_pathingVisual != null && !string.IsNullOrEmpty(m_pathingVisual.Key))
+            {
+
             }
 
             if (Border != null) Border.Draw(gameTime); // draws the border again

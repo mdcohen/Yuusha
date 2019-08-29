@@ -13,7 +13,7 @@ namespace Yuusha.gui
         public Label SelectedIconLabel;
         public string SelectedVisualKey;
         public string IconImagePrefix = "";
-        private bool IconSelectionButtonsCreated = false;
+        private bool IconSelectionButtonTextVisible = false;
 
         public HotButtonEditWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, List<Enums.EAnchorType> anchors, string cursorOverride) : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
         {
@@ -29,6 +29,17 @@ namespace Yuusha.gui
 
             if (GuiManager.GetControl(OriginatingWindow) is Window iconWindow)
                 iconWindow.IsVisible = true;
+        }
+
+        protected override bool OnKeyDown(KeyboardState ks)
+        {
+            if (ks.IsKeyDown(Keys.LeftControl) && ks.IsKeyDown(Keys.V))
+            {
+                IconSelectionButtonTextVisible = !IconSelectionButtonTextVisible;
+                return true;
+            }
+
+            return base.OnKeyDown(ks);
         }
 
         public void CreateIconSelectionButtons()
@@ -71,9 +82,8 @@ namespace Yuusha.gui
 
                 for (a = 0; a < IconVisualKeys.Count; a++)
                 {
-                    GuiManager.CurrentSheet.CreateButton("IconImageSelectionButton", IconImagePrefix + "_" + a, Name,
-                        new Rectangle(x, y, width, height), a.ToString(), false, Color.White, true, false, GuiManager.Sheets[Sheet].Font, new VisualKey(IconVisualKeys[a]), Color.White,
-                        255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Center, 0, 30, Color.White, false, Color.White, false, new List<Enums.EAnchorType>(),
+                    GuiManager.CurrentSheet.CreateButton("IconImageSelectionButton", IconImagePrefix + "_" + a, Name, new Rectangle(x, y, width, height), a.ToString(), false, Color.White, true, false, GuiManager.Sheets[Sheet].Font, new VisualKey(IconVisualKeys[a]), Color.White,
+                        255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Right, 0, height - (BitmapFont.ActiveFonts[GuiManager.Sheets[Sheet].Font].LineHeight + 2), Color.White, false, Color.White, false, new List<Enums.EAnchorType>(),
                         false, Map.Direction.Northwest, 2, "", "", "", "", false, Client.ClientSettings.DefaultOnClickSound);
 
                     columnCount++;
@@ -98,7 +108,7 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            if(GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt))
+            if(IconSelectionButtonTextVisible)
             {
                 foreach(Control c in Controls)
                 {

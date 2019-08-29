@@ -127,6 +127,13 @@ namespace Yuusha
                 return true;
             }
 
+            // ALT + U
+            // reload IOK tiles
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.U))
+            {
+                return true;
+            }
+
             // ALT + V
             // toggle client mode
             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.V))
@@ -141,14 +148,14 @@ namespace Yuusha
                 return true;
             }
 
-            // CTRL + Add
-            if (IsCtrlKeyDown(ks) && ks.IsKeyDown(Keys.Add))
+            // ALT + Add
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Add))
             {
                 return true;
             }
 
-            // CTRL + Minus
-            if (IsCtrlKeyDown(ks) && ks.IsKeyDown(Keys.Subtract))
+            // ALT + Minus
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Subtract))
             {
                 return true;
             }
@@ -180,14 +187,12 @@ namespace Yuusha
                             PressedKeys = newKeys;
                             return IsClientKeyboardHandled();
                         }
-                        //else
-                        //{
-                        //    gui.TextCue.AddClientInfoTextCue(k.ToString());
-                        //}
                     }
 
                     if (!bFound)
                     {
+                        //gui.TextCue.AddClientInfoTextCue(k.ToString());
+
                         #region Login Game State
                         if (Client.GameState == Enums.EGameState.Login)
                         {
@@ -195,7 +200,8 @@ namespace Yuusha
                             #region Testing Area aka the Playground
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.F))
                             {
-                                TextCue.AddFPSTextCue(Math.Round(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds, 1).ToString());
+                                TextCue.AddFPSTextCue(GameHUD.UpdateCumulativeMovingAverageFPS((float)(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds)).ToString("0.00"));
+                                //TextCue.AddFPSTextCue(Math.Round(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds, 1).ToString());
                                 result = true;
                             }
 
@@ -290,29 +296,28 @@ namespace Yuusha
                             #region ALT + N  News Window
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.N))
                             {
-                                gui.Window newsWindow = gui.GuiManager.GenericSheet["NewsWindow"] as gui.Window;
-                                if (newsWindow != null)
+                                if (gui.GuiManager.GenericSheet["NewsWindow"] is gui.MessageWindow newsWindow)
                                 {
-                                    if (!newsWindow.IsVisible)
-                                    {
-                                        (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).Clear();
+                                    //if (!newsWindow.IsVisible)
+                                    //{
+                                    //    (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).Clear();
 
-                                        try
-                                        {
-                                            for (int a = 0; a < World.News.Count; a++)
-                                            {
-                                                string[] nz = World.News[a].Split(Protocol.ISPLIT.ToCharArray());
-                                                foreach (string line in nz)
-                                                {
-                                                    (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine(line.Trim(), Enums.ETextType.Default);
-                                                }
-                                            }
-                                        }
-                                        catch (System.IO.FileNotFoundException)
-                                        {
-                                            (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Failed to display news.", Enums.ETextType.Default);
-                                        }
-                                    }
+                                    //    try
+                                    //    {
+                                    //        for (int a = 0; a < World.News.Count; a++)
+                                    //        {
+                                    //            string[] nz = World.News[a].Split(Protocol.ISPLIT.ToCharArray());
+                                    //            foreach (string line in nz)
+                                    //            {
+                                    //                (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine(line.Trim(), Enums.ETextType.Default);
+                                    //            }
+                                    //        }
+                                    //    }
+                                    //    catch (System.IO.FileNotFoundException)
+                                    //    {
+                                    //        (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Failed to display news.", Enums.ETextType.Default);
+                                    //    }
+                                    //}
                                     newsWindow.IsVisible = !newsWindow.IsVisible;
                                     result = true;
                                 }
@@ -435,6 +440,14 @@ namespace Yuusha
                                     hbeWindow.OnClose();
                                 result = true;
                             }
+
+                            #region Tilde Saves a Screenshot
+                            if (ks.IsKeyDown(Keys.OemTilde))
+                            {
+                                Utils.SaveScreenshot();
+                                result = true;
+                            }
+                            #endregion
                         }
                         else // Menu, Game, Conference
                         {
@@ -445,15 +458,22 @@ namespace Yuusha
                                 result = true;
                             }
 
+                            // ALT + U Toggle Talents Window
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.U))
+                            {
+                                Events.RegisterEvent(Events.EventName.Toggle_Talents);
+                                result = true;
+                            }
+
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
                             {
                                 //    //Utils.LogCharacterFields();
-                                //    //Utils.LogCharacterEffects();
+                                Utils.LogCharacterEffects();
                                 //    //foreach (Spell spell in World.SpellsList)
                                 //    //    Utils.Log(spell.Name);
                                 //    //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                                 //    //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
-                                IO.Send(Protocol.REQUEST_CHARACTER_STATS);
+                                //IO.Send(Protocol.REQUEST_CHARACTER_STATS);
                                 //    SpellBookWindow.CreateSpellBookWindow();
                                 result = true;
                             }
@@ -624,32 +644,11 @@ namespace Yuusha
                             #region ALT + N  News Window
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.N))
                             {
-                                gui.Window newsWindow = gui.GuiManager.GenericSheet["NewsWindow"] as gui.Window;
-                                if (newsWindow != null)
+                                if (GuiManager.GenericSheet["NewsWindow"] is gui.MessageWindow newsWindow)
                                 {
-                                    if (!newsWindow.IsVisible)
-                                    {
-                                        (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).Clear();
-
-                                        try
-                                        {
-                                            for (int a = 0; a < World.News.Count; a++)
-                                            {
-                                                string[] nz = World.News[a].Split(Protocol.ISPLIT.ToCharArray());
-                                                foreach (string line in nz)
-                                                {
-                                                    (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine(line.Trim(), Enums.ETextType.Default);
-                                                }
-                                            }
-                                        }
-                                        catch (System.IO.FileNotFoundException)
-                                        {
-                                            (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Failed to display news.", Enums.ETextType.Default);
-                                        }
-                                    }
-                                    newsWindow.IsVisible = !newsWindow.IsVisible;
-                                    result = true;
+                                    newsWindow.OnClose();
                                 }
+                                else MessageWindow.CreateNewsMessageWindow(World.News);
                             }
                             #endregion
 
@@ -709,7 +708,7 @@ namespace Yuusha
                             }
                             #endregion
 
-                            #region ALT + A  Toggle Ambient SOunds
+                            #region ALT + A  Toggle Ambient Sounds
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.A))
                             {
                                 Client.UserSettings.BackgroundAmbience = !Client.UserSettings.BackgroundAmbience;
@@ -739,21 +738,24 @@ namespace Yuusha
                             // Only in YuushaMode?
                             if (Client.GameState == Enums.EGameState.YuushaGame)
                             {
-                                if (IsCtrlKeyDown(ks) && ks.IsKeyDown(Keys.Add))
+                                if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Add))
                                 {
                                     Events.RegisterEvent(Events.EventName.MapDisplay_Increase);
+                                    result = true;
                                 }
 
-                                if (IsCtrlKeyDown(ks) && ks.IsKeyDown(Keys.Subtract))
+                                if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Subtract))
                                 {
                                     Events.RegisterEvent(Events.EventName.MapDisplay_Decrease);
+                                    result = true;
                                 }
                             }
 
-                            #region Tilde  Saves a Screenshot
+                            #region Tilde Saves a Screenshot
                             if (ks.IsKeyDown(Keys.OemTilde))
                             {
                                 Utils.SaveScreenshot();
+                                result = true;
                             }
                             #endregion
 

@@ -17,7 +17,7 @@
   <NumPadSubtract>belt left;remove 2 ring from right</NumPadSubtract>
   <NumPadAdd>look in sack;quaff</NumPadAdd>
   <NumPadDelete>ashtug ninda anghizidda arrflug</NumPadDelete>
-  <FunctionKey1 />
+  <FunctionKey1>show stats</FunctionKey1>
   <FunctionKey2 />
   <FunctionKey3 />
   <FunctionKey4 />

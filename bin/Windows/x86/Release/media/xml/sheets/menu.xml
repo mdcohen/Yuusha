@@ -22,7 +22,7 @@
   <Background
 		Font="lemon16"
 		VisualKey="DragonOverIslandBackground"
-		IsCentered="false"
+		IsCentered="true"
 		IsTiled="false"
 		TintColor="White"
 		VisualAlpha="200">
@@ -32,11 +32,21 @@
   <Background
 		Font="lemon16"
 		VisualKey="ElvishCityBackground"
-		IsCentered="false"
+		IsCentered="true"
 		IsTiled="false"
 		TintColor="White"
 		VisualAlpha="255">
   </Background>
+
+  <!-- World Map Background
+  <Background
+		Font="lemon16"
+		VisualKey="WorldMapBackground"
+		IsCentered="true"
+		IsTiled="false"
+		TintColor="White"
+		VisualAlpha="255">
+  </Background> -->
 
   <!-- Blank Background
   <Background

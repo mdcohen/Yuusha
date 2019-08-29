@@ -60,12 +60,14 @@ namespace Yuusha.gui
         {
             base.OnMouseOver(ms);
 
+            if(Owner.Contains("HotButtonWindow") && !string.IsNullOrEmpty(Text))
+                TextCue.AddMouseCursorTextCue(Text, Client.ClientSettings.HotButtonPopUpText_ForeColor, Client.ClientSettings.HotButtonPopUpText_BackColor, Client.ClientSettings.HotButtonPopUpText_BackColorAlpha, Client.ClientSettings.DefaultPopUpFont);
+
             if (Border == null)
                 GuiManager.GenericSheet.CreateSquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Color.OldLace, 255);
 
             if (Border != null)
-                Border.IsVisible = true;
-            
+                Border.IsVisible = true;            
         }
 
         protected override void OnMouseLeave(MouseState ms)
@@ -305,15 +307,44 @@ namespace Yuusha.gui
 
             Color color = new Color(m_tintColor, (byte)MathHelper.Clamp(m_visualAlpha, 0, 255));
 
-            if (Text == "" && Owner.Contains("HotButtonWindow"))
+            if (string.IsNullOrEmpty(Text) && Owner.Contains("HotButtonWindow"))
                 color = new Color(Color.Black, 160);
 
             if (GuiManager.Visuals.ContainsKey(m_visualKey.Key))
             {
                 VisualInfo vi = GuiManager.Visuals[m_visualKey.Key];
 
-                Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], this.m_rectangle, vi.Rectangle,
-                    new Color(color.R, color.G, color.B, color.A));
+                Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, new Color(color.R, color.G, color.B, color.A));
+            }
+
+            if (!string.IsNullOrEmpty(m_text) && IsTextVisible)
+            {
+                if (BitmapFont.ActiveFonts.ContainsKey(Font))
+                {
+                    // override BitmapFont sprite batch
+                    BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
+                    // set font alignment
+                    BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
+                    // draw string in textbox, using x and y text offsets to create new rectangle
+                    Rectangle rect = new Rectangle(m_rectangle.X + XTextOffset, m_rectangle.Y + YTextOffset, m_rectangle.Width, m_rectangle.Height);
+                    if (!m_disabled)
+                    {
+                        // change color of text if mouse over text color is not null
+                        if (m_hasTextOverColor && m_controlState == Enums.EControlState.Over)
+                        {
+                            BitmapFont.ActiveFonts[Font].TextBox(rect, m_textOverColor, m_text);
+                        }
+                        else
+                        {
+                            BitmapFont.ActiveFonts[Font].TextBox(rect, m_textColor, m_text);
+                        }
+                    }
+                    else
+                    {
+                        BitmapFont.ActiveFonts[Font].TextBox(rect, ColorDisabledStandard, m_text);
+                    }
+                }
+                else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Button [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
             }
 
             if (Border != null) Border.Draw(gameTime);

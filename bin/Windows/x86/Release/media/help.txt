@@ -12,13 +12,15 @@ ALT + R: Reload Current GUI
 ALT + S: Toggle Sound Effects
 ALT + T: Reload Map Tiles (Game Mode Only)
 ALT + W: Toggle Fog of War (Yuusha Game Mode)
-CTRL + ~ : Save Screenshot
+~ : Save Screenshot
+ALT + +: Increase Map Size
+ALT + -: Decrease Map Size
+
+*Not Yet Implemented*
 CTRL + B: Belt Window
 CTRL + I: Inventory Window
 CTRL + L: Locker Window
 CTRL + P: Pouch Window
 CTRL + S: Sack Window
-
-CTRL + A: Again Last Command
 CTRL + R: Rest
 CTRL + M: Meditate

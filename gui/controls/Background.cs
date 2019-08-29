@@ -8,7 +8,7 @@ namespace Yuusha.gui
 {
     public class Background : Control
     {
-        private bool m_centered = false;
+        private readonly bool m_centered = false;
         private List<TextCue> m_textCues;
 
         #region Constructor

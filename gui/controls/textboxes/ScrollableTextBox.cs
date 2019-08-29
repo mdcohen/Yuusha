@@ -22,9 +22,9 @@ namespace Yuusha.gui
         private List<Color> m_formattedTextColors;
        
         private Scrollbar m_scrollbar;
-        private int m_maxLineBuffer;
+        private readonly int m_maxLineBuffer;
         private int m_prevScrollWheelValue;
-        private bool m_trim;
+        private readonly bool m_trim;
 
         #endregion
 
@@ -403,8 +403,20 @@ namespace Yuusha.gui
                 // This is where line colors are decided.
                 Color lineColor = TextManager.GetTextFilteredColor(Client.GameState, line, true);
 
-                if (lineColor == TextColor && line.EndsWith("!") && !line.Contains(": "))
-                    lineColor = TextManager.GetTextFilteredColor(Client.GameState, " hits with ", true);
+                if (Client.GameState.ToString().EndsWith("Game"))
+                {
+                    if (lineColor == TextColor && line.EndsWith("!") && !line.Contains(": "))
+                        lineColor = TextManager.GetTextFilteredColor(Client.GameState, " hits with ", true);
+                    else if (line.Contains(":") && line.IndexOf(" ") == line.IndexOf(":") + 1)
+                    {
+                        string[] f = line.Split(":".ToCharArray());
+                        string[] g = f[1].Trim().Split(" ".ToCharArray());
+
+                        if (g.Length > 0 && TextManager.MagicWords.Contains(g[0]))
+                            lineColor = Color.Khaki;
+                        else lineColor = Color.BurlyWood; // speech/spell warming
+                    }
+                }
 
                 m_allTextColors.Add(lineColor);
 

@@ -15,6 +15,7 @@ namespace Yuusha.gui
             VitalsGain_ManaMax,
             LevelUp,
             NewSpell,
+            NewTalent,
             StrengthAdd,
             DexterityAdd,
         }
@@ -124,11 +125,12 @@ namespace Yuusha.gui
                     font = "lobster156";
                     enlargenRate = 10;
                     break;
+                case AchievementType.NewTalent:
                 case AchievementType.NewSpell:
                     tintColor = TextManager.GetAlignmentColor(false, Character.CurrentCharacter.Alignment);
                     textColor = TextManager.GetAlignmentColor(true, Character.CurrentCharacter.Alignment);
                     visualKey = "WhiteSpace";
-                    soundFile = "GUISounds/new_spell";
+                    soundFile = "GUISounds/new_spell"; // TODO: different sound 8/28/2019
                     font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.Count - 1];
                     stopSize = BitmapFont.ActiveFonts[font].MeasureString(text);
                     slideOffScreen = false;
@@ -137,13 +139,6 @@ namespace Yuusha.gui
                     y = 60;
                     width = BitmapFont.ActiveFonts[font].MeasureString(text);
                     height = BitmapFont.ActiveFonts[font].LineHeight / 4;
-                    //if (GuiManager.CurrentSheet["MapDisplayWindow"] is Window mapDispWindow)
-                    //{
-                    //    x = mapDispWindow.Position.X + (mapDispWindow.Width / 2) - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
-                    //    y = mapDispWindow.Position.Y - (BitmapFont.ActiveFonts[font].LineHeight + 10);
-                    //    width = BitmapFont.ActiveFonts[font].MeasureString(text);
-                    //    height = BitmapFont.ActiveFonts[font].LineHeight;
-                    //}
                     break;
             }
 

@@ -82,11 +82,13 @@ namespace Yuusha.gui
         public virtual string Owner
         {
             get { return m_owner; }
+            set { m_name = value; }
         }
 
         public virtual string Name
         {
             get { return m_name; }
+            set { m_name = value; }
         }
 
         public virtual object Data
@@ -439,10 +441,11 @@ namespace Yuusha.gui
             if (!string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu) && !(this is DropDownMenu) && !(this is DropDownMenuItem))
                 return false;
 
-            if (Contains(ms.Position) && !m_containsMousePointer)
+            if (Contains(ms.Position) && !m_containsMousePointer && !IsBeneathControl(ms))
             {
                 m_containsMousePointer = true;
                 OnMouseOver(ms);
+
             }
 
             if (!Contains(ms.Position) && m_containsMousePointer)
@@ -553,8 +556,12 @@ namespace Yuusha.gui
                     //if (GuiManager.MouseAbove(this))
                     //    return result;
 
-                    ControlState = Enums.EControlState.Over;
-                    OnMouseOver(ms);
+                    if (!IsBeneathControl(ms))
+                    {
+                        ControlState = Enums.EControlState.Over;
+                        OnMouseOver(ms);
+                    }
+
                     return result;
                     #endregion
                 }
@@ -592,6 +599,8 @@ namespace Yuusha.gui
             }
             return false;
         }
+
+        
 
         public virtual bool Contains(Point point)
         {
@@ -799,6 +808,64 @@ namespace Yuusha.gui
             m_rectangle.Y = y;
             m_rectangle.Width = width;
             m_rectangle.Height = height;
+        }
+
+        public virtual bool IsOffscreen()
+        {
+            if (Position.X > Client.Width)
+                return true;
+
+            if (Position.Y > Client.Height)
+                return true;
+
+            if (Position.X + Width < 0)
+                return true;
+
+            if (Position.Y + Height < 0)
+                return true;
+
+            return false;
+        }
+
+        private bool IsBeneathControl(MouseState ms)
+        {
+            // Cheating? Yes. Possibly needs rework in the future. 8/28/2019
+            if (Sheet == "Generic") return false;
+
+            // Drop Down Menu always on top.
+            if (this is DropDownMenu || this is DropDownMenuItem)
+                return false;
+
+            foreach (Control c in GuiManager.GenericSheet.Controls)
+            {
+                //if(Sheet == "Generic")
+                //{
+                //    if (c.Sheet == "Generic")
+                //    {
+                //        if ((c.ZDepth < ZDepth || (c.ZDepth == ZDepth && c.ZDepthDateTime > ZDepthDateTime)) && c.Contains(ms.Position))
+                //            return true;
+                //    }
+                //    else continue;
+                //}
+
+                if (c != this && c.IsVisible && c.Contains(ms.Position) && c.Name != Owner)
+                {
+                    return true;
+                }
+            }
+
+            if (Sheet != "Generic")
+            {
+                foreach (Control c in GuiManager.CurrentSheet.Controls)
+                {
+                    if (Owner == c.Name || !c.IsVisible || c == this) continue;
+
+                    if ((c.ZDepth < ZDepth || (c.ZDepth == ZDepth && c.ZDepthDateTime > ZDepthDateTime)) && c.Contains(ms.Position))
+                        return true;
+                }
+            }
+
+            return false;
         }
 
         public static int GetXShadow(Map.Direction direction, int distance)

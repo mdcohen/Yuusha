@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace Yuusha.gui
 {
@@ -19,6 +20,7 @@ namespace Yuusha.gui
             "VitalsWindow"
         };
         public static List<int> InitialSpellbookUpdated = new List<int>();
+        public static List<int> InitialTalentbookUpdated = new List<int>();
         public static Dictionary<string, string> GameIconsDictionary = new Dictionary<string, string>()
         {
             // skills
@@ -47,6 +49,8 @@ namespace Yuusha.gui
             {"upgrade", "yuushaicon_22" },
             {"downgrade", "yuushaicon_22" },
         };
+        const int MAP_GRID_MINIMUM = 30;
+        const int MAP_GRID_MAXIMUM = 100;
 
         public static bool ChangingMapDisplaySize = false; // used in Events.UpdateGUI to prevent issues while changing map display size
 
@@ -61,6 +65,9 @@ namespace Yuusha.gui
         public static Cell ExaminedCell { get; set; }
 
         public static List<Cell> Cells = new List<Cell>();
+
+        private static int FramesQuantity = 0;
+        private static float CurrentAvgFPS = 0;
 
         // TODO a boolean here to prevent ZName pop up
 
@@ -92,6 +99,14 @@ namespace Yuusha.gui
             //        Events.RegisterEvent(Events.EventName.Request_Stats);
             //    }
             //}
+        }
+
+        public static float UpdateCumulativeMovingAverageFPS(float newFPS)
+        {
+            ++FramesQuantity;
+            CurrentAvgFPS += (newFPS - CurrentAvgFPS) / FramesQuantity;
+
+            return CurrentAvgFPS;
         }
 
         /// <summary>
@@ -525,93 +540,235 @@ namespace Yuusha.gui
 
         public static void UpdateEffectsWindow(Sheet sheet)
         {
-            if (sheet["EffectsWindow"] is Window w)
+            try
             {
-                w.Controls.RemoveAll(c => c is Label);
-                int size = 40;
-                int spacing = 1;
-                int borderWidth = w.WindowBorder != null ? w.WindowBorder.Width : 0;
-
-                //if (Character.CurrentCharacter.Effects.Count <= 0)
-                //{
-                //    Label label = new Label("NoEffectsLabel", w.Name, new Rectangle(0, (w.WindowTitle != null ? w.WindowTitle.Height : 0) + 2, BitmapFont.ActiveFonts[w.Font].MeasureString("No Effects"), 30), "No Effects", Color.White, true, false, w.Font,
-                //            new VisualKey("WhiteSpace"), Color.Transparent, 0, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
-
-                //    GuiManager.GenericSheet.AddControl(label);
-                //}
-                if (Character.CurrentCharacter.Effects.Count > 0)
+                if (sheet["EffectsWindow"] is Window w)
                 {
-                    int x = borderWidth + spacing;
-                    int y = (w.WindowTitle != null ? w.WindowTitle.Height + spacing : 0) + borderWidth + spacing;
+                    w.Controls.RemoveAll(c => c is Label);
+                    int size = 40;
+                    int spacing = 1;
+                    int borderWidth = w.WindowBorder != null ? w.WindowBorder.Width : 0;
+                    int labelsPerRow = 8;
 
-                    foreach (Effect effect in Character.CurrentCharacter.Effects)
+                    //if (Character.CurrentCharacter.Effects.Count <= 0)
+                    //{
+                    //    Label label = new Label("NoEffectsLabel", w.Name, new Rectangle(0, (w.WindowTitle != null ? w.WindowTitle.Height : 0) + 2, BitmapFont.ActiveFonts[w.Font].MeasureString("No Effects"), 30), "No Effects", Color.White, true, false, w.Font,
+                    //            new VisualKey("WhiteSpace"), Color.Transparent, 0, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+
+                    //    GuiManager.GenericSheet.AddControl(label);
+                    //}
+                    if (Character.CurrentCharacter.Effects.Count > 0)
                     {
-                        VisualKey visual = new VisualKey("WhiteSpace");
-                        string text = effect.Name[0].ToString();
-                        string effectPopUp = Utils.FormatEnumString(effect.Name);
-                        Color tintColor = Color.Transparent;
-                        //int count = 0;
+                        int x = borderWidth + spacing;
+                        int y = (w.WindowTitle != null ? w.WindowTitle.Height + spacing : 0) + borderWidth + spacing;
 
-                        // time remaining
-                        if (effect.Duration > 0)
+                        foreach (Effect effect in Character.CurrentCharacter.Effects)
                         {
-                            System.TimeSpan timeRemaining = Utils.RoundsToTimeSpan(effect.Duration);
-                            if (timeRemaining < System.TimeSpan.FromMinutes(60))
-                                effectPopUp += " [" + string.Format("{0:D2}", timeRemaining.Minutes) + ":" + string.Format("{0:D2}", timeRemaining.Seconds) + "]";
-                            else effectPopUp += " [" + timeRemaining.ToString() + "]";
-                        }
+                            VisualKey visual = new VisualKey("WhiteSpace");
+                            string text = effect.Name[0].ToString();
+                            string effectPopUp = Utils.FormatEnumString(effect.Name);
+                            Color tintColor = Color.Transparent;
+                            //int count = 0;
 
-                        // visual key of effect/spell if it exists
-                        if (Effect.IconsDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
-                        {
-                            visual = new VisualKey(Effect.IconsDictionary[Utils.FormatEnumString(effect.Name)]);
-                            text = "";
-                            tintColor = Color.White;
-
-                            if (Effect.IconsTintDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
-                                tintColor = Effect.IconsTintDictionary[Utils.FormatEnumString(effect.Name)];
-                        }
-
-                        EffectLabel label = new EffectLabel(effect.Name + "Label", w.Name, new Rectangle(x, y, size, size), text, Color.White, true, false, w.Font,
-                            visual, tintColor, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), effectPopUp)
-                        {
-                            EffectName = effect.Name,
-                            TimeCreated = System.DateTime.Now,
-                            Duration = effect.Duration,
-                            Timeless = effect.Duration <= 0,
-                        };
-
-                        GuiManager.CurrentSheet.AddControl(label);
-
-                        SquareBorder border = new SquareBorder(label.Name + "Border", label.Name, 1, new VisualKey("WhiteSpace"), false, Color.DimGray, 175);
-                        GuiManager.CurrentSheet.AddControl(border);
-
-                        x += size + spacing;
-
-                        if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha)
-                        {
-                            if (x >= 8 * (size + spacing) + borderWidth + 1)
+                            // time remaining
+                            if (effect.Duration > 0)
                             {
-                                x = borderWidth + 1;
-                                y += size + spacing;
+                                System.TimeSpan timeRemaining = Utils.RoundsToTimeSpan(effect.Duration);
+                                if (timeRemaining < System.TimeSpan.FromMinutes(60))
+                                    effectPopUp += " [" + string.Format("{0:D2}", timeRemaining.Minutes) + ":" + string.Format("{0:D2}", timeRemaining.Seconds) + "]";
+                                else effectPopUp += " [" + timeRemaining.ToString() + "]";
+                            }
+
+                            // visual key of effect/spell if it exists
+                            if (Effect.IconsDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
+                            {
+                                visual = new VisualKey(Effect.IconsDictionary[Utils.FormatEnumString(effect.Name)]);
+                                text = "";
+                                tintColor = Color.White;
+
+                                if (Effect.IconsTintDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
+                                    tintColor = Effect.IconsTintDictionary[Utils.FormatEnumString(effect.Name)];
+                            }
+
+                            EffectLabel label = new EffectLabel(effect.Name + "Label", w.Name, new Rectangle(x, y, size, size), text, Color.White, true, false, w.Font,
+                                visual, tintColor, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), effectPopUp)
+                            {
+                                EffectName = effect.Name,
+                                TimeCreated = System.DateTime.Now,
+                                Duration = effect.Duration,
+                                Timeless = effect.Duration <= 0,
+                            };
+
+                            GuiManager.CurrentSheet.AddControl(label);
+
+                            Color borderColor = Color.DimGray;
+
+                            if (Effect.NegativeEffects.Contains(effect.Name))
+                                borderColor = Color.Red;
+
+                            if (Effect.ShortTermPositiveEffects.Contains(effect.Name))
+                                borderColor = Color.Lime;
+
+                            SquareBorder border = new SquareBorder(label.Name + "Border", label.Name, 1, new VisualKey("WhiteSpace"), false, borderColor, 175);
+                            GuiManager.CurrentSheet.AddControl(border);
+
+                            x += size + spacing;
+
+                            if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha)
+                            {
+                                if (x >= labelsPerRow * (size + spacing) + borderWidth + 1)
+                                {
+                                    x = borderWidth + 1;
+                                    y += size + spacing;
+                                }
                             }
                         }
                     }
-                }
 
-                int rowCount = 1;
-                if(Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha && Character.CurrentCharacter.Effects.Count > 8)
+                    int rowCount = 1;
+                    if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha && Character.CurrentCharacter.Effects.Count > labelsPerRow)
+                    {
+                        rowCount = (int)Math.Ceiling(Character.CurrentCharacter.Effects.Count / (decimal)labelsPerRow);
+                        w.Width = labelsPerRow * (size + spacing) + spacing + (borderWidth * 2);
+                    }
+                    else w.Width = Character.CurrentCharacter.Effects.Count * (size + spacing) + spacing + 1;
+                    if (w.WindowTitle != null) w.WindowTitle.Width = w.Width;
+                    w.Height = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + (rowCount * (size + spacing)) + (borderWidth * 2);
+
+                    if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter.Effects.Count > 0)
+                        w.IsVisible = true;
+                    else w.IsVisible = false;
+                }
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
+            }
+        }
+
+        public static void UpdateWornEffectsWindow()
+        {
+            try
+            {
+                if (GuiManager.GenericSheet["WornEffectsWindow"] is Window w)
                 {
-                    rowCount = (int)System.Math.Ceiling(Character.CurrentCharacter.Effects.Count / 8d);
-                    w.Width = 8 * (size + spacing) + spacing + (borderWidth * 2);
-                }
-                else w.Width = Character.CurrentCharacter.Effects.Count * (size + spacing) + spacing + 1;
-                if (w.WindowTitle != null) w.WindowTitle.Width = w.Width;
-                w.Height = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + (rowCount * (size + spacing)) + (borderWidth * 2);
+                    w.Controls.RemoveAll(c => c is Label);
+                    int size = 40;
+                    int spacing = 1;
+                    int borderWidth = w.WindowBorder != null ? w.WindowBorder.Width : 0;
+                    int labelsPerRow = 16;
+                    //string font = "robotomonobold11";
 
-                if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter.Effects.Count > 0)
-                    w.IsVisible = true;
-                else w.IsVisible = false;
+                    //if (Character.CurrentCharacter.Effects.Count <= 0)
+                    //{
+                    //    Label label = new Label("NoEffectsLabel", w.Name, new Rectangle(0, (w.WindowTitle != null ? w.WindowTitle.Height : 0) + 2, BitmapFont.ActiveFonts[w.Font].MeasureString("No Effects"), 30), "No Effects", Color.White, true, false, w.Font,
+                    //            new VisualKey("WhiteSpace"), Color.Transparent, 0, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+
+                    //    GuiManager.GenericSheet.AddControl(label);
+                    //}
+                    if (Character.CurrentCharacter.WornEffects.Count > 0)
+                    {
+                        
+                        int x = borderWidth + spacing;
+                        int y = (w.WindowTitle != null ? w.WindowTitle.Height + spacing : 0) + borderWidth + spacing;
+                        
+                        List<string> AddedEffects = new List<string>();
+
+                        foreach (Effect effect in Character.CurrentCharacter.WornEffects)
+                        {
+                            if (!AddedEffects.Contains(effect.Name))
+                            {
+                                VisualKey visual = new VisualKey("WhiteSpace");
+                                //string text = effect.Name[0].ToString();
+                                string text = effect.Amount.ToString();
+                                if (effect.Amount <= 0) text = "";
+                                string effectPopUp = Utils.FormatEnumString(effect.Name);
+                                Color tintColor = Color.Transparent;
+                                //int count = 0;
+
+                                // time remaining
+                                if (effect.Duration > 0)
+                                {
+                                    TimeSpan timeRemaining = Utils.RoundsToTimeSpan(effect.Duration);
+                                    if (timeRemaining < System.TimeSpan.FromMinutes(60))
+                                        effectPopUp += " [" + string.Format("{0:D2}", timeRemaining.Minutes) + ":" + string.Format("{0:D2}", timeRemaining.Seconds) + "]";
+                                    else effectPopUp += " [" + timeRemaining.ToString() + "]";
+                                }
+
+                                // visual key of effect/spell if it exists
+                                if (Effect.IconsDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
+                                {
+                                    visual = new VisualKey(Effect.IconsDictionary[Utils.FormatEnumString(effect.Name)]);
+                                    if (effect.Amount > 0)
+                                        text = effect.Amount.ToString();
+                                    tintColor = Color.White;
+
+                                    if (Effect.IconsTintDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
+                                        tintColor = Effect.IconsTintDictionary[Utils.FormatEnumString(effect.Name)];
+                                }
+
+                                EffectLabel label = new EffectLabel(effect.Name + "Label", w.Name, new Rectangle(x, y, size, size), text, Color.White, true, false, w.Font,
+                                    visual, tintColor, 255, 255, BitmapFont.TextAlignment.Right, 0, 10, "", "", new List<Enums.EAnchorType>(), effectPopUp)
+                                {
+                                    EffectName = effect.Name,
+                                    TimeCreated = DateTime.Now,
+                                    Duration = effect.Duration,
+                                    Timeless = effect.Duration <= 0,
+                                };
+
+                                GuiManager.CurrentSheet.AddControl(label);
+                                AddedEffects.Add(effect.Name);
+
+                                Color borderColor = Color.DimGray;
+                                if (Effect.NegativeEffects.Contains(effect.Name))
+                                    borderColor = Color.Red;
+
+                                SquareBorder border = new SquareBorder(label.Name + "Border", label.Name, 1, new VisualKey("WhiteSpace"), false, borderColor, 175);
+                                GuiManager.CurrentSheet.AddControl(border);
+
+                                x += size + spacing;
+
+                                if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha)
+                                {
+                                    if (x >= labelsPerRow * (size + spacing) + borderWidth + 1)
+                                    {
+                                        x = borderWidth + 1;
+                                        y += size + spacing;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (effect.Amount > 0)
+                                {
+                                    if (w[effect.Name + "Label"] is Control c)
+                                    {
+                                        int currentAmount = Convert.ToInt32(c.Text);
+                                        c.Text = (currentAmount + effect.Amount).ToString();
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    int rowCount = 1;
+                    if (Client.GameDisplayMode == Enums.EGameDisplayMode.Yuusha && Character.CurrentCharacter.WornEffects.Count > labelsPerRow)
+                    {
+                        rowCount = (int)Math.Ceiling(Character.CurrentCharacter.WornEffects.Count / (decimal)labelsPerRow);
+                        w.Width = labelsPerRow * (size + spacing) + spacing + (borderWidth * 2);
+                    }
+                    else w.Width = Character.CurrentCharacter.WornEffects.Count * (size + spacing) + spacing + 1;
+                    if (w.WindowTitle != null) w.WindowTitle.Width = w.Width;
+                    w.Height = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + (rowCount * (size + spacing)) + (borderWidth * 2);
+
+                    if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter.WornEffects.Count > 0)
+                        w.IsVisible = true;
+                    else w.IsVisible = false;
+                }
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
             }
         }
 
@@ -666,7 +823,7 @@ namespace Yuusha.gui
                 int currentSize = w["Tile0"].Width;
 
                 // Maximum or minimum size decided here...
-                if (currentSize + tileSizeChange < 10 || currentSize + tileSizeChange > 100)
+                if (currentSize + tileSizeChange < MAP_GRID_MINIMUM || currentSize + tileSizeChange > MAP_GRID_MAXIMUM)
                     return;
 
                 List<Control> copiedControls = new List<Control>(w.Controls);

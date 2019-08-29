@@ -497,7 +497,8 @@ namespace Yuusha
                         {
                             Events.RegisterEvent(Events.EventName.New_Spell, prevSpells);
                         }
-                        else if (!GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.ID))
+
+                        if (!GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.ID))
                             GameHUD.InitialSpellbookUpdated.Add(CurrentCharacter.ID);
                     }
                     catch (Exception e)
@@ -505,7 +506,46 @@ namespace Yuusha
                         Utils.LogException(e);
                     }
                     break;
-                    #endregion
+                #endregion
+                case Enums.EPlayerUpdate.Talents:
+                    #region Talents
+                    try
+                    {
+                        List<Talent> prevTalents = null;
+
+                        if (Client.GameState.ToString().EndsWith("Game") && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.ID))
+                            prevTalents = new List<Talent>(CurrentCharacter.Talents);
+
+                        CurrentCharacter.Talents.Clear();
+
+                        string[] pcTalentbook = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (pcTalentbook[0].Length > 0)
+                        {
+                            for (a = 0; a < pcTalentbook.Length; a++)
+                            {
+                                string[] talentInfo = pcTalentbook[a].Split(Protocol.VSPLIT.ToCharArray());
+                                Talent talent = World.GetTalentByCommand(talentInfo[0]);
+                                if (talent != null)
+                                {
+                                    CurrentCharacter.Talents.Add(talent);
+                                }
+                            }
+                        }
+
+                        if (prevTalents != null && Client.GameState.ToString().EndsWith("Game") && CurrentCharacter.Spells.Count > prevTalents.Count &&
+                            GameHUD.InitialTalentbookUpdated.Contains(CurrentCharacter.ID))
+                        {
+                            Events.RegisterEvent(Events.EventName.New_Talent, prevTalents);
+                        }
+                        else if (!GameHUD.InitialTalentbookUpdated.Contains(CurrentCharacter.ID))
+                            GameHUD.InitialTalentbookUpdated.Add(CurrentCharacter.ID);
+                    }
+                    catch (Exception e)
+                    {
+                        Utils.LogException(e);
+                    }
+                    break;
+                #endregion
                 case Enums.EPlayerUpdate.Effects:
                     #region Effects
                     try
@@ -523,7 +563,25 @@ namespace Yuusha
                         Utils.LogException(e);
                     }
                     break;
-                    #endregion
+                #endregion
+                case Enums.EPlayerUpdate.WornEffects:
+                    #region Worn Effects
+                    try
+                    {
+                        m_currentCharacter.WornEffects.Clear();
+                        string[] pcWornEffects = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (pcWornEffects[0].Length > 0)
+                        {
+                            for (a = 0; a < pcWornEffects.Length; a++)
+                                m_currentCharacter.WornEffects.Add(new Effect(pcWornEffects[a]));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Utils.LogException(e);
+                    }
+                    break;
+                #endregion
                 case Enums.EPlayerUpdate.Macros:
                     #region Macros
                     string[] macrosArray = info.Split(Protocol.ISPLIT.ToCharArray());
@@ -684,7 +742,9 @@ namespace Yuusha
         private List<Item> m_rings;
         private List<Item> m_locker;
         private List<Spell> m_spells;
+        private List<Talent> m_talents;
         private List<Effect> m_effects;
+        private List<Effect> m_wornEffects;
         private List<string> m_macros;
         #endregion
 
@@ -930,9 +990,17 @@ namespace Yuusha
         {
             get { return m_spells; }
         }
+        public List<Talent> Talents
+        {
+            get { return m_talents; }
+        }
         public List<Effect> Effects
         {
             get { return m_effects; }
+        }
+        public List<Effect> WornEffects
+        {
+            get { return m_wornEffects; }
         }
         public List<string> Macros
         {
@@ -1011,7 +1079,9 @@ namespace Yuusha
             m_rings = new List<Item>();
             m_locker = new List<Item>();
             m_spells = new List<Spell>();
+            m_talents = new List<Talent>();
             m_effects = new List<Effect>();
+            m_wornEffects = new List<Effect>();
             m_macros = new List<string>();
         } 
         #endregion

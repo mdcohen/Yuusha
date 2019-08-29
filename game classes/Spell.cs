@@ -22,7 +22,7 @@ namespace Yuusha
         private string m_command; // spell command
         private string m_name; // name of the spell
         private string m_soundFile;
-        private string m_incantation; 
+        private string m_incantation; // used for individual characters
         #endregion
 
         #region Constructor

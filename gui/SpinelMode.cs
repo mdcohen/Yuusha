@@ -567,17 +567,30 @@ namespace Yuusha.gui
                             {
                                 if (count != 24) // not our cell
                                 {
-                                    spLabel.CritterVisuals.Add(new VisualKey(cell.Characters[0].VisualKey));
+                                    VisualKey vk = new VisualKey(cell.Characters[0].VisualKey);
+                                    if (vk.Key.Contains("sorcerer") || vk.Key.Contains("ravager"))
+                                        vk.OverrideTintColor = Color.DarkGray;
+                                    spLabel.CritterVisuals.Add(vk);
                                     spLabel.CreatureText = cell.Characters[0].assignedLetter;
                                 }
                                 else
                                 {
-                                    spLabel.CritterVisuals.Add(new VisualKey(cell.Characters[0].VisualKey));
+                                    VisualKey vk = new VisualKey(cell.Characters[0].VisualKey);
+                                    if (vk.Key.Contains("sorcerer") || vk.Key.Contains("ravager"))
+                                        vk.OverrideTintColor = Color.DarkGray;
+                                    spLabel.CritterVisuals.Add(vk);
+
                                     if (!Character.CurrentCharacter.IsPeeking)
                                     {
                                         if (Character.CurrentCharacter.IsDead)
                                             spLabel.CritterVisuals.Add(new VisualKey("ghost"));
-                                        else spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
+                                        else
+                                        {
+                                            vk = new VisualKey(Character.CurrentCharacter.VisualKey);
+                                            if (vk.Key.Contains("sorcerer") || vk.Key.Contains("ravager"))
+                                                vk.OverrideTintColor = Color.DarkGray;
+                                            spLabel.CritterVisuals.Add(vk);
+                                        }
                                         Character.CurrentCharacter.UpdateCoordinates(cell);
                                     }
                                 }
@@ -586,7 +599,13 @@ namespace Yuusha.gui
                             {
                                 if (Character.CurrentCharacter.IsDead)
                                     spLabel.CritterVisuals.Add(new VisualKey("ghost"));
-                                else spLabel.CritterVisuals.Add(new VisualKey(Character.CurrentCharacter.VisualKey));
+                                else
+                                {
+                                    VisualKey vk = new VisualKey(Character.CurrentCharacter.VisualKey);
+                                    if (vk.Key.Contains("sorcerer") || vk.Key.Contains("ravager"))
+                                        vk.OverrideTintColor = Color.DarkGray;
+                                    spLabel.CritterVisuals.Add(vk);
+                                }
                                 Character.CurrentCharacter.UpdateCoordinates(cell);
                             }
 

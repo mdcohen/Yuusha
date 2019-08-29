@@ -14,16 +14,10 @@
 	<File Name="xml\visuals\spinel_tiles.xml"></File>
 	<!-- LOK People Visuals -->
 	<File Name="xml\visuals\lok_people.xml"></File>
-	<!-- LOK Item Visuals -->
-	<File Name="xml\visuals\lok_items.xml"></File>
   <!-- Yuusha Item Visuals -->
   <File Name="xml\visuals\yuusha_items.xml"></File>
   <!-- Yuusha Game Icons -->
   <File Name="xml\visuals\yuusha_icons.xml"></File>
-	<!-- LOK Spell Visuals -->
-	<File Name="xml\visuals\lok_spells.xml"></File>
-  <!-- Spinel Icon Visuals -->
-	<File Name="xml\visuals\spinel_icons.xml"></File>-->
   <!-- Spell Icons -->
   <File Name="xml\visuals\hotbutton_icons.xml"></File>-->
   <!-- IOK Tile Definitions -->

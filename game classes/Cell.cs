@@ -338,14 +338,14 @@ namespace Yuusha
             if (IsImpassable())
                 return 10000;
 
-            switch(DisplayGraphic)
-            {
-                case GRAPHIC_RUINS_LEFT:
-                case GRAPHIC_RUINS_RIGHT:
-                case GRAPHIC_SAND:
-                    return 1;
-                case GRAPHIC_WATER: return 1;
-            }
+            //switch(DisplayGraphic)
+            //{
+            //    case GRAPHIC_RUINS_LEFT:
+            //    case GRAPHIC_RUINS_RIGHT:
+            //    case GRAPHIC_SAND:
+            //        return 1;
+            //    case GRAPHIC_WATER: return 1;
+            //}
 
             return 0;
         }
