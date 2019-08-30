@@ -57,8 +57,11 @@ namespace Yuusha.gui
                             VisualAlpha = OriginalVisualAlpha;
                     }
 
-                    foreach(Control c in Controls)
+                    foreach (Control c in Controls)
+                    {
                         c.VisualAlpha = VisualAlpha;
+                        c.TextAlpha = VisualAlpha;
+                    }
                 }
             }
 

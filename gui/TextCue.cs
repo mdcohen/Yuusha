@@ -9,7 +9,7 @@ namespace Yuusha.gui
     public class TextCue : GameComponent
     {
         public enum TextCueTag { None, PromptState, WarmedSpell, XPGain, XPLoss, HealthGain, HealthLoss, StaminaGain, StaminaLoss,
-            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS, SkillUp, Target }
+            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS, SkillUp, Target, MouseCursor }
 
         #region Private Data
         private string m_text;
@@ -90,7 +90,26 @@ namespace Yuusha.gui
 
         public void Update(GameTime gameTime, List<TextCue> cueList)
         {
-            switch(Tag)
+            int loopCount = 0;
+            while (IsOverlapping() && loopCount < 100)
+            {
+                if (X > Client.Width / 2)
+                    X -= BitmapFont.ActiveFonts[Font].MeasureString(Text);
+                else X += BitmapFont.ActiveFonts[Font].MeasureString(Text);
+
+                if (Y > Client.Height / 2)
+                    Y -= BitmapFont.ActiveFonts[Font].LineHeight + 5;
+                else Y += BitmapFont.ActiveFonts[Font].LineHeight + 5;
+
+                loopCount++;
+            }
+
+            if (loopCount >= 100)
+            {
+                Utils.Log(Text + " [ " + Tag.ToString() + " ] looped 100 times!");
+            }
+
+            switch (Tag)
             {
                 case TextCueTag.XPGain:
                 case TextCueTag.XPLoss:
@@ -264,11 +283,17 @@ namespace Yuusha.gui
 
         public static void AddMouseCursorTextCue(string text)
         {
+            if (GuiManager.TextCues.Exists(c => c.Text == text))
+                return;
+
             AddMouseCursorTextCue(text, Client.ClientSettings.DefaultMouseCursorTextCueColor, GuiManager.CurrentSheet.Font);
         }
 
         public static void AddMouseCursorTextCue(string text, Color color, string font)
-        { 
+        {
+            if (GuiManager.TextCues.Exists(c => c.Text == text && c.m_color == color && c.Font == font))
+                return;
+
             MouseState ms = GuiManager.MouseState;
 
             MouseCursor cursor;
@@ -279,7 +304,7 @@ namespace Yuusha.gui
 
             if (cursor != null)
             {
-                TextCue tc = new TextCue(text, ms.X, ms.Y - BitmapFont.ActiveFonts[font].LineHeight, 255, color, Color.Transparent, 0, font, 2500, false, 2, Map.Direction.Southeast, false, false, false, TextCueTag.None);
+                TextCue tc = new TextCue(text, ms.X, ms.Y - BitmapFont.ActiveFonts[font].LineHeight, 255, color, Color.Transparent, 0, font, 2500, false, 2, Map.Direction.Southeast, false, false, false, TextCueTag.MouseCursor);
 
                 cursor.TextCues.Clear();
 
@@ -289,6 +314,9 @@ namespace Yuusha.gui
 
         public static void AddMouseCursorTextCue(string text, Color forecolor, Color backcolor, byte backgroundAlpha, string font)
         {
+            if (GuiManager.TextCues.Exists(c => c.Text == text && c.m_color == forecolor && c.m_backgroundColor == backcolor && c.m_backgroundAlpha == backgroundAlpha && c.Font == font))
+                return;
+
             MouseState ms = GuiManager.MouseState;
 
             MouseCursor cursor;
@@ -308,7 +336,7 @@ namespace Yuusha.gui
                 if (y < 0)
                     y = ms.Y + BitmapFont.ActiveFonts[font].LineHeight;
 
-                TextCue tc = new TextCue(text, x, y, 255, forecolor, backcolor, backgroundAlpha, font, 100, false, 2, Map.Direction.Southeast, false, false, false, TextCueTag.None);
+                TextCue tc = new TextCue(text, x, y, 255, forecolor, backcolor, backgroundAlpha, font, 100, false, 2, Map.Direction.Southeast, false, false, false, TextCueTag.MouseCursor);
                 // only one mouse cursor text cue at a time...
                 cursor.TextCues.Clear();                
                 cursor.TextCues.Add(tc);
@@ -743,6 +771,25 @@ namespace Yuusha.gui
         {
             X += now.Width - prev.Width;
             Y += now.Height - prev.Height;
+        }
+
+        private bool IsOverlapping()
+        {
+            BitmapFont bmf = BitmapFont.ActiveFonts[Font];
+            Rectangle ourRect = new Rectangle(X, Y, bmf.MeasureString(Text), bmf.LineHeight);
+            foreach (TextCue tc in GuiManager.TextCues)
+            {
+                if (tc != this && tc.Tag != TextCueTag.MouseCursor)
+                {
+                    bmf = BitmapFont.ActiveFonts[tc.Font];
+                    Rectangle rect = new Rectangle(tc.X, tc.Y, bmf.MeasureString(tc.Text), bmf.LineHeight);
+
+                    if (ourRect.Intersects(rect))
+                        return true;
+                }
+            }
+
+            return false;
         }
     }
 }

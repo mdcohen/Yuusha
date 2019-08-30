@@ -40,8 +40,8 @@ namespace Yuusha
         GraphicsDeviceManager m_graphics;
         readonly ContentManager m_contentManager;
         GuiManager m_guiManager;
-        GameHUD m_gameHUD;
-        Audio.AudioManager m_audioManager;
+        readonly GameHUD m_gameHUD;
+        readonly Audio.AudioManager m_audioManager;
         bool m_firstFullScreen;
         bool m_noDraw;
         #endregion

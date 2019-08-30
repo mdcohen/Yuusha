@@ -117,20 +117,18 @@ namespace Yuusha.gui
                 // draw string
                 Rectangle rect = new Rectangle(m_textRectangle.X + XTextOffset, m_textRectangle.Y + YTextOffset, m_textRectangle.Width, m_textRectangle.Height);
                 // change color of text if mouse over text color is not null
-                if (m_text != null && m_text.Length > 0)
+                if (!string.IsNullOrEmpty(m_text) && m_text.Length > 0)
                 {
                     // draw shadow
                     if (TextShadow)
                     {
                         Rectangle shadowRect = new Rectangle(rect.X + GetXShadow(TextShadowDirection, TextShadowDistance), rect.Y + GetYShadow(TextShadowDirection, TextShadowDistance), rect.Width, rect.Height);
-                        Color shadowColor = new Color((int)Color.Black.R, (int)Color.Black.G, (int)Color.Black.B, TextShadowAlpha);
+                        Color shadowColor = new Color(Color.Black, TextShadowAlpha);
                         BitmapFont.ActiveFonts[Font].TextBox(shadowRect, shadowColor, m_text);
                     }
 
                     if (!m_disabled && m_hasTextOverColor && m_controlState == Enums.EControlState.Over)
-                    {
                         BitmapFont.ActiveFonts[Font].TextBox(rect, new Color(m_textOverColor, TextAlpha), m_text);
-                    }
                     else
                         BitmapFont.ActiveFonts[Font].TextBox(rect, textColor, m_text);
                 }

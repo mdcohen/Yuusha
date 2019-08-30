@@ -73,7 +73,7 @@ namespace Yuusha.gui
                 {
                     if (timeRemaining < TimeSpan.FromMinutes(60))
                         PopUpText = Utils.FormatEnumString(EffectName) + " [" + string.Format("{0:D2}", timeRemaining.Minutes) + ":" + string.Format("{0:D2}", timeRemaining.Seconds) + "]";
-                    else PopUpText = Utils.FormatEnumString(EffectName) + " [" + timeRemaining.ToString() + "]";
+                    else PopUpText = Utils.FormatEnumString(EffectName) + " [" + string.Format("{0:D2}", timeRemaining.Hours) + ":" + string.Format("{0:D2}", timeRemaining.Minutes) + ":" + string.Format("{0:D2}", timeRemaining.Seconds) + "]";
 
                     if (m_fadeOut)
                         VisualAlpha -= m_fadeSpeed;

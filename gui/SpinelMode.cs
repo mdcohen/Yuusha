@@ -298,8 +298,8 @@ namespace Yuusha.gui
 
                 int tempA = 0;
 
-                crit.ID = Convert.ToInt32(critterInfo[tempA]); // player id or worldnpc id
-                crit.isPC = crit.ID >= 0;
+                crit.UniqueID = Convert.ToInt32(critterInfo[tempA]); // player id or worldnpc id
+                crit.isPC = crit.UniqueID >= 0;
                 crit.Name = critterInfo[tempA + 1];
                 //crit.shortDesc = critterInfo[tempA + 2];
                 //crit.longDesc = critterInfo[tempA + 3];

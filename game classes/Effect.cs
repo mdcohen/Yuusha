@@ -78,7 +78,7 @@ namespace Yuusha
             { "Wall of Fog", "hotbuttonicon_423" }, { "Wizard Eye", "hotbuttonicon_46" },
         };
 
-        public static List<string> NegativeEffects = new List<string>() { "Acid", "Contagion", "Venom" };
+        public static List<string> NegativeEffects = new List<string>() { "Acid", "Contagion", "Fear", "Venom" };
 
         public static List<string> ShortTermPositiveEffects = new List<string>() { "Balm" };
 

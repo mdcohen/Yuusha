@@ -17,7 +17,7 @@ namespace Yuusha.gui
 
             int height = 20;
             int count = 0;
-            int spacing = 2;
+            int spacing = 1;
             if (Client.GameDisplayMode != Enums.EGameDisplayMode.Yuusha)
                 spacing = 0;
 

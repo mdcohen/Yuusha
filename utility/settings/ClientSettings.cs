@@ -23,7 +23,8 @@ namespace Yuusha.Utility.Settings
         public string DefaultPopUpFont = "lemon12";
         public string DefaultDropDownMenuFont = "lemon12";
         public string DefaultOnClickSound = "GUISounds/click_short";
-        public bool DisplayChantingTextCue = true;
+        public bool DisplayChantingConversationBubble = true;
+        public bool DisplayConversationBubbles = true;
         public bool StartFullScreen = false;
 
         // audio related
@@ -42,13 +43,14 @@ namespace Yuusha.Utility.Settings
         public bool EchoPrivateMessagesToGame = true;
         public bool DisplayPrivateMessageWindows = true;
 
+        // gui behavior
         public bool DisplaySpellEffectLabels = true;
         public bool DisplaySpellEffectNameOnLabels = false;
         public bool EchoGroundItemsOnExamination = false;
         public bool GroupSimiliarItemsInGridBoxes = true;
         public bool AlwaysOpenGridBoxWindowsUponActivity = false;
-
-        public bool ShowMapDisplayWindowBorderWhenFogOfWarVisible = true;
+        public bool ShowMapDisplayWindowBorderWhenFogOfWarVisible = true; // display map border around main display map when FogOfWar visible
+        public double DoubleClickTimerDelay = 300; // the lower the number the less time required to detect a double click
 
         // saving accounts and passwords (encrypted)
         public List<Encrypt.EncryptedKeyValuePair<string, string>> StoredAccounts = new List<Encrypt.EncryptedKeyValuePair<string, string>>();

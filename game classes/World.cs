@@ -114,7 +114,7 @@ namespace Yuusha
                         {
                             string[] worldUserItem = worldUsersList[a].Split(Protocol.VSPLIT.ToCharArray());
                             user = new Character();
-                            user.ID = Convert.ToInt32(worldUserItem[0]);
+                            user.UniqueID = Convert.ToInt32(worldUserItem[0]);
                             user.ImpLevel = (ImpLevel)Convert.ToInt32(worldUserItem[1]);
                             user.Name = worldUserItem[2];
                             user.ClassFullName = worldUserItem[3];
@@ -151,7 +151,7 @@ namespace Yuusha
                             Character score = new Character();
                             // these will be sent in order.... once a player enters the conference room
                             // playerID, name, profession, level, experience, kills per hour, last login, anon, implevel, land
-                            score.ID = Convert.ToInt32(worldScoreItem[0]);
+                            score.UniqueID = Convert.ToInt32(worldScoreItem[0]);
                             score.Name = worldScoreItem[1];
                             score.Profession = (Character.ClassType)Convert.ToInt32(worldScoreItem[2]);
                             score.ClassFullName = worldScoreItem[3];
@@ -305,7 +305,7 @@ namespace Yuusha
         {
             foreach (Character ch in m_users)
             {
-                if (ch.ID == id)
+                if (ch.UniqueID == id)
                 {
                     return ch;
                 }
@@ -340,7 +340,7 @@ namespace Yuusha
                     for (a = 0; a < temporaryUserList.Count; a++)
                     {
                         Character ch = (Character)temporaryUserList[a];
-                        ids[a] = ch.ID;
+                        ids[a] = ch.UniqueID;
                         implevels[a] = (int)ch.ImpLevel;
                     }
 

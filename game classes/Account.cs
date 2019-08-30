@@ -92,7 +92,7 @@ namespace Yuusha
         {
             foreach (Character ch in m_characters)
             {
-                if (ch.ID == id)
+                if (ch.UniqueID == id)
                 {
                     return ch;
                 }

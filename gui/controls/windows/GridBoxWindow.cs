@@ -97,6 +97,7 @@ namespace Yuusha.gui
             int rows = 0, columns = 0, x = 0, y = 0, count = 0, size = 64;
             GridBoxWindow box = null;
             List<Item> itemsList = new List<Item>();
+            int maxAmount = 0;
 
             switch(purpose)
             {
@@ -120,6 +121,7 @@ namespace Yuusha.gui
                     if (Character.CurrentCharacter != null && Character.CurrentCharacter.Locker != null)
                         itemsList = new List<Item>(Character.CurrentCharacter.Locker);
                     else return;
+                    maxAmount = Utility.Settings.StaticSettings.LockerSize;
                     #endregion
                     break;
                 case GridBoxPurpose.Altar:
@@ -150,6 +152,7 @@ namespace Yuusha.gui
                     if (Character.CurrentCharacter != null && Character.CurrentCharacter.Pouch != null)
                         itemsList = new List<Item>(Character.CurrentCharacter.Pouch);
                     else return;
+                    maxAmount = Utility.Settings.StaticSettings.PouchSize;
                     #endregion
                     break;
                 case GridBoxPurpose.Rings: // 20 slots
@@ -174,6 +177,7 @@ namespace Yuusha.gui
                     if (Character.CurrentCharacter != null && Character.CurrentCharacter.Sack != null)
                         itemsList = new List<Item>(Character.CurrentCharacter.Sack);
                     else return;
+                    maxAmount = Utility.Settings.StaticSettings.SackSize;
                     #endregion
                     break;
             }
@@ -247,6 +251,17 @@ namespace Yuusha.gui
             //}
 
             //GameHUD.NextGridBoxUpdateIsSilent = false;
+
+            if (maxAmount > 0 && box.WindowTitle != null)
+            {
+                if(purpose == GridBoxPurpose.Sack)
+                {
+                    // don't include coins
+                    box.WindowTitle.Text = box.WindowTitle.Text + " (" + (itemsList.Count - 1) + "/" + maxAmount + ")";
+                }
+                else box.WindowTitle.Text = box.WindowTitle.Text + " (" + itemsList.Count + "/" + maxAmount + ")";
+            }
+
         }
 
         protected override void OnMouseOver(MouseState ms)

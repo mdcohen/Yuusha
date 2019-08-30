@@ -77,9 +77,9 @@ namespace Yuusha.gui
             for (int i = 0; i <= 13; i++)
             {
                 seed = Guid.NewGuid().GetHashCode();
-                TextBox textBox = new TextBox(spellbook.Name + "LeftChant" + i + "TextBox", spellbook.Name, new Rectangle(x, y, width, height), TextManager.GenerateMagicWords(new Random(seed).Next(4, 6)).ToUpper(), Color.Black,
-                    BitmapFont.TextAlignment.Left, true, true, "lemon12", new VisualKey(""), Color.Transparent, 0, 255, false, 100, false, false, Color.RosyBrown,
-                     new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, "", Color.RosyBrown, new List<Enums.EAnchorType>(), 0);
+                TextBox textBox = new TextBox(spellbook.Name + "LeftChant" + i + "TextBox", spellbook.Name, new Rectangle(x, y, width, height), TextManager.GenerateMagicWords(new Random(seed).Next(2, 4)).ToUpper(), Color.Black,
+                    BitmapFont.TextAlignment.Center, true, true, "lemon12", new VisualKey(""), Color.Transparent, 0, 255, false, 100, false, false, Color.Brown,
+                     new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, "", Color.Brown, new List<Enums.EAnchorType>(), 0);
                 y += height;
                 GuiManager.GenericSheet.AddControl(textBox);
             }
@@ -122,9 +122,9 @@ namespace Yuusha.gui
             for (int i = 0; i <= 13; i++)
             {
                 seed = Guid.NewGuid().GetHashCode();
-                TextBox textBox = new TextBox(spellbook.Name + "RightChant" + i + "TextBox", spellbook.Name, new Rectangle(x, y, width, height), TextManager.GenerateMagicWords(new Random(seed).Next(4, 9)).ToUpper(), Color.Black,
-                    BitmapFont.TextAlignment.Left, true, true, "lemon12", new VisualKey(""), Color.Transparent, 0, 255, false, 100, false, false, Color.RosyBrown,
-                     new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, "", Color.RosyBrown, new List<Enums.EAnchorType>(), 0);
+                TextBox textBox = new TextBox(spellbook.Name + "RightChant" + i + "TextBox", spellbook.Name, new Rectangle(x, y, width, height), TextManager.GenerateMagicWords(new Random(seed).Next(2, 4)).ToUpper(), Color.Black,
+                    BitmapFont.TextAlignment.Center, true, true, "lemon12", new VisualKey(""), Color.Transparent, 0, 255, false, 100, false, false, Color.Brown,
+                     new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, "", Color.Brown, new List<Enums.EAnchorType>(), 0);
                 y += height;
                 GuiManager.GenericSheet.AddControl(textBox);
             }
@@ -185,7 +185,7 @@ namespace Yuusha.gui
             this["Spellbook" + leftOrRight + "ManaSymbolLabel"].Text = spell.ManaCost.ToString();
 
             // Choose text box to display spell chant
-            int randomTextBox = new Random(System.Guid.NewGuid().GetHashCode()).Next(0, 13);
+            int randomTextBox = new Random(Guid.NewGuid().GetHashCode()).Next(0, 13);
 
             for (int i = 0; i <= 13; i++)
             {
@@ -202,7 +202,7 @@ namespace Yuusha.gui
                 else
                 {
                     int seed = Guid.NewGuid().GetHashCode();
-                    tbxBox.Text = TextManager.GenerateMagicWords(new Random(seed).Next(4, 9));
+                    tbxBox.Text = TextManager.GenerateMagicWords(new Random(seed).Next(2, 4));
                     tbxBox.TextColor = Color.Black;
                 }
             }

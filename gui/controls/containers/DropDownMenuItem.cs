@@ -6,8 +6,8 @@ namespace Yuusha.gui
 {
     public class DropDownMenuItem : Control // should these inherit from Button? 6/11/2019
     {
-        private bool m_isLabel = false; // no mouse handling
-        private bool m_isSeparator = false;
+        private readonly bool m_isLabel = false; // no mouse handling
+        private readonly bool m_isSeparator = false;
 
         public DropDownMenu DropDownMenu
         {get;set;}
@@ -124,7 +124,7 @@ namespace Yuusha.gui
 
                 if (m_onMouseDown != "")
                 {
-                    Events.RegisterEvent((Events.EventName)System.Enum.Parse(typeof(Events.EventName), m_onMouseDown, true), this);
+                    Events.RegisterEvent((Events.EventName)Enum.Parse(typeof(Events.EventName), m_onMouseDown, true), this);
                     MouseDownSent = true;
                     DropDownMenu.IsVisible = false;
                     GuiManager.ActiveDropDownMenu = "";
@@ -134,12 +134,17 @@ namespace Yuusha.gui
                 {
                     if(DropDownMenu.DropDownMenuOwner is DragAndDropButton dButton)
                     {
-                        if (DropDownMenu.DropDownMenuOwner.Owner.Contains("GridBoxWindow"))
+                        if (dButton.Owner.Contains("GridBoxWindow") || dButton.Name.StartsWith("RH") || dButton.Name.StartsWith("LH"))
                         {
-                            GridBoxWindow.GridBoxPurpose purpose = (DropDownMenu.DropDownMenuOwner as DragAndDropButton).GridBoxUpdateRequests[DropDownMenu.MenuItems.IndexOf(this)];
-                            GridBoxWindow.GridBoxPurpose ownerPurpose = (GuiManager.GetControl(DropDownMenu.DropDownMenuOwner.Owner) as GridBoxWindow).GridBoxPurposeType;
-                            GridBoxWindow.RequestUpdateFromServer(purpose);
-                            GridBoxWindow.RequestUpdateFromServer(ownerPurpose);
+                            if (dButton.GridBoxUpdateRequests.Count >= DropDownMenu.MenuItems.IndexOf(this) + 1)
+                            {
+                                GridBoxWindow.RequestUpdateFromServer(dButton.GridBoxUpdateRequests[DropDownMenu.MenuItems.IndexOf(this)]);
+                                dButton.GridBoxUpdateRequests.Clear();                               
+                            }
+
+                            GridBoxWindow.GridBoxPurpose p = (GuiManager.GetControl(DropDownMenu.DropDownMenuOwner.Owner) as GridBoxWindow).GridBoxPurposeType;
+                            GridBoxWindow.RequestUpdateFromServer(p);
+                            //Utils.Log("Sent GridBoxWindow.RequestUpdateFromServer for " + p.ToString());
                         }
                         // otherwise Inventory
                     }

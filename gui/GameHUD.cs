@@ -52,6 +52,8 @@ namespace Yuusha.gui
         const int MAP_GRID_MINIMUM = 30;
         const int MAP_GRID_MAXIMUM = 100;
 
+        public static List<Tuple<ScrollableTextBox, DateTime>> ConversationBubbles = new List<Tuple<ScrollableTextBox, DateTime>>();
+
         public static bool ChangingMapDisplaySize = false; // used in Events.UpdateGUI to prevent issues while changing map display size
 
         public static List<Control> AchievementLabelList = new List<Control>(); // level up label also goes here to prevent achievements from showing until it's done
@@ -99,6 +101,28 @@ namespace Yuusha.gui
             //        Events.RegisterEvent(Events.EventName.Request_Stats);
             //    }
             //}
+
+            foreach(Tuple<ScrollableTextBox, DateTime> tuple in new List<Tuple<ScrollableTextBox, DateTime>>(ConversationBubbles))
+            {
+                tuple.Item1.ZDepth = 0;
+
+                if (DateTime.Now - tuple.Item2 >= TimeSpan.FromSeconds(1))
+                {
+                    tuple.Item1.VisualAlpha--;
+                    tuple.Item1.TextAlpha--;
+                }
+                
+                if(DateTime.Now - tuple.Item2 >= TimeSpan.FromSeconds(Utility.Settings.StaticSettings.RoundDelayLength) || tuple.Item1.VisualAlpha <= 0)
+                {
+                    GuiManager.RemoveControl(tuple.Item1);
+                    ConversationBubbles.Remove(tuple);
+                }
+            }
+
+            foreach(TextCue cue in GuiManager.TextCues)
+            {
+                // IsBeneathControl, move it
+            }
         }
 
         public static float UpdateCumulativeMovingAverageFPS(float newFPS)

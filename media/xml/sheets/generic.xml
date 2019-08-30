@@ -1759,7 +1759,7 @@ available in any game state. -->
       CropBoxHeight="17"
       CropBoxTintColor="LightSteelBlue"
       Text="Server Macros"
-      TextColor="MediumBlue"
+      TextColor="MidnightBlue"
       TextAlignment="Center">
     </Control>
     <!-- Macros Window Border -->

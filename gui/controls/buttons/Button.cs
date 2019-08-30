@@ -84,11 +84,11 @@ namespace Yuusha.gui
                         // change color of text if mouse over text color is not null
                         if (m_hasTextOverColor && m_controlState == Enums.EControlState.Over)
                         {
-                            BitmapFont.ActiveFonts[Font].TextBox(rect, m_textOverColor, m_text);
+                            BitmapFont.ActiveFonts[Font].TextBox(rect, new Color(m_textOverColor, TextAlpha), m_text);
                         }
                         else
                         {
-                            BitmapFont.ActiveFonts[Font].TextBox(rect, m_textColor, m_text);
+                            BitmapFont.ActiveFonts[Font].TextBox(rect, new Color(m_textColor, TextAlpha), m_text);
                         }
                     }
                     else

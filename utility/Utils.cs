@@ -400,7 +400,7 @@ namespace Yuusha
         /// <returns>The Color of the eTextType.</returns>
         public static Color GetTextTypeColor(Enums.ETextType textType)
         {
-            foreach (var t in System.Reflection.Assembly.GetExecutingAssembly().GetTypes())
+            foreach (var t in Assembly.GetExecutingAssembly().GetTypes())
             {
                 if (t.GetType() == typeof(Utility.Settings.UserSettings))
                 {
@@ -415,7 +415,7 @@ namespace Yuusha
                         }
                         catch(Exception e)
                         {
-                            Utils.LogException(e);
+                            LogException(e);
                             return Color.White;
                         }
                     }

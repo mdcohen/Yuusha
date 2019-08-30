@@ -325,7 +325,7 @@ namespace Yuusha
             {
                 int id = Convert.ToInt32(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_CURRENT, Protocol.CHARACTER_CURRENT_END));
 
-                if (Character.CurrentCharacter == null || id != Character.CurrentCharacter.ID)
+                if (Character.CurrentCharacter == null || id != Character.CurrentCharacter.UniqueID)
                     Character.CurrentCharacter = Account.GetCharacterByID(Convert.ToInt32(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_CURRENT, Protocol.CHARACTER_CURRENT_END)));
 
                 Character.LoadSettings();

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Timers;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace Yuusha.gui
@@ -20,6 +17,15 @@ namespace Yuusha.gui
         public PercentageBarLabel HealthBar
         { get; private set; }
 
+        public Label RightHandItemLabel
+        { get; private set; }
+        public Label LeftHandItemLabel
+        { get; private set; }
+        public Label ArmorItemLabel
+        { get; private set; }
+
+        private bool m_mouseReleased = true;
+
         public CritterListLabel(string name, string owner, Rectangle rectangle, string text, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
             BitmapFont.TextAlignment textAlignment, int xTextOffset, int yTextOffset, string onDoubleClickEvent,
@@ -37,19 +43,36 @@ namespace Yuusha.gui
                 y = w.Position.Y + y;
             }
 
-            HealthBar = new PercentageBarLabel(name + "PercentageBarLabel", name, new Rectangle(x, y, rectangle.Width, 2), "", Color.White,
+            HealthBar = new PercentageBarLabel(name + "PercentageBarLabel", name, new Rectangle(x, y, rectangle.Width, 3), "", Color.White,
                 true, false, Font, new VisualKey("WhiteSpace"), Color.Black, 0, 150, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "", false);
-            HealthBar.MidLabel = new Label(HealthBar.Name + "ForeLabel", HealthBar.Name, new Rectangle(x, y, rectangle.Width, 2), "", Color.White,
+            HealthBar.MidLabel = new Label(HealthBar.Name + "ForeLabel", HealthBar.Name, new Rectangle(x, y, rectangle.Width, 3), "", Color.White,
                 true, false, Font, new VisualKey("WhiteSpace"), Color.Red, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");
+
+            RightHandItemLabel = new Label(name + "RightHandItemLabel", name, new Rectangle(Width - (Height * 3), Position.Y, Height, Height), "", Color.White, false, false,
+                font, new VisualKey("WhiteSpace"), Color.White, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");
+            LeftHandItemLabel = new Label(name + "LeftHandItemLabel", name, new Rectangle(Width - (Height * 2), Position.Y, Height, Height), "", Color.White, false, false,
+                font, new VisualKey("WhiteSpace"), Color.White, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");
+            ArmorItemLabel = new Label(name + "RightHandItemLabel", name, new Rectangle(Width - Height, Position.Y, Height, Height), "", Color.White, false, false,
+                font, new VisualKey("WhiteSpace"), Color.White, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", anchors, "");
+
         }
 
-        public override bool MouseHandler(Microsoft.Xna.Framework.Input.MouseState ms)
+        public override bool MouseHandler(MouseState ms)
         {
             if (DropDownMenu != null)
                 DropDownMenu.MouseHandler(ms);
 
             if (HealthBar != null)
                 HealthBar.MouseHandler(ms);
+
+            if (RightHandItemLabel != null)
+                RightHandItemLabel.MouseHandler(ms);
+
+            if (LeftHandItemLabel != null)
+                LeftHandItemLabel.MouseHandler(ms);
+
+            if (ArmorItemLabel != null)
+                ArmorItemLabel.MouseHandler(ms);
 
             return base.MouseHandler(ms);
         }
@@ -73,7 +96,7 @@ namespace Yuusha.gui
 
                 Border.IsVisible = false;
 
-                if (Critter != null && GameHUD.CurrentTarget != null && Critter.ID == GameHUD.CurrentTarget.ID)
+                if (Critter != null && GameHUD.CurrentTarget != null && Critter.UniqueID == GameHUD.CurrentTarget.UniqueID)
                     Border.IsVisible = true;
             }
 
@@ -92,8 +115,26 @@ namespace Yuusha.gui
                 HealthBar.Update(gameTime);
             }
 
-            //if (DropDownMenu != null)
-            //    DropDownMenu.Update(gameTime);
+            if (DropDownMenu != null)
+                DropDownMenu.Update(gameTime);
+
+            if (RightHandItemLabel != null)
+            {
+                RightHandItemLabel.Position = new Point(Position.X + Width - (Height * 3), Position.Y);
+                RightHandItemLabel.Update(gameTime);                
+            }
+
+            if(LeftHandItemLabel != null)
+            {
+                LeftHandItemLabel.Position = new Point(Position.X + Width - (Height * 2), Position.Y);
+                LeftHandItemLabel.Update(gameTime);
+            }
+
+            if(ArmorItemLabel != null)
+            {
+                ArmorItemLabel.Position = new Point(Position.X + Width - Height, Position.Y);
+                ArmorItemLabel.Update(gameTime);
+            }
         }
 
         public override void Draw(GameTime gameTime)
@@ -106,8 +147,20 @@ namespace Yuusha.gui
             if (HealthBar != null)
                 HealthBar.Draw(gameTime);
 
+            if (RightHandItemLabel != null)
+                RightHandItemLabel.Draw(gameTime);
+
+            if (LeftHandItemLabel != null)
+                LeftHandItemLabel.Draw(gameTime);
+
+            if (ArmorItemLabel != null)
+                ArmorItemLabel.Draw(gameTime);
+
             if (DropDownMenu != null)
                 DropDownMenu.Draw(gameTime);
+
+            if (Border != null)
+                Border.Draw(gameTime);
         }
 
         protected override void OnDoubleLeftClick()
@@ -139,8 +192,28 @@ namespace Yuusha.gui
 
             if (ms.LeftButton == ButtonState.Pressed && (DropDownMenu == null || !DropDownMenu.IsVisible))
             {
+                if (m_mouseReleased)
+                {
+                    if (Critter != null && RightHandItemLabel.IsVisible && RightHandItemLabel.Contains(ms.Position))
+                    {
+                        IO.Send("look at " + Critter.UniqueID + "'s right");
+                        m_mouseReleased = false;
+                    }
+                    else if (Critter != null && LeftHandItemLabel.IsVisible && LeftHandItemLabel.Contains(ms.Position))
+                    {
+                        IO.Send("look at " + Critter.UniqueID + "'s left");
+                        m_mouseReleased = false;
+                    }
+                    else if (Critter != null && ArmorItemLabel.IsVisible && ArmorItemLabel.Contains(ms.Position))
+                    {
+                        IO.Send("look closely at " + Critter.UniqueID);
+                        m_mouseReleased = false;
+                    }
+                }
+
                 if (GameHUD.CurrentTarget == null || (Critter != null && Critter != GameHUD.CurrentTarget))
                     Events.RegisterEvent(Events.EventName.Target_Select, Critter);
+                
             }
             else if (ms.RightButton == ButtonState.Pressed)
             {
@@ -192,6 +265,13 @@ namespace Yuusha.gui
                     DropDownMenu.Height = height;
                 }
             }
+        }
+
+        protected override void OnMouseRelease(MouseState ms)
+        {
+            base.OnMouseRelease(ms);
+
+            m_mouseReleased = true;
         }
     }
 }

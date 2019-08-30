@@ -26,6 +26,9 @@ namespace Yuusha.gui
         private int m_prevScrollWheelValue;
         private readonly bool m_trim;
 
+        public bool Colorize
+        { get; set; } = true;
+
         #endregion
 
         #region Public Properties
@@ -46,6 +49,15 @@ namespace Yuusha.gui
         public int LinesCount
         {
             get { return m_allLines.Count; }
+        }
+        public int LongestFormattedLine()
+        {
+            int length = 0;
+
+            foreach(string line in m_formattedLines)
+                if (BitmapFont.ActiveFonts[Font].MeasureString(line) > length) length = BitmapFont.ActiveFonts[Font].MeasureString(line);
+
+            return length;
         }
         public int FormattedLinesCount
         { get { return m_formattedLines.Count; } }
@@ -228,7 +240,7 @@ namespace Yuusha.gui
 
                 // if disabled use static disabled color
                 if (m_disabled)
-                    textColor = new Color(Control.ColorDisabledStandard.R, Control.ColorDisabledStandard.G, Control.ColorDisabledStandard.B, m_textAlpha);
+                    textColor = new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, m_textAlpha);
 
                 int lineHeight = 0;
 
@@ -401,20 +413,27 @@ namespace Yuusha.gui
                 m_allTextTypes.Add(textType);
 
                 // This is where line colors are decided.
-                Color lineColor = TextManager.GetTextFilteredColor(Client.GameState, line, true);
+                Color lineColor = TextColor;
 
-                if (Client.GameState.ToString().EndsWith("Game"))
+                if (Colorize)
                 {
-                    if (lineColor == TextColor && line.EndsWith("!") && !line.Contains(": "))
-                        lineColor = TextManager.GetTextFilteredColor(Client.GameState, " hits with ", true);
-                    else if (line.Contains(":") && line.IndexOf(" ") == line.IndexOf(":") + 1)
-                    {
-                        string[] f = line.Split(":".ToCharArray());
-                        string[] g = f[1].Trim().Split(" ".ToCharArray());
+                    lineColor = TextManager.GetTextFilteredColor(Client.GameState, line, true);
 
-                        if (g.Length > 0 && TextManager.MagicWords.Contains(g[0]))
-                            lineColor = Color.Khaki;
-                        else lineColor = Color.BurlyWood; // speech/spell warming
+                    if (Client.GameState.ToString().EndsWith("Game"))
+                    {
+                        if (lineColor == TextColor && line.EndsWith("!") && !line.Contains(": "))
+                            lineColor = TextManager.GetTextFilteredColor(Client.GameState, " hits with ", true);
+                        else if (line.Contains(":") && line.IndexOf(" ") == line.IndexOf(":") + 1)
+                        {
+                            string[] f = line.Split(":".ToCharArray());
+                            string[] g = f[1].Trim().Split(" ".ToCharArray());
+
+                            bool magicChant = g.Length >= 4 && TextManager.MagicWords.Contains(g[0]) && TextManager.MagicWords.Contains(g[1]) && TextManager.MagicWords.Contains(g[2]) && TextManager.MagicWords.Contains(g[3]);
+
+                            if (magicChant)
+                                lineColor = Color.Khaki;
+                            else lineColor = Color.BurlyWood; // speech/spell warming
+                        }
                     }
                 }
 

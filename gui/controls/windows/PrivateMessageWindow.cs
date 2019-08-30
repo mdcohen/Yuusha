@@ -57,7 +57,7 @@ namespace Yuusha.gui
         {
             string messageReceived = message.Replace(RecipientName + " tells you, ", "");
             messageReceived = messageReceived.Substring(1, messageReceived.LastIndexOf('"') - 1); // removes quotation marks
-            bool firstMessage = MessageBox.LinesCount <= 0;
+            bool firstMessage = MessageBox.LinesCount <= 0; // FormattedLinesCount?
             MessageBox.AddLine(RecipientName + ": " + messageReceived, Enums.ETextType.PrivateMessageSender);
             // play sound
             if (Client.ClientSettings.PlayPrivateMessageSounds)

@@ -109,10 +109,10 @@ namespace Yuusha
                                         CritterListLabel label = control as CritterListLabel;
 
                                         // TODO: currently only %t is used to put in target ID
-                                        GameHUD.TextSendOverride = Character.Settings.DoubleLeftClickNearbyTarget.Replace("%t", label.Critter.ID.ToString());
+                                        GameHUD.TextSendOverride = Character.Settings.DoubleLeftClickNearbyTarget.Replace("%t", label.Critter.UniqueID.ToString());
 
                                         if (!label.CenterCell) // what to do if ranged attack
-                                            GameHUD.TextSendOverride = Character.Settings.DoubleLeftClickDistantTarget.Replace("%t", label.Critter.ID.ToString());
+                                            GameHUD.TextSendOverride = Character.Settings.DoubleLeftClickDistantTarget.Replace("%t", label.Critter.UniqueID.ToString());
 
                                         IO.Send(GameHUD.TextSendOverride);
 
@@ -147,10 +147,10 @@ namespace Yuusha
                                         {
                                             if (control.Text.Contains("%t"))
                                             {
-                                                if (GameHUD.CurrentTarget == null || ((menu.DropDownMenuOwner as CritterListLabel).Critter.ID != GameHUD.CurrentTarget.ID))
+                                                if (GameHUD.CurrentTarget == null || ((menu.DropDownMenuOwner as CritterListLabel).Critter.UniqueID != GameHUD.CurrentTarget.UniqueID))
                                                     RegisterEvent(EventName.Target_Select, (menu.DropDownMenuOwner as CritterListLabel).Critter);
 
-                                                GameHUD.TextSendOverride = control.Text.Replace("%t", GameHUD.CurrentTarget.ID.ToString());
+                                                GameHUD.TextSendOverride = control.Text.Replace("%t", GameHUD.CurrentTarget.UniqueID.ToString());
                                                 targetSelected = true;
                                             }
 
@@ -204,7 +204,7 @@ namespace Yuusha
                                 {
                                     try
                                     {
-                                        if (GameHUD.CurrentTarget.ID == id)
+                                        if (GameHUD.CurrentTarget.UniqueID == id)
                                             Events.RegisterEvent(EventName.Target_Cleared, false);
                                     }
                                     catch { }
@@ -490,23 +490,6 @@ namespace Yuusha
                                 SpinelMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
                             else if (Client.GameState == Enums.EGameState.YuushaGame)
                                 YuushaMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
-
-                            if (Client.ClientSettings.DisplayChantingTextCue)
-                            {
-                                //if (args[0].ToString().StartsWith("You warm the spell "))
-                                //{
-                                //    string findSpellName = args[0].ToString().Replace("You warm the spell ", "");
-                                //    findSpellName = findSpellName.Replace(".", "");
-                                //    foreach (Spell spell in Character.CurrentCharacter.Spells)
-                                //    {
-                                //        if (spell.Name == findSpellName)
-                                //        {
-                                //            //TextCue.AddChantingTextCue(spell.Incantation);
-                                //            break;
-                                //        }
-                                //    }
-                                //}
-                            }
                         }
                         break;
                         #endregion
@@ -854,7 +837,7 @@ namespace Yuusha
                         {
                             string textToSend = (args[0] as Control).Text;
                             if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
-                                textToSend = textToSend.Replace("%t", GameHUD.CurrentTarget.ID.ToString());
+                                textToSend = textToSend.Replace("%t", GameHUD.CurrentTarget.UniqueID.ToString());
 
                             if (textToSend != "")
                                 IO.Send(textToSend);
@@ -865,7 +848,7 @@ namespace Yuusha
                         if (args[0] is Control)
                         {
                             if (GameHUD.CurrentTarget != null)
-                                IO.Send((args[0] as Control).Command.Replace("%t", GameHUD.CurrentTarget.ID.ToString()));
+                                IO.Send((args[0] as Control).Command.Replace("%t", GameHUD.CurrentTarget.UniqueID.ToString()));
                             else IO.Send((args[0] as Control).Command);
 #if DEBUG
                             TextCue.AddClientInfoTextCue("DEBUG: " + (args[0] as Control).Command);
@@ -874,7 +857,7 @@ namespace Yuusha
                         else if(args[0] is string)
                         {
                             if (GameHUD.CurrentTarget != null)
-                                IO.Send((args[0] as string).Replace("%t", GameHUD.CurrentTarget.ID.ToString()));
+                                IO.Send((args[0] as string).Replace("%t", GameHUD.CurrentTarget.UniqueID.ToString()));
                             else IO.Send(args[0] as string);
 #if DEBUG
                             TextCue.AddClientInfoTextCue("DEBUG: " + args[0] as string);
@@ -1008,12 +991,12 @@ namespace Yuusha
                     case EventName.Switch_Character_Back:
                         Character.Settings.Save();
                         Character.CurrentCharacter = Account.GetPreviousCharacter();
-                        IO.Send(Protocol.SWITCH_CHARACTER + " " + Character.CurrentCharacter.ID);
+                        IO.Send(Protocol.SWITCH_CHARACTER + " " + Character.CurrentCharacter.UniqueID);
                         break;
                     case EventName.Switch_Character_Next:
                         Character.Settings.Save();
                         Character.CurrentCharacter = Account.GetNextCharacter();
-                        IO.Send(Protocol.SWITCH_CHARACTER + " " + Character.CurrentCharacter.ID);
+                        IO.Send(Protocol.SWITCH_CHARACTER + " " + Character.CurrentCharacter.UniqueID);
                         break;
                     case EventName.ScrollableTextBox_DropDown:
                         #region ScrollableTextBox_DropDown
@@ -1307,7 +1290,7 @@ namespace Yuusha
                         }
                         break;
                     case EventName.Target_Select:
-                        if (GameHUD.CurrentTarget == null || GameHUD.CurrentTarget.ID != ((Character)args[0]).ID)
+                        if (GameHUD.CurrentTarget == null || GameHUD.CurrentTarget.UniqueID != ((Character)args[0]).UniqueID)
                         {
                             GameHUD.CurrentTarget = (Character)args[0];
                             if (GameHUD.CurrentTarget != null && Client.GameState.ToString().EndsWith("Game"))
@@ -1923,6 +1906,55 @@ namespace Yuusha
                 }
             }
 
+            if(state.ToString().EndsWith("Game"))
+            {
+                if (Character.CurrentCharacter != null)
+                {
+                    if (sheet["SackHorizontalAutoHidingButton"] is Button sackButton)
+                    {
+                        if (Character.CurrentCharacter.Sack.Count >= Utility.Settings.StaticSettings.SackSize + 1)
+                        {
+                            sackButton.Text = "FULL";
+                            sackButton.IsTextVisible = true;
+                            sackButton.PopUpText = "Sack (FULL)";
+                        }
+                        else
+                        {
+                            sackButton.Text = ""; // TODO? Option to display count in text or popup
+                            sackButton.PopUpText = "Sack (" + (Character.CurrentCharacter.Sack.Count - 1) + "/" + Utility.Settings.StaticSettings.SackSize + ")";
+                        }
+                    }
+
+                    if (sheet["PouchHorizontalAutoHidingButton"] is Button pouchButton)
+                    {
+                        if (Character.CurrentCharacter.Pouch.Count >= Utility.Settings.StaticSettings.PouchSize)
+                        {
+                            pouchButton.Text = "FULL";
+                            pouchButton.IsTextVisible = true;
+                            pouchButton.PopUpText = "Pouch (FULL)";
+                        }
+                        else
+                        {
+                            pouchButton.Text = ""; // TODO? Option to display count in text or popup
+                            pouchButton.PopUpText = "Pouch (" + Character.CurrentCharacter.Pouch.Count + "/" + Utility.Settings.StaticSettings.PouchSize + ")";
+                        }
+                    }
+
+                    if (sheet["LockerHorizontalAutoHidingButton"] is Button lockerButton)
+                    {
+                        if (Character.CurrentCharacter.Locker.Count >= Utility.Settings.StaticSettings.LockerSize)
+                        {
+                            lockerButton.PopUpText = "Locker (FULL)";
+                        }
+                        else
+                        {
+                            lockerButton.PopUpText = "Locker (" + Character.CurrentCharacter.Locker.Count + "/" + Utility.Settings.StaticSettings.LockerSize + ")";
+                        }
+                    }
+                }
+            }
+
+            // Logo and Community Site Windows
             if(state == Enums.EGameState.Login || state == Enums.EGameState.Menu)
             {
                 if (GuiManager.GenericSheet["LogoWindow"] is Window logoWindow)
@@ -1938,6 +1970,7 @@ namespace Yuusha
                     cslWindow.IsVisible = false;
             }
 
+            // Go to Conference
             if(state.ToString().EndsWith("Game"))
             {
                 if (GuiManager.GenericSheet["HelperConferenceButton"] is Control c)
@@ -1949,10 +1982,15 @@ namespace Yuusha
                     c.IsVisible = false;
             }
 
+            // Mail
             if(state != Enums.EGameState.Login)
             {
                 if (GuiManager.GenericSheet["HelperMailButton"] is Control c)
-                    c.IsVisible = true;
+                {
+                    if (!state.ToString().EndsWith("Game") || (Character.CurrentCharacter.Cell != null && Character.CurrentCharacter.Cell.IsLockers))
+                        c.IsVisible = true;
+                    else c.IsVisible = false;
+                }
             }
             else
             {
@@ -2068,7 +2106,7 @@ namespace Yuusha
                     case Enums.EGameState.YuushaGame:
                     case Enums.EGameState.Game:
                         // switched characters so clear the main display text box
-                        if(Character.PreviousRoundCharacter != null && Character.CurrentCharacter.ID != Character.PreviousRoundCharacter.ID)
+                        if(Character.PreviousRoundCharacter != null && Character.CurrentCharacter.UniqueID != Character.PreviousRoundCharacter.UniqueID)
                         {
                             if (GuiManager.CurrentSheet[Globals.GAMESCROLLABLETEXTBOX] is ScrollableTextBox gameTextBox)
                                 gameTextBox.Clear();
@@ -2097,9 +2135,9 @@ namespace Yuusha
                             //    TextCue.AddMapNameTextCue(Character.CurrentCharacter.MapName);
                             if (Character.CurrentCharacter != null)
                                 TextCue.AddZNameTextCue(Character.CurrentCharacter.ZName);
-                            if(!GameHUD.InitialSpellbookUpdated.Contains(Character.CurrentCharacter.ID))
+                            if(!GameHUD.InitialSpellbookUpdated.Contains(Character.CurrentCharacter.UniqueID))
                                 RegisterEvent(EventName.Request_Spells);
-                            if (!GameHUD.InitialTalentbookUpdated.Contains(Character.CurrentCharacter.ID))
+                            if (!GameHUD.InitialTalentbookUpdated.Contains(Character.CurrentCharacter.UniqueID))
                                 RegisterEvent(EventName.Request_Talents);
 
                         }

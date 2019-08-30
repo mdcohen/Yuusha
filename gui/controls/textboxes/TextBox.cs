@@ -870,8 +870,6 @@ namespace Yuusha.gui
                 textColor = new Color(Control.ColorDisabledStandard.R, Control.ColorDisabledStandard.G, Control.ColorDisabledStandard.B, m_textAlpha);
             }
 
-            
-
             // difference between lineheight and this height / 2
 
             int rectX = m_rectangle.X + XTextOffset; // used for selection rectangle, cursor and text
@@ -890,17 +888,13 @@ namespace Yuusha.gui
                 Rectangle selRect = new Rectangle(rectX + bmf.MeasureString(m_text.Substring(0, m_selectionStart)), rectY,
                     bmf.MeasureString(m_text.Substring(m_selectionStart, m_selectionLength)), bmf.LineHeight);
 
-                //if (m_textAlignment == BitmapFont.TextAlignment.Right)
-                //    selRect.X += Width - (BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)) * m_text.Length);
-                //else if (m_textAlignment == BitmapFont.TextAlignment.Center)
-                //    selRect.X = (Width / 2) - (BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)) * (m_text.Length / 2));
-
-                //if (Border != null)
-                //    selRect.Y += Border.Width;
+                if (TextAlignment == BitmapFont.TextAlignment.Center)
+                    selRect.X = rectX + Width / 2 - bmf.MeasureString(m_text.Substring(m_selectionStart, m_selectionLength)) / 2;
+                else if (TextAlignment == BitmapFont.TextAlignment.Right)
+                    selRect.X = rectX + Width - bmf.MeasureString(m_text.Substring(m_selectionStart, m_selectionLength));
 
                 VisualInfo vi = GuiManager.Visuals["WhiteSpace"];
                 Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], selRect, vi.Rectangle, m_selectionColor);
-
             }
 
             // override BitmapFont sprite batch
@@ -944,7 +938,8 @@ namespace Yuusha.gui
             }
 
             // draw the cursor if cursor is visible, control has focus and control is not disabled -- also if Client has focus/is activated
-            if (m_cursorVisible && HasFocus && !m_disabled && Client.HasFocus)
+            // TODO: fix this to draw cursor when text is center and right aligned
+            if (m_cursorVisible && HasFocus && !m_disabled && Client.HasFocus && TextAlignment == BitmapFont.TextAlignment.Left)
             {
                 int cursorWidth = BitmapFont.ActiveFonts[Font].MeasureString("_");
                 int cursorHeight = BitmapFont.ActiveFonts[Font].LineHeight;
@@ -956,18 +951,18 @@ namespace Yuusha.gui
                     m_cursorColor = new Color(m_cursorColor, 130);
                 else m_cursorColor = new Color(m_cursorColor, 255);
 
-                //if (m_textAlignment == BitmapFont.TextAlignment.Right)
-                //    rectX += BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)) * m_text.Length;
-                //else if (m_textAlignment == BitmapFont.TextAlignment.Center)
-                //    rectX = (Width / 2) - (BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)) / 2);
-
                 if (!m_passwordBox)
                 {
                     Rectangle cursorRectangle = new Rectangle();
                     // ocassional argument out of range exception when selecting a text box with saved information and text is empty
                     try
                     {
-                        cursorRectangle = new Rectangle(rectX + BitmapFont.ActiveFonts[Font].MeasureString(m_text.Substring(0, m_cursorPosition)), rectY, cursorWidth, cursorHeight);
+                        BitmapFont bmf = BitmapFont.ActiveFonts[Font];
+                        //if (TextAlignment == BitmapFont.TextAlignment.Left)
+                            cursorRectangle = new Rectangle(rectX + bmf.MeasureString(m_text.Substring(0, m_cursorPosition)), rectY, cursorWidth, cursorHeight);
+                        //else if(TextAlignment == BitmapFont.TextAlignment.Center)
+                        //    cursorRectangle = new Rectangle(rectX + Width / 2 - bmf.MeasureString(m_text.Substring(m_selectionStart, m_selectionLength)) / 2, rectY, cursorWidth, cursorHeight);
+                        //else cursorRectangle = new Rectangle(rectX + Width - bmf.MeasureString(m_text.Substring(m_selectionStart, m_selectionLength)) + bmf.MeasureString(" ") * m_cursorPosition, rectY, cursorWidth, cursorHeight);
                     }
                     catch (ArgumentOutOfRangeException)
                     {

@@ -116,7 +116,7 @@ namespace Yuusha
                     try
                     {
                         string[] pcStats = info.Split(Protocol.VSPLIT.ToCharArray());
-                        m_currentCharacter.ID = Convert.ToInt32(pcStats[0]);
+                        m_currentCharacter.UniqueID = Convert.ToInt32(pcStats[0]);
                         m_currentCharacter.Name = pcStats[1];
                         m_currentCharacter.Gender = (GenderType)Convert.ToInt32(pcStats[2]);
                         m_currentCharacter.Race = pcStats[3];
@@ -472,7 +472,7 @@ namespace Yuusha
                     {
                         List<Spell> prevSpells = null;
 
-                        if (Client.GameState.ToString().EndsWith("Game") && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.ID))
+                        if (Client.GameState.ToString().EndsWith("Game") && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.UniqueID))
                             prevSpells = new List<Spell>(CurrentCharacter.Spells);
 
                         CurrentCharacter.Spells.Clear();
@@ -493,13 +493,13 @@ namespace Yuusha
                         }
 
                         if (prevSpells != null && Client.GameState.ToString().EndsWith("Game") && CurrentCharacter.Spells.Count > prevSpells.Count &&
-                            GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.ID))
+                            GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.UniqueID))
                         {
                             Events.RegisterEvent(Events.EventName.New_Spell, prevSpells);
                         }
 
-                        if (!GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.ID))
-                            GameHUD.InitialSpellbookUpdated.Add(CurrentCharacter.ID);
+                        if (!GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.UniqueID))
+                            GameHUD.InitialSpellbookUpdated.Add(CurrentCharacter.UniqueID);
                     }
                     catch (Exception e)
                     {
@@ -513,7 +513,7 @@ namespace Yuusha
                     {
                         List<Talent> prevTalents = null;
 
-                        if (Client.GameState.ToString().EndsWith("Game") && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.ID))
+                        if (Client.GameState.ToString().EndsWith("Game") && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.UniqueID))
                             prevTalents = new List<Talent>(CurrentCharacter.Talents);
 
                         CurrentCharacter.Talents.Clear();
@@ -533,12 +533,12 @@ namespace Yuusha
                         }
 
                         if (prevTalents != null && Client.GameState.ToString().EndsWith("Game") && CurrentCharacter.Spells.Count > prevTalents.Count &&
-                            GameHUD.InitialTalentbookUpdated.Contains(CurrentCharacter.ID))
+                            GameHUD.InitialTalentbookUpdated.Contains(CurrentCharacter.UniqueID))
                         {
                             Events.RegisterEvent(Events.EventName.New_Talent, prevTalents);
                         }
-                        else if (!GameHUD.InitialTalentbookUpdated.Contains(CurrentCharacter.ID))
-                            GameHUD.InitialTalentbookUpdated.Add(CurrentCharacter.ID);
+                        else if (!GameHUD.InitialTalentbookUpdated.Contains(CurrentCharacter.UniqueID))
+                            GameHUD.InitialTalentbookUpdated.Add(CurrentCharacter.UniqueID);
                     }
                     catch (Exception e)
                     {
@@ -680,7 +680,7 @@ namespace Yuusha
         public string directionPointer;
 
         #region Private Data
-        private int m_id;
+        private int m_uniqueID;
         private string m_name;
         private string m_mapName;
         private int m_level;
@@ -749,10 +749,10 @@ namespace Yuusha
         #endregion
 
         #region Public Properties
-        public int ID
+        public int UniqueID
         {
-            get { return m_id; }
-            set { m_id = value; }
+            get { return m_uniqueID; }
+            set { m_uniqueID = value; }
         }
         public string Name
         {

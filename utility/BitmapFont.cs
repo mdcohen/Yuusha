@@ -701,9 +701,7 @@ namespace Yuusha
                         vAt.Y = r.Top + ((r.Height - LineHeight) / 2); // always y centered
                         break;
 				}
-                if (nChars < strFormat.Length)
-                    Utils.Log("nChars < strFormat in BitmapFont.TextBox. String [ " + strFormat + "]");
-
+                
 				DrawString_internal(vAt, cText, str.Substring(0, nChars));
 				str = str.Substring(nChars);
 				vAt.Y += m_nHeight;

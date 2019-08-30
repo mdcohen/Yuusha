@@ -11,15 +11,15 @@ namespace Yuusha.gui
         #region Private Data
         private static string m_tileXMLFile = "";
         private static Dictionary<string, SpinelTileDefinition> m_tilesDict = new Dictionary<string, SpinelTileDefinition>();
-        private static string[] m_critterListNames = new string[12];
-        private static string[] m_letters = new string[] {"A",
+        private static string[] m_critterListNames = new string[20];
+        private static readonly string[] m_letters = new string[] {"A",
             "B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
             "R","S","T","U","V","W","X","Y","Z" };
 
-        private static string[] m_alignment = new string[] { " ", " ", "!", "*", "+", " ", "+" };
+        private static readonly string[] m_alignment = new string[] { " ", " ", "!", "*", "+", " ", "+" };
         private static string m_usedLetters = "";
         private static List<string> m_bufferedCommands = new List<string>();
-        private static int m_maxBufferedCommands = 20;
+        private static readonly int m_maxBufferedCommands = 20;
         private static int m_bufferPreview = 0;
        // private static TimeSpan m_lastExpUpdate;
         #endregion
@@ -54,6 +54,84 @@ namespace Yuusha.gui
                 (GuiManager.Sheets["SpinelGame"]["GameTextScrollableTextBox"] as ScrollableTextBox).AddLine(text, textType);
 
                 TextManager.CheckTextTriggers(text);
+
+                if (Client.ClientSettings.DisplayConversationBubbles)
+                {
+                    if (text.Contains(":") && text.IndexOf(" ") == text.IndexOf(":") + 1)
+                    {
+                        string[] f = text.Split(":".ToCharArray());
+                        string[] g = f[1].Trim().Split(" ".ToCharArray());
+
+                        bool magicChant = g.Length >= 4 && TextManager.MagicWords.Contains(g[0]) && TextManager.MagicWords.Contains(g[1]) && TextManager.MagicWords.Contains(g[2]) && TextManager.MagicWords.Contains(g[3]);
+
+                        if (!magicChant || (magicChant && Client.ClientSettings.DisplayChantingConversationBubble))
+                        {
+                            int cellCount = 0;
+                            bool done = false;
+                            foreach (Cell cell in GameHUD.Cells)
+                            {
+                                foreach (Character chr in cell.Characters)
+                                {
+                                    if (chr.Name == f[0] || (f[0] == "You say" && chr == Character.CurrentCharacter))
+                                    {
+                                        if (GuiManager.GetControl("Tile" + cellCount) is SpinelTileLabel lbl)
+                                        {
+                                            BitmapFont bmf = BitmapFont.ActiveFonts["robotomonobold12"];
+                                            //int width = bmf.MeasureString(f[1]);
+                                            // add pop up 
+                                            ScrollableTextBox scr = new ScrollableTextBox(chr.Name + "_" + Program.Client.ClientGameTime.ElapsedGameTime + "_ScrollableTextBox", "",
+                                                new Rectangle(lbl.Position.X + 10, lbl.Position.Y - 20, 300, bmf.LineHeight + 5), "", TextManager.GetAlignmentColor(false, chr.Alignment), true, false, "robotomonobold11",
+                                                new VisualKey("RoundedButton"), Color.White, 255, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 5, 5,
+                                                BitmapFont.TextAlignment.Center, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, true)
+                                            {
+                                                Colorize = false,
+                                                MouseInvisible = true // mousehandling beneath this control
+                                            };
+
+                                            //string[] h = f[1].Split(".".ToCharArray());
+                                            //scr.Width = bmf.MeasureString(h[0].Trim());
+                                            //for (int j = 0; j < h.Length; j++)
+                                            //{
+                                            //    h[j] = h[j].Trim();
+                                            //    if (bmf.MeasureString(h[j]) > scr.Width) scr.Width = bmf.MeasureString(h[j]);                                                
+                                            //    if(h[j].Length > 0)
+                                            //        scr.AddLine(h[j] + ".", Enums.ETextType.Default);
+                                            //}
+
+                                            //scr.Height = (bmf.LineHeight * h.Length) + 5;
+
+                                            //if(scr.Position.X + width > Client.Width)
+                                            //{
+                                            //    string[] h = f[1].Split(". ".ToCharArray());
+                                            //    for(int j = 0; j < h.Length; j++)
+                                            //    {
+                                            //        if (bmf.MeasureString(h[j]) > scr.Width) scr.Width = bmf.MeasureString(h[j]);
+                                            //        scr.AddLine(h[j].Trim() + ".", Enums.ETextType.Default);
+                                            //    }
+
+                                            //    scr.Height = (bmf.LineHeight * h.Length) + 5;
+                                            //}
+                                            //else
+                                            //{
+                                            //    scr.AddLine(f[1].Trim(), Enums.ETextType.Default);
+                                            //}
+
+                                            scr.AddLine(f[1].Trim(), Enums.ETextType.Default);
+                                            scr.Height = scr.FormattedLinesCount * (bmf.LineHeight + 5);
+                                            scr.Width = Math.Max(200, scr.LongestFormattedLine()) + 10;
+                                            GuiManager.CurrentSheet.AddControl(scr);                                            
+                                            GameHUD.ConversationBubbles.Add(Tuple.Create(scr, DateTime.Now));
+                                            done = true;
+                                        }
+                                        break;
+                                    }
+                                }
+                                if (done) break;
+                                cellCount++;
+                            }
+                        }
+                    }
+                }                
             }
             catch (Exception e)
             {
@@ -90,9 +168,13 @@ namespace Yuusha.gui
                         sheet["HitsRemainingLabel"].TextColor = Color.DarkSalmon;
                     else sheet["HitsRemainingLabel"].TextColor = sheet["HitsAmountLabel"].TextColor;
                     sheet["HitsAmountLabel"].Text = "/" + chr.HitsFull.ToString();
-                    
-                    (sheet["HitsPercentageBarLabel"] as PercentageBarLabel).Percentage = (double)chr.Hits / chr.HitsFull * 100;
-                    (sheet["HitsPercentageBarLabel"] as PercentageBarLabel).ForeLabel.Text = chr.Hits + "/" + chr.HitsFull;
+
+                    if (sheet["HitsPercentageBarLabel"] is PercentageBarLabel hitsPctBarLabel)
+                    {
+                        hitsPctBarLabel.Percentage = (double)chr.Hits / chr.HitsFull * 100;
+                        hitsPctBarLabel.ForeLabel.Text = chr.Hits + "/" + chr.HitsFull;
+                        //hitsPctBarLabel.PopUpText = chr.Hits + "/" + chr.HitsFull;
+                    }
 
                     if (!GameHUD.VitalsTextMode)
                     {
@@ -130,9 +212,12 @@ namespace Yuusha.gui
                     else sheet["StaminaRemainingLabel"].TextColor = sheet["StaminaAmountLabel"].TextColor;
                     sheet["StaminaAmountLabel"].Text = "/" + chr.StaminaFull.ToString();
 
-                    (sheet["StaminaPercentageBarLabel"] as PercentageBarLabel).Percentage = (double)chr.Stamina / chr.StaminaFull * 100;
-                    //(sheet["StaminaPercentageBarLabel"] as PercentageBarLabel).PopUpText = (sheet["StaminaPercentageBarLabel"] as PercentageBarLabel).Percentage.ToString();
-                    (sheet["StaminaPercentageBarLabel"] as PercentageBarLabel).ForeLabel.Text = chr.Stamina + "/" + chr.StaminaFull;
+                    if (sheet["StaminaPercentageBarLabel"] is PercentageBarLabel stamPctBarLabel)
+                    {
+                        stamPctBarLabel.Percentage = (double)chr.Stamina / chr.StaminaFull * 100;
+                        stamPctBarLabel.ForeLabel.Text = chr.Stamina + "/" + chr.StaminaFull;
+                        //stamPctBarLabel.PopUpText = chr.Stamina + "/" + chr.StaminaFull;
+                    }
 
                     if (!GameHUD.VitalsTextMode)
                     {
@@ -172,9 +257,12 @@ namespace Yuusha.gui
                         else sheet["MagicPtsRemainingLabel"].TextColor = sheet["MagicPtsAmountLabel"].TextColor;
                         sheet["MagicPtsAmountLabel"].Text = "/" + chr.ManaFull.ToString();
 
-                        (sheet["MagicPtsPercentageBarLabel"] as PercentageBarLabel).Percentage = (double)chr.Mana / chr.ManaFull * 100;
-                        //(sheet["MagicPtsPercentageBarLabel"] as PercentageBarLabel).PopUpText = (sheet["MagicPtsPercentageBarLabel"] as PercentageBarLabel).Percentage.ToString();
-                        (sheet["MagicPtsPercentageBarLabel"] as PercentageBarLabel).ForeLabel.Text = chr.Mana + "/" + chr.ManaFull;
+                        if (sheet["MagicPtsPercentageBarLabel"] is PercentageBarLabel magicPctBarLabel)
+                        {
+                            magicPctBarLabel.Percentage = (double)chr.Mana / chr.ManaFull * 100;
+                            magicPctBarLabel.ForeLabel.Text = chr.Mana + "/" + chr.ManaFull;
+                            //magicPctBarLabel.PopUpText = chr.Mana + "/" + chr.ManaFull;
+                        }
 
                         if (!GameHUD.VitalsTextMode)
                         {
@@ -324,31 +412,7 @@ namespace Yuusha.gui
                             TextCue.AddXPLossTextCue(string.Format("-{0:n0}", pre.Experience - chr.Experience));
 
                         Character.PreviousRoundCharacter.Experience = chr.Experience;
-                    }
-
-                    if (sheet["ExpPercentageBarLabel"] is PercentageBarLabel expBar && chr != null)
-                    {
-                        int level = Globals.GetExpLevel(chr.Experience);
-                        if (level != chr.Level)
-                            expBar.Percentage = 100;
-                        else
-                        {
-                            long expNeededForLevelUp = Globals.GetExperienceRequiredForLevel(level + 1) - Globals.GetExperienceRequiredForLevel(level);
-                            long expIntoLevel = chr.Experience - expNeededForLevelUp;
-                            expBar.Percentage = (double)expIntoLevel / expNeededForLevelUp * 100;
-                        }
-
-                        try
-                        {
-                            if (expBar != null && expBar.Percentage < 100)
-                                expBar.PopUpText = string.Format("{0:0.00}%", expBar.Percentage);
-                            else if (expBar != null) expBar.PopUpText = "100%";
-                        }
-                        catch(Exception e)
-                        {
-                            Utils.LogException(e);
-                        }
-                    }
+                    }                    
                 }
 
                 // Overrides to focus on input text box.
@@ -364,6 +428,30 @@ namespace Yuusha.gui
 
                     GuiManager.ActiveTextBox = null;
                     GuiManager.ControlWithFocus = null;
+                }
+
+                if (sheet["ExpPercentageBarLabel"] is PercentageBarLabel expBar && chr != null)
+                {
+                    int level = Globals.GetExpLevel(chr.Experience);
+                    if (level != chr.Level)
+                        expBar.Percentage = 100;
+                    else
+                    {
+                        long expNeededForLevelUp = Globals.GetExperienceRequiredForLevel(level + 1) - Globals.GetExperienceRequiredForLevel(level);
+                        long expIntoLevel = chr.Experience - expNeededForLevelUp;
+                        expBar.Percentage = (double)expIntoLevel / expNeededForLevelUp * 100;
+                    }
+
+                    try
+                    {
+                        if (expBar != null && expBar.Percentage < 100)
+                            expBar.PopUpText = string.Format("{0:0.00}%", expBar.Percentage);
+                        else if (expBar != null) expBar.PopUpText = "100%";
+                    }
+                    catch (Exception e)
+                    {
+                        Utils.LogException(e);
+                    }
                 }
             }
             catch (Exception e)
@@ -470,8 +558,8 @@ namespace Yuusha.gui
 
                 //string[] critterInventory = Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CRITTER_INVENTORY, Protocol.GAME_CRITTER_INVENTORY_END).Split(Protocol.ISPLIT.ToCharArray());
 
-                crit.ID = Convert.ToInt32(critterInfo[0]); // player id or worldnpc id
-                crit.isPC = crit.ID >= 0;
+                crit.UniqueID = Convert.ToInt32(critterInfo[0]); // player id or worldnpc id
+                crit.isPC = crit.UniqueID >= 0;
                 crit.Name = critterInfo[1];
                 //crit.shortDesc = critterInfo[tempA + 2];
                 //crit.longDesc = critterInfo[tempA + 3];
@@ -553,20 +641,23 @@ namespace Yuusha.gui
 
         public static void BuildCritterList()
         {
+            int labelCount = (GuiManager.GetControl("CritterListWindow") as Window).Controls.FindAll(c => c is CritterListLabel).Count;
+            m_critterListNames = new string[labelCount];
+
             try
             {
                 if (GameHUD.Cells.Count > 0)
                 {
                     int labelNum = 0;
 
-                    for (int a = 0; a < 12; a++)
+                    for (int a = 0; a < labelCount; a++) // 15 critter list items in YuushaMode
                     {
                         if (GuiManager.GetControl("CritterList" + a.ToString()) is CritterListLabel critterListLabel)
                         {
                             critterListLabel.IsVisible = false;
                             critterListLabel.DropDownMenu = null;
                         }
-                        m_critterListNames[a] = "";
+                        //m_critterListNames[a] = "";
                     }
 
                     Cell cell;
@@ -581,19 +672,19 @@ namespace Yuusha.gui
                             {
                                 #region Create Critter Label (Center Cell)
                                 string critterInfo = "  " + m_alignment[(int)ch.Alignment] + ch.Name;
-                                critterInfo = critterInfo.PadRight(19);
+                                //critterInfo = critterInfo.PadRight(19);
 
-                                if (ch.RightHand != null)
-                                    critterInfo += ch.RightHand.Name;
+                                //if (ch.RightHand != null)
+                                //    critterInfo += ch.RightHand.Name;
 
-                                critterInfo = critterInfo.PadRight(31);
+                                //critterInfo = critterInfo.PadRight(31);
 
-                                if (ch.LeftHand != null)
-                                    critterInfo += ch.LeftHand.Name;
+                                //if (ch.LeftHand != null)
+                                //    critterInfo += ch.LeftHand.Name;
 
-                                critterInfo = critterInfo.PadRight(43);
+                                //critterInfo = critterInfo.PadRight(43);
 
-                                critterInfo += ch.visibleArmor;
+                                //critterInfo += ch.visibleArmor;
 
                                 m_critterListNames[labelNum] = ch.Name;
                                 CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
@@ -602,12 +693,27 @@ namespace Yuusha.gui
                                 label.Text = critterInfo;
                                 label.TextColor = TextManager.GetAlignmentColor(true, ch.Alignment);
                                 label.TintColor = TextManager.GetAlignmentColor(false, ch.Alignment);
+                                if (ch.RightHand != null)
+                                {
+                                    label.RightHandItemLabel.VisualKey = ch.RightHand.VisualKey;
+                                    label.RightHandItemLabel.PopUpText = ch.RightHand.Name;
+                                    label.RightHandItemLabel.IsVisible = true;
+                                }
+                                else label.RightHandItemLabel.IsVisible = false;
+                                if (ch.LeftHand != null)
+                                {
+                                    label.LeftHandItemLabel.VisualKey = ch.LeftHand.VisualKey;
+                                    label.LeftHandItemLabel.PopUpText = ch.LeftHand.Name;
+                                    label.LeftHandItemLabel.IsVisible = true;
+                                }
+                                else label.LeftHandItemLabel.IsVisible = false;
+
                                 label.IsVisible = true;
                                 #endregion
 
                                 labelNum++;
 
-                                if (labelNum >= 12)
+                                if (labelNum >= labelCount)
                                     break;
                             }
                         }
@@ -671,10 +777,24 @@ namespace Yuusha.gui
                                     label.Text = critterInfo;
                                     label.TextColor = foreColor;
                                     label.TintColor = backColor;
+                                    if (ch.RightHand != null)
+                                    {
+                                        label.RightHandItemLabel.VisualKey = ch.RightHand.VisualKey;
+                                        label.RightHandItemLabel.PopUpText = ch.RightHand.Name;
+                                        label.RightHandItemLabel.IsVisible = true;
+                                    }
+                                    else label.RightHandItemLabel.IsVisible = false;
+                                    if (ch.LeftHand != null)
+                                    {
+                                        label.LeftHandItemLabel.VisualKey = ch.LeftHand.VisualKey;
+                                        label.LeftHandItemLabel.PopUpText = ch.LeftHand.Name;
+                                        label.LeftHandItemLabel.IsVisible = true;
+                                    }
+                                    else label.LeftHandItemLabel.IsVisible = false;
                                     label.IsVisible = true;
                                     labelNum++;
 
-                                    if (labelNum >= 12)
+                                    if (labelNum >= labelCount)
                                         break;
                                 }
                             }

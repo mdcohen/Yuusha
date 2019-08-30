@@ -47,7 +47,7 @@ namespace Yuusha.gui
         {
             foreach(Control c in new List<Control>(Controls))
             {
-                if (c.Name.StartsWith("TalentLabel"))
+                if (c.Name.Contains("TalentLabel"))
                     Controls.Remove(c);
             }
 

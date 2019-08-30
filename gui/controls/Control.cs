@@ -245,6 +245,10 @@ namespace Yuusha.gui
 
         public virtual string PopUpText
         { get; set; }
+
+        // MouseHandler ignores this control if true.
+        public virtual bool MouseInvisible
+        { get; set; } = false;
         #endregion
 
         #region Constructor
@@ -286,7 +290,7 @@ namespace Yuusha.gui
             m_lockoutStates = new List<Enums.EGameState>();
             m_shadowDirection = Map.Direction.Southeast;
             PopUpText = "";
-            m_doubleClickTimer = new System.Timers.Timer(800);
+            m_doubleClickTimer = new System.Timers.Timer(Client.ClientSettings.DoubleClickTimerDelay);
             m_doubleClickTimer.Elapsed += new System.Timers.ElapsedEventHandler(DoubleClickTimer_Elapsed);
             m_doubleClickTimer.AutoReset = true;
             m_tabOrder = -1;
@@ -445,7 +449,6 @@ namespace Yuusha.gui
             {
                 m_containsMousePointer = true;
                 OnMouseOver(ms);
-
             }
 
             if (!Contains(ms.Position) && m_containsMousePointer)
@@ -571,8 +574,11 @@ namespace Yuusha.gui
                 {
                     if ((!GuiManager.Dragging || GuiManager.DraggedControl == this) && !GuiManager.AwaitMouseButtonRelease)
                     {
-                        ControlState = Enums.EControlState.Down;
-                        OnMouseDown(ms);
+                        if (!IsBeneathControl(ms))
+                        {
+                            ControlState = Enums.EControlState.Down;
+                            OnMouseDown(ms);
+                        }
                     }
 
                     // slider sends data while mouse is down
@@ -848,7 +854,7 @@ namespace Yuusha.gui
                 //    else continue;
                 //}
 
-                if (c != this && c.IsVisible && c.Contains(ms.Position) && c.Name != Owner)
+                if (c.Sheet != "Generic" && c != this && c.IsVisible && c.Contains(ms.Position) && c.Name != Owner && !c.MouseInvisible)
                 {
                     return true;
                 }
@@ -860,7 +866,7 @@ namespace Yuusha.gui
                 {
                     if (Owner == c.Name || !c.IsVisible || c == this) continue;
 
-                    if ((c.ZDepth < ZDepth || (c.ZDepth == ZDepth && c.ZDepthDateTime > ZDepthDateTime)) && c.Contains(ms.Position))
+                    if ((c.ZDepth < ZDepth || (c.ZDepth == ZDepth && c.ZDepthDateTime > ZDepthDateTime)) && c.Contains(ms.Position) && !c.MouseInvisible)
                         return true;
                 }
             }

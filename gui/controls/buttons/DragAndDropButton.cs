@@ -105,8 +105,6 @@ namespace Yuusha.gui
 
                             if (GuiManager.GetControl(Owner) is GridBoxWindow gridBox)
                             {
-                                GridBoxUpdateRequests.Add(gridBox.GridBoxPurposeType);
-
                                 switch (gridBox.GridBoxPurposeType)
                                 {
                                     case GridBoxWindow.GridBoxPurpose.Altar:
@@ -160,7 +158,7 @@ namespace Yuusha.gui
                                             dropDownMenuItemTextList.Add(Tuple.Create("wield", "wield " + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.None));
                                             dropDownMenuItemTextList.Add(Tuple.Create("wield and drop", "wield " + RepresentedItem.Name, GridBoxWindow.GridBoxPurpose.Ground));
                                             if (GameHUD.CurrentTarget != null) // NOTE: some items can be thrown from the belt without wielding them
-                                                dropDownMenuItemTextList.Add(Tuple.Create("throw at " + GameHUD.CurrentTarget.Name, "wield " + RepresentedItem.Name + ";throw it at " + GameHUD.CurrentTarget.ID, GridBoxWindow.GridBoxPurpose.None));
+                                                dropDownMenuItemTextList.Add(Tuple.Create("throw at " + GameHUD.CurrentTarget.Name, "wield " + RepresentedItem.Name + ";throw it at " + GameHUD.CurrentTarget.UniqueID, GridBoxWindow.GridBoxPurpose.None));
                                             if (Character.CurrentCharacter.IsNextToCounter(out string uLocationName))
                                                 dropDownMenuItemTextList.Add(Tuple.Create("put on " + uLocationName, "wield " + RepresentedItem.Name + ";put it on " + uLocationName, GridBoxWindow.GridBoxPurpose.Ground));
                                         }

@@ -468,7 +468,7 @@ namespace Yuusha
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
                             {
                                 //    //Utils.LogCharacterFields();
-                                Utils.LogCharacterEffects();
+                                //Utils.LogCharacterEffects();
                                 //    //foreach (Spell spell in World.SpellsList)
                                 //    //    Utils.Log(spell.Name);
                                 //    //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
@@ -577,9 +577,7 @@ namespace Yuusha
                             #region ALT + H  Help Window
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.H))
                             {
-                                gui.Window helpWindow = gui.GuiManager.GenericSheet["HelpWindow"] as gui.Window;
-
-                                if (helpWindow != null)
+                                if (GuiManager.GenericSheet["HelpWindow"] is Window helpWindow)
                                 {
                                     if (!helpWindow.IsVisible)
                                     {

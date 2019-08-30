@@ -40,7 +40,7 @@
 	<SpinelTileDef Graphic="dn" Name="StairsDown" ForeVisual="sptile_down1" BackVisual="sptile_wall6" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="up" Name="StairsUp" ForeVisual="sptile_up1" BackVisual="sptile_wall6" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="BR" Name="BoxingRing" ForeVisual="sptile_boxingring1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
-	<SpinelTileDef Graphic="()" Name="Pit" ForeVisual="sptile_pit1" BackVisual="sptile_ground5" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
+	<SpinelTileDef Graphic="()" Name="Pit" ForeVisual="sptile_pit1" BackVisual="sptile_ground10" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic='""' Name="Grass" ForeVisual="sptile_ground4" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="''" Name="BurntGrass" ForeVisual="sptile_ground2" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="o " Name="Trash" ForeVisual="sptile_trashcan1" BackVisual="sptile_wall6" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
@@ -59,4 +59,5 @@
   <SpinelTileDef Graphic="++" Name="Lightning" ForeVisual="sptile_unknown2" BackVisual="" ForeAlpha="190" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
   <SpinelTileDef Graphic="FF" Name="Fog" ForeVisual="hotbuttonicon_423" BackVisual="WhiteSpace" ForeAlpha="200" BackAlpha="255" ForeTint="White" BackTint="DimGray"></SpinelTileDef>
   <SpinelTileDef Graphic="tp" Name="Teleport" ForeVisual="sptile_portal1" BackVisual="WhiteSpace" ForeAlpha="150" BackAlpha="255" ForeTint="White" BackTint="CadetBlue"></SpinelTileDef>
+  <SpinelTileDef Graphic="gg" Name="Graveyard" ForeVisual="sptile_gravestone" BackVisual="sptile_ground12" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 </SpinelTileDefinitions>
