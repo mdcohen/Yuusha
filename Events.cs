@@ -13,6 +13,7 @@ namespace Yuusha
             Cast_Spell,
             Cast_Spell_MessageBox,
             Character_Death,
+            Character_Moved,
             Character_Settings_Changed,
             CharGen_Lore,
             Client_Settings_Changed,
@@ -40,6 +41,7 @@ namespace Yuusha
             New_Talent,
             Next_Visual,
             None,
+            Received_Stats,
             Request_Belt,
             Request_Effects,
             Request_WornEffects,
@@ -205,11 +207,18 @@ namespace Yuusha
                                     try
                                     {
                                         if (GameHUD.CurrentTarget.UniqueID == id)
-                                            Events.RegisterEvent(EventName.Target_Cleared, false);
+                                        {
+                                            RegisterEvent(EventName.Target_Cleared, false);
+                                            GameHUD.CurrentTarget.Cell.Remove(GameHUD.CurrentTarget);
+                                        }
                                     }
                                     catch { }
 
-                                    GameHUD.CurrentTarget.Cell.Remove(GameHUD.CurrentTarget);
+                                    if(GameHUD.CharactersInView.ContainsKey(id))
+                                    {
+                                        GameHUD.CharactersInView[id].Cell.Remove(GameHUD.CharactersInView[id]);
+                                        GameHUD.CharactersInView.Remove(id);
+                                    }
 
                                     switch (Client.GameDisplayMode)
                                     {
@@ -230,6 +239,19 @@ namespace Yuusha
                         catch { }
                         break;
                     #endregion
+                    case EventName.Character_Moved:
+                        if (GuiManager.GenericSheet["CounterGridBoxWindow"] is GridBoxWindow counterWindow)
+                            counterWindow.OnClose();
+                        if (GuiManager.GenericSheet["AltarGridBoxWindow"] is GridBoxWindow altarWindow)
+                            altarWindow.OnClose();
+                        if (GuiManager.GenericSheet["GroundGridBoxWindow"] is GridBoxWindow groundWindow)
+                            groundWindow.OnClose();
+                        if (GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow sbWindow)
+                            sbWindow.OnClose();
+
+                        GameHUD.ConversationBubbles.ForEach(conversationBubble => GuiManager.RemoveControl(conversationBubble.Item1));
+                        GameHUD.ConversationBubbles.Clear();
+                        break;
                     case EventName.CharGen_Lore:
                         #region Character Generation Lore
                         Dictionary<string, string> dictionaryInfo = new Dictionary<string, string>();
@@ -698,31 +720,26 @@ namespace Yuusha
                         foreach (Talent talent in Character.CurrentCharacter.Talents)
                         {
                             if (!prevTalentsList.Contains(talent))
-                            {
-                                //if (Character.CurrentCharacter.HasSpellbook && GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow spbWindow)
-                                //{
-                                //    RegisterEvent(EventName.Toggle_Spellbook);
-                                //    spbWindow.FlipTo(spell.Name);
-
-                                //    if (spbWindow.LeftPageSpell != null && spbWindow.LeftPageSpell != spell && spbWindow.RightPageSpell == null)
-                                //        spbWindow.ScribePage(spell, false);
-
-                                //    spbWindow.IsVisible = true;
-                                //}
-
                                 AchievementLabel.CreateAchievementLabel(" New Talent: " + talent.Name + " ", AchievementLabel.AchievementType.NewTalent);
-                            }
+                        }
+                        break;
+                    case EventName.Received_Stats:
+                        if(GuiManager.GenericSheet["CharacterStatsWindow"] is Window statsWindow && statsWindow.IsVisible)
+                        {
+                            GameHUD.UpdateStatDetailsWindow();
                         }
                         break;
                     case EventName.Request_Belt:
                         // get belt grid box, if not visible send request
                         IO.Send(Protocol.REQUEST_CHARACTER_BELT);
                         if (args[0] is Button)
+                        {
                             if (GuiManager.GetControl("BeltGridBoxWindow") is GridBoxWindow gridBoxWindow)
                             {
                                 gridBoxWindow.IsVisible = !gridBoxWindow.IsVisible;
                                 gridBoxWindow.ZDepth = 1;
                             }
+                        }
                         break;
                     case EventName.Request_Effects:
                         IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
@@ -749,12 +766,20 @@ namespace Yuusha
                     case EventName.Request_Inventory:
                         IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
                         IO.Send(Protocol.REQUEST_CHARACTER_WORNEFFECTS); // currently with inventory/stats window
+                        IO.Send(Protocol.REQUEST_CHARACTER_RESISTS);
+                        IO.Send(Protocol.REQUEST_CHARACTER_PROTECTIONS);
                         if (args[0] is Button)
                         {
                             if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window fullStatsWindow)
                             {
                                 if (fullStatsWindow.WindowTitle is WindowTitle fullStatsWindowTitle)
                                     fullStatsWindowTitle.Text = Character.CurrentCharacter.Name;
+
+                                if(!fullStatsWindow.IsVisible) // window will become visible, update the stat details
+                                {
+                                    GameHUD.UpdateStatDetailsWindow();
+                                    //GameHUD.UpdateFurtherStatDetailsWindow();
+                                }
 
                                 fullStatsWindow.IsVisible = !fullStatsWindow.IsVisible;
                                 fullStatsWindow.ZDepth = 1;

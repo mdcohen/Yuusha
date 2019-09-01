@@ -91,7 +91,7 @@ namespace Yuusha.gui
         public void Update(GameTime gameTime, List<TextCue> cueList)
         {
             int loopCount = 0;
-            while (IsOverlapping() && loopCount < 100)
+            while (IsOverlapping() && loopCount < 50)
             {
                 if (X > Client.Width / 2)
                     X -= BitmapFont.ActiveFonts[Font].MeasureString(Text);
@@ -102,11 +102,6 @@ namespace Yuusha.gui
                 else Y += BitmapFont.ActiveFonts[Font].LineHeight + 5;
 
                 loopCount++;
-            }
-
-            if (loopCount >= 100)
-            {
-                Utils.Log(Text + " [ " + Tag.ToString() + " ] looped 100 times!");
             }
 
             switch (Tag)

@@ -10,14 +10,16 @@ namespace Yuusha.gui
         {
             None,
             SkillUp,
-            VitalsGain_HitsMax,
-            VitalsGain_StaminaMax,
-            VitalsGain_ManaMax,
+            VitalsGain_HitsFull,
+            VitalsGain_StaminaFull,
+            VitalsGain_ManaFull,
             LevelUp,
             NewSpell,
             NewTalent,
             StrengthAdd,
             DexterityAdd,
+            AbilityScoreGain,
+            AbilityScoreLoss,
         }
 
         bool m_fadeIn = true;
@@ -82,6 +84,22 @@ namespace Yuusha.gui
 
             switch(achievement)
             {
+                case AchievementType.AbilityScoreGain:
+                    tintColor = Color.SteelBlue;
+                    textColor = Color.AliceBlue;
+                    visualKey = GameHUD.GameIconsDictionary["upgrade"];
+                    soundFile = "GUISounds/stat_gain";
+                    stopSize = 256;
+                    font = Client.ClientSettings.DefaultHUDNumbersFont;
+                    break;
+                case AchievementType.AbilityScoreLoss:
+                    tintColor = Color.Firebrick;
+                    textColor = Color.DarkGray;
+                    visualKey = GameHUD.GameIconsDictionary["downgrade"];
+                    soundFile = "GUISounds/stat_loss";
+                    stopSize = 256;
+                    font = Client.ClientSettings.DefaultHUDNumbersFont;
+                    break;
                 case AchievementType.DexterityAdd:
                 case AchievementType.StrengthAdd:
                     tintColor = Color.Indigo;
@@ -91,7 +109,7 @@ namespace Yuusha.gui
                     stopSize = 256;
                     font = Client.ClientSettings.DefaultHUDNumbersFont;
                     break;
-                case AchievementType.VitalsGain_HitsMax:
+                case AchievementType.VitalsGain_HitsFull:
                     tintColor = Color.Red;
                     textColor = Color.White;
                     visualKey = GameHUD.GameIconsDictionary["upgrade"];
@@ -99,7 +117,7 @@ namespace Yuusha.gui
                     stopSize = 256;
                     font = Client.ClientSettings.DefaultHUDNumbersFont;
                     break;
-                case AchievementType.VitalsGain_ManaMax:
+                case AchievementType.VitalsGain_ManaFull:
                     tintColor = Color.RoyalBlue;
                     textColor = Color.White;
                     visualKey = GameHUD.GameIconsDictionary["upgrade"];
@@ -107,7 +125,7 @@ namespace Yuusha.gui
                     stopSize = 256;
                     font = Client.ClientSettings.DefaultHUDNumbersFont;
                     break;
-                case AchievementType.VitalsGain_StaminaMax:
+                case AchievementType.VitalsGain_StaminaFull:
                     tintColor = Color.ForestGreen;
                     textColor = Color.White;
                     visualKey = GameHUD.GameIconsDictionary["upgrade"];

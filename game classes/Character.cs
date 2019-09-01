@@ -180,8 +180,8 @@ namespace Yuusha
                         m_currentCharacter.Charisma = Convert.ToInt32(pcStats[51]);
                         m_currentCharacter.StrengthAdd = Convert.ToInt32(pcStats[52]);
                         m_currentCharacter.DexterityAdd = Convert.ToInt32(pcStats[53]);
-                        m_currentCharacter.encumbrance = Convert.ToDecimal(pcStats[54]);
-                        m_currentCharacter.birthday = pcStats[55];
+                        m_currentCharacter.m_encumbrance = Convert.ToDecimal(pcStats[54]);
+                        m_currentCharacter.m_birthday = pcStats[55];
                         m_currentCharacter.lastOnline = pcStats[56];
                         m_currentCharacter.karma = Convert.ToInt32(pcStats[57]);
                         m_currentCharacter.marks = Convert.ToInt32(pcStats[58]);
@@ -344,6 +344,10 @@ namespace Yuusha
                     {
                         m_currentCharacter.Inventory.Clear();
                         string[] pcInventory = info.Split(Protocol.ISPLIT.ToCharArray());
+
+                        if (string.IsNullOrEmpty(info) || pcInventory == null || pcInventory.Length <= 0)
+                            break;
+
                         if (pcInventory[0].Length > 0)
                         {
                             for (a = 0; a < pcInventory.Length; a++)
@@ -366,6 +370,8 @@ namespace Yuusha
                     {
                         m_currentCharacter.Sack.Clear();
                         string[] pcSack = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (string.IsNullOrEmpty(info) || pcSack == null || pcSack.Length <= 0)
+                            break;
                         if (pcSack[0].Length > 0)
                         {
                             for (a = 0; a < pcSack.Length; a++)
@@ -388,6 +394,8 @@ namespace Yuusha
                     {
                         m_currentCharacter.Pouch.Clear();
                         string[] pcPouch = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (string.IsNullOrEmpty(info) || pcPouch == null || pcPouch.Length <= 0)
+                            break;
                         if (pcPouch[0].Length > 0)
                         {
                             for (a = 0; a < pcPouch.Length; a++)
@@ -409,6 +417,8 @@ namespace Yuusha
                     {
                         m_currentCharacter.Belt.Clear();
                         string[] pcBelt = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (string.IsNullOrEmpty(info) || pcBelt == null || pcBelt.Length <= 0)
+                            break;
                         if (pcBelt[0].Length > 0)
                         {
                             for (a = 0; a < pcBelt.Length; a++)
@@ -430,6 +440,8 @@ namespace Yuusha
                     {
                         m_currentCharacter.Rings.Clear();
                         string[] pcRings = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (string.IsNullOrEmpty(info) || pcRings == null || pcRings.Length <= 0)
+                            break;
                         for (a = 0; a < pcRings.Length; a++)
                         {
                             if (pcRings[a].Length > 0)
@@ -451,6 +463,8 @@ namespace Yuusha
                     {
                         m_currentCharacter.Locker.Clear();
                         string[] pcLocker = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (string.IsNullOrEmpty(info) || pcLocker == null || pcLocker.Length <= 0)
+                            break;
                         if (pcLocker[0].Length > 0)
                         {
                             for (a = 0; a < pcLocker.Length; a++)
@@ -478,6 +492,8 @@ namespace Yuusha
                         CurrentCharacter.Spells.Clear();
 
                         string[] pcSpellbook = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (string.IsNullOrEmpty(info) || pcSpellbook == null || pcSpellbook.Length <= 0)
+                            break;
                         if (pcSpellbook[0].Length > 0)
                         {
                             for (a = 0; a < pcSpellbook.Length; a++)
@@ -519,6 +535,10 @@ namespace Yuusha
                         CurrentCharacter.Talents.Clear();
 
                         string[] pcTalentbook = info.Split(Protocol.ISPLIT.ToCharArray());
+
+                        if (string.IsNullOrEmpty(info) || pcTalentbook == null || pcTalentbook.Length <= 0)
+                            break;
+
                         if (pcTalentbook[0].Length > 0)
                         {
                             for (a = 0; a < pcTalentbook.Length; a++)
@@ -552,6 +572,8 @@ namespace Yuusha
                     {
                         m_currentCharacter.Effects.Clear();
                         string[] pcEffects = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (string.IsNullOrEmpty(info) || pcEffects == null || pcEffects.Length <= 0)
+                            break;
                         if (pcEffects[0].Length > 0)
                         {
                             for (a = 0; a < pcEffects.Length; a++)
@@ -570,6 +592,9 @@ namespace Yuusha
                     {
                         m_currentCharacter.WornEffects.Clear();
                         string[] pcWornEffects = info.Split(Protocol.ISPLIT.ToCharArray());
+                        if (string.IsNullOrEmpty(info) || pcWornEffects == null || pcWornEffects.Length <= 0)
+                            break;
+
                         if (pcWornEffects[0].Length > 0)
                         {
                             for (a = 0; a < pcWornEffects.Length; a++)
@@ -586,7 +611,7 @@ namespace Yuusha
                     #region Macros
                     string[] macrosArray = info.Split(Protocol.ISPLIT.ToCharArray());
 
-                    System.Collections.Generic.List<string> macroList = new System.Collections.Generic.List<string>();
+                    List<string> macroList = new System.Collections.Generic.List<string>();
 
                     if (Character.CurrentCharacter != null && Character.CurrentCharacter.Macros != null)
                         Character.CurrentCharacter.Macros.Clear();
@@ -597,13 +622,14 @@ namespace Yuusha
                     m_currentCharacter.m_macros = new System.Collections.Generic.List<string>(macroList);
 
                     gui.GenericSheet.LoadMacros();
-                    break; 
-                    #endregion
-            }
-
-            switch (Client.GameState)
-            {
-                case Enums.EGameState.IOKGame:
+                    break;
+                #endregion
+                case Enums.EPlayerUpdate.Resists:
+                    m_currentCharacter.ResistsData = info;
+                    Utils.Log(info);
+                    break;
+                case Enums.EPlayerUpdate.Protections:
+                    m_currentCharacter.ProtectionsData = info;
                     break;
             }
         }
@@ -667,8 +693,8 @@ namespace Yuusha
         public int poisoned;
         public SkillType fighterSpecial;
         
-        public decimal encumbrance;
-        public string birthday;
+        private decimal m_encumbrance;
+        private string m_birthday;
         public string lastOnline;
         public int karma;
         public int marks;
@@ -703,12 +729,20 @@ namespace Yuusha
         private long m_numKills;
         private long m_numDeaths;
         private long m_bankGold;
+
         private int m_strength;
+        //private int m_strengthFull;
         private int m_dexterity;
+        //private int m_dexterityFull;
         private int m_intelligence;
+        //private int m_intelligenceFull;
         private int m_wisdom;
+        //private int m_wisdomFull;
         private int m_constitution;
+        //private int m_constitutionFull;
         private int m_charisma;
+        //private int m_charismaFull;
+
         private int m_strengthAdd;
         private int m_dexterityAdd;
         private World.Alignment m_alignment;
@@ -867,10 +901,22 @@ namespace Yuusha
             get { return m_age; }
             set { m_age = value; }
         }
+        public string AgeDescription
+        {
+            get { return GetAgeDescription(); }
+        }
         public long RoundsPlayed
         {
             get { return m_roundsPlayed; }
             set { m_roundsPlayed = value; }
+        }
+        public string ResistsData
+        {
+            get;set;
+        }
+        public string ProtectionsData
+        {
+            get; set;
         }
         public long NumKills
         {
@@ -1006,6 +1052,10 @@ namespace Yuusha
         {
             get { return m_macros; }
         }
+        public string Birthday
+        { get { return m_birthday; } }
+        public decimal Encumbrance
+        { get { return m_encumbrance; } }
         public int HitsFull
         {
             get { return HitsMax + HitsAdjustment + HitsDoctored; }
@@ -1083,6 +1133,8 @@ namespace Yuusha
             m_effects = new List<Effect>();
             m_wornEffects = new List<Effect>();
             m_macros = new List<string>();
+
+            m_location = "";
         } 
         #endregion
 
@@ -1191,14 +1243,7 @@ namespace Yuusha
             // Character has moved.
             if (X != cell.xCord || Y != cell.yCord || Z != cell.zCord || m_mapID != cell.MapID)
             {
-                if (GuiManager.GenericSheet["CounterGridBoxWindow"] is GridBoxWindow counterWindow)
-                    counterWindow.OnClose();
-                if (GuiManager.GenericSheet["AltarGridBoxWindow"] is GridBoxWindow altarWindow)
-                    altarWindow.OnClose();
-                if (GuiManager.GenericSheet["GroundGridBoxWindow"] is GridBoxWindow groundWindow)
-                    groundWindow.OnClose();
-                if (GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow spellbookWindow)
-                    spellbookWindow.OnClose();
+                Events.RegisterEvent(Events.EventName.Character_Moved);
             }
 
             m_mapID = cell.MapID;
@@ -1273,6 +1318,37 @@ namespace Yuusha
             }
 
             return null;
+        }
+
+        public string GetAgeDescription()
+        {
+            int index = 0;
+
+            if (Age < World.AgeCycles[0])
+            {
+                index = 0;
+            }
+            else if (Age >= World.AgeCycles[0] && this.Age < World.AgeCycles[1])
+            {
+                index = 1;
+            }
+            else if (Age >= World.AgeCycles[1] && this.Age < World.AgeCycles[2])
+            {
+                index = 2;
+            }
+            else if (Age >= World.AgeCycles[2] && this.Age < World.AgeCycles[3])
+            {
+                index = 3;
+            }
+            else if (Age >= World.AgeCycles[3] && this.Age < World.AgeCycles[4])
+            {
+                index = 4;
+            }
+            else
+            {
+                index = 5;
+            }
+            return World.age_humanoid[index];
         }
 
         public Item GetInventoryItem(WearLocation location, WearOrientation orientation)

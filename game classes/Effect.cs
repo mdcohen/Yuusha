@@ -59,7 +59,7 @@ namespace Yuusha
             { "Protection from Fire", "hotbuttonicon_119" }, { "Protection from Fire and Ice", "hotbuttonicon_135" }, { "Protection from Poison", "hotbuttonicon_199" },
             { "Protection from Stun and Death", "hotbuttonicon_471" }, { "Protection from Undead", "hotbuttonicon_492" },
             // R
-            { "Raise the Dead", "hotbuttonicon_469" }, {"Regenerate Hits", "hotbuttonicon_264" }, {"Regenerate Mana", "hotbuttonicon_221" },
+            { "Raise the Dead", "hotbuttonicon_469" }, {"Regenerate Health", "hotbuttonicon_264" }, {"Regenerate Mana", "hotbuttonicon_221" },
             { "Regenerate Stamina", "hotbuttonicon_464" }, { "Regeneration", "hotbuttonicon_264" }, { "Resist Blind", "hotbuttonicon_147" },
             { "Resist Blindness", "hotbuttonicon_147" }, { "Resist Fear", "hotbuttonicon_448" }, { "Resistance from Blind and Fear", "hotbuttonicon_472" },
             { "Resist Lightning", "hotbuttonicon_417" }, { "Resist Zonk", "hotbuttonicon_321" },

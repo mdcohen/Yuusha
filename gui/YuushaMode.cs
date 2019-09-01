@@ -57,7 +57,7 @@ namespace Yuusha.gui
 
                 if (Client.ClientSettings.DisplayConversationBubbles)
                 {
-                    if (text.Contains(":") && text.IndexOf(" ") == text.IndexOf(":") + 1)
+                    if ((text.Contains(":") && text.IndexOf(" ") == text.IndexOf(":") + 1) || text.StartsWith("You say: "))
                     {
                         string[] f = text.Split(":".ToCharArray());
                         string[] g = f[1].Trim().Split(" ".ToCharArray());
@@ -72,18 +72,27 @@ namespace Yuusha.gui
                             {
                                 foreach (Character chr in cell.Characters)
                                 {
-                                    if (chr.Name == f[0] || (f[0] == "You say" && chr == Character.CurrentCharacter))
+                                    if (chr.Name == f[0] || (f[0] == "You say" && cellCount == 24))
                                     {
                                         if (GuiManager.GetControl("Tile" + cellCount) is SpinelTileLabel lbl)
                                         {
-                                            BitmapFont bmf = BitmapFont.ActiveFonts["robotomonobold12"];
+                                            int x = lbl.Position.X + 10;
+                                            int y = lbl.Position.Y - 20;
+                                            if (f[0] == "You say")
+                                            {
+                                                x = lbl.Position.X + lbl.Height / 2;
+                                                y = lbl.Position.Y + lbl.Height / 2;
+                                            }
+
+                                            BitmapFont bmf = BitmapFont.ActiveFonts["lemon12"];
                                             //int width = bmf.MeasureString(f[1]);
                                             // add pop up 
-                                            ScrollableTextBox scr = new ScrollableTextBox(chr.Name + "_" + Program.Client.ClientGameTime.ElapsedGameTime + "_ScrollableTextBox", "",
-                                                new Rectangle(lbl.Position.X + 10, lbl.Position.Y - 20, 300, bmf.LineHeight + 5), "", TextManager.GetAlignmentColor(false, chr.Alignment), true, false, "robotomonobold11",
-                                                new VisualKey("RoundedButton"), Color.White, 255, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 5, 5,
-                                                BitmapFont.TextAlignment.Center, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, true)
+                                            ScrollableTextBox scr = new ScrollableTextBox(chr.UniqueID + "_" + Program.Client.ClientGameTime.TotalGameTime + "_ScrollableTextBox", "",
+                                                new Rectangle(x, y, 300, bmf.LineHeight + 5), "", TextManager.GetAlignmentColor(false, chr.Alignment), true, false, "lemon12",
+                                                new VisualKey("ConversationBubble"), Color.FloralWhite, 255, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 5, 5,
+                                                BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, true)
                                             {
+                                                
                                                 Colorize = false,
                                                 MouseInvisible = true // mousehandling beneath this control
                                             };
@@ -115,11 +124,10 @@ namespace Yuusha.gui
                                             //{
                                             //    scr.AddLine(f[1].Trim(), Enums.ETextType.Default);
                                             //}
-
+                                            GuiManager.CurrentSheet.AddControl(scr);
                                             scr.AddLine(f[1].Trim(), Enums.ETextType.Default);
                                             scr.Height = scr.FormattedLinesCount * (bmf.LineHeight + 5);
-                                            scr.Width = Math.Max(200, scr.LongestFormattedLine()) + 10;
-                                            GuiManager.CurrentSheet.AddControl(scr);                                            
+                                            scr.Width = scr.LongestFormattedLine() + 10;                                            
                                             GameHUD.ConversationBubbles.Add(Tuple.Create(scr, DateTime.Now));
                                             done = true;
                                         }
@@ -363,7 +371,7 @@ namespace Yuusha.gui
                         if (chr.HitsFull != pre.HitsFull)
                         {
                             if (chr.HitsFull > pre.HitsFull)
-                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.HitsFull - pre.HitsFull), AchievementLabel.AchievementType.VitalsGain_HitsMax);
+                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.HitsFull - pre.HitsFull), AchievementLabel.AchievementType.VitalsGain_HitsFull);
 
                             // Currently only displays a +Hits achievement when HitsFull increases.
                             Character.PreviousRoundCharacter.HitsMax = chr.HitsMax;
@@ -374,7 +382,7 @@ namespace Yuusha.gui
                         if (chr.StaminaFull != pre.StaminaFull)
                         {
                             if (chr.StaminaFull > pre.StaminaFull)
-                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.StaminaFull - pre.StaminaFull), AchievementLabel.AchievementType.VitalsGain_StaminaMax);
+                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.StaminaFull - pre.StaminaFull), AchievementLabel.AchievementType.VitalsGain_StaminaFull);
 
                             Character.PreviousRoundCharacter.StaminaMax = chr.StaminaMax;
                             Character.PreviousRoundCharacter.StaminaAdjustment = chr.StaminaAdjustment;
@@ -383,13 +391,13 @@ namespace Yuusha.gui
                         if (chr.IsManaUser && chr.ManaFull != pre.ManaFull)
                         {
                             if (chr.ManaFull > pre.ManaFull)
-                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.ManaFull - pre.ManaFull), AchievementLabel.AchievementType.VitalsGain_ManaMax);
+                                AchievementLabel.CreateAchievementLabel(string.Format("+{0}", chr.ManaFull - pre.ManaFull), AchievementLabel.AchievementType.VitalsGain_ManaFull);
 
                             Character.PreviousRoundCharacter.ManaMax = chr.ManaMax;
                             Character.PreviousRoundCharacter.ManaAdjustment = chr.ManaAdjustment;
                         }
 
-                        if(chr.StrengthAdd != pre.StrengthAdd)
+                        if (chr.StrengthAdd != pre.StrengthAdd)
                         {
                             if(chr.StrengthAdd > pre.StrengthAdd)
                                 AchievementLabel.CreateAchievementLabel(string.Format("Strength Add: +{0}", chr.StrengthAdd - pre.StrengthAdd), AchievementLabel.AchievementType.StrengthAdd);
@@ -404,6 +412,62 @@ namespace Yuusha.gui
 
                             Character.PreviousRoundCharacter.DexterityAdd = chr.DexterityAdd;
                         }
+
+                        #region Ability Score Changes
+                        if (chr.Strength != pre.Strength)
+                        {
+                            if (chr.Strength > pre.Strength)
+                                AchievementLabel.CreateAchievementLabel(string.Format("Strength: +{0}", chr.Strength - pre.Strength), AchievementLabel.AchievementType.AbilityScoreGain);
+                            else AchievementLabel.CreateAchievementLabel(string.Format("Strength: +{0}", pre.Strength - chr.Strength), AchievementLabel.AchievementType.AbilityScoreLoss);
+
+                            Character.PreviousRoundCharacter.Strength = chr.Strength;
+                        }
+
+                        if (chr.Dexterity != pre.Dexterity)
+                        {
+                            if (chr.Dexterity > pre.Dexterity)
+                                AchievementLabel.CreateAchievementLabel(string.Format("Dexterity: +{0}", chr.Dexterity - pre.Dexterity), AchievementLabel.AchievementType.AbilityScoreGain);
+                            else AchievementLabel.CreateAchievementLabel(string.Format("Dexterity: +{0}", pre.Dexterity - chr.Dexterity), AchievementLabel.AchievementType.AbilityScoreLoss);
+
+                            Character.PreviousRoundCharacter.Dexterity = chr.Dexterity;
+                        }
+
+                        if (chr.Intelligence != pre.Intelligence)
+                        {
+                            if (chr.Intelligence > pre.Intelligence)
+                                AchievementLabel.CreateAchievementLabel(string.Format("Intelligence: +{0}", chr.Intelligence - pre.Intelligence), AchievementLabel.AchievementType.AbilityScoreGain);
+                            else AchievementLabel.CreateAchievementLabel(string.Format("Intelligence: +{0}", pre.Intelligence - chr.Intelligence), AchievementLabel.AchievementType.AbilityScoreLoss);
+
+                            Character.PreviousRoundCharacter.Intelligence = chr.Intelligence;
+                        }
+
+                        if (chr.Wisdom != pre.Wisdom)
+                        {
+                            if (chr.Wisdom > pre.Wisdom)
+                                AchievementLabel.CreateAchievementLabel(string.Format("Wisdom: +{0}", chr.Wisdom - pre.Wisdom), AchievementLabel.AchievementType.AbilityScoreGain);
+                            else AchievementLabel.CreateAchievementLabel(string.Format("Wisdom: +{0}", pre.Wisdom - chr.Wisdom), AchievementLabel.AchievementType.AbilityScoreLoss);
+
+                            Character.PreviousRoundCharacter.Wisdom = chr.Wisdom;
+                        }
+
+                        if (chr.Constitution != pre.Constitution)
+                        {
+                            if (chr.Constitution > pre.Constitution)
+                                AchievementLabel.CreateAchievementLabel(string.Format("Constitution: +{0}", chr.Constitution - pre.Constitution), AchievementLabel.AchievementType.AbilityScoreGain);
+                            else AchievementLabel.CreateAchievementLabel(string.Format("Constitution: +{0}", pre.Constitution - chr.Constitution), AchievementLabel.AchievementType.AbilityScoreLoss);
+
+                            Character.PreviousRoundCharacter.Constitution = chr.Constitution;
+                        }
+
+                        if (chr.Charisma != pre.Charisma)
+                        {
+                            if (chr.Charisma > pre.Charisma)
+                                AchievementLabel.CreateAchievementLabel(string.Format("Charisma: +{0}", chr.Charisma - pre.Charisma), AchievementLabel.AchievementType.AbilityScoreGain);
+                            else AchievementLabel.CreateAchievementLabel(string.Format("Charisma: +{0}", pre.Charisma - chr.Charisma), AchievementLabel.AchievementType.AbilityScoreLoss);
+
+                            Character.PreviousRoundCharacter.Charisma = chr.Charisma;
+                        } 
+                        #endregion
 
                         // Experience adjustments.
                         if (pre.Experience < chr.Experience && pre.Experience > 0)
@@ -464,6 +528,7 @@ namespace Yuusha.gui
         {
             m_usedLetters = string.Empty;
             GameHUD.Cells.Clear();
+            GameHUD.CharactersInView.Clear();
             //Character.PreviousRoundCharacter = Character.CurrentCharacter.Clone();
         }
 
@@ -523,7 +588,12 @@ namespace Yuusha.gui
                         for (a = 0; a < critters.Length; a++)
                         {
                             Character ch = FormatCellCritter(critters[a]);
-                            if (ch != null) cell.Add(ch);
+                            if (ch != null)
+                            {
+                                if (!GameHUD.CharactersInView.ContainsKey(ch.UniqueID))
+                                    GameHUD.CharactersInView.Add(ch.UniqueID, ch); // else log it?
+                                cell.Add(ch);
+                            }
                         }
                     }
 

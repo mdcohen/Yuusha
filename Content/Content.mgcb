@@ -97,6 +97,18 @@
 /processorParam:Quality=Best
 /build:GUISounds/skillup.wav
 
+#begin GUISounds/stat_gain.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/stat_gain.wav
+
+#begin GUISounds/stat_loss.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:GUISounds/stat_loss.mp3
+
 #begin GUISounds/sword_draw.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

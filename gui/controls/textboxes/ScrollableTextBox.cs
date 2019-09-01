@@ -271,8 +271,14 @@ namespace Yuusha.gui
                         drawTextColor = Utils.GetTextTypeColor(textTypes[a]);
 
                     // switch to draw color based on preferred colors
+                    int rectX = m_rectangle.X;
+                    if (TextAlignment == BitmapFont.TextAlignment.Center)
+                        rectX = (m_rectangle.X + Width - BitmapFont.ActiveFonts[Font].MeasureString(lines[a])) / 2;
+                    else if (TextAlignment == BitmapFont.TextAlignment.Right)
+                        rectX = m_rectangle.X + Width - BitmapFont.ActiveFonts[Font].MeasureString(lines[a]);
 
-                    BitmapFont.ActiveFonts[Font].DrawString(m_rectangle.X + XTextOffset, m_rectangle.Y + YTextOffset + lineHeight, drawTextColor, lines[a]);
+                    //BitmapFont.ActiveFonts[Font].TextBox(new Rectangle(m_rectangle.X + XTextOffset, m_rectangle.Y + YTextOffset + lineHeight, Width, lineHeight), drawTextColor, 
+                    BitmapFont.ActiveFonts[Font].DrawString(rectX + XTextOffset, m_rectangle.Y + YTextOffset + lineHeight, drawTextColor, lines[a]);
                     lineHeight += BitmapFont.ActiveFonts[Font].LineHeight;
                 }
             }

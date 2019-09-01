@@ -11,7 +11,7 @@ namespace Yuusha.gui
         private Rectangle m_typicalRectangle;
         private readonly VisualKey m_typicalVisualKey;
         private Color m_typicalTintColor;
-
+        private int m_typicalVisualAlpha;
 
         public TabControlButton(string name, string owner, Rectangle rectangle, string text, bool textVisible, Color textColor, bool visible,
             bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, byte textAlpha,
@@ -28,6 +28,7 @@ namespace Yuusha.gui
             m_typicalRectangle = rectangle;
             m_typicalVisualKey = visualKey;
             m_typicalTintColor = tintColor;
+            m_typicalVisualAlpha = visualAlpha;
         }
 
         public override void Update(GameTime gameTime)
@@ -41,12 +42,14 @@ namespace Yuusha.gui
                     m_rectangle.Height = m_typicalRectangle.Height + 1;
                     m_visualKey = new VisualKey(w.VisualKey);
                     m_tintColor = w.TintColor;
+                    m_visualAlpha = w.VisualAlpha;
                 }
                 else
                 {
                     m_rectangle.Height = m_typicalRectangle.Height;
                     m_visualKey = m_typicalVisualKey;
                     m_tintColor = m_typicalTintColor;
+                    m_visualAlpha = m_typicalVisualAlpha;
                 }
             }
         }

@@ -431,8 +431,17 @@ namespace Yuusha
                                               BindingFlags.NonPublic |
                                               BindingFlags.Instance);
 
+            LogOnceToFile("FIELDS", "CharacterFields");
             foreach(FieldInfo f in fields)
                 LogOnceToFile(f.Name + ": " + f.GetValue(Character.CurrentCharacter), "CharacterFields");
+
+            LogOnceToFile("PROPERTIES", "CharacterFields");
+            PropertyInfo[] properties = Character.CurrentCharacter.GetType().GetProperties(BindingFlags.Public |
+                                              BindingFlags.NonPublic |
+                                              BindingFlags.Instance);
+
+            foreach (PropertyInfo p in properties)
+                LogOnceToFile(p.Name + ": " + p.GetValue(Character.CurrentCharacter), "CharacterFields");
         }
 
         public static void LogCharacterEffects()

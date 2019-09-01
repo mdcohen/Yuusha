@@ -202,6 +202,7 @@ namespace Yuusha.gui
         {
             m_usedLetters = string.Empty;
             GameHUD.Cells.Clear();
+            GameHUD.CharactersInView.Clear();
         }
 
         public static void EndGameRound()
@@ -261,7 +262,11 @@ namespace Yuusha.gui
                         {
                             Character ch = FormatCellCritter(critters[a]);
                             if (ch != null)
+                            {
+                                if (!GameHUD.CharactersInView.ContainsKey(ch.UniqueID))
+                                    GameHUD.CharactersInView.Add(ch.UniqueID, ch); // else log it?
                                 cell.Add(ch);
+                            }
                         }
                     }
 

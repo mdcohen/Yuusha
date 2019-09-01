@@ -16,6 +16,11 @@ namespace Yuusha.gui
 
         public static void CreateTalentsWindow()
         {
+            if(Character.CurrentCharacter.Talents.Count <= 0)
+            {
+                return;
+            }
+
             if (GuiManager.GenericSheet["TalentsWindow"] is TalentsWindow w)
             {
                 w.IsVisible = true;

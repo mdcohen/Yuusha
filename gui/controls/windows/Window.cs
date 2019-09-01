@@ -1038,16 +1038,30 @@ namespace Yuusha.gui
 
                         for(int k = (m_controls[j] as Window).Controls.Count - 1; k >= 0; k--)
                         {
-                            position = m_controls[k].Position;
-                            // oldPosition -- for a window inside a window inside a window (doesn't exist yet as of 7/16/2019)
-                            position.X += m_controls[j].Position.X - oldPosition.X;
-                            position.Y += m_controls[j].Position.Y - oldPosition.Y;
-                            m_controls[k].Position = position;
+                            try
+                            {
+                                position = m_controls[k].Position;
+                                // oldPosition -- for a window inside a window inside a window (doesn't exist yet as of 7/16/2019)
+                                position.X += m_controls[j].Position.X - oldPosition.X;
+                                position.Y += m_controls[j].Position.Y - oldPosition.Y;
+                                m_controls[k].Position = position;
 
-                            // TODO: fix this. get anchors working or whatever, this is ridiculous. 6/16/2019 Eb
-                            //if (m_controls[k] is ScrollableTextBox && Sheet != GuiManager.GenericSheet.Name && Client.GameDisplayMode != Enums.EGameDisplayMode.Yuusha)
-                            if (oldWindowRect2.Width != m_controls[j].Width || oldWindowRect2.Height != m_controls[j].Height)
-                                m_controls[k].OnClientResize(prev, now, true);
+                                // TODO: fix this. get anchors working or whatever, this is ridiculous. 6/16/2019 Eb
+                                //if (m_controls[k] is ScrollableTextBox && Sheet != GuiManager.GenericSheet.Name && Client.GameDisplayMode != Enums.EGameDisplayMode.Yuusha)
+                                if (oldWindowRect2.Width != m_controls[j].Width || oldWindowRect2.Height != m_controls[j].Height)
+                                    m_controls[k].OnClientResize(prev, now, true);
+                            }
+                            catch(ArgumentOutOfRangeException aoorE)
+                            {
+                                Utils.LogException(aoorE);
+                                Utils.Log("INDEX: k=" + k + " j=" + j);
+                                continue;
+                            }
+                            catch(Exception e)
+                            {
+                                Utils.LogException(e);
+                                continue;
+                            }
                         }
 
                         if(w.WindowTitle != null)

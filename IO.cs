@@ -861,6 +861,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_STATS_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_STATS, Protocol.CHARACTER_STATS_END), Enums.EPlayerUpdate.Stats);
+                                Events.RegisterEvent(Events.EventName.Received_Stats);
                                 return true;
                             }
                             #endregion
@@ -955,6 +956,22 @@ namespace Yuusha
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_WORNEFFECTS, Protocol.CHARACTER_WORNEFFECTS_END), Enums.EPlayerUpdate.WornEffects);
                                 gui.GameHUD.UpdateWornEffectsWindow();
+                                return true;
+                            }
+                            #endregion
+                            #region CHARACTER_RESISTS_END
+                            else if (inData.IndexOf(Protocol.CHARACTER_RESISTS_END) != -1)
+                            {
+                                Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_RESISTS, Protocol.CHARACTER_RESISTS_END), Enums.EPlayerUpdate.Resists);
+                                gui.GameHUD.UpdateFurtherStatDetailsWindow();
+                                return true;
+                            }
+                            #endregion
+                            #region CHARACTER_PROTECTIONS_END
+                            else if (inData.IndexOf(Protocol.CHARACTER_PROTECTIONS_END) != -1)
+                            {
+                                Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_PROTECTIONS, Protocol.CHARACTER_PROTECTIONS_END), Enums.EPlayerUpdate.Protections);
+                                gui.GameHUD.UpdateFurtherStatDetailsWindow();
                                 return true;
                             }
                             #endregion

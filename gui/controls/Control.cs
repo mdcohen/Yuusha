@@ -842,6 +842,9 @@ namespace Yuusha.gui
             if (this is DropDownMenu || this is DropDownMenuItem)
                 return false;
 
+            if (this is WindowTitle || this is WindowControlBox)
+                return false;
+
             foreach (Control c in GuiManager.GenericSheet.Controls)
             {
                 //if(Sheet == "Generic")

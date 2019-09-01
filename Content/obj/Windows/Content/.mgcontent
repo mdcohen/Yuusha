@@ -18,6 +18,8 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/pm_alert_short.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/sageadvice_cymbal.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/skillup.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/stat_gain.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/stat_loss.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/sword_draw.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/tip_notification.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/upgrade.wav</File>
@@ -313,6 +315,8 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint3.WAV</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

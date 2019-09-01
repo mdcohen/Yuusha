@@ -258,6 +258,13 @@ namespace Yuusha
         public void Add(Character ch)
         {
             m_characters.Add(ch);
+
+            // Verification
+            ch.X = xCord;
+            ch.Y = yCord;
+            ch.Z = zCord;
+            ch.m_mapID = MapID;
+            ch.m_landID = LandID;
         }
 
         public void Add(Item item)

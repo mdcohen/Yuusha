@@ -3340,7 +3340,7 @@ available in any game state. -->
       Name="CharacterStatsWindow"
       X="100"
       Y="50"
-      Width="659"
+      Width="769"
       Height="530"
       IsVisible="false"
       IsLocked="false"
@@ -3383,6 +3383,129 @@ available in any game state. -->
     TintColor="LightSteelBlue">
     </Control>
   </CharacterStatsWindow>
+
+  <Control
+     Type="TabControlButton"
+     Text="Stats"
+     Name="StatDetailsWindowTabControlButton"
+     Owner="CharacterStatsWindow"
+     X="358"
+     Y="25"
+     YTextOffset="0"
+     Width="100"
+     Height="22"
+     VisualKey="WhiteSpace"
+     VisualAlpha="150"
+     TintColor="Gray"
+     TextColor="White"
+     IsVisible="true"
+     Font="lemon10"
+     TextAlignment="Center"
+     TextOverColor="PaleGreen"
+     TabControlledWindow="StatDetailsWindow">
+    </Control>
+
+  <Control
+    Type="TabControlButton"
+    Text="Resists &amp; Protection"
+    Name="FurtherStatDetailsWindowTabControlButton"
+    Owner="CharacterStatsWindow"
+    X="460"
+    Y="25"
+    YTextOffset="0"
+    Width="180"
+    Height="22"
+    VisualKey="WhiteSpace"
+    VisualAlpha="150"
+    TintColor="Gray"
+    TextColor="White"
+    IsVisible="true"
+    Font="lemon10"
+    TextAlignment="Center"
+    TextOverColor="PaleGreen"
+    TabControlledWindow="FurtherStatDetailsWindow">
+    </Control>
+
+  <Control
+    Type="TabControlButton"
+    Text="Skills"
+    Name="SkillDetailsWindowTabControlButton"
+    Owner="CharacterStatsWindow"
+    X="642"
+    Y="25"
+    YTextOffset="0"
+    Width="100"
+    Height="22"
+    VisualKey="WhiteSpace"
+    VisualAlpha="150"
+    TintColor="Gray"
+    TextColor="White"
+    IsVisible="true"
+    Font="lemon10"
+    TextAlignment="Center"
+    TextOverColor="PaleGreen"
+    TabControlledWindow="SkillDetailsWindow">
+  </Control>
+
+  <Control
+      Type="Window"
+      Owner="CharacterStatsWindow"
+      Name="StatDetailsWindow"
+      X="358"
+      Y="45"
+      Width="409"
+      Height="384"
+      IsVisible="true"
+      IsLocked="true"
+      Font="courier12"
+      VisualKey="WhiteSpace"
+      VisualAlpha="45"
+      TintColor="DarkMagenta"
+      DropShadow="false"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      CursorOnDrag="Dragging">
+  </Control>
+
+  <Control
+      Type="Window"
+      Owner="CharacterStatsWindow"
+      Name="FurtherStatDetailsWindow"
+      X="358"
+      Y="45"
+      Width="409"
+      Height="384"
+      IsVisible="false"
+      IsLocked="true"
+      Font="courier12"
+      VisualKey="WhiteSpace"
+      VisualAlpha="45"
+      TintColor="DarkMagenta"
+      DropShadow="false"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      CursorOnDrag="Dragging">
+  </Control>
+
+  <Control
+      Type="Window"
+      Owner="CharacterStatsWindow"
+      Name="SkillDetailsWindow"
+      X="358"
+      Y="45"
+      Width="409"
+      Height="384"
+      IsVisible="false"
+      IsLocked="true"
+      Font="courier12"
+      VisualKey="WhiteSpace"
+      VisualAlpha="45"
+      TintColor="DarkMagenta"
+      DropShadow="false"
+      ShadowDistance="5"
+      ShadowDirection="Northwest"
+      CursorOnDrag="Dragging">
+  </Control>
   
   <InventoryWindow>
     <Control
@@ -3683,7 +3806,7 @@ available in any game state. -->
      Y="429"
      Width="100"
      Height="80"
-     IsVisible="false"
+     IsVisible="true"
      IsLocked="true"
      Font="robotomonobold11"
      VisualKey="WhiteSpace"

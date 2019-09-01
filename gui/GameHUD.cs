@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System;
+using System.Reflection;
 
 namespace Yuusha.gui
 {
@@ -47,7 +48,7 @@ namespace Yuusha.gui
             {"thirdeye", "yuushaicon_20" },
             {"swap", "yuushaicon_21" },
             {"upgrade", "yuushaicon_22" },
-            {"downgrade", "yuushaicon_22" },
+            {"downgrade", "yuushaicon_23" },
         };
         const int MAP_GRID_MINIMUM = 30;
         const int MAP_GRID_MAXIMUM = 100;
@@ -67,6 +68,7 @@ namespace Yuusha.gui
         public static Cell ExaminedCell { get; set; }
 
         public static List<Cell> Cells = new List<Cell>();
+        public static Dictionary<int, Character> CharactersInView = new Dictionary<int, Character>();
 
         private static int FramesQuantity = 0;
         private static float CurrentAvgFPS = 0;
@@ -106,22 +108,17 @@ namespace Yuusha.gui
             {
                 tuple.Item1.ZDepth = 0;
 
-                if (DateTime.Now - tuple.Item2 >= TimeSpan.FromSeconds(1))
+                if (DateTime.Now - tuple.Item2 >= TimeSpan.FromSeconds(2))
                 {
-                    tuple.Item1.VisualAlpha--;
-                    tuple.Item1.TextAlpha--;
+                    tuple.Item1.VisualAlpha -= Client.ClientSettings.ConversationBubbleFadeOutSpeed;
+                    tuple.Item1.TextAlpha -= Client.ClientSettings.ConversationBubbleFadeOutSpeed;
                 }
                 
-                if(DateTime.Now - tuple.Item2 >= TimeSpan.FromSeconds(Utility.Settings.StaticSettings.RoundDelayLength) || tuple.Item1.VisualAlpha <= 0)
+                if(DateTime.Now - tuple.Item2 >= TimeSpan.FromSeconds(Utility.Settings.StaticSettings.RoundDelayLength * 1.3) || tuple.Item1.VisualAlpha <= 0)
                 {
                     GuiManager.RemoveControl(tuple.Item1);
                     ConversationBubbles.Remove(tuple);
                 }
-            }
-
-            foreach(TextCue cue in GuiManager.TextCues)
-            {
-                // IsBeneathControl, move it
             }
         }
 
@@ -415,6 +412,214 @@ namespace Yuusha.gui
 
                     Events.RegisterEvent(Events.EventName.Send_Command, swapbefore + "remove" + (wearOrientation != Character.WearOrientation.None ? wearOrientation.ToString() + " " : " ") + b.RepresentedItem.Name + swapafter);
                 }
+            }
+        }
+
+        public static void UpdateStatDetailsWindow()
+        {
+            if (GuiManager.GetControl("StatDetailsWindow") is Window w)
+            {
+                bool wasVisible = w.IsVisible;
+
+                w.IsVisible = false;
+
+                //bool createLabels = w.Controls.Count <= 0; // tricky here... currently no border or window title for this window 9/1/2019
+
+                foreach (Control c in new List<Control>(w.Controls))
+                {
+                    GuiManager.RemoveControl(c);
+                }
+
+                w.Controls.Clear(); // just in case
+
+                List<Tuple<string, string>> StatsLeftColumn = new List<Tuple<string, string>>()
+                {
+                    Tuple.Create("Race", "Race"), // Age                    
+                    Tuple.Create("Gender", "Gender"), // Deity
+                    Tuple.Create("Profession", "Profession"), // Specialty
+                    Tuple.Create("Experience", "Experience"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("Health","Hits"),
+                    Tuple.Create("Health Adj", "HitsAdjustment"),
+                    Tuple.Create("Health Full", "HitsFull"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("Stamina", "Stamina"),
+                    Tuple.Create("Stamina Adj", "StaminaAdjustment"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("Mana", "Mana"),
+                    Tuple.Create("Mana Adj", "ManaAdjustment"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("Strength", "Strength"),
+                    Tuple.Create("Dexterity", "Dexterity"),
+                    Tuple.Create("Intelligence", "Intelligence"),
+                    Tuple.Create("Wisdom", "Wisdom"),
+                    Tuple.Create("Constitution", "Constitution"),
+                    Tuple.Create("Charisma", "Charisma"),
+                };
+
+                List<Tuple<string, string>> StatsRightColumn = new List<Tuple<string, string>>()
+                {
+                    Tuple.Create("Age", "AgeDescription"),
+                    Tuple.Create("Alignment", "Alignment"),
+                    Tuple.Create("Specialty", "ClassFullName"),
+                    Tuple.Create("Level", "Level"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("Health Max", "HitsMax"),
+                    Tuple.Create("Health Doctored", "HitsDoctored"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("Stamina Max", "StaminaMax"),
+                    Tuple.Create("Stamina Full", "StaminaFull"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("Mana Max", "ManaMax"),
+                    Tuple.Create("Mana Full", "ManaFull"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("Strength Add", "StrengthAdd"),
+                    Tuple.Create("Dexterity Add", "DexterityAdd"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("Encumbrance", "Encumbrance"),
+                    Tuple.Create("Birthday", "Birthday"),
+                    Tuple.Create("Rounds", "RoundsPlayed"),
+                    Tuple.Create("# Kills", "NumKills"),
+                    Tuple.Create("# Deaths", "NumDeaths"),
+                };
+
+                PropertyInfo[] properties = Character.CurrentCharacter.GetType().GetProperties(BindingFlags.Public |
+                                              BindingFlags.NonPublic |
+                                              BindingFlags.Instance);
+
+                Dictionary<string, string> PropertyValues = new Dictionary<string, string>();
+                List<string> TypesDesired = new List<string>()
+                {
+                    "System.String", "System.Int32", "System.Int64", "System.Boolean", "System.Decimal",
+                    "Yuusha.World+Alignment", "Yuusha.Character+GenderType", "Yuusha.Character+ClassType"
+                };
+
+                foreach (PropertyInfo p in properties)
+                {
+                    try
+                    {
+                        object value = p.GetValue(Character.CurrentCharacter);
+
+                        if (value != null && TypesDesired.Contains(value.GetType().ToString()))
+                            PropertyValues.Add(p.Name, value == null ? "" : value.ToString());
+                    }
+                    catch (Exception e)
+                    {
+                        Utils.LogException(e);
+                        continue;
+                    }
+                }
+
+                int x = 2;
+                int y = 2;
+
+                foreach (Tuple<string, string> t in StatsLeftColumn)
+                {
+                    if (t.Item1.ToLower() != "blank")
+                    {
+                        if (!Character.CurrentCharacter.IsManaUser && t.Item1.StartsWith("Mana"))
+                            continue;
+
+                        PropertyValues.TryGetValue(t.Item2, out string value);
+                        if (int.TryParse(value, out int i)) // add commas to numerical values
+                            value = string.Format("{0:n0}", i);
+                        Label label = new Label(t.Item2 + "StatsLabel", w.Name, new Rectangle(x, y, 200, 20), t.Item1 + ": " + value, Color.White, true, false, w.Font, new VisualKey("WhiteSpace"), Color.White, 0, 255, BitmapFont.TextAlignment.Left, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+                        GuiManager.GenericSheet.AddControl(label);
+                        y += 18;
+                    }
+                    else y += 9;
+                }
+
+                x = 212;
+                y = 2;
+
+                foreach (Tuple<string, string> t in StatsRightColumn)
+                {
+                    if (!Character.CurrentCharacter.IsManaUser && t.Item1.StartsWith("Mana"))
+                        continue;
+
+                    if (t.Item1.ToLower() != "blank")
+                    {
+                        PropertyValues.TryGetValue(t.Item2, out string value);
+                        if (int.TryParse(value, out int i)) // add commas to numerical values
+                            value = string.Format("{0:n0}", i);
+                        Label label = new Label(t.Item2 + "StatsLabel", w.Name, new Rectangle(x, y, 200, 20), t.Item1 + ": " + value, Color.White, true, false, w.Font, new VisualKey("WhiteSpace"), Color.White, 0, 255, BitmapFont.TextAlignment.Left, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+                        GuiManager.GenericSheet.AddControl(label);
+                        y += 18;
+                    }
+                    else y += 9;
+                }
+
+                w.IsVisible = wasVisible;
+            }
+        }
+
+        public static void UpdateFurtherStatDetailsWindow()
+        {
+            if (GuiManager.GetControl("FurtherStatDetailsWindow") is Window w)
+            {
+                bool wasVisible = w.IsVisible;
+                w.IsVisible = false;
+
+                foreach (Control c in new List<Control>(w.Controls))
+                {
+                    GuiManager.RemoveControl(c);
+                }
+
+                w.Controls.Clear(); // just in case
+
+                if (!string.IsNullOrEmpty(Character.CurrentCharacter.ResistsData))
+                {
+                    string[] resists = Character.CurrentCharacter.ResistsData.Split(Protocol.VSPLIT.ToCharArray());
+
+                    // create resists scrollable text box
+                    ScrollableTextBox resistsSTB = new ScrollableTextBox("ResistsScrollableTextBox", "",
+                                                   new Rectangle(2, 2, 405, (resists.Length + 2) * (BitmapFont.ActiveFonts[w.Font].LineHeight + 5)), "", Color.White, true, false, w.Font,
+                                                   new VisualKey("WhiteSpace"), Color.DarkMagenta, 150, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0,
+                                                   BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>() { }, true)
+                    {
+
+                        Colorize = false,
+                    };
+                    resistsSTB.AddLine("Resists", Enums.ETextType.Default);
+                    resistsSTB.AddLine("", Enums.ETextType.Default);
+                    foreach (string line in resists)
+                    {
+                        string[] resist = line.Split(Protocol.ISPLIT.ToCharArray());
+                        string withColon = resist[0] + ":";
+                        resistsSTB.AddLine(withColon.PadRight(20) + resist[1], Enums.ETextType.Default);
+                    }
+                    GuiManager.GenericSheet.AddControl(resistsSTB);
+
+                    if (!string.IsNullOrEmpty(Character.CurrentCharacter.ProtectionsData))
+                    {
+                        string[] protections = Character.CurrentCharacter.ProtectionsData.Split(Protocol.VSPLIT.ToCharArray());
+
+                        // create protections scrollable text box
+                        ScrollableTextBox protectionsSTB = new ScrollableTextBox("ProtectionsScrollableTextBox", "",
+                                                       new Rectangle(2, resistsSTB.Height + 20, 405, (protections.Length + 2) * (BitmapFont.ActiveFonts[w.Font].LineHeight + 5)), "", Color.White, true, false, w.Font,
+                                                       new VisualKey("WhiteSpace"), Color.DarkMagenta, 150, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0,
+                                                       BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>() { }, true)
+                        {
+
+                            Colorize = false,
+                        };
+
+                        protectionsSTB.AddLine("Protections", Enums.ETextType.Default);
+                        protectionsSTB.AddLine("", Enums.ETextType.Default);
+                        foreach (string line in protections)
+                        {
+                            string[] protection = line.Split(Protocol.ISPLIT.ToCharArray());
+                            string withColon = protection[0] + ":";
+                            protectionsSTB.AddLine(withColon.PadRight(20) + protection[1], Enums.ETextType.Default);
+                        }
+                        GuiManager.GenericSheet.AddControl(protectionsSTB);
+                    }
+                }
+
+                w.IsVisible = wasVisible;
             }
         }
 
@@ -785,9 +990,11 @@ namespace Yuusha.gui
                     if (w.WindowTitle != null) w.WindowTitle.Width = w.Width;
                     w.Height = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + (rowCount * (size + spacing)) + (borderWidth * 2);
 
-                    if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter.WornEffects.Count > 0)
-                        w.IsVisible = true;
-                    else w.IsVisible = false;
+                    //if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter.WornEffects.Count > 0)
+                    //    w.IsVisible = true;
+                    //else w.IsVisible = false;
+                    if(!string.IsNullOrEmpty(w.Owner))
+                        w.Width = GuiManager.GetControl(w.Owner).Width;
                 }
             }
             catch(Exception e)
@@ -808,6 +1015,11 @@ namespace Yuusha.gui
             //    if (critterLabels.Count > 0)
             //        height += critterLabels.Count * critterLabels[0].Height;
             //}
+        }
+
+        public static void RemoveCharacterFromCell(int uniqueID)
+        {
+
         }
 
         //public void MapPortalFade()

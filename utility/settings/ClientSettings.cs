@@ -25,6 +25,7 @@ namespace Yuusha.Utility.Settings
         public string DefaultOnClickSound = "GUISounds/click_short";
         public bool DisplayChantingConversationBubble = true;
         public bool DisplayConversationBubbles = true;
+        public int ConversationBubbleFadeOutSpeed = 2;
         public bool StartFullScreen = false;
 
         // audio related

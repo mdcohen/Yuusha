@@ -642,7 +642,7 @@
   <Control
 		Type="CritterListWindow"
 		Name="CritterListWindow"
-		X="600"
+		X="700"
 		Y="40"
 	  Width="220"
 		Height="291"

@@ -87,7 +87,9 @@ namespace Yuusha
             Stamina,
             Mana,
             Experience,
-            Macros
+            Macros,
+            Resists,
+            Protections,
         }
 
         public enum EGameDisplayMode

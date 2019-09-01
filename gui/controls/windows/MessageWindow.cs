@@ -36,7 +36,7 @@ namespace Yuusha.gui
             SquareBorder border = new SquareBorder(w.Name + "Border", w.Name, 1, new VisualKey("WhiteSpace"), false, Color.MediumPurple, 255);
 
             ScrollableTextBox s = new ScrollableTextBox(w.Name + "ScrollableTextBox", w.Name, new Rectangle(3, 20, 296, 228), "", Color.White, true,
-                false, w.Font, new VisualKey("WhiteSpace"), Color.Black, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Center, new List<Enums.EAnchorType>(), true);
+                false, w.Font, new VisualKey("WhiteSpace"), Color.Black, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>(), true);
 
             w.TipTextBox = s;
 
@@ -110,7 +110,7 @@ namespace Yuusha.gui
             SquareBorder border = new SquareBorder(w.Name + "Border", w.Name, 1, new VisualKey("WhiteSpace"), false, Color.Gray, 255);
 
             ScrollableTextBox s = new ScrollableTextBox(w.Name + "ScrollableTextBox", w.Name, new Rectangle(3, 22, w.Width - 3 - border.Width, 228), "", Color.White, true,
-                false, w.Font, new VisualKey("WhiteSpace"), Color.Black, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Center, new List<Enums.EAnchorType>(), true);
+                false, w.Font, new VisualKey("WhiteSpace"), Color.Black, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>(), true);
 
             w.TipTextBox = s;
 

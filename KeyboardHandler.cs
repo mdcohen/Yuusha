@@ -467,7 +467,7 @@ namespace Yuusha
 
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
                             {
-                                //    //Utils.LogCharacterFields();
+                                Utils.LogCharacterFields();
                                 //Utils.LogCharacterEffects();
                                 //    //foreach (Spell spell in World.SpellsList)
                                 //    //    Utils.Log(spell.Name);
