@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/A_Death_Song.mp3</SourceFile>
-  <SourceTime>2019-08-16T19:44:45.731953+02:00</SourceTime>
+  <SourceTime>2019-09-05T14:51:30.6538961+02:00</SourceTime>
   <DestFile>C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Ambience/A_Death_Song.xnb</DestFile>
-  <DestTime>2019-08-16T22:12:39.7179972+02:00</DestTime>
+  <DestTime>2019-09-05T15:01:05.4217313+02:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>SongProcessor</Processor>

@@ -33,6 +33,31 @@ namespace Yuusha.gui
         #endregion
 
         #region Constructor
+        public WindowTitle(string name, string owner, string font, string text, Color textColor, Color tintColor, byte visualAlpha,
+            BitmapFont.TextAlignment textAlignment, VisualKey visualKey, int height)
+            : base()
+        {
+            m_name = name;
+            m_owner = owner;
+            m_text = text;
+            m_textColor = textColor;
+            TextAlignment = textAlignment;
+            m_font = font;
+            m_visualKey = visualKey;
+            m_visualTiled = false;
+            m_visible = true;
+            m_rectangle = new Rectangle(0, 0, 100, 14);
+            m_tintColor = tintColor;
+            m_visualAlpha = visualAlpha;
+            if (height <= 0)
+                Height = Client.ClientSettings.DefaultWindowTitleHeight;
+            else Height = height;
+            m_closeBox = null;
+            m_maximizeBox = null;
+            m_minimizeBox = null;
+            m_cropBox = null;
+        }
+
         /// <summary>
         /// Instance of a WindowTitle with only a close box.
         /// </summary>
@@ -122,19 +147,6 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            //Control control = GuiManager.GetControl(m_owner);
-
-            //if (control != null)
-            //{
-            //    // Decision should be made here to have the WindowTitle draw above the Window Rectangle or within.
-            //    if (!(control is AutoHidingWindow))
-            //    {
-            //        Point p = control.Position;
-            //        m_rectangle = new Rectangle(p.X, p.Y, control.Width, Height);
-            //    }
-            //    else (control as AutoHidingWindow).SetWindowOrientation();
-            //}
-
             if (m_closeBox != null)
                 m_closeBox.Update(gameTime);
             if (m_maximizeBox != null)
@@ -143,7 +155,6 @@ namespace Yuusha.gui
                 m_minimizeBox.Update(gameTime);
             if (m_cropBox != null)
                 m_cropBox.Update(gameTime);
-
         }
 
         public override void Draw(GameTime gameTime)

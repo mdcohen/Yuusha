@@ -13,6 +13,7 @@ namespace Yuusha.gui
         private VisualKey m_lootVisual;
         private byte m_lootVisualAlpha = 255;
         private List<VisualKey> m_critterVisuals;
+        private List<string> m_effectNames;
         private VisualKey m_pathingVisual; // footsteps and ?
         #endregion
 
@@ -41,6 +42,10 @@ namespace Yuusha.gui
         { set { m_lootVisualAlpha = value; } }
         public string FogVisual // FogOfWar
         { get; set; }
+        public List<string> EffectNames
+        {
+            get { return m_effectNames; }
+        }
         public List<VisualKey> CritterVisuals
         {
             get { return m_critterVisuals; }
@@ -87,6 +92,7 @@ namespace Yuusha.gui
             m_foreTint = Color.White;
             m_lootVisual = new VisualKey("");
             m_critterVisuals = new List<VisualKey>();
+            m_effectNames = new List<string>();
             
             LootText = "";
             CreatureText = "";
@@ -144,6 +150,7 @@ namespace Yuusha.gui
                 Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, fogColor);
             }
 
+            // Draw loot.
             if (m_lootVisual != null && m_lootVisual.Key != "")
             {
                 if (!GuiManager.Visuals.ContainsKey(m_lootVisual.Key))
@@ -165,6 +172,37 @@ namespace Yuusha.gui
                 }
             }
 
+            if(m_effectNames.Count > 0)
+            {
+                for (int a = 0; a < m_effectNames.Count; a++)
+                {
+                    VisualKey vk = new VisualKey("unknown");
+                    Color tintColor = new Color(Color.White, 200);
+
+                    if (Effect.CellEffectsDictionary.ContainsKey(m_effectNames[a]))
+                    {
+                        if (GuiManager.Visuals.ContainsKey(Effect.CellEffectsDictionary[m_effectNames[a]].Item1))
+                            vk = new VisualKey(Effect.CellEffectsDictionary[m_effectNames[a]].Item1);
+
+                        tintColor = new Color(Effect.CellEffectsDictionary[m_effectNames[a]].Item2, Effect.CellEffectsDictionary[m_effectNames[a]].Item3);
+                    }
+                    else Utils.LogOnce("CellEffectsDictionary does not contain a key for effect: " + m_effectNames[a]);
+
+                    VisualInfo vi = GuiManager.Visuals[vk.Key];
+                    Rectangle sourceRect = new Rectangle(vi.X, vi.Y, vi.Width, vi.Height);
+
+                    if (!m_disabled)
+                    {
+                        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, sourceRect, tintColor);
+                    }
+                    else
+                    {
+                        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, sourceRect, new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, tintColor.A));
+                    }
+                }
+            }
+
+            // Draw critters.
             if (m_critterVisuals.Count > 0)
             {
                 for(int a = 0; a < m_critterVisuals.Count; a++)
@@ -208,13 +246,16 @@ namespace Yuusha.gui
                 }
             }
 
-            if(m_pathingVisual != null && !string.IsNullOrEmpty(m_pathingVisual.Key))
-            {
+            // Draw pathing when implemented.
+            //if(m_pathingVisual != null && !string.IsNullOrEmpty(m_pathingVisual.Key))
+            //{
 
-            }
+            //}
 
+            // Draw border.
             if (Border != null) Border.Draw(gameTime); // draws the border again
 
+            // Draw text (critter letters).
             if (BitmapFont.ActiveFonts.ContainsKey(Font))
             {
                 // override BitmapFont sprite batch
@@ -230,7 +271,6 @@ namespace Yuusha.gui
                 }
             }
             else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for SpinelTileLabel [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
-
         }
 
         protected override void OnMouseOver(MouseState ms)

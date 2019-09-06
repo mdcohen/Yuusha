@@ -356,6 +356,8 @@ namespace Yuusha.gui
 
         public void MouseHandler(MouseState ms)
         {
+            if (!Client.HasFocus) return;
+
             for (int i = m_controls.Count - 1; i >= 0; i--)
             {
                 // No mouse handling if the control is disabled or not visible.

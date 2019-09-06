@@ -246,6 +246,12 @@ namespace Yuusha.gui
         public virtual string PopUpText
         { get; set; }
 
+        public virtual List<Enums.EAnchorType> Anchors
+        {
+            get { return m_anchors; }
+            set { m_anchors = value; }
+        }
+
         // MouseHandler ignores this control if true.
         public virtual bool MouseInvisible
         { get; set; } = false;
@@ -415,7 +421,7 @@ namespace Yuusha.gui
 
             if (!m_disabled)
             {
-                if (PopUpText != "" && m_controlState == Enums.EControlState.Over && string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
+                if (!string.IsNullOrEmpty(PopUpText) && m_controlState == Enums.EControlState.Over && string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
                     TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpBackAlpha, Client.ClientSettings.DefaultPopUpFont);
             }
         }
@@ -837,6 +843,8 @@ namespace Yuusha.gui
         {
             // Cheating? Yes. Possibly needs rework in the future. 8/28/2019
             if (Sheet == "Generic") return false;
+
+            if (Owner == "SpellringWindow") return false;
 
             // Drop Down Menu always on top.
             if (this is DropDownMenu || this is DropDownMenuItem)

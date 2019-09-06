@@ -44,7 +44,7 @@ namespace Yuusha
             {
                 m_currentCharacter = value;
 
-                if(value != null)
+                if (value != null)
                     PreviousRoundCharacter = CurrentCharacter.Clone();
             }
         }
@@ -61,7 +61,7 @@ namespace Yuusha
         }
 
         public static Utility.Settings.FogOfWarSettings FogOfWarSettings
-        { get; set; }            
+        { get; set; }
 
         public static void GatherCharacterList(string info)
         {
@@ -183,10 +183,10 @@ namespace Yuusha
                         m_currentCharacter.m_encumbrance = Convert.ToDecimal(pcStats[54]);
                         m_currentCharacter.m_birthday = pcStats[55];
                         m_currentCharacter.lastOnline = pcStats[56];
-                        m_currentCharacter.karma = Convert.ToInt32(pcStats[57]);
+                        m_currentCharacter.Karma = Convert.ToInt32(pcStats[57]);
                         m_currentCharacter.marks = Convert.ToInt32(pcStats[58]);
-                        m_currentCharacter.pvpKills = Convert.ToInt64(pcStats[59]);
-                        m_currentCharacter.pvpDeaths = Convert.ToInt64(pcStats[60]);
+                        m_currentCharacter.PvPKills = Convert.ToInt64(pcStats[59]);
+                        m_currentCharacter.PvPDeaths = Convert.ToInt64(pcStats[60]);
                         if (pcStats[61].Length > 0)
                         {
                             list = pcStats[61].Split(Protocol.ASPLIT.ToCharArray());
@@ -222,7 +222,7 @@ namespace Yuusha
                         Utils.Log(info);
                     }
                     break;
-                    #endregion
+                #endregion
                 case Enums.EPlayerUpdate.Hits:
                     #region Hits
                     try
@@ -237,8 +237,8 @@ namespace Yuusha
                     {
                         Utils.LogException(e);
                     }
-                    break; 
-                    #endregion
+                    break;
+                #endregion
                 case Enums.EPlayerUpdate.Stamina:
                     #region Stamina
                     try
@@ -252,8 +252,8 @@ namespace Yuusha
                     {
                         Utils.LogException(e);
                     }
-                    break; 
-                    #endregion
+                    break;
+                #endregion
                 case Enums.EPlayerUpdate.Mana:
                     #region Mana
                     try
@@ -267,8 +267,8 @@ namespace Yuusha
                     {
                         Utils.LogException(e);
                     }
-                    break; 
-                    #endregion
+                    break;
+                #endregion
                 case Enums.EPlayerUpdate.Experience:
                     #region Experience
                     try
@@ -281,25 +281,13 @@ namespace Yuusha
                     {
                         Utils.LogException(e);
                     }
-                    break; 
-                    #endregion
+                    break;
+                #endregion
                 case Enums.EPlayerUpdate.Skills:
                     #region Skills
-                    try
-                    {
-                        string[] pcSkills = info.Split(Protocol.VSPLIT.ToCharArray());
-                        for (a = 0; a < pcSkills.Length; a++)
-                        {
-                            string[] skillInfo = pcSkills[a].Split(Protocol.ASPLIT.ToCharArray());
-                            m_currentCharacter.SetSkillExperience((SkillType)Convert.ToInt32(skillInfo[0]), Convert.ToInt64(skillInfo[1]));
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Utils.LogException(e);
-                    }
+                    m_currentCharacter.SkillsData = info;
                     break;
-                    #endregion
+                #endregion
                 case Enums.EPlayerUpdate.RightHand:
                     #region RightHand
                     try
@@ -318,7 +306,7 @@ namespace Yuusha
                         Utils.LogException(e);
                     }
                     break;
-                    #endregion
+                #endregion
                 case Enums.EPlayerUpdate.LeftHand:
                     #region LeftHand
                     try
@@ -337,7 +325,7 @@ namespace Yuusha
                         Utils.LogException(e);
                     }
                     break;
-                    #endregion
+                #endregion
                 case Enums.EPlayerUpdate.Inventory:
                     #region Inventory
                     try
@@ -363,7 +351,7 @@ namespace Yuusha
                         Utils.LogException(e);
                     }
                     break;
-                    #endregion
+                #endregion
                 case Enums.EPlayerUpdate.Sack:
                     #region Sack
                     try
@@ -433,7 +421,7 @@ namespace Yuusha
                         Utils.LogException(e);
                     }
                     break;
-                    #endregion
+                #endregion
                 case Enums.EPlayerUpdate.Rings:
                     #region Rings
                     try
@@ -456,7 +444,7 @@ namespace Yuusha
                         Utils.LogException(e);
                     }
                     break;
-                    #endregion
+                #endregion
                 case Enums.EPlayerUpdate.Locker:
                     #region Locker
                     try
@@ -479,7 +467,7 @@ namespace Yuusha
                         Utils.LogException(e);
                     }
                     break;
-                    #endregion
+                #endregion
                 case Enums.EPlayerUpdate.Spells:
                     #region Spells
                     try
@@ -626,7 +614,6 @@ namespace Yuusha
                 #endregion
                 case Enums.EPlayerUpdate.Resists:
                     m_currentCharacter.ResistsData = info;
-                    Utils.Log(info);
                     break;
                 case Enums.EPlayerUpdate.Protections:
                     m_currentCharacter.ProtectionsData = info;
@@ -661,7 +648,7 @@ namespace Yuusha
         public double healthPercentage; // remaining
         public double staminaPercentage; // remaining
         public double manaPercentage; // remaining
-       
+
         public bool m_afk;
         public bool m_showStaffTitle;
         public string m_lastOnline;
@@ -692,14 +679,17 @@ namespace Yuusha
         public bool blind;
         public int poisoned;
         public SkillType fighterSpecial;
-        
+
         private decimal m_encumbrance;
         private string m_birthday;
         public string lastOnline;
-        public int karma;
+        public int Karma
+        { get; set; }
         public int marks;
-        public long pvpKills;
-        public long pvpDeaths;
+        public long PvPKills
+        { get; set; }
+        public long PvPDeaths
+        { get; set; }
         public int[] playersKilled;
         public int[] playersFlagged;
         public bool knightRing;
@@ -910,11 +900,16 @@ namespace Yuusha
             get { return m_roundsPlayed; }
             set { m_roundsPlayed = value; }
         }
+       
+        public string ProtectionsData
+        {
+            get; set;
+        }
         public string ResistsData
         {
-            get;set;
+            get; set;
         }
-        public string ProtectionsData
+        public string SkillsData
         {
             get; set;
         }

@@ -62,6 +62,8 @@ namespace Yuusha.gui
 
             if(Owner.Contains("HotButtonWindow") && !string.IsNullOrEmpty(Text))
                 TextCue.AddMouseCursorTextCue(Text, Client.ClientSettings.HotButtonPopUpText_ForeColor, Client.ClientSettings.HotButtonPopUpText_BackColor, Client.ClientSettings.HotButtonPopUpText_BackColorAlpha, Client.ClientSettings.DefaultPopUpFont);
+            else if(!string.IsNullOrEmpty(PopUpText))
+                TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpBackAlpha, Client.ClientSettings.DefaultPopUpFont);
 
             if (Border == null)
                 GuiManager.GenericSheet.CreateSquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Color.OldLace, 255);
@@ -82,6 +84,8 @@ namespace Yuusha.gui
 
         protected override void OnMouseDown(MouseState ms)
         {
+            if (IsDisabled) return;
+
             if (GuiManager.DraggedControl != null && GuiManager.DraggedControl.Name == Owner)
                 return;
 
@@ -307,8 +311,10 @@ namespace Yuusha.gui
 
             Color color = new Color(m_tintColor, (byte)MathHelper.Clamp(m_visualAlpha, 0, 255));
 
-            if (string.IsNullOrEmpty(Text) && Owner.Contains("HotButtonWindow"))
-                color = new Color(Color.Black, 160);
+            if (string.IsNullOrEmpty(Command) && Owner.Contains("HotButtonWindow"))
+                color = new Color(Color.Black, 125);
+
+            //if(IsDisabled) color = new Color(ColorDisabledStandard, (byte)MathHelper.Clamp(m_visualAlpha, 0, 255));
 
             if (GuiManager.Visuals.ContainsKey(m_visualKey.Key))
             {

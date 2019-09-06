@@ -196,6 +196,22 @@ namespace Yuusha
                         #region Login Game State
                         if (Client.GameState == Enums.EGameState.Login)
                         {
+                            #region ALT + I  Vertical Hot Button Window
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
+                            {
+                                Events.RegisterEvent(Events.EventName.Toggle_VerticalHotbar);
+                                result = true;
+                            }
+                            #endregion
+
+                            #region ALT + K  Horizontal Hot Button Window
+                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
+                            {
+                                Events.RegisterEvent(Events.EventName.Toggle_HorizontalHotbar);
+                                result = true;
+                            }
+                            #endregion
+
                             // Testing purposes ALT + C, ALT + W, ALT + Q
                             #region Testing Area aka the Playground
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.F))

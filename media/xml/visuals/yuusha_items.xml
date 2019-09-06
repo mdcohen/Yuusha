@@ -86,6 +86,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="ironringglowingumbracitestone" X="1680" Y="960" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="goldringlargeredspinel" X="2122" Y="909" Width="165" Height="165"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="vermeilring" X="1740" Y="960" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="radiantovalsapphiregoldring" X="1935" Y="1" Width="184" Height="184"></Visual>
   <Gems>
   <Visual ParentTexture="yuusha_items.png" Name="smallyellowgem" X="787" Y="0" Width="52" Height="38"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="smallpurplegem" X="791" Y="436" Width="49" Height="43"></Visual>
@@ -309,6 +310,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="duneshadowkukri" X="1980" Y="2700" Width="60" Height="60"></Visual>
   <!-- Longbows -->
   <Visual ParentTexture="yuusha_items.png" Name="yewlongbow" X="1920" Y="2220" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="carvedyewlongbow" X="2040" Y="2220" Width="60" Height="60"></Visual>
   <!-- Longswords *** Needs update-->
   <Visual ParentTexture="yuusha_items.png" Name="longsword" X="1860" Y="2340" Width="60" Height="60"></Visual>
   <!-- Halberds -->
@@ -347,6 +349,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="pinestaff" X="1980" Y="2580" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="mithrilstaff" X="2040" Y="2580" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="necromancystaff" X="2100" Y="2580" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="chaoticironrod" X="1980" Y="2520" Width="60" Height="60"></Visual>
   <!-- Threestaves *** Needs update-->
   <Visual ParentTexture="yuusha_items.png" Name="threestaff" X="1860" Y="2400" Width="60" Height="60"></Visual>
   <!-- Two Handed -->
@@ -356,6 +359,9 @@
   <Visual ParentTexture="yuusha_items.png" Name="zweihander" X="1860" Y="2700" Width="60" Height="60"></Visual>
   <!-- Wands -->
   <Visual ParentTexture="yuusha_items.png" Name="pinewand" X="1860" Y="2460" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="thinsilverwand" X="1980" Y="2460" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="unusedwand" X="2040" Y="2460" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="dullbronzewand" X="2100" Y="2460" Width="60" Height="60"></Visual>
   <!-- Whips -->
   <Visual ParentTexture="yuusha_items.png" Name="stoneheartwhip" X="1920" Y="2700" Width="60" Height="60"></Visual>
 </VisualsIndex>

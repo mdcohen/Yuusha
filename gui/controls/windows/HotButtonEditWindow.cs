@@ -35,11 +35,22 @@ namespace Yuusha.gui
         {
             if (ks.IsKeyDown(Keys.LeftControl) && ks.IsKeyDown(Keys.V))
             {
-                IconSelectionButtonTextVisible = !IconSelectionButtonTextVisible;
+                IconSelectionButtonTextVisible = true;
                 return true;
             }
 
             return base.OnKeyDown(ks);
+        }
+
+        protected override bool OnKeyRelease(KeyboardState ks)
+        {
+            //if(!ks.IsKeyDown(Keys.LeftControl) || !ks.IsKeyDown(Keys.V))
+            //{
+            //    IconSelectionButtonTextVisible = false;
+            //    return true;
+            //}
+
+            return base.OnKeyRelease(ks);
         }
 
         public void CreateIconSelectionButtons()
@@ -86,6 +97,8 @@ namespace Yuusha.gui
                         255, 255, emptyKey, emptyKey, emptyKey, "", BitmapFont.TextAlignment.Right, 0, height - (BitmapFont.ActiveFonts[GuiManager.Sheets[Sheet].Font].LineHeight + 2), Color.White, false, Color.White, false, new List<Enums.EAnchorType>(),
                         false, Map.Direction.Northwest, 2, "", "", "", "", false, Client.ClientSettings.DefaultOnClickSound);
 
+                    GuiManager.CurrentSheet.CreateSquareBorder(IconImagePrefix + "_" + a + "SquareBorder", IconImagePrefix + "_" + a, 2, new gui.VisualKey("WhiteSpace"), false, Color.White, 255);
+
                     columnCount++;
                     x += width + padding;
 
@@ -115,6 +128,34 @@ namespace Yuusha.gui
                     if(c is IconImageSelectionButton b)
                     {
                         b.IsTextVisible = true;
+
+                        string effectUsed = "";
+                        foreach(string effectName in Effect.IconsDictionary.Keys)
+                        {
+                            if(Effect.IconsDictionary[effectName] == b.VisualKey)
+                            {
+                                effectUsed = effectName;
+                                break;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(effectUsed))
+                        {
+                            if (b.Border != null)
+                            {
+                                b.Border.TintColor = Color.Red;
+                                b.Border.IsVisible = true;
+                            }
+                            b.PopUpText = effectUsed;
+                        }
+                        else
+                        {
+                            if (b.Border != null)
+                            {
+                                b.Border.TintColor = Color.Green;
+                                b.Border.IsVisible = true;
+                            }
+                        }
                     }
                 }
             }
@@ -125,6 +166,12 @@ namespace Yuusha.gui
                     if (c is IconImageSelectionButton b)
                     {
                         b.IsTextVisible = false;
+                        if (b.Border != null)
+                        {
+                            b.Border.TintColor = Color.White;
+                            if (!b.Contains(GuiManager.MouseState.Position))
+                                b.Border.IsVisible = false;
+                        }
                     }
                 }
             }

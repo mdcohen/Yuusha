@@ -67,6 +67,8 @@ namespace Yuusha
         public static string CHARACTER_EFFECTS_END = (char)27 + "CL" + (char)27;
         public static string CHARACTER_CURRENT = (char)27 + "CM" + (char)27;
         public static string CHARACTER_CURRENT_END = (char)27 + "CN" + (char)27;
+        public static string CHARACTER_SKILLS = (char)27 + "CO" + (char)27;
+        public static string CHARACTER_SKILLS_END = (char)27 + "CP" + (char)27;
         public static string CHARACTER_LIST_SPLIT = (char)27 + "CZ" + (char)27;
         public static string CHARACTER_HITS_UPDATE = (char)27 + "C00" + (char)27;
         public static string CHARACTER_HITS_UPDATE_END = (char)27 + "C01" + (char)27;
@@ -231,6 +233,8 @@ namespace Yuusha
         public static string WORLD_ITEMS_END = (char)27 + "WG" + (char)27;
         public static string WORLD_TALENTS = (char)27 + "WH" + (char)27;
         public static string WORLD_TALENTS_END = (char)27 + "WI" + (char)27;
+        public static string WORLD_QUESTS = (char)27 + "WJ" + (char)27;
+        public static string WORLD_QUESTS_END = (char)27 + "WK" + (char)27;
         #endregion
 
         public static string GetProtoInfoFromString(string inData, string startProto, string endProto)

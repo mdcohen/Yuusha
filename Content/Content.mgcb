@@ -31,11 +31,65 @@
 /processorParam:Quality=Best
 /build:Ambience/Cave-Ambience.wav
 
-#begin Ambience/Kesmai-Dungeon-Background.wav
+#begin Ambience/Creepy-Drone.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Creepy-Drone.mp3
+
+#begin Ambience/Dark-Emptiness-Drone.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Dark-Emptiness-Drone.mp3
+
+#begin Ambience/Desert-Wind-Light.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Desert-Wind-Light.mp3
+
+#begin Ambience/Dungeon-Ambience.wav
 /importer:WavImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Ambience/Kesmai-Dungeon-Background.wav
+/build:Ambience/Dungeon-Ambience.wav
+
+#begin Ambience/Eerie-Echoes.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Eerie-Echoes.wav
+
+#begin Ambience/Forest-Calm.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Forest-Calm.mp3
+
+#begin Ambience/Heroic_Kingdom.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Heroic_Kingdom.mp3
+
+#begin Ambience/Island-Forest.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Island-Forest.mp3
+
+#begin Ambience/Nothing_Matters_Everything_Dies.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Nothing_Matters_Everything_Dies.mp3
+
+#begin Ambience/Waves-Small.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Waves-Small.mp3
 
 #begin Ambience/Wind-Moderate.wav
 /importer:WavImporter
@@ -54,6 +108,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:GUISounds/clicks_two.wav
+
+#begin GUISounds/minor_error.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/minor_error.wav
 
 #begin GUISounds/modem_dial.wav
 /importer:WavImporter
@@ -105,7 +165,7 @@
 
 #begin GUISounds/stat_loss.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:GUISounds/stat_loss.mp3
 

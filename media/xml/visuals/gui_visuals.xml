@@ -103,13 +103,15 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <Visual ParentTexture="ui_helpers.png" Name="MailIcon" X="780" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="ConferenceRoomIcon" X="840" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="EmptyCircleIcon" X="1020" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="EmptyCircleReverseIcon" X="900" Y="1080" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="ManaSymbol" X="0" Y="0" Width="289" Height="289"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="LevelUpSymbol" X="284" Y="0" Width="336" Height="293"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="LevelUpQuad1" X="284" Y="0" Width="168" Height="147"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="LevelUpQuad2" X="453" Y="0" Width="168" Height="147"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="LevelUpQuad3" X="284" Y="148" Width="168" Height="146"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="LevelUpQuad4" X="453" Y="148" Width="168" Height="146"></Visual>
-  <Visual ParentTexture="ui_helpers.png" Name="SmokeCircle" X="286" Y="577" Width="212" Height="212"></Visual>
+  <!--<Visual ParentTexture="ui_helpers.png" Name="SmokeCircle" X="286" Y="577" Width="212" Height="212"></Visual>-->
+  <Visual ParentTexture="ui_helpers.png" Name="SmokeCircle" X="275" Y="568" Width="232" Height="232"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="DragonCircle" X="0" Y="1290" Width="212" Height="212"></Visual>
   <!-- Logos -->
   <Visual ParentTexture="ui_helpers.png" Name="FacebookLogo" X="620" Y="0" Width="60" Height="60"></Visual>

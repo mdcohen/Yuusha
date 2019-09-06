@@ -874,7 +874,7 @@ namespace Yuusha.gui
                     #region DamageFogSkullsLabel
                     if (Character.CurrentCharacter != null && GetControl("DamageFogSkullsLabel") is Label fogLabel)
                     {
-                        double pct = ((Character.CurrentCharacter.Hits * 100) / Character.CurrentCharacter.HitsFull);
+                        double pct = Character.CurrentCharacter.Hits * 100 / Character.CurrentCharacter.HitsFull;
 
                         if (pct <= 50)
                         {
@@ -888,10 +888,11 @@ namespace Yuusha.gui
                                 fogLabel.TintColor = Color.Crimson;
                                 fogLabel.VisualAlpha = 125;
 
-                                if (Character.CurrentCharacter.Hits <= 0)
+                                if (Character.CurrentCharacter.IsDead)
                                 {
                                     fogLabel.TintColor = Color.Crimson;
                                     fogLabel.VisualAlpha = 190;
+                                    Audio.AudioManager.PlaySecondarySong("A_Death_Song", false, false, 1f);
                                 }
                             }
                         }

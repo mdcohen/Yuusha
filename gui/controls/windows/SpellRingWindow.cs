@@ -24,8 +24,6 @@ namespace Yuusha.gui
         {
             if (GuiManager.GenericSheet["SpellringWindow"] is SpellRingWindow w)
             {
-                //w.InitSpellbook();
-                //w.IsVisible = true;
                 return;
             }
 
@@ -99,6 +97,8 @@ namespace Yuusha.gui
                 IsVisible = false;
 
             base.Update(gameTime);
+
+            ZDepth = 1;
 
             if (m_fillerLabelRotateClockwise)
                 m_fillerLabelRotation += .01f;

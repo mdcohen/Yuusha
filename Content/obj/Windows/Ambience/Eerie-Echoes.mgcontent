@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Eerie-Echoes.wav</SourceFile>
+  <SourceTime>2019-09-05T16:31:02.170681+02:00</SourceTime>
+  <DestFile>C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Ambience/Eerie-Echoes.xnb</DestFile>
+  <DestTime>2019-09-06T16:01:03.7065253+02:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2018-12-08T17:35:54+01:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput>
+    <string>C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Ambience/Eerie-Echoes.wma</string>
+  </BuildOutput>
+</PipelineBuildEvent>

@@ -107,6 +107,8 @@ namespace Yuusha.gui
 
             Width = x + longestTalentName + 3;
             Height = WindowTitle.Height + (Math.Max(activatedTalentsList.Count, passiveTalentsList.Count) * (lineHeight + 2));
+
+            if (WindowTitle != null) WindowTitle.Width = Width;
         }
 
         public override void Update(GameTime gameTime)

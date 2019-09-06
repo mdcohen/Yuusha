@@ -7,10 +7,20 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/A_Death_Song.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Birth_of_a_Champion.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Cave-Ambience.wav</File>
-    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Kesmai-Dungeon-Background.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Creepy-Drone.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Dark-Emptiness-Drone.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Desert-Wind-Light.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Dungeon-Ambience.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Eerie-Echoes.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Forest-Calm.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Heroic_Kingdom.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Island-Forest.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Nothing_Matters_Everything_Dies.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Waves-Small.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Wind-Moderate.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/click_short.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/clicks_two.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/minor_error.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/modem_dial.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/new_spell.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/page_flip.wav</File>
@@ -315,6 +325,16 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint3.WAV</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

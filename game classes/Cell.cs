@@ -123,7 +123,13 @@ namespace Yuusha
         { get; set; } = false;
 
         public bool IsLockers
-        { get; set; } = false; // true if this is a lockers cell        
+        { get; set; } = false; // true if this is a lockers cell
+
+        public bool HasScryingCrystal
+        { get; set; }
+
+        public bool IsBalmFountain
+        { get; set; }
 
         public bool IsLootVisible
         {
@@ -211,11 +217,11 @@ namespace Yuusha
             {
                 IsVisible = true;
                 LandID = Convert.ToInt32(cellInfo[0]);
-                if (Character.CurrentCharacter != null && Character.CurrentCharacter.m_landID != LandID)
-                {
-                    Utils.LogOnce("Map ID mismatch between cells being viewed and CurrentCharacter's mapID. Logging this until fixed.");
-                    Character.CurrentCharacter.m_landID = LandID;
-                }
+                //if (Character.CurrentCharacter != null && Character.CurrentCharacter.m_landID != LandID)
+                //{
+                //    Utils.LogOnce("Land ID mismatch between cells being viewed and CurrentCharacter's landID. Logging this until fixed.");
+                //    Character.CurrentCharacter.m_landID = LandID;
+                //}
                 MapID = Convert.ToInt32(cellInfo[1]);
                 xCord = Convert.ToInt32(cellInfo[2]);
                 yCord = Convert.ToInt32(cellInfo[3]);
@@ -230,7 +236,8 @@ namespace Yuusha
                 m_items = new List<Item>();
 
                 // Fog of War
-                gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(MapID, xCord, yCord, zCord, DisplayGraphic);
+                //gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(MapID, xCord, yCord, zCord, DisplayGraphic);
+                gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(MapID, xCord, yCord, zCord, CellGraphic);
 
                 if (DisplayGraphic != "  ")
                 {
@@ -382,6 +389,22 @@ namespace Yuusha
                 case GRAPHIC_MOUNTAIN:
                 case GRAPHIC_COUNTER:
                 case GRAPHIC_ALTAR:
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Can be searched for secret doors.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsSearchable()
+        {
+            switch (DisplayGraphic)
+            {
+                case GRAPHIC_WALL:
+                case GRAPHIC_MOUNTAIN:
                     return true;
             }
 

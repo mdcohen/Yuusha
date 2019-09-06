@@ -768,13 +768,20 @@ namespace Yuusha.gui
             Y += now.Height - prev.Height;
         }
 
+        private static List<TextCueTag> OverlappingIgnored = new List<TextCueTag>()
+        {
+            TextCueTag.MouseCursor, TextCueTag.ZName, TextCueTag.Target, TextCueTag.PromptState, TextCueTag.MapName
+        };
+
         private bool IsOverlapping()
         {
+            if (OverlappingIgnored.Contains(Tag)) return false;
+
             BitmapFont bmf = BitmapFont.ActiveFonts[Font];
             Rectangle ourRect = new Rectangle(X, Y, bmf.MeasureString(Text), bmf.LineHeight);
             foreach (TextCue tc in GuiManager.TextCues)
             {
-                if (tc != this && tc.Tag != TextCueTag.MouseCursor)
+                if (tc != this && !OverlappingIgnored.Contains(tc.Tag))
                 {
                     bmf = BitmapFont.ActiveFonts[tc.Font];
                     Rectangle rect = new Rectangle(tc.X, tc.Y, bmf.MeasureString(tc.Text), bmf.LineHeight);

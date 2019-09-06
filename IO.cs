@@ -428,7 +428,7 @@ namespace Yuusha
                             {
                                 Events.RegisterEvent(Events.EventName.Disconnect);
                                 gui.TextCue.AddClientInfoTextCue("Account does not exist.", Color.Red, Color.Transparent, 4000);
-                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account does not exist.", "Red");
+                                //Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account does not exist.", "Red");
                                 return true;
                             }
                             break;
@@ -438,15 +438,15 @@ namespace Yuusha
                             if (inData.IndexOf("Invalid password.") != -1)
                             {
                                 Events.RegisterEvent(Events.EventName.Disconnect);
-                                gui.TextCue.AddClientInfoTextCue("Invalid password.", Color.Red, Color.Transparent, 4000);
-                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Invalid password.", "Red");
+                                gui.TextCue.AddClientInfoTextCue("Incorrect password.", Color.Red, Color.Transparent, 4500);
+                                //Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Invalid password.", "Red");
                                 return true;
                             }
                             else if (inData.IndexOf("That account is already logged in") != -1)
                             {
                                 Events.RegisterEvent(Events.EventName.Disconnect);
-                                gui.TextCue.AddClientInfoTextCue("Account already logged in.", Color.Yellow, Color.Transparent, 4000);
-                                Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account already logged in.", "Yellow");
+                                gui.TextCue.AddClientInfoTextCue("Account already logged in.", Color.Yellow, Color.Transparent, 4500);
+                                //Events.RegisterEvent(Events.EventName.Set_Login_Status_Label, "Account already logged in.", "Yellow");
                                 return true;
                             }
                             else if (inData.IndexOf(Protocol.DETECT_CLIENT) != -1)
@@ -963,7 +963,6 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_RESISTS_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_RESISTS, Protocol.CHARACTER_RESISTS_END), Enums.EPlayerUpdate.Resists);
-                                gui.GameHUD.UpdateFurtherStatDetailsWindow();
                                 return true;
                             }
                             #endregion
@@ -972,6 +971,14 @@ namespace Yuusha
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_PROTECTIONS, Protocol.CHARACTER_PROTECTIONS_END), Enums.EPlayerUpdate.Protections);
                                 gui.GameHUD.UpdateFurtherStatDetailsWindow();
+                                return true;
+                            }
+                            #endregion
+                            #region CHARACTER_SKILLS_END
+                            else if (inData.IndexOf(Protocol.CHARACTER_SKILLS_END) != -1)
+                            {
+                                Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_SKILLS, Protocol.CHARACTER_SKILLS_END), Enums.EPlayerUpdate.Skills);
+                                gui.GameHUD.UpdateSkillDetailsWindow();
                                 return true;
                             }
                             #endregion

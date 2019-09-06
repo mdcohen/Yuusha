@@ -330,10 +330,23 @@ namespace Yuusha.gui
                                 if(RepresentedItem.Name != "corpse")
                                     dropDownMenuItemTextList.Add(Tuple.Create("sack", "put " + (Name.StartsWith("RH") ? "right" : "left") + " in sack", GridBoxWindow.GridBoxPurpose.Sack));
                                 if (RepresentedItem.Name != "corpse" && !RepresentedItem.Name.StartsWith("coin"))
-                                    dropDownMenuItemTextList.Add(Tuple.Create("pouch", "put " + (Name.StartsWith("RH") ? "right" : "left") + " in pouch", GridBoxWindow.GridBoxPurpose.Sack));
+                                    dropDownMenuItemTextList.Add(Tuple.Create("pouch", "put " + (Name.StartsWith("RH") ? "right" : "left") + " in pouch", GridBoxWindow.GridBoxPurpose.Pouch));
                                 dropDownMenuItemTextList.Add(Tuple.Create("drop", "drop " + (Name.StartsWith("RH") ? "right" : "left"), GridBoxWindow.GridBoxPurpose.Ground));
+
                                 if (Character.CurrentCharacter != null && Character.CurrentCharacter.IsNextToCounter(out string locationName))
-                                    dropDownMenuItemTextList.Add(Tuple.Create("put on " + locationName, "put " + (Name.StartsWith("RH") ? "right" : "left") + " on " + locationName, GridBoxWindow.GridBoxPurpose.Sack));
+                                {
+                                    try
+                                    {
+                                        Enum.TryParse(locationName, true, out GridBoxWindow.GridBoxPurpose parsedLocation);
+                                        dropDownMenuItemTextList.Add(Tuple.Create("put on " + locationName, "put " + (Name.StartsWith("RH") ? "right" : "left") + " on " + locationName, parsedLocation));
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Utils.LogException(e);
+                                    }
+                                }
+                                if(Character.CurrentCharacter != null && Character.CurrentCharacter.Cell.IsLockers)
+                                    dropDownMenuItemTextList.Add(Tuple.Create("put in locker", "put " + (Name.StartsWith("RH") ? "right" : "left") + " in locker", GridBoxWindow.GridBoxPurpose.Locker));
                             }
 
                             foreach (Tuple<string, string, GridBoxWindow.GridBoxPurpose> tuple in dropDownMenuItemTextList)

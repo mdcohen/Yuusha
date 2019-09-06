@@ -44,21 +44,7 @@ namespace Yuusha.gui
         {
             MouseState ms = GuiManager.MouseState;
 
-            if(Utility.Settings.StaticSettings.DisplayMouseCursorCoordinates)
-                TextCue.AddMouseCursorTextCue(ms.Position.ToString());
-
-            //if (DraggedButton != null)
-            //    DraggedButton.Update(gameTime);
-
-            //if (GuiManager.Dragging)
-            //{
-            //    this.Position = new Point(GuiManager.DraggedControl.Position.X + GuiManager.DraggingXOffset,
-            //        GuiManager.DraggedControl.Position.Y + GuiManager.DraggingYOffset);
-            //}
-            //else
-            //{
-                Position = new Point(ms.X, ms.Y);
-            //}
+            Position = new Point(ms.X, ms.Y);
 
             base.Update(gameTime);
 

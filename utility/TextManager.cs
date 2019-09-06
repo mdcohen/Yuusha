@@ -11,6 +11,11 @@ namespace Yuusha
         public static string YOU_ARE_SCARED = "You are scared!";
         public static string PORTAL_CHANT = "ashtug ninda anghizidda arrflug";
 
+        public static List<string> MinorErrors = new List<string>()
+        {
+            "cannot quit here"
+        };
+
         public static List<string> DisplayFontsList = new List<string>()
         {
             "simonetta22", "unicalantiqua22", "lobster22", "mogra22", "dancingscript22",
@@ -119,7 +124,7 @@ namespace Yuusha
             {" appears far more experienced than you.", Color.Crimson },
             {" appears more experienced than you.", Color.Yellow },
             {" appears as experienced as you are.", Color.Azure },
-            {" appears less experienced than you.", Color.ForestGreen },
+            {" appears less experienced than you.", Color.SpringGreen },
             {" appears far less experienced than you.", Color.LightGray },
 
         };
@@ -137,8 +142,16 @@ namespace Yuusha
             //{"has" }
         };
 
+        public static string FormatEnumString(string enumString)
+        {
+            enumString = enumString.Replace("__", "'");
+            enumString = enumString.Replace("_", " ");
+            return enumString;
+        }
+
         public static string ConvertPluralToSingular(string str)
         {
+            str = str.Replace("wolves", "wolf");
             str = str.Replace("elves", "elf");
             str = str.Replace("lammasi", "lammasu");
 
@@ -187,19 +200,23 @@ namespace Yuusha
                 else if (input.Equals("You fade into the shadows."))
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Hide in Shadows", Color.DarkViolet);
                 else if (input.Equals("You have been hit by a lightning bolt!"))
-                    gui.SpellEffectLabel.CreateSpellEffectLabel("Lightning Bolt");
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Lightning Bolt", gui.SpellEffectLabel.DamageBorderColor);//gui.SpellEffectLabel.CreateSpellEffectLabel("Death", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.ToLower().Equals("you have been hit by magic missile!"))
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Magic Missile", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.ToLower().Equals("you have been hit by a fireball!"))
-                    gui.SpellEffectLabel.CreateSpellEffectLabel("Fireball");
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Fireball", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.ToLower().Equals("you have been hit by a raging ice storm!"))
-                    gui.SpellEffectLabel.CreateSpellEffectLabel("Icestorm");
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Icestorm", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.ToLower().Equals("you have been hit by icespear!"))
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Icespear", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.ToLower().Equals("you have been hit by concussion!"))
-                    gui.SpellEffectLabel.CreateSpellEffectLabel("Concussion");
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Concussion", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.ToLower().Equals("you have been hit by disintegrate!"))
-                    gui.SpellEffectLabel.CreateSpellEffectLabel("Disintegrate");
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Disintegrate", gui.SpellEffectLabel.DamageBorderColor);
+                else if (input.StartsWith("You have been poisoned by"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Venom", gui.SpellEffectLabel.DamageBorderColor);
+                else if (input.Equals("You have been poisoned!"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Poison", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.StartsWith("Sage: "))
                 {
                     if (!input.ToLower().Contains("i do not know how to do that"))
@@ -260,10 +277,17 @@ namespace Yuusha
 
                     gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingTextFontList[ScalingTextFontList.Count - 1], gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.PaleGreen, "", true, Map.Direction.Southwest);
                 }
-                else if (input.Equals("You have been slain!"))
-                {
-                    Audio.AudioManager.PlaySecondarySong("A_Death_Song", false, false, 1f);
-                }
+                //else if (input.Equals("WHUMP! You are stunned!"))
+                //{
+                //    if (Character.CurrentCharacter != null)
+                //    {
+                //        Audio.AudioManager.PlaySoundEffect("ss");
+                //    }
+                //}
+                //else if (input.StartsWith("You have been slain!"))
+                //{
+                //    Audio.AudioManager.PlaySecondarySong("A_Death_Song", false, false, 1f);
+                //}
             }
             catch(Exception e)
             {

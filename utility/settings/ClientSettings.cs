@@ -91,8 +91,6 @@ namespace Yuusha.Utility.Settings
         public int DefaultWindowTitleHeight = 21;
         public string DefaultWindowTitleFont = "lemon12";
 
-        public Color Color_Gui_Spell_Warming_TextCue = Color.PaleGoldenrod;
-
         public Color DefaultMouseCursorTextCueColor = Color.PapayaWhip;
 
         public Color HotButtonPopUpText_ForeColor = Color.Lime;

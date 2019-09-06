@@ -18,7 +18,8 @@ namespace Yuusha.gui
             "SpellbookWindow",
             "SpellringWindow",
             "SpellWarmingWindow",
-            "VitalsWindow"
+            "VitalsWindow",
+            "VolumeControlPopUpWindow"
         };
         public static List<int> InitialSpellbookUpdated = new List<int>();
         public static List<int> InitialTalentbookUpdated = new List<int>();
@@ -104,6 +105,7 @@ namespace Yuusha.gui
             //    }
             //}
 
+            // Conversation Bubbles. Fade out and move around
             foreach(Tuple<ScrollableTextBox, DateTime> tuple in new List<Tuple<ScrollableTextBox, DateTime>>(ConversationBubbles))
             {
                 tuple.Item1.ZDepth = 0;
@@ -119,6 +121,16 @@ namespace Yuusha.gui
                     GuiManager.RemoveControl(tuple.Item1);
                     ConversationBubbles.Remove(tuple);
                 }
+
+                //foreach (Tuple<ScrollableTextBox, DateTime> tuple2 in new List<Tuple<ScrollableTextBox, DateTime>>(ConversationBubbles))
+                //{
+                //    int whileLoopCount = 0;
+                //    while(whileLoopCount < 20 && new Rectangle(tuple.Item1.Position, new Point(tuple.Item1.Width, tuple.Item1.Height)).Intersects(new Rectangle(tuple2.Item1.Position, new Point(tuple2.Item1.Width, tuple2.Item1.Height))))
+                //    {
+                //        tuple.Item1.Position = new Point(tuple.Item1.Position.X - 5, tuple.Item1.Position.Y - 5);
+                //        whileLoopCount++;
+                //    }
+                //}
             }
         }
 
@@ -423,14 +435,7 @@ namespace Yuusha.gui
 
                 w.IsVisible = false;
 
-                //bool createLabels = w.Controls.Count <= 0; // tricky here... currently no border or window title for this window 9/1/2019
-
-                foreach (Control c in new List<Control>(w.Controls))
-                {
-                    GuiManager.RemoveControl(c);
-                }
-
-                w.Controls.Clear(); // just in case
+                w.Controls.RemoveAll(c => c is Label);
 
                 List<Tuple<string, string>> StatsLeftColumn = new List<Tuple<string, string>>()
                 {
@@ -455,6 +460,8 @@ namespace Yuusha.gui
                     Tuple.Create("Wisdom", "Wisdom"),
                     Tuple.Create("Constitution", "Constitution"),
                     Tuple.Create("Charisma", "Charisma"),
+                    Tuple.Create("BLANK", "BLANK"),
+                    Tuple.Create("Karma", "Karma"),
                 };
 
                 List<Tuple<string, string>> StatsRightColumn = new List<Tuple<string, string>>()
@@ -556,9 +563,74 @@ namespace Yuusha.gui
             }
         }
 
+        /// <summary>
+        /// Currently contains resists and protections information.
+        /// </summary>
         public static void UpdateFurtherStatDetailsWindow()
         {
             if (GuiManager.GetControl("FurtherStatDetailsWindow") is Window w)
+            {
+                bool wasVisible = w.IsVisible;
+                w.IsVisible = false;
+
+                w.Controls.RemoveAll(c => c is ScrollableTextBox);
+
+                if (!string.IsNullOrEmpty(Character.CurrentCharacter.ResistsData))
+                {
+                    string[] resists = Character.CurrentCharacter.ResistsData.Split(Protocol.VSPLIT.ToCharArray());
+
+                    // create resists scrollable text box
+                    ScrollableTextBox resistsSTB = new ScrollableTextBox("ResistsScrollableTextBox", w.Name,
+                                                   new Rectangle(2, 2, 405, (resists.Length + 2) * BitmapFont.ActiveFonts[w.Font].LineHeight), "", Color.White, true, false, w.Font,
+                                                   new VisualKey("WhiteSpace"), Color.DarkMagenta, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0,
+                                                   BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>() { }, true)
+                    {
+
+                        Colorize = false,
+                    };
+                    resistsSTB.AddLine("Resists (Saving Throw Adjustments)", Enums.ETextType.Default);
+                    resistsSTB.AddLine("", Enums.ETextType.Default);
+                    foreach (string line in resists)
+                    {
+                        string[] resist = line.Split(Protocol.ISPLIT.ToCharArray());
+                        string withColon = resist[0].Trim() + ":";
+                        resistsSTB.AddLine(withColon.PadRight(13) + resist[1], Enums.ETextType.Default);
+                    }
+                    GuiManager.GenericSheet.AddControl(resistsSTB);
+
+                    if (!string.IsNullOrEmpty(Character.CurrentCharacter.ProtectionsData))
+                    {
+                        string[] protections = Character.CurrentCharacter.ProtectionsData.Split(Protocol.VSPLIT.ToCharArray());
+
+                        // create protections scrollable text box
+                        ScrollableTextBox protectionsSTB = new ScrollableTextBox("ProtectionsScrollableTextBox", w.Name,
+                                                       new Rectangle(2, resistsSTB.Height + 20, 405, (protections.Length + 2) * BitmapFont.ActiveFonts[w.Font].LineHeight), "", Color.White, true, false, w.Font,
+                                                       new VisualKey("WhiteSpace"), Color.DarkMagenta, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0,
+                                                       BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>() { }, true)
+                        {
+
+                            Colorize = false,
+                        };
+
+                        protectionsSTB.AddLine("Protections (Damage Absorption)", Enums.ETextType.Default);
+                        protectionsSTB.AddLine("", Enums.ETextType.Default);
+                        foreach (string line in protections)
+                        {
+                            string[] protection = line.Split(Protocol.ISPLIT.ToCharArray());
+                            string withColon = protection[0].Trim() + ":";
+                            protectionsSTB.AddLine(withColon.PadRight(13) + protection[1], Enums.ETextType.Default);
+                        }
+                        GuiManager.GenericSheet.AddControl(protectionsSTB);
+                    }
+                }
+
+                w.IsVisible = wasVisible;
+            }
+        }
+
+        public static void UpdateSkillDetailsWindow()
+        {
+            if (GuiManager.GetControl("SkillDetailsWindow") is Window w)
             {
                 bool wasVisible = w.IsVisible;
                 w.IsVisible = false;
@@ -570,53 +642,27 @@ namespace Yuusha.gui
 
                 w.Controls.Clear(); // just in case
 
-                if (!string.IsNullOrEmpty(Character.CurrentCharacter.ResistsData))
+                if (!string.IsNullOrEmpty(Character.CurrentCharacter.SkillsData))
                 {
-                    string[] resists = Character.CurrentCharacter.ResistsData.Split(Protocol.VSPLIT.ToCharArray());
+                    string[] skills = Character.CurrentCharacter.SkillsData.Split(Protocol.VSPLIT.ToCharArray());
 
-                    // create resists scrollable text box
-                    ScrollableTextBox resistsSTB = new ScrollableTextBox("ResistsScrollableTextBox", "",
-                                                   new Rectangle(2, 2, 405, (resists.Length + 2) * (BitmapFont.ActiveFonts[w.Font].LineHeight + 5)), "", Color.White, true, false, w.Font,
+                    ScrollableTextBox skillsSTB = new ScrollableTextBox("SkillsScrollableTextBox", "",
+                                                   new Rectangle(2, 2, 405, (skills.Length + 2) * (BitmapFont.ActiveFonts[w.Font].LineHeight + 5)), "", Color.White, true, false, w.Font,
                                                    new VisualKey("WhiteSpace"), Color.DarkMagenta, 150, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0,
                                                    BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>() { }, true)
                     {
 
                         Colorize = false,
                     };
-                    resistsSTB.AddLine("Resists", Enums.ETextType.Default);
-                    resistsSTB.AddLine("", Enums.ETextType.Default);
-                    foreach (string line in resists)
+                    skillsSTB.AddLine("Skills", Enums.ETextType.Default);
+                    skillsSTB.AddLine("", Enums.ETextType.Default);
+                    foreach (string line in skills)
                     {
-                        string[] resist = line.Split(Protocol.ISPLIT.ToCharArray());
-                        string withColon = resist[0] + ":";
-                        resistsSTB.AddLine(withColon.PadRight(20) + resist[1], Enums.ETextType.Default);
+                        string[] skillInfo = line.Split(Protocol.ISPLIT.ToCharArray());
+                        string withColon = skillInfo[0] + ":";
+                        skillsSTB.AddLine(withColon.PadRight(20) + skillInfo[1], Enums.ETextType.Default);
                     }
-                    GuiManager.GenericSheet.AddControl(resistsSTB);
-
-                    if (!string.IsNullOrEmpty(Character.CurrentCharacter.ProtectionsData))
-                    {
-                        string[] protections = Character.CurrentCharacter.ProtectionsData.Split(Protocol.VSPLIT.ToCharArray());
-
-                        // create protections scrollable text box
-                        ScrollableTextBox protectionsSTB = new ScrollableTextBox("ProtectionsScrollableTextBox", "",
-                                                       new Rectangle(2, resistsSTB.Height + 20, 405, (protections.Length + 2) * (BitmapFont.ActiveFonts[w.Font].LineHeight + 5)), "", Color.White, true, false, w.Font,
-                                                       new VisualKey("WhiteSpace"), Color.DarkMagenta, 150, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0,
-                                                       BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>() { }, true)
-                        {
-
-                            Colorize = false,
-                        };
-
-                        protectionsSTB.AddLine("Protections", Enums.ETextType.Default);
-                        protectionsSTB.AddLine("", Enums.ETextType.Default);
-                        foreach (string line in protections)
-                        {
-                            string[] protection = line.Split(Protocol.ISPLIT.ToCharArray());
-                            string withColon = protection[0] + ":";
-                            protectionsSTB.AddLine(withColon.PadRight(20) + protection[1], Enums.ETextType.Default);
-                        }
-                        GuiManager.GenericSheet.AddControl(protectionsSTB);
-                    }
+                    GuiManager.GenericSheet.AddControl(skillsSTB);
                 }
 
                 w.IsVisible = wasVisible;
@@ -795,7 +841,7 @@ namespace Yuusha.gui
                         {
                             VisualKey visual = new VisualKey("WhiteSpace");
                             string text = effect.Name[0].ToString();
-                            string effectPopUp = Utils.FormatEnumString(effect.Name);
+                            string effectPopUp = TextManager.FormatEnumString(effect.Name);
                             Color tintColor = Color.Transparent;
                             //int count = 0;
 
@@ -809,14 +855,14 @@ namespace Yuusha.gui
                             }
 
                             // visual key of effect/spell if it exists
-                            if (Effect.IconsDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
+                            if (Effect.IconsDictionary.ContainsKey(TextManager.FormatEnumString(effect.Name)))
                             {
-                                visual = new VisualKey(Effect.IconsDictionary[Utils.FormatEnumString(effect.Name)]);
+                                visual = new VisualKey(Effect.IconsDictionary[TextManager.FormatEnumString(effect.Name)]);
                                 text = "";
                                 tintColor = Color.White;
 
-                                if (Effect.IconsTintDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
-                                    tintColor = Effect.IconsTintDictionary[Utils.FormatEnumString(effect.Name)];
+                                if (Effect.IconsTintDictionary.ContainsKey(TextManager.FormatEnumString(effect.Name)))
+                                    tintColor = Effect.IconsTintDictionary[TextManager.FormatEnumString(effect.Name)];
                             }
 
                             EffectLabel label = new EffectLabel(effect.Name + "Label", w.Name, new Rectangle(x, y, size, size), text, Color.White, true, false, w.Font,
@@ -881,20 +927,14 @@ namespace Yuusha.gui
             {
                 if (GuiManager.GenericSheet["WornEffectsWindow"] is Window w)
                 {
+                    w.IsVisible = false;
+
                     w.Controls.RemoveAll(c => c is Label);
                     int size = 40;
                     int spacing = 1;
                     int borderWidth = w.WindowBorder != null ? w.WindowBorder.Width : 0;
-                    int labelsPerRow = 16;
-                    //string font = "robotomonobold11";
+                    int labelsPerRow = GuiManager.GetControl(w.Owner).Width / size;
 
-                    //if (Character.CurrentCharacter.Effects.Count <= 0)
-                    //{
-                    //    Label label = new Label("NoEffectsLabel", w.Name, new Rectangle(0, (w.WindowTitle != null ? w.WindowTitle.Height : 0) + 2, BitmapFont.ActiveFonts[w.Font].MeasureString("No Effects"), 30), "No Effects", Color.White, true, false, w.Font,
-                    //            new VisualKey("WhiteSpace"), Color.Transparent, 0, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
-
-                    //    GuiManager.GenericSheet.AddControl(label);
-                    //}
                     if (Character.CurrentCharacter.WornEffects.Count > 0)
                     {
                         
@@ -911,7 +951,7 @@ namespace Yuusha.gui
                                 //string text = effect.Name[0].ToString();
                                 string text = effect.Amount.ToString();
                                 if (effect.Amount <= 0) text = "";
-                                string effectPopUp = Utils.FormatEnumString(effect.Name);
+                                string effectPopUp = TextManager.FormatEnumString(effect.Name);
                                 Color tintColor = Color.Transparent;
                                 //int count = 0;
 
@@ -925,15 +965,15 @@ namespace Yuusha.gui
                                 }
 
                                 // visual key of effect/spell if it exists
-                                if (Effect.IconsDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
+                                if (Effect.IconsDictionary.ContainsKey(TextManager.FormatEnumString(effect.Name)))
                                 {
-                                    visual = new VisualKey(Effect.IconsDictionary[Utils.FormatEnumString(effect.Name)]);
+                                    visual = new VisualKey(Effect.IconsDictionary[TextManager.FormatEnumString(effect.Name)]);
                                     if (effect.Amount > 0)
                                         text = effect.Amount.ToString();
                                     tintColor = Color.White;
 
-                                    if (Effect.IconsTintDictionary.ContainsKey(Utils.FormatEnumString(effect.Name)))
-                                        tintColor = Effect.IconsTintDictionary[Utils.FormatEnumString(effect.Name)];
+                                    if (Effect.IconsTintDictionary.ContainsKey(TextManager.FormatEnumString(effect.Name)))
+                                        tintColor = Effect.IconsTintDictionary[TextManager.FormatEnumString(effect.Name)];
                                 }
 
                                 EffectLabel label = new EffectLabel(effect.Name + "Label", w.Name, new Rectangle(x, y, size, size), text, Color.White, true, false, w.Font,
@@ -990,11 +1030,13 @@ namespace Yuusha.gui
                     if (w.WindowTitle != null) w.WindowTitle.Width = w.Width;
                     w.Height = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + (rowCount * (size + spacing)) + (borderWidth * 2);
 
-                    //if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter.WornEffects.Count > 0)
-                    //    w.IsVisible = true;
-                    //else w.IsVisible = false;
-                    if(!string.IsNullOrEmpty(w.Owner))
+                    if (!string.IsNullOrEmpty(w.Owner))
+                    {
                         w.Width = GuiManager.GetControl(w.Owner).Width;
+                        if (w.WindowTitle != null) w.WindowTitle.Width = w.Width;
+                    }
+
+                    w.IsVisible = true;
                 }
             }
             catch(Exception e)
@@ -1017,11 +1059,6 @@ namespace Yuusha.gui
             //}
         }
 
-        public static void RemoveCharacterFromCell(int uniqueID)
-        {
-
-        }
-
         //public void MapPortalFade()
         //{
 
@@ -1035,21 +1072,6 @@ namespace Yuusha.gui
         private static bool AcceptingGridBoxIsLocation(string name)
         {
             return name.StartsWith("Ground") || name.StartsWith("Altar") || name.StartsWith("Counter");
-        }
-
-        public static void TestChangeMapDisplayWindowSize(int tileSizeChange)
-        {
-            if (GuiManager.GetControl("MapDisplayWindow") is Window w)
-            {
-                Rectangle rect = new Rectangle(w.Position.X, w.Position.Y, w.Width, w.Height);
-
-                w.Position = new Point(w.Position.X - tileSizeChange * 7 / 2, w.Position.Y - tileSizeChange * 7 / 2);
-
-                w.Width = ((w["Tile0"].Width + tileSizeChange) * 7) + 4; // 2 pixel padding on each side
-                w.Height = ((w["Tile0"].Width + tileSizeChange) * 7) + 4;
-
-                w.OnClientResize(rect, new Rectangle(w.Position.X, w.Position.Y, w.Width, w.Height), false);
-            }
         }
 
         public static void ChangeMapDisplayWindowSize(int tileSizeChange)

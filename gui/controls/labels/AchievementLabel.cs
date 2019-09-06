@@ -10,9 +10,9 @@ namespace Yuusha.gui
         {
             None,
             SkillUp,
-            VitalsGain_HitsFull,
-            VitalsGain_StaminaFull,
-            VitalsGain_ManaFull,
+            Vitals_HitsGain,
+            Vitals_StaminaGain,
+            Vitals_ManaGain,
             LevelUp,
             NewSpell,
             NewTalent,
@@ -69,127 +69,134 @@ namespace Yuusha.gui
             int height = 25;
             int width = 25;
 
-            if (GuiManager.CurrentSheet["Tile24"] is SpinelTileLabel spLabel)
+            try
             {
-                x = spLabel.Position.X;
-                y = spLabel.Position.Y;
-                width = spLabel.Width;
-                height = spLabel.Height;
-
-                if (achievement.ToString().StartsWith("VitalsGain") && GuiManager.CurrentSheet["VitalsWindow"] is Window w)
+                if (GuiManager.CurrentSheet["Tile24"] is SpinelTileLabel spLabel)
                 {
-                    slideDirection = Map.GetDirection(spLabel, w);
+                    x = spLabel.Position.X;
+                    y = spLabel.Position.Y;
+                    width = spLabel.Width;
+                    height = spLabel.Height;
+
+                    if (achievement.ToString().StartsWith("VitalsGain") && GuiManager.CurrentSheet["VitalsWindow"] is Window w)
+                    {
+                        slideDirection = Map.GetDirection(spLabel, w);
+                    }
                 }
+
+                switch (achievement)
+                {
+                    case AchievementType.AbilityScoreGain:
+                        tintColor = Color.LightGreen;
+                        textColor = Color.Purple;
+                        visualKey = GameHUD.GameIconsDictionary["upgrade"];
+                        soundFile = "GUISounds/stat_gain";
+                        stopSize = 256;
+                        font = Client.ClientSettings.DefaultHUDNumbersFont;
+                        break;
+                    case AchievementType.AbilityScoreLoss:
+                        tintColor = Color.Firebrick;
+                        textColor = Color.DimGray;
+                        visualKey = GameHUD.GameIconsDictionary["downgrade"];
+                        soundFile = "GUISounds/stat_loss";
+                        stopSize = 256;
+                        font = Client.ClientSettings.DefaultHUDNumbersFont;
+                        break;
+                    case AchievementType.DexterityAdd:
+                    case AchievementType.StrengthAdd:
+                        tintColor = Color.Indigo;
+                        textColor = Color.PaleGreen;
+                        visualKey = GameHUD.GameIconsDictionary["upgrade"];
+                        soundFile = "GUISounds/sword_draw";
+                        stopSize = 256;
+                        font = Client.ClientSettings.DefaultHUDNumbersFont;
+                        break;
+                    case AchievementType.Vitals_HitsGain:
+                        tintColor = Color.Red;
+                        textColor = Color.White;
+                        visualKey = GameHUD.GameIconsDictionary["upgrade"];
+                        soundFile = "GUISounds/sword_draw";
+                        stopSize = 256;
+                        font = Client.ClientSettings.DefaultHUDNumbersFont;
+                        break;
+                    case AchievementType.Vitals_ManaGain:
+                        tintColor = Color.RoyalBlue;
+                        textColor = Color.White;
+                        visualKey = GameHUD.GameIconsDictionary["upgrade"];
+                        soundFile = "GUISounds/sword_draw";
+                        stopSize = 256;
+                        font = Client.ClientSettings.DefaultHUDNumbersFont;
+                        break;
+                    case AchievementType.Vitals_StaminaGain:
+                        tintColor = Color.ForestGreen;
+                        textColor = Color.White;
+                        visualKey = GameHUD.GameIconsDictionary["upgrade"];
+                        soundFile = "GUISounds/sword_draw";
+                        stopSize = 256;
+                        font = Client.ClientSettings.DefaultHUDNumbersFont;
+                        break;
+                    case AchievementType.LevelUp:
+                        tintColor = Color.White;
+                        textColor = Color.Indigo;
+                        visualKey = "GoldDragonLogo";
+                        soundFile = ""; // sound info from server
+                        stopSize = 584;
+                        slideOffScreen = false;
+                        font = "lobster156";
+                        enlargenRate = 10;
+                        break;
+                    case AchievementType.NewTalent:
+                    case AchievementType.NewSpell:
+                        tintColor = TextManager.GetAlignmentColor(false, Character.CurrentCharacter.Alignment);
+                        textColor = TextManager.GetAlignmentColor(true, Character.CurrentCharacter.Alignment);
+                        visualKey = "WhiteSpace";
+                        soundFile = "GUISounds/new_spell"; // TODO: different sound 8/28/2019
+                        font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.Count - 1];
+                        stopSize = BitmapFont.ActiveFonts[font].MeasureString(text);
+                        slideOffScreen = false;
+                        enlargenRate = 40;
+                        x = Client.Width / 2 - BitmapFont.ActiveFonts[font].MeasureString(text) / 2;
+                        y = 60;
+                        width = BitmapFont.ActiveFonts[font].MeasureString(text);
+                        height = BitmapFont.ActiveFonts[font].LineHeight / 4;
+                        break;
+                }
+
+                AchievementLabel label = new AchievementLabel("AchievementLabel_" + Program.Client.ClientGameTime.TotalGameTime.ToString() + "_" + achievement.ToString() + "_" + text, "",
+                    new Rectangle(x, y, width, height), text, textColor, true, false, font,
+                    new VisualKey(visualKey), tintColor, 40, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>() { }, "")
+                {
+                    m_soundFile = soundFile,
+                    m_slideOffScreen = slideOffScreen,
+                    m_stopSize = stopSize,
+                    m_stopColor = tintColor,
+                    m_slideDirection = slideDirection,
+                    YTextOffset = yTextOffset,
+                    //EnlargenTextRectangle = true,
+                    m_enlargenRate = enlargenRate,
+                    m_achievementType = achievement,
+
+                    TextShadow = true,
+                    TextShadowDirection = Map.Direction.Northwest,
+                    TextShadowDistance = 5,
+                    TextShadowAlpha = 130,
+                    m_dropShadow = true,
+                    m_shadowDirection = Map.Direction.Northwest,
+                    m_shadowDistance = 5
+                };
+
+                if (GameHUD.AchievementLabelList.Count <= 0)
+                {
+                    label.TimeAdded = DateTime.Now;
+                    GuiManager.GenericSheet.AddControl(label);
+                }
+
+                GameHUD.AchievementLabelList.Add(label);
             }
-
-            switch(achievement)
+            catch(Exception e)
             {
-                case AchievementType.AbilityScoreGain:
-                    tintColor = Color.SteelBlue;
-                    textColor = Color.AliceBlue;
-                    visualKey = GameHUD.GameIconsDictionary["upgrade"];
-                    soundFile = "GUISounds/stat_gain";
-                    stopSize = 256;
-                    font = Client.ClientSettings.DefaultHUDNumbersFont;
-                    break;
-                case AchievementType.AbilityScoreLoss:
-                    tintColor = Color.Firebrick;
-                    textColor = Color.DarkGray;
-                    visualKey = GameHUD.GameIconsDictionary["downgrade"];
-                    soundFile = "GUISounds/stat_loss";
-                    stopSize = 256;
-                    font = Client.ClientSettings.DefaultHUDNumbersFont;
-                    break;
-                case AchievementType.DexterityAdd:
-                case AchievementType.StrengthAdd:
-                    tintColor = Color.Indigo;
-                    textColor = Color.PaleGreen;
-                    visualKey = GameHUD.GameIconsDictionary["upgrade"];
-                    soundFile = "GUISounds/sword_draw";
-                    stopSize = 256;
-                    font = Client.ClientSettings.DefaultHUDNumbersFont;
-                    break;
-                case AchievementType.VitalsGain_HitsFull:
-                    tintColor = Color.Red;
-                    textColor = Color.White;
-                    visualKey = GameHUD.GameIconsDictionary["upgrade"];
-                    soundFile = "GUISounds/sword_draw";
-                    stopSize = 256;
-                    font = Client.ClientSettings.DefaultHUDNumbersFont;
-                    break;
-                case AchievementType.VitalsGain_ManaFull:
-                    tintColor = Color.RoyalBlue;
-                    textColor = Color.White;
-                    visualKey = GameHUD.GameIconsDictionary["upgrade"];
-                    soundFile = "GUISounds/sword_draw";
-                    stopSize = 256;
-                    font = Client.ClientSettings.DefaultHUDNumbersFont;
-                    break;
-                case AchievementType.VitalsGain_StaminaFull:
-                    tintColor = Color.ForestGreen;
-                    textColor = Color.White;
-                    visualKey = GameHUD.GameIconsDictionary["upgrade"];
-                    soundFile = "GUISounds/sword_draw";
-                    stopSize = 256;
-                    font = Client.ClientSettings.DefaultHUDNumbersFont;
-                    break;
-                case AchievementType.LevelUp:
-                    tintColor = Color.White;
-                    textColor = Color.Indigo;
-                    visualKey = "GoldDragonLogo";
-                    soundFile = ""; // sound info from server
-                    stopSize = 584;
-                    slideOffScreen = false;
-                    font = "lobster156";
-                    enlargenRate = 10;
-                    break;
-                case AchievementType.NewTalent:
-                case AchievementType.NewSpell:
-                    tintColor = TextManager.GetAlignmentColor(false, Character.CurrentCharacter.Alignment);
-                    textColor = TextManager.GetAlignmentColor(true, Character.CurrentCharacter.Alignment);
-                    visualKey = "WhiteSpace";
-                    soundFile = "GUISounds/new_spell"; // TODO: different sound 8/28/2019
-                    font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.Count - 1];
-                    stopSize = BitmapFont.ActiveFonts[font].MeasureString(text);
-                    slideOffScreen = false;
-                    enlargenRate = 40;
-                    x = Client.Width / 2 - BitmapFont.ActiveFonts[font].MeasureString(text) / 2;
-                    y = 60;
-                    width = BitmapFont.ActiveFonts[font].MeasureString(text);
-                    height = BitmapFont.ActiveFonts[font].LineHeight / 4;
-                    break;
+                Utils.LogException(e);
             }
-
-            AchievementLabel label = new AchievementLabel("AchievementLabel_" + Program.Client.ClientGameTime.TotalGameTime.ToString() + "_" + achievement.ToString() + "_" + text, "",
-                new Rectangle(x, y, width, height), text, textColor, true, false, font,
-                new VisualKey(visualKey), tintColor, 40, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>() { }, "")
-            {
-                m_soundFile = soundFile,
-                m_slideOffScreen = slideOffScreen,
-                m_stopSize = stopSize,
-                m_stopColor = tintColor,
-                m_slideDirection = slideDirection,
-                YTextOffset = yTextOffset,
-                //EnlargenTextRectangle = true,
-                m_enlargenRate = enlargenRate,
-                m_achievementType = achievement,
-
-                TextShadow = true,
-                TextShadowDirection = Map.Direction.Northwest,
-                TextShadowDistance = 5,
-                TextShadowAlpha = 130,
-                m_dropShadow = true,
-                m_shadowDirection = Map.Direction.Northwest,
-                m_shadowDistance = 5
-            };
-
-            if (GameHUD.AchievementLabelList.Count <= 0)
-            {
-                label.TimeAdded = DateTime.Now;
-                GuiManager.GenericSheet.AddControl(label);
-            }
-
-            GameHUD.AchievementLabelList.Add(label);
 
         }
 

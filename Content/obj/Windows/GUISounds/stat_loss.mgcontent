@@ -3,10 +3,10 @@
   <SourceFile>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/stat_loss.mp3</SourceFile>
   <SourceTime>2019-08-31T19:07:50.2588657+02:00</SourceTime>
   <DestFile>C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/GUISounds/stat_loss.xnb</DestFile>
-  <DestTime>2019-08-31T19:08:17.5924787+02:00</DestTime>
+  <DestTime>2019-09-02T15:35:05.2358099+02:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
-  <Processor>SongProcessor</Processor>
+  <Processor>SoundEffectProcessor</Processor>
   <ProcessorTime>2018-12-08T17:35:54+01:00</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
@@ -14,7 +14,5 @@
   </Parameters>
   <Dependencies />
   <BuildAsset />
-  <BuildOutput>
-    <string>C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/GUISounds/stat_loss.wma</string>
-  </BuildOutput>
+  <BuildOutput />
 </PipelineBuildEvent>

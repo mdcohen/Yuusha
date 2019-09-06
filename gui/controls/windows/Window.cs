@@ -664,7 +664,7 @@ namespace Yuusha.gui
         /// <summary>
         /// Be aware when adding a window within a window within a window within a window. ;)
         /// </summary>
-        private void CheckBoundsAndAdjust()
+        public void CheckBoundsAndAdjust()
         {
             if (this is MapWindow) return;
 

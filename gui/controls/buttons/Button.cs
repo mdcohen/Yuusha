@@ -34,13 +34,13 @@ namespace Yuusha.gui
             m_visualAlpha = visualAlpha;
             m_textAlpha = textAlpha;
 
-            if (m_visualKey.Key != "")
+            if (!string.IsNullOrEmpty(m_visualKey.Key))
                 m_visuals.Add(Enums.EControlState.Normal, m_visualKey);
-            if (visualKeyOver.Key != "")
+            if (!string.IsNullOrEmpty(visualKeyOver.Key))
                 m_visuals.Add(Enums.EControlState.Over, visualKeyOver);
-            if (visualKeyDown.Key != "")
+            if (!string.IsNullOrEmpty(visualKeyDown.Key))
                 m_visuals.Add(Enums.EControlState.Down, visualKeyDown);
-            if (visualKeyDisabled.Key != "")
+            if (!string.IsNullOrEmpty(visualKeyDisabled.Key))
                 m_visuals.Add(Enums.EControlState.Disabled, visualKeyDisabled);
 
             m_onMouseDown = onMouseDownEvent;
@@ -68,6 +68,8 @@ namespace Yuusha.gui
                 return;
 
             base.Draw(gameTime);
+
+            if (Border != null) Border.Draw(gameTime);
 
             if (!string.IsNullOrEmpty(m_text) && IsTextVisible)
             {
@@ -98,8 +100,7 @@ namespace Yuusha.gui
                 }
                 else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Button [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
             }
-
-            if (Border != null) Border.Draw(gameTime);
+            
         }
 
         public override void Update(GameTime gameTime)

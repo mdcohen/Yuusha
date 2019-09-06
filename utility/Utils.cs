@@ -329,16 +329,9 @@ namespace Yuusha
             Log("{Exception} " + e.Message + " Stack: " + e.StackTrace);
         }
 
-        public static string FormatEnumString(string enumString)
-        {
-            enumString = enumString.Replace("__", "'");
-            enumString = enumString.Replace("_", " ");
-            return enumString;
-        }
-
         private static string m_clipboard = "";
 
-        public static String GetClipboardText()
+        public static string GetClipboardText()
         {
             System.Threading.Thread t = new System.Threading.Thread(GetClipboard);
             t.SetApartmentState(System.Threading.ApartmentState.STA);

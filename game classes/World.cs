@@ -9,6 +9,24 @@ namespace Yuusha
         public enum WorldUpdate { Lands, Maps, Spells, Users, Scores, CharGen, Items, Talents }
         public enum Alignment { None, Lawful, Neutral, Chaotic, Evil, Amoral, ChaoticEvil }
         public enum ImpLevel { USER, GMA, GMA2, GMA3, GMA4, GM, GM2, GM3, GM4, DEVJR, DEV }
+        public enum MapID
+        {
+            Island_of_Kesmai = 0,
+            Leng,
+            Axe_Glacier,
+            Oakvael,
+            Praetoseba,
+            Annwn,
+            Torii,
+            Shukumei,
+            Rift_Glacier,
+            UnusedMapID,
+            Eridu,
+            Underkingdom,
+            Hell,
+            Deep_Kesmai,
+            Innkadi
+        }
 
         private static List<Spell> m_spells = new List<Spell>(); // world spells
         private static List<Talent> m_talents = new List<Talent>(); // world talents
@@ -409,7 +427,7 @@ namespace Yuusha
         {
             foreach (Character ch in World.m_newbies)
             {
-                if (ch.Race == homeland && Utils.FormatEnumString(ch.Profession.ToString()) == classType)
+                if (ch.Race == homeland && TextManager.FormatEnumString(ch.Profession.ToString()) == classType)
                 {
                     return ch;
                 }

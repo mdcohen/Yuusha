@@ -15,8 +15,25 @@ namespace Yuusha.gui
         private bool m_checkOperation;
         private Color m_originalTintColor;
 
+        /// <summary>
+        /// CheckboxButton with no onMouseDown event unless set outside constructor parameters.
+        /// </summary>
         public CheckboxButton(string name, string owner, Rectangle rectangle, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, VisualKey visualKeySelected, Color visualKeySelectedTintColor, Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string popUpText)
             : base(name, owner, rectangle, "", false, Color.Black, visible, disabled, font, visualKey, tintColor, visualAlpha, 0, visualKeyOver, visualKeyDown, visualKeyDisabled, "", BitmapFont.TextAlignment.Left, 0, 0, Color.White, false, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText, Client.ClientSettings.DefaultOnClickSound)
+        {
+            IsChecked = false;
+            if (visualKeySelected.Key != "")
+                m_visuals.Add(Enums.EControlState.Selected, visualKeySelected);
+            VisualKeySelectedColor = visualKeySelectedTintColor;
+            m_checkOperation = false;
+            m_originalTintColor = tintColor;
+        }
+
+        /// <summary>
+        /// CheckboxButton with an onMouseDown event set in the constructor.
+        /// </summary>
+        public CheckboxButton(string name, string owner, Rectangle rectangle, bool visible, bool disabled, string font, VisualKey visualKey, Color tintColor, byte visualAlpha, VisualKey visualKeyOver, VisualKey visualKeyDown, VisualKey visualKeyDisabled, VisualKey visualKeySelected, Color visualKeySelectedTintColor, Color tintOverColor, bool hasTintOverColor, List<Enums.EAnchorType> anchors, bool dropShadow, Map.Direction shadowDirection, int shadowDistance, string onMouseDown, string popUpText)
+            : base(name, owner, rectangle, "", false, Color.Black, visible, disabled, font, visualKey, tintColor, visualAlpha, 0, visualKeyOver, visualKeyDown, visualKeyDisabled, onMouseDown, BitmapFont.TextAlignment.Left, 0, 0, Color.White, false, tintOverColor, hasTintOverColor, anchors, dropShadow, shadowDirection, shadowDistance, "", popUpText, Client.ClientSettings.DefaultOnClickSound)
         {
             IsChecked = false;
             if (visualKeySelected.Key != "")
@@ -74,6 +91,8 @@ namespace Yuusha.gui
                     if (m_visuals.ContainsKey(Enums.EControlState.Normal))
                         m_visualKey = m_visuals[Enums.EControlState.Normal];
                 }
+
+                base.OnMouseDown(ms);
             }
         }
 

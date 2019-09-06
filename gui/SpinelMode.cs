@@ -533,6 +533,7 @@ namespace Yuusha.gui
                         if (spLabel == null)
                             continue;
 
+                        spLabel.EffectNames.Clear();
                         spLabel.CritterVisuals.Clear();
                         spLabel.LootVisual = "";
                         spLabel.CreatureText = "";
@@ -543,7 +544,7 @@ namespace Yuusha.gui
                                 currentTile = m_tilesDict[cell.DisplayGraphic];
                             else
                             {
-                                Utils.LogOnce("Failed to find SpinelTileDefinition for cell graphic [ " + cell.DisplayGraphic+ " ]");
+                                Utils.LogOnce("Failed to find SpinelTileDefinition for cell graphic [ " + cell.DisplayGraphic + " ]");
                                 currentTile = m_tilesDict["  "];
                             }
 

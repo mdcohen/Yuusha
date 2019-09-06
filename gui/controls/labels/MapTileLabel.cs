@@ -6,7 +6,16 @@ namespace Yuusha.gui
 {
     public class MapTileLabel : Label
     {
+        private readonly List<string> CellsTouchingMe = new List<string>()
+        {
+            "16", "17", "18", "23", "24", "25", "30", "31", "32"
+        };
+
         protected bool m_onMouseDownSent = false;
+        public virtual Cell Cell
+        {
+            get { return GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))]; }
+        }
 
         protected override void OnMouseLeave(MouseState ms)
         {
@@ -144,8 +153,7 @@ namespace Yuusha.gui
             {
                 if (!Name.StartsWith("Tile") || GameHUD.Cells.Count < Convert.ToInt32(Name.Replace("Tile", "")) + 1)
                     return;
-
-                if (Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_DOWNSTAIRS)
+                else if (Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_DOWNSTAIRS)
                 {
                     IO.Send("d");
                     return;
@@ -159,8 +167,12 @@ namespace Yuusha.gui
                 {
                     IO.Send(TextManager.PORTAL_CHANT);
                 }
-
-                if(GetMovementDirections() is string directionsToSend && !string.IsNullOrEmpty(directionsToSend))
+                else if(CellsTouchingMe.Contains(Name.Replace("Tile", "")) && GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))].IsSearchable())
+                {
+                    IO.Send("search " + Map.GetDirection(GameHUD.Cells[24], GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))]));
+                }
+                // Work on searching for secret doors / rock passageways
+                else if (GetMovementDirections() is string directionsToSend && !string.IsNullOrEmpty(directionsToSend))
                     IO.Send(directionsToSend.TrimEnd());
             }
             catch (Exception e)

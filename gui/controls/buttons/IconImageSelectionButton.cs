@@ -47,6 +47,9 @@ namespace Yuusha.gui
                 }
             }
 
+            if (Border != null)
+                Border.IsVisible = true;
+
             base.OnMouseOver(ms);
         }
 
@@ -62,6 +65,9 @@ namespace Yuusha.gui
                 if (owner["SelectedIconNameLabel"] is Label selectedNameLabel)
                     selectedNameLabel.Text = "";
             }
+
+            if (Border != null)
+                Border.IsVisible = false;
 
             base.OnMouseLeave(ms);
         }

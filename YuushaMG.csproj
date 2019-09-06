@@ -157,6 +157,7 @@
     <Compile Include="gui\controls\Slider.cs" />
     <Compile Include="gui\controls\StatusBar.cs" />
     <Compile Include="gui\controls\textboxes\TextBox.cs" />
+    <Compile Include="gui\controls\windows\PopUpWindow.cs" />
     <Compile Include="gui\controls\windows\SpellBookWindow.cs" />
     <Compile Include="gui\controls\windows\SpellRingWindow.cs" />
     <Compile Include="gui\controls\windows\SpellWarmingWindow.cs" />
@@ -223,7 +224,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="GameThumbnail.png" />
     <Content Include="gold+dragon.ico" />
     <Content Include="media\fonts\changaone\changaone14-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

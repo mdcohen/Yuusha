@@ -23,7 +23,9 @@ namespace Yuusha
             Close,
             Crop,
             Maximize,
-            Minimize
+            Minimize,
+            IncreaseSize,
+            DecreaseSize,
         }
 
         public enum EAnchorType

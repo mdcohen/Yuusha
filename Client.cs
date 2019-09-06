@@ -336,6 +336,7 @@ namespace Yuusha
             base.OnExiting(sender, args);
 
             Microsoft.Xna.Framework.Media.MediaPlayer.Stop();
+            //Microsoft.Xna.Framework.Media.MediaPlayer.Queue.ActiveSong.Dispose();
 
             // save client settings
             ClientSettings.Save();

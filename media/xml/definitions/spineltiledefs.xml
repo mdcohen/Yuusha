@@ -37,6 +37,7 @@
 	<SpinelTileDef Graphic="##" Name="Grate" ForeVisual="sptile_grate1" BackVisual="sptile_wall6" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="/\" Name="Mountain" ForeVisual="sptile_mountain3" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="==" Name="Counter" ForeVisual="sptile_counter1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
+  <SpinelTileDef Graphic="CC" Name="Counter" ForeVisual="sptile_counter1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="dn" Name="StairsDown" ForeVisual="sptile_down1" BackVisual="sptile_wall6" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="up" Name="StairsUp" ForeVisual="sptile_up1" BackVisual="sptile_wall6" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>
 	<SpinelTileDef Graphic="BR" Name="BoxingRing" ForeVisual="sptile_boxingring1" BackVisual="" ForeAlpha="255" BackAlpha="255" ForeTint="White" BackTint="White"></SpinelTileDef>

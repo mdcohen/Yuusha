@@ -46,7 +46,7 @@ namespace Yuusha.gui
 
         public override void Draw(GameTime gameTime)
         {
-            if (m_visuals.ContainsKey(m_controlState) && m_visuals[m_controlState].Key != "")
+            if (m_visuals.ContainsKey(m_controlState) && !string.IsNullOrEmpty(m_visuals[m_controlState].Key))
             {
                 if (!GuiManager.Visuals.ContainsKey(m_visuals[m_controlState].Key))
                 {

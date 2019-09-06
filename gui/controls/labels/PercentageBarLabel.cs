@@ -76,7 +76,7 @@ namespace Yuusha.gui
                     case Enums.EAnchorType.Left:
                         MidLabel.Width = Convert.ToInt32(Width * Percentage / 100);
                         break;
-                    case Enums.EAnchorType.Bottom:
+                    case Enums.EAnchorType.Top:
                         MidLabel.Height = Convert.ToInt32(Height * Percentage / 100);
                         break;
                 }
@@ -125,7 +125,7 @@ namespace Yuusha.gui
             {
                 VisualInfo vi = GuiManager.Visuals["WhiteSpace"];
                 int segmentLength = Width / 10;
-                for (int i = 1; i < 10; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     Rectangle segRec = new Rectangle(Position.X + (segmentLength * i), Position.Y, SegmentGapSize, Height);
                     Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], segRec, vi.Rectangle, new Color(Color.Black, VisualAlpha));

@@ -36,6 +36,9 @@ namespace Yuusha
             Logout,
             MapDisplay_Decrease,
             MapDisplay_Increase,
+            MediaPlayer_LowerVolume,
+            MediaPlayer_MuteVolume,
+            MediaPlayer_RaiseVolume,
             New_Game_Round,
             New_Spell,
             New_Talent,
@@ -85,8 +88,11 @@ namespace Yuusha
             Toggle_Spellbook,
             Toggle_Talents,
             Toggle_VerticalHotbar,
+            Toggle_VolumeWindow,
             User_Settings_Changed,
             WebLink,
+            HotButtonWindow_Decrease_Size,
+            HotButtonWindow_Increase_Size,            
         }
 
         public static void RegisterEvent(EventName name, params object[] args)
@@ -143,7 +149,7 @@ namespace Yuusha
 
                                         DropDownMenu menu = (control as DropDownMenuItem).DropDownMenu;
 
-                                        bool targetSelected = false;
+                                        //bool targetSelected = false;
 
                                         if (menu != null && menu.DropDownMenuOwner != null && menu.DropDownMenuOwner is CritterListLabel)
                                         {
@@ -153,7 +159,7 @@ namespace Yuusha
                                                     RegisterEvent(EventName.Target_Select, (menu.DropDownMenuOwner as CritterListLabel).Critter);
 
                                                 GameHUD.TextSendOverride = control.Text.Replace("%t", GameHUD.CurrentTarget.UniqueID.ToString());
-                                                targetSelected = true;
+                                                //targetSelected = true;
                                             }
 
                                             (menu.DropDownMenuOwner as CritterListLabel).DropDownMenu.IsDisabled = true;
@@ -605,8 +611,91 @@ namespace Yuusha
                         #region Goto Menu
                         IO.Send(Protocol.GOTO_MENU);
                         RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Menu);
-                        break; 
+                        break;
                     #endregion
+                    case EventName.HotButtonWindow_Decrease_Size:
+                        if(args[0] is Control && GuiManager.GetControl((args[0] as Control).Owner) is Window hbwDec)
+                        {
+                            int sizeChange = 4;
+
+                            string namePrefix = "";
+                            char[] ar = hbwDec.Controls.Find(c => c is HotButton).Name.ToCharArray();
+                            foreach (char ch in ar)
+                                if (!char.IsDigit(ch)) namePrefix += ch.ToString();
+
+                            if (hbwDec.Name.Contains("Horizontal"))
+                            {
+                                if (hbwDec.Controls.Find(c => c is HotButton).Width <= 12)
+                                    break;
+
+                                foreach (Control c in hbwDec.Controls)
+                                {
+                                    if (c is HotButton)
+                                    {
+                                        c.Width -= sizeChange;
+                                        c.Height -= sizeChange;
+
+                                        if (!c.Name.EndsWith("Button0"))
+                                        {
+                                            c.Position = new Point(c.Position.X - sizeChange * int.Parse(c.Name.Replace(namePrefix, "")), c.Position.Y);
+                                        }
+                                    }
+                                }
+                                hbwDec.Width -= 4 * hbwDec.Controls.FindAll(c => c is HotButton).Count;
+                                hbwDec.Height -= 4;
+                            }
+                            else
+                            {
+                                
+                            }
+
+                            hbwDec.CheckBoundsAndAdjust();
+                            if(hbwDec.WindowTitle != null)
+                                hbwDec.WindowTitle.Width = hbwDec.Width;
+                        }
+                        break;
+                    case EventName.HotButtonWindow_Increase_Size:
+                        if (args[0] is Control && GuiManager.GetControl((args[0] as Control).Owner) is Window hbwInc)
+                        {
+                            int sizeChange = 4;
+
+                            string namePrefix = "";
+                            char[] ar = hbwInc.Controls.Find(c => c is HotButton).Name.ToCharArray();
+                            foreach (char ch in ar)
+                                if (!char.IsDigit(ch)) namePrefix += ch.ToString();
+
+                            if (hbwInc.Name.Contains("Horizontal"))
+                            {
+                                if (hbwInc.Controls.Find(c => c is HotButton).Width >= 64)
+                                    break;
+
+                                foreach (Control c in hbwInc.Controls)
+                                {
+                                    if (c is HotButton)
+                                    {
+                                        c.Width += sizeChange;
+                                        c.Height += sizeChange;
+
+                                        if (!c.Name.EndsWith("Button0"))
+                                        {
+                                            c.Position = new Point(c.Position.X + sizeChange * int.Parse(c.Name.Replace(namePrefix, "")), c.Position.Y);
+                                        }
+                                    }
+                                }
+                                hbwInc.Width += sizeChange * hbwInc.Controls.FindAll(c => c is HotButton).Count;
+                                hbwInc.Height += sizeChange;
+                            }
+                            else
+                            {
+                                //hbwInc.Controls.Sort((c1, c2) => c1.Name.CompareTo(c2.Name));
+                            }
+
+                            hbwInc.CheckBoundsAndAdjust();
+
+                            if (hbwInc.WindowTitle != null)
+                                hbwInc.WindowTitle.Width = hbwInc.Width;
+                        }
+                        break;
                     case EventName.Logout:
                         #region Logout
                         switch (Client.GameState)
@@ -629,6 +718,59 @@ namespace Yuusha
                     case EventName.MapDisplay_Increase:
                         GameHUD.ChangeMapDisplayWindowSize(5);
                         break;
+                    case EventName.MediaPlayer_LowerVolume:
+                        {
+                            //TextCue.AddClientInfoTextCue("Volume: " + Microsoft.Xna.Framework.Media.MediaPlayer.Volume);
+
+                            Microsoft.Xna.Framework.Media.MediaPlayer.Volume = Microsoft.Xna.Framework.Media.MediaPlayer.Volume - .1f;
+                            Audio.AudioManager.HardSetMediaPlayerVolume = Microsoft.Xna.Framework.Media.MediaPlayer.Volume;
+
+                            if (Microsoft.Xna.Framework.Media.MediaPlayer.Volume <= .1f)
+                            {
+                                Microsoft.Xna.Framework.Media.MediaPlayer.Volume = .1f;
+                                RegisterEvent(EventName.MediaPlayer_MuteVolume);
+                            }
+
+                            if (GuiManager.GetControl("VolumeControlPopUpWindowPercentageBarLabel") is PercentageBarLabel pct)
+                                pct.Percentage = Microsoft.Xna.Framework.Media.MediaPlayer.Volume * 100;
+
+                            //TextCue.AddClientInfoTextCue("Now Volume: " + Microsoft.Xna.Framework.Media.MediaPlayer.Volume);
+
+                            break;
+                        }
+                    case EventName.MediaPlayer_MuteVolume:
+                        {
+                            if (args[0] is CheckboxButton)
+                            {
+                                Microsoft.Xna.Framework.Media.MediaPlayer.IsMuted = (args[0] as CheckboxButton).IsChecked;
+                            }
+                            else Microsoft.Xna.Framework.Media.MediaPlayer.IsMuted = !Microsoft.Xna.Framework.Media.MediaPlayer.IsMuted;
+
+                            if (GuiManager.GetControl("VolumeControlPopUpWindowMuteVolumeButton") is CheckboxButton chkMute)
+                                chkMute.IsChecked = Microsoft.Xna.Framework.Media.MediaPlayer.IsMuted;
+                        }
+                        break;
+                    case EventName.MediaPlayer_RaiseVolume:
+                        {
+                            //TextCue.AddClientInfoTextCue("Volume: " + Microsoft.Xna.Framework.Media.MediaPlayer.Volume);
+
+                            if (Microsoft.Xna.Framework.Media.MediaPlayer.IsMuted)
+                            {
+                                Microsoft.Xna.Framework.Media.MediaPlayer.IsMuted = false;
+                            }
+                            else if(Microsoft.Xna.Framework.Media.MediaPlayer.Volume < 1f)
+                            {
+                                Microsoft.Xna.Framework.Media.MediaPlayer.Volume = Microsoft.Xna.Framework.Media.MediaPlayer.Volume + .1f;
+                                Audio.AudioManager.HardSetMediaPlayerVolume = Microsoft.Xna.Framework.Media.MediaPlayer.Volume;
+                            }
+
+                            if (GuiManager.GetControl("VolumeControlPopUpWindowPercentageBarLabel") is PercentageBarLabel pct)
+                                pct.Percentage = Microsoft.Xna.Framework.Media.MediaPlayer.Volume * 100;
+
+                            //TextCue.AddClientInfoTextCue("Now Volume: " + Microsoft.Xna.Framework.Media.MediaPlayer.Volume);
+
+                            break;
+                        }
                     case EventName.Next_Visual:
                         #region Next Visual
                         Window VisualKeyWindow = GuiManager.GenericSheet["VisualKeyWindow"] as Window;
@@ -1014,12 +1156,12 @@ namespace Yuusha
                         break;
                         #endregion
                     case EventName.Switch_Character_Back:
-                        Character.Settings.Save();
+                        //Character.Settings.Save();
                         Character.CurrentCharacter = Account.GetPreviousCharacter();
                         IO.Send(Protocol.SWITCH_CHARACTER + " " + Character.CurrentCharacter.UniqueID);
                         break;
                     case EventName.Switch_Character_Next:
-                        Character.Settings.Save();
+                        //Character.Settings.Save();
                         Character.CurrentCharacter = Account.GetNextCharacter();
                         IO.Send(Protocol.SWITCH_CHARACTER + " " + Character.CurrentCharacter.UniqueID);
                         break;
@@ -1459,6 +1601,17 @@ namespace Yuusha
                         {
                             verticalHotbar.IsVisible = !verticalHotbar.IsVisible;
                             if (verticalHotbar.IsVisible) verticalHotbar.ZDepth = 1;
+                        }
+                        break;
+                    case EventName.Toggle_VolumeWindow:
+                        if(GuiManager.GenericSheet["VolumeControlPopUpWindow"] is Window volumeWindow)
+                        {
+                            volumeWindow.IsVisible = !volumeWindow.IsVisible;
+                            if (volumeWindow.IsVisible) volumeWindow.ZDepth = 1;
+                        }
+                        else
+                        {
+                            PopUpWindow.CreateVolumeControlPopUpWindow();
                         }
                         break;
                     case EventName.Load_Character_Settings:
@@ -1937,7 +2090,8 @@ namespace Yuusha
                 {
                     if (sheet["SackHorizontalAutoHidingButton"] is Button sackButton)
                     {
-                        if (Character.CurrentCharacter.Sack.Count >= Utility.Settings.StaticSettings.SackSize + 1)
+                        int sackCountWithoutCoins = Character.CurrentCharacter.Sack.FindAll(s => !s.Name.StartsWith("coin")).Count;
+                        if (sackCountWithoutCoins >= Utility.Settings.StaticSettings.SackSize)
                         {
                             sackButton.Text = "FULL";
                             sackButton.IsTextVisible = true;
@@ -1946,7 +2100,7 @@ namespace Yuusha
                         else
                         {
                             sackButton.Text = ""; // TODO? Option to display count in text or popup
-                            sackButton.PopUpText = "Sack (" + (Character.CurrentCharacter.Sack.Count - 1) + "/" + Utility.Settings.StaticSettings.SackSize + ")";
+                            sackButton.PopUpText = "Sack (" + sackCountWithoutCoins + "/" + Utility.Settings.StaticSettings.SackSize + ")";
                         }
                     }
 
@@ -2030,7 +2184,7 @@ namespace Yuusha
 
             try
             {
-                GuiManager.TextCues.Clear();
+                //GuiManager.TextCues.Clear();
 
                 foreach (Control c in new List<Control>(GuiManager.GenericSheet.Controls))
                 {
@@ -2058,14 +2212,16 @@ namespace Yuusha
                 {
                     if (Client.ClientSettings.ContainsStoredAccount(Utility.Encrypt.DecryptString(Client.ClientSettings.MostRecentStoredAccount, Utility.Settings.StaticSettings.DecryptionPassPhrase3), out Utility.Encrypt.EncryptedKeyValuePair<string, string> kvPair))
                     {
-                        TextBox at = GuiManager.Sheets[loginSheet]["AccountTextBox"] as TextBox;
-                        TextBox pt = GuiManager.Sheets[loginSheet]["PasswordTextBox"] as TextBox;
-                        at.Text = Utility.Encrypt.DecryptString(kvPair.Key, Utility.Settings.StaticSettings.DecryptionPassPhrase1);
-                        at.SelectAll();
-                        pt.Text = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
-                        pt.SelectAll();
+                        if (GuiManager.Sheets[loginSheet]["AccountTextBox"] is TextBox at && GuiManager.Sheets[loginSheet]["PasswordTextBox"] is TextBox pt)
+                        {
+                            at.Text = Utility.Encrypt.DecryptString(kvPair.Key, Utility.Settings.StaticSettings.DecryptionPassPhrase1);
+                            at.SelectAll();
+                            pt.Text = Utility.Encrypt.DecryptString(kvPair.Value, Utility.Settings.StaticSettings.DecryptionPassPhrase2);
+                            pt.SelectAll();
+                        }
 
-                        (GuiManager.Sheets[loginSheet]["RememberPasswordCheckboxButton"] as CheckboxButton).IsChecked = true;
+                        if(GuiManager.Sheets[loginSheet]["RememberPasswordCheckboxButton"] is CheckboxButton chk)
+                            chk.IsChecked = true;
                     }
                 }
                 else if(GuiManager.Sheets[loginSheet]["AccountTextBox"] is TextBox at)
