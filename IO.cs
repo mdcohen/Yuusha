@@ -82,10 +82,9 @@ namespace Yuusha
                     }
                 }
 
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(100); // 100
             }
 
-            //Utils.Log("IO died.");
             Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
             Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
 
@@ -138,7 +137,14 @@ namespace Yuusha
 
             try
             {
-                m_TcpClient = new TcpClient();
+                m_TcpClient = new TcpClient
+                {
+                    NoDelay = true,
+                    SendBufferSize = 8192,
+                    ReceiveTimeout = 1000,
+                    SendTimeout = 1000,
+                    LingerState = new LingerOption(true, 10),
+                };
                 m_TcpClient.BeginConnect(Client.ClientSettings.ServerHost, Client.ClientSettings.ServerPort, new AsyncCallback(ConnectCallback), m_TcpClient);
 
                 return true;
@@ -346,7 +352,7 @@ namespace Yuusha
             else if (inData.IndexOf(Protocol.IMP_CHARACTERFIELDS_END) != -1)
             {
                 //Implementor.gatherImplementorData(Protocol.GetProtoInfoFromString(inData, Protocol.IMP_CHARACTERFIELDS, Protocol.IMP_CHARACTERFIELDS_END), Implementor.ImplementorUpdate.CharacterFields);
-                return true;
+                return true; // can be deleted after next server update
             }
             #endregion
 
@@ -360,10 +366,10 @@ namespace Yuusha
 
             else
             {
-                if (IO.LoginState != Enums.ELoginState.LoggedIn)
+                if (LoginState != Enums.ELoginState.LoggedIn)
                 {
                     #region Detect Login Information
-                    switch (IO.LoginState)
+                    switch (LoginState)
                     {
                         case Enums.ELoginState.Disconnected:
                             break;
@@ -452,6 +458,7 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.DETECT_CLIENT) != -1)
                             {
                                 IO.Send(Protocol.SET_CLIENT);
+                                IO.Send(Protocol.VERSION_CLIENT + " " + Utility.Settings.StaticSettings.ClientVersion + " " + Utility.Settings.StaticSettings.ClientVersionVerbose);
                                 return true;
                             }
                             else if (inData.IndexOf(Protocol.DETECT_PROTOCOL) != -1)
@@ -724,7 +731,6 @@ namespace Yuusha
                             #endregion
                         case Enums.EGameState.SpinelGame:
                         case Enums.EGameState.IOKGame:
-                        case Enums.EGameState.LOKGame:
                         case Enums.EGameState.YuushaGame:
                         case Enums.EGameState.Game:
                             #region Game
@@ -736,9 +742,10 @@ namespace Yuusha
                             }
                             #endregion
                             #region GAME_CHARACTER_DEATH
-                            else if (inData.IndexOf(Protocol.GAME_CHARACTER_DEATH) != -1)
+                            else if (inData.IndexOf(Protocol.GAME_CHARACTER_DEATH_END) != -1)
                             {
-                                Events.RegisterEvent(Events.EventName.Character_Death, inData.Substring(0, inData.IndexOf(Protocol.GAME_CHARACTER_DEATH)));
+                                Events.RegisterEvent(Events.EventName.Character_Death, Protocol.GetProtoInfoFromString(inData, Protocol.GAME_CHARACTER_DEATH, Protocol.GAME_CHARACTER_DEATH_END));
+                                //Events.RegisterEvent(Events.EventName.Character_Death, inData.Substring(0, inData.IndexOf(Protocol.GAME_CHARACTER_DEATH)));
                                 return true;
                             }
                             #endregion
@@ -939,7 +946,6 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_TALENTS_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_TALENTS, Protocol.CHARACTER_TALENTS_END), Enums.EPlayerUpdate.Talents);
-                                gui.TalentsWindow.CreateTalentsWindow();
                                 return true;
                             }
                             #endregion

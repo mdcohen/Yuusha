@@ -121,18 +121,21 @@ namespace Yuusha.gui
             if (RightHandItemLabel != null)
             {
                 RightHandItemLabel.Position = new Point(Position.X + Width - (Height * 3), Position.Y);
+                if(Critter != null) RightHandItemLabel.Command = "look at " + Critter.UniqueID + "'s right";
                 RightHandItemLabel.Update(gameTime);                
             }
 
             if(LeftHandItemLabel != null)
             {
                 LeftHandItemLabel.Position = new Point(Position.X + Width - (Height * 2), Position.Y);
+                if (Critter != null) LeftHandItemLabel.Command = "look at " + Critter.UniqueID + "'s left";
                 LeftHandItemLabel.Update(gameTime);
             }
 
             if(ArmorItemLabel != null)
             {
                 ArmorItemLabel.Position = new Point(Position.X + Width - Height, Position.Y);
+                // RightHandItemLabel.Command = "look at " + Critter.UniqueID + "'s right";
                 ArmorItemLabel.Update(gameTime);
             }
         }
@@ -228,35 +231,34 @@ namespace Yuusha.gui
                     GuiManager.Sheets[Sheet].CreateDropDownMenu(Name + "DropDownMenu", Name, "", dropDownRectangle, true,
                         Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, VisualAlpha, true, Map.Direction.Northwest, 5);
 
-                    //DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
-                    //{
-                    //    IsVisible = true
-                    //};
+                    // Uncomment below line to change border for this button while drop down menu is visible
+                    //Border = new SquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
+                    DropDownMenu.Border = new SquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
 
                     DropDownMenu.HasFocus = true;
                     int height = 0;
                     // add drop down menu items
-                    if (Character.Settings.CritterListDropDownMenuItem1 != "")
+                    if (!string.IsNullOrEmpty(Character.Settings.CritterListDropDownMenuItem1))
                     {
                         height += 20;
                         DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem1, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
-                    if (Character.Settings.CritterListDropDownMenuItem2 != "")
+                    if (!string.IsNullOrEmpty(Character.Settings.CritterListDropDownMenuItem2))
                     {
                         height += 20;
                         DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem2, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
-                    if (Character.Settings.CritterListDropDownMenuItem3 != "")
+                    if (!string.IsNullOrEmpty(Character.Settings.CritterListDropDownMenuItem3))
                     {
                         height += 20;
                         DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem3, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
-                    if (Character.Settings.CritterListDropDownMenuItem4 != "")
+                    if (!string.IsNullOrEmpty(Character.Settings.CritterListDropDownMenuItem4))
                     {
                         height += 20;
                         DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem4, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
                     }
-                    if (Character.Settings.CritterListDropDownMenuItem5 != "")
+                    if (!string.IsNullOrEmpty(Character.Settings.CritterListDropDownMenuItem5))
                     {
                         height += 20;
                         DropDownMenu.AddDropDownMenuItem(Character.Settings.CritterListDropDownMenuItem5, DropDownMenu.Name, new VisualKey("WhiteSpace"), "Attack_Critter", "", false);
@@ -272,6 +274,28 @@ namespace Yuusha.gui
             base.OnMouseRelease(ms);
 
             m_mouseReleased = true;
+        }
+
+        protected override void OnMouseOver(MouseState ms)
+        {
+            base.OnMouseOver(ms);
+
+            if(RightHandItemLabel != null && RightHandItemLabel.IsVisible && RightHandItemLabel.Contains(ms.Position))
+            {
+                PopUpWindow.CreateSquareIconPopUpWindow(RightHandItemLabel, 60);
+            }
+            else if (LeftHandItemLabel != null && LeftHandItemLabel.IsVisible && LeftHandItemLabel.Contains(ms.Position))
+            {
+                PopUpWindow.CreateSquareIconPopUpWindow(LeftHandItemLabel, 60);
+            }
+        }
+
+        public override bool KeyboardHandler(KeyboardState ks)
+        {
+            if (DropDownMenu != null)
+                return DropDownMenu.KeyboardHandler(ks);
+
+            return false;
         }
     }
 }

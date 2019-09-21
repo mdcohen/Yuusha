@@ -53,7 +53,7 @@ namespace Yuusha.gui
                 (GuiManager.Sheets["IOKGame"]["GameTextScrollableTextBox"] as ScrollableTextBox).AddLine(text, textType);
                 (GuiManager.Sheets["SpinelGame"]["GameTextScrollableTextBox"] as ScrollableTextBox).AddLine(text, textType);
 
-                TextManager.CheckTextTriggers(text);
+                TextManager.CheckYuushaModeTextTriggers(text);
 
                 if (Client.ClientSettings.DisplayConversationBubbles)
                 {
@@ -100,7 +100,7 @@ namespace Yuusha.gui
                                             foreach (Tuple<ScrollableTextBox, DateTime> tuple in new List<Tuple<ScrollableTextBox, DateTime>>(GameHUD.ConversationBubbles))
                                             {
                                                 int whileLoopCount = 0;
-                                                while (whileLoopCount < 40 && new Rectangle(tuple.Item1.Position, new Point(tuple.Item1.Width, tuple.Item1.Height)).Intersects(new Rectangle(scr.Position, new Point(scr.Width, scr.Height))))
+                                                while (whileLoopCount < 140 && new Rectangle(tuple.Item1.Position.X, tuple.Item1.Position.Y, tuple.Item1.Width, tuple.Item1.Height).Intersects(new Rectangle(scr.Position.X, scr.Position.Y, scr.Width, scr.Height)))
                                                 {
                                                     scr.Position = new Point(scr.Position.X - 5, scr.Position.Y - 5);
                                                     whileLoopCount++;
@@ -288,7 +288,7 @@ namespace Yuusha.gui
                         sheet["RHNameDragAndDropButton"].VisualKey = chr.RightHand.VisualKey;
                         sheet["RHNameDragAndDropButton"].TintColor = Color.White;
 
-                        if (chr.RightHand.nocked)
+                        if (chr.RightHand.Nocked)
                         {
                             if (chr.RightHand.Name.ToLower().Contains("crossbow"))
                             {
@@ -322,7 +322,7 @@ namespace Yuusha.gui
                         sheet["LHNameDragAndDropButton"].VisualKey = chr.LeftHand.VisualKey;
                         sheet["LHNameDragAndDropButton"].TintColor = Color.White;
 
-                        if (chr.LeftHand.nocked)
+                        if (chr.LeftHand.Nocked)
                         {
                             if (chr.LeftHand.Name.ToLower().Contains("crossbow"))
                             {
@@ -383,7 +383,7 @@ namespace Yuusha.gui
                         if (chr.StrengthAdd != pre.StrengthAdd)
                         {
                             if(chr.StrengthAdd > pre.StrengthAdd)
-                                AchievementLabel.CreateAchievementLabel(string.Format("Strength Add +{0}", chr.StrengthAdd - pre.StrengthAdd), AchievementLabel.AchievementType.StrengthAdd);
+                                AchievementLabel.CreateAchievementLabel(string.Format("Str Add +{0}", chr.StrengthAdd - pre.StrengthAdd), AchievementLabel.AchievementType.StrengthAdd);
 
                             Character.PreviousRoundCharacter.StrengthAdd = chr.StrengthAdd;
                         }
@@ -391,7 +391,7 @@ namespace Yuusha.gui
                         if (chr.DexterityAdd != pre.DexterityAdd)
                         {
                             if (chr.DexterityAdd > pre.DexterityAdd)
-                                AchievementLabel.CreateAchievementLabel(string.Format("Dexterity Add +{0}", chr.DexterityAdd - pre.DexterityAdd), AchievementLabel.AchievementType.DexterityAdd);
+                                AchievementLabel.CreateAchievementLabel(string.Format("Dex Add +{0}", chr.DexterityAdd - pre.DexterityAdd), AchievementLabel.AchievementType.DexterityAdd);
 
                             Character.PreviousRoundCharacter.DexterityAdd = chr.DexterityAdd;
                         }
@@ -445,8 +445,8 @@ namespace Yuusha.gui
                         if (chr.Charisma != pre.Charisma)
                         {
                             if (chr.Charisma > pre.Charisma)
-                                AchievementLabel.CreateAchievementLabel(string.Format("Charisma: +{0}", chr.Charisma - pre.Charisma), AchievementLabel.AchievementType.AbilityScoreGain);
-                            else AchievementLabel.CreateAchievementLabel(string.Format("Charisma: +{0}", pre.Charisma - chr.Charisma), AchievementLabel.AchievementType.AbilityScoreLoss);
+                                AchievementLabel.CreateAchievementLabel(string.Format("Charisma +{0}", chr.Charisma - pre.Charisma), AchievementLabel.AchievementType.AbilityScoreGain);
+                            else AchievementLabel.CreateAchievementLabel(string.Format("Charisma -{0}", pre.Charisma - chr.Charisma), AchievementLabel.AchievementType.AbilityScoreLoss);
 
                             Character.PreviousRoundCharacter.Charisma = chr.Charisma;
                         } 
@@ -708,9 +708,8 @@ namespace Yuusha.gui
                         if (GuiManager.GetControl("CritterList" + a.ToString()) is CritterListLabel critterListLabel)
                         {
                             critterListLabel.IsVisible = false;
-                            critterListLabel.DropDownMenu = null;
+                            GuiManager.Dispose(critterListLabel.DropDownMenu);
                         }
-                        //m_critterListNames[a] = "";
                     }
 
                     Cell cell;
@@ -821,8 +820,6 @@ namespace Yuusha.gui
                                             break;
                                     }
 
-
-
                                     m_critterListNames[labelNum] = ch.Name;
                                     CritterListLabel label = GuiManager.GetControl("CritterList" + labelNum.ToString()) as CritterListLabel;
                                     label.Critter = ch;
@@ -885,6 +882,7 @@ namespace Yuusha.gui
                         spLabel.EffectNames.Clear();
                         spLabel.CritterVisuals.Clear();
                         spLabel.LootVisual = "";
+                        spLabel.PathingVisual = "";
                         spLabel.CreatureText = "";
 
                         if (cell.IsVisible)
@@ -894,13 +892,15 @@ namespace Yuusha.gui
                             //if (cell.Effects.FindAll(e => e.Name.Equals("Illusion")).Count > 0 && cell.Effects.Count == 1)
                             //    graphic = cell.DisplayGraphic;
 
-                            if (cell.Effects.Count == 1 && Effect.NonDisplayableCellEffects.Contains(cell.Effects[0].Name))
+                            if (cell.Effects.Count == 1 && Effect.NonDisplayableCellEffects.Contains(TextManager.FormatEnumString(cell.Effects[0].Name)))
+                                graphic = cell.DisplayGraphic;
+                            else if (cell.Effects.FindAll(e => e.Name.Equals("Illusion")).Count > 0)
                                 graphic = cell.DisplayGraphic;
 
                             // uses DisplayGraphic -- should use CellGraphic and then items to display effects?
                             //if (m_tilesDict.ContainsKey(cell.DisplayGraphic))
                             //    currTile = m_tilesDict[cell.DisplayGraphic];
-                            if (m_tilesDict.ContainsKey(graphic))
+                                if (m_tilesDict.ContainsKey(graphic))
                                 currTile = m_tilesDict[graphic];
                             else
                             {
@@ -913,11 +913,13 @@ namespace Yuusha.gui
                                 foreach(Effect effect in cell.Effects)
                                 {
                                     // make a decision here if you want to draw effects multiple times -- probably not, also effect amount!!
-                                    if(!Effect.NonDisplayableCellEffects.Contains(TextManager.FormatEnumString(effect.Name))
+                                    if(Effect.CellEffectsDictionary.ContainsKey(TextManager.FormatEnumString(effect.Name))
                                         && !spLabel.EffectNames.Contains(TextManager.FormatEnumString(effect.Name)))
                                     {
                                         spLabel.EffectNames.Add(TextManager.FormatEnumString(effect.Name));
                                     }
+                                    else if(!Effect.IgnoreCellEffectsAbsence.Contains(TextManager.FormatEnumString(effect.Name)))
+                                        Utils.LogOnce("CellEffectsDictionary does not contain a key for effect: " + TextManager.FormatEnumString(effect.Name));
                                 }
                             }
 

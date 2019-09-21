@@ -45,7 +45,7 @@ namespace Yuusha.gui
             m_menuItems = new List<DropDownMenuItem>();
             IsLocked = true;
 
-            GuiManager.ActiveDropDownMenu = Name;
+            GuiManager.ActiveDropDownMenu = this;
         }
 
         public override void Draw(GameTime gameTime)
@@ -63,7 +63,7 @@ namespace Yuusha.gui
             }
 
             foreach (DropDownMenuItem menuItem in m_menuItems)
-                if(menuItem.IsVisible) menuItem.Draw(gameTime);
+                if (menuItem.IsVisible) menuItem.Draw(gameTime);
 
             if (Border != null) Border.Draw(gameTime);
         }
@@ -113,25 +113,36 @@ namespace Yuusha.gui
 
             base.Update(gameTime);
 
-            Width = 0;
-
-            if(Title != "")
-                Width = BitmapFont.ActiveFonts[Font].MeasureString(Title);
-
-            foreach(DropDownMenuItem menuItem in MenuItems)
+            try
             {
-                int textWidth = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultDropDownMenuFont].MeasureString(menuItem.Text);
+                Width = 0;
 
-                if (Width < textWidth)
-                    Width = textWidth + 1;
+                if (!string.IsNullOrEmpty(Title))
+                    Width = BitmapFont.ActiveFonts[Font].MeasureString(Title);
 
-                menuItem.Width = Width;
+                foreach (DropDownMenuItem menuItem in MenuItems)
+                {
+                    int textWidth = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultDropDownMenuFont].MeasureString(menuItem.Text);
+
+                    if (Width < textWidth)
+                        Width = textWidth + 1;
+
+                    menuItem.Width = Width;
+                }
+
+                foreach (DropDownMenuItem menuItem in m_menuItems)
+                    menuItem.Update(gameTime);
+
+                if (Border != null)
+                {
+                    Border.Update(gameTime);
+                    if (Border is SquareBorder sq) sq.ManuallySetRectangles(this);
+                }
             }
+            catch(System.Exception)
+            {
 
-            if (Border != null) Border.Update(gameTime);
-
-            foreach (DropDownMenuItem menuItem in m_menuItems)
-                menuItem.Update(gameTime);
+            }
         }
 
         public override bool MouseHandler(MouseState ms)
@@ -186,6 +197,9 @@ namespace Yuusha.gui
 
                             GuiManager.AwaitMouseButtonRelease = true;
 
+                            //if(GuiManager.GetControl(Owner) is CritterListLabel critterListLabel)
+                            //    Events.RegisterEvent((Events.EventName)System.Enum.Parse(typeof(Events.EventName), item.MouseDown, true), critterListLabel);
+                            //else
                             Events.RegisterEvent((Events.EventName)System.Enum.Parse(typeof(Events.EventName), item.MouseDown, true), item);
 
                             if (item.DropDownMenu != null)
@@ -203,8 +217,7 @@ namespace Yuusha.gui
                                 }
 
                                 item.DropDownMenu.IsVisible = false;
-                                GuiManager.ActiveDropDownMenu = "";
-                                item.DropDownMenu = null;
+                                item.DropDownMenu.OnDispose();
                                 return true;
                             }
                         }
@@ -215,7 +228,7 @@ namespace Yuusha.gui
             return base.OnKeyDown(ks);
         }
 
-        protected override void OnMouseLeave(Microsoft.Xna.Framework.Input.MouseState ms)
+        protected override void OnMouseLeave(MouseState ms)
         {
             IsVisible = false;
             IsDisabled = true;
@@ -243,17 +256,16 @@ namespace Yuusha.gui
                     (DropDownMenuOwner as ScrollableTextBox).DropDownMenu = null;
                 }
             }
-
-            if (GuiManager.ActiveDropDownMenu == DropDownMenuOwner.Name)
-                GuiManager.ActiveDropDownMenu = "";
         }
 
         public override void OnDispose()
         {
-            if(GuiManager.ActiveDropDownMenu == Name)
-                GuiManager.ActiveDropDownMenu = "";
+            MenuItems.Clear();
 
-            base.OnDispose();
+            if (GuiManager.ActiveDropDownMenu == this)
+                GuiManager.ActiveDropDownMenu = null;
+
+                base.OnDispose();
         }
     }
 }

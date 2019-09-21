@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/footstep_dirt.wav</SourceFile>
+  <SourceTime>2019-09-11T12:26:31.1664547+02:00</SourceTime>
+  <DestFile>C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/GUISounds/footstep_dirt.xnb</DestFile>
+  <DestTime>2019-09-11T12:28:29.4891803+02:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2018-12-08T17:35:54+01:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

@@ -24,6 +24,7 @@ namespace Yuusha
         private static int m_height;
         private static string m_title;
         private static UserSettings m_userSettings = new UserSettings();
+        private static ServerSettings m_serverSettings = new ServerSettings();
         private static ClientSettings m_clientSettings = new ClientSettings();
         private static int m_preferredWindowWidth = 1280;
         private static int m_preferredWindowHeight = 720;
@@ -50,6 +51,10 @@ namespace Yuusha
         public static UserSettings UserSettings
         {
             get { return m_userSettings; }
+        }
+        public static ServerSettings ServerSettings
+        {
+            get { return m_serverSettings; }
         }
         public static ClientSettings ClientSettings
         {
@@ -234,6 +239,7 @@ namespace Yuusha
             //m_gameState = Enums.EGameState.Splash;
             m_preferredWindowWidth = 1024;
             m_preferredWindowHeight = 768;
+            //m_isFullScreen = true;
             m_isFullScreen = UserSettings.FullScreen;
 
             Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
@@ -352,6 +358,7 @@ namespace Yuusha
             {
                 Character.Settings.Save();
                 Character.FogOfWarSettings.Save();
+                //Character.GUIPositionSettings.Save();
             }
 
             // register disconnect event
@@ -369,7 +376,7 @@ namespace Yuusha
 
         public void ToggleFullScreen()
         {
-            if(Client.IsFullScreen && Client.GameState == Enums.EGameState.HotButtonEditMode)
+            if(IsFullScreen && GameState == Enums.EGameState.HotButtonEditMode)
             {
                 TextCue.AddClientInfoTextCue("Please exit Hot Button Edit Mode before switching from full screen.",
                     TextCue.TextCueTag.None, Color.Red, Color.Black, 255, 2000, false, false, true);
@@ -422,6 +429,9 @@ namespace Yuusha
 
             OnClientResize();
 
+            //if (GameState.ToString().EndsWith("Game") && Character.CurrentCharacter != null && Character.GUIPositionSettings != null)
+            //    Character.GUIPositionSettings.OnLoad();
+
             // to correct issue with top 20 pixels inaccessible after first full screen toggle
             if (m_graphics.IsFullScreen && m_firstFullScreen)
             {
@@ -435,7 +445,7 @@ namespace Yuusha
 
         public static void OnClientResize()
         {
-            foreach (gui.Sheet sheet in gui.GuiManager.Sheets.Values)
+            foreach (Sheet sheet in GuiManager.Sheets.Values)
                 sheet.OnClientResize(m_prevClientBounds, m_nowClientBounds);
 
             // resize generic sheet

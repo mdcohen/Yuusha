@@ -26,11 +26,11 @@ namespace Yuusha.gui
 
         protected override void OnMouseDown(MouseState ms)
         {
-            if (Owner == "MapDisplayWindow")
+            if (!string.IsNullOrEmpty(Owner) && Owner == "MapDisplayWindow")
             {
                 if (!m_onMouseDownSent && ms.RightButton == ButtonState.Pressed)
                 {
-                    Int32.TryParse(Name.Replace("Tile", ""), out int num);
+                    int.TryParse(Name.Replace("Tile", ""), out int num);
 
                     if (GameHUD.Cells.Count >= num + 1)
                     {
@@ -115,20 +115,6 @@ namespace Yuusha.gui
                         m_visualKey = m_visuals[Enums.EControlState.Down];
 
                 }
-                else if (!m_onMouseDownSent && ms.LeftButton == ButtonState.Pressed)
-                {
-                    //string directionsToTile = GetMovementDirections();
-
-                    //if(!string.IsNullOrEmpty(directionsToTile))
-                    //    gui.TextCue.AddClientInfoTextCue(GetMovementDirections().ToUpper());
-
-                    //List<string> directionsToTile = new List<string>(GetMovementDirections().Split(" ".ToCharArray()));
-
-                    //foreach(string dir in directionsToTile)
-                    //{
-                    //    // get corresponding SpinelTileLabel and place footprints
-                    //}
-                }
             }
 
             base.OnMouseDown(ms);
@@ -158,22 +144,46 @@ namespace Yuusha.gui
                     IO.Send("d");
                     return;
                 }
-                else if(Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_UPSTAIRS)
+                else if (Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_UPSTAIRS)
                 {
                     IO.Send("u");
                     return;
                 }
-                else if(Name.EndsWith("24") && Character.CurrentCharacter.Cell.IsPortal)
+                else if (Name.EndsWith("24") && Character.CurrentCharacter.Cell.IsPortal)
                 {
                     IO.Send(TextManager.PORTAL_CHANT);
+                    return;
                 }
-                else if(CellsTouchingMe.Contains(Name.Replace("Tile", "")) && GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))].IsSearchable())
+                else if(Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_PIT)
+                {
+                    IO.Send("climb down");
+                    return;
+                }
+                //else if (Name.EndsWith("24") && (new XYCoordinate(Character.CurrentCharacter.X, Character.CurrentCharacter.Y) == GameHUD.AtClimbDown1H ||
+                //    new XYCoordinate(Character.CurrentCharacter.X, Character.CurrentCharacter.Y) == GameHUD.AtClimbDown2H))
+                //{
+                //    IO.Send("climb down");
+                //    return;
+                //}
+                //else if (Name.EndsWith("24") && (new XYCoordinate(Character.CurrentCharacter.X, Character.CurrentCharacter.Y) == GameHUD.AtClimbUp1H ||
+                //    new XYCoordinate(Character.CurrentCharacter.X, Character.CurrentCharacter.Y) == GameHUD.AtClimbUp2H))
+                //{
+                //    IO.Send("climb up");
+                //    return;
+                //}
+                else if (CellsTouchingMe.Contains(Name.Replace("Tile", "")) && GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))].IsSearchable())
                 {
                     IO.Send("search " + Map.GetDirection(GameHUD.Cells[24], GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))]));
                 }
                 // Work on searching for secret doors / rock passageways
                 else if (GetMovementDirections() is string directionsToSend && !string.IsNullOrEmpty(directionsToSend))
+                {
                     IO.Send(directionsToSend.TrimEnd());
+
+                    if (!Character.HasEffect("Hide in Shadows"))
+                        Audio.AudioManager.PlaySoundEffect("GUISounds/footstep_dirt");
+                    else Audio.AudioManager.PlaySoundEffect(Client.ClientSettings.DefaultOnClickSound);
+                }
             }
             catch (Exception e)
             {
@@ -182,17 +192,31 @@ namespace Yuusha.gui
             }
         }
 
-        private string GetMovementDirections()
+        protected string GetMovementDirections()
         {
             if (!Name.StartsWith("Tile") || GameHUD.Cells.Count < Convert.ToInt32(Name.Replace("Tile", "")) + 1)
                 return "";
 
             Cell moveToCell = GameHUD.Cells[Convert.ToInt32(Name.Replace("Tile", ""))];
 
-            if (moveToCell == null || !moveToCell.IsVisible || moveToCell.MovementWeight() >= 10000)
+            if (moveToCell == null || (!moveToCell.IsVisible && !Client.ClientSettings.AllowDoubleClickMovementToNonVisibleCells) || moveToCell.MovementWeight() >= 10000)
                 return "";
 
+            if(!moveToCell.IsVisible && Client.ClientSettings.AllowDoubleClickMovementToNonVisibleCells)
+            {
+                if (int.TryParse(Name.Replace("Tile", ""), out int index))
+                {
+                    moveToCell.xCord = Character.CurrentCharacter.Cell.xCord + Cell.CellCoordinates[index].Item1;
+                    moveToCell.yCord = Character.CurrentCharacter.Cell.yCord + Cell.CellCoordinates[index].Item2;
+                }
+                else return "";
+            }
+
             XYCoordinate currXY = new XYCoordinate(Character.CurrentCharacter.X, Character.CurrentCharacter.Y);
+            //if(GameHUD.MovementChoices.Count > 0)
+            //{
+
+            //}
             XYCoordinate destXY = new XYCoordinate(moveToCell.xCord, moveToCell.yCord);
             string directionsToSend = "";
             bool destinationReached = false;
@@ -277,7 +301,10 @@ namespace Yuusha.gui
                         }
 
                         if (direction != "" && weight == 0)
+                        {
+                            GameHUD.MovementChoices.Add(check);
                             break;
+                        }
                     }
                 }
 

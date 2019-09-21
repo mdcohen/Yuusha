@@ -38,8 +38,20 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            Control owner = GuiManager.GetControl(m_owner);            
+            Control owner = GuiManager.GetControl(m_owner);
 
+            if (owner != null)
+            {
+                Point p = owner.Position;
+                m_topRectangle = new Rectangle(p.X, p.Y, owner.Width, m_borderWidth);
+                m_leftRectangle = new Rectangle(p.X, p.Y, m_borderWidth, owner.Height);
+                m_rightRectangle = new Rectangle(p.X + owner.Width - m_borderWidth, p.Y, m_borderWidth, owner.Height);
+                m_bottomRectangle = new Rectangle(p.X, p.Y + owner.Height - m_borderWidth, owner.Width, m_borderWidth);
+            }
+        }
+
+        public void ManuallySetRectangles(Control owner)
+        {
             if (owner != null)
             {
                 Point p = owner.Position;
@@ -55,7 +67,7 @@ namespace Yuusha.gui
             if (!m_visible)
                 return;
 
-            if (m_visualKey != null && m_visualKey.Key != "")
+            if (m_visualKey != null && !string.IsNullOrEmpty(m_visualKey.Key))
             {
                 if (!GuiManager.Visuals.ContainsKey(m_visualKey.Key))
                 {

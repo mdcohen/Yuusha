@@ -42,17 +42,6 @@ namespace Yuusha.gui
             return base.OnKeyDown(ks);
         }
 
-        protected override bool OnKeyRelease(KeyboardState ks)
-        {
-            //if(!ks.IsKeyDown(Keys.LeftControl) || !ks.IsKeyDown(Keys.V))
-            //{
-            //    IconSelectionButtonTextVisible = false;
-            //    return true;
-            //}
-
-            return base.OnKeyRelease(ks);
-        }
-
         public void CreateIconSelectionButtons()
         {
             foreach (Control c in new System.Collections.Concurrent.ConcurrentBag<Control>(Controls))
@@ -119,9 +108,15 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            foreach (Control control in new List<Control>(m_controls))
+            {
+                //if (!m_cropped || (control is WindowControlBox) || (control is WindowTitle))
+                //    control.IsDisabled = m_disabled; // disabled
 
-            if(IconSelectionButtonTextVisible)
+                control.Update(gameTime);
+            }
+
+            if (IconSelectionButtonTextVisible)
             {
                 foreach(Control c in Controls)
                 {
@@ -176,16 +171,5 @@ namespace Yuusha.gui
                 }
             }
         }
-
-        //public override void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
-        //{
-        //    base.OnClientResize(prev, now, false);
-            
-
-        //    //base.OnClientResize(prev, now, ownerOverride);
-
-        //    //IconSelectionButtonsCreated = false;
-        //    //CreateIconSelectionButtons();
-        //}
     }
 }

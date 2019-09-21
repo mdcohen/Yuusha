@@ -365,7 +365,7 @@ namespace Yuusha.gui
                     continue;
 
                 // Always stop dragging if the left mouse button is not pressed.
-                if (GuiManager.Dragging && ms.LeftButton != ButtonState.Pressed)
+                if (GuiManager.IsDragging && ms.LeftButton != ButtonState.Pressed)
                     GuiManager.StopDragging();
 
                 //// Always stop dragging if the mouse pointer is not positioned in the dragged control.
@@ -375,7 +375,7 @@ namespace Yuusha.gui
                 int numControls = m_controls.Count;
 
                 // not dragging or control is a window and mouse was handled by control
-                if ((!GuiManager.Dragging || (m_controls[i] is Window)) && m_controls[i].MouseHandler(ms))
+                if ((!GuiManager.IsDragging || (m_controls[i] is Window)) && m_controls[i].MouseHandler(ms))
                 {
                     if (numControls != m_controls.Count)
                     {
@@ -555,10 +555,24 @@ namespace Yuusha.gui
             // control does not have an owner (Window), find highest z depth
             if (c.Owner == "")
             {
+                if(c is PopUpWindow)
+                {
+                    if (GuiManager.PopUpWindow != null) GuiManager.PopUpWindow.OnClose();
+                    GuiManager.PopUpWindow = c as PopUpWindow;
+                }
+
                 if(m_controls.Exists(ct => ct.Name == c.Name))
                 {
-                    Utils.Log("Attempted to add same Control [" + c.Name + "] to Sheet [" + Name + "].");
+                    if(!c.Name.EndsWith("SpellEffectLabel") && !c.Name.StartsWith("-")) // SpellEffectLabels come in rapidly sometimes. They use GameTime as a Name, however still doesn't give them a unique name.
+                        Utils.Log("Attempted to add same Control [" + c.Name + "] to Sheet [" + Name + "].");
+
                     return;
+                }
+
+                if(c is Window && Character.CurrentCharacter != null && Character.GUIPositionSettings != null && Character.GUIPositionSettings.GUIPositionsContains(c, out int index))
+                {
+                    c.Position = new Point(Character.GUIPositionSettings.GUIPositions[index].Coordinates.X, Character.GUIPositionSettings.GUIPositions[index].Coordinates.Y);
+                    //TODO width and height
                 }
 
                 if (m_controls.Count > 0)
@@ -638,7 +652,8 @@ namespace Yuusha.gui
                         {
                             (owner as DragAndDropButton).Border = c as Border;
                             (owner as DragAndDropButton).OriginalBorderColor = c.TintColor;
-                            (owner as DragAndDropButton).HasOriginalBorderColor = true;
+                            (owner as DragAndDropButton).OriginalBorderWidth = c.Width;
+                            (owner as DragAndDropButton).HasOriginalBorder = true;
                         }
 
                         if (c is DropDownMenu)

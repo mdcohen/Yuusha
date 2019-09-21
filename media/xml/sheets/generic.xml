@@ -934,8 +934,8 @@ available in any game state. -->
 
       <Control
        Type="Label"
-       Text="Delete"
-       Name="OptionsNumPadDeleteLabel"
+       Text="Num Pad ."
+       Name="OptionsNumPadDecimalTextBoxLabel"
        Owner="SecondTabOptionsWindow"
        X="4"
        Y="181"
@@ -949,7 +949,7 @@ available in any game state. -->
       <Control
         Type="TextBox"
         Text=""
-        Name="OptionsNumPadDeleteTextBox"
+        Name="OptionsNumPadDecimalTextBox"
         Owner="SecondTabOptionsWindow"
         X="83"
         Y="180"
@@ -973,8 +973,8 @@ available in any game state. -->
       </Control>
       <Control
         Type="SquareBorder"
-        Name="OptionsNumPadDeleteTextBoxBorder"
-        Owner="OptionsNumPadDeleteTextBox"
+        Name="OptionsNumPadDecimalTextBoxBorder"
+        Owner="OptionsNumPadDecimalTextBox"
         Width="1"
         VisualKey="WhiteSpace"
         VisualAlpha="255"
@@ -1631,10 +1631,10 @@ available in any game state. -->
     <Control
       Type="Window"
       Name="HelpWindow"
-      X="100"
-      Y="50"
+      X="250"
+      Y="100"
       Width="510"
-      Height="364"
+      Height="514"
       IsVisible="false"
       IsLocked="false"
       Font="courier12"
@@ -1651,18 +1651,19 @@ available in any game state. -->
       Type="WindowTitle"
       Name="HelpWindowTitle"
       Owner="HelpWindow"
-      Font="courier12"
-      TintColor="White"
-      VisualKey="GreenWeave"
+      Font="lemon12"
+      TintColor="DimGray"
+      VisualKey="WhiteSpace"
       VisualTiled="false"
       CloseBoxVisualKey="WindowCloseBox"
       CloseBoxVisualKeyDown="WindowCloseBoxDown"
-      CloseBoxDistanceFromRight="14"
+      CloseBoxDistanceFromRight="18"
       CloseBoxDistanceFromTop="3"
-      CloseBoxWidth="12"
-      CloseBoxHeight="12"
-      Text=""
-      TextColor="OldLace"
+      CloseBoxWidth="16"
+      CloseBoxHeight="16"
+      Height = "21"
+      Text="Help"
+      TextColor="PaleGreen"
       TextAlignment="Center">
     </Control>
 
@@ -1671,9 +1672,9 @@ available in any game state. -->
       Type="SquareBorder"
       Name="HelpWindowBorder"
       Owner="HelpWindow"
-      Width="2"
+      Width="1"
       VisualKey="WhiteSpace"
-      TintColor="DarkMagenta">
+      TintColor="DimGray">
     </Control>
 
     <!-- Help Window Scrollable Text Box -->
@@ -1684,7 +1685,7 @@ available in any game state. -->
       X="4"
       Y="22"
       Width="500"
-      Height="300"
+      Height="493"
       XTextOffset="0"
       YTextOffset="0"
       TextColor="White"
@@ -1709,7 +1710,7 @@ available in any game state. -->
       Name="MacrosWindow"
       X="250"
       Y="60"
-      Width="600"
+      Width="610"
       Height="428"
       IsVisible="false"
       IsLocked="false"
@@ -1759,7 +1760,7 @@ available in any game state. -->
       CropBoxHeight="17"
       CropBoxTintColor="LightSteelBlue"
       Text="Server Macros"
-      TextColor="MidnightBlue"
+      TextColor="PaleGreen"
       TextAlignment="Center">
     </Control>
     <!-- Macros Window Border -->
@@ -1792,7 +1793,7 @@ available in any game state. -->
       Text=""
       Name="Macro0Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="20"
       Width="575"
       Height="18"
@@ -1824,7 +1825,7 @@ available in any game state. -->
       Text=""
       Name="Macro1Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="40"
       Width="575"
       Height="18"
@@ -1856,7 +1857,7 @@ available in any game state. -->
       Text=""
       Name="Macro2Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="60"
       Width="575"
       Height="18"
@@ -1888,7 +1889,7 @@ available in any game state. -->
       Text=""
       Name="Macro3Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="80"
       Width="575"
       Height="18"
@@ -1920,7 +1921,7 @@ available in any game state. -->
       Text=""
       Name="Macro4Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="100"
       Width="575"
       Height="18"
@@ -1952,7 +1953,7 @@ available in any game state. -->
       Text=""
       Name="Macro5Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="120"
       Width="575"
       Height="18"
@@ -1984,7 +1985,7 @@ available in any game state. -->
       Text=""
       Name="Macro6Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="140"
       Width="575"
       Height="18"
@@ -2016,7 +2017,7 @@ available in any game state. -->
       Text=""
       Name="Macro7Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="160"
       Width="575"
       Height="18"
@@ -2048,7 +2049,7 @@ available in any game state. -->
       Text=""
       Name="Macro8Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="180"
       Width="575"
       Height="18"
@@ -2080,7 +2081,7 @@ available in any game state. -->
       Text=""
       Name="Macro9Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="200"
       Width="575"
       Height="18"
@@ -2112,7 +2113,7 @@ available in any game state. -->
       Text=""
       Name="Macro10Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="220"
       Width="575"
       Height="18"
@@ -2144,7 +2145,7 @@ available in any game state. -->
       Text=""
       Name="Macro11Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="240"
       Width="575"
       Height="18"
@@ -2176,7 +2177,7 @@ available in any game state. -->
       Text=""
       Name="Macro12Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="260"
       Width="575"
       Height="18"
@@ -2208,7 +2209,7 @@ available in any game state. -->
       Text=""
       Name="Macro13Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="280"
       Width="575"
       Height="18"
@@ -2240,7 +2241,7 @@ available in any game state. -->
       Text=""
       Name="Macro14Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="300"
       Width="575"
       Height="18"
@@ -2272,7 +2273,7 @@ available in any game state. -->
       Text=""
       Name="Macro15Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="320"
       Width="575"
       Height="18"
@@ -2304,7 +2305,7 @@ available in any game state. -->
       Text=""
       Name="Macro16Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="340"
       Width="575"
       Height="18"
@@ -2336,7 +2337,7 @@ available in any game state. -->
       Text=""
       Name="Macro17Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="360"
       Width="575"
       Height="18"
@@ -2368,7 +2369,7 @@ available in any game state. -->
       Text=""
       Name="Macro18Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="380"
       Width="575"
       Height="18"
@@ -2400,7 +2401,7 @@ available in any game state. -->
       Text=""
       Name="Macro19Button"
       Owner="MacrosWindow"
-      X="33"
+      X="35"
       Y="400"
       Width="575"
       Height="18"
@@ -3086,6 +3087,7 @@ available in any game state. -->
       Text="">
     </Control>
 
+    <!-- Window Size Adjustment Button -->
     <Control
       Type="Button"
       Text=""
@@ -3105,7 +3107,7 @@ available in any game state. -->
       VisualKeyDown="EmptyCircleReverseIcon"
       VisualKeyOver=""
       VisualKeyDisabled=""
-      TintColor="DimGray"
+      TintColor="SteelBlue"
       TintOverColor="DarkMagenta"
       VisualAlpha="255"
       OnMouseDown="HotButtonWindow_Decrease_Size"
@@ -3118,6 +3120,7 @@ available in any game state. -->
       ShadowDirection="Northwest">
     </Control>
 
+    <!-- Window Size Adjustment Button -->
     <Control
       Type="Button"
       Text=""
@@ -3137,7 +3140,7 @@ available in any game state. -->
       VisualKeyDown="EmptyCircleReverseIcon"
       VisualKeyOver=""
       VisualKeyDisabled=""
-      TintColor="DimGray"
+      TintColor="SteelBlue"
       TintOverColor="PaleGreen"
       VisualAlpha="255"
       OnMouseDown="HotButtonWindow_Increase_Size"
@@ -4027,7 +4030,8 @@ available in any game state. -->
   IsVisible="true"
   IsLocked="true"
   Font="courier12"
-  TextAlignment="Center">
+  TextAlignment="Center"
+  AcceptingDroppedButtons="true">
   </Control>
   <!-- LeftRing2 -->
   <Control
@@ -4044,7 +4048,8 @@ available in any game state. -->
   IsVisible="true"
   IsLocked="true"
   Font="courier12"
-  TextAlignment="Center">
+  TextAlignment="Center"
+  AcceptingDroppedButtons="true">
   </Control>
   <!-- LeftRing3 -->
   <Control
@@ -4061,7 +4066,8 @@ available in any game state. -->
   IsVisible="true"
   IsLocked="true"
   Font="courier12"
-  TextAlignment="Center">
+  TextAlignment="Center"
+  AcceptingDroppedButtons="true">
   </Control>
   <!-- LeftRing4 -->
   <Control
@@ -4078,7 +4084,8 @@ available in any game state. -->
   IsVisible="true"
   IsLocked="true"
   Font="courier12"
-  TextAlignment="Center">
+  TextAlignment="Center"
+  AcceptingDroppedButtons="true">
   </Control>
 
     <!-- RightRing1 -->
@@ -4096,7 +4103,8 @@ available in any game state. -->
   IsVisible="true"
   IsLocked="true"
   Font="courier12"
-  TextAlignment="Center">
+  TextAlignment="Center"
+  AcceptingDroppedButtons="true">
   </Control>
   <!-- RightRing2 -->
   <Control
@@ -4113,7 +4121,8 @@ available in any game state. -->
   IsVisible="true"
   IsLocked="true"
   Font="courier12"
-  TextAlignment="Center">
+  TextAlignment="Center"
+  AcceptingDroppedButtons="true">
   </Control>
   <!-- RightRing3 -->
   <Control
@@ -4130,7 +4139,8 @@ available in any game state. -->
   IsVisible="true"
   IsLocked="true"
   Font="courier12"
-  TextAlignment="Center">
+  TextAlignment="Center"
+  AcceptingDroppedButtons="true">
   </Control>
   <!-- RightRing4 -->
   <Control
@@ -4147,7 +4157,8 @@ available in any game state. -->
   IsVisible="true"
   IsLocked="true"
   Font="courier12"
-  TextAlignment="Center">
+  TextAlignment="Center"
+  AcceptingDroppedButtons="true">
   </Control>
   </RingsWindow>
 
@@ -4155,9 +4166,9 @@ available in any game state. -->
     <Control
       Type="AutoHidingWindow"
       Name="HelperAutoHidingWindow"
-      X="884"
+      X="852"
       Y="5"
-      Width="140"
+      Width="163"
       Height="30"
       IsVisible="true"
       IsLocked="true"
@@ -4174,11 +4185,32 @@ available in any game state. -->
       FadeSpeed="5">
     </Control>
     <Control
+      Type="Button"
+      Text=""
+      Name="HelperFogOfWarButton"
+      Owner="HelperAutoHidingWindow"
+      X="0"
+      Y="0"
+      Width="30"
+      Height="30"
+      VisualKey="MapIcon"
+      TintColor="MediumSeaGreen"
+      TextColor="Black"
+      TintOverColor="PaleGreen"
+      TextVisible="false"
+      IsVisible="false"
+      Font="courier12"
+      TextAlignment="Left"
+      TextOverColor="SlateGray"
+      OnMouseDown="toggle_fogofwar"
+      PopUpText="Fog of War">
+    </Control>
+    <Control
 		Type="Button"
 		Text=""
 		Name="HelperConferenceButton"
     Owner="HelperAutoHidingWindow"
-		X="0"
+		X="32"
 		Y="0"
 		Width="30"
 		Height="30"
@@ -4203,7 +4235,7 @@ available in any game state. -->
 		Text=""
 		Name="HelperMailButton"
     Owner="HelperAutoHidingWindow"
-		X="35"
+		X="67"
 		Y="0"
 		Width="30"
 		Height="30"
@@ -4227,7 +4259,7 @@ available in any game state. -->
 		Text=""
 		Name="HelperToggleMusicButton"
     Owner="HelperAutoHidingWindow"
-		X="70"
+		X="102"
 		Y="0"
 		Width="30"
 		Height="30"
@@ -4251,7 +4283,7 @@ available in any game state. -->
       Text=""
       Name="HelperToggleFullScreenButton"
       Owner="HelperAutoHidingWindow"
-      X="105"
+      X="137"
       Y="0"
       Width="30"
       Height="30"
@@ -4270,6 +4302,8 @@ available in any game state. -->
       ShadowDirection="Northeast"
       PopUpText="Toggle Fullscreen">
     </Control>
+  
+  
   </HelperWindow>
 
   <LogoWindow>

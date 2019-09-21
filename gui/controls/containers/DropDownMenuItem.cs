@@ -107,15 +107,12 @@ namespace Yuusha.gui
             if(!m_disabled)
                 TextColor = Client.ClientSettings.ColorDropDownMenuItemText;
 
-            if (GuiManager.ActiveDropDownMenu == Owner)
-                GuiManager.ActiveDropDownMenu = "";
-
             base.OnMouseLeave(ms);
         }
 
         protected override void OnMouseDown(MouseState ms)
         {
-            if (m_disabled)
+            if (IsDisabled)
                 return;
 
             if (!MouseDownSent && ms.LeftButton == ButtonState.Pressed)
@@ -127,7 +124,7 @@ namespace Yuusha.gui
                     Events.RegisterEvent((Events.EventName)Enum.Parse(typeof(Events.EventName), m_onMouseDown, true), this);
                     MouseDownSent = true;
                     DropDownMenu.IsVisible = false;
-                    GuiManager.ActiveDropDownMenu = "";
+                    if (GuiManager.ActiveDropDownMenu == DropDownMenu) GuiManager.ActiveDropDownMenu = null;
                 }
 
                 if(DropDownMenu != null)
@@ -142,20 +139,21 @@ namespace Yuusha.gui
                                 dButton.GridBoxUpdateRequests.Clear();                               
                             }
 
-                            GridBoxWindow.GridBoxPurpose p = (GuiManager.GetControl(DropDownMenu.DropDownMenuOwner.Owner) as GridBoxWindow).GridBoxPurposeType;
-                            GridBoxWindow.RequestUpdateFromServer(p);
-                            //Utils.Log("Sent GridBoxWindow.RequestUpdateFromServer for " + p.ToString());
+                            if (!string.IsNullOrEmpty(Text) && !Text.ToLower().StartsWith("look")) // request an update if we did anything but look at an item
+                            {
+                                GridBoxWindow.GridBoxPurpose p = (GuiManager.GetControl(DropDownMenu.DropDownMenuOwner.Owner) as GridBoxWindow).GridBoxPurposeType;
+                                GridBoxWindow.RequestUpdateFromServer(p);
+                            }
                         }
                         // otherwise Inventory
                     }
 
                     DropDownMenu.IsVisible = false;
-                    GuiManager.ActiveDropDownMenu = "";
-                    //DropDownMenu = null;
+                    if(GuiManager.ActiveDropDownMenu == DropDownMenu) GuiManager.ActiveDropDownMenu = null;
                 }
 
                 if (DropDownMenu != null)
-                    GuiManager.Dispose(DropDownMenu);
+                    DropDownMenu.OnDispose();
 
                 base.OnMouseDown(ms);
             }
@@ -163,15 +161,11 @@ namespace Yuusha.gui
 
         protected override void OnMouseRelease(MouseState ms)
         {
-            // this is likely never called as DropDownMenus are nulled upon click of DropDownMenuItem
-
             if (m_disabled)
                 return;
 
+            GuiManager.AwaitMouseButtonRelease = false;
             MouseDownSent = false;
-
-            if(GuiManager.ActiveDropDownMenu == Owner)
-                GuiManager.ActiveDropDownMenu = "";
         }
     }
 }

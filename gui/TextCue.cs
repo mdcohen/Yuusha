@@ -384,6 +384,40 @@ namespace Yuusha.gui
             AddClientInfoTextCue(text, TextCueTag.None, foreColor, backgroundColor, 255, lifeCycle, false, false, true);
         }
 
+        public static void AddClientInfoTextCue(string text, Color foreColor, Color backgroundColor, string font, double lifeCycle)
+        {
+            int x = 0;
+            int y = 0;
+            bool centered = false;
+
+            switch (Client.GameState)
+            {
+                case Enums.EGameState.IOKGame:
+                case Enums.EGameState.SpinelGame:
+                    x = 10;
+                    y = Client.Height - Convert.ToInt32(BitmapFont.ActiveFonts[GuiManager.CurrentSheet.Font].LineHeight * 1.25);
+                    break;
+                default:
+                    centered = true;
+                    break;
+            }
+
+            TextCue tc = new TextCue(text, x, y, 255, foreColor, backgroundColor, 255, font, lifeCycle, true, 2, Map.Direction.None, centered, false, false, TextCueTag.None);
+
+            //if (fadeIn) tc.m_alpha = 40;
+
+            // disable multiple text cues for the time being
+            //if (GuiManager.TextCues.Count >= 50)
+            //    GuiManager.TextCues.RemoveAt(0);
+
+            // only one text cure allowed?? this should be changed
+            if (!centered)
+                GuiManager.TextCues.Clear();
+
+            if (!GuiManager.ContainsTextCue(tc))
+                GuiManager.TextCues.Add(tc);
+        }
+
         public static void AddClientInfoTextCue(string text, TextCueTag tag, Color color, Color backgroundColor, byte backgroundAlpha, double lifeCycle, bool fadeIn, bool fadeOut, bool addOnce)
         {
             if (addOnce && GuiManager.TextCues.Find(cue => cue.Text == text) != null)
@@ -405,7 +439,7 @@ namespace Yuusha.gui
                     break;
             }
 
-            TextCue tc = new TextCue(text, x, y, (!fadeIn ? (byte)255 : (byte)40), color, backgroundColor, backgroundAlpha, GuiManager.CurrentSheet.Font, lifeCycle,
+            TextCue tc = new TextCue(text, x, y, !fadeIn ? (byte)255 : (byte)40, color, backgroundColor, backgroundAlpha, GuiManager.CurrentSheet.Font, lifeCycle,
                 true, 2, Map.Direction.None, centered, fadeIn, fadeOut, tag);
 
             if (fadeIn) tc.m_alpha = 40;

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.IO;
 
@@ -12,20 +11,20 @@ namespace Yuusha.Utility.Settings
         public string DoubleLeftClickDistantTarget = "belt shield;throw hammer at %t";
         // Keys used if NumLock is enabled.
         public string NumLock0 = "search all;scoop coins";
-        public string NumLock1 = "sw";
-        public string NumLock2 = "s";
-        public string NumLock3 = "se";
-        public string NumLock4 = "w";
+        public string NumLock1 = "sw ";
+        public string NumLock2 = "s ";
+        public string NumLock3 = "se ";
+        public string NumLock4 = "w ";
         public string NumLock5 = ";";
-        public string NumLock6 = "e";
-        public string NumLock7 = "nw";
-        public string NumLock8 = "n";
-        public string NumLock9 = "ne";
+        public string NumLock6 = "e ";
+        public string NumLock7 = "nw ";
+        public string NumLock8 = "n ";
+        public string NumLock9 = "ne ";
         public string NumPadDivide = "search all;scoop all gems";
         public string NumPadMultiply = "belt left;remove ring";
         public string NumPadSubtract = "belt left;remove 2 ring from right";
         public string NumPadAdd = "look in sack;quaff";
-        public string NumPadDelete = TextManager.PORTAL_CHANT;
+        public string NumPadDecimal = TextManager.PORTAL_CHANT;
 
         public string FunctionKey1 = "";
         public string FunctionKey2 = "";

@@ -9,7 +9,7 @@
     <ProjectGuid>{CCC37791-9FBE-4C44-AAC6-B1F6B2FDE9C1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YuushaMG</RootNamespace>
+    <RootNamespace>Yuusha</RootNamespace>
     <AssemblyName>DragonsSpine</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
@@ -109,7 +109,6 @@
     <Compile Include="game classes\Effect.cs" />
     <Compile Include="game classes\Item.cs" />
     <Compile Include="game classes\Land.cs" />
-    <Compile Include="game classes\LOKMap.cs" />
     <Compile Include="game classes\Lore.cs" />
     <Compile Include="game classes\Mail.cs" />
     <Compile Include="game classes\Map.cs" />
@@ -163,7 +162,7 @@
     <Compile Include="gui\controls\windows\SpellWarmingWindow.cs" />
     <Compile Include="gui\controls\windows\MessageWindow.cs" />
     <Compile Include="gui\controls\windows\HotButtonEditWindow.cs" />
-    <Compile Include="gui\controls\windows\MapWindow.cs" />
+    <Compile Include="gui\controls\windows\FogOfWarWindow.cs" />
     <Compile Include="gui\controls\windows\PrivateMessageWindow.cs" />
     <Compile Include="gui\controls\windows\TalentsWindow.cs" />
     <Compile Include="gui\controls\windows\Window.cs" />
@@ -202,6 +201,8 @@
     <Compile Include="utility\settings\CharacterSettings.cs" />
     <Compile Include="utility\settings\ClientSettings.cs" />
     <Compile Include="utility\settings\FogOfWarSettings.cs" />
+    <Compile Include="utility\settings\GUIPositionSettings.cs" />
+    <Compile Include="utility\settings\ServerSettings.cs" />
     <Compile Include="utility\settings\StaticSettings.cs" />
     <Compile Include="utility\settings\UserSettings.cs" />
     <Compile Include="audio\AudioManager.cs" />
@@ -592,12 +593,6 @@
     <Content Include="media\xml\sheets\login.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="media\xml\sheets\lokgame.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="media\xml\sheets\lokmapeditor.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\xml\sheets\menu.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

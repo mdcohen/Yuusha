@@ -452,7 +452,7 @@ namespace Yuusha.gui
                             pressedKeys = newKeys;
                             return false;
                         }
-                        else if (!Char.IsLetterOrDigit(k.ToString(), 0) && !Char.IsPunctuation(k.ToString(), 0))
+                        else if (!char.IsLetterOrDigit(k.ToString(), 0) && !char.IsPunctuation(k.ToString(), 0))
                         {
                             // do nothing
                             Utils.Log("Do nothing for this key: " + k.ToString());
@@ -460,11 +460,7 @@ namespace Yuusha.gui
                         #endregion
                         else
                         {
-                            if (!string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
-                                return false;
-
-                            // eliminate F (function) keys
-                            if (k.ToString().StartsWith("F") && k.ToString().Length > 1)
+                            if (GuiManager.ActiveDropDownMenu != null)
                                 return false;
 
                             if (k.ToString().ToLower().StartsWith("oem"))
@@ -541,57 +537,9 @@ namespace Yuusha.gui
 
                                 if (!shiftPressed && !controlPressed && !altPressed)
                                 {
-                                    if (Name == Globals.GAMEINPUTTEXTBOX && numLock) // overrides for numpad keys in a game input text box
-                                    {
-                                        #region NumLock and Number Pad Keys
-                                        switch (k)
-                                        {
-                                            case Keys.NumPad1:
-                                                textToAdd = Character.Settings.NumLock1 + " ";
-                                                break;
-                                            case Keys.NumPad2:
-                                                textToAdd = Character.Settings.NumLock2 + " ";
-                                                break;
-                                            case Keys.NumPad3:
-                                                textToAdd = Character.Settings.NumLock3 + " ";
-                                                break;
-                                            case Keys.NumPad4:
-                                                textToAdd = Character.Settings.NumLock4 + " ";
-                                                break;
-                                            case Keys.NumPad5:
-                                                textToAdd = Character.Settings.NumLock5 + " ";
-                                                break;
-                                            case Keys.NumPad6:
-                                                textToAdd = Character.Settings.NumLock6 + " ";
-                                                break;
-                                            case Keys.NumPad7:
-                                                textToAdd = Character.Settings.NumLock7 + " ";
-                                                break;
-                                            case Keys.NumPad8:
-                                                textToAdd = Character.Settings.NumLock8 + " ";
-                                                break;
-                                            case Keys.NumPad9:
-                                                textToAdd = Character.Settings.NumLock9 + " ";
-                                                break;
-                                            case Keys.Divide:
-                                                textToAdd = Character.Settings.NumPadDivide + " ";
-                                                break;
-                                            case Keys.Multiply:
-                                                textToAdd = Character.Settings.NumPadMultiply + " ";
-                                                break;
-                                            case Keys.Subtract:
-                                                textToAdd = Character.Settings.NumPadSubtract + " ";
-                                                break;
-                                            case Keys.Add:
-                                                textToAdd = Character.Settings.NumPadAdd + " ";
-                                                break;
-                                            case Keys.Delete:
-                                                textToAdd = Character.Settings.NumPadDelete + " ";
-                                                break;
-                                        }
-                                        #endregion
-                                    }
-                                    else if(Name == Globals.GAMEINPUTTEXTBOX && FunctionKeys.Contains(k))
+                                    bool gameOrConf = Client.GameState == Enums.EGameState.Conference || Client.GameState.ToString().EndsWith("Game");
+
+                                    if (gameOrConf && Name == Globals.GAMEINPUTTEXTBOX && FunctionKeys.Contains(k))
                                     {
                                         switch(k)
                                         {
@@ -632,27 +580,85 @@ namespace Yuusha.gui
                                                 textToAdd = Character.Settings.FunctionKey12;
                                                 break;
                                         }
+
+                                        if (textToAdd.EndsWith(TextManager.AUTO_SEND_TEXT))
+                                        {
+                                            textToAdd = textToAdd.Substring(0, textToAdd.Length - 1);
+                                            IO.Send(textToAdd);
+                                        }
                                     }
-                                    else if (k.ToString().StartsWith("NumPad")) // text is numbers
+                                    else if (gameOrConf && k.ToString().StartsWith("NumPad")) // text is numbers
                                     {
-                                        textToAdd = k.ToString().Substring(k.ToString().Length - 1, 1);
+                                        switch(k)
+                                        {
+                                            case Keys.NumPad0:
+                                                textToAdd = Character.Settings.NumLock0;
+                                                break;
+                                            case Keys.NumPad1:
+                                                textToAdd = Character.Settings.NumLock1;
+                                                break;
+                                            case Keys.NumPad2:
+                                                textToAdd = Character.Settings.NumLock2;
+                                                break;
+                                            case Keys.NumPad3:
+                                                textToAdd = Character.Settings.NumLock3;
+                                                break;
+                                            case Keys.NumPad4:
+                                                textToAdd = Character.Settings.NumLock4;
+                                                break;
+                                            case Keys.NumPad5:
+                                                textToAdd = Character.Settings.NumLock5;
+                                                break;
+                                            case Keys.NumPad6:
+                                                textToAdd = Character.Settings.NumLock6;
+                                                break;
+                                            case Keys.NumPad7:
+                                                textToAdd = Character.Settings.NumLock7;
+                                                break;
+                                            case Keys.NumPad8:
+                                                textToAdd = Character.Settings.NumLock8;
+                                                break;
+                                            case Keys.NumPad9:
+                                                textToAdd = Character.Settings.NumLock9;
+                                                break;
+                                        }
+
+                                        if(textToAdd.EndsWith(TextManager.AUTO_SEND_TEXT))
+                                        {
+                                            textToAdd = textToAdd.Substring(0, textToAdd.Length - 1);
+                                            IO.Send(textToAdd);
+                                        }
                                     }
                                     else
                                     {
-                                        switch (k)
+                                        if (gameOrConf)
                                         {
-                                            case Keys.Multiply:
-                                                textToAdd = "*";
-                                                break;
-                                            case Keys.Divide:
-                                                textToAdd = "/";
-                                                break;
-                                            case Keys.Subtract:
-                                                textToAdd = "-";
-                                                break;
-                                            case Keys.Decimal:
-                                                textToAdd = ".";
-                                                break;
+                                            switch (k)
+                                            {
+                                                case Keys.Multiply:
+                                                    if (numLock)
+                                                        textToAdd = Character.Settings.NumPadMultiply;
+                                                    else textToAdd = "*";
+                                                    break;
+                                                case Keys.Divide:
+                                                    if (numLock) textToAdd = Character.Settings.NumPadDivide;
+                                                    else textToAdd = "/";
+                                                    break;
+                                                case Keys.Subtract:
+                                                    if (numLock) textToAdd = Character.Settings.NumPadSubtract;
+                                                    else textToAdd = "-";
+                                                    break;
+                                                case Keys.Decimal:
+                                                    if (numLock) textToAdd = Character.Settings.NumPadDecimal;
+                                                    else textToAdd = ".";
+                                                    break;
+                                            }
+
+                                            if (textToAdd.EndsWith(TextManager.AUTO_SEND_TEXT))
+                                            {
+                                                textToAdd = textToAdd.Substring(0, textToAdd.Length - 1);
+                                                IO.Send(textToAdd);
+                                            }
                                         }
                                     }
 
@@ -743,7 +749,7 @@ namespace Yuusha.gui
                                     if (textToAdd.Length > 0)
                                     {
                                         if (capsLock)
-                                            textToAdd = (shiftPressed ? textToAdd.ToLower() : textToAdd.ToUpper());
+                                            textToAdd = shiftPressed ? textToAdd.ToLower() : textToAdd.ToUpper();
 
                                         AddText(textToAdd);
                                     }
@@ -1021,10 +1027,9 @@ namespace Yuusha.gui
                                 Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
                         }
 
-                        DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
-                        {
-                            IsVisible = true,
-                        };
+                        // Uncomment below line to change border for this button while drop down menu is visible
+                        //Border = new SquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
+                        DropDownMenu.Border = new SquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
 
                         DropDownMenu.HasFocus = true;
                         int height = 0;

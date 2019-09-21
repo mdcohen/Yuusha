@@ -7,7 +7,25 @@ namespace Yuusha
     {
         public static Dictionary<string, string> IconsDictionary = new Dictionary<string, string>()
         {
-
+            {"Assassinate", "talent_assassinate" },
+            {"Backstab", "talent_backstab" },
+            {"Battle Charge", "talent_battlecharge" },
+            {"Blind Fighting", "talent_blindfighting" },
+            {"Cleave", "talent_cleave" },
+            {"DaggerStorm", "talent_daggerstorm" },
+            {"Double Attack", "talent_doubleattack" },
+            {"Dual Wield", "talent_dualwield" },
+            {"Flying Fury", "talent_flyingfury" },
+            {"Gage", "talent_gage" },
+            {"Leg Sweep", "talent_legsweep" },
+            {"Memorize", "talent_memorize" },
+            {"Peek", "talent_peek" },
+            {"Pick Locks", "talent_picklocks" },
+            {"Rapid Kicks", "talent_rapidkicks" },
+            {"Riposte", "talent_riposte" },
+            {"Roundhouse Kick", "talent_roundhousekick" },
+            {"Shield Bash", "talent_shieldbash" },
+            {"Steal", "talent_steal" },
         };
 
         /// <summary>
@@ -86,6 +104,38 @@ namespace Yuusha
             m_availableAtMentor = Convert.ToBoolean(talentInfo[7]);
             //m_downTime = 
             m_soundFile = talentInfo[8];
+        }
+
+        public static List<string> TalentsRequiringTargets = new List<string>()
+        {
+            "Assassinate",
+            "Backstab",
+            "Battle Charge",
+            "Cleave",
+            "DaggerStorm",
+            "Flying Fury",
+            "Gage",
+            "Leg Sweep",
+            "Peek",
+            "Rapid Kicks",
+            "Roundhouse Kick",
+            "Shield Bash",
+            "Steal",
+        };
+
+        public static List<string> TalentsRequiringInput = new List<string>()
+        {
+            "Memorize", "Pick Locks",
+        };
+
+        public static bool RequiresTarget(string talentName)
+        {
+            return TalentsRequiringTargets.Contains(talentName);
+        }
+
+        public static bool RequiresTextInput(string talentName)
+        {
+            return TalentsRequiringInput.Contains(talentName);
         }
     }
 }

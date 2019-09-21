@@ -10,6 +10,7 @@ namespace Yuusha
         public static string YOU_HAVE_BEEN_BLINDED = "You have been blinded!";
         public static string YOU_ARE_SCARED = "You are scared!";
         public static string PORTAL_CHANT = "ashtug ninda anghizidda arrflug";
+        public const string AUTO_SEND_TEXT = "^";
 
         public static List<string> MinorErrors = new List<string>()
         {
@@ -119,6 +120,7 @@ namespace Yuusha
             {" has worn off.", Color.SandyBrown },
             {"WHUMP! You are stunned!", Color.Orange },
             {"You fumble", Color.Orange },
+            {"You have forgotten your memorized spell chant!", Color.Bisque },
 
             // Gage messages
             {" appears far more experienced than you.", Color.Crimson },
@@ -154,6 +156,7 @@ namespace Yuusha
             str = str.Replace("wolves", "wolf");
             str = str.Replace("elves", "elf");
             str = str.Replace("lammasi", "lammasu");
+            str = str.Replace("llizardmens", "lizardmen");
 
             if (str.EndsWith("s"))
                 str = str.Substring(0, str.Length - 1);
@@ -161,7 +164,41 @@ namespace Yuusha
             return str;
         }
 
-        public static void CheckTextTriggers(string input)
+        public static void CheckAllTextTriggers(string input)
+        {
+            if(input.StartsWith("Your name has been changed to "))
+            {
+                try
+                {
+                    string newName = input.Replace("Your name has been changed to ", "");
+                    newName = newName.Substring(0, newName.Length - 1); // remove the period at the end
+
+                    //string fileName = Utils.GetCharacterFileName(Character.CurrentCharacter.Name);
+                    string dirName = Utils.StartupPath + Utils.AccountsFolder + Account.Name + "\\";
+
+                    if(System.IO.File.Exists(dirName + Utils.GetCharacterFileName(Character.CurrentCharacter.Name)))
+                        System.IO.File.Move(dirName + Utils.GetCharacterFileName(Character.CurrentCharacter.Name), dirName + Utils.GetCharacterFileName(newName));
+                    if (System.IO.File.Exists(dirName + "FoW-" + Utils.GetCharacterFileName(Character.CurrentCharacter.Name)))
+                        System.IO.File.Move(dirName + Utils.GetCharacterFogOfWarFileName(Character.CurrentCharacter.Name), dirName + Utils.GetCharacterFogOfWarFileName(newName));
+
+                    if (Character.CurrentCharacter != null)
+                    {
+                        foreach (Character chr in Account.Characters)
+                        {
+                            if (chr.Name == Character.CurrentCharacter.Name) chr.Name = newName;
+                        }
+
+                        Character.CurrentCharacter.Name = newName;
+                    }
+                }
+                catch(Exception e)
+                {
+                    Utils.LogException(e);
+                }
+            }
+        }
+
+        public static void CheckYuushaModeTextTriggers(string input)
         {
             try
             {
@@ -196,9 +233,16 @@ namespace Yuusha
                             w.OnClose();
                         }
                     }
+                } // WARNINGS TODO: Add these to a settings serializable collection for modification in options
+                else if (input.Equals("You have forgotten your memorized spell chant!") || input.Equals("You are no longer hidden!"))
+                {
+                    gui.TextCue.AddClientInfoTextCue(input, Color.Bisque, Color.Transparent, "lemon24", 3000);
                 }
                 else if (input.Equals("You fade into the shadows."))
+                {
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Hide in Shadows", Color.DarkViolet);
+                    Audio.AudioManager.PlaySoundEffect("KSND0285");
+                }
                 else if (input.Equals("You have been hit by a lightning bolt!"))
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Lightning Bolt", gui.SpellEffectLabel.DamageBorderColor);//gui.SpellEffectLabel.CreateSpellEffectLabel("Death", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.ToLower().Equals("you have been hit by magic missile!"))
@@ -217,6 +261,8 @@ namespace Yuusha
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Venom", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.Equals("You have been poisoned!"))
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Poison", gui.SpellEffectLabel.DamageBorderColor);
+                else if (input.Contains("They latch onto " + Character.CurrentCharacter.Name + " and pull"))
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Ghod's Hooks", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.StartsWith("Sage: "))
                 {
                     if (!input.ToLower().Contains("i do not know how to do that"))
@@ -277,17 +323,57 @@ namespace Yuusha
 
                     gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingTextFontList[ScalingTextFontList.Count - 1], gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.PaleGreen, "", true, Map.Direction.Southwest);
                 }
-                //else if (input.Equals("WHUMP! You are stunned!"))
+                #region Coin Sounds
+                else if (input.Contains(": You have been trained") && input.EndsWith(", go now and practice."))
+                {
+                    Audio.AudioManager.PlaySoundEffect("GUISounds/coins_training");
+                }
+                else if (input.StartsWith("You scoop the coins into your sack."))
+                {
+                    Audio.AudioManager.PlaySoundEffect("GUISounds/coins_scooped");
+                }
+                else if (input.EndsWith("Thank you for your business.") || (input.Contains(": You now have") && input.EndsWith("coins in your account.")))
+                {
+                    Audio.AudioManager.PlaySoundEffect("GUISounds/coins_sale");
+                }
+                else if (input.EndsWith("Thanks for the business.") || input.StartsWith("You dumped coins") || (input.StartsWith("You dumped") && input.EndsWith("coins on the ground.")))
+                {
+                    Audio.AudioManager.PlaySoundEffect("GUISounds/coins_dumped");
+                } 
+                #endregion
+                else if(input.Equals("A portal of chaotic energy opens up before you and you step inside.") ||
+                    (input.StartsWith("You follow") && input.Contains("through the chaos portal.")))
+                {
+                    gui.SpellEffectLabel.CreateSpellEffectLabel("Chaos Portal");
+                }                    
+                //else if(input.StartsWith("It looks possible to climb up here"))
                 //{
-                //    if (Character.CurrentCharacter != null)
-                //    {
-                //        Audio.AudioManager.PlaySoundEffect("ss");
-                //    }
+                //    if (input.EndsWith("with both hands."))
+                //        gui.GameHUD.AtClimbUp2H = new XYCoordinate(gui.GameHUD.Cells[24].xCord, gui.GameHUD.Cells[24].yCord);
+                //    else gui.GameHUD.AtClimbUp1H = new XYCoordinate(gui.GameHUD.Cells[24].xCord, gui.GameHUD.Cells[24].yCord);
                 //}
-                //else if (input.StartsWith("You have been slain!"))
+                //else if(input.StartsWith("It looks possible to climb down here"))
                 //{
-                //    Audio.AudioManager.PlaySecondarySong("A_Death_Song", false, false, 1f);
+                //    if (input.EndsWith("with both hands."))
+                //        gui.GameHUD.AtClimbDown2H = new XYCoordinate(gui.GameHUD.Cells[24].xCord, gui.GameHUD.Cells[24].yCord);
+                //    else gui.GameHUD.AtClimbDown1H = new XYCoordinate(gui.GameHUD.Cells[24].xCord, gui.GameHUD.Cells[24].yCord);
                 //}
+                // Annoying beep input...
+                //else if(input.StartsWith("You don't see a -"))
+                //{
+
+                    //}
+                    //else if (input.Equals("WHUMP! You are stunned!"))
+                    //{
+                    //    if (Character.CurrentCharacter != null)
+                    //    {
+                    //        Audio.AudioManager.PlaySoundEffect("ss");
+                    //    }
+                    //}
+                    //else if (input.StartsWith("You have been slain!"))
+                    //{
+                    //    Audio.AudioManager.PlaySecondarySong("A_Death_Song", false, false, 1f);
+                    //}
             }
             catch(Exception e)
             {

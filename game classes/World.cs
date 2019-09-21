@@ -216,7 +216,7 @@ namespace Yuusha
                         for (a = 0; a < startingEquipment.Length; a++)
                         {
                             Item item = new Item();
-                            item.notes = startingEquipment[a];
+                            item.Notes = startingEquipment[a];
                             newbie.Inventory.Add(item);
                         }
                         string[] startingSpells = worldCharGenItem[4].Split(Protocol.VSPLIT.ToCharArray());
@@ -242,22 +242,21 @@ namespace Yuusha
                     }
                     break; 
                     #endregion
-                case WorldUpdate.Items:
-                    try
-                    {
-                        string[] worldItemCatalog = info.Split(Protocol.ISPLIT.ToCharArray());
-                        for (a = 0; a < worldItemCatalog.Length; a++)
-                        {
-                            Item item = new Item(worldItemCatalog[a]);
-                            Item.addToCatalog(item);
-                        }
-                        //Utility.Log("Item catalog count = " + Item.getItemCatalogCount());
-                    }
-                    catch (Exception e)
-                    {
-                        Utils.LogException(e);
-                    }
-                    break;
+                //case WorldUpdate.Items:
+                //    try
+                //    {
+                //        string[] worldItemCatalog = info.Split(Protocol.ISPLIT.ToCharArray());
+                //        for (a = 0; a < worldItemCatalog.Length; a++)
+                //        {
+                //            Item item = new Item(worldItemCatalog[a]);
+                //            Item.addToCatalog(item);
+                //        }
+                //    }
+                //    catch (Exception e)
+                //    {
+                //        Utils.LogException(e);
+                //    }
+                //    break;
                 default:
                     break;
             }
@@ -304,6 +303,18 @@ namespace Yuusha
             foreach (Talent talent in m_talents)
             {
                 if (talent.Command == command)
+                {
+                    return talent;
+                }
+            }
+            return null;
+        }
+
+        public static Talent GetTalentByName(string name)
+        {
+            foreach (Talent talent in m_talents)
+            {
+                if (talent.Name == name)
                 {
                     return talent;
                 }

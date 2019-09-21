@@ -176,11 +176,80 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
+            MouseState ms = GuiManager.MouseState;
+
+            // Handle dragging.
+            if (GuiManager.IsDragging && GuiManager.DraggedControl == this)
+            {
+                m_xOffset = ms.X - m_touchDownPoint.X;
+                m_yOffset = ms.Y - m_touchDownPoint.Y;
+                m_rectangle.X += m_xOffset;
+                m_rectangle.Y += m_yOffset;
+                m_touchDownPoint.X += m_xOffset;
+                m_touchDownPoint.Y += m_yOffset;
+
+                // window is being dragged, move it's controls with it
+                foreach (Control control in new List<Control>(Controls))
+                {
+                    Point position = control.Position;
+                    position.X += XOffset;
+                    position.Y += YOffset;
+                    control.Position = position;
+
+                    // make a call here
+
+                    if (control is Window)
+                    {
+                        foreach (Control winControl in new List<Control>((control as Window).Controls))
+                        {
+                            position = winControl.Position;
+                            position.X += XOffset;
+                            position.Y += YOffset;
+                            winControl.Position = position;
+                        }
+                    }
+
+                    if (control is WindowTitle)
+                    {
+                        WindowTitle wt = control as WindowTitle;
+                        if (wt.CloseBox != null)
+                        {
+                            position = wt.CloseBox.Position;
+                            position.X += m_xOffset;
+                            position.Y += m_yOffset;
+                            wt.CloseBox.Position = position;
+                        }
+                        if (wt.MaximizeBox != null)
+                        {
+                            position = wt.MaximizeBox.Position;
+                            position.X += m_xOffset;
+                            position.Y += m_yOffset;
+                            wt.MaximizeBox.Position = position;
+                        }
+                        if (wt.MinimizeBox != null)
+                        {
+                            position = wt.MinimizeBox.Position;
+                            position.X += m_xOffset;
+                            position.Y += m_yOffset;
+                            wt.MinimizeBox.Position = position;
+                        }
+                        if (wt.CropBox != null)
+                        {
+                            position = wt.CropBox.Position;
+                            position.X += m_xOffset;
+                            position.Y += m_yOffset;
+                            wt.CropBox.Position = position;
+                        }
+                    }
+                }
+                CheckBoundsAndAdjust();
+            }
+
             base.Update(gameTime);
 
             foreach (Control control in new List<Control>(m_controls))
             {
-                if (!m_cropped || ((control is WindowControlBox) || (control is WindowTitle)))
+                if (!m_cropped || (control is WindowControlBox) || (control is WindowTitle))
                     control.IsDisabled = m_disabled; // disabled
 
                 control.Update(gameTime);
@@ -464,106 +533,23 @@ namespace Yuusha.gui
             if (m_locked || m_disabled || !Client.HasFocus)
                 return;
 
-            if ((WindowTitle != null && WindowTitle.ControlState == Enums.EControlState.Down) || this is MapWindow)
+            if (((WindowTitle != null && WindowTitle.ControlState == Enums.EControlState.Down) || this is FogOfWarWindow) && GuiManager.DraggedControl != this)
             {
                 bool startDragging = true;
-                foreach (Control box in this.Controls)
+
+                foreach (Control box in Controls)
                     if(box is WindowControlBox && box.Contains(new Point(ms.X, ms.Y))) startDragging = false;
 
                 if (startDragging)
                     GuiManager.StartDragging(this, ms);
             }
 
-            if (!DiscreetlyDraggable && ms.LeftButton == ButtonState.Pressed)
+            if (!DiscreetlyDraggable && ms.LeftButton == ButtonState.Pressed && GuiManager.DraggedControl != this)
                 GuiManager.StartDragging(this, ms);
-
-            // do not drag window if mouse is down over a control
-            //foreach (Control control in new List<Control>(m_controls))
-            //{
-            //    if (control.ControlState == Enums.EControlState.Down && (!(control == WindowTitle) ||
-            //        !(control is Border)))
-            //    {
-            //        GuiManager.StopDragging();
-            //        break;
-            //    }
-            //    else if (control.ControlState == Enums.EControlState.Down && (control == WindowTitle || control == WindowBorder))
-            //    {
-            //        GuiManager.StartDragging(this, ms);
-            //        break;
-            //    }
-            //}
 
             // Stop dragging if minimized or maximized.
             if (m_minimized || m_maximized)
                 GuiManager.StopDragging();
-
-            // Handle dragging.
-            if (GuiManager.Dragging && GuiManager.DraggedControl == this)
-            {
-                m_xOffset = ms.X - m_touchDownPoint.X;
-                m_yOffset = ms.Y - m_touchDownPoint.Y;
-                m_rectangle.X += m_xOffset;
-                m_rectangle.Y += m_yOffset;
-                m_touchDownPoint.X += m_xOffset;
-                m_touchDownPoint.Y += m_yOffset;
-
-                // window is being dragged, move it's controls with it
-                foreach(Control control in new List<Control>(Controls))
-                {
-                    Point position = control.Position;
-                    position.X += XOffset;
-                    position.Y += YOffset;
-                    control.Position = position;
-
-                    // make a call here
-
-                    if (control is Window)
-                    {
-                        foreach (Control winControl in new List<Control>((control as Window).Controls))
-                        {
-                            position = winControl.Position;
-                            position.X += XOffset;
-                            position.Y += YOffset;
-                            winControl.Position = position;
-                        }
-                    }
-
-                    if (control is WindowTitle)
-                    {
-                        WindowTitle wt = control as WindowTitle;
-                        if (wt.CloseBox != null)
-                        {
-                            position = wt.CloseBox.Position;
-                            position.X += this.XOffset;
-                            position.Y += this.YOffset;
-                            wt.CloseBox.Position = position;
-                        }
-                        if (wt.MaximizeBox != null)
-                        {
-                            position = wt.MaximizeBox.Position;
-                            position.X += this.XOffset;
-                            position.Y += this.YOffset;
-                            wt.MaximizeBox.Position = position;
-                        }
-                        if (wt.MinimizeBox != null)
-                        {
-                            position = wt.MinimizeBox.Position;
-                            position.X += this.XOffset;
-                            position.Y += this.YOffset;
-                            wt.MinimizeBox.Position = position;
-                        }
-                        if (wt.CropBox != null)
-                        {
-                            position = wt.CropBox.Position;
-                            position.X += this.XOffset;
-                            position.Y += this.YOffset;
-                            wt.CropBox.Position = position;
-                        }
-                    }
-                }
-            }
-
-            CheckBoundsAndAdjust();
         }
 
         protected override void OnMouseOver(MouseState ms)
@@ -575,16 +561,12 @@ namespace Yuusha.gui
             {
                 foreach (Control box in Controls)
                 {
-                    if (box is WindowControlBox)
-                        if (box.Contains(new Point(ms.X, ms.Y))) return;
+                    if (box is WindowControlBox && box.Contains(new Point(ms.X, ms.Y)))
+                        return;
                 }
 
                 GuiManager.CurrentSheet.CursorOverride = m_cursorOverride;
             }
-
-//#if DEBUG
-//            TextCue.AddMouseCursorTextCue("DEBUG: " + Position.ToString());
-//#endif
         }
 
         public virtual void OnCrop()
@@ -666,7 +648,7 @@ namespace Yuusha.gui
         /// </summary>
         public void CheckBoundsAndAdjust()
         {
-            if (this is MapWindow) return;
+            if (this is FogOfWarWindow) return;
 
             if (m_owner == "")
             {
@@ -761,7 +743,7 @@ namespace Yuusha.gui
                     }
 
                     // Width -- MapWindow allowed to exceed bounds
-                    if (m_rectangle.X + m_rectangle.Width > Client.Width && !(this is MapWindow))
+                    if (m_rectangle.X + m_rectangle.Width > Client.Width && !(this is FogOfWarWindow))
                     {
                         int adjustX = Math.Abs((m_rectangle.X + m_rectangle.Width) - Client.Width);
                         m_rectangle.X -= adjustX;
@@ -810,7 +792,7 @@ namespace Yuusha.gui
                     if (m_cropped && WindowTitle != null)
                         heightCheck = m_rectangle.Y + WindowTitle.Height;
 
-                    if (heightCheck > Client.Height && !(this is MapWindow))
+                    if (heightCheck > Client.Height && !(this is FogOfWarWindow))
                     {
                         int adjustY = Math.Abs((heightCheck) - Client.Height);
                         m_rectangle.Y -= adjustY;
@@ -1103,30 +1085,100 @@ namespace Yuusha.gui
                     }
                 }
             }
+
+            //if(Character.GUIPositionSettings != null)
+            //    Character.GUIPositionSettings.OnLoad(this);
         }
 
         public void SortControls()
         {
-            ControlSorter sorter = new ControlSorter();
+            var sorter = new ControlSorter();
             m_controls.Sort(sorter);
         }
 
         public void ForceMaximize()
         {
-            Rectangle prevRect = this.m_rectangle;
+            var prevRect = m_rectangle;
             m_maximizeAtRect = new Rectangle(m_rectangle.X, m_rectangle.Y, m_rectangle.Width, m_rectangle.Height);
             m_rectangle = new Rectangle(0, 0, Client.Width, Client.Height);
             m_maximized = true;
             m_minimized = false;
 
-            foreach (Control control in this.Controls)
+            foreach (Control control in Controls)
             {
                 Point position = control.Position;
-                position.X += (m_rectangle.X - prevRect.X);
-                position.Y += (m_rectangle.Y - prevRect.Y);
+                position.X += m_rectangle.X - prevRect.X;
+                position.Y += m_rectangle.Y - prevRect.Y;
                 control.Position = position;
                 control.OnClientResize(prevRect, m_rectangle, true);
             }
+        }
+
+        public void ForcePosition(Point p)
+        {
+            if (Position.X == p.X && Position.Y == p.Y) return;
+            //if (IsLocked && !GameHUD.NonDiscreetlyDraggableWindows.Contains(Name)) return;
+
+            m_xOffset = p.X - Position.X;
+            m_yOffset = p.Y - Position.Y;
+            m_rectangle.X += m_xOffset;
+            m_rectangle.Y += m_yOffset;
+
+            // window is being dragged, move it's controls with it
+            foreach (Control control in new List<Control>(Controls))
+            {
+                Point position = control.Position;
+                position.X += XOffset;
+                position.Y += YOffset;
+                control.Position = position;
+
+                // make a call here
+
+                if (control is Window)
+                {
+                    foreach (Control winControl in new List<Control>((control as Window).Controls))
+                    {
+                        position = winControl.Position;
+                        position.X += XOffset;
+                        position.Y += YOffset;
+                        winControl.Position = position;
+                    }
+                }
+
+                if (control is WindowTitle)
+                {
+                    WindowTitle wt = control as WindowTitle;
+                    if (wt.CloseBox != null)
+                    {
+                        position = wt.CloseBox.Position;
+                        position.X += m_xOffset;
+                        position.Y += m_yOffset;
+                        wt.CloseBox.Position = position;
+                    }
+                    if (wt.MaximizeBox != null)
+                    {
+                        position = wt.MaximizeBox.Position;
+                        position.X += m_xOffset;
+                        position.Y += m_yOffset;
+                        wt.MaximizeBox.Position = position;
+                    }
+                    if (wt.MinimizeBox != null)
+                    {
+                        position = wt.MinimizeBox.Position;
+                        position.X += m_xOffset;
+                        position.Y += m_yOffset;
+                        wt.MinimizeBox.Position = position;
+                    }
+                    if (wt.CropBox != null)
+                    {
+                        position = wt.CropBox.Position;
+                        position.X += m_xOffset;
+                        position.Y += m_yOffset;
+                        wt.CropBox.Position = position;
+                    }
+                }
+            }
+            CheckBoundsAndAdjust();
         }
     }
 }

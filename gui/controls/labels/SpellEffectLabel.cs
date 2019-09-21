@@ -12,8 +12,8 @@ namespace Yuusha.gui
         };
 
         public const int BuffFadeSpeed = 2; // slower
-        public const int DefaultFadeSpeed = 3;
-        public const int DamageFadeSpeed = 4; // faster
+        public const int DefaultFadeSpeed = 2;
+        public const int DamageFadeSpeed = 3; // faster
         public static readonly Color BuffBorderColor = Color.LightGoldenrodYellow;
         public static readonly Color DamageBorderColor = Color.Red;
         public static readonly Color HealBorderColor = Color.Lime;
@@ -189,7 +189,7 @@ namespace Yuusha.gui
                     }
 
                     // Text disappears if it no longer fits inside the label.
-                    if (Text != "")
+                    if (!string.IsNullOrEmpty(Text))
                     {
                         if (BitmapFont.ActiveFonts[Font].MeasureString(Text) > Width)
                             Text = "";

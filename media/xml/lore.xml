@@ -73,7 +73,8 @@ Martial artists generally avoid wearing armor of any type as it impedes their ab
 "></Profession>
     <Profession
       Name="Sorcerer"
-      Description="Sorcerers are evil.">
+      Description="Sorcerers are evil. A sorcerer's power, which is their sole reason for existence, is directly proportional to their ability to control everything around them. Whether beings are alive or dead, sentient or not, plant or animal, is of no consequence. All that matters is power.
+Sorcerers spent many a millenia outcast from society. In fact, almost three thousand years ago to the day, the Assault of Qrigh (or as elves call it, the Battle of Vile Men) found Sorcerers throttled nearly to the point of extinction. Nearly.">
     </Profession>
     <Profession
       Name="Thaumaturge"

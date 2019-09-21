@@ -63,6 +63,9 @@ namespace Yuusha
         public static Utility.Settings.FogOfWarSettings FogOfWarSettings
         { get; set; }
 
+        public static Utility.Settings.GUIPositionSettings GUIPositionSettings
+        { get; set; }
+
         public static void GatherCharacterList(string info)
         {
             try
@@ -599,17 +602,17 @@ namespace Yuusha
                     #region Macros
                     string[] macrosArray = info.Split(Protocol.ISPLIT.ToCharArray());
 
-                    List<string> macroList = new System.Collections.Generic.List<string>();
+                    var macroList = new List<string>();
 
-                    if (Character.CurrentCharacter != null && Character.CurrentCharacter.Macros != null)
-                        Character.CurrentCharacter.Macros.Clear();
+                    if (CurrentCharacter != null && CurrentCharacter.Macros != null)
+                        CurrentCharacter.Macros.Clear();
 
                     foreach (string macro in macrosArray)
                         macroList.Add(macro);
 
-                    m_currentCharacter.m_macros = new System.Collections.Generic.List<string>(macroList);
+                    m_currentCharacter.m_macros = new List<string>(macroList);
 
-                    gui.GenericSheet.LoadMacros();
+                    GenericSheet.LoadMacros();
                     break;
                 #endregion
                 case Enums.EPlayerUpdate.Resists:
@@ -627,12 +630,9 @@ namespace Yuusha
 
             Events.RegisterEvent(Events.EventName.Load_Character_Settings);
 
-            LoadFogOfWar();
-        }
-
-        private static void LoadFogOfWar()
-        {
             FogOfWarSettings = Utility.Settings.FogOfWarSettings.Load();
+
+            GUIPositionSettings = Utility.Settings.GUIPositionSettings.Load();
         }
 
         public string title; // sent in users list info
@@ -1106,7 +1106,6 @@ namespace Yuusha
         }
         public string WarmedSpell
         { get; set; }
-
         public int CurrentRoundsPlayed
         { get; set; } = 0;
         #endregion
@@ -1130,8 +1129,32 @@ namespace Yuusha
             m_macros = new List<string>();
 
             m_location = "";
-        } 
+        }
         #endregion
+
+        public int SackCountWithoutCoins()
+        {
+            int count = 0;
+
+            foreach(Item item in Sack)
+            {
+                if (!item.Name.StartsWith("coin"))
+                    count++;
+            }
+
+            return count;
+        }
+
+        public static bool HasEffect(string effectName)
+        {
+            if (GuiManager.GetControl("EffectsWindow") is Window w)
+            {
+                foreach (Label label in w.Controls)
+                    if (label.PopUpText.StartsWith(effectName)) return true;
+            }
+
+            return false;
+        }
 
         public void SetSkillExperience(SkillType skillType, long experience)
         {
@@ -1255,7 +1278,7 @@ namespace Yuusha
         {
             get
             {
-                return Cell.GetCell(X, Y, Character.CurrentCharacter.Z);
+                return Cell.GetCell(X, Y, CurrentCharacter.Z);
             }
         }
 
@@ -1308,7 +1331,7 @@ namespace Yuusha
             foreach (Item item in Rings)
             {
               //Utils.LogOnce(Rings.Count + ":" + item.VisualKey + ", " + item.wearOrientation);
-                if (item.wearOrientation == orientation)
+                if (item.WearOrientation == orientation)
                     return item;
             }
 
@@ -1350,7 +1373,7 @@ namespace Yuusha
         {
             foreach (Item item in Inventory)
             {
-                if (item.wearLocation == location && item.wearOrientation == orientation)
+                if (item.WearLocation == location && item.WearOrientation == orientation)
                     return item;
             }
 

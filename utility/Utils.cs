@@ -71,6 +71,12 @@ namespace Yuusha
             return "FoW-" + name;
         }
 
+        public static string GetCharacterGUIFileName(string name)
+        {
+            name = GetCharacterFileName(name);
+            return "GUI-" + name;
+        }
+
         public static string GetCharacterFileName(string name)
         {
             name = name.Replace(".", "");

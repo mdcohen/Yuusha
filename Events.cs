@@ -9,9 +9,8 @@ namespace Yuusha
     {
         public enum EventName
         {
-            Attack_Critter,
+            Activate_Talent, Attack_Critter,
             Cast_Spell,
-            Cast_Spell_MessageBox,
             Character_Death,
             Character_Moved,
             Character_Settings_Changed,
@@ -103,6 +102,25 @@ namespace Yuusha
             {
                 switch (name)
                 {
+                    case EventName.Activate_Talent:
+                        if(args[0] is HotButton activatedTalentHB)
+                        {
+                            Talent talentToActivate = World.GetTalentByName(activatedTalentHB.Text);
+
+                            if (talentToActivate.IsPassive) break;
+
+                            if(Talent.RequiresTarget(talentToActivate.Name))
+                            {
+                                if (GameHUD.CurrentTarget != null)
+                                    IO.Send(talentToActivate.Command + " " + GameHUD.CurrentTarget.UniqueID);
+                                else TextCue.AddClientInfoTextCue(talentToActivate.Name + " requires a target.", Color.Red, Color.Black, 3000);
+                            }
+                            else if(Talent.RequiresTextInput(talentToActivate.Name))
+                            {
+                                
+                            }
+                        }
+                        break;
                     case EventName.Attack_Critter:
                         #region Attack_Critter
                         {
@@ -200,12 +218,19 @@ namespace Yuusha
 
                     #endregion
                     case EventName.Cast_Spell:
+                        if (!string.IsNullOrEmpty(Character.CurrentCharacter.WarmedSpell) && Convert.ToInt32(args[0]) == World.GetSpellByName(Character.CurrentCharacter.WarmedSpell).ID)
+                        {
+                            if (GuiManager.GetControl("SpellWarmingWindow") is SpellWarmingWindow warmedSpellWindow && warmedSpellWindow.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
+                            {
+                                warmedSpellWindow.OnClose();
+                            }
+                        }
                         break;
                     case EventName.Character_Death:
                         #region Character Death
                         try
                         {
-                            if (Int32.TryParse(args[0].ToString(), out int id))
+                            if (int.TryParse(args[0].ToString(), out int id))
                             {
                                 // currently just clear target
                                 if (GameHUD.CurrentTarget != null)
@@ -287,6 +312,7 @@ namespace Yuusha
                     case EventName.Connect:
                         // TODO: play modem connect sound??
                         #region Connect
+                        GuiManager.AwaitMouseButtonRelease = true;
                         if (IO.LoginState != Enums.ELoginState.NewAccount)
                         {
                             #region Not in new account creation mode.
@@ -304,6 +330,7 @@ namespace Yuusha
 
                                 if (IO.Connect())
                                 {
+                                    GuiManager.AwaitMouseButtonRelease = false;
                                     RegisterEvent(EventName.Reset_Characters);
                                     RegisterEvent(EventName.Set_Login_Status_Label, "Connecting to " + Client.ClientSettings.ServerName + "...", "Lime");
                                     RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Connected);
@@ -334,6 +361,7 @@ namespace Yuusha
                                 }
                                 else
                                 {
+                                    //gui.TextCue.AddClientInfoTextCue("Failed to connect. Check internet connection.", Color.Red, Color.Transparent, 4000);
                                     RegisterEvent(EventName.Set_Login_Status_Label, "Failed to connect. Check internet connection.", "Red");
                                 }
                             }
@@ -476,7 +504,8 @@ namespace Yuusha
 
                         if(!privateMessage || (privateMessage && Client.ClientSettings.EchoPrivateMessagesToConference))
                         {
-                            (GuiManager.CurrentSheet["ConfScrollableTextBox"] as gui.ScrollableTextBox).AddLine((string)args[0], (Enums.ETextType)args[1]);
+                            (GuiManager.CurrentSheet["ConfScrollableTextBox"] as ScrollableTextBox).AddLine((string)args[0], (Enums.ETextType)args[1]);
+                            TextManager.CheckAllTextTriggers((string)args[0]);
                         }
                         break;
                         #endregion
@@ -512,7 +541,9 @@ namespace Yuusha
 
                         if (!privateMessage || (privateMessage && Client.ClientSettings.EchoPrivateMessagesToConference))
                         {
-                            if(Client.GameState == Enums.EGameState.IOKGame)
+                            TextManager.CheckAllTextTriggers((string)args[0]);
+
+                            if (Client.GameState == Enums.EGameState.IOKGame)
                                 IOKMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
                             else if(Client.GameState == Enums.EGameState.SpinelGame)
                                 SpinelMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
@@ -537,8 +568,6 @@ namespace Yuusha
                             case Enums.EGameDisplayMode.Yuusha:                                
                                 YuushaMode.EndGameRound();
                                 break;
-                            case Enums.EGameDisplayMode.LOK:
-                                break;
                             default:
                                 break;
                         }
@@ -557,10 +586,6 @@ namespace Yuusha
                                 break;
                             case Enums.EGameDisplayMode.Yuusha:
                                 YuushaMode.FormatCell((string)args[0]);
-                                break;
-                            case Enums.EGameDisplayMode.LOK:
-                                break;
-                            case Enums.EGameDisplayMode.Normal:
                                 break;
                         }
                         break;
@@ -597,10 +622,8 @@ namespace Yuusha
                             case Enums.EGameDisplayMode.IOK:
                                 gstate = Enums.EGameState.IOKGame;
                                 break;
-                            case Enums.EGameDisplayMode.LOK:
-                                gstate = Enums.EGameState.LOKGame;
-                                break;
                             default:
+                                gstate = Enums.EGameState.YuushaGame;
                                 break;
                         }
                         RegisterEvent(EventName.Set_Game_State, gstate);
@@ -652,6 +675,11 @@ namespace Yuusha
                             hbwDec.CheckBoundsAndAdjust();
                             if(hbwDec.WindowTitle != null)
                                 hbwDec.WindowTitle.Width = hbwDec.Width;
+
+                            if (Character.CurrentCharacter != null && Character.GUIPositionSettings != null)
+                            {
+                                Character.GUIPositionSettings.UpdateGUIPosition(hbwDec);
+                            }
                         }
                         break;
                     case EventName.HotButtonWindow_Increase_Size:
@@ -694,6 +722,11 @@ namespace Yuusha
 
                             if (hbwInc.WindowTitle != null)
                                 hbwInc.WindowTitle.Width = hbwInc.Width;
+
+                            if (Character.CurrentCharacter != null && Character.GUIPositionSettings != null)
+                            {
+                                Character.GUIPositionSettings.UpdateGUIPosition(hbwInc);
+                            }
                         }
                         break;
                     case EventName.Logout:
@@ -708,15 +741,24 @@ namespace Yuusha
                                 break;
                         }
                         ResetLoginGUI();
+                        
                         RegisterEvent(EventName.Set_Login_State, Enums.ELoginState.Disconnected);
                         RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Login);
                         break;
                     #endregion
                     case EventName.MapDisplay_Decrease:
                         GameHUD.ChangeMapDisplayWindowSize(-5);
+                        if (Character.CurrentCharacter != null && Character.GUIPositionSettings != null && GuiManager.GetControl("MapDisplayWindow") is Window mapDispDec)
+                        {
+                            Character.GUIPositionSettings.UpdateGUIPosition(mapDispDec);
+                        }
                         break;
                     case EventName.MapDisplay_Increase:
                         GameHUD.ChangeMapDisplayWindowSize(5);
+                        if (Character.CurrentCharacter != null && Character.GUIPositionSettings != null && GuiManager.GetControl("MapDisplayWindow") is Window mapDispInc)
+                        {
+                            Character.GUIPositionSettings.UpdateGUIPosition(mapDispInc);
+                        }
                         break;
                     case EventName.MediaPlayer_LowerVolume:
                         {
@@ -827,10 +869,6 @@ namespace Yuusha
                                 IOKMode.NewGameRound();
                                 SpinelMode.NewGameRound();
                                 YuushaMode.NewGameRound();
-                                break;
-                            case Enums.EGameDisplayMode.LOK:
-                                break;
-                            case Enums.EGameDisplayMode.Normal:
                                 break;
                         }
                         break;
@@ -1012,8 +1050,16 @@ namespace Yuusha
                         }
                     #endregion
                     case EventName.Send_Command:
-                        if (args[0] is Control)
+                        if (args[0] is Control send_command_control)
                         {
+                            //if(send_command_control is HotButton && send_command_control.Name.Contains("ActivatedTalent"))
+                            //{
+                            //    if (GameHUD.CurrentTarget == null)
+                            //    {
+                            //        gui.TextCue.AddClientInfoTextCue("Activated talents require a target.");
+                            //    }
+                            //}
+
                             if (GameHUD.CurrentTarget != null)
                                 IO.Send((args[0] as Control).Command.Replace("%t", GameHUD.CurrentTarget.UniqueID.ToString()));
                             else IO.Send((args[0] as Control).Command);
@@ -1089,9 +1135,6 @@ namespace Yuusha
                                 case Enums.EGameDisplayMode.IOK:
                                     Client.GameState = Enums.EGameState.IOKGame;
                                     break;
-                                case Enums.EGameDisplayMode.LOK:
-                                    Client.GameState = Enums.EGameState.LOKGame;
-                                    break;
                                 case Enums.EGameDisplayMode.Yuusha:
                                     Client.GameState = Enums.EGameState.YuushaGame;
                                     break;
@@ -1100,24 +1143,9 @@ namespace Yuusha
                                     break;
                             }
 
+                            //Character.GUIPositionSettings.OnLoad();
+
                             RegisterEvent(EventName.Target_Cleared, null);
-
-                            // update containers GUI when entering the game
-                            //foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
-                            //    GridBoxWindow.RequestUpdateFromServer(purpose);
-
-                            //if (AwaitInitialRequestsData == null)
-                            //{
-                            //    AwaitInitialRequestsData = new System.Timers.Timer(1000);
-                            //    AwaitInitialRequestsData.Elapsed += AwaitInitialRequests_Elapsed;
-                            //    AwaitInitialRequestsData.Start();
-                            //}
-
-                            //if (GuiManager.GetControl("FogOfWarMapWindow") == null)
-                            //{
-                            //    MapWindow.CreateFogOfWarMapWindow();
-                            //    GuiManager.GetControl("FogOfWarMapWindow").IsVisible = false;
-                            //}
 
                             IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
                         }
@@ -1141,6 +1169,13 @@ namespace Yuusha
                             else if (Client.GameState == Enums.EGameState.Login)
                                 ResetLoginGUI();
                         }
+
+                        if (Character.GUIPositionSettings != null)
+                        {
+                            System.Threading.Tasks.Task t = new System.Threading.Tasks.Task(() => Character.GUIPositionSettings.OnLoad());
+                            t.Start();
+                        }
+
                         break;
                         #endregion
                     case EventName.Set_Login_State:
@@ -1284,9 +1319,9 @@ namespace Yuusha
                                     tbx = optionsWindow["OptionsNumPadFiveTextBox"];
                                     if (tbx != null)
                                         Character.Settings.NumLock5 = tbx.Text;
-                                    tbx = optionsWindow["OptionsNumPadDeleteTextBox"];
+                                    tbx = optionsWindow["OptionsNumPadDecimalTextBox"];
                                     if (tbx != null)
-                                        Character.Settings.NumPadDelete = tbx.Text;
+                                        Character.Settings.NumPadDecimal = tbx.Text;
                                     tbx = optionsWindow["OptionsCritterDropDownTextBox1"];
                                     if (tbx != null)
                                         Character.Settings.CritterListDropDownMenuItem1 = tbx.Text;
@@ -1328,9 +1363,9 @@ namespace Yuusha
                                     if (tbx != null)
                                         Character.Settings.NumLock5 = tbx.Text;
 
-                                    tbx = optionsWindow["OptionsNumPadDeleteTextBox"];
+                                    tbx = optionsWindow["OptionsNumPadDecimalTextBox"];
                                     if (tbx != null)
-                                        Character.Settings.NumPadDelete = tbx.Text;
+                                        Character.Settings.NumPadDecimal = tbx.Text;
                                     #endregion
 
                                     #region Function Keys
@@ -1483,14 +1518,14 @@ namespace Yuusha
                     case EventName.Toggle_FogOfWar:
                         //Control mapWindow = GuiManager.GetControl("FogOfWarMapWindow");
                         bool makeFog = true;
-                        if(GuiManager.GetControl("FogOfWarMapWindow") is MapWindow m)
+                        if(GuiManager.GetControl("FogOfWarMapWindow") is FogOfWarWindow m)
                         {
                             makeFog = false;
                             GuiManager.RemoveControl(GuiManager.GetControl("FogOfWarMapWindow"));
                         }
                         if (makeFog)
                         {
-                            MapWindow.CreateFogOfWarMapWindow();
+                            FogOfWarWindow.CreateFogOfWarMapWindow();
 
                             if (GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "MapDisplayWindow") is Window mapDisplayWindow && mapDisplayWindow.WindowBorder != null)
                             {
@@ -1552,7 +1587,8 @@ namespace Yuusha
                                 spellbookWindow.IsVisible = false;
                                 break;
                             }
-                                // Spellbook will be visible...
+                            
+                            // Spellbook will be visible...
                             if (!spellbookWindow.IsVisible)
                             {
                                 spellbookWindow.UpdateVisiblePages(spellbookWindow.PageSet - 1, spellbookWindow.PageSet);
@@ -1564,7 +1600,27 @@ namespace Yuusha
                         }
                         break;
                     case EventName.Toggle_Talents:
-                        RegisterEvent(EventName.Request_Talents);
+                        if(Character.CurrentCharacter != null && Character.CurrentCharacter.Talents.Count <= 0)
+                        {
+                            TextCue.AddClientInfoTextCue("You do not know any talents yet.", Color.Yellow, Color.Black, 3000);
+                            break;
+                        }
+
+                        if (GuiManager.GenericSheet["TalentsWindow"] is TalentsWindow talentsWindow)
+                        {
+                            talentsWindow.IsVisible = !talentsWindow.IsVisible;
+                            if(talentsWindow.IsVisible)
+                                RegisterEvent(EventName.Request_Talents);
+                        }
+                        else
+                        {
+                            TalentsWindow.CreateTalentsWindow();
+                            RegisterEvent(EventName.Request_Talents);
+                            if (GuiManager.GenericSheet["TalentsWindow"] is TalentsWindow tWindow)
+                            {
+                                tWindow.IsVisible = !tWindow.IsVisible;
+                            }
+                        }
                         break;
                     case EventName.Spellbook_Flip:
                         if (GuiManager.GenericSheet["SpellbookWindow"] is SpellBookWindow sWindow)
@@ -1644,9 +1700,9 @@ namespace Yuusha
                                 tbx = optionsWindow["OptionsNumPadFiveTextBox"] as TextBox;
                                 if (tbx != null)
                                     tbx.Text = Character.Settings.NumLock5;
-                                tbx = optionsWindow["OptionsNumPadDeleteTextBox"] as TextBox;
+                                tbx = optionsWindow["OptionsNumPadDecimalTextBox"] as TextBox;
                                 if (tbx != null)
-                                    tbx.Text = Character.Settings.NumPadDelete;
+                                    tbx.Text = Character.Settings.NumPadDecimal;
                                 tbx = optionsWindow["OptionsCritterDropDownTextBox1"] as TextBox;
                                 if (tbx != null)
                                     tbx.Text = Character.Settings.CritterListDropDownMenuItem1;
@@ -1971,7 +2027,6 @@ namespace Yuusha
                                 Character prevChar = Account.GetPreviousCharacter();
                                 if (prevChar != Character.CurrentCharacter)
                                 {
-                                    //sheet["SwitchCharacterBackButton"].PopUpText = prevChar.Name;
                                     sheet["PrevCharPictureButton"].PopUpText = prevChar.Name;
                                     sheet["PrevCharPictureButton"].VisualKey = prevChar.VisualKey;
                                     sheet["PrevCharPictureButton"].IsVisible = true;
@@ -1982,7 +2037,6 @@ namespace Yuusha
                                 Character nextChar = Account.GetNextCharacter();
                                 if (nextChar != Character.CurrentCharacter)
                                 {
-                                    //sheet["SwitchCharacterNextButton"].PopUpText = nextChar.Name;
                                     sheet["NextCharPictureButton"].PopUpText = nextChar.Name;
                                     sheet["NextCharPictureButton"].VisualKey = nextChar.VisualKey;
                                     sheet["NextCharPictureButton"].IsVisible = true;
@@ -2057,7 +2111,7 @@ namespace Yuusha
                                     // Overrides to focus on input text box.
                                     // Options window and private messages have focus priority.
                                     if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || GuiManager.ControlWithFocus != null && 
-                                        !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")) && string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
+                                        !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")) && GuiManager.ActiveDropDownMenu is null)
                                         sheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
                                 }
                             }
@@ -2090,8 +2144,7 @@ namespace Yuusha
                 {
                     if (sheet["SackHorizontalAutoHidingButton"] is Button sackButton)
                     {
-                        int sackCountWithoutCoins = Character.CurrentCharacter.Sack.FindAll(s => !s.Name.StartsWith("coin")).Count;
-                        if (sackCountWithoutCoins >= Utility.Settings.StaticSettings.SackSize)
+                        if (Character.CurrentCharacter.SackCountWithoutCoins() >= Utility.Settings.StaticSettings.SackSize)
                         {
                             sackButton.Text = "FULL";
                             sackButton.IsTextVisible = true;
@@ -2099,8 +2152,8 @@ namespace Yuusha
                         }
                         else
                         {
-                            sackButton.Text = ""; // TODO? Option to display count in text or popup
-                            sackButton.PopUpText = "Sack (" + sackCountWithoutCoins + "/" + Utility.Settings.StaticSettings.SackSize + ")";
+                            sackButton.Text = "";
+                            sackButton.PopUpText = "Sack (" + Character.CurrentCharacter.SackCountWithoutCoins() + "/" + Utility.Settings.StaticSettings.SackSize + ")";
                         }
                     }
 
@@ -2114,7 +2167,7 @@ namespace Yuusha
                         }
                         else
                         {
-                            pouchButton.Text = ""; // TODO? Option to display count in text or popup
+                            pouchButton.Text = "";
                             pouchButton.PopUpText = "Pouch (" + Character.CurrentCharacter.Pouch.Count + "/" + Utility.Settings.StaticSettings.PouchSize + ")";
                         }
                     }
@@ -2149,16 +2202,31 @@ namespace Yuusha
                     cslWindow.IsVisible = false;
             }
 
-            // Go to Conference
+            // Go to Conference, Fog of War, Mail if at lockers
             if(state.ToString().EndsWith("Game"))
             {
                 if (GuiManager.GenericSheet["HelperConferenceButton"] is Control c)
                     c.IsVisible = true;
+                if (GuiManager.GenericSheet["HelperFogOfWarButton"] is Control c2)
+                    c2.IsVisible = true;
+
+                if(Character.CurrentCharacter != null && Character.CurrentCharacter.Cell != null && Character.CurrentCharacter.Cell.IsLockers)
+                {
+                    if (GuiManager.GenericSheet["HelperMailButton"] is Control m)
+                        m.IsVisible = true;
+                }
+                else
+                {
+                    if (GuiManager.GenericSheet["HelperMailButton"] is Control m)
+                        m.IsVisible = false;
+                }
             }
             else
             {
                 if (GuiManager.GenericSheet["HelperConferenceButton"] is Control c)
                     c.IsVisible = false;
+                if (GuiManager.GenericSheet["HelperFogOfWarButton"] is Control c2)
+                    c2.IsVisible = false;
             }
 
             // Mail
@@ -2260,12 +2328,17 @@ namespace Yuusha
                     case Enums.EGameState.SpinelGame:
                     case Enums.EGameState.YuushaGame:
                     case Enums.EGameState.Game: // switching out of the game
+
                         Character.FogOfWarSettings.Save();
+                        //Character.GUIPositionSettings.Save();
+
                         GuiManager.TextCues.Clear();
+
                         foreach (Control control in GuiManager.GenericSheet.Controls)
                         {
                             if (control is SoundIndicatorLabel) control.IsVisible = false;
                         }
+
                         //Audio.AudioManager.StopAllSounds();
                         break;
                     case Enums.EGameState.Login:
@@ -2287,7 +2360,7 @@ namespace Yuusha
                     case Enums.EGameState.YuushaGame:
                     case Enums.EGameState.Game:
                         // switched characters so clear the main display text box
-                        if(Character.PreviousRoundCharacter != null && Character.CurrentCharacter.UniqueID != Character.PreviousRoundCharacter.UniqueID)
+                        if (Character.PreviousRoundCharacter != null && Character.CurrentCharacter.UniqueID != Character.PreviousRoundCharacter.UniqueID)
                         {
                             if (GuiManager.CurrentSheet[Globals.GAMESCROLLABLETEXTBOX] is ScrollableTextBox gameTextBox)
                                 gameTextBox.Clear();
@@ -2316,13 +2389,15 @@ namespace Yuusha
                             //    TextCue.AddMapNameTextCue(Character.CurrentCharacter.MapName);
                             if (Character.CurrentCharacter != null)
                                 TextCue.AddZNameTextCue(Character.CurrentCharacter.ZName);
-                            if(!GameHUD.InitialSpellbookUpdated.Contains(Character.CurrentCharacter.UniqueID))
+                            if (!GameHUD.InitialSpellbookUpdated.Contains(Character.CurrentCharacter.UniqueID))
+                            {
                                 RegisterEvent(EventName.Request_Spells);
+                            }
                             if (!GameHUD.InitialTalentbookUpdated.Contains(Character.CurrentCharacter.UniqueID))
+                            {
                                 RegisterEvent(EventName.Request_Talents);
-
+                            }
                         }
-
                         break;
                     case Enums.EGameState.Conference:
                         foreach (Control control in GuiManager.GenericSheet.Controls)

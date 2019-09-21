@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Yuusha.gui
 {
+    /// <summary>
+    /// Display achievements and losses. AchievementLabels sit in a queue and are shown chronologically.
+    /// </summary>
     public class AchievementLabel : Label
     {
         public enum AchievementType
@@ -25,7 +28,7 @@ namespace Yuusha.gui
         bool m_fadeIn = true;
         DateTime m_timeAdded;
         Color m_stopColor = Color.PaleGreen;
-        int m_stopSize = 512; // 640
+        int m_stopSize = 640; // 640
         //bool m_scaleFont;
         //int m_scaleFontIndex;
         int m_enlargenRate = 14; // factor of 2
@@ -87,8 +90,8 @@ namespace Yuusha.gui
                 switch (achievement)
                 {
                     case AchievementType.AbilityScoreGain:
-                        tintColor = Color.LightGreen;
-                        textColor = Color.Purple;
+                        tintColor = Color.LightSteelBlue;
+                        textColor = Color.White;
                         visualKey = GameHUD.GameIconsDictionary["upgrade"];
                         soundFile = "GUISounds/stat_gain";
                         stopSize = 256;
@@ -96,7 +99,7 @@ namespace Yuusha.gui
                         break;
                     case AchievementType.AbilityScoreLoss:
                         tintColor = Color.Firebrick;
-                        textColor = Color.DimGray;
+                        textColor = Color.White;
                         visualKey = GameHUD.GameIconsDictionary["downgrade"];
                         soundFile = "GUISounds/stat_loss";
                         stopSize = 256;

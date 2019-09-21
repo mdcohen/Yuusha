@@ -81,15 +81,16 @@ namespace Yuusha.gui
             base.Update(gameTime);
 
             int count = Controls.FindAll(c => c is DragAndDropButton).Count;
-            //foreach(Control control in new List<Control>(Controls))
-            //{
-            //    if (control is DragAndDropButton)
-            //        count++;
-            //}
 
             if (count > (Rows * Columns))
-                Height = (count++ / Columns) * RowHeight + (WindowTitle is null ? 0 : WindowTitle.Height) + RowHeight;
-            else Height = RowHeight * Rows + (WindowTitle is null ? 0 : WindowTitle.Height) + (WindowBorder is null ? 0 : WindowBorder.Height);
+            {
+                Height = count++ / Columns * RowHeight + (WindowTitle is null ? 0 : WindowTitle.Height) + RowHeight;
+            }
+            else
+            {
+                Height = RowHeight * Rows + (WindowTitle is null ? 0 : WindowTitle.Height) + (WindowBorder is null ? 0 : WindowBorder.Height);
+                //Width = ColumnWidth * Columns + (WindowBorder is null ? 0: WindowTitle.Width);
+            }
         }
 
         public static void CreateGridBox(GridBoxPurpose purpose)
@@ -129,13 +130,38 @@ namespace Yuusha.gui
                 case GridBoxPurpose.Ground:
                     #region Ground
                     if (GameHUD.ExaminedCell == null) return;
-                    rows = 4;
+                    rows = 5;
                     columns = 5;
+                    //int actualCount = GameHUD.ExaminedCell.Items.Count;
+                    //if(Client.ClientSettings.GroupSimiliarItemsInGridBoxes)
+                    //{
+                    //    actualCount = 0;
+                    //    List<string> visuals = new List<string>();
+                    //    foreach(Item item in GameHUD.ExaminedCell.Items)
+                    //    {
+                    //        if (!visuals.Contains(item.VisualKey))
+                    //        {
+                    //            actualCount++;
+                    //            visuals.Add(item.VisualKey);
+                    //        }
+                    //        else if (item.VisualKey == "unknown") actualCount++;
+                    //    }
+                    //}
+                    //if(actualCount > 30)
+                    //    columns = 8;
+                    //if (actualCount > 40)
+                    //    rows = 6;
+                    //if (actualCount > 60)
+                    //    rows = 8;
+                    //if (actualCount > 70)
+                    //    rows = 10;
+                    //if (actualCount > 31)
+                    //    TextCue.AddClientInfoTextCue("Looking at " + actualCount + " different items...", 3000);
                     box = CreateGridBox(purpose, rows, columns, size, size);
                     x = Client.ClientSettings.GridBoxButtonsBorderWidth;
                     y = Client.ClientSettings.GridBoxTitleHeight;
                     itemsList = new List<Item>(GameHUD.ExaminedCell.Items);
-                    if(GameHUD.ExaminedCell != null && box.WindowTitle != null)
+                    if (GameHUD.ExaminedCell != null && box.WindowTitle != null)
                     {
                         if (GameHUD.ExaminedCell.DisplayGraphic == "mm") box.WindowTitle.Text = "Altar";
                         else if (GameHUD.ExaminedCell.DisplayGraphic == "==") box.WindowTitle.Text = "Counter";
@@ -167,7 +193,7 @@ namespace Yuusha.gui
                     else return;
                     break;
                 #endregion
-                case GridBoxPurpose.Sack: // 20 slots
+                case GridBoxPurpose.Sack: // 20 slots (21 including coins)
                     #region Sack
                     rows = 5;
                     columns = 5;
@@ -185,6 +211,7 @@ namespace Yuusha.gui
             // some grid boxes have Item lists, others have string lists
             //itemsList.Reverse();
             Dictionary<string, int> countDictionary = new Dictionary<string, int>(); // visualKey, count
+
             foreach (Item item in itemsList)
             {
                 // determine if we're sorting here or not -- an option
@@ -240,28 +267,15 @@ namespace Yuusha.gui
                 count++;
             }
 
-            // box isn't big enough to hold all the drag and drop buttons...
-            //while(box.Height - (box.WindowTitle == null ? 0 : box.WindowTitle.Height) < count * size)
-            //    box.Height += size;
-
-            //if (!GameHUD.NextGridBoxUpdateIsSilent || Client.ClientSettings.AlwaysOpenGridBoxWindowsUponActivity)
-            //{
-            //    box.IsVisible = true;
-            //    box.ZDepth = 1;
-            //}
-
-            //GameHUD.NextGridBoxUpdateIsSilent = false;
-
             if (maxAmount > 0 && box.WindowTitle != null)
             {
                 if(purpose == GridBoxPurpose.Sack)
                 {
                     // don't include coins
-                    box.WindowTitle.Text = box.WindowTitle.Text + " (" + (itemsList.Count - 1) + "/" + maxAmount + ")";
+                    box.WindowTitle.Text = box.WindowTitle.Text + " (" + Character.CurrentCharacter.SackCountWithoutCoins() + "/" + maxAmount + ")";
                 }
                 else box.WindowTitle.Text = box.WindowTitle.Text + " (" + itemsList.Count + "/" + maxAmount + ")";
             }
-
         }
 
         protected override void OnMouseOver(MouseState ms)
@@ -279,7 +293,10 @@ namespace Yuusha.gui
             if ((GuiManager.Cursors[GuiManager.GenericSheet.Cursor] as MouseCursor).DraggedControl != null)
             {
                 if (WindowBorder != null)
+                {
                     WindowBorder.TintColor = Client.ClientSettings.AcceptingGridBoxBorderColor;
+                    // WindowBorder.Width = Client.ClientSettings.AcceptingGridBoxBorderWidth;
+                }
 
                 if (WindowTitle != null)
                 {
@@ -308,6 +325,30 @@ namespace Yuusha.gui
             {
                 WindowTitle.TintColor = Client.ClientSettings.GridBoxTitleTintColor;
                 WindowTitle.TextColor = Client.ClientSettings.GridBoxTitleTextColor;
+            }
+        }
+
+        protected override void OnMouseRelease(MouseState ms)
+        {
+            base.OnMouseRelease(ms);
+
+            MouseCursor cursor = GuiManager.Cursors[GuiManager.GenericSheet.Cursor];
+
+            if(cursor.DraggedControl != null && cursor.DraggedControl is DragAndDropButton dadButton)
+            {
+                if (dadButton.HasEnteredGridBoxWindow && GuiManager.MouseOverDropAcceptingControl == this)
+                    GameHUD.DragAndDropLogic(dadButton);
+
+                dadButton.StopDragging();
+
+                if (WindowBorder != null)
+                    WindowBorder.TintColor = Client.ClientSettings.GridBoxBorderTintColor;
+
+                if (WindowTitle != null)
+                {
+                    WindowTitle.TintColor = Client.ClientSettings.GridBoxTitleTintColor;
+                    WindowTitle.TextColor = Client.ClientSettings.GridBoxTitleTextColor;
+                }
             }
         }
 
@@ -384,5 +425,13 @@ namespace Yuusha.gui
                     
             }
         }
+
+        //public override void OnClose()
+        //{
+        //    base.OnClose();
+
+        //    if(GridBoxPurposeType == GridBoxPurpose.Altar || GridBoxPurposeType == GridBoxPurpose.Counter || GridBoxPurposeType == GridBoxPurpose.Ground)
+        //        GuiManager.Dispose(this);
+        //}
     }
 }

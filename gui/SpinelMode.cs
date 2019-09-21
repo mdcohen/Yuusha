@@ -104,7 +104,7 @@ namespace Yuusha.gui
                     {
                         sheet["RHNameDragAndDropButton"].Text = chr.RightHand.Name;
                         (sheet["RHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = chr.RightHand;
-                        if (chr.RightHand.nocked)
+                        if (chr.RightHand.Nocked)
                         {
                             if (chr.RightHand.Name.ToLower().Contains("crossbow"))
                                 sheet["RHNameDragAndDropButton"].Text += "*";
@@ -124,7 +124,7 @@ namespace Yuusha.gui
                     {
                         sheet["LHNameDragAndDropButton"].Text = chr.LeftHand.Name;
                         (sheet["LHNameDragAndDropButton"] as DragAndDropButton).RepresentedItem = chr.LeftHand;
-                        if (chr.LeftHand.nocked)
+                        if (chr.LeftHand.Nocked)
                         {
                             if (chr.LeftHand.Name.ToLower().Contains("crossbow"))
                                 sheet["LHNameDragAndDropButton"].Text += "*";
@@ -391,7 +391,7 @@ namespace Yuusha.gui
                         if (GuiManager.GetControl("CritterList" + a.ToString()) is CritterListLabel critterListLabel)
                         {
                             critterListLabel.IsVisible = false;
-                            critterListLabel.DropDownMenu = null;
+                            GuiManager.Dispose(critterListLabel.DropDownMenu);
                         }
                         m_critterListNames[a] = "";
                     }
@@ -536,6 +536,8 @@ namespace Yuusha.gui
                         spLabel.EffectNames.Clear();
                         spLabel.CritterVisuals.Clear();
                         spLabel.LootVisual = "";
+                        spLabel.PathingVisual = "";
+                        spLabel.PathingVisual = "";
                         spLabel.CreatureText = "";
 
                         if (cell.IsVisible)

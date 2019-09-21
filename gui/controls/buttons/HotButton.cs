@@ -117,6 +117,10 @@ namespace Yuusha.gui
 
                     return;
                 }
+                else
+                {
+                    base.OnMouseDown(ms);
+                }
 
                 m_visualAlpha = 40;
             }
@@ -191,6 +195,7 @@ namespace Yuusha.gui
 
                 if (GuiManager.AwaitMouseButtonRelease)
                     return;
+
                 //if(!Client.IsFullScreen)
                 //{
                 //    TextCue.AddClientInfoTextCue("Hot Button Edit Mode requires full screen display.",
@@ -236,10 +241,10 @@ namespace Yuusha.gui
 
                             window["HotButtonEditWindowCommandTextBox"].Text = Command;
 
-                            // Create labels for choosing a macro icon.
-                            window.CreateIconSelectionButtons();
-
                             window.ForceMaximize(); // fill the screen
+
+                            // Create labels for choosing a hotbutton icon.
+                            window.CreateIconSelectionButtons();
 
                             // macros and hotkeys are part of the generic sheet, always visible -- hide them when in edit mode
                             //(GuiManager.CurrentSheet[this.Owner] as Window).IsVisible = false;

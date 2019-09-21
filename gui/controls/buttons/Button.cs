@@ -170,18 +170,13 @@ namespace Yuusha.gui
         protected override bool OnKeyDown(KeyboardState ks)
         {
             // Enter key acts as a button press.
-            if (HasFocus && ks.IsKeyDown(Keys.Enter))
+            if (HasFocus && ks.IsKeyDown(Keys.Enter) && !IsBeneathControl(GuiManager.MouseState))
             {
                 OnMouseDown(GuiManager.MouseState);
                 return true;
             }
 
             return base.OnKeyDown(ks);
-        }
-
-        protected override void OnMouseLeave(MouseState ms)
-        {
-            base.OnMouseLeave(ms);
         }
     }
 }

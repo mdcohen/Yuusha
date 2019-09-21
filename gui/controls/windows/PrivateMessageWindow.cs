@@ -21,9 +21,11 @@ namespace Yuusha.gui
             if (GuiManager.GenericSheet[player + "PrivateMessageWindow"] != null)
                 return GuiManager.GenericSheet[player + "PrivateMessageWindow"] as PrivateMessageWindow;
 
-            PrivateMessageWindow pmWindow = new PrivateMessageWindow(player + "PrivateMessageWindow", "", new Rectangle(100, 100, 500, 300), true, false, false, GuiManager.GenericSheet.Font, new VisualKey("WhiteSpace"),
-                Client.ClientSettings.PrivateMessageWindowTintColor, 255, true, Map.Direction.Northwest, 5, new List<Enums.EAnchorType> { Enums.EAnchorType.Top, Enums.EAnchorType.Right }, "Dragging");
-            pmWindow.RecipientName = player;
+            PrivateMessageWindow pmWindow = new PrivateMessageWindow(player + "PrivateMessageWindow", "", new Rectangle(100, 100, 500, 303), true, false, false, "lemon10", new VisualKey("WhiteSpace"),
+                Client.ClientSettings.PrivateMessageWindowTintColor, 255, true, Map.Direction.Northwest, 5, new List<Enums.EAnchorType> { Enums.EAnchorType.Top, Enums.EAnchorType.Right }, "Dragging")
+            {
+                RecipientName = player
+            };
 
             WindowTitle windowTitle = new WindowTitle(pmWindow.Name + "Title", pmWindow.Name, pmWindow.Font, "Private Message: " + pmWindow.RecipientName, Client.ClientSettings.PrivateMessageWindowTitleTextColor, Client.ClientSettings.PrivateMessageWindowTitleTintColor, 255,
                 BitmapFont.TextAlignment.Center, new VisualKey("WhiteSpace"), false, new VisualKey("WindowCloseBox"), new VisualKey(""), new VisualKey(""),
@@ -36,12 +38,16 @@ namespace Yuusha.gui
             SquareBorder windowBorder = new SquareBorder(pmWindow.Name + "Border", pmWindow.Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.PrivateMessageBorderTintColor, 255);
 
             ScrollableTextBox scrollBox = new ScrollableTextBox(pmWindow.Name + "ScrollableTextBox", pmWindow.Name, new Rectangle(2, windowTitle.Height, 496, 260), "", Color.White,
-                true, false, Client.ClientSettings.DefaultFont, new VisualKey("WhiteSpace"), Color.Black, 255, 0, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Left,
-                new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left, Enums.EAnchorType.Right, Enums.EAnchorType.Bottom }, true);
+                true, false, "lemon12", new VisualKey("WhiteSpace"), Color.Black, 255, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Left,
+                new List<Enums.EAnchorType>() { Enums.EAnchorType.Top, Enums.EAnchorType.Left, Enums.EAnchorType.Right, Enums.EAnchorType.Bottom }, true)
+            {
+                Colorize = false
+            };
+
             pmWindow.MessageBox = scrollBox;
 
-            TextBox textBox = new TextBox(pmWindow.Name + "TextBox", pmWindow.Name, new Rectangle(2, 279, 496, 19), "", Color.White,
-                BitmapFont.TextAlignment.Left, true, false, pmWindow.Font, new VisualKey("WhiteSpace"), Color.CornflowerBlue, 255, 0, true, 300, false, true, Color.WhiteSmoke, new VisualKey(""), new VisualKey(""), new VisualKey(""),
+            TextBox textBox = new TextBox(pmWindow.Name + "TextBox", pmWindow.Name, new Rectangle(2, 279, 496, 22), "", Color.White,
+                BitmapFont.TextAlignment.Left, true, false, "lemon12", new VisualKey("WhiteSpace"), Color.CornflowerBlue, 255, 255, true, 300, false, true, Color.WhiteSmoke, new VisualKey(""), new VisualKey(""), new VisualKey(""),
                 0, 0, "send_tell", Color.Navy, new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Right, Enums.EAnchorType.Bottom }, 0);
 
             GuiManager.GenericSheet.AddControl(pmWindow);
@@ -75,18 +81,5 @@ namespace Yuusha.gui
             messageSent = messageSent.Substring(1, messageSent.LastIndexOf('"') - 1); // removes quotation marks
             MessageBox.AddLine("You: " + messageSent, Enums.ETextType.PrivateMessageReceiver);
         }
-
-        //public override void OnClose()
-        //{
-        //    foreach(Control c in new List<Control>(Controls))
-        //    {
-        //        Controls.Remove(c);
-        //        GuiManager.Dispose(c);
-        //    }
-
-        //    GuiManager.Dispose(this);
-
-        //    base.OnClose();
-        //}
     }
 }

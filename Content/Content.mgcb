@@ -79,11 +79,23 @@
 /processorParam:Quality=Best
 /build:Ambience/Island-Forest.mp3
 
+#begin Ambience/Jungle-Night.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Jungle-Night.mp3
+
 #begin Ambience/Nothing_Matters_Everything_Dies.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Ambience/Nothing_Matters_Everything_Dies.mp3
+
+#begin Ambience/Pandemonium.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ambience/Pandemonium.mp3
 
 #begin Ambience/Waves-Small.mp3
 /importer:Mp3Importer
@@ -108,6 +120,36 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:GUISounds/clicks_two.wav
+
+#begin GUISounds/coins_dumped.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/coins_dumped.wav
+
+#begin GUISounds/coins_sale.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/coins_sale.wav
+
+#begin GUISounds/coins_scooped.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/coins_scooped.wav
+
+#begin GUISounds/coins_training.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/coins_training.wav
+
+#begin GUISounds/footstep_dirt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/footstep_dirt.wav
 
 #begin GUISounds/minor_error.wav
 /importer:WavImporter
@@ -1908,6 +1950,54 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:KSND0287.wav
+
+#begin KSND0288.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0288.wav
+
+#begin KSND0289.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0289.wav
+
+#begin KSND0290.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0290.wav
+
+#begin KSND0291.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0291.wav
+
+#begin KSND0292.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0292.wav
+
+#begin KSND0293.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0293.wav
+
+#begin KSND0294.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0294.wav
+
+#begin KSND0295.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0295.wav
 
 #begin KSNDint1.WAV
 /importer:WavImporter

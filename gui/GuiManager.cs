@@ -75,15 +75,17 @@ namespace Yuusha.gui
         {
             get { return m_draggedControl; }
         }
-        public static bool Dragging
+        public static PopUpWindow PopUpWindow
+        { get; set; }
+        public static bool IsDragging
         { get; set; }
         public static Control ControlWithFocus
         {
             get { return m_controlWithFocus; }
             set { if (!(value is Window)) m_controlWithFocus = value; }
         }
-        public static string ActiveDropDownMenu
-        { get; set; } = "";
+        public static DropDownMenu ActiveDropDownMenu
+        { get; set; }
         public static string ActiveTextBox
         { get; set; }
         public static string OpenComboBox
@@ -842,16 +844,6 @@ namespace Yuusha.gui
         {
             try
             {
-                if(!string.IsNullOrEmpty(ActiveDropDownMenu))
-                {
-                    Control ddMenu = GetControl(ActiveDropDownMenu);
-                    if (ddMenu is null || !ddMenu.IsVisible)
-                    {
-                        ActiveDropDownMenu = "";
-                        if (ddMenu != null) Dispose(ddMenu);
-                    }
-                }
-
                 string state = Client.GameState.ToString();
 
                 base.Update(gameTime);
@@ -1087,10 +1079,10 @@ namespace Yuusha.gui
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Utils.LogException(e);
-                Utils.Log("Error in GuiManager.GetControl - Searching current sheet for a control named " + name + ".");
+                //Utils.LogException(e);
+                //Utils.Log("Error in GuiManager.GetControl - Searching current sheet for a control named " + name + ".");
             }
 
             // Check GenericSheet controls.
@@ -1122,10 +1114,10 @@ namespace Yuusha.gui
                         }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Utils.LogException(e);
-                    Utils.Log("Error in GuiManager.GetControl - Searching generic sheet for a control named " + name + ".");
+                    //Utils.LogException(e);
+                    //Utils.Log("Error in GuiManager.GetControl - Searching generic sheet for a control named " + name + ".");
                 }
             }
 
@@ -1134,9 +1126,7 @@ namespace Yuusha.gui
                 if (sheetName != CurrentSheet.Name && (GenericSheet == null || sheetName != GenericSheet.Name))
                 {
                     if (Sheets[sheetName][name] != null)
-                    {
                         return Sheets[sheetName][name];
-                    }
                 }
             }
             
@@ -1150,17 +1140,16 @@ namespace Yuusha.gui
         public static void Dispose(Control c)
         {
             if(c == null)
-            {
-                Utils.Log("Control already null on call to GuiManager.Dispose.");
-            }
+                return;
 
             if(c is DropDownMenu)
             {
                 (c as DropDownMenu).MenuItems.Clear();
-                if (c.Name == ActiveDropDownMenu) ActiveDropDownMenu = "";
+                if (c == ActiveDropDownMenu) ActiveDropDownMenu = null;
+                //AwaitMouseButtonRelease = false;
             }
 
-            if(c.Owner != "")
+            if(!string.IsNullOrEmpty(c.Owner))
             {
                 if(GetControl(c.Owner) is Window w)
                 {
@@ -1180,20 +1169,26 @@ namespace Yuusha.gui
 
         public static void StartDragging(Control control, MouseState ms)
         {
-            if (Dragging) return;
+            if (control.IsLocked) return;
+            if (IsDragging) return;
             if (Cursors[GenericSheet.Cursor].DraggedControl != null) return;
             if (DraggedControl != null) return;
 
             m_draggedControl = control;
-            Dragging = true;
+            IsDragging = true;
             m_dragingXOffset = ms.X - control.Position.X;
             m_draggingYOffset = ms.Y - control.Position.Y;
         }
 
         public static void StopDragging()
         {
+            if(Character.CurrentCharacter != null && Character.GUIPositionSettings != null && m_draggedControl is Window w)
+            {
+                Character.GUIPositionSettings.UpdateGUIPosition(m_draggedControl);
+            }
+
             m_draggedControl = null;
-            Dragging = false;
+            IsDragging = false;
         }
 
         public static void RemoveControl(Control control)

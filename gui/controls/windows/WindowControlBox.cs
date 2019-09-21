@@ -90,7 +90,7 @@ namespace Yuusha.gui
 
         public new void OnMouseDown(MouseState ms)
         {
-            if(!GuiManager.Dragging)
+            if(!GuiManager.IsDragging)
                 m_controlState = Enums.EControlState.Down;
         }
 

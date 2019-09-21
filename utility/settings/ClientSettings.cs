@@ -26,7 +26,7 @@ namespace Yuusha.Utility.Settings
         public bool DisplayChantingConversationBubble = true;
         public bool DisplayConversationBubbles = true;
         public int ConversationBubbleFadeOutSpeed = 2;
-        public bool StartFullScreen = false;
+        //public bool StartFullScreen = false;
 
         // audio related
         public bool PlayAudioWhenClientDeactivated = true;
@@ -51,7 +51,8 @@ namespace Yuusha.Utility.Settings
         public bool GroupSimiliarItemsInGridBoxes = true;
         public bool AlwaysOpenGridBoxWindowsUponActivity = false;
         public bool ShowMapDisplayWindowBorderWhenFogOfWarVisible = true; // display map border around main display map when FogOfWar visible
-        public double DoubleClickTimerDelay = 300; // the lower the number the less time required to detect a double click
+        public double DoubleClickTimerDelay = 500; // the lower the number the less time required to detect a double click
+        public bool AllowDoubleClickMovementToNonVisibleCells = true;
 
         // saving accounts and passwords (encrypted)
         public List<Encrypt.EncryptedKeyValuePair<string, string>> StoredAccounts = new List<Encrypt.EncryptedKeyValuePair<string, string>>();
@@ -84,6 +85,7 @@ namespace Yuusha.Utility.Settings
 
         //public bool FogOfWar = true;
 
+        public Color MovementFootstepsColor = Color.WhiteSmoke;
         public Color TargetBorderColor = Color.WhiteSmoke;
         public int TargetBorderSize = 1;
         public int MapTileBorderSize = 1;
@@ -123,10 +125,11 @@ namespace Yuusha.Utility.Settings
         public string GridBoxWindowFont = "lemon14";
 
         public Color AcceptingGridBoxBorderColor = Color.PaleGreen;
+        public int AcceptingGridBoxBorderWidth = 2;
         public Color AcceptingGridBoxTitleColor = Color.PaleGreen;
         public Color AcceptingGridBoxTitleTextColor = Color.Black;
 
-        public Color ColorDropDownMenuBorder = Color.MonoGameOrange; // 6/8/2019 not being drawn
+        public Color ColorDropDownMenuBorder = Color.MediumOrchid; // 6/8/2019 not being drawn -- 9/8/2019 figured out why it wasn't being drawn
         public int DropDownMenuBorderWidth = 1;
         public Color ColorDropDownMenu = Color.Gray;
         public Color ColorDropDownMenuItemBackground = Color.Transparent;

@@ -100,6 +100,8 @@ namespace Yuusha
         public static string CHARACTER_COMBATINFO_END = (char)27 + "C27" + (char)27;
         public static string CHARACTER_SAVINGTHROWS = (char)27 + "C28" + (char)27;
         public static string CHARACTER_SAVINGTHROWS_END = (char)27 + "C29" + (char)27;
+        public static string CHARACTER_SERVERSETTINGS = (char)27 + "C30" + (char)27;
+        public static string CHARACTER_SERVERSETTINGS_END = (char)27 + "C31" + (char)27;
 
         #endregion
 
@@ -211,6 +213,7 @@ namespace Yuusha
         public static string GAME_ENTER = (char)27 + "GM" + (char)27;
         public static string GAME_POINTER_UPDATE = (char)27 + "GN" + (char)27;
         public static string GAME_CHARACTER_DEATH = (char)27 + "GO" + (char)27; // followed by ID number
+        public static string GAME_CHARACTER_DEATH_END = (char)27 + "GP" + (char)27;
         #endregion
 
         #region World Information

@@ -33,6 +33,19 @@ namespace Yuusha.gui
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Not used as of 9/11/2019.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="owner"></param>
+        /// <param name="font"></param>
+        /// <param name="text"></param>
+        /// <param name="textColor"></param>
+        /// <param name="tintColor"></param>
+        /// <param name="visualAlpha"></param>
+        /// <param name="textAlignment"></param>
+        /// <param name="visualKey"></param>
+        /// <param name="height"></param>
         public WindowTitle(string name, string owner, string font, string text, Color textColor, Color tintColor, byte visualAlpha,
             BitmapFont.TextAlignment textAlignment, VisualKey visualKey, int height)
             : base()

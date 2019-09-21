@@ -54,6 +54,7 @@ namespace Yuusha
         public const string GRAPHIC_GRASS_LIGHT = "''";
         public const string GRAPHIC_GRASS_FROZEN = ", ";
 
+        public const string GRAPHIC_PIT = "()";
         public const string GRAPHIC_UPSTAIRS = "up";
         public const string GRAPHIC_DOWNSTAIRS = "dn";
         public const string GRAPHIC_TRASHCAN = "o ";
@@ -78,6 +79,65 @@ namespace Yuusha
         public int zCord = 0;
         public int MapID = 0;
         public int LandID = 0;
+
+        public static List<Tuple<int, int>> CellCoordinates = new List<Tuple<int, int>>()
+        {
+            Tuple.Create(-3, -3 ),
+            Tuple.Create(-2, -3 ),
+            Tuple.Create(-1, -3 ),
+            Tuple.Create(0, -3 ),
+            Tuple.Create(1, -3 ),
+            Tuple.Create(2, -3 ),
+            Tuple.Create(3, -3 ), // 6
+
+            Tuple.Create(-3, -2 ),
+            Tuple.Create(-2, -2 ),
+            Tuple.Create(-1, -2 ),
+            Tuple.Create(0, -2 ),
+            Tuple.Create(1, -2 ),
+            Tuple.Create(2, -2 ),
+            Tuple.Create(3, -2 ), // 13
+
+            Tuple.Create(-3, -1 ),
+            Tuple.Create(-2, -1 ),
+            Tuple.Create(-1, -1 ),
+            Tuple.Create(0, -1 ),
+            Tuple.Create(1, -1 ),
+            Tuple.Create(2, -1 ),
+            Tuple.Create(3, -1 ), // 20
+
+            Tuple.Create(-3, 0 ),
+            Tuple.Create(-2, 0 ),
+            Tuple.Create(-1, 0 ),
+            Tuple.Create(0, 0 ), // 24
+            Tuple.Create(1, 0 ),
+            Tuple.Create(2, 0 ),
+            Tuple.Create(3, 0 ),
+
+            Tuple.Create(-3, 1 ),
+            Tuple.Create(-2, 1 ),
+            Tuple.Create(-1, 1 ),
+            Tuple.Create(0, 1 ),
+            Tuple.Create(1, 1 ),
+            Tuple.Create(2, 1 ),
+            Tuple.Create(3, 1 ),
+
+            Tuple.Create(-3, 2 ),
+            Tuple.Create(-2, 2 ),
+            Tuple.Create(-1, 2 ),
+            Tuple.Create(0, 2 ),
+            Tuple.Create(1, 2 ),
+            Tuple.Create(2, 2 ),
+            Tuple.Create(3, 2 ),
+
+            Tuple.Create(-3, 3 ),
+            Tuple.Create(-2, 3 ),
+            Tuple.Create(-1, 3 ),
+            Tuple.Create(0, 3 ),
+            Tuple.Create(1, 3 ),
+            Tuple.Create(2, 3 ),
+            Tuple.Create(3, 3 ),
+        };
 
         public string DisplayGraphic
         { get; set; } = "  ";
@@ -137,16 +197,21 @@ namespace Yuusha
             {
                 switch (DisplayGraphic)
                 {
+                    case GRAPHIC_FIRE: // fire
+                    case GRAPHIC_ICE_STORM:
                     case GRAPHIC_WATER: // water
                         if (Character.CurrentCharacter != null && Character.CurrentCharacter.Cell != this)
                             return false;
                         break;
-                    case GRAPHIC_FIRE: // fire
-                    case GRAPHIC_ICE_STORM:
                     case GRAPHIC_WALL: // wall
+                        if (Character.CurrentCharacter != null && Character.CurrentCharacter.Cell == this)
+                            return true;
+                        else return false;
                     case "  ": // empty
-                    case GRAPHIC_DARKNESS: // darkness
-                        return false;
+                    //case GRAPHIC_DARKNESS: // darkness
+                    //    if (Character.CurrentCharacter != null && Character.CurrentCharacter.HasEffect("Night Vision"))
+                    //        return true;
+                    //    else return false;
                     default:
                         break;
                 }
@@ -237,7 +302,7 @@ namespace Yuusha
 
                 // Fog of War
                 //gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(MapID, xCord, yCord, zCord, DisplayGraphic);
-                gui.MapWindow.FogOfWarDetail fogDetail = new gui.MapWindow.FogOfWarDetail(MapID, xCord, yCord, zCord, CellGraphic);
+                gui.FogOfWarWindow.FogOfWarDetail fogDetail = new gui.FogOfWarWindow.FogOfWarDetail(MapID, xCord, yCord, zCord, CellGraphic);
 
                 if (DisplayGraphic != "  ")
                 {
@@ -292,7 +357,7 @@ namespace Yuusha
 
         public static void SendCellItemsRequest(Cell cell)
         {
-            if (cell != null)
+            if (cell != null && cell.IsExaminable())
             {
                 gui.GameHUD.ExaminedCell = cell;
                 string cellCoords = cell.xCord + Protocol.VSPLIT + cell.yCord + Protocol.VSPLIT + cell.zCord;
@@ -306,9 +371,9 @@ namespace Yuusha
             {
                 return gui.GameHUD.Cells.Find(cell => cell.xCord == x && cell.yCord == y && cell.zCord == z);
             }
-            catch(Exception e)
+            catch(Exception)
             {
-                Utils.LogException(e);
+                //Utils.LogException(e);
             }
             return null;
         }
@@ -322,7 +387,7 @@ namespace Yuusha
                     return 0;
                 }
 
-                if (goalXCord <= Int32.MinValue || goalYCord <= Int32.MinValue)
+                if (goalXCord <= int.MinValue || goalYCord <= int.MinValue)
                 {
                     return 0;
                 }
@@ -411,7 +476,7 @@ namespace Yuusha
             return false;
         }
 
-        public static bool operator ==(Cell c1, Cell c2)
+        public static bool operator == (Cell c1, Cell c2)
         {
             try
             {
@@ -435,7 +500,7 @@ namespace Yuusha
             return false;                   
         }
 
-        public static bool operator !=(Cell c1, Cell c2)
+        public static bool operator != (Cell c1, Cell c2)
         {
             try
             {

@@ -97,11 +97,6 @@ namespace Yuusha
         public enum EGameDisplayMode
         {
             /// <summary>
-            /// Normal client mode.
-            /// </summary>
-            Normal,
-
-            /// <summary>
             /// Island of Kesmai traditional emulation.
             /// </summary>
             IOK,           
@@ -112,10 +107,8 @@ namespace Yuusha
             Spinel,
 
             /// <summary>
-            /// Legends of Kesmai emulation.
+            /// Primary game mode.
             /// </summary>
-            LOK,
-
             Yuusha,
         }
 
@@ -155,11 +148,6 @@ namespace Yuusha
             /// Island of Kesmai game.
             /// </summary>
             IOKGame,
-
-            /// <summary>
-            /// Legends of Kesmai game.
-            /// </summary>
-            LOKGame,
 
             /// <summary>
             /// Spinel game.

@@ -17,6 +17,9 @@ namespace Yuusha.gui
 
         public static void CreateVolumeControlPopUpWindow()
         {
+            if (GuiManager.GenericSheet["VolumeControlPopUpWindow"] != null)
+                return;
+
             MouseState ms = GuiManager.MouseState;
 
             PopUpWindow w = new PopUpWindow("VolumeControlPopUpWindow", "", new Rectangle(ms.X - 120, ms.Y - 10, 160, 57), true, false, false, GuiManager.GenericSheet.Font, new gui.VisualKey("WhiteSpace"),
@@ -51,6 +54,27 @@ namespace Yuusha.gui
             GuiManager.GenericSheet.AddControl(chkMuteButton);
             GuiManager.GenericSheet.AddControl(lowerVolumeButton);
             GuiManager.GenericSheet.AddControl(raiseVolumeButton);
+        }
+
+        public static void CreateSquareIconPopUpWindow(Control c, int size)
+        {
+            if (GuiManager.GenericSheet[c.Name + "PopUpWindow"] is PopUpWindow existingWindow)
+                return;
+
+            MouseState ms = GuiManager.MouseState;
+
+            PopUpWindow w = new PopUpWindow(c.Name + "PopUpWindow", "", new Rectangle(ms.X - size / 2, ms.Y - size / 2, size, size), true, true, false, GuiManager.GenericSheet.Font, new VisualKey(""),
+                c.TintColor, (byte)c.VisualAlpha, true, Map.Direction.Northwest, 3, new List<Enums.EAnchorType>(), c.PopUpText);
+
+            Button b = new Button(w.Name + "CommandButton", w.Name, new Rectangle(0, 0, size, size), "", false, Color.White, true, false, "courier12", new VisualKey(c.VisualKey),
+                Color.White, 255, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "Send_Command", BitmapFont.TextAlignment.Center, 0, 0,
+                Color.White, false, Color.Green, false, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, c.Command, c.PopUpText, Client.ClientSettings.DefaultOnClickSound);
+
+            SquareBorder bBorder = new SquareBorder(b.Name + "SquareBorder", b.Name, 1, new VisualKey("WhiteSpace"), false, Color.DimGray, 255);
+
+            GuiManager.GenericSheet.AddControl(w);
+            GuiManager.GenericSheet.AddControl(b);
+            GuiManager.GenericSheet.AddControl(bBorder);
         }
 
         public override void Update(GameTime gameTime)

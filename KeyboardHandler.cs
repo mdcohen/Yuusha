@@ -24,7 +24,14 @@ namespace Yuusha
             //{
             // ALT + Enter
             // toggle full screen if sheet allows full screen
-            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter))
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter) && Utility.Settings.StaticSettings.FullScreenToggleEnabled)
+            {
+                return true;
+            }
+
+            // ALT + A
+            // toggle ambience
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.A))
             {
                 return true;
             }
@@ -121,14 +128,14 @@ namespace Yuusha
             }
 
             // ALT + T
-            // reload IOK tiles
+            // Talents Window
             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.T))
             {
                 return true;
             }
 
             // ALT + U
-            // reload IOK tiles
+            // Reload IOK game tiles
             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.U))
             {
                 return true;
@@ -197,23 +204,21 @@ namespace Yuusha
                         if (Client.GameState == Enums.EGameState.Login)
                         {
                             #region ALT + I  Vertical Hot Button Window
-                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
-                            {
-                                Events.RegisterEvent(Events.EventName.Toggle_VerticalHotbar);
-                                result = true;
-                            }
+                            //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
+                            //{
+                            //    Events.RegisterEvent(Events.EventName.Toggle_VerticalHotbar);
+                            //    result = true;
+                            //}
                             #endregion
 
                             #region ALT + K  Horizontal Hot Button Window
-                            if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
-                            {
-                                Events.RegisterEvent(Events.EventName.Toggle_HorizontalHotbar);
-                                result = true;
-                            }
+                            //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
+                            //{
+                            //    Events.RegisterEvent(Events.EventName.Toggle_HorizontalHotbar);
+                            //    result = true;
+                            //}
                             #endregion
-
-                            // Testing purposes ALT + C, ALT + W, ALT + Q
-                            #region Testing Area aka the Playground
+                            
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.F))
                             {
                                 TextCue.AddFPSTextCue(GameHUD.UpdateCumulativeMovingAverageFPS((float)(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds)).ToString("0.00"));
@@ -221,6 +226,8 @@ namespace Yuusha
                                 result = true;
                             }
 
+                            // Testing purposes ALT + C, ALT + W, ALT + Q
+                            #region Testing Area aka the Playground
                             //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.W))
                             //{
                             //Control mapWindow = GuiManager.GetControl("PrimaryMapWindow");
@@ -268,14 +275,6 @@ namespace Yuusha
                             //}
                             #endregion
 
-                            #region ALT + I  Vertical Hot Button Window
-                            //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
-                            //{
-                            //    Events.RegisterEvent(Events.EventName.Toggle_VerticalHotbar);
-                            //    result = true;
-                            //}
-                            #endregion
-
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
                             {
                                 //Utils.LogCharacterFields();
@@ -297,16 +296,8 @@ namespace Yuusha
                                 //    if(Character.CurrentCharacter != null)
                                 //        Utils.LogCharacterFields();
                                 //}
-                                result = true;
+                                //result = true;
                             }
-
-                            #region ALT + K  Horizontal Hot Button Window
-                            //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.K))
-                            //{
-                            //    Events.RegisterEvent(Events.EventName.Toggle_HorizontalHotbar);
-                            //    result = true;
-                            //}
-                            #endregion
                             #endregion
 
                             #region ALT + N  News Window
@@ -348,7 +339,7 @@ namespace Yuusha
                             #endregion
 
                             #region ALT + Enter  Full Screen Toggle
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter))
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter) && Utility.Settings.StaticSettings.FullScreenToggleEnabled)
                             {
                                 Program.Client.ToggleFullScreen();
                                 result = true;
@@ -372,7 +363,7 @@ namespace Yuusha
                             }
                             #endregion
 
-                            if ((ks.IsKeyDown(Keys.Tab)) || (GuiManager.ControlWithFocus is TextBox && (ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1)))
+                            if (ks.IsKeyDown(Keys.Tab) || (GuiManager.ControlWithFocus is TextBox && ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1))
                             {
                                 if (!IsAltKeyDown(ks))
                                 {
@@ -474,8 +465,8 @@ namespace Yuusha
                                 result = true;
                             }
 
-                            // ALT + U Toggle Talents Window
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.U))
+                            // ALT + T Toggle Talents Window
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.T))
                             {
                                 Events.RegisterEvent(Events.EventName.Toggle_Talents);
                                 result = true;
@@ -483,7 +474,7 @@ namespace Yuusha
 
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
                             {
-                                Utils.LogCharacterFields();
+                                //Utils.LogCharacterFields();
                                 //Utils.LogCharacterEffects();
                                 //    //foreach (Spell spell in World.SpellsList)
                                 //    //    Utils.Log(spell.Name);
@@ -513,15 +504,14 @@ namespace Yuusha
                                 }
 
                                 // Close DropDownMenu
-                                if (!string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
+                                if (GuiManager.ActiveDropDownMenu != null)
                                 {
-                                    if (GuiManager.GetControl(GuiManager.ActiveDropDownMenu) is DropDownMenu ddMenu)
-                                    {
-                                        GuiManager.Dispose(ddMenu);
-                                    }
+                                    GuiManager.Dispose(GuiManager.ActiveDropDownMenu);
+                                    result = true;
                                 }
+
                                 // Close spellbook. Close all GridBoxWindows. (target should always be cleared if GAMEINPUTTEXTBOX has focus)
-                                if (GuiManager.Cursors[GuiManager.GenericSheet.Cursor] is gui.MouseCursor cursor && cursor.DraggedControl != null)
+                                if (!result && GuiManager.Cursors[GuiManager.GenericSheet.Cursor] is gui.MouseCursor cursor && cursor.DraggedControl != null)
                                 {
                                     if (cursor.DraggedControl is DragAndDropButton dadButton)
                                         dadButton.StopDragging();
@@ -530,22 +520,42 @@ namespace Yuusha
                                         GuiManager.Dispose(cursor.DraggedControl);
                                         cursor.DraggedControl = null;
                                     }
+                                    result = true;
                                 }
-                                if (GuiManager.GetControl("SpellbookWindow") is SpellBookWindow w && w.IsVisible)
+
+                                // Clear pathing choices on SpinelTileLabels.
+                                if(!result && (Client.GameState == Enums.EGameState.SpinelGame || Client.GameState == Enums.EGameState.YuushaGame) && GameHUD.MovementChoices.Count > 0)
+                                {
+                                    foreach (Cell cell in GameHUD.MovementChoices)
+                                        if (GuiManager.CurrentSheet["Tile" + GameHUD.Cells.IndexOf(cell)] is SpinelTileLabel spLabel) spLabel.PathingVisual = "";
+
+                                    GameHUD.MovementChoices.Clear();
+                                    result = true;
+                                }
+
+                                if (!result && GuiManager.GetControl("SpellbookWindow") is SpellBookWindow w && w.IsVisible)
                                 {
                                     w.OnClose();
                                     result = true;
                                 }
-                                else if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget == null)
+
+                                if(!result && Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
+                                {
+                                    Events.RegisterEvent(Events.EventName.Target_Cleared);
+                                    result = true;
+                                }
+
+                                if (!result)
                                 {
                                     GuiManager.CloseAllGridBoxes();
                                     result = true;
                                 }
-                                else if (!Client.GameState.ToString().EndsWith("Game"))
-                                {
-                                    GuiManager.CloseAllGridBoxes();
-                                    result = true;
-                                }
+
+                                //else if (!Client.GameState.ToString().EndsWith("Game"))
+                                //{
+                                //    GuiManager.CloseAllGridBoxes();
+                                //    result = true;
+                                //}
                             }
 
                             if (ks.IsKeyDown(Keys.Tab) || (GuiManager.ControlWithFocus is TextBox && ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1))
@@ -561,7 +571,7 @@ namespace Yuusha
                             }
 
                             #region ALT + Enter  Full Screen Toggle
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter))
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter) && Utility.Settings.StaticSettings.FullScreenToggleEnabled)
                             {
                                 if (Client.GameState == Enums.EGameState.HotButtonEditMode) return true;
 
@@ -697,8 +707,8 @@ namespace Yuusha
                             }
                             #endregion
 
-                            #region ALT + T  Reload Game Tiles (Mode Dependent)
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.T))
+                            #region ALT + U  Reload Game Tiles (Mode Dependent)
+                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.U))
                             {
                                 if (Client.GameDisplayMode == Enums.EGameDisplayMode.IOK)
                                 {

@@ -7,9 +7,12 @@ namespace Yuusha.gui
 {
     public class GameHUD : GameComponent
     {
+        /// <summary>
+        /// Windows that may be dragged from any spot the mouse cursor touches down.
+        /// </summary>
         public static List<string> NonDiscreetlyDraggableWindows = new List<string>()
         {
-            "GameTextScrollableTextBox",
+            "ScrollableTextBoxWindow",
             "EffectsWindow",
             //"FogOfWarWindow",
             "CharacterStatsWindow",
@@ -19,7 +22,9 @@ namespace Yuusha.gui
             "SpellringWindow",
             "SpellWarmingWindow",
             "VitalsWindow",
-            "VolumeControlPopUpWindow"
+            "VolumeControlPopUpWindow",
+            //"VerticalHotButtonWindow",
+            //"HorizontalHotButtonWindow",
         };
         public static List<int> InitialSpellbookUpdated = new List<int>();
         public static List<int> InitialTalentbookUpdated = new List<int>();
@@ -50,11 +55,33 @@ namespace Yuusha.gui
             {"swap", "yuushaicon_21" },
             {"upgrade", "yuushaicon_22" },
             {"downgrade", "yuushaicon_23" },
+            {"talent_assassinate", "yuushaicon_24" },
+            {"talent_backstab", "yuushaicon_25" },
+            {"talent_battlecharge", "yuushaicon_26" },
+            {"talent_blindfighting", "yuushaicon_27" },
+            {"talent_cleave", "yuushaicon_28" },
+            {"talent_daggerstorm", "yuushaicon_29" },
+            {"talent_dualwield", "yuushaicon_30" },
+            {"talent_flyingfury", "yuushaicon_31" },
+            {"talent_gage", "yuushaicon_32" },
+            {"talent_legsweep", "yuushaicon_33" },
+            {"talent_memorize", "yuushaicon_34" },
+            {"talent_peek", "yuushaicon_35" },
+            {"talent_picklocks", "yuushaicon_36" },
+            {"talent_rapidkicks", "yuushaicon_37" },
+            {"talent_riposte", "yuushaicon_38" },
+            {"talent_roundhousekick", "yuushaicon_39" },
+            {"talent_shieldbash", "yuushaicon_40" },
+            {"talent_steal", "yuushaicon_41" },
+            {"talent_doubleattack", "yuushaicon_42" },
         };
+
         const int MAP_GRID_MINIMUM = 30;
         const int MAP_GRID_MAXIMUM = 100;
 
         public static List<Tuple<ScrollableTextBox, DateTime>> ConversationBubbles = new List<Tuple<ScrollableTextBox, DateTime>>();
+
+        public static List<Cell> MovementChoices = new List<Cell>();
 
         public static bool ChangingMapDisplaySize = false; // used in Events.UpdateGUI to prevent issues while changing map display size
 
@@ -121,16 +148,6 @@ namespace Yuusha.gui
                     GuiManager.RemoveControl(tuple.Item1);
                     ConversationBubbles.Remove(tuple);
                 }
-
-                //foreach (Tuple<ScrollableTextBox, DateTime> tuple2 in new List<Tuple<ScrollableTextBox, DateTime>>(ConversationBubbles))
-                //{
-                //    int whileLoopCount = 0;
-                //    while(whileLoopCount < 20 && new Rectangle(tuple.Item1.Position, new Point(tuple.Item1.Width, tuple.Item1.Height)).Intersects(new Rectangle(tuple2.Item1.Position, new Point(tuple2.Item1.Width, tuple2.Item1.Height))))
-                //    {
-                //        tuple.Item1.Position = new Point(tuple.Item1.Position.X - 5, tuple.Item1.Position.Y - 5);
-                //        whileLoopCount++;
-                //    }
-                //}
             }
         }
 
@@ -198,7 +215,7 @@ namespace Yuusha.gui
                                 break;
                         }
 
-                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
+                        GridBoxWindow.RequestUpdateFromServer((GridBoxWindow.GridBoxPurpose)Enum.Parse(typeof(GridBoxWindow.GridBoxPurpose), window.WindowTitle.Text, true));
                     }
                 }
                 else if(GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Inventory"))
@@ -206,6 +223,11 @@ namespace Yuusha.gui
                     //TODO: wearOrientation
                     Events.RegisterEvent(Events.EventName.Send_Command, "wear " + rightOrLeft);
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Inventory);
+                }
+                else if(GuiManager.MouseOverDropAcceptingControl.Name.Contains("Ring"))
+                {
+                    Events.RegisterEvent(Events.EventName.Send_Command, GetRingPutCommand(GuiManager.MouseOverDropAcceptingControl.Name, rightOrLeft));
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Rings);
                 }
                 #endregion
             }
@@ -248,7 +270,7 @@ namespace Yuusha.gui
                                 break;
                         }
 
-                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
+                        GridBoxWindow.RequestUpdateFromServer((GridBoxWindow.GridBoxPurpose)Enum.Parse(typeof(GridBoxWindow.GridBoxPurpose), window.WindowTitle.Text, true));
                     }
                 }
 
@@ -301,8 +323,15 @@ namespace Yuusha.gui
                                 break;
                         }
 
-                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
+                        GridBoxWindow.RequestUpdateFromServer((GridBoxWindow.GridBoxPurpose)Enum.Parse(typeof(GridBoxWindow.GridBoxPurpose), window.WindowTitle.Text, true));
                     }
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.Contains("Ring"))
+                {
+                    string rightOrLeft = Character.CurrentCharacter.RightHand == null ? "right" : "left";
+
+                    Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + " from sack;" + GetRingPutCommand(GuiManager.MouseOverDropAcceptingControl.Name, rightOrLeft));
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Rings);
                 }
 
                 GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
@@ -323,7 +352,7 @@ namespace Yuusha.gui
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
                 {
-                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from pouch; put " + b.RepresentedItem.Name + " in locker");
+                    Events.RegisterEvent(Events.EventName.Send_Command,"take " + b.GetNItemName(b) + " from pouch put " + b.RepresentedItem.Name + " in locker");
                     GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
                 }
                 else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
@@ -354,11 +383,81 @@ namespace Yuusha.gui
                                 break;
                         }
 
-                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
+                        GridBoxWindow.RequestUpdateFromServer((GridBoxWindow.GridBoxPurpose)Enum.Parse(typeof(GridBoxWindow.GridBoxPurpose), window.WindowTitle.Text, true));
                     }
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.Contains("Ring"))
+                {
+                    string rightOrLeft = Character.CurrentCharacter.RightHand == null ? "right" : "left";
+
+                    Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + " from pouch;" + GetRingPutCommand(GuiManager.MouseOverDropAcceptingControl.Name, rightOrLeft));
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Rings);
                 }
 
                 GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
+            }
+            else if(b.Name.StartsWith("Locker"))
+            {
+                if (Character.CurrentCharacter.Cell != null && Character.CurrentCharacter.Cell.IsLockers)
+                {
+                    if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
+                    {
+                        string swapafter = "";
+                        string swapbefore = "";
+
+                        if (Character.CurrentCharacter.RightHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
+                            swapafter = ";swap";
+                        else if (Character.CurrentCharacter.LeftHand == null && GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH"))
+                            swapbefore = "swap;";
+
+                        Events.RegisterEvent(Events.EventName.Send_Command, swapbefore + "take " + b.GetNItemName(b) + " from locker" + swapafter);
+                    }
+                    else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
+                    {
+                        Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + " from locker;put " + b.RepresentedItem.Name + " in pouch");
+                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
+                    }
+                    else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Belt"))
+                    {
+                        Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + " from locker;belt " + b.RepresentedItem.Name);
+                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Belt);
+                    }
+                    else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
+                    {
+                        Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + " from locker;put " + b.RepresentedItem.Name + " in sack");
+                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
+                    }
+                    else if (AcceptingGridBoxIsLocation(GuiManager.MouseOverDropAcceptingControl.Name))
+                    {
+                        GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
+                        if (window.WindowTitle != null)
+                        {
+                            switch (window.WindowTitle.Text.ToLower())
+                            {
+                                case "altar":
+                                    Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + " from locker;put " + b.RepresentedItem.Name + " on altar");
+                                    break;
+                                case "counter":
+                                    Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + " from locker;put " + b.RepresentedItem.Name + " on counter");
+                                    break;
+                                default:
+                                    Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + " from locker;drop " + b.RepresentedItem.Name);
+                                    break;
+                            }
+
+                            GridBoxWindow.RequestUpdateFromServer((GridBoxWindow.GridBoxPurpose)Enum.Parse(typeof(GridBoxWindow.GridBoxPurpose), window.WindowTitle.Text, true));
+                        }
+                    }
+                    else if (GuiManager.MouseOverDropAcceptingControl.Name.Contains("Ring"))
+                    {
+                        string rightOrLeft = Character.CurrentCharacter.RightHand == null ? "right" : "left";
+
+                        Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + " from locker;" + GetRingPutCommand(GuiManager.MouseOverDropAcceptingControl.Name, rightOrLeft));
+                        GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Rings);
+                    }
+
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
+                }
             }
             else if (AcceptingGridBoxIsLocation(b.Name))
             {
@@ -404,14 +503,21 @@ namespace Yuusha.gui
                     GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Counter"))
                 {
                     Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + fromLocation + ";drop " + b.RepresentedItem.Name);
-                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
+                    GridBoxWindow.RequestUpdateFromServer((GridBoxWindow.GridBoxPurpose)Enum.Parse(typeof(GridBoxWindow.GridBoxPurpose), GuiManager.MouseOverDropAcceptingControl.Name.Replace("GridBoxWindow",""), true));
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.Contains("Ring"))
+                {
+                    string rightOrLeft = Character.CurrentCharacter.RightHand == null ? "right" : "left";
+
+                    Events.RegisterEvent(Events.EventName.Send_Command, "take " + b.GetNItemName(b) + ";" + GetRingPutCommand(GuiManager.MouseOverDropAcceptingControl.Name, rightOrLeft));
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Rings);
                 }
 
                 GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Ground);
             }
             else if(b.Name.Contains("Inventory"))
             {
-                Character.WearOrientation wearOrientation = b.RepresentedItem.wearOrientation;
+                Character.WearOrientation wearOrientation = b.RepresentedItem.WearOrientation;
                 if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
                 {
                     string swapafter = "";
@@ -425,6 +531,79 @@ namespace Yuusha.gui
                     Events.RegisterEvent(Events.EventName.Send_Command, swapbefore + "remove" + (wearOrientation != Character.WearOrientation.None ? wearOrientation.ToString() + " " : " ") + b.RepresentedItem.Name + swapafter);
                 }
             }
+            else if(b.Name.StartsWith("LeftRing") || b.Name.StartsWith("RightRing"))
+            {
+                if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("RH") || GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("LH"))
+                {
+                    Events.RegisterEvent(Events.EventName.Send_Command, GetRingRemoveCommand(b.Name, out string goingToRightOrLeft));
+                }
+                else if(GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Sack"))
+                {
+                    Events.RegisterEvent(Events.EventName.Send_Command, GetRingRemoveCommand(b.Name, out string goingToRightOrLeft) + "; put " + goingToRightOrLeft + " in sack");
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Sack);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Pouch"))
+                {
+                    Events.RegisterEvent(Events.EventName.Send_Command, GetRingRemoveCommand(b.Name, out string goingToRightOrLeft) + "; put " + goingToRightOrLeft + " in pouch");
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Pouch);
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.StartsWith("Locker"))
+                {
+                    Events.RegisterEvent(Events.EventName.Send_Command, GetRingRemoveCommand(b.Name, out string goingToRightOrLeft) + "; put " + goingToRightOrLeft + " in locker");
+                    GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Locker);
+                }
+                else if (AcceptingGridBoxIsLocation(GuiManager.MouseOverDropAcceptingControl.Name))
+                {
+                    GridBoxWindow window = GuiManager.MouseOverDropAcceptingControl as GridBoxWindow;
+                    if (window.WindowTitle != null)
+                    {
+                        string goingToRightOrLeft = "";
+                        switch (window.WindowTitle.Text.ToLower())
+                        {
+                            case "altar":
+                                Events.RegisterEvent(Events.EventName.Send_Command, GetRingRemoveCommand(b.Name, out goingToRightOrLeft) + "; put " + goingToRightOrLeft + " on altar");
+                                break;
+                            case "counter":
+                                Events.RegisterEvent(Events.EventName.Send_Command, GetRingRemoveCommand(b.Name, out goingToRightOrLeft) + "; put " + goingToRightOrLeft + " on counter");
+                                break;
+                            default:
+                                Events.RegisterEvent(Events.EventName.Send_Command, GetRingRemoveCommand(b.Name, out goingToRightOrLeft) + "; drop " + goingToRightOrLeft);
+                                break;
+                        }
+
+                        GridBoxWindow.RequestUpdateFromServer((GridBoxWindow.GridBoxPurpose)Enum.Parse(typeof(GridBoxWindow.GridBoxPurpose), window.WindowTitle.Text, true));
+                    }
+                }
+                else if (GuiManager.MouseOverDropAcceptingControl.Name.Contains("Ring"))
+                {
+                    string rightOrLeft = Character.CurrentCharacter.RightHand == null ? "right" : "left";
+
+                    Events.RegisterEvent(Events.EventName.Send_Command, GetRingRemoveCommand(b.Name, out string goingToRightOrLeft) + ";" + GetRingPutCommand(GuiManager.MouseOverDropAcceptingControl.Name, goingToRightOrLeft.ToLower() == "right" ? "left" : "right"));
+                }
+
+                GridBoxWindow.RequestUpdateFromServer(GridBoxWindow.GridBoxPurpose.Rings);
+            }
+        }
+
+        private static string GetRingRemoveCommand(string buttonName, out string goingToRightOrLeft)
+        {
+            string whichRing = buttonName.Replace("DragAndDropButton", "");
+
+            if (whichRing.StartsWith("Left"))
+                goingToRightOrLeft = "right";
+            else goingToRightOrLeft = "left";
+
+            string number = whichRing.Substring(whichRing.Length - 1, 1);
+
+            return "remove " + number + " ring from " + whichRing.Replace("Ring" + number, "").ToLower();
+        }
+
+        private static string GetRingPutCommand(string controlName, string rightOrLeft)
+        {
+            string whichRing = controlName.Replace("DragAndDropButton", "");
+            string number = whichRing.Substring(whichRing.Length - 1, 1);
+
+            return "put " + rightOrLeft + " on " + number + " " + whichRing.Replace("Ring" + number, "").ToLower();
         }
 
         public static void UpdateStatDetailsWindow()
@@ -878,10 +1057,10 @@ namespace Yuusha.gui
 
                             Color borderColor = Color.DimGray;
 
-                            if (Effect.NegativeEffects.Contains(effect.Name))
+                            if (Effect.NegativeEffects.Contains(TextManager.FormatEnumString(effect.Name)))
                                 borderColor = Color.Red;
 
-                            if (Effect.ShortTermPositiveEffects.Contains(effect.Name))
+                            if (Effect.ShortTermPositiveEffects.Contains(TextManager.FormatEnumString(effect.Name)))
                                 borderColor = Color.Lime;
 
                             SquareBorder border = new SquareBorder(label.Name + "Border", label.Name, 1, new VisualKey("WhiteSpace"), false, borderColor, 175);
@@ -937,7 +1116,6 @@ namespace Yuusha.gui
 
                     if (Character.CurrentCharacter.WornEffects.Count > 0)
                     {
-                        
                         int x = borderWidth + spacing;
                         int y = (w.WindowTitle != null ? w.WindowTitle.Height + spacing : 0) + borderWidth + spacing;
                         
@@ -948,21 +1126,19 @@ namespace Yuusha.gui
                             if (!AddedEffects.Contains(effect.Name))
                             {
                                 VisualKey visual = new VisualKey("WhiteSpace");
-                                //string text = effect.Name[0].ToString();
                                 string text = effect.Amount.ToString();
                                 if (effect.Amount <= 0) text = "";
                                 string effectPopUp = TextManager.FormatEnumString(effect.Name);
                                 Color tintColor = Color.Transparent;
-                                //int count = 0;
 
                                 // time remaining
-                                if (effect.Duration > 0)
-                                {
-                                    TimeSpan timeRemaining = Utils.RoundsToTimeSpan(effect.Duration);
-                                    if (timeRemaining < System.TimeSpan.FromMinutes(60))
-                                        effectPopUp += " [" + string.Format("{0:D2}", timeRemaining.Minutes) + ":" + string.Format("{0:D2}", timeRemaining.Seconds) + "]";
-                                    else effectPopUp += " [" + timeRemaining.ToString() + "]";
-                                }
+                                //if (effect.Duration > 0)
+                                //{
+                                //    TimeSpan timeRemaining = Utils.RoundsToTimeSpan(effect.Duration);
+                                //    if (timeRemaining < System.TimeSpan.FromMinutes(60))
+                                //        effectPopUp += " [" + string.Format("{0:D2}", timeRemaining.Minutes) + ":" + string.Format("{0:D2}", timeRemaining.Seconds) + "]";
+                                //    else effectPopUp += " [" + timeRemaining.ToString() + "]";
+                                //}
 
                                 // visual key of effect/spell if it exists
                                 if (Effect.IconsDictionary.ContainsKey(TextManager.FormatEnumString(effect.Name)))
@@ -983,12 +1159,15 @@ namespace Yuusha.gui
                                     TimeCreated = DateTime.Now,
                                     Duration = effect.Duration,
                                     Timeless = effect.Duration <= 0,
+                                    ZDepth = 0,
                                 };
 
                                 GuiManager.CurrentSheet.AddControl(label);
+
                                 AddedEffects.Add(effect.Name);
 
                                 Color borderColor = Color.DimGray;
+
                                 if (Effect.NegativeEffects.Contains(effect.Name))
                                     borderColor = Color.Red;
 
@@ -1043,20 +1222,6 @@ namespace Yuusha.gui
             {
                 Utils.LogException(e);
             }
-        }
-
-        public static void UpdateCritterListWindow()
-        {
-            //if (GuiManager.CurrentSheet["CritterListWindow"] is Window w)
-            //{
-            //    List<Control> critterLabels = new List<Control>(w.Controls.RemoveAll(c => !(c is CritterListLabel)));
-            //    critterLabels.RemoveAll(c => !c.IsVisible);
-
-            //    int height = w.WindowTitle != null ? w.WindowTitle.Height : 0;
-
-            //    if (critterLabels.Count > 0)
-            //        height += critterLabels.Count * critterLabels[0].Height;
-            //}
         }
 
         //public void MapPortalFade()
@@ -1119,7 +1284,7 @@ namespace Yuusha.gui
 
                 YuushaMode.BuildMap();
 
-                if(GuiManager.GetControl("FogOfWarMapWindow") is MapWindow m)
+                if(GuiManager.GetControl("FogOfWarMapWindow") is FogOfWarWindow m)
                 {
                     GuiManager.RemoveControl(GuiManager.GetControl("FogOfWarMapWindow"));
                     System.Threading.Tasks.Task t = new System.Threading.Tasks.Task(() => Events.RegisterEvent(Events.EventName.Toggle_FogOfWar));

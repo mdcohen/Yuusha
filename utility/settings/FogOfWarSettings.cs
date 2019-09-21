@@ -2,22 +2,13 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.IO;
-using FogOfWarDetail = Yuusha.gui.MapWindow.FogOfWarDetail;
+using FogOfWarDetail = Yuusha.gui.FogOfWarWindow.FogOfWarDetail;
 
 namespace Yuusha.Utility.Settings
 {
     public class FogOfWarSettings
     {
         public List<FogOfWarDetail> FogOfWar = new List<FogOfWarDetail>();
-
-        //public bool ContainsFogOfWarDetail(FogOfWarDetail fog)
-        //{
-        //    foreach (FogOfWarDetail foo in new List<FogOfWarDetail>())
-        //        if (fog.Map == foo.Map && fog.XCord == foo.XCord && fog.YCord == foo.YCord && fog.ZCord == foo.ZCord)
-        //            return true;
-
-        //    return false;
-        //}
 
         public FogOfWarDetail GetFogOfWarDetail(FogOfWarDetail existingFog)
         {

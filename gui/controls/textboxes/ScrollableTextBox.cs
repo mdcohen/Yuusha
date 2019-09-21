@@ -321,10 +321,9 @@ namespace Yuusha.gui
                                 Client.ClientSettings.DefaultDropDownMenuFont, new VisualKey("WhiteSpace"), Client.ClientSettings.ColorDropDownMenu, 255, true, Map.Direction.Northwest, 5);
                         }
 
-                        DropDownMenu.Border = new SquareBorder(DropDownMenu.Name + "Border", DropDownMenu.Name, Client.ClientSettings.DropDownMenuBorderWidth, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255)
-                        {
-                            IsVisible = true,
-                        };
+                        // Uncomment below line to change border for this button while drop down menu is visible
+                        //Border = new SquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
+                        DropDownMenu.Border = new SquareBorder(Name + "Border", Name, 1, new VisualKey("WhiteSpace"), false, Client.ClientSettings.ColorDropDownMenuBorder, 255);
 
                         DropDownMenu.HasFocus = true;
                         int height = DropDownMenu.Title == "" ? 0 : BitmapFont.ActiveFonts[Font].LineHeight;
@@ -393,6 +392,10 @@ namespace Yuusha.gui
 
         public void AddLine(string line, Enums.ETextType textType)
         {
+            // TODO: fix this. either server side or create a filter method
+            if (line.StartsWith("You don't see a -"))
+                line = "You don't see your target.";
+
             if (line.Contains("\r\n"))
             {
                 string[] newLines = line.Split("\r\n".ToCharArray());

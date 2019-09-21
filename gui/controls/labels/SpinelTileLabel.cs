@@ -50,7 +50,7 @@ namespace Yuusha.gui
         {
             get { return m_critterVisuals; }
         }
-        public MapWindow.FogOfWarDetail FogOfWarDetail
+        public FogOfWarWindow.FogOfWarDetail FogOfWarDetail
         { get; set; }
         public string PathingVisual
         {
@@ -91,13 +91,14 @@ namespace Yuusha.gui
             m_foreAlpha = 255;
             m_foreTint = Color.White;
             m_lootVisual = new VisualKey("");
+            m_pathingVisual = new VisualKey("");
             m_critterVisuals = new List<VisualKey>();
             m_effectNames = new List<string>();
             
             LootText = "";
             CreatureText = "";
 
-            FogOfWarDetail = new MapWindow.FogOfWarDetail(0, 0, 0, 0, "");
+            FogOfWarDetail = new FogOfWarWindow.FogOfWarDetail(0, 0, 0, 0, "");
         } 
         #endregion
 
@@ -146,7 +147,7 @@ namespace Yuusha.gui
                 }
 
                 VisualInfo vi = GuiManager.Visuals[FogVisual];
-                Color fogColor = new Color(MapWindow.FogColor, MapWindow.FogAlpha);
+                Color fogColor = new Color(FogOfWarWindow.FogColor, FogOfWarWindow.FogAlpha);
                 Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, fogColor);
             }
 
@@ -172,6 +173,7 @@ namespace Yuusha.gui
                 }
             }
 
+            // Draw effects.
             if(m_effectNames.Count > 0)
             {
                 for (int a = 0; a < m_effectNames.Count; a++)
@@ -220,13 +222,13 @@ namespace Yuusha.gui
                                 vk = new VisualKey(TextManager.ConvertPluralToSingular(newVisual));
                             else
                             {
-                                Utils.LogOnce("Failed to find Critter visual key [ " + vk + " ] for SpinelTileLabel [ " + m_name + " ] after visual key string filtering.");
+                                Utils.LogOnce("Failed to find Critter visual key [ " + vk + " ] for SpinelTileLabel after visual key string filtering.");
                                 vk.Key = "question_mark";
                             }
                         }
                         else
                         {
-                            Utils.LogOnce("Failed to find Critter visual key [ " + vk + " ] for SpinelTileLabel [ " + m_name + " ]");
+                            Utils.LogOnce("Failed to find Critter visual key [ " + vk + " ] for SpinelTileLabel.");
                             vk.Key = "question_mark"; // draw a question mark
                         }
                     }
@@ -246,11 +248,32 @@ namespace Yuusha.gui
                 }
             }
 
-            // Draw pathing when implemented.
-            //if(m_pathingVisual != null && !string.IsNullOrEmpty(m_pathingVisual.Key))
-            //{
+            // Draw pathing such as movement footsteps or spell casting direction.
+            if (m_pathingVisual != null && !string.IsNullOrEmpty(m_pathingVisual.Key))
+            {
+                if (!GuiManager.Visuals.ContainsKey(m_pathingVisual.Key))
+                {
+                    Utils.LogOnce("Failed to find SpinelTileLabel pathingVisual key [ " + m_pathingVisual + " ] for Control [ " + m_name + " ]");
+                    m_pathingVisual.Key = ""; // clear visual key
+                    return;
+                }
 
-            //}
+                VisualInfo vi = GuiManager.Visuals[m_pathingVisual.Key];
+
+                if (!m_disabled)
+                {
+                    int visualAlpha = 255;
+
+                    if (Character.HasEffect("Hide in Shadows"))
+                        visualAlpha = 80;
+
+                    Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, new Color(Client.ClientSettings.MovementFootstepsColor, visualAlpha));
+                }
+                else
+                {
+                    Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, vi.Rectangle, new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, m_visualAlpha));
+                }
+            }
 
             // Draw border.
             if (Border != null) Border.Draw(gameTime); // draws the border again
@@ -270,7 +293,7 @@ namespace Yuusha.gui
                     BitmapFont.ActiveFonts[Font].TextBox(rect, Client.ClientSettings.Color_Gui_CreatureLetter_Fore, CreatureText);
                 }
             }
-            else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for SpinelTileLabel [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
+            else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for SpinelTileLabel of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
         }
 
         protected override void OnMouseOver(MouseState ms)
@@ -285,6 +308,35 @@ namespace Yuusha.gui
 
                 (GuiManager.GetControl("MapDisplayWindow") as Window).Controls.ForEach(c => { if (c is SpinelTileLabel && c.Name != Name) { (c as SpinelTileLabel).Border = null; } });
             }
+        }
+
+        protected override void OnMouseDown(MouseState ms)
+        {
+            if (!string.IsNullOrEmpty(Owner) && Owner == "MapDisplayWindow")
+            {
+                if (!m_onMouseDownSent && ms.LeftButton == ButtonState.Pressed)
+                {
+                    foreach (Cell cell in GameHUD.MovementChoices)
+                    {
+                        if(GuiManager.CurrentSheet["Tile" + GameHUD.Cells.IndexOf(cell)] is SpinelTileLabel spLabel) spLabel.PathingVisual = "";
+                    }
+
+                    GameHUD.MovementChoices.Clear();
+
+                    string movement = GetMovementDirections();
+
+                    Cell currentCell = Character.CurrentCharacter.Cell;
+                    foreach (Cell cell in GameHUD.MovementChoices)
+                    {
+                        if(GuiManager.CurrentSheet["Tile" + GameHUD.Cells.IndexOf(cell)] is SpinelTileLabel spLabel)
+                            spLabel.PathingVisual = Map.GetDirection(currentCell, cell).ToString() + "Footsteps";
+
+                        currentCell = cell;
+                    }
+                }
+            }
+                
+            base.OnMouseDown(ms);
         }
 
         protected override void OnZDelta(MouseState ms)

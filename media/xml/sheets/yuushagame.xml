@@ -969,7 +969,7 @@
 	  Width="354"
 		Height="354"
 		IsVisible="true"
-		IsLocked="false"
+		IsLocked="true"
 		Font="courier12"
 		VisualKey=""
 		TintColor="White"
@@ -2285,7 +2285,7 @@
     <Control
       Type="Button"
       Text=""
-      Name="LockerHorizontalAutoHidingLockerButton"
+      Name="LockerHorizontalAutoHidingButton"
       Owner="HorizontalGameAutoHidingWindow"
       X="0"
       Y="202"
@@ -2376,13 +2376,13 @@
     <Control
       Type="Button"
       Text=""
-      Name="VerticalAutoHidingMapButton"
+      Name="VerticalAutoHidingTalentsButton"
       Owner="VerticalGameAutoHidingWindow"
       X="0"
       Y="42"
       Width="40"
       Height="40"
-      VisualKey="MapIcon"
+      VisualKey="TalentsIcon"
       TintColor="MediumSeaGreen"
       TextColor="Black"
       TintOverColor="PaleGreen"
@@ -2391,8 +2391,8 @@
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="toggle_fogofwar"
-      PopUpText="Fog of War">
+      OnMouseDown="toggle_talents"
+      PopUpText="Talents">
     </Control>
     <Control
       Type="Button"

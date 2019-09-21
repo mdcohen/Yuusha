@@ -1803,13 +1803,13 @@
     <Control
       Type="Button"
       Text=""
-      Name="VerticalAutoHidingMapButton"
+      Name="VerticalAutoHidingTalentsButton"
       Owner="VerticalGameAutoHidingWindow"
       X="0"
       Y="22"
       Width="20"
       Height="20"
-      VisualKey="MapIcon"
+      VisualKey="TalentsIcon"
       TintColor="MediumOrchid"
       TextColor="Black"
       TintOverColor="PaleGreen"
@@ -1818,8 +1818,8 @@
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="toggle_map"
-      PopUpText="Map">
+      OnMouseDown="toggle_talents"
+      PopUpText="Talents">
     </Control>
     <Control
       Type="Button"

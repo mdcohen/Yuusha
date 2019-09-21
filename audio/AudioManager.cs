@@ -22,9 +22,12 @@ namespace Yuusha.Audio
         public const string AMB_DARKEMPTINESSDRONE = "Dark-Emptiness-Drone";
         public const string AMB_EERIEECHOES = "Eerie-Echos";
         public const string AMB_CREEPYDRONE = "Creepy-Drone";
+        public const string AMB_JUNGLENIGHT = "Jungle-Night";
 
+        public const string SONG_HEROICKINDDOM = "Heroic_Kingdom";
         public const string SONG_BIRTHOFACHAMPION = "Birth_of_a_Champion";
         public const string SONG_NOTHINGMATTERSEVERYTHINGDIES = "Nothing_Matters_Everything_Dies";
+        public const string SONG_PANDEMONIUM = "Pandemonium";
 
         public enum SoundDirection { None, South, North, West, East, Southwest, Northwest, Southeast, Northeast }
 
@@ -72,6 +75,10 @@ namespace Yuusha.Audio
                         #region Annwn
                         if (Character.CurrentCharacter.Z >= 0)
                             PlayAmbience(AMB_FORESTCALM, true, true, HardSetMediaPlayerVolume);
+                        else if (Character.CurrentCharacter.Z == -20)
+                            PlayAmbience(SONG_PANDEMONIUM, false, true, HardSetMediaPlayerVolume); // Annwn Town
+                        else if (Character.CurrentCharacter.Z < -20)
+                            PlayAmbience(AMB_DUNGEONAMBIENCE, true, true, HardSetMediaPlayerVolume);
                         else MediaPlayer.Pause();
                         break;
                         #endregion
@@ -118,14 +125,14 @@ namespace Yuusha.Audio
                                 PlayAmbience(AMB_WAVESSMALL, true, true, HardSetMediaPlayerVolume);
                             else
                             {
-                                Rectangle thievesGuild = new Rectangle(52, 28, 5, 4);
+                                Rectangle thievesGuild = new Rectangle(50, 28, 7, 4);
 
                                 if (!new Rectangle(Character.CurrentCharacter.X, Character.CurrentCharacter.Y, 1, 1).Intersects(thievesGuild))
                                     PlayAmbience(AMB_ISLANDFOREST, true, true, HardSetMediaPlayerVolume);
                                 else MediaPlayer.Pause();
                             }
                         }
-                        else MediaPlayer.Pause();
+                        else MediaPlayer.Pause(); // quiet in Kesmai lockers and on Ornic Outpost 2nd level
                         break; 
                     #endregion
                     case (int)World.MapID.Leng:
@@ -157,23 +164,31 @@ namespace Yuusha.Audio
                         else PlayAmbience(AMB_DUNGEONAMBIENCE, true, true, HardSetMediaPlayerVolume);
                         break;
                     #endregion
+                    case (int)World.MapID.Rift_Glacier:
+                        MediaPlayer.Pause();
+                        //PlayAmbience(AMB_WINDMODERATE, true, true, HardSetMediaPlayerVolume);
+                        break;
                     case (int)World.MapID.Torii:
                         #region Torii
                         if (Character.CurrentCharacter.Z >= 0)
+                        {
                             PlayAmbience(SONG_NOTHINGMATTERSEVERYTHINGDIES, true, true, HardSetMediaPlayerVolume);
-                        else MediaPlayer.Pause();
+                        }
+                        else PlayAmbience(AMB_CAVEAMBIENCE, false, true, HardSetMediaPlayerVolume);
                         break;
                     #endregion
                     case (int)World.MapID.Underkingdom:
                         #region Underkingdom
-                        if (MediaPlayer.Queue != null && MediaPlayer.Queue.ActiveSong != null)
+                        if (Character.CurrentCharacter.Z == 0)
                         {
-                            if (Character.CurrentCharacter.Z == 0)
-                                PlayAmbience(AMB_DESERTWINDLIGHT, true, true, HardSetMediaPlayerVolume);
-                            else if (MediaPlayer.Queue.ActiveSong.Name != "Caves-Ambience")
-                                PlayAmbience("Caves-Ambience", true, true, HardSetMediaPlayerVolume);
-                            else MediaPlayer.Pause();
+                            Rectangle UnderkingdomTown = new Rectangle(15, 8, 16, 18);
+                            if (new Rectangle(Character.CurrentCharacter.X, Character.CurrentCharacter.Y, 1, 1).Intersects(UnderkingdomTown))
+                                PlayAmbience(SONG_HEROICKINDDOM, false, true, HardSetMediaPlayerVolume);
+                            else PlayAmbience(AMB_DESERTWINDLIGHT, true, true, HardSetMediaPlayerVolume);
                         }
+                        else if(Character.CurrentCharacter.Z == -100 || Character.CurrentCharacter.Z == -200)
+                            PlayAmbience(AMB_JUNGLENIGHT, true, true, HardSetMediaPlayerVolume);
+                        else PlayAmbience(AMB_CAVEAMBIENCE, true, true, HardSetMediaPlayerVolume);
                         break;
                         #endregion
                     default:
@@ -187,7 +202,7 @@ namespace Yuusha.Audio
                 if (MediaPlayer.Queue != null && (MediaPlayer.Queue.ActiveSong == null || MediaPlayer.Queue.ActiveSong.Name != SONG_BIRTHOFACHAMPION) || MediaPlayer.State != MediaState.Playing)
                 {
                     if (MediaPlayer.Queue.ActiveSong != null && MediaPlayer.Queue.ActiveSong.Name == SONG_BIRTHOFACHAMPION)
-                        MediaPlayer.Resume();
+                        MediaPlayer.Play(MediaPlayer.Queue.ActiveSong);
                     else PlayAmbience(SONG_BIRTHOFACHAMPION, true, true, HardSetMediaPlayerVolume);
                 }
             }
@@ -195,7 +210,7 @@ namespace Yuusha.Audio
             {
                 if(MediaPlayer.State == MediaState.Playing)
                 {
-                    if(AudioManager.CurrentlyPlayingAmbience.Find(a => a.Track == MediaPlayer.Queue.ActiveSong) is AmbienceAudio aa)
+                    if(CurrentlyPlayingAmbience.Find(a => a.Track == MediaPlayer.Queue.ActiveSong) is AmbienceAudio aa)
                     {
                         aa.FadeIn = false;
                         aa.FadeOut = true;
@@ -238,7 +253,10 @@ namespace Yuusha.Audio
             {
                 MediaPlayer.Pause();
             }
-            else if (MediaPlayer.Queue != null && MediaPlayer.Queue.ActiveSong.Name == songName) return;
+            else if (MediaPlayer.Queue != null && MediaPlayer.Queue.ActiveSong.Name == songName)
+            {
+                return;
+            }
 
             Song song;
 
@@ -283,7 +301,9 @@ namespace Yuusha.Audio
 
             if (MediaPlayer.State != MediaState.Playing && MediaPlayer.Queue != null && MediaPlayer.Queue.ActiveSong != null && MediaPlayer.Queue.ActiveSong.Name == songName)
             {
-                MediaPlayer.Resume();
+                if(repeating)
+                    MediaPlayer.Play(MediaPlayer.Queue.ActiveSong);
+
                 return;
             }
 

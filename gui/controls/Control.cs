@@ -198,6 +198,11 @@ namespace Yuusha.gui
                 }
                 else if (GuiManager.ControlWithFocus == this)
                     GuiManager.ControlWithFocus = null;
+
+                //if(TabOrder > -1 && !string.IsNullOrEmpty(Owner) && GuiManager.GetControl(Owner) is Window w)
+                //{
+                //    w.CurrentTabOrder = TabOrder;
+                //}
             }
         }
 
@@ -312,12 +317,6 @@ namespace Yuusha.gui
 
         public virtual void Update(GameTime gameTime)
         {
-            //if (!m_disabled && m_visible)
-            //{
-            //    if (PopUpText != "" && m_controlState == Enums.EControlState.Over && GuiManager.ActiveDropDownMenu == "")
-            //        TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpBackAlpha, Client.ClientSettings.DefaultPopUpFont);
-            //}
-
             if (m_visuals.ContainsKey(ControlState) && m_visualKey != m_visuals[ControlState])
                 m_visualKey = m_visuals[ControlState];
 
@@ -349,6 +348,9 @@ namespace Yuusha.gui
                 m_doubleClickTimer.Stop();
             }
 
+            if(!string.IsNullOrEmpty(PopUpText) && !Contains(GuiManager.MouseState.Position))// && ControlState != Enums.EControlState.Over)
+                TextCue.RemoveMouseCursorTextCue(PopUpText);
+
             m_lastUpdate = gameTime.TotalGameTime;
         }
 
@@ -357,7 +359,7 @@ namespace Yuusha.gui
             if (!IsVisible)
                 return;
 
-            if (m_visualKey != null && m_visualKey.Key != "" && VisualAlpha > 0)
+            if (m_visualKey != null && !string.IsNullOrEmpty(m_visualKey.Key) && VisualAlpha > 0)
             {
                 if (m_visualKey.Key == "  ")
                 {
@@ -421,7 +423,7 @@ namespace Yuusha.gui
 
             if (!m_disabled)
             {
-                if (!string.IsNullOrEmpty(PopUpText) && m_controlState == Enums.EControlState.Over && string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu))
+                if (!string.IsNullOrEmpty(PopUpText) && m_controlState == Enums.EControlState.Over && GuiManager.ActiveDropDownMenu is null)
                     TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpBackAlpha, Client.ClientSettings.DefaultPopUpFont);
             }
         }
@@ -448,10 +450,10 @@ namespace Yuusha.gui
             if (!IsVisible || IsDisabled) return false;
 
             // drop down menus take priority for mouse handling
-            if (!string.IsNullOrEmpty(GuiManager.ActiveDropDownMenu) && !(this is DropDownMenu) && !(this is DropDownMenuItem))
+            if (GuiManager.ActiveDropDownMenu != null && !(this is DropDownMenu) && !(this is DropDownMenuItem))
                 return false;
 
-            if (Contains(ms.Position) && !m_containsMousePointer && !IsBeneathControl(ms))
+            if (Contains(ms.Position) && !m_containsMousePointer && !IsBeneathControl(ms) && !GuiManager.IsDragging)
             {
                 m_containsMousePointer = true;
                 OnMouseOver(ms);
@@ -495,6 +497,8 @@ namespace Yuusha.gui
             else if (m_hasTouchDownPoint && ms.LeftButton != ButtonState.Pressed && ms.RightButton != ButtonState.Pressed)
             {
                 m_hasTouchDownPoint = false;
+                GuiManager.AwaitMouseButtonRelease = false;
+                OnMouseRelease(ms);
             }
 
             // Not a TextBox, contains mouse cursor or has focus.
@@ -503,7 +507,7 @@ namespace Yuusha.gui
             if ((!(this is TextBox) && (Contains(ms.Position) || HasFocus)) || ((this is TextBox) && Contains(ms.Position)))
             {
                 // there was a change in scroll wheel values since last MouseHandler
-                if ((this is ScrollableTextBox || this is MapWindow || this is SpinelTileLabel) && GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
+                if ((this is ScrollableTextBox || this is FogOfWarWindow || this is SpinelTileLabel) && GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
                 {
                     OnZDelta(ms);
                 }
@@ -521,7 +525,7 @@ namespace Yuusha.gui
                         if (!(this is TextBox))
                             HasFocus = false;
 
-                        if (Contains(ms.Position))
+                        if (Contains(ms.Position) && m_hasTouchDownPoint)
                         {
                             GuiManager.AwaitMouseButtonRelease = false;
                             OnMouseRelease(ms);
@@ -565,7 +569,7 @@ namespace Yuusha.gui
                     //if (GuiManager.MouseAbove(this))
                     //    return result;
 
-                    if (!IsBeneathControl(ms))
+                    if (!IsBeneathControl(ms) && !GuiManager.IsDragging)
                     {
                         ControlState = Enums.EControlState.Over;
                         OnMouseOver(ms);
@@ -578,7 +582,7 @@ namespace Yuusha.gui
                 if ((ms.LeftButton == ButtonState.Pressed || ms.RightButton == ButtonState.Pressed) && m_hasTouchDownPoint &&
                     Contains(m_touchDownPoint) && Client.HasFocus || HasFocus)
                 {
-                    if ((!GuiManager.Dragging || GuiManager.DraggedControl == this) && !GuiManager.AwaitMouseButtonRelease)
+                    if ((!GuiManager.IsDragging || GuiManager.DraggedControl == this) && !GuiManager.AwaitMouseButtonRelease)
                     {
                         if (!IsBeneathControl(ms))
                         {
@@ -596,7 +600,7 @@ namespace Yuusha.gui
                 }
             }
             //else if (this is Button && ControlState != Enums.EControlState.Normal)
-            else if ((!Contains(ms.Position) || (this is Button)) && ControlState != Enums.EControlState.Normal)
+            else if (!GuiManager.IsDragging && (!Contains(ms.Position) || (this is Button)) && ControlState != Enums.EControlState.Normal)
             {
                 if (ms.LeftButton != ButtonState.Pressed && !(this is TextBox))
                     HasFocus = false;
@@ -654,11 +658,12 @@ namespace Yuusha.gui
                     Audio.AudioManager.PlaySoundEffect(Client.ClientSettings.DefaultOnClickSound);
                 else if(this is DropDownMenuItem)
                     Audio.AudioManager.PlaySoundEffect(Client.ClientSettings.DefaultOnClickSound);
-                //else if(this is CritterListLabel)
-                //    Audio.AudioManager.PlaySoundEffect(Client.ClientSettings.DefaultOnClickSound);
 
                 m_clickSoundPlayed = true;
             }
+
+            //ZDepth = 0;
+            //GuiManager.CurrentSheet.SortControls();
         }
 
         protected virtual void OnMouseOver(MouseState ms)
@@ -696,34 +701,13 @@ namespace Yuusha.gui
 
         public virtual void OnDispose()
         {
-            //if (Sheet != "Generic")
-            //{
-            //    if (GuiManager.Sheets[Sheet][Owner] is Window w && w.Controls.Contains(this))
-            //    {
-            //        lock (w.Controls)
-            //        {
-            //            w.Controls.Remove(this);
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    if (GuiManager.GenericSheet[Owner] is Window w && w.Controls.Contains(this))
-            //    {
-            //        lock (w.Controls)
-            //        {
-            //            w.Controls.Remove(this);
-            //        }
-            //    }
-            //}
-
             GuiManager.RemoveControl(this);
         }
 
         public virtual void OnClientResize(Rectangle prev, Rectangle now, bool ownerOverride)
         {
             // if this control is owned by another control then the owner will handle resizing
-            if (Owner != "" && !ownerOverride)
+            if (!string.IsNullOrEmpty(Owner) && !ownerOverride)
                 return;
 
             int x = m_rectangle.X;
@@ -813,7 +797,21 @@ namespace Yuusha.gui
             }
             else // no anchors, just adjust x and y position
             {
-                
+                x += m_rectangle.X - prev.X;
+                y += m_rectangle.Y - prev.Y;
+
+                if (this is Window)
+                {
+                    foreach (Control c in (this as Window).Controls)
+                    {
+                        c.OnClientResize(prev, now, false);
+                        if (c is Window)
+                        {
+                            foreach (Control c2 in (c as Window).Controls)
+                                c2.OnClientResize(prev, now, false);
+                        }
+                    }
+                }
             }
 
             m_rectangle.X = x;
@@ -839,32 +837,40 @@ namespace Yuusha.gui
             return false;
         }
 
-        private bool IsBeneathControl(MouseState ms)
+        protected bool IsBeneathControl(MouseState ms)
         {
-            // Cheating? Yes. Possibly needs rework in the future. 8/28/2019
-            if (Sheet == "Generic") return false;
-
-            if (Owner == "SpellringWindow") return false;
+            if (GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl is DragAndDropButton && !(this is GridBoxWindow) && !(this is DragAndDropButton))
+                return true;
 
             // Drop Down Menu always on top.
             if (this is DropDownMenu || this is DropDownMenuItem)
                 return false;
+            else if (GuiManager.ActiveDropDownMenu != null)
+            {
+                if(GuiManager.ActiveDropDownMenu.IsVisible)
+                    return true;
+                else
+                {
+                    GuiManager.ActiveDropDownMenu.OnDispose();
+                    GuiManager.ActiveDropDownMenu = null;
+                }
+            }
+
+            // Cheating? Yes. Possibly needs rework in the future. 8/28/2019
+            if (Sheet == "Generic") return false;
+
+            if (!string.IsNullOrEmpty(Owner))
+            {
+                if (GuiManager.GetControl(Owner) is Control c && c.Sheet == "Generic") return false;
+            }
+
+            if (Owner == "SpellringWindow") return false;
 
             if (this is WindowTitle || this is WindowControlBox)
                 return false;
 
             foreach (Control c in GuiManager.GenericSheet.Controls)
             {
-                //if(Sheet == "Generic")
-                //{
-                //    if (c.Sheet == "Generic")
-                //    {
-                //        if ((c.ZDepth < ZDepth || (c.ZDepth == ZDepth && c.ZDepthDateTime > ZDepthDateTime)) && c.Contains(ms.Position))
-                //            return true;
-                //    }
-                //    else continue;
-                //}
-
                 if (c.Sheet != "Generic" && c != this && c.IsVisible && c.Contains(ms.Position) && c.Name != Owner && !c.MouseInvisible)
                 {
                     return true;
@@ -873,6 +879,12 @@ namespace Yuusha.gui
 
             if (Sheet != "Generic")
             {
+                foreach(Control c in GuiManager.GenericSheet.Controls)
+                {
+                    if (c.IsVisible && c.Contains(ms.Position))
+                        return true;
+                }
+
                 foreach (Control c in GuiManager.CurrentSheet.Controls)
                 {
                     if (Owner == c.Name || !c.IsVisible || c == this) continue;
