@@ -108,20 +108,31 @@ namespace Yuusha.gui
                         IsLocked = false  // allows for dragging a label copy to make a hotbutton copy
                     };
 
+                    PercentageBarLabel activatedTalentHotButtonPercentageBarLabel = new PercentageBarLabel(activatedTalentHotButton.Name + "PercentageBar", "ActivatedTalentsWindow",
+                    new Rectangle(x, y, size, size), "", Color.White, false, false, activatedTalentHotButton.Font, new VisualKey("WhiteSpace"), Color.DarkMagenta,
+                    40, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "", false)
+                    {
+                        Percentage = 100,
+                        Segmented = false
+                    };
+                    activatedTalentHotButtonPercentageBarLabel.MidLabel = new Label(activatedTalentHotButtonPercentageBarLabel.Name + "MidLabel", activatedTalentHotButtonPercentageBarLabel.Name,
+                        new Rectangle(activatedTalentHotButtonPercentageBarLabel.Position.X, activatedTalentHotButtonPercentageBarLabel.Position.Y, 0, activatedTalentHotButtonPercentageBarLabel.Height), "", Color.White,
+                        true, false, activatedTalentHotButtonPercentageBarLabel.Font, new VisualKey("WhiteSpace"), Color.DimGray, 230, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+
                     GuiManager.GenericSheet.AddControl(activatedTalentHotButton);
+                    GuiManager.CurrentSheet.AddControl(activatedTalentHotButtonPercentageBarLabel);
                     x += size + spacing;
                     TalentsCount++;
                 }
 
                 y = padding;
-
                 x = padding;
 
                 for (int i = 0; i < passiveTalentsList.Count; i++)
                 {
                     HotButton passiveTalentHotButton = new HotButton("PassiveTalentHotButton" + i, "PassiveTalentsWindow", new Rectangle(x, y, size, size),
                     passiveTalentsList[i], false, Color.Black, true, true, "lemon14", new VisualKey(GameHUD.GameIconsDictionary[Talent.IconsDictionary[passiveTalentsList[i]]]), Color.Silver, 255, 255, new VisualKey(""), new VisualKey(""),
-                    new VisualKey(""), "", BitmapFont.TextAlignment.Center, 0, 0, Color.White, false, Color.White, false, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, "", passiveTalentsList[i])
+                    new VisualKey(""), "send_command", BitmapFont.TextAlignment.Center, 0, 0, Color.White, false, Color.White, false, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, "toggletalent " + Character.CurrentCharacter.Talents.Find(t => t.Name == passiveTalentsList[i]).Command, passiveTalentsList[i])
                     {
                         IsLocked = false  // allows for dragging a label copy to make a hotbutton copy
                     };
@@ -137,13 +148,13 @@ namespace Yuusha.gui
                 if (this["ActivatedTalentsWindow"] is Window aWindow)
                 {
                     aWindow.Height = Height - (WindowTitle != null ? WindowTitle.Height : 0) - 2;
-                    aWindow.Width = Math.Max(activatedTalentsList.Count, passiveTalentsList.Count) * size + Math.Max(activatedTalentsList.Count, passiveTalentsList.Count) * spacing - 21;
+                    aWindow.Width = Math.Max(activatedTalentsList.Count, passiveTalentsList.Count) * size + Math.Max(activatedTalentsList.Count, passiveTalentsList.Count) * spacing;
                 }
 
                 if (this["PassiveTalentsWindow"] is Window pWindow)
                 {
                     pWindow.Height = Height - (WindowTitle != null ? WindowTitle.Height : 0) - 2;
-                    pWindow.Width = Math.Max(activatedTalentsList.Count, passiveTalentsList.Count) * size + Math.Max(activatedTalentsList.Count, passiveTalentsList.Count) * spacing - 21;
+                    pWindow.Width = Math.Max(activatedTalentsList.Count, passiveTalentsList.Count) * size + Math.Max(activatedTalentsList.Count, passiveTalentsList.Count) * spacing;
                 }
 
                 if (WindowTitle != null) WindowTitle.Width = Width;
@@ -158,8 +169,67 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            //if (Character.CurrentCharacter != null && Character.CurrentCharacter.Talents.Count > 0 && Character.CurrentCharacter.Talents.Count != TalentsCount)
-            //    CreateTalentHotButtons();
+            try
+            {
+                if (Character.CurrentCharacter != null && Character.CurrentCharacter.Talents != null)
+                {
+                    foreach (Talent t in Character.CurrentCharacter.Talents)
+                    {
+                        if (t.IsPassive)
+                        {
+                            if (Controls.FindIndex(c => c.Text == t.Name) is int index && index > -1)
+                            {
+                                if (t.IsEnabled)
+                                {
+                                    Controls[index].TintColor = Color.White;
+                                }
+                                else
+                                {
+                                    Controls[index].TintColor = Color.DimGray;
+                                }
+                            }
+
+                        }
+                        else // display if active talents are available
+                        {
+                            if (t.DownTime != null) // temporary until server updated 9/24/2019
+                            {
+                                if (Controls.FindIndex(c => c.Text == t.Name) is int index && index > -1)
+                                {
+                                    if (DateTime.Now - t.LastUse < t.DownTime) // not available
+                                    {
+                                        Controls[index].TintColor = Color.LightGray;
+                                        if(Controls.FindIndex(c => c.Name == Controls[index].Name + "PercentageBar") is int pctIndex && pctIndex > -1)
+                                        {
+                                            if (Controls[pctIndex] is PercentageBarLabel pctLabel)
+                                            {
+                                                TimeSpan timeRemaining = DateTime.Now - t.LastUse;
+                                                pctLabel.Percentage = timeRemaining.TotalMilliseconds / t.DownTime.TotalMilliseconds * 100;
+                                                pctLabel.IsVisible = true;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Controls[index].TintColor = Color.White;
+                                        if (Controls.FindIndex(c => c.Name == Controls[index].Name + "PercentageBar") is int pctIndex && pctIndex > -1)
+                                        {
+                                            if(Controls[pctIndex] is PercentageBarLabel pctLabel)
+                                            {
+                                                pctLabel.IsVisible = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Utils.LogException(e);
+            }
         }
 
         public override void OnClose()

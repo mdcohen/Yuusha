@@ -91,11 +91,11 @@
 /processorParam:Quality=Best
 /build:Ambience/Nothing_Matters_Everything_Dies.mp3
 
-#begin Ambience/Pandemonium.mp3
+#begin Ambience/Serenity.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Ambience/Pandemonium.mp3
+/build:Ambience/Serenity.mp3
 
 #begin Ambience/Waves-Small.mp3
 /importer:Mp3Importer
@@ -150,6 +150,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:GUISounds/footstep_dirt.wav
+
+#begin GUISounds/locker_opening.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GUISounds/locker_opening.wav
 
 #begin GUISounds/minor_error.wav
 /importer:WavImporter
@@ -1998,6 +2004,36 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:KSND0295.wav
+
+#begin KSND0296.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0296.wav
+
+#begin KSND0297.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0297.wav
+
+#begin KSND0298.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0298.wav
+
+#begin KSND0299.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0299.wav
+
+#begin KSND0300.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:KSND0300.wav
 
 #begin KSNDint1.WAV
 /importer:WavImporter

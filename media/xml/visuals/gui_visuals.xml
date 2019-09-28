@@ -68,6 +68,7 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
 	<Visual ParentTexture="ui_helpers.png" Name="TextBox2" X="525" Y="1141" Width="115" Height="30"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="Logo" X="772" Y="1030" Width="115" Height="120"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="ConversationBubble" X="441" Y="1131" Width="79" Height="48"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="VitalsLabelBorder" X="522" Y="560" Width="331" Height="54"></Visual>
   <!-- Window Title Control Boxes -->
 	<Visual ParentTexture="ui_helpers.png" Name="WindowMinimizeBox" X="652" Y="1104" Width="12" Height="12"></Visual>
 	<Visual ParentTexture="ui_helpers.png" Name="WindowMaximizeBox" X="664" Y="1104" Width="12" Height="12"></Visual>
@@ -97,6 +98,7 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <Visual ParentTexture="ui_helpers.png" Name="MusicNoteIcon" X="840" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="VerticalHotbarIcon" X="780" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="HorizontalHotbarIcon" X="840" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="TogglesIcon" X="900" Y="1260" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="MacrosIcon" X="900" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="SoundWavesIcon" X="960" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="SpellringIcon" X="900" Y="1140" Width="60" Height="60"></Visual>
@@ -114,6 +116,7 @@ Visuals are pre-set locations of where to pull graphics from a texture that was 
   <!--<Visual ParentTexture="ui_helpers.png" Name="SmokeCircle" X="286" Y="577" Width="212" Height="212"></Visual>-->
   <Visual ParentTexture="ui_helpers.png" Name="SmokeCircle" X="275" Y="568" Width="232" Height="232"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="DragonCircle" X="0" Y="1290" Width="212" Height="212"></Visual>
+  <Visual ParentTexture="ui_helpers.png" Name="SpellWarmingCircle" X="921" Y="467" Width="479" Height="473"></Visual>
   <!-- Logos -->
   <Visual ParentTexture="ui_helpers.png" Name="FacebookLogo" X="620" Y="0" Width="60" Height="60"></Visual>
   <Visual ParentTexture="ui_helpers.png" Name="TwitterLogo" X="680" Y="0" Width="60" Height="60"></Visual>

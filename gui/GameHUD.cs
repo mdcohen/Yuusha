@@ -7,27 +7,7 @@ namespace Yuusha.gui
 {
     public class GameHUD : GameComponent
     {
-        /// <summary>
-        /// Windows that may be dragged from any spot the mouse cursor touches down.
-        /// </summary>
-        public static List<string> NonDiscreetlyDraggableWindows = new List<string>()
-        {
-            "ScrollableTextBoxWindow",
-            "EffectsWindow",
-            //"FogOfWarWindow",
-            "CharacterStatsWindow",
-            //"InventoryWindow",
-            "RingsWindow",
-            "SpellbookWindow",
-            "SpellringWindow",
-            "SpellWarmingWindow",
-            "VitalsWindow",
-            "VolumeControlPopUpWindow",
-            //"VerticalHotButtonWindow",
-            //"HorizontalHotButtonWindow",
-        };
-        public static List<int> InitialSpellbookUpdated = new List<int>();
-        public static List<int> InitialTalentbookUpdated = new List<int>();
+        
         public static Dictionary<string, string> GameIconsDictionary = new Dictionary<string, string>()
         {
             // skills
@@ -75,11 +55,72 @@ namespace Yuusha.gui
             {"talent_steal", "yuushaicon_41" },
             {"talent_doubleattack", "yuushaicon_42" },
         };
+        /// <summary>
+        /// When a Character enters the game for the first time a Request_Spells event is triggered.
+        /// From then on talents are updated when a change to the Character's SpellDictionary server-side occurs.
+        /// </summary>
+        public static List<int> InitialSpellbookUpdated = new List<int>();
+        /// <summary>
+        /// When a Character enters the game for the first time a Request_Talents event is triggered.
+        /// From then on talents are updated when a change to the Character's TalentsDictionary server-side occurs.
+        /// </summary>
+        public static List<int> InitialTalentbookUpdated = new List<int>();
+        /// <summary>
+        /// Used when discerning pathing direction choices double clicking on MapTileLabels/SpinelTileLabels.
+        /// </summary>
+        public static Cell MovementClickedCell;
+        /// <summary>
+        /// Windows that may be dragged from any spot the mouse cursor touches down.
+        /// </summary>
+        public static List<string> NonDiscreetlyDraggableWindows = new List<string>()
+        {
+            "CharacterStatsWindow",
+            "EffectsWindow",
+            //"FogOfWarWindow",
+            //"HorizontalHotButtonWindow",
+            //"InventoryWindow",
+            "RingsWindow",
+            "ScrollableTextBoxWindow",
+            "SpellbookWindow",
+            "SpellringWindow",
+            "SpellWarmingWindow",
+            //"VerticalHotButtonWindow",
+            "VitalsWindow",
+            "VolumeControlPopUpWindow",
+        };
+
+        private static Window SlideScreenWindow;
+        private static Window SlideScreenGenericWindow;
+        private static Map.Direction SlideDirection = Map.Direction.None;
+        private static int SlideSpeed = 15;
+        public static bool ReturnSlidScreen = false;
 
         const int MAP_GRID_MINIMUM = 30;
         const int MAP_GRID_MAXIMUM = 100;
 
         public static List<Tuple<ScrollableTextBox, DateTime>> ConversationBubbles = new List<Tuple<ScrollableTextBox, DateTime>>();
+
+        /// <summary>
+        /// Control to be shaken. Original point on screen. DateTime of start. TimeSpan how long to shake. int = How much to shake.
+        /// </summary>
+        private static List<Tuple<Control, Point, DateTime, TimeSpan, int>> RandomlyShakingControls = new List<Tuple<Control, Point, DateTime, TimeSpan, int>>();
+
+        /// <summary>
+        /// Control to be shaken. Original point on screen. DateTime of start. TimeSpan how long to shake. SyncronizedShakingAmount static int is modified in method call.
+        /// </summary>
+        private static List<Tuple<Control, Point, DateTime, TimeSpan>> SynchronizedShakingControls = new List<Tuple<Control, Point, DateTime, TimeSpan>>();
+        private static int SynchronizedShakingAmount = 3;
+
+        /// <summary>
+        /// Control (Label) that will be created to black out the screen. DateTime of creation, TimeSpan to remain, int = fade speed, bool = fade in upon expiration
+        /// </summary>
+        public static Tuple<Control, DateTime, TimeSpan, int, bool> FadeToBlackTuple;
+
+        private static List<Tuple<Control, Point, Map.Direction, int>> CrumblingControls = new List<Tuple<Control, Point, Map.Direction, int>>();
+        
+        private static List<Tuple<Control, Point, Map.Direction, int>> ReturningCrumbledControls = new List<Tuple<Control, Point, Map.Direction, int>>();
+
+        private static List<Tuple<Control, DateTime, TimeSpan>> HiddenControls = new List<Tuple<Control, DateTime, TimeSpan>>();
 
         public static List<Cell> MovementChoices = new List<Cell>();
 
@@ -100,8 +141,6 @@ namespace Yuusha.gui
 
         private static int FramesQuantity = 0;
         private static float CurrentAvgFPS = 0;
-
-        // TODO a boolean here to prevent ZName pop up
 
         public static GridBoxWindow.GridBoxPurpose GridBoxWindowRequestUpdate
         { get; set; } = GridBoxWindow.GridBoxPurpose.None;
@@ -124,16 +163,126 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
-            //if (Character.PreviousRoundCharacter != null && Character.CurrentCharacter != null)
+            // Fade to black. Or fading back in from black.
+            if (FadeToBlackTuple != null)
+            {
+                // Time is up. Remove control or fade "in"
+                if (DateTime.Now - FadeToBlackTuple.Item2 >= FadeToBlackTuple.Item3)
+                {
+                    if (!FadeToBlackTuple.Item5) // not fading in
+                    {
+                        GuiManager.Dispose(FadeToBlackTuple.Item1);
+                        FadeToBlackTuple = null;
+                    }
+                    else // fading in
+                    {
+                        FadeToBlackTuple.Item1.VisualAlpha -= FadeToBlackTuple.Item4;
+
+                        if (FadeToBlackTuple.Item1.VisualAlpha <= 0)
+                        {
+                            GuiManager.Dispose(FadeToBlackTuple.Item1);
+                            FadeToBlackTuple = null;
+                        }
+                    }
+                }
+                else
+                {
+                    FadeToBlackTuple.Item1.VisualAlpha += FadeToBlackTuple.Item4;
+                    if (FadeToBlackTuple.Item1.VisualAlpha > 255) FadeToBlackTuple.Item1.VisualAlpha = 255;
+                }
+            }
+
+            // Temporarily hidden controls.
+            //foreach (Tuple<Control, DateTime, TimeSpan> tuple in new List<Tuple<Control, DateTime, TimeSpan>>(HiddenControls))
             //{
-            //    if (Client.GameState.ToString().EndsWith("Game") && Character.PreviousRoundCharacter.Z != Character.CurrentCharacter.Z)
+            //    if (DateTime.Now - tuple.Item2 >= tuple.Item3)
             //    {
-            //        Events.RegisterEvent(Events.EventName.Request_Stats);
+            //        tuple.Item1.IsVisible = true;
             //    }
             //}
 
-            // Conversation Bubbles. Fade out and move around
-            foreach(Tuple<ScrollableTextBox, DateTime> tuple in new List<Tuple<ScrollableTextBox, DateTime>>(ConversationBubbles))
+            if (!ReturnSlidScreen)
+            {
+                if (SlideScreenWindow != null)
+                {
+                    Point pt = Map.DirectionCoordinates[SlideDirection];
+                    Rectangle client = new Rectangle(0, 0, Client.Width, Client.Height);
+
+                    if (new Rectangle(SlideScreenWindow.Position.X, SlideScreenWindow.Position.Y, SlideScreenWindow.Width, SlideScreenWindow.Height).Intersects(client))
+                        SlideScreenWindow.ForcePosition(new Point(SlideScreenWindow.Position.X + (SlideSpeed * pt.X), SlideScreenWindow.Position.Y + (SlideSpeed * pt.Y)), false);
+                }
+
+                if (SlideScreenGenericWindow != null)
+                {
+                    Point pt = Map.DirectionCoordinates[SlideDirection];
+                    Rectangle client = new Rectangle(0, 0, Client.Width, Client.Height);
+
+                    if (new Rectangle(SlideScreenGenericWindow.Position.X, SlideScreenGenericWindow.Position.Y, SlideScreenGenericWindow.Width, SlideScreenGenericWindow.Height).Intersects(client))
+                        SlideScreenGenericWindow.ForcePosition(new Point(SlideScreenGenericWindow.Position.X + (SlideSpeed * pt.X), SlideScreenGenericWindow.Position.Y + (SlideSpeed * pt.Y)), false);
+                }
+            }
+            else
+            {
+                if (SlideScreenWindow != null && SlideScreenWindow.Position != new Point(0, 0))
+                {
+                    Point pt = Map.DirectionCoordinates[Map.GetOppositeDirection(SlideDirection)];
+                    SlideScreenWindow.ForcePosition(new Point(SlideScreenWindow.Position.X + (SlideSpeed * pt.X), SlideScreenWindow.Position.Y + (SlideSpeed * pt.Y)), false);
+
+                    if (SlideScreenWindow.Position == new Point(0, 0))
+                        SlideScreenWindow = null;
+                }
+
+                if (SlideScreenGenericWindow != null && SlideScreenGenericWindow.Position != new Point(0, 0))
+                {
+                    Point pt = Map.DirectionCoordinates[Map.GetOppositeDirection(SlideDirection)];
+                    SlideScreenGenericWindow.ForcePosition(new Point(SlideScreenGenericWindow.Position.X + (SlideSpeed * pt.X), SlideScreenGenericWindow.Position.Y + (SlideSpeed * pt.Y)), false);
+
+                    if (SlideScreenGenericWindow.Position == new Point(0, 0))
+                        SlideScreenGenericWindow = null;
+                }
+
+                if (SlideScreenWindow == null && SlideScreenGenericWindow == null)
+                    ReturnSlidScreen = false;
+            }
+
+            // Crumbling controls.
+            foreach (Tuple<Control, Point, Map.Direction, int> tuple in new List <Tuple<Control, Point, Map.Direction, int>>(CrumblingControls))
+            {
+                Point pt = Map.DirectionCoordinates[tuple.Item3];
+                Rectangle client = new Rectangle(0, 0, Client.Width, Client.Height);
+                //int crumbleAmount = new Random(Guid.NewGuid().GetHashCode()).Next(tuple.Item4 / 2, tuple.Item4);
+
+                if (tuple.Item1 is Window w && new Rectangle(w.Position.X, w.Position.Y, w.Width, w.Height).Intersects(client) && new Random(Guid.NewGuid().GetHashCode()).Next(1 , 100) > 50)
+                {
+                    w.ForcePosition(new Point(tuple.Item1.Position.X + (new Random(Guid.NewGuid().GetHashCode()).Next(1, tuple.Item4) * pt.X), tuple.Item1.Position.Y + (new Random(Guid.NewGuid().GetHashCode()).Next(1, tuple.Item4) * pt.Y)), false);
+                }
+                else if (!(tuple.Item1 is Window) && new Rectangle(tuple.Item1.Position.X, tuple.Item1.Position.Y, tuple.Item1.Width, tuple.Item1.Height).Intersects(client) && new Random(Guid.NewGuid().GetHashCode()).Next(1, 100) > 50)
+                {
+                    tuple.Item1.Position = new Point(tuple.Item1.Position.X + (new Random(Guid.NewGuid().GetHashCode()).Next(1, tuple.Item4) * pt.X), tuple.Item1.Position.Y + (new Random(Guid.NewGuid().GetHashCode()).Next(1, tuple.Item4) * pt.Y));
+                }
+            }
+
+            // Returning crumbled controls.
+            foreach (Tuple<Control, Point, Map.Direction, int> tuple in new List<Tuple<Control, Point, Map.Direction, int>>(ReturningCrumbledControls))
+            {
+                Point pt = Map.DirectionCoordinates[tuple.Item3];
+                Rectangle client = new Rectangle(0, 0, Client.Width, Client.Height);
+
+                if (tuple.Item1.Position != tuple.Item2)
+                {
+                    if (tuple.Item1 is Window w && new Random(Guid.NewGuid().GetHashCode()).Next(1, 100) > 50)
+                        w.ForcePosition(new Point(tuple.Item1.Position.X + (tuple.Item4 * pt.X), tuple.Item1.Position.Y + (tuple.Item4 * pt.Y)), false);
+                    else if(!(tuple.Item1 is Window) && new Random(Guid.NewGuid().GetHashCode()).Next(1, 100) > 50)
+                        tuple.Item1.Position = new Point(tuple.Item1.Position.X + (tuple.Item4 * pt.X), tuple.Item1.Position.Y + (tuple.Item4 * pt.Y));
+                }
+                else
+                {
+                    ReturningCrumbledControls.Remove(tuple);
+                }
+            }
+
+            // Conversation bubbles.
+            foreach (Tuple<ScrollableTextBox, DateTime> tuple in new List<Tuple<ScrollableTextBox, DateTime>>(ConversationBubbles))
             {
                 tuple.Item1.ZDepth = 0;
 
@@ -149,6 +298,226 @@ namespace Yuusha.gui
                     ConversationBubbles.Remove(tuple);
                 }
             }
+
+            // Randomly shaking controls.
+            foreach (Tuple<Control, Point, DateTime, TimeSpan, int> tuple in new List<Tuple<Control, Point, DateTime, TimeSpan, int>>(RandomlyShakingControls))
+            {
+                if (DateTime.Now - tuple.Item3 >= tuple.Item4)
+                {
+                    if (tuple.Item1 is Window w)
+                        w.ForcePosition(tuple.Item2, true);
+                    else
+                        tuple.Item1.Position = tuple.Item2;
+
+                    RandomlyShakingControls.Remove(tuple);
+                }
+                else
+                {
+                    if (tuple.Item1 is Window w)
+                        w.ForcePosition(new Point(tuple.Item1.Position.X + new Random(Guid.NewGuid().GetHashCode()).Next(-tuple.Item5, tuple.Item5), tuple.Item1.Position.Y + new Random(Guid.NewGuid().GetHashCode()).Next(-tuple.Item5, tuple.Item5)), false);
+                    else tuple.Item1.Position = new Point(tuple.Item1.Position.X + new Random(Guid.NewGuid().GetHashCode()).Next(-tuple.Item5, tuple.Item5), tuple.Item1.Position.Y + new Random(Guid.NewGuid().GetHashCode()).Next(-tuple.Item5, tuple.Item5));
+                }
+            }
+
+            // Synchronized shaking controls.
+            if (SynchronizedShakingControls.Count > 0)
+            {
+                int shakeX = new Random(Guid.NewGuid().GetHashCode()).Next(-SynchronizedShakingAmount, SynchronizedShakingAmount);
+                int shakeY = new Random(Guid.NewGuid().GetHashCode()).Next(-SynchronizedShakingAmount, SynchronizedShakingAmount);
+
+                foreach (Tuple<Control, Point, DateTime, TimeSpan> tuple in new List<Tuple<Control, Point, DateTime, TimeSpan>>(SynchronizedShakingControls))
+                {
+                    if (DateTime.Now - tuple.Item3 >= tuple.Item4)
+                    {
+                        if (tuple.Item1 is Window w)
+                            w.ForcePosition(tuple.Item2, true);
+                        else
+                            tuple.Item1.Position = tuple.Item2;
+
+                        SynchronizedShakingControls.Remove(tuple);
+                    }
+                    else
+                    {
+                        if (tuple.Item1 is Window w)
+                            w.ForcePosition(new Point(tuple.Item1.Position.X + shakeX, tuple.Item1.Position.Y + shakeY), false);
+                        else tuple.Item1.Position = new Point(tuple.Item1.Position.X + shakeX, tuple.Item1.Position.Y + shakeY);
+                    }
+                }
+            }
+        }
+
+        public static void AddRandomlyShakingControl(Tuple<Control, Point, DateTime, TimeSpan, int> tuple)
+        {
+            foreach(Tuple<Control, Point, DateTime, TimeSpan, int> t in RandomlyShakingControls)
+            {
+                if (t.Item1.Name == tuple.Item1.Name && t.Item1.Sheet == tuple.Item1.Sheet)
+                    return;
+            }
+
+            RandomlyShakingControls.Add(tuple);
+        }
+        public static void RandomlyShakeScreen(int milliseconds, int amount, bool includeGenericSheet)
+        {
+            ReleaseAllDraggedControls();
+
+            foreach (Control c in GuiManager.CurrentSheet.Controls)
+            {
+                AddRandomlyShakingControl(Tuple.Create(c, c.Position, DateTime.Now, TimeSpan.FromMilliseconds(milliseconds), amount));
+            }
+
+            if (includeGenericSheet)
+            {
+                foreach (Control c in GuiManager.GenericSheet.Controls)
+                {
+                    AddRandomlyShakingControl(Tuple.Create(c, c.Position, DateTime.Now, TimeSpan.FromMilliseconds(milliseconds), amount));
+                }
+            }
+        }
+
+        public static void AddSynchronizedShakingControl(Tuple<Control, Point, DateTime, TimeSpan> tuple)
+        {
+            foreach (Tuple<Control, Point, DateTime, TimeSpan> t in SynchronizedShakingControls)
+            {
+                if (t.Item1.Name == tuple.Item1.Name && t.Item1.Sheet == tuple.Item1.Sheet)
+                    return;
+            }
+
+            SynchronizedShakingControls.Add(tuple);
+        }
+        public static void SynchronouslyShakeScreen(int milliseconds, int shakeAmount, bool includeGenericSheet)
+        {
+            ReleaseAllDraggedControls();
+            SynchronizedShakingAmount = shakeAmount;
+
+            foreach (Control c in GuiManager.CurrentSheet.Controls)
+            {
+                AddSynchronizedShakingControl(Tuple.Create(c, c.Position, DateTime.Now, TimeSpan.FromMilliseconds(milliseconds)));
+            }
+
+            if (includeGenericSheet)
+            {
+                foreach (Control c in GuiManager.GenericSheet.Controls)
+                {
+                    AddSynchronizedShakingControl(Tuple.Create(c, c.Position, DateTime.Now, TimeSpan.FromMilliseconds(milliseconds)));
+                }
+            }
+        }        
+
+        public static void SynchronouslySlideScreen(Map.Direction direction, int slideSpeed, bool includeBackground, bool includeGenericSheet)
+        {
+            ReleaseAllDraggedControls();
+            SlideDirection = direction;
+            SlideSpeed = slideSpeed;
+
+            SlideScreenWindow = new Window("SlideScreenWindow", "", new Rectangle(0, 0, Client.Width, Client.Height), true, true, false, GuiManager.CurrentSheet.Font,
+                new VisualKey("WhiteSpace"), Color.Black, 0, false, Map.Direction.None, 0, new List<Enums.EAnchorType>(), "");
+
+            foreach (Control c in GuiManager.CurrentSheet.Controls)
+            {
+                if (c is Background && !includeBackground)
+                    continue;
+
+                GuiManager.CurrentSheet.AttachControlToWindow(c, SlideScreenWindow);
+            }
+
+            if (includeGenericSheet)
+            {
+                SlideScreenGenericWindow = new Window("SlideScreenWindow", "", new Rectangle(0, 0, Client.Width, Client.Height), true, true, false, GuiManager.CurrentSheet.Font,
+                new VisualKey("WhiteSpace"), Color.Black, 0, false, Map.Direction.None, 0, new List<Enums.EAnchorType>(), "");
+
+                foreach (Control c in GuiManager.GenericSheet.Controls)
+                {
+                    GuiManager.GenericSheet.AttachControlToWindow(c, SlideScreenGenericWindow);
+                }
+            }
+        }
+        public static void AddSlidingControl(Tuple<Control, Point, Map.Direction, int> tuple)
+        {
+            foreach (Tuple<Control, Point, Map.Direction, int> t in CrumblingControls)
+            {
+                if (t.Item1.Name == tuple.Item1.Name && t.Item1.Sheet == tuple.Item1.Sheet)
+                    return;
+            }
+
+            CrumblingControls.Add(tuple);
+        }
+
+        public static void CrumbleScreen(Map.Direction direction, int crumbleSpeed, bool includeBackground, bool includeGenericSheet)
+        {
+            ReleaseAllDraggedControls();
+
+            foreach (Control c in GuiManager.CurrentSheet.Controls)
+            {
+                if (c is Background && !includeBackground)
+                    continue;
+
+                AddSlidingControl(Tuple.Create(c, c.Position, direction, crumbleSpeed));
+            }
+
+            if (includeGenericSheet)
+            {
+                foreach (Control c in GuiManager.GenericSheet.Controls)
+                {
+                    AddSlidingControl(Tuple.Create(c, c.Position, direction, crumbleSpeed));
+                }
+            }
+        }
+        public static void ReturnCrumbledScreen(bool immediately)
+        {
+            if (immediately)
+            {
+                foreach (Tuple<Control, Point, Map.Direction, int> tuple in CrumblingControls)
+                {
+                    if (tuple.Item1 is Window w)
+                        w.ForcePosition(tuple.Item2, true);
+                    else
+                        tuple.Item1.Position = tuple.Item2;
+
+                    CrumblingControls.Remove(tuple);
+                }
+            }
+            else
+            {
+                foreach (Tuple<Control, Point, Map.Direction, int> tuple in new List<Tuple<Control, Point, Map.Direction, int>>(CrumblingControls))
+                {
+                    ReturningCrumbledControls.Add(Tuple.Create(tuple.Item1, tuple.Item2, Map.GetOppositeDirection(CrumblingControls[0].Item3), tuple.Item4));
+                    CrumblingControls.Remove(tuple);
+                }
+            }
+        }
+
+        public static void FadeToColor(Color fadeColor, int milliseconds, int fadeAmount, bool fadeIn)
+        {
+            FadeToVisualKey("WhiteSpace", fadeColor, milliseconds, fadeAmount, fadeIn, false);
+        }
+        /// <summary>
+        /// The screen goes black immediately.
+        /// </summary>
+        /// <param name="milliseconds">Time from start when the screen fades in or is no longer black.</param>
+        /// <param name="fadeAmount"></param>
+        /// <param name="fadeIn"></param>
+        public static void GoBlack(int milliseconds, int fadeAmount, bool fadeIn)
+        {
+            FadeToVisualKey("WhiteSpace", Color.Black, milliseconds, fadeAmount, fadeIn, true);
+        }
+
+        public static void LightningFlash()
+        {
+            FadeToVisualKey("WhiteSpace", Color.Azure, 100, 6, true, true);
+        }
+
+        public static void FadeToVisualKey(string visualKey, Color tintColor, int milliseconds, int fadeAmount, bool fadeIn, bool immediate)
+        {
+            if(GuiManager.GetControl("GameHUDFadeToVisualKeyLabel") is Label l)
+                GuiManager.Dispose(l);
+
+            Control fadeToBlackLabel = new Label("GameHUDFadeToVisualKeyLabel", "", new Rectangle(0, 0, Client.Width, Client.Height), "", Color.White, true, false,
+                GuiManager.GenericSheet.Font, new VisualKey(visualKey), tintColor, immediate ? (byte)255 : (byte)0, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "",
+                new List<Enums.EAnchorType>(), "");
+            GuiManager.GenericSheet.AddControl(fadeToBlackLabel);
+            fadeToBlackLabel.ZDepth = 0;
+
+            FadeToBlackTuple = Tuple.Create(fadeToBlackLabel, DateTime.Now, TimeSpan.FromMilliseconds(milliseconds), fadeAmount, fadeIn);
         }
 
         public static float UpdateCumulativeMovingAverageFPS(float newFPS)
@@ -157,6 +526,50 @@ namespace Yuusha.gui
             CurrentAvgFPS += (newFPS - CurrentAvgFPS) / FramesQuantity;
 
             return CurrentAvgFPS;
+        }
+
+        private static void ReleaseAllDraggedControls()
+        {
+            GuiManager.StopDragging();
+            if (GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl is DragAndDropButton dadButton)
+                dadButton.StopDragging();
+        }
+
+        public static void DisplayLogoutOptionScreen()
+        {
+            if (GuiManager.GenericSheet["LogoutOptionWindow"] is Window w)
+                return;
+
+            Window logoutOptionWindow = new Window("LogoutOptionWindow", "", new Rectangle(0, 0, Client.Width, Client.Height), true, true, false, Client.ClientSettings.DefaultFont,
+                new VisualKey("WhiteSpace"), Color.Black, 190, false, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.All }, "");
+
+            VisualInfo vi = GuiManager.Visuals["GoldDragonLogo"];
+
+            Label backgroundDragonLabel = new Label("LogoutDragonLabel", logoutOptionWindow.Name, new Rectangle(Client.Width / 2 - vi.Width / 2, Client.Height / 2 - vi.Height / 2, vi.Width, vi.Height),
+                "", Color.GhostWhite, true, false, Client.ClientSettings.DefaultFont, new VisualKey("GoldDragonLogo"), Color.White, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "")
+            {
+                MouseInvisible = true
+            };
+
+            string questionToDisplay = "Press L to logout, X to exit";
+
+            if (Client.InGame)
+                questionToDisplay = "Press Q to quit, L to logout, X to exit";
+
+            // change question depending on game state
+
+            Label logoutQuestionLabel = new Label("LogoutQuestionLabel", logoutOptionWindow.Name, new Rectangle(0, Client.Height / 2 - BitmapFont.ActiveFonts[Client.ClientSettings.DefaultFont].LineHeight, Client.Width, BitmapFont.ActiveFonts[Client.ClientSettings.DefaultFont].LineHeight),
+                questionToDisplay, Color.GhostWhite, true, false, Client.ClientSettings.DefaultFont, new VisualKey("WhiteSpace"), Color.Black, 90, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+
+            Label logoutQuestion2Label = new Label("LogoutQuestion2Label", logoutOptionWindow.Name, new Rectangle(0, logoutQuestionLabel.Position.Y + logoutQuestionLabel.Height, Client.Width, BitmapFont.ActiveFonts[Client.ClientSettings.DefaultFont].LineHeight),
+                "R to return", Color.GhostWhite, true, false, Client.ClientSettings.DefaultFont, new VisualKey("WhiteSpace"), Color.Black, 90, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+
+            GuiManager.GenericSheet.AddControl(logoutOptionWindow);
+            GuiManager.GenericSheet.AddControl(backgroundDragonLabel);
+            GuiManager.GenericSheet.AddControl(logoutQuestionLabel);
+            GuiManager.GenericSheet.AddControl(logoutQuestion2Label);
+
+            backgroundDragonLabel.ZDepth = 100;
         }
 
         /// <summary>
@@ -825,9 +1238,9 @@ namespace Yuusha.gui
                 {
                     string[] skills = Character.CurrentCharacter.SkillsData.Split(Protocol.VSPLIT.ToCharArray());
 
-                    ScrollableTextBox skillsSTB = new ScrollableTextBox("SkillsScrollableTextBox", "",
-                                                   new Rectangle(2, 2, 405, (skills.Length + 2) * (BitmapFont.ActiveFonts[w.Font].LineHeight + 5)), "", Color.White, true, false, w.Font,
-                                                   new VisualKey("WhiteSpace"), Color.DarkMagenta, 150, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0,
+                    ScrollableTextBox skillsSTB = new ScrollableTextBox("SkillsScrollableTextBox", w.Name,
+                                                   new Rectangle(2, 2, 405, (skills.Length + 2) * BitmapFont.ActiveFonts[w.Font].LineHeight), "", Color.White, true, false, w.Font,
+                                                   new VisualKey("WhiteSpace"), Color.DarkMagenta, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0,
                                                    BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>() { }, true)
                     {
 
@@ -838,8 +1251,8 @@ namespace Yuusha.gui
                     foreach (string line in skills)
                     {
                         string[] skillInfo = line.Split(Protocol.ISPLIT.ToCharArray());
-                        string withColon = skillInfo[0] + ":";
-                        skillsSTB.AddLine(withColon.PadRight(20) + skillInfo[1], Enums.ETextType.Default);
+                        string withColon = TextManager.FormatEnumString(skillInfo[0]) + ":";
+                        skillsSTB.AddLine(withColon.PadRight(20) + skillInfo[2] + " (" + skillInfo[1] + ")", Enums.ETextType.Default);
                     }
                     GuiManager.GenericSheet.AddControl(skillsSTB);
                 }
@@ -1004,13 +1417,6 @@ namespace Yuusha.gui
                     int borderWidth = w.WindowBorder != null ? w.WindowBorder.Width : 0;
                     int labelsPerRow = 8;
 
-                    //if (Character.CurrentCharacter.Effects.Count <= 0)
-                    //{
-                    //    Label label = new Label("NoEffectsLabel", w.Name, new Rectangle(0, (w.WindowTitle != null ? w.WindowTitle.Height : 0) + 2, BitmapFont.ActiveFonts[w.Font].MeasureString("No Effects"), 30), "No Effects", Color.White, true, false, w.Font,
-                    //            new VisualKey("WhiteSpace"), Color.Transparent, 0, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
-
-                    //    GuiManager.GenericSheet.AddControl(label);
-                    //}
                     if (Character.CurrentCharacter.Effects.Count > 0)
                     {
                         int x = borderWidth + spacing;
@@ -1022,13 +1428,12 @@ namespace Yuusha.gui
                             string text = effect.Name[0].ToString();
                             string effectPopUp = TextManager.FormatEnumString(effect.Name);
                             Color tintColor = Color.Transparent;
-                            //int count = 0;
 
                             // time remaining
                             if (effect.Duration > 0)
                             {
-                                System.TimeSpan timeRemaining = Utils.RoundsToTimeSpan(effect.Duration);
-                                if (timeRemaining < System.TimeSpan.FromMinutes(60))
+                                TimeSpan timeRemaining = Utils.RoundsToTimeSpan(effect.Duration);
+                                if (timeRemaining < TimeSpan.FromMinutes(60))
                                     effectPopUp += " [" + string.Format("{0:D2}", timeRemaining.Minutes) + ":" + string.Format("{0:D2}", timeRemaining.Seconds) + "]";
                                 else effectPopUp += " [" + timeRemaining.ToString() + "]";
                             }
@@ -1089,7 +1494,7 @@ namespace Yuusha.gui
                     if (w.WindowTitle != null) w.WindowTitle.Width = w.Width;
                     w.Height = (w.WindowTitle != null ? w.WindowTitle.Height : 0) + (rowCount * (size + spacing)) + (borderWidth * 2);
 
-                    if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter.Effects.Count > 0)
+                    if (Client.InGame && Character.CurrentCharacter.Effects.Count > 0)
                         w.IsVisible = true;
                     else w.IsVisible = false;
                 }

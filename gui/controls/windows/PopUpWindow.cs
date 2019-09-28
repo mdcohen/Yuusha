@@ -15,6 +15,128 @@ namespace Yuusha.gui
         {
         }
 
+        public static void CreateCommonCommandsPopUpWindow()
+        {
+            if (GuiManager.GenericSheet["CommonCommandsPopUpWindow"] != null)
+                return;
+
+            // button name, button command
+            Dictionary<string, string> CommonCommands = new Dictionary<string, string>()
+            {
+                {"Display Combat Damage", "displaycombatdamage" },
+                {"Display Damage Shield", "displaydamageshield" },
+                {"Display Game Round", "displaygameround" },
+                {"Display Pet Damage", "displaypetdamage" },
+                {"Display Pet Messages", "displaypetmessages" },
+                {"Show Armor Class", "showac" },
+                {"Show DPS Stats", "showdps" },
+                {"Toggle DPS Logging", "toggleDPS" },
+            };
+
+            MouseState ms = GuiManager.MouseState;
+
+            PopUpWindow w = new PopUpWindow("CommonCommandsPopUpWindow", "", new Rectangle(ms.X - 100, ms.Y - 10, 204, 400), true, false, false, GuiManager.GenericSheet.Font, new gui.VisualKey("WhiteSpace"),
+                Color.Black, 150, true, Map.Direction.Northwest, 3, new List<Enums.EAnchorType>(), "");
+
+            WindowTitle wTitle = new WindowTitle(w.Name + "Title", w.Name, "lemon10", "Common Commands", Color.White, Color.Black, 50, BitmapFont.TextAlignment.Center, new VisualKey("WhiteSpace"), false,
+                new VisualKey(""), new VisualKey(""), 0, 0, 0, 0, Color.Black, 17);
+
+            GuiManager.GenericSheet.AddControl(w);
+            GuiManager.GenericSheet.AddControl(wTitle);
+
+            int spacing = 2;
+            int x = spacing;
+            int y = wTitle.Height + spacing;
+
+            foreach (string key in CommonCommands.Keys)
+            {
+                string command = CommonCommands[key];
+
+                if (Client.GameState == Enums.EGameState.Conference)
+                    command = "/" + command;
+
+                Button commonCommandButton = new Button(command + "CommonCommandButton", w.Name, new Rectangle(x, y, 200, 21), key, true, Color.White,
+                    true, false, "robotomonobold11", new VisualKey("WhiteSpace"), Color.DimGray, 255, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "send_command", BitmapFont.TextAlignment.Center, 0, 0,
+                Color.DarkMagenta, true, Color.PaleGreen, true, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, command, "", Client.ClientSettings.DefaultOnClickSound);
+                GuiManager.GenericSheet.AddControl(commonCommandButton);
+                y += 21 + spacing;
+            }
+
+            w.Height = y;
+        }
+
+        public static void CreateScoresCommandsPopUpWindow()
+        {
+            // button name, button command
+            Dictionary<string, string> ScoresCommands = new Dictionary<string, string>()
+            {
+                {"Top Ten", "scores" },
+                //{"Top Ten Berserkers", "scores ber" },
+                //{"Top Ten Druids", "scores dr" },
+                {"Top Fighters", "scores fi" },
+                {"Top Knights", "scores kn" },
+                {"Top Martial Artists", "scores ma" },
+                //{"Top Ten Rangers", "scores rng" },
+                {"Top Ravagers", "scores rav" },
+                {"Top Sorcerers", "scores sorc" },
+                {"Top Thaumaturges", "scores thaum" },
+                {"Top Thieves", "scores thief" },
+                {"Top Wizards", "scores wiz" },
+            };
+
+            MouseState ms = GuiManager.MouseState;
+
+            PopUpWindow w = new PopUpWindow("CommonCommandsPopUpWindow", "", new Rectangle(ms.X - 120, ms.Y - 10, 204, 400), true, false, false, GuiManager.GenericSheet.Font, new gui.VisualKey("WhiteSpace"),
+                Color.Black, 150, true, Map.Direction.Northwest, 3, new List<Enums.EAnchorType>(), "");
+
+            WindowTitle wTitle = new WindowTitle(w.Name + "Title", w.Name, "lemon10", "Scores", Color.White, Color.Black, 50, BitmapFont.TextAlignment.Center, new VisualKey("WhiteSpace"), false,
+                new VisualKey(""), new VisualKey(""), 0, 0, 0, 0, Color.Black, 17);
+
+            GuiManager.GenericSheet.AddControl(w);
+            GuiManager.GenericSheet.AddControl(wTitle);
+
+            int spacing = 2;
+            int x = spacing;
+            int y = wTitle.Height + spacing;
+
+            foreach (string key in ScoresCommands.Keys)
+            {
+                string command = ScoresCommands[key];
+
+                if (Client.GameState == Enums.EGameState.Conference)
+                    command = "/" + command;
+
+                Button scoresCommandButton = new Button(command + "scoresCommandButton", w.Name, new Rectangle(x, y, 200, 21), key, true, Color.White,
+                    true, false, "robotomonobold11", new VisualKey("WhiteSpace"), Color.DimGray, 255, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "send_command", BitmapFont.TextAlignment.Center, 0, 0,
+                Color.DarkMagenta, true, Color.PaleGreen, true, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, command, "", Client.ClientSettings.DefaultOnClickSound);
+                GuiManager.GenericSheet.AddControl(scoresCommandButton);
+                y += 21 + spacing;
+            }
+
+            w.Height = y;
+        }
+
+        public static void CreateSquareIconPopUpWindow(Control c, int size)
+        {
+            if (GuiManager.GenericSheet[c.Name + "PopUpWindow"] is PopUpWindow existingWindow)
+                return;
+
+            MouseState ms = GuiManager.MouseState;
+
+            PopUpWindow w = new PopUpWindow(c.Name + "PopUpWindow", "", new Rectangle(ms.X - size / 2, ms.Y - size / 2, size, size), true, true, false, GuiManager.GenericSheet.Font, new VisualKey(""),
+                c.TintColor, (byte)c.VisualAlpha, true, Map.Direction.Northwest, 3, new List<Enums.EAnchorType>(), c.PopUpText);
+
+            Button b = new Button(w.Name + "CommandButton", w.Name, new Rectangle(0, 0, size, size), "", false, Color.White, true, false, "courier12", new VisualKey(c.VisualKey),
+                Color.White, 255, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "Send_Command", BitmapFont.TextAlignment.Center, 0, 0,
+                Color.White, false, Color.Green, false, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, c.Command, c.PopUpText, Client.ClientSettings.DefaultOnClickSound);
+
+            SquareBorder bBorder = new SquareBorder(b.Name + "SquareBorder", b.Name, 1, new VisualKey("WhiteSpace"), false, Color.DimGray, 255);
+
+            GuiManager.GenericSheet.AddControl(w);
+            GuiManager.GenericSheet.AddControl(b);
+            GuiManager.GenericSheet.AddControl(bBorder);
+        }
+
         public static void CreateVolumeControlPopUpWindow()
         {
             if (GuiManager.GenericSheet["VolumeControlPopUpWindow"] != null)
@@ -56,29 +178,11 @@ namespace Yuusha.gui
             GuiManager.GenericSheet.AddControl(raiseVolumeButton);
         }
 
-        public static void CreateSquareIconPopUpWindow(Control c, int size)
-        {
-            if (GuiManager.GenericSheet[c.Name + "PopUpWindow"] is PopUpWindow existingWindow)
-                return;
-
-            MouseState ms = GuiManager.MouseState;
-
-            PopUpWindow w = new PopUpWindow(c.Name + "PopUpWindow", "", new Rectangle(ms.X - size / 2, ms.Y - size / 2, size, size), true, true, false, GuiManager.GenericSheet.Font, new VisualKey(""),
-                c.TintColor, (byte)c.VisualAlpha, true, Map.Direction.Northwest, 3, new List<Enums.EAnchorType>(), c.PopUpText);
-
-            Button b = new Button(w.Name + "CommandButton", w.Name, new Rectangle(0, 0, size, size), "", false, Color.White, true, false, "courier12", new VisualKey(c.VisualKey),
-                Color.White, 255, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), "Send_Command", BitmapFont.TextAlignment.Center, 0, 0,
-                Color.White, false, Color.Green, false, new List<Enums.EAnchorType>(), false, Map.Direction.None, 0, c.Command, c.PopUpText, Client.ClientSettings.DefaultOnClickSound);
-
-            SquareBorder bBorder = new SquareBorder(b.Name + "SquareBorder", b.Name, 1, new VisualKey("WhiteSpace"), false, Color.DimGray, 255);
-
-            GuiManager.GenericSheet.AddControl(w);
-            GuiManager.GenericSheet.AddControl(b);
-            GuiManager.GenericSheet.AddControl(bBorder);
-        }
-
         public override void Update(GameTime gameTime)
         {
+            if(!Contains(GuiManager.MouseState.Position))
+                IsVisible = false;
+
             base.Update(gameTime);
 
             if (IsVisible)

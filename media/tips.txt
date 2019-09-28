@@ -5,9 +5,9 @@ GUI|The ESC key may be used to clear a target, clear the input textbox, and clos
 Command|If you just so happen to be evil, know that coins may be deposited or withdrawn directly in/from your bank account while at your locker in an Ornic Hideout. Hold the coins and use the "deposit" or "withdraw <amount>" commands. The "balance" command works as well.
 Command|There is a fully functional game mail system where you may send and receive items. Type "mail help" for a list of commands.
 World|Throughout the known lands are remnants of ancient portals rumored built and enchanted by a long vanished sect of druids. Some portals still work properly if you know and recite the correct chant.
-Critter|Don't forget to bring fresh animal and beast corpses to a Tanner. There's no telling what could be salvaged.
+Critter|Don't forget to bring fresh animal and beast corpses to a Tanner. There's no telling what could be salvaged. Maybe someone needs the pelt...
 World|Beware of Ornic Hideouts; they're a safe haven for Ravagers, Sorcerers and followers of Nergal. However, they're a certain and painful death for all others.
-Command|Stock up on balms and use the quaff command to quickly take one from your sack, open it, drink it and then discard the empty bottle. It's a real lifesaver.
+Command|Stock up on balms and use the "quaff" command to quickly take one from your sack, open it, drink it and then discard the empty bottle. It's a real lifesaver.
 Game|If you are poisoned find a healer who is aligned with, or friendly toward, you. They can even cure some diseases if you're unfortunate enough to become infected.
 Game|The sorcerer's contagion spell wreaks havoc. There is hope, however. Even applying simple cure remedies has a slim chance to remove the worst infection.
 Critter|Giants and their close relatives, such as ettins, firbolgs and ogres, have a longer reach than smaller humanoids. They'll be able to attack you even if they're out of your own melee range.
@@ -15,5 +15,9 @@ Critter|Most undead are immune to cold based attacks. Unless they're spectral un
 Game|Before resting to level up, see if you can find a dog to pet for some good luck. It's rumored moonstones have something to do with luck as well.
 Game|Pedlars aren't kidding when they say a recall ring will get you out of trouble every time. Wear a glowing recall ring to set a location, then remove it to be whisked back instantaneously.
 GUI|Spells may be warmed from a spellbook by left clicking on the spell icon. Right clicking on the spell icon will allow you to drag the spell to a hotbutton.
-Game|Max out skill training whenever possible by using the '<trainer name>, train max' command. The gold required for training will be deducted directly from your bank account. When trained to maximum you'll notice skills will increase much more rapidly.
+Game|Max out skill training whenever possible by using the "<trainer name>, train max" command. The gold required for training will be deducted directly from your bank account. When trained to maximum you'll notice skills will increase much more rapidly.
 GUI|Pressing the first letter of a drop down menu option will typically select that option.
+GUI|On the talents window you may click on passive talents to disable or enable them.
+GUI|Using the mouse wheel over the main map display, or using ALT -/+ key combinations, will change the size of the map.
+Game|Saying hello ("<name>, hello") to a non-player character may lead to more information worth pursuing.
+Command|In the conference rooms use "/commands" to see a full list of text commands. "/commands <argument>" will display commands starting with <argument>.

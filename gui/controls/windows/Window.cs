@@ -637,10 +637,13 @@ namespace Yuusha.gui
             foreach (Control c in Controls)
                 c.HasFocus = false;
 
-            if (Client.GameState.ToString().EndsWith("Game"))
-                GuiManager.CurrentSheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
-            else if (Client.GameState == Enums.EGameState.Conference)
-                GuiManager.CurrentSheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
+            if (Name == "OptionsWindow" || Name.EndsWith("PrivateMessageWindow") || Name.EndsWith("HotButtonEditWindow"))
+            {
+                if (Client.InGame)
+                    GuiManager.CurrentSheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
+                else if (Client.GameState == Enums.EGameState.Conference)
+                    GuiManager.CurrentSheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
+            }
         }
 
         /// <summary>
@@ -1085,9 +1088,6 @@ namespace Yuusha.gui
                     }
                 }
             }
-
-            //if(Character.GUIPositionSettings != null)
-            //    Character.GUIPositionSettings.OnLoad(this);
         }
 
         public void SortControls()
@@ -1114,7 +1114,7 @@ namespace Yuusha.gui
             }
         }
 
-        public void ForcePosition(Point p)
+        public void ForcePosition(Point p, bool checkBounds)
         {
             if (Position.X == p.X && Position.Y == p.Y) return;
             //if (IsLocked && !GameHUD.NonDiscreetlyDraggableWindows.Contains(Name)) return;
@@ -1178,7 +1178,9 @@ namespace Yuusha.gui
                     }
                 }
             }
-            CheckBoundsAndAdjust();
+
+            if(checkBounds)
+                CheckBoundsAndAdjust();
         }
     }
 }

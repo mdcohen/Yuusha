@@ -29,7 +29,7 @@ namespace Yuusha
 
         //public enum Size { Belt_Only, Sack_Only, Belt_Or_Sack, No_Container, Belt_Large_Slot_Only }
 
-        public int ID
+        public int CatalogID
         { get; set; }
         public long WorldItemID
         { get; set; }
@@ -64,7 +64,7 @@ namespace Yuusha
             {
                 string[] itemInfo = info.Split(Protocol.VSPLIT.ToCharArray());
 
-                ID = Convert.ToInt32(itemInfo[0]);
+                CatalogID = Convert.ToInt32(itemInfo[0]);
                 WorldItemID = Convert.ToInt32(itemInfo[1]);
                 Name = itemInfo[2];
                 VisualKey = itemInfo[3];

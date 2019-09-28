@@ -115,7 +115,8 @@
     <Compile Include="game classes\Spell.cs" />
     <Compile Include="game classes\Talent.cs" />
     <Compile Include="game classes\World.cs" />
-    <Compile Include="gui\controls\Background.cs" />
+    <Compile Include="gui\controls\specialized\Apeture.cs" />
+    <Compile Include="gui\controls\specialized\Background.cs" />
     <Compile Include="gui\controls\borders\Border.cs" />
     <Compile Include="gui\controls\borders\SquareBorder.cs" />
     <Compile Include="gui\controls\borders\TexturedBorder.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="gui\controls\labels\SpellEffectLabel.cs" />
     <Compile Include="gui\controls\labels\SpinelTileLabel.cs" />
     <Compile Include="gui\controls\buttons\TabControlButton.cs" />
+    <Compile Include="gui\controls\specialized\RotatingTexture.cs" />
     <Compile Include="gui\controls\TabControl.cs" />
     <Compile Include="gui\controls\windows\AutoHidingWindow.cs" />
     <Compile Include="gui\controls\windows\CritterListWindow.cs" />
@@ -151,8 +153,8 @@
     <Compile Include="gui\controls\textboxes\NumericTextBox.cs" />
     <Compile Include="gui\controls\RadioButton.cs" />
     <Compile Include="gui\controls\textboxes\ScrollableTextBox.cs" />
-    <Compile Include="gui\controls\Scrollbar.cs" />
-    <Compile Include="gui\controls\ScrollbarControlBox.cs" />
+    <Compile Include="gui\controls\specialized\Scrollbar.cs" />
+    <Compile Include="gui\controls\specialized\ScrollbarControlBox.cs" />
     <Compile Include="gui\controls\Slider.cs" />
     <Compile Include="gui\controls\StatusBar.cs" />
     <Compile Include="gui\controls\textboxes\TextBox.cs" />
@@ -226,6 +228,24 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="gold+dragon.ico" />
+    <Content Include="media\fonts\astlochbold36-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\astlochbold36.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\butcherman32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\butcherman32.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\cevicheone32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\cevicheone32.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\fonts\changaone\changaone14-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -268,10 +288,34 @@
     <Content Include="media\fonts\changaone\changaone28.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="media\fonts\cinzeldecorative22-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\cinzeldecorative22.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\cinzeldecorative32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\cinzeldecorative32.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\fonts\dancingscript22-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\dancingscript22.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\frederickathegreat32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\frederickathegreat32.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\griffy32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\griffy32.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\lemon\lemon22-0.png">
@@ -329,6 +373,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\lobster22.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\medievalsharp32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\medievalsharp32.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\merienda32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\merienda32.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\mogra22-0.png">
@@ -433,28 +489,52 @@
     <Content Include="media\fonts\monospace\robotomono\robotomonobold14.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\rocksalt22-0.png">
+    <Content Include="media\fonts\nosifer32-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\rocksalt22.xml">
+    <Content Include="media\fonts\nosifer32-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\shojumaru22-0.png">
+    <Content Include="media\fonts\nosifer32.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\shojumaru22.xml">
+    <Content Include="media\fonts\raviprakash32-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\simonetta22-0.png">
+    <Content Include="media\fonts\raviprakash32.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\fonts\simonetta22.xml">
+    <Content Include="media\fonts\rocksalt32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\rocksalt32-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\rocksalt32.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\shojumaru32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\shojumaru32.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\tradewinds32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\tradewinds32.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\uncialantiqua22-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\fonts\uncialantiqua22.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\uncialantiqua32-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\fonts\uncialantiqua32.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\help.txt">

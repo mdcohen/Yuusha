@@ -90,6 +90,15 @@ namespace Yuusha
             get { return m_passive; }
         }
 
+        public bool IsEnabled
+        { get; set; }
+
+        public DateTime LastUse
+        { get; set; }
+
+        public TimeSpan DownTime
+        { get { return m_downTime; } }
+
         public Talent(string info)
         {
             string[] talentInfo = info.Split(Protocol.VSPLIT.ToCharArray());
@@ -102,8 +111,14 @@ namespace Yuusha
             m_purchasePrice = Convert.ToInt32(talentInfo[5]);
             m_passive = Convert.ToBoolean(talentInfo[6]);
             m_availableAtMentor = Convert.ToBoolean(talentInfo[7]);
-            //m_downTime = 
             m_soundFile = talentInfo[8];
+            if (talentInfo.Length > 9)
+            {
+                m_downTime = Utils.RoundsToTimeSpan(Convert.ToInt32(talentInfo[9]));
+            }
+
+            IsEnabled = true; // always default from server
+            LastUse = DateTime.Now;
         }
 
         public static List<string> TalentsRequiringTargets = new List<string>()

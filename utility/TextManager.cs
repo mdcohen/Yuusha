@@ -17,9 +17,14 @@ namespace Yuusha
             "cannot quit here"
         };
 
+        /// <summary>
+        /// Entire list of available display fonts.
+        /// </summary>
         public static List<string> DisplayFontsList = new List<string>()
         {
-            "simonetta22", "unicalantiqua22", "lobster22", "mogra22", "dancingscript22",
+            "astlochbold36", "butcherman32", "cevicheone32", "cinzeldecorative22", "cinzeldecorative32", "dancingscript22", "frederickathegreat32", "griffy32",
+            "lobster22", "medievalsharp32", "merienda32", "mogra22", "nosifer32", "raviprakash32", "rocksalt32", "shojumaru32", "tradewinds32",
+            "unicalantiqua22", "unicalantiqua32"
         };
 
         public static List<string> ScalingTextFontList = new List<string>()
@@ -97,11 +102,12 @@ namespace Yuusha
             {"On the counter you see ", Color.CornflowerBlue },
 
             // Combat: self
+            {"Your pet ", Color.Thistle },
             {"Swing hits with ", Color.PeachPuff },
             {"Kick hits with ", Color.PeachPuff },
             {"Jumpkick hits with ", Color.PeachPuff },
             {"Shot hits with ", Color.PeachPuff },
-            {"You have scored a critical hit", Color.Peru },            
+            {"You have scored a critical hit", Color.Peru },
 
             // Combat: others
             {"misses you.", Color.LightGreen },
@@ -164,7 +170,7 @@ namespace Yuusha
             return str;
         }
 
-        public static void CheckAllTextTriggers(string input)
+        public static void CheckAllGameStateTextTriggers(string input)
         {
             if(input.StartsWith("Your name has been changed to "))
             {
@@ -195,6 +201,56 @@ namespace Yuusha
                 {
                     Utils.LogException(e);
                 }
+            }
+            else if(input.Equals("You are no longer resting."))
+            {
+                if (gui.GuiManager.CurrentSheet["restingPositiveStatusWindow"] is gui.SpellWarmingWindow existingWindow)
+                    existingWindow.OnClose();
+            }
+            else if(input.Equals("You are no longer meditating."))
+            {
+                if (gui.GuiManager.CurrentSheet["meditatingPositiveStatusWindow"] is gui.SpellWarmingWindow existingWindow)
+                    existingWindow.OnClose();
+            }
+            else if(input.StartsWith("Your ") && input.EndsWith(" talent has been disabled."))
+            {
+                string talentName = input.Replace("Your ", "").Replace(" talent has been disabled.", "");
+                if(Character.CurrentCharacter != null && Character.CurrentCharacter.Talents.FindIndex(t => t.Name == talentName) is int index && index > -1)
+                {
+                    Character.CurrentCharacter.Talents[index].IsEnabled = false;
+                }
+            }
+            else if (input.StartsWith("Your ") && input.EndsWith(" talent has been enabled."))
+            {
+                string talentName = input.Replace("Your ", "").Replace(" talent has been enabled.", "");
+                if (Character.CurrentCharacter != null && Character.CurrentCharacter.Talents.FindIndex(t => t.Name == talentName) is int index && index > -1)
+                {
+                    Character.CurrentCharacter.Talents[index].IsEnabled = true;
+                }
+            }
+            
+        }
+
+        public static void CheckAllGameModeTextTriggers(string input)
+        {
+            if (input.StartsWith("You have memorized the chant for your "))
+            {
+                if (Character.CurrentCharacter != null)
+                    Character.CurrentCharacter.MemorizedSpell = input.Replace("You have memorized the chant for your ", "").Replace(" spell.", "");
+            }
+            else if (input.Equals("You have forgotten your memorized spell chant!"))
+            {
+                if (Character.CurrentCharacter != null) Character.CurrentCharacter.MemorizedSpell = "";
+            }
+            else if (input.StartsWith("As you approach the wall a large drawer slides out from what was an empty wall."))
+            {
+                Audio.AudioManager.PlaySoundEffect("GUISounds/locker_opening");
+            }
+            else if (input.Equals("You have forgotten your memorized spell chant!") || input.Equals("You are no longer hidden!") ||
+                    input.Equals("You don't have any balms to quaff. Good luck.") || input.Equals("You have only 1 balm remaining."))
+                    //|| input.Contains(" is immune to "))
+            {
+                gui.TextCue.AddClientInfoTextCue(input, Color.Yellow, Color.Transparent, GetDisplayFont(out Color tintColor), 2500);
             }
         }
 
@@ -234,17 +290,15 @@ namespace Yuusha
                         }
                     }
                 } // WARNINGS TODO: Add these to a settings serializable collection for modification in options
-                else if (input.Equals("You have forgotten your memorized spell chant!") || input.Equals("You are no longer hidden!"))
-                {
-                    gui.TextCue.AddClientInfoTextCue(input, Color.Bisque, Color.Transparent, "lemon24", 3000);
-                }
                 else if (input.Equals("You fade into the shadows."))
                 {
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Hide in Shadows", Color.DarkViolet);
-                    Audio.AudioManager.PlaySoundEffect("KSND0285");
                 }
-                else if (input.Equals("You have been hit by a lightning bolt!"))
-                    gui.SpellEffectLabel.CreateSpellEffectLabel("Lightning Bolt", gui.SpellEffectLabel.DamageBorderColor);//gui.SpellEffectLabel.CreateSpellEffectLabel("Death", gui.SpellEffectLabel.DamageBorderColor);
+                else if (input.Equals("You have been hit by a lightning bolt!") || input.Equals("You have been hit by a violent lightning storm!"))
+                {
+                    //gui.SpellEffectLabel.CreateSpellEffectLabel("Lightning Bolt", gui.SpellEffectLabel.DamageBorderColor);
+                    gui.GameHUD.LightningFlash();
+                }
                 else if (input.ToLower().Equals("you have been hit by magic missile!"))
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Magic Missile", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.ToLower().Equals("you have been hit by a fireball!"))
@@ -259,8 +313,16 @@ namespace Yuusha
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Disintegrate", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.StartsWith("You have been poisoned by"))
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Venom", gui.SpellEffectLabel.DamageBorderColor);
-                else if (input.Equals("You have been poisoned!"))
+                else if (input.StartsWith("You have been poisoned"))
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Poison", gui.SpellEffectLabel.DamageBorderColor);
+                else if (input.StartsWith("An involuntary tremor runs up and down"))
+                {
+                    gui.GameHUD.RandomlyShakeScreen(2000, 2, true);
+                }
+                else if (input.Equals("You shiver as the poison runs its course."))
+                {
+                    gui.GameHUD.SynchronouslyShakeScreen(500, 2, false);
+                }
                 else if (input.Contains("They latch onto " + Character.CurrentCharacter.Name + " and pull"))
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Ghod's Hooks", gui.SpellEffectLabel.DamageBorderColor);
                 else if (input.StartsWith("Sage: "))
@@ -272,8 +334,11 @@ namespace Yuusha
                 {
                     string spellName = input.Replace("You warm the spell ", "");
                     spellName = spellName.Substring(0, spellName.Length - 1);
-                    gui.SpellWarmingWindow.CreateSpellWarmingWindow(spellName);
-                    Character.CurrentCharacter.WarmedSpell = spellName;
+                    if (spellName != Character.CurrentCharacter.MemorizedSpell)
+                    {
+                        gui.SpellWarmingWindow.CreateSpellWarmingWindow(spellName);
+                        Character.CurrentCharacter.WarmedSpell = spellName;
+                    }
                 }
                 else if (input.StartsWith("You cast "))
                 {
@@ -285,22 +350,15 @@ namespace Yuusha
                         }
                     }
                 }
-                else if (input.StartsWith("You have lost your warmed spell"))
+                else if (input.StartsWith("You have lost your warmed spell") || input.Equals("Your spell fails."))
                 {
-                    if (gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow w &&
-                        !string.IsNullOrEmpty(Character.CurrentCharacter.WarmedSpell) && w.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
+                    if (gui.GuiManager.GetControl("SpellWarmingWindow") is gui.SpellWarmingWindow warmedSpellWindow &&
+                        !string.IsNullOrEmpty(Character.CurrentCharacter.WarmedSpell) && warmedSpellWindow.SpellIconLabel.Name.Contains(Character.CurrentCharacter.WarmedSpell))
                     {
-                        w.OnClose();
+                        gui.GameHUD.AddRandomlyShakingControl
+                            (Tuple.Create(warmedSpellWindow as gui.Control, warmedSpellWindow.Position, DateTime.Now, TimeSpan.FromMilliseconds(3000), 10));
+                        warmedSpellWindow.SpellWarmed = true;
                     }
-                }
-                else if (input.StartsWith("You don't have any balms to quaff."))
-                {
-                    gui.TextCue.AddClientInfoTextCue(input, Color.White, Color.Crimson, 4500);
-                    // TODO sound effect?
-                }
-                else if (input.StartsWith("locker description"))
-                {
-                    // open locker grid box window
                 }
                 else if (input.StartsWith("You are now a level "))
                 {
@@ -320,7 +378,6 @@ namespace Yuusha
                     string[] s = start.Split("|".ToCharArray());
                     // 0 = old skill title, 1 = new skill title, 2 = skill
                     //string text = char.ToUpper(s[2][0]) + s[2].Substring(1) + ": " + s[1];
-
                     gui.AchievementLabel.CreateAchievementLabel(s[1], ScalingTextFontList[ScalingTextFontList.Count - 1], gui.GameHUD.GameIconsDictionary[s[2].ToLower()], Color.Indigo, Color.PaleGreen, "", true, Map.Direction.Southwest);
                 }
                 #region Coin Sounds
@@ -339,13 +396,30 @@ namespace Yuusha
                 else if (input.EndsWith("Thanks for the business.") || input.StartsWith("You dumped coins") || (input.StartsWith("You dumped") && input.EndsWith("coins on the ground.")))
                 {
                     Audio.AudioManager.PlaySoundEffect("GUISounds/coins_dumped");
-                } 
+                }
                 #endregion
-                else if(input.Equals("A portal of chaotic energy opens up before you and you step inside.") ||
+                else if (input.Equals("A portal of chaotic energy opens up before you and you step inside.") ||
                     (input.StartsWith("You follow") && input.Contains("through the chaos portal.")))
                 {
                     gui.SpellEffectLabel.CreateSpellEffectLabel("Chaos Portal");
-                }                    
+                }
+                else if (input.Equals("WHUMP! You are stunned!"))
+                {
+                    gui.GameHUD.SynchronouslyShakeScreen(500, 5, true); // half a second
+                }
+                else if (input.Equals("You have been stunned by the blow!") || input.Equals("You are stunned!"))
+                {
+                    gui.GameHUD.RandomlyShakeScreen(500, 5, true); // half a second
+                }
+                //else if(input.StartsWith("Your vision blurs and, at first, you feel dizzy.")) // reverse portal chant, return to Kesmai
+                //{
+                //    gui.GameHUD.GoBlack(5500, 3, true);
+                //}
+                else if (input.Equals("Your vision blurs for a moment."))
+                {
+                    gui.GameHUD.FadeToColor(Color.Black, 4000, 5, true);
+                }
+                
                 //else if(input.StartsWith("It looks possible to climb up here"))
                 //{
                 //    if (input.EndsWith("with both hands."))
@@ -375,10 +449,31 @@ namespace Yuusha
                     //    Audio.AudioManager.PlaySecondarySong("A_Death_Song", false, false, 1f);
                     //}
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Utils.LogException(e);
             }
+        }
+
+        public static Color GetAlignmentColor(World.Alignment alignment)
+        {
+            switch (alignment)
+            {
+                case World.Alignment.Amoral:
+                    return Client.ClientSettings.Color_Gui_Amoral_Fore;
+                case World.Alignment.Chaotic:
+                    return Client.ClientSettings.Color_Gui_Chaotic_Back;
+                case World.Alignment.ChaoticEvil:
+                    return Client.ClientSettings.Color_Gui_ChaoticEvil_Back;
+                case World.Alignment.Evil:
+                    return Client.ClientSettings.Color_Gui_Evil_Back;
+                case World.Alignment.Lawful:
+                    return Client.ClientSettings.Color_Gui_Lawful_Fore;
+                case World.Alignment.Neutral:
+                    return Client.ClientSettings.Color_Gui_Neutral_Back;
+            }
+
+            return Color.White;
         }
 
         public static Color GetAlignmentColor(bool fore, World.Alignment alignment)
@@ -437,12 +532,40 @@ namespace Yuusha
             }
         }
 
-        public static string GetDisplayFont()
+        public static string GetDisplayFont(out Color tintColor)
         {
-            if (Character.CurrentCharacter.MapName == "Torii" || Character.CurrentCharacter.MapName == "Shukumei")
-                return "shojumaru22";
-            else return "rocksalt22";
-            //else return "uncialantiqua22";
+            tintColor = Color.GhostWhite;
+            string font = "rocksalt32"; // Island of Kesmai
+
+            if (Character.CurrentCharacter.MapID == (int)World.MapID.Annwn)
+                font = "merienda32";
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Axe_Glacier)
+                font = "tradewinds32";
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Eridu)
+                font = "frederickathegreat32";
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Hell)
+            {
+                tintColor = Color.Red;
+                font = "nosifer32";
+            }
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Innkadi)
+                font = "cinzeldecorative32";
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Oakvael)
+                font = "griffy32";
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Leng)
+                font = "cevicheone32";
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Praetoseba)
+                font = "butcherman32";
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Rift_Glacier)
+                font = "uncialantiqua32";
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Shukumei)
+                font = "raviprakash32";
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Torii)
+                font = "shojumaru32";
+            else if (Character.CurrentCharacter.MapID == (int)World.MapID.Underkingdom)
+                font = "astlochbold36";
+
+            return font;
             //else return DisplayFontsList[new Random(Guid.NewGuid().GetHashCode()).Next(0, DisplayFontsList.Count)];
         }
 
@@ -454,7 +577,7 @@ namespace Yuusha
                     return "lemon28";
             }
 
-            return GetDisplayFont();
+            return GetDisplayFont(out Color tintColor);
         }
     }
 }

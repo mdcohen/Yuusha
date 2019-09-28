@@ -164,11 +164,11 @@ namespace Yuusha.gui
                 SortControls();
 
                 // update text cues
-                for (int a = m_textCues.Count - 1; a >= 0; a--)
-                    m_textCues[a].Update(gameTime, m_textCues);
+                //for (int a = m_textCues.Count - 1; a >= 0; a--)
+                //    m_textCues[a].Update(gameTime, m_textCues);
 
                 if (Client.RoundDelay)
-                    GuiManager.CurrentSheet.CursorOverride = "Wait";
+                    GuiManager.GenericSheet.CursorOverride = "Wait";
 
                 // update cursor
                 if (m_cursorOverride == "")
@@ -206,24 +206,7 @@ namespace Yuusha.gui
                 foreach (TextCue tc in m_textCues)
                     tc.Draw(gameTime);
 
-                // Cursor is drawn on the Generic Sheet.
-                //if (GuiManager.MouseCursorVisible)
-                //{
-                //    // draw cursor
-                //    if (m_cursorOverride == "")
-                //    {
-                //        if (GuiManager.Cursors.ContainsKey(m_cursor))
-                //            GuiManager.Cursors[m_cursor].Draw(gameTime);
-                //        else Utils.LogOnce("Failed to find cursor visual key [ " + m_cursor + " ] for GUI Sheet [ " + m_name + " ]");
-
-                //    }
-                //    else
-                //    {
-                //        if (GuiManager.Cursors.ContainsKey(m_cursorOverride))
-                //            GuiManager.Cursors[m_cursorOverride].Draw(gameTime);
-                //        else Utils.LogOnce("Failed to find cursor override visual key [ " + m_cursorOverride + " ] for GUI Sheet [ " + m_name + " ]");
-                //    }
-                //}
+                // GenericSheet draws the MouseCursor
             }
             catch (Exception e)
             {
@@ -330,10 +313,11 @@ namespace Yuusha.gui
 
                     return null;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Utils.LogException(e);
-                    Utils.Log("Exception detail: this[" + name + "] for Sheet: " + Name);
+                    //TODO Figure out why there is an Exception here when shutting down.
+                    //Utils.LogException(e);
+                    //Utils.Log("Exception detail: this[" + name + "] for Sheet: " + Name);
                     return null;
                 }
             }            
@@ -569,6 +553,7 @@ namespace Yuusha.gui
                     return;
                 }
 
+                // Saved in GUIPositions xml
                 if(c is Window && Character.CurrentCharacter != null && Character.GUIPositionSettings != null && Character.GUIPositionSettings.GUIPositionsContains(c, out int index))
                 {
                     c.Position = new Point(Character.GUIPositionSettings.GUIPositions[index].Coordinates.X, Character.GUIPositionSettings.GUIPositions[index].Coordinates.Y);
@@ -620,13 +605,24 @@ namespace Yuusha.gui
                     {
                         if(c is Border)
                         {
-                            if ((owner as PercentageBarLabel).Border == null)
+                            if (!c.Name.Contains("Mid") && !c.Name.Contains("Fore") && (owner as PercentageBarLabel).Border == null)
                                 (owner as PercentageBarLabel).Border = c as Border;
-                            else (owner as PercentageBarLabel).MidBorder = c as Border;
+                            else
+                            {
+                                if (c.Name.Contains("Mid"))
+                                    (owner as PercentageBarLabel).MidBorder = c as Border;
+                                else if (c.Name.Contains("Fore"))
+                                    (owner as PercentageBarLabel).ForeBorder = c as Border;
+                            }
                         }
 
                         if (c is Label)
-                            (owner as PercentageBarLabel).MidLabel = c as Label;
+                        {
+                            if(c.Name.EndsWith("MidLabel"))
+                                (owner as PercentageBarLabel).MidLabel = c as Label;
+                            else if(c.Name.EndsWith("ForeLabel"))
+                                (owner as PercentageBarLabel).ForeLabel = c as Label;
+                        }
                     }
                     else if (owner is Label)
                     {
@@ -687,6 +683,77 @@ namespace Yuusha.gui
             lock (m_controls)
             {
                 m_controls.Remove(c);
+            }
+        }
+
+        public void AttachControlToWindow(Control c, Window w)
+        {
+            if ((w as Window).Controls.Exists(ct => ct.Name == c.Name))
+            {
+                Utils.Log("Attempted to add same Control [" + c.Name + "] to Window [" + w.Name + "] in Sheet [" + Name + "].");
+                return;
+            }
+
+            if (!(w is Window))
+            {
+                Utils.Log("Exception: Tried to attach Control to a non-Window Control.");
+                throw new Exception("Exception: Tried to attach Control to non-Window Control.");
+            }
+
+            c.Position = new Point(w.Position.X + c.Position.X, w.Position.Y + c.Position.Y);
+
+            if ((w as Window).Controls.Count > 0)
+                c.ZDepth = (w as Window).Controls[0].ZDepth + 1;
+            else
+                c.ZDepth = 1;
+
+            if (c.TabOrder >= 0)
+                (w as Window).CurrentTabOrder = 0;
+
+            // add the control to the Window's list of controls
+            lock ((w as Window).Controls)
+            {
+                (w as Window).Controls.Add(c);
+            }
+
+            // sort the controls
+            (w as Window).SortControls();
+
+            // set this window's title or border for easy reference later
+            if (c is WindowTitle && c.Name == w.Name + "Title")
+            {
+                c.Width = w.Width;
+                (w as Window).WindowTitle = c as WindowTitle;
+                if (w is AutoHidingWindow)
+                    (w as AutoHidingWindow).SetWindowOrientation();
+            }
+            else if (c is Border && c.Name == w.Name + "Border")
+            {
+                (w as Window).WindowBorder = c as Border;
+            }
+            else if (c is TabControl)
+            {
+                if ((w as Window).TabControl == null)
+                {
+                    (w as Window).TabControl = c as TabControl;
+                }
+                else
+                {
+                    Utils.Log("Attempted to add a second TabControl to Window [" + c.Name + "].");
+                }
+            }
+            else if (c is TabControlButton)
+            {
+                if ((w as Window).TabControl != null)
+                {
+                    (w as Window).TabControl.Add(c as TabControlButton);
+                }
+                else
+                {
+                    TabControl tabControl = new TabControl(w.Name + "TabControl", w.Name);
+                    AddControl(tabControl);
+                    tabControl.Add(c as TabControlButton);
+                }
             }
         }
 
@@ -761,7 +828,6 @@ namespace Yuusha.gui
                     tabControl.Add(c as TabControlButton);
                 }
             }
-
         }
 
         public void SortControls()
@@ -775,8 +841,8 @@ namespace Yuusha.gui
             foreach (Control control in new List<Control>(m_controls))
                 control.OnClientResize(prev, now, false);
 
-            foreach (TextCue textCue in new List<TextCue>(TextCues))
-                textCue.OnClientResize(prev, now);
+            //foreach (TextCue textCue in new List<TextCue>(TextCues))
+            //    textCue.OnClientResize(prev, now);
         }
 
         /// <summary>
@@ -819,7 +885,7 @@ namespace Yuusha.gui
             #endregion
 
             // Iterate through controls of this sheet. Currently only checks Windows that are visible and have a tab order.
-            foreach (Control c in this.Controls)
+            foreach (Control c in Controls)
             {
                 if (c is Window && c.IsVisible && (c as Window).CurrentTabOrder > -1)
                 {

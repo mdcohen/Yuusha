@@ -170,13 +170,13 @@ namespace Yuusha.gui
 
                 // Overrides to focus on input text box.
                 // Spellbook window, Options window and private messages have focus priority.
-                if (!GuiManager.GenericSheet["SpellbookWindow"].IsVisible && !GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")))
-                    sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
+                //if (!GuiManager.GenericSheet["SpellbookWindow"].IsVisible && !GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")))
+                //    sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
 
                 if (!Client.HasFocus)
                 {
-                    if (sheet[Globals.GAMEINPUTTEXTBOX] != null)
-                        sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = false;
+                    if (sheet[Globals.GAMEINPUTTEXTBOX] is Control c)
+                        c.HasFocus = false;
 
                     GuiManager.ActiveTextBox = null;
                     GuiManager.ControlWithFocus = null;
@@ -317,7 +317,7 @@ namespace Yuusha.gui
 
                 if (critterInfo[tempA + 4].Length > 0)
                 {
-                    crit.RightHand.ID = Convert.ToInt32(critterInfo[tempA + 4]);
+                    crit.RightHand.CatalogID = Convert.ToInt32(critterInfo[tempA + 4]);
                     crit.RightHand.Name = critterInfo[tempA + 5];
                     crit.RightHand.VisualKey = critterInfo[tempA + 6];
                     //crit.RightHand.longDesc = critterInfo[tempA + 14];
@@ -328,7 +328,7 @@ namespace Yuusha.gui
                 }
                 if (critterInfo.Length > tempA + 6 && critterInfo[tempA + 7].Length > 0)
                 {
-                    crit.LeftHand.ID = Convert.ToInt32(critterInfo[tempA + 7]);
+                    crit.LeftHand.CatalogID = Convert.ToInt32(critterInfo[tempA + 7]);
                     crit.LeftHand.Name = critterInfo[tempA + 8];
                     crit.LeftHand.VisualKey = critterInfo[tempA + 9];
                     //crit.LeftHand.longDesc = critterInfo[tempA + 17]; //
@@ -354,7 +354,7 @@ namespace Yuusha.gui
                 string[] itemInfo = inData.Split(Protocol.VSPLIT.ToCharArray());
                 Item item = new Item
                 {
-                    ID = Convert.ToInt32(itemInfo[0]),
+                    CatalogID = Convert.ToInt32(itemInfo[0]),
                     WorldItemID = Convert.ToInt32(itemInfo[1]),
                     Name = itemInfo[2],
                     VisualKey = itemInfo[3]

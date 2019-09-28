@@ -57,9 +57,9 @@ namespace Yuusha.gui
             Segmented = segmented;
 
             MidLabel = new Label(Name + "MidLabel", Name, new Rectangle(Position.X, Position.Y, Width, Height), "", Color.White, true, false,
-                    Font, new VisualKey(""), Color.Transparent, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>(), "");
+                    Font, new VisualKey(""), Color.White, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>(), "");
             ForeLabel = new Label(Name + "ForeLabel", Name, new Rectangle(Position.X, Position.Y, Width, Height), "", Color.White, true, false,
-                    Font, new VisualKey(""), Color.Transparent, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>(), "");
+                    Font, new VisualKey(""), Color.White, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>(), "");
 
             //m_originalHeight = Height;
             //m_originalWidth = Width;
@@ -92,23 +92,11 @@ namespace Yuusha.gui
                 MidLabel.Position = Position;
             }
 
-            //if (MidBorder != null)
-            //{
-            //    MidBorder.Update(gameTime);
-            //    MidBorder.Position = MidLabel.Position;
-            //}
-
             if (ForeLabel != null)
             {
                 ForeLabel.Update(gameTime);
                 ForeLabel.Position = Position;
             }
-
-            //if (ForeBorder != null)
-            //{
-            //    ForeBorder.Update(gameTime);
-            //    ForeBorder.Position = Position;
-            //}
         }
 
         public override void Draw(GameTime gameTime)

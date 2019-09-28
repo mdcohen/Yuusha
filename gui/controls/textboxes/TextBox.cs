@@ -167,9 +167,9 @@ namespace Yuusha.gui
                 return false;
 
             // If typing in Options, don't echo the text to game or conference input text boxes.
-            if ((Name == Globals.GAMEINPUTTEXTBOX || Name == Globals.CONFINPUTTEXTBOX)
-                && GuiManager.GenericSheet["OptionsWindow"] != null && GuiManager.GenericSheet["OptionsWindow"].HasFocus)
-                return false;
+            //if ((Name == Globals.GAMEINPUTTEXTBOX || Name == Globals.CONFINPUTTEXTBOX)
+            //    && GuiManager.GenericSheet["OptionsWindow"] != null && GuiManager.GenericSheet["OptionsWindow"].HasFocus)
+            //    return false;
 
             bool controlPressed = ks.IsKeyDown(Keys.LeftControl) || ks.IsKeyDown(Keys.RightControl);
             bool shiftPressed = ks.IsKeyDown(Keys.LeftShift) || ks.IsKeyDown(Keys.RightShift);
@@ -405,8 +405,10 @@ namespace Yuusha.gui
                                 m_cursorPosition = 0;
                             }
 
-                            if (Client.GameState.ToString().EndsWith("Game"))
+                            if (Client.InGame)
                                 Events.RegisterEvent(Events.EventName.Target_Cleared, null);
+
+                            GuiManager.StopDragging();
 
                             if(GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl is DragAndDropButton dadButton)
                                 dadButton.StopDragging();
@@ -537,7 +539,7 @@ namespace Yuusha.gui
 
                                 if (!shiftPressed && !controlPressed && !altPressed)
                                 {
-                                    bool gameOrConf = Client.GameState == Enums.EGameState.Conference || Client.GameState.ToString().EndsWith("Game");
+                                    bool gameOrConf = Client.GameState == Enums.EGameState.Conference || Client.InGame;
 
                                     if (gameOrConf && Name == Globals.GAMEINPUTTEXTBOX && FunctionKeys.Contains(k))
                                     {

@@ -13,7 +13,7 @@ ALT + S: Toggle Sound Effects
 ALT + T: Talents Window
 ALT + U: Reload IOK Mode Tiles (IOK Game Mode Only)
 ALT + W: Toggle Fog of War (Yuusha Game Mode)
-~ : Save Screenshot
+PrintScreen : Save Screenshot
 ALT + +: Increase Map Size
 ALT + -: Decrease Map Size
 

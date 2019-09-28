@@ -356,13 +356,41 @@
     Command="/ust">
   </Control>
 
+  <!-- Scores List Button -->
+  <Control
+		Type="Button"
+		Text="Scores"
+		Name="ScoresListButton"
+		X="830"
+		Y="250"
+		Width="150"
+		Height="40"
+		YTextOffSet="0"
+		IsVisible="true"
+		IsDisabled="false"
+		Font="lemon16"
+		TextColor="White"
+		TextOverColor="Chartreuse"
+		VisualKey="RoundedButton"
+		TintColor="DarkMagenta"
+    TintOverColor="MediumOrchid"
+		OnMouseDown="popup_scorescommands"
+		TextAlignment="Center"
+		DropShadow="true"
+		ShadowDistance="5"
+		ShadowDirection="Northwest"
+		AnchorTop="true"
+		AnchorRight="true"
+    Command="/ust">
+  </Control>
+
   <!-- Logout Button -->
   <Control
 		Type="Button"
 		Text="Logout"
 		Name="ConfLogoutButton"
 		X="830"
-		Y="275"
+		Y="325"
 		Width="150"
 		Height="40"
 		YTextOffSet="0"

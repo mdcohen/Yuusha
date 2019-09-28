@@ -147,8 +147,8 @@ namespace Yuusha
                         m_currentCharacter.m_filterProfanity = Convert.ToBoolean(pcStats[15]);
                         m_currentCharacter.m_ancestor = Convert.ToBoolean(pcStats[16]); //
                         m_currentCharacter.m_anonymous = Convert.ToBoolean(pcStats[17]); //
-                        m_currentCharacter.m_landID = Convert.ToInt16(pcStats[18]);
-                        m_currentCharacter.m_mapID = Convert.ToInt16(pcStats[19]);
+                        m_currentCharacter.LandID = Convert.ToInt16(pcStats[18]);
+                        m_currentCharacter.MapID = Convert.ToInt16(pcStats[19]);
                         m_currentCharacter.X = Convert.ToInt32(pcStats[20]);
                         m_currentCharacter.Y = Convert.ToInt32(pcStats[21]);
                         m_currentCharacter.m_stunned = Convert.ToInt16(pcStats[22]);
@@ -477,7 +477,7 @@ namespace Yuusha
                     {
                         List<Spell> prevSpells = null;
 
-                        if (Client.GameState.ToString().EndsWith("Game") && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.UniqueID))
+                        if (Client.InGame && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.UniqueID))
                             prevSpells = new List<Spell>(CurrentCharacter.Spells);
 
                         CurrentCharacter.Spells.Clear();
@@ -499,7 +499,7 @@ namespace Yuusha
                             }
                         }
 
-                        if (prevSpells != null && Client.GameState.ToString().EndsWith("Game") && CurrentCharacter.Spells.Count > prevSpells.Count &&
+                        if (prevSpells != null && Client.InGame && CurrentCharacter.Spells.Count > prevSpells.Count &&
                             GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.UniqueID))
                         {
                             Events.RegisterEvent(Events.EventName.New_Spell, prevSpells);
@@ -520,7 +520,7 @@ namespace Yuusha
                     {
                         List<Talent> prevTalents = null;
 
-                        if (Client.GameState.ToString().EndsWith("Game") && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.UniqueID))
+                        if (Client.InGame && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.UniqueID))
                             prevTalents = new List<Talent>(CurrentCharacter.Talents);
 
                         CurrentCharacter.Talents.Clear();
@@ -538,12 +538,13 @@ namespace Yuusha
                                 Talent talent = World.GetTalentByCommand(talentInfo[0]);
                                 if (talent != null)
                                 {
+                                    talent.LastUse = Convert.ToDateTime(talentInfo[1]);
                                     CurrentCharacter.Talents.Add(talent);
                                 }
                             }
                         }
 
-                        if (prevTalents != null && Client.GameState.ToString().EndsWith("Game") && CurrentCharacter.Spells.Count > prevTalents.Count &&
+                        if (prevTalents != null && Client.InGame && CurrentCharacter.Spells.Count > prevTalents.Count &&
                             GameHUD.InitialTalentbookUpdated.Contains(CurrentCharacter.UniqueID))
                         {
                             Events.RegisterEvent(Events.EventName.New_Talent, prevTalents);
@@ -557,6 +558,17 @@ namespace Yuusha
                     }
                     break;
                 #endregion
+                case Enums.EPlayerUpdate.TalentUse: // Name, DateTime
+                    string[] talentUseArray = info.Split(Protocol.VSPLIT.ToCharArray());
+                    if (talentUseArray.Length >= 2)
+                    {
+                        if (CurrentCharacter != null && CurrentCharacter.Talents != null &&
+                            CurrentCharacter.Talents.FindIndex(talent => talent.Name == talentUseArray[0]) is int index && index > -1)
+                        {
+                            CurrentCharacter.Talents[index].LastUse = Convert.ToDateTime(talentUseArray[1]);
+                        }
+                    }
+                    break;
                 case Enums.EPlayerUpdate.Effects:
                     #region Effects
                     try
@@ -660,8 +672,8 @@ namespace Yuusha
         public bool m_filterProfanity;
         public bool m_ancestor;
         public bool m_anonymous;
-        public int m_landID;
-        public int m_mapID;
+        public int LandID;
+        public int MapID;
         public int X
         { get; set; }
         public int Y
@@ -788,10 +800,13 @@ namespace Yuusha
             get { return m_mapName; }
             private set
             {
-                if (value != m_mapName && Client.GameState.ToString().EndsWith("Game"))
-                    TextCue.AddMapNameTextCue(value);
+                bool mapChange = value != m_mapName;
 
                 m_mapName = value;
+
+                // Called after the value change because of font choices in AddMapNameTextCue.
+                if (mapChange && Client.InGame)
+                    TextCue.AddMapNameTextCue(value);
             }
         }
         public string ZName
@@ -799,7 +814,7 @@ namespace Yuusha
             get { return m_zName; }
             private set
             {
-                if (value != m_zName && Client.GameState.ToString().EndsWith("Game"))
+                if (value != m_zName && Client.InGame)
                     TextCue.AddZNameTextCue(value);
 
                 m_zName = value;
@@ -1108,6 +1123,8 @@ namespace Yuusha
         { get; set; }
         public int CurrentRoundsPlayed
         { get; set; } = 0;
+        public string MemorizedSpell
+        { get; set; }
         #endregion
 
         #region Constructor
@@ -1250,21 +1267,23 @@ namespace Yuusha
         {
             bool statsRequested = false;
 
-            m_landID = cell.LandID;
+            LandID = cell.LandID;
 
-            if (CurrentCharacter != null && CurrentCharacter.m_mapID != cell.MapID)
+            if (CurrentCharacter != null && CurrentCharacter.MapID != cell.MapID)
             {
                 Events.RegisterEvent(Events.EventName.Request_Stats);
                 statsRequested = true;
             }
 
             // Character has moved.
-            if (X != cell.xCord || Y != cell.yCord || Z != cell.zCord || m_mapID != cell.MapID)
+            if (X != cell.xCord || Y != cell.yCord || Z != cell.zCord || MapID != cell.MapID)
             {
+                if (MapID != cell.MapID)
+                    Events.RegisterEvent(Events.EventName.Character_Map_Changed, cell.MapID);
                 Events.RegisterEvent(Events.EventName.Character_Moved);
             }
 
-            m_mapID = cell.MapID;
+            MapID = cell.MapID;
             X = cell.xCord;
             Y = cell.yCord;
 

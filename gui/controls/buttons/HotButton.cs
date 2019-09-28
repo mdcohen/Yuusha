@@ -60,9 +60,15 @@ namespace Yuusha.gui
         {
             base.OnMouseOver(ms);
 
-            if(Owner.Contains("HotButtonWindow") && !string.IsNullOrEmpty(Text))
+            if (Owner.Contains("HotButtonWindow") && !string.IsNullOrEmpty(Text))
+            {
                 TextCue.AddMouseCursorTextCue(Text, Client.ClientSettings.HotButtonPopUpText_ForeColor, Client.ClientSettings.HotButtonPopUpText_BackColor, Client.ClientSettings.HotButtonPopUpText_BackColorAlpha, Client.ClientSettings.DefaultPopUpFont);
-            else if(!string.IsNullOrEmpty(PopUpText))
+            }
+            else if(Owner.Contains("TalentsWindow") && !string.IsNullOrEmpty(PopUpText))
+            {
+                TextCue.AddMouseCursorTextCue(Text, Client.ClientSettings.TalentsHotButtonPopUpText_ForeColor, Client.ClientSettings.TalentsHotButtonPopUpText_BackColor, Client.ClientSettings.TalentsHotButtonPopUpText_BackColorAlpha, Client.ClientSettings.DefaultPopUpFont);
+            }
+            else if (!string.IsNullOrEmpty(PopUpText))
                 TextCue.AddMouseCursorTextCue(PopUpText, Client.ClientSettings.ColorDefaultPopUpFore, Client.ClientSettings.ColorDefaultPopUpBack, Client.ClientSettings.DefaultPopUpBackAlpha, Client.ClientSettings.DefaultPopUpFont);
 
             if (Border == null)

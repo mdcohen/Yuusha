@@ -13,11 +13,11 @@ namespace Yuusha.Utility.Settings
         public string ServerHost = "www.dragonsspine.com";
         public int ServerPort = 3000;
         public bool ShowSplash = false;
-        public string DefaultFont = "courier16";
+        public string DefaultFont = "lemon16"; //"courier16";
         public string DefaultHUDNumbersFont = "changaone26";
         public Color ColorDefaultPopUpFore = Color.GhostWhite;
         public Color ColorDefaultPopUpBack = Color.Black;
-        public byte DefaultPopUpBackAlpha = 150; // foreground text is always 255
+        public byte DefaultPopUpBackAlpha = 200; // foreground text is always 255
         public byte DefaultPopUpFadeOutSpeed = 1;
         public byte DefaultPopUpFadeInSpeed = 5;
         public string DefaultPopUpFont = "lemon12";
@@ -26,7 +26,7 @@ namespace Yuusha.Utility.Settings
         public bool DisplayChantingConversationBubble = true;
         public bool DisplayConversationBubbles = true;
         public int ConversationBubbleFadeOutSpeed = 2;
-        //public bool StartFullScreen = false;
+        public bool FullScreenPreferred = true;
 
         // audio related
         public bool PlayAudioWhenClientDeactivated = true;
@@ -74,7 +74,7 @@ namespace Yuusha.Utility.Settings
         public Color Color_Gui_ChaoticEvil_Fore = Color.Silver;
         public Color Color_Gui_ChaoticEvil_Back = Color.DarkRed;
         public Color Color_Gui_Neutral_Fore = Color.White;
-        public Color Color_Gui_Neutral_Back = Color.ForestGreen;
+        public Color Color_Gui_Neutral_Back = Color.DarkGreen;
         public Color Color_Gui_Lawful_Fore = Color.White;
         public Color Color_Gui_Lawful_Back = Color.Black;
         public Color Color_Gui_Amoral_Fore = Color.White;
@@ -98,6 +98,10 @@ namespace Yuusha.Utility.Settings
         public Color HotButtonPopUpText_ForeColor = Color.Lime;
         public Color HotButtonPopUpText_BackColor = Color.Purple;
         public byte HotButtonPopUpText_BackColorAlpha = 255;
+
+        public Color TalentsHotButtonPopUpText_ForeColor = new Color(0, 225, 217);
+        public Color TalentsHotButtonPopUpText_BackColor = new Color(94, 0, 31);
+        public byte TalentsHotButtonPopUpText_BackColorAlpha = 255;
 
         public Color GridBoxWindowTintColor = Color.LightSteelBlue;
         public Color GridBoxTitleTextColor = Color.White;

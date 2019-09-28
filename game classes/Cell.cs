@@ -80,6 +80,9 @@ namespace Yuusha
         public int MapID = 0;
         public int LandID = 0;
 
+        /// <summary>
+        /// Corresponds to the tiles Tile0, Tile1, Tile40, etc.. and how far x, y it is away from center (Tile24 0,0)
+        /// </summary>
         public static List<Tuple<int, int>> CellCoordinates = new List<Tuple<int, int>>()
         {
             Tuple.Create(-3, -3 ),
@@ -329,23 +332,40 @@ namespace Yuusha
         #region Add Methods
         public void Add(Character ch)
         {
+            if(m_characters.Exists(a => a.UniqueID == ch.UniqueID))
+            {
+                Utils.Log("Attempted to add same uniqueID Character to Cell.");
+                return;
+            }
+
             m_characters.Add(ch);
 
             // Verification
             ch.X = xCord;
             ch.Y = yCord;
             ch.Z = zCord;
-            ch.m_mapID = MapID;
-            ch.m_landID = LandID;
+            ch.MapID = MapID;
+            ch.LandID = LandID;
         }
 
         public void Add(Item item)
         {
+            if (m_items.FindAll(a => a.WorldItemID == item.WorldItemID).Count > 0)
+            {
+                Utils.Log("Attempted to add same uniqueID Item to Cell.");
+                return;
+            }
+
             m_items.Add(item);
         }
 
         public void Add(Effect effect)
         {
+            if (m_effects.FindAll(a => a.Name == effect.Name).Count > 0)
+            {
+                Utils.Log("Adding same effect name (" + effect.Name + ") to Cell.");
+            }
+
             m_effects.Add(effect);
         } 
         #endregion
@@ -414,19 +434,48 @@ namespace Yuusha
 
         public int MovementWeight()
         {
-            if (IsImpassable())
+            if (IsImpassable() || (DisplayGraphic == GRAPHIC_AIR && this != gui.GameHUD.MovementClickedCell))
                 return 10000;
 
-            //switch(DisplayGraphic)
-            //{
-            //    case GRAPHIC_RUINS_LEFT:
-            //    case GRAPHIC_RUINS_RIGHT:
-            //    case GRAPHIC_SAND:
-            //        return 1;
-            //    case GRAPHIC_WATER: return 1;
-            //}
+            // hidden characters will not want to walk where there is no shadow, unless they chose to walk there
+            if (Character.CurrentCharacter != null && Character.HasEffect("Hide in Shadows") && !IsNextToWall(Character.CurrentCharacter) && this != gui.GameHUD.MovementClickedCell)
+                return 10000;
 
             return 0;
+        }
+
+        private static List<string> ShadowedCells = new List<string>()
+        {
+            GRAPHIC_WALL, GRAPHIC_ALTAR_PLACEABLE,GRAPHIC_ALTAR,GRAPHIC_COUNTER_PLACEABLE,GRAPHIC_COUNTER,GRAPHIC_MOUNTAIN,
+            GRAPHIC_FOREST_RIGHT,GRAPHIC_FOREST_LEFT,GRAPHIC_FOREST_FULL,GRAPHIC_FOREST_IMPASSABLE,
+            GRAPHIC_FOREST_FROSTY_FULL,GRAPHIC_FOREST_FROSTY_LEFT,GRAPHIC_FOREST_FROSTY_RIGHT,GRAPHIC_RUINS_LEFT,GRAPHIC_RUINS_RIGHT,
+            GRAPHIC_WALL_IMPENETRABLE, GRAPHIC_DARKNESS
+        };
+
+        public static bool IsNextToWall(Character ch)
+        {
+            Cell cell = null;
+
+            if (ch != null)
+            {
+                for (int ypos = -1; ypos <= 1; ypos += 1)
+                {
+                    for (int xpos = -1; xpos <= 1; xpos += 1)
+                    {
+                        cell = Cell.GetCell(ch.X + xpos, ch.Y + ypos, ch.Z);
+
+                        if (cell != null)
+                        {
+                            if (ShadowedCells.Contains(cell.CellGraphic) || ShadowedCells.Contains(cell.DisplayGraphic))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
         public bool IsExaminable()

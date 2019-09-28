@@ -228,8 +228,16 @@ namespace Yuusha.gui
                         }
                         else
                         {
-                            Utils.LogOnce("Failed to find Critter visual key [ " + vk + " ] for SpinelTileLabel.");
-                            vk.Key = "question_mark"; // draw a question mark
+                            if (GuiManager.Visuals.ContainsKey(vkString.Replace("_female", "")))
+                            {
+                                Utils.LogOnce("Failed to find Critter visual key [ " + vk + " ] for SpinelTileLabel, found when removing '_female' from visual key.");
+                                vk.Key = vkString.Replace("_female", "");
+                            }
+                            else
+                            {
+                                Utils.LogOnce("Failed to find Critter visual key [ " + vk + " ] for SpinelTileLabel.");
+                                vk.Key = "question_mark"; // draw a question mark
+                            }
                         }
                     }
 
@@ -328,8 +336,11 @@ namespace Yuusha.gui
                     Cell currentCell = Character.CurrentCharacter.Cell;
                     foreach (Cell cell in GameHUD.MovementChoices)
                     {
-                        if(GuiManager.CurrentSheet["Tile" + GameHUD.Cells.IndexOf(cell)] is SpinelTileLabel spLabel)
-                            spLabel.PathingVisual = Map.GetDirection(currentCell, cell).ToString() + "Footsteps";
+                        if (GuiManager.CurrentSheet["Tile" + GameHUD.Cells.IndexOf(cell)] is SpinelTileLabel spLabel &&
+                            Map.GetDirection(currentCell, cell) is Map.Direction direction && direction != Map.Direction.None)
+                        {
+                            spLabel.PathingVisual = direction.ToString() + "Footsteps";
+                        }
 
                         currentCell = cell;
                     }

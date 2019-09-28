@@ -9,9 +9,12 @@ namespace Yuusha
     {
         public enum EventName
         {
-            Activate_Talent, Attack_Critter,
+            Activate_Talent,
+            Attack_Critter,
+            // C
             Cast_Spell,
             Character_Death,
+            Character_Map_Changed,
             Character_Moved,
             Character_Settings_Changed,
             CharGen_Lore,
@@ -19,6 +22,8 @@ namespace Yuusha
             Close_Window,
             Connect,
             CreateNewAccount,
+            Credits_Show,
+            // D
             Disconnect,
             Display_CharGen_Text,
             Display_Conference_Text,
@@ -33,6 +38,7 @@ namespace Yuusha
             Load_Character_Settings,
             Load_Client_Settings,
             Logout,
+            // M
             MapDisplay_Decrease,
             MapDisplay_Increase,
             MediaPlayer_LowerVolume,
@@ -43,6 +49,9 @@ namespace Yuusha
             New_Talent,
             Next_Visual,
             None,
+            PopUp_CommonCommands,
+            PopUp_ScoresCommands,
+            PopUp_VolumeWindow,
             Received_Stats,
             Request_Belt,
             Request_Effects,
@@ -87,7 +96,6 @@ namespace Yuusha
             Toggle_Spellbook,
             Toggle_Talents,
             Toggle_VerticalHotbar,
-            Toggle_VolumeWindow,
             User_Settings_Changed,
             WebLink,
             HotButtonWindow_Decrease_Size,
@@ -270,6 +278,12 @@ namespace Yuusha
                         catch { }
                         break;
                     #endregion
+                    case EventName.Character_Map_Changed:
+                        if(GameHUD.FadeToBlackTuple == null && (int)args[0] != (int)World.MapID.Eridu)
+                        {
+                            GameHUD.GoBlack(1900, 3, true);
+                        }
+                        break;
                     case EventName.Character_Moved:
                         if (GuiManager.GenericSheet["CounterGridBoxWindow"] is GridBoxWindow counterWindow)
                             counterWindow.OnClose();
@@ -457,6 +471,10 @@ namespace Yuusha
                             }
                         }
                         break;
+                    case EventName.Credits_Show:
+                        GameHUD.SynchronouslySlideScreen(Map.Direction.East, 15, false, true);
+
+                        break;
                     case EventName.Disconnect:
                         #region Disconnect
                         {
@@ -505,7 +523,7 @@ namespace Yuusha
                         if(!privateMessage || (privateMessage && Client.ClientSettings.EchoPrivateMessagesToConference))
                         {
                             (GuiManager.CurrentSheet["ConfScrollableTextBox"] as ScrollableTextBox).AddLine((string)args[0], (Enums.ETextType)args[1]);
-                            TextManager.CheckAllTextTriggers((string)args[0]);
+                            TextManager.CheckAllGameStateTextTriggers((string)args[0]);
                         }
                         break;
                         #endregion
@@ -513,12 +531,21 @@ namespace Yuusha
                         #region Display Game Text
                         message = (string)args[0];
 
-                        if ((string)args[0] == TextManager.YOU_ARE_STUNNED)
-                            TextCue.AddPromptStateTextCue(Protocol.PromptStates.Stunned);
-                        if ((string)args[0] == TextManager.YOU_HAVE_BEEN_BLINDED)
-                            TextCue.AddPromptStateTextCue(Protocol.PromptStates.Blind);
-                        if ((string)args[0] == TextManager.YOU_ARE_SCARED)
-                            TextCue.AddPromptStateTextCue(Protocol.PromptStates.Feared);
+                        if (Client.GameState != Enums.EGameState.YuushaGame)
+                        {
+                            if ((string)args[0] == TextManager.YOU_ARE_STUNNED)
+                            {
+                                TextCue.AddPromptStateTextCue(Protocol.PromptStates.Stunned);
+                            }
+                            if ((string)args[0] == TextManager.YOU_HAVE_BEEN_BLINDED)
+                            {
+                                TextCue.AddPromptStateTextCue(Protocol.PromptStates.Blind);
+                            }
+                            if ((string)args[0] == TextManager.YOU_ARE_SCARED)
+                            {
+                                TextCue.AddPromptStateTextCue(Protocol.PromptStates.Feared);
+                            }
+                        }
 
                         privateMessage = false;
                         if (Client.ClientSettings.DisplayPrivateMessageWindows)
@@ -541,7 +568,8 @@ namespace Yuusha
 
                         if (!privateMessage || (privateMessage && Client.ClientSettings.EchoPrivateMessagesToConference))
                         {
-                            TextManager.CheckAllTextTriggers((string)args[0]);
+                            TextManager.CheckAllGameStateTextTriggers((string)args[0]);
+                            TextManager.CheckAllGameModeTextTriggers((string)args[0]);
 
                             if (Client.GameState == Enums.EGameState.IOKGame)
                                 IOKMode.DisplayGameText((string)args[0], Enums.ETextType.Default);
@@ -554,7 +582,7 @@ namespace Yuusha
                         #endregion
                     case EventName.End_Game_Round:
                         #region End Game Round
-                        if(Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter != null)
+                        if(Client.InGame && Character.CurrentCharacter != null)
                             Character.CurrentCharacter.CurrentRoundsPlayed++;
 
                         switch (Client.GameDisplayMode)
@@ -678,7 +706,7 @@ namespace Yuusha
 
                             if (Character.CurrentCharacter != null && Character.GUIPositionSettings != null)
                             {
-                                Character.GUIPositionSettings.UpdateGUIPosition(hbwDec);
+                                Character.GUIPositionSettings.UpdateSavedGUIPosition(hbwDec);
                             }
                         }
                         break;
@@ -725,7 +753,7 @@ namespace Yuusha
 
                             if (Character.CurrentCharacter != null && Character.GUIPositionSettings != null)
                             {
-                                Character.GUIPositionSettings.UpdateGUIPosition(hbwInc);
+                                Character.GUIPositionSettings.UpdateSavedGUIPosition(hbwInc);
                             }
                         }
                         break;
@@ -750,14 +778,14 @@ namespace Yuusha
                         GameHUD.ChangeMapDisplayWindowSize(-5);
                         if (Character.CurrentCharacter != null && Character.GUIPositionSettings != null && GuiManager.GetControl("MapDisplayWindow") is Window mapDispDec)
                         {
-                            Character.GUIPositionSettings.UpdateGUIPosition(mapDispDec);
+                            Character.GUIPositionSettings.UpdateSavedGUIPosition(mapDispDec);
                         }
                         break;
                     case EventName.MapDisplay_Increase:
                         GameHUD.ChangeMapDisplayWindowSize(5);
                         if (Character.CurrentCharacter != null && Character.GUIPositionSettings != null && GuiManager.GetControl("MapDisplayWindow") is Window mapDispInc)
                         {
-                            Character.GUIPositionSettings.UpdateGUIPosition(mapDispInc);
+                            Character.GUIPositionSettings.UpdateSavedGUIPosition(mapDispInc);
                         }
                         break;
                     case EventName.MediaPlayer_LowerVolume:
@@ -903,6 +931,39 @@ namespace Yuusha
                                 AchievementLabel.CreateAchievementLabel(" New Talent: " + talent.Name + " ", AchievementLabel.AchievementType.NewTalent);
                         }
                         break;
+                    case EventName.PopUp_CommonCommands:
+                        if (GuiManager.GenericSheet["CommonCommandsPopUpWindow"] is Window commonCommandsWindow)
+                        {
+                            commonCommandsWindow.IsVisible = !commonCommandsWindow.IsVisible;
+                            if (commonCommandsWindow.IsVisible) commonCommandsWindow.ZDepth = 1;
+                        }
+                        else
+                        {
+                            PopUpWindow.CreateCommonCommandsPopUpWindow();
+                        }
+                        break;
+                    case EventName.PopUp_ScoresCommands:
+                        if (GuiManager.GenericSheet["ScoresCommandsPopUpWindow"] is Window scoresCommandsWindow)
+                        {
+                            scoresCommandsWindow.IsVisible = !scoresCommandsWindow.IsVisible;
+                            if (scoresCommandsWindow.IsVisible) scoresCommandsWindow.ZDepth = 1;
+                        }
+                        else
+                        {
+                            PopUpWindow.CreateScoresCommandsPopUpWindow();
+                        }
+                        break;
+                    case EventName.PopUp_VolumeWindow:
+                        if (GuiManager.GenericSheet["VolumeControlPopUpWindow"] is Window volumeWindow)
+                        {
+                            volumeWindow.IsVisible = !volumeWindow.IsVisible;
+                            if (volumeWindow.IsVisible) volumeWindow.ZDepth = 1;
+                        }
+                        else
+                        {
+                            PopUpWindow.CreateVolumeControlPopUpWindow();
+                        }
+                        break;
                     case EventName.Received_Stats:
                         if(GuiManager.GenericSheet["CharacterStatsWindow"] is Window statsWindow && statsWindow.IsVisible)
                         {
@@ -934,20 +995,13 @@ namespace Yuusha
                         break;
                     case EventName.Request_WornEffects:
                         IO.Send(Protocol.REQUEST_CHARACTER_WORNEFFECTS);
-                        //if (args[0] is Button)
-                        //{
-                        //    if (GuiManager.GenericSheet["EffectsWindow"] is Window effectsWindow)
-                        //    {
-                        //        effectsWindow.IsVisible = !effectsWindow.IsVisible;
-                        //        effectsWindow.ZDepth = 1;
-                        //    }
-                        //}
                         break;
                     case EventName.Request_Inventory:
                         IO.Send(Protocol.REQUEST_CHARACTER_INVENTORY);
                         IO.Send(Protocol.REQUEST_CHARACTER_WORNEFFECTS); // currently with inventory/stats window
                         IO.Send(Protocol.REQUEST_CHARACTER_RESISTS);
                         IO.Send(Protocol.REQUEST_CHARACTER_PROTECTIONS);
+                        IO.Send(Protocol.REQUEST_CHARACTER_SKILLS);
                         if (args[0] is Button)
                         {
                             if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window fullStatsWindow)
@@ -1041,7 +1095,7 @@ namespace Yuusha
                         #region Send Text
                         {
                             string textToSend = (args[0] as Control).Text;
-                            if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
+                            if (Client.InGame && GameHUD.CurrentTarget != null)
                                 textToSend = textToSend.Replace("%t", GameHUD.CurrentTarget.UniqueID.ToString());
 
                             if (textToSend != "")
@@ -1112,7 +1166,7 @@ namespace Yuusha
                         Enums.EGameDisplayMode prevDisplayMode = Client.GameDisplayMode;
                         Enums.EGameDisplayMode newDisplayMode = (Enums.EGameDisplayMode)args[0];
                         Client.GameDisplayMode = newDisplayMode;
-                        if (Client.GameState.ToString().EndsWith("Game"))
+                        if (Client.InGame)
                         {
                             RegisterEvent(EventName.Send_Command, "redraw");
                             RegisterEvent(EventName.Set_Game_State, Enums.EGameState.Game);
@@ -1160,7 +1214,7 @@ namespace Yuusha
                                 if (CharGen.FirstCharacter)
                                     TextCue.AddClientInfoTextCue("There are currently no characters on your account. Please create one.", Color.Tomato, Color.Black, 3500);
 
-                                TextCue.AddCharGenInfoTextCue("Welcome to the character generator.", TextManager.GetDisplayFont());
+                                TextCue.AddCharGenInfoTextCue("Welcome to the character generator.", "rocksalt22");
 
                                 RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
 
@@ -1174,6 +1228,7 @@ namespace Yuusha
                         {
                             System.Threading.Tasks.Task t = new System.Threading.Tasks.Task(() => Character.GUIPositionSettings.OnLoad());
                             t.Start();
+                            //t.Wait();
                         }
 
                         break;
@@ -1482,7 +1537,7 @@ namespace Yuusha
                         }
                         break;
                     case EventName.Target_Cleared:
-                        if (Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
+                        if (Client.InGame && GameHUD.CurrentTarget != null)
                         {
                             GameHUD.CurrentTarget = null;
 
@@ -1495,7 +1550,7 @@ namespace Yuusha
                         if (GameHUD.CurrentTarget == null || GameHUD.CurrentTarget.UniqueID != ((Character)args[0]).UniqueID)
                         {
                             GameHUD.CurrentTarget = (Character)args[0];
-                            if (GameHUD.CurrentTarget != null && Client.GameState.ToString().EndsWith("Game"))
+                            if (GameHUD.CurrentTarget != null && Client.InGame)
                             {
                                 string targetName = GameHUD.CurrentTarget.Name;
 
@@ -1535,8 +1590,9 @@ namespace Yuusha
                             }
                         }
                         break;
-                    case EventName.Toggle_FullScreen:
+                    case EventName.Toggle_FullScreen: // user called toggle full screen event
                         Program.Client.ToggleFullScreen();
+                        Client.ClientSettings.FullScreenPreferred = Client.IsFullScreen;
                         break;
                     case EventName.Toggle_HorizontalHotbar: // ALT + K
                         if(GuiManager.GenericSheet["HorizontalHotButtonWindow"]  is Window horizontalHotbar)
@@ -1657,17 +1713,6 @@ namespace Yuusha
                         {
                             verticalHotbar.IsVisible = !verticalHotbar.IsVisible;
                             if (verticalHotbar.IsVisible) verticalHotbar.ZDepth = 1;
-                        }
-                        break;
-                    case EventName.Toggle_VolumeWindow:
-                        if(GuiManager.GenericSheet["VolumeControlPopUpWindow"] is Window volumeWindow)
-                        {
-                            volumeWindow.IsVisible = !volumeWindow.IsVisible;
-                            if (volumeWindow.IsVisible) volumeWindow.ZDepth = 1;
-                        }
-                        else
-                        {
-                            PopUpWindow.CreateVolumeControlPopUpWindow();
                         }
                         break;
                     case EventName.Load_Character_Settings:
@@ -1994,8 +2039,8 @@ namespace Yuusha
                                     lsl.Text = "";
                             }
                         }
-                        break; 
-                        #endregion
+                        break;
+                    #endregion
                     case Enums.EGameState.Menu:
                         #region Menu
                         if (Character.CurrentCharacter != null)
@@ -2048,8 +2093,8 @@ namespace Yuusha
                     #endregion
                     case Enums.EGameState.CharacterGeneration:
                         #region Character Generation
-                        break; 
-                        #endregion
+                        break;
+                    #endregion
                     case Enums.EGameState.Conference:
                         #region Conference
                         if (chr != null)
@@ -2110,7 +2155,7 @@ namespace Yuusha
                                 {
                                     // Overrides to focus on input text box.
                                     // Options window and private messages have focus priority.
-                                    if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || GuiManager.ControlWithFocus != null && 
+                                    if (!GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || GuiManager.ControlWithFocus != null &&
                                         !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")) && GuiManager.ActiveDropDownMenu is null)
                                         sheet[Globals.CONFINPUTTEXTBOX].HasFocus = true;
                                 }
@@ -2121,8 +2166,8 @@ namespace Yuusha
                             }
                         }
 
-                        break; 
-                        #endregion
+                        break;
+                    #endregion
                     case Enums.EGameState.Game:
                         break;
                     case Enums.EGameState.SpinelGame:
@@ -2132,14 +2177,21 @@ namespace Yuusha
                         IOKMode.UpdateGUI();
                         break;
                     case Enums.EGameState.YuushaGame:
-                        if(!GameHUD.ChangingMapDisplaySize)
+                        if (!GameHUD.ChangingMapDisplaySize)
                             YuushaMode.UpdateGUI();
                         break;
                 }
             }
 
-            if(state.ToString().EndsWith("Game"))
+            if (state.ToString().EndsWith("Game"))
             {
+                // Overrides to focus on input text box.
+                // Spellbook window, Options window and private messages have focus priority.
+                Control spellbookWindow = GuiManager.GenericSheet["SpellbookWindow"];
+                if ((spellbookWindow == null || !spellbookWindow.IsVisible) && !GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")) &&
+                    sheet[Globals.GAMEINPUTTEXTBOX] is Control gameInputTextBox)
+                    gameInputTextBox.HasFocus = true;
+
                 if (Character.CurrentCharacter != null)
                 {
                     if (sheet["SackHorizontalAutoHidingButton"] is Button sackButton)
@@ -2185,6 +2237,18 @@ namespace Yuusha
                     }
                 }
             }
+
+            if(state.ToString().EndsWith("Game") || state == Enums.EGameState.Conference)
+            {
+                if (GuiManager.GenericSheet["HelperCommonCommandsButton"] is Control c)
+                    c.IsVisible = true;
+            }
+            else
+            {
+                if (GuiManager.GenericSheet["HelperCommonCommandsButton"] is Control c)
+                    c.IsVisible = false;
+            }
+
 
             // Logo and Community Site Windows
             if(state == Enums.EGameState.Login || state == Enums.EGameState.Menu)
@@ -2343,7 +2407,9 @@ namespace Yuusha
                         break;
                     case Enums.EGameState.Login:
                         if (GameHUD.PreviousGameState != Enums.EGameState.Login)
+                        {
                             ResetLoginGUI();
+                        }
                         break;
                     default:
                         break;
@@ -2380,13 +2446,13 @@ namespace Yuusha
                                 GridBoxWindow.RequestUpdateFromServer(purpose);
                         }
                         // create all sound indicator labels
-                        if (!currGameState.ToString().EndsWith("Game"))
+                        if (!Client.InGame)
                         {
                             SoundIndicatorLabel.CreateAllSoundIndicators();
                             SpellBookWindow.CreateSpellBookWindow();
                             SpellRingWindow.CreateSpellRingWindow();
-                            //if(Character.CurrentCharacter != null)
-                            //    TextCue.AddMapNameTextCue(Character.CurrentCharacter.MapName);
+                            if (Character.CurrentCharacter != null)
+                                TextCue.AddMapNameTextCue(Character.CurrentCharacter.MapName);
                             if (Character.CurrentCharacter != null)
                                 TextCue.AddZNameTextCue(Character.CurrentCharacter.ZName);
                             if (!GameHUD.InitialSpellbookUpdated.Contains(Character.CurrentCharacter.UniqueID))
@@ -2410,6 +2476,9 @@ namespace Yuusha
                         //Character.CurrentCharacter = null;
                         //Character.PreviousRoundCharacter = null;
                         //    ResetLoginGUI();
+                        break;
+                    case Enums.EGameState.Menu:
+                        if (Client.ClientSettings.FullScreenPreferred && !Client.IsFullScreen) Program.Client.ToggleFullScreen();
                         break;
                 }
             }

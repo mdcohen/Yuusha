@@ -32,7 +32,7 @@ namespace Yuusha.Utility.Settings
 
         public List<GUIPositionDetail> GUIPositions = new List<GUIPositionDetail>();
 
-        public void UpdateGUIPosition(gui.Control c)
+        public void UpdateSavedGUIPosition(gui.Control c)
         {
             if (GUIPositionsContains(c, out int index))
             {
@@ -60,10 +60,8 @@ namespace Yuusha.Utility.Settings
 
         public void OnLoad(gui.Window w)
         {
-            if(GUIPositionsContains(w, out int index) && !w.IsLocked)
-            {
-                w.ForcePosition(GUIPositions[index].Coordinates);
-            }
+            if(GUIPositionsContains(w, out int index))
+                w.ForcePosition(GUIPositions[index].Coordinates, true);
 
             #region Currently the only resized windows (besides logcally resized GridBoxWindows, etc..)
             // Change map display size
@@ -128,10 +126,15 @@ namespace Yuusha.Utility.Settings
         {
             foreach(GUIPositionDetail detail in GUIPositions)
             {
-                if(Client.IsFullScreen == detail.FullScreen && gui.GuiManager.GetControl(detail.ControlName) is gui.Window w && (detail.Sheet == "Generic" || detail.Sheet == Client.GameState.ToString()))
+                if(Client.IsFullScreen == detail.FullScreen)
                 {
-                    if (!w.IsLocked)
-                        w.ForcePosition(detail.Coordinates);
+                    if (detail.Sheet == "Generic")
+                    {
+                        if(gui.GuiManager.GenericSheet[detail.ControlName] is gui.Window w && !w.IsLocked)
+                            w.ForcePosition(detail.Coordinates, true);
+                    }
+                    else if(gui.GuiManager.Sheets[detail.Sheet][detail.ControlName] is gui.Window w && !w.IsLocked)
+                            w.ForcePosition(detail.Coordinates, true);
                 }
             }
 
@@ -163,6 +166,8 @@ namespace Yuusha.Utility.Settings
                             }
                         }
                     }
+
+                    mapDispWindow.ForcePosition(Character.GUIPositionSettings.GUIPositions[indexOfMapDisplayWindow].Coordinates, true);
                 }
             }
 
@@ -190,6 +195,8 @@ namespace Yuusha.Utility.Settings
                         }
                     }
                 }
+
+                horizHBW.ForcePosition(Character.GUIPositionSettings.GUIPositions[indexOfHHBW].Coordinates, true);
             }
             #endregion
 
@@ -200,10 +207,9 @@ namespace Yuusha.Utility.Settings
             index = 0;
             foreach(GUIPositionDetail detail in GUIPositions)
             {
-                if (detail.ControlName == c.Name && (detail.Sheet == "Generic" || detail.Sheet == c.Sheet))
-                {
+                if (detail.ControlName == c.Name && detail.Sheet == c.Sheet && Client.IsFullScreen == detail.FullScreen)
                     return true;
-                }
+
                 index++;
             }
 
@@ -231,11 +237,16 @@ namespace Yuusha.Utility.Settings
                 XmlSerializer serializer = new XmlSerializer(typeof(GUIPositionSettings));
                 serializer.Serialize(stream, this);
                 stream.Close();
+                stream.Dispose();
             }
             catch (Exception e)
             {
-                Utils.LogException(e);
+                if (e.Message.Contains("because it is being used by another process"))
+                    gui.GuiManager.GUIPositionsSaveError = true;
+                else Utils.LogException(e);
             }
+
+            gui.GuiManager.GUIPositionsSaveError = false;
         }
 
         /// <summary>
@@ -261,6 +272,7 @@ namespace Yuusha.Utility.Settings
                 XmlSerializer serializer = new XmlSerializer(typeof(GUIPositionSettings));
                 GUIPositionSettings settings = (GUIPositionSettings)serializer.Deserialize(stream);
                 stream.Close();
+                stream.Dispose();
                 return settings;
             }
             catch (Exception e)

@@ -428,7 +428,7 @@ namespace Yuusha.gui
                 {
                     lineColor = TextManager.GetTextFilteredColor(Client.GameState, line, true);
 
-                    if (Client.GameState.ToString().EndsWith("Game"))
+                    if (Client.InGame)
                     {
                         if (lineColor == TextColor && line.EndsWith("!") && !line.Contains(": "))
                             lineColor = TextManager.GetTextFilteredColor(Client.GameState, " hits with ", true);

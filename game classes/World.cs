@@ -142,8 +142,8 @@ namespace Yuusha
                             user.ClassFullName = worldUserItem[3];
                             user.Level = Convert.ToInt32(worldUserItem[4]);
                             user.Location = worldUserItem[5]; // user location.. including conf rooms, maps, menus
-                            user.m_landID = Convert.ToInt16(worldUserItem[6]);
-                            user.m_mapID = Convert.ToInt16(worldUserItem[7]);
+                            user.LandID = Convert.ToInt16(worldUserItem[6]);
+                            user.MapID = Convert.ToInt16(worldUserItem[7]);
                             user.m_anonymous = Convert.ToBoolean(worldUserItem[8]);
                             user.m_invisible = Convert.ToBoolean(worldUserItem[9]);
                             user.m_afk = Convert.ToBoolean(worldUserItem[10]);
@@ -184,7 +184,7 @@ namespace Yuusha
                             score.lastOnline = worldScoreItem[8];
                             score.m_anonymous = Convert.ToBoolean(worldScoreItem[9]);
                             score.ImpLevel = (ImpLevel)Convert.ToInt32(worldScoreItem[10]);
-                            score.m_landID = Convert.ToInt16(worldScoreItem[11]);
+                            score.LandID = Convert.ToInt16(worldScoreItem[11]);
                             World.m_scores.Add(score);
                         }
 

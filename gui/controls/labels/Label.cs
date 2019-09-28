@@ -128,9 +128,13 @@ namespace Yuusha.gui
                     }
 
                     if (!m_disabled && m_hasTextOverColor && m_controlState == Enums.EControlState.Over)
+                    {
                         BitmapFont.ActiveFonts[Font].TextBox(rect, new Color(m_textOverColor, TextAlpha), m_text);
+                    }
                     else
+                    {
                         BitmapFont.ActiveFonts[Font].TextBox(rect, textColor, m_text);
+                    }
                 }
             }
             else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Label [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");

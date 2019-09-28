@@ -83,6 +83,7 @@ namespace Yuusha
             Locker,
             Spells,
             Talents,
+            TalentUse,
             Effects,
             WornEffects,
             Hits,

@@ -141,8 +141,12 @@ namespace Yuusha.gui
 
                             if (!string.IsNullOrEmpty(Text) && !Text.ToLower().StartsWith("look")) // request an update if we did anything but look at an item
                             {
-                                GridBoxWindow.GridBoxPurpose p = (GuiManager.GetControl(DropDownMenu.DropDownMenuOwner.Owner) as GridBoxWindow).GridBoxPurposeType;
-                                GridBoxWindow.RequestUpdateFromServer(p);
+                                // RH & LH hands are updated automatically by a server send
+                                if (GuiManager.GetControl(DropDownMenu.DropDownMenuOwner.Owner) is GridBoxWindow gbWindow)
+                                {
+                                    GridBoxWindow.GridBoxPurpose p = gbWindow.GridBoxPurposeType;
+                                    GridBoxWindow.RequestUpdateFromServer(p);
+                                }
                             }
                         }
                         // otherwise Inventory

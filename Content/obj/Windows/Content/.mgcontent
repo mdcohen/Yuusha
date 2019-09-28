@@ -17,7 +17,7 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Island-Forest.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Jungle-Night.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Nothing_Matters_Everything_Dies.mp3</File>
-    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Pandemonium.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Serenity.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Waves-Small.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Wind-Moderate.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/click_short.wav</File>
@@ -27,6 +27,7 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/coins_scooped.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/coins_training.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/footstep_dirt.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/locker_opening.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/minor_error.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/modem_dial.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/new_spell.wav</File>
@@ -335,11 +336,22 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0293.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0294.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0295.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0296.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0297.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0298.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0299.wav</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSND0300.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint1.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint2.WAV</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint3.WAV</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

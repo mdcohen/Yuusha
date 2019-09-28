@@ -195,9 +195,16 @@ namespace Yuusha.gui
                 if (m_hasFocus)
                 {
                     GuiManager.ControlWithFocus = this;
+                    //if (this is TextBox)
+                    //    GuiManager.ActiveTextBox = Name;
                 }
-                else if (GuiManager.ControlWithFocus == this)
-                    GuiManager.ControlWithFocus = null;
+                else
+                {
+                    if (GuiManager.ControlWithFocus == this)
+                        GuiManager.ControlWithFocus = null;
+
+                    //if (GuiManager.ActiveTextBox == Name) GuiManager.ActiveTextBox = null;
+                }
 
                 //if(TabOrder > -1 && !string.IsNullOrEmpty(Owner) && GuiManager.GetControl(Owner) is Window w)
                 //{
@@ -411,7 +418,7 @@ namespace Yuusha.gui
                     // this goes columns first, then rows.
                     // may have to modify for things such as vertical borders/titles
 
-                    for (int x = 0; countWidth <= this.Width; x++, countWidth += desiredWidth)
+                    for (int x = 0; countWidth <= Width; x++, countWidth += desiredWidth)
                     {
                         for (int y = 0; countHeight <= this.Height; y++, countHeight += desiredHeight)
                         {
@@ -584,7 +591,7 @@ namespace Yuusha.gui
                 {
                     if ((!GuiManager.IsDragging || GuiManager.DraggedControl == this) && !GuiManager.AwaitMouseButtonRelease)
                     {
-                        if (!IsBeneathControl(ms))
+                        if (!IsBeneathControl(ms) && !MouseInvisible)
                         {
                             ControlState = Enums.EControlState.Down;
                             OnMouseDown(ms);
@@ -715,7 +722,12 @@ namespace Yuusha.gui
             int width = m_rectangle.Width;
             int height = m_rectangle.Height;
 
-            if (m_anchors.Count > 0)
+            if(m_anchors.Contains(Enums.EAnchorType.All))
+            {
+                //width += now.Width - prev.Width;
+                //height += now.Height - prev.Height;
+            }
+            else if (m_anchors.Count > 0)
             {
                 // top and no bottom
                 if (m_anchors.Contains(Enums.EAnchorType.Top) && !m_anchors.Contains(Enums.EAnchorType.Bottom))
@@ -869,9 +881,9 @@ namespace Yuusha.gui
             if (this is WindowTitle || this is WindowControlBox)
                 return false;
 
-            foreach (Control c in GuiManager.GenericSheet.Controls)
+            foreach (Control c in new List<Control>(GuiManager.GenericSheet.Controls))
             {
-                if (c.Sheet != "Generic" && c != this && c.IsVisible && c.Contains(ms.Position) && c.Name != Owner && !c.MouseInvisible)
+                if (c.IsVisible && c.Contains(ms.Position) && c.Name != Owner && !c.MouseInvisible)
                 {
                     return true;
                 }
@@ -879,13 +891,13 @@ namespace Yuusha.gui
 
             if (Sheet != "Generic")
             {
-                foreach(Control c in GuiManager.GenericSheet.Controls)
+                foreach(Control c in new List<Control>(GuiManager.GenericSheet.Controls))
                 {
                     if (c.IsVisible && c.Contains(ms.Position))
                         return true;
                 }
 
-                foreach (Control c in GuiManager.CurrentSheet.Controls)
+                foreach (Control c in new List<Control>(GuiManager.CurrentSheet.Controls))
                 {
                     if (Owner == c.Name || !c.IsVisible || c == this) continue;
 

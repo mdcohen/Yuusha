@@ -43,8 +43,8 @@ namespace Yuusha
         GuiManager m_guiManager;
         readonly GameHUD m_gameHUD;
         readonly Audio.AudioManager m_audioManager;
-        bool m_firstFullScreen;
-        bool m_noDraw;
+        //bool m_firstFullScreen;
+        //bool m_noDraw;
         #endregion
 
         #region Public Properties
@@ -143,6 +143,8 @@ namespace Yuusha
         //}
         public GameTime ClientGameTime
         { get; set; }
+        public static bool InGame
+        { get { return Client.GameState.ToString().EndsWith("Game"); } }
         #endregion
 
         public Client()
@@ -161,8 +163,8 @@ namespace Yuusha
             Disposed += Client_Disposed;
 
             Content.RootDirectory = "Content";
-            m_firstFullScreen = true;
-            m_noDraw = false;
+            //m_firstFullScreen = true;
+            //m_noDraw = false;
 
             Window.ClientSizeChanged += Window_ClientSizeChanged;
         }
@@ -188,8 +190,7 @@ namespace Yuusha
                 case Enums.EGameState.IOKGame:
                 case Enums.EGameState.SpinelGame:
                 case Enums.EGameState.YuushaGame:
-                    Control inputTextBox = GuiManager.CurrentSheet[Globals.GAMEINPUTTEXTBOX];
-                    if (inputTextBox != null)
+                    if (GuiManager.CurrentSheet[Globals.GAMEINPUTTEXTBOX] is TextBox inputTextBox)
                     {
                         inputTextBox.HasFocus = true;
                         GuiManager.ActiveTextBox = inputTextBox.Name;
@@ -240,13 +241,18 @@ namespace Yuusha
             m_preferredWindowWidth = 1024;
             m_preferredWindowHeight = 768;
             //m_isFullScreen = true;
-            m_isFullScreen = UserSettings.FullScreen;
+            //m_isFullScreen = UserSettings.FullScreen;
 
             Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
             Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
         
             // set initial title
             Title = string.Format("{0} (v{1})", StaticSettings.ClientName, StaticSettings.ClientVersion);
+
+            //if (ClientSettings.StartupInFullScreen)
+            //{
+            //    ToggleFullScreen();
+            //}
         }
 
         /// <summary>
@@ -296,8 +302,8 @@ namespace Yuusha
             //if (GameState != Enums.eGameState.Splash && m_isFullScreen != UserSettings.FullScreen)
             //    m_isFullScreen = UserSettings.FullScreen;
 
-            if (m_isFullScreen != m_graphics.IsFullScreen)
-                ToggleFullScreen();
+            //if (m_isFullScreen != m_graphics.IsFullScreen)
+            //    ToggleFullScreen();
 
             // allows the default game to exit on Xbox 360 and Windows
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -326,8 +332,8 @@ namespace Yuusha
         {
             m_graphics.GraphicsDevice.Clear(m_deviceClearColor);
 
-            if (m_noDraw)
-                return;
+            //if (m_noDraw)
+            //    return;
 
             //if (m_splashScreen.SplashActive)
             //    m_splashScreen.Draw(gameTime);
@@ -341,6 +347,12 @@ namespace Yuusha
         {
             base.OnExiting(sender, args);
 
+            // remove this code and players who close the client without properly quitting the game are moved to karmaRes location
+            if (IO.IsAlive && InGame)
+            {
+                IO.Send(Protocol.GAME_EXIT);
+            }
+
             Microsoft.Xna.Framework.Media.MediaPlayer.Stop();
             //Microsoft.Xna.Framework.Media.MediaPlayer.Queue.ActiveSong.Dispose();
 
@@ -353,25 +365,20 @@ namespace Yuusha
 
             // save character settings
             if (Character.CurrentCharacter != null &&
-                Character.CurrentCharacter.Name != null &&
-                Character.CurrentCharacter.Name.Length > 0)
+                !string.IsNullOrEmpty(Character.CurrentCharacter.Name))
             {
                 Character.Settings.Save();
                 Character.FogOfWarSettings.Save();
-                //Character.GUIPositionSettings.Save();
+                if (Character.GUIPositionSettings != null)
+                    Character.GUIPositionSettings.Save();
             }
 
             // register disconnect event
             Events.RegisterEvent(Events.EventName.Disconnect);
 
-            // shut down sound
-            //Sound.Shutdown();
-
             UnloadContent();
 
-            // exit
-            Exit();
-             
+            Exit();             
         }
 
         public void ToggleFullScreen()
@@ -389,15 +396,14 @@ namespace Yuusha
             m_prevClientBounds = Window.ClientBounds;
 
             if (presentation.IsFullScreen)
-            {   // going windowed
-
-                //Window.BeginScreenDeviceChange(false);
-
+            {
                 m_graphics.PreferredBackBufferWidth = m_preferredWindowWidth;
                 m_graphics.PreferredBackBufferHeight = m_preferredWindowHeight;
 
                 m_isFullScreen = false;
-                Window.IsBorderless = true;
+
+                try { Window.IsBorderless = true; }
+                catch (NotImplementedException) { }
             }
             else
             {
@@ -412,13 +418,12 @@ namespace Yuusha
                 m_prevClientPosition = Window.Position;
 
                 m_isFullScreen = true;
-                Window.IsBorderless = false;
-                //Window.BeginScreenDeviceChange(true);
+
+                try { Window.IsBorderless = false; }
+                catch (NotImplementedException) { }
             }
 
-            m_graphics.ToggleFullScreen();            
-
-            //TextCue.AddClientInfoTextCue((m_graphics.IsFullScreen ? "Full Screen" : "Windowed Mode") + " Resolution: " + m_graphics.PreferredBackBufferWidth.ToString() + " x " + m_graphics.PreferredBackBufferHeight.ToString());
+            m_graphics.ToggleFullScreen();
 
             if(!m_isFullScreen && m_prevClientPosition != null) // not working properly
                 Window.Position = m_prevClientPosition;
@@ -429,18 +434,15 @@ namespace Yuusha
 
             OnClientResize();
 
-            //if (GameState.ToString().EndsWith("Game") && Character.CurrentCharacter != null && Character.GUIPositionSettings != null)
-            //    Character.GUIPositionSettings.OnLoad();
-
             // to correct issue with top 20 pixels inaccessible after first full screen toggle
-            if (m_graphics.IsFullScreen && m_firstFullScreen)
-            {
-                m_noDraw = true;
-                m_firstFullScreen = false;
-                ToggleFullScreen();
-                ToggleFullScreen();
-                m_noDraw = false;
-            }
+            //if (m_graphics.IsFullScreen && m_firstFullScreen)
+            //{
+            //    m_noDraw = true;
+            //    m_firstFullScreen = false;
+            //    ToggleFullScreen();
+            //    ToggleFullScreen();
+            //    m_noDraw = false;
+            //}
         }
 
         public static void OnClientResize()
@@ -450,6 +452,9 @@ namespace Yuusha
 
             // resize generic sheet
             GuiManager.GenericSheet.OnClientResize(m_prevClientBounds, m_nowClientBounds);
+
+            foreach (TextCue tc in GuiManager.TextCues)
+                tc.OnClientResize(m_prevClientBounds, m_nowClientBounds);
         }
     }
 }

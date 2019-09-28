@@ -63,7 +63,7 @@ namespace Yuusha
                                 if (CaptureInput(m_InData))
                                 {
                                     //if (LoginState == Enums.ELoginState.WorldInformation)
-                                    //if (!m_InData.StartsWith(Protocol.GAME_CELL) && Client.GameState.ToString().EndsWith("Game"))
+                                    //if (!m_InData.StartsWith(Protocol.GAME_CELL) && Client.InGame)
                                     //    Utils.Log(m_InData);
 
                                     m_InData = "";
@@ -177,7 +177,7 @@ namespace Yuusha
         {
             if (outData == null || outData == "") return;
 
-            if (IO.IsAlive)
+            if (IsAlive)
             {
                 switch(Client.GameState)
                 {
@@ -191,7 +191,8 @@ namespace Yuusha
                 {
                     if(!Client.RoundDelay)
                         m_StreamWriter.Write(outData);
-                    if (Client.GameState.ToString().EndsWith("Game") && Utility.Settings.StaticSettings.RoundDelayEnabled)
+
+                    if (Client.InGame && Utility.Settings.StaticSettings.RoundDelayEnabled)
                         Client.RoundDelay = true;
                 }
                 catch
@@ -857,11 +858,24 @@ namespace Yuusha
                                     return true;
                                 }
 
-                                Color cueColor = Color.Gold;
-                                Color backgroundColor = Color.Transparent;
                                 Protocol.PromptStates promptState = (Protocol.PromptStates)Enum.Parse(typeof(Protocol.PromptStates), promptStateInfo, true);
 
-                                gui.TextCue.AddPromptStateTextCue(promptState);
+                                if (Client.GameState == Enums.EGameState.YuushaGame)
+                                {
+                                    switch (promptState)
+                                    {
+                                        case Protocol.PromptStates.Meditating:
+                                            gui.SpellWarmingWindow.CreatePositiveStatusWindow("meditating");
+                                            break;
+                                        case Protocol.PromptStates.Resting:
+                                            gui.SpellWarmingWindow.CreatePositiveStatusWindow("resting");
+                                            break;
+                                        case Protocol.PromptStates.Stunned:
+                                            gui.SpellWarmingWindow.CreateNegativeStatusWindow("Stun");
+                                            break;
+                                    }
+                                }
+                                else  gui.TextCue.AddPromptStateTextCue(promptState);
                             } 
                             #endregion
                             #region CHARACTER_STATS_END
@@ -946,6 +960,13 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_TALENTS_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_TALENTS, Protocol.CHARACTER_TALENTS_END), Enums.EPlayerUpdate.Talents);
+                                return true;
+                            }
+                            #endregion
+                            #region CHARACTER_TALENT_USE_END
+                            else if (inData.IndexOf(Protocol.CHARACTER_TALENT_USE_END) != -1)
+                            {
+                                Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_TALENT_USE, Protocol.CHARACTER_TALENT_USE_END), Enums.EPlayerUpdate.TalentUse);
                                 return true;
                             }
                             #endregion

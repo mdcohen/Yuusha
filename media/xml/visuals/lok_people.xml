@@ -130,9 +130,8 @@
   <!-- Row 7 -->
 	<Visual ParentTexture="lok_people.png" Name="scorpion" X="0" Y="360" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="red_dragon" X="60" Y="360" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="lok_people.png" Name="kesmai_red_dragon" X="60" Y="360" Width="60" Height="60"></Visual> <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="blue_drake" X="120" Y="360" Width="60" Height="60"></Visual>
-	<Visual ParentTexture="lok_people.png" Name="leng_red_dragon" X="180" Y="360" Width="60" Height="60"></Visual>
+	<Visual ParentTexture="lok_people.png" Name="red_dragon2" X="180" Y="360" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="rockworm" X="240" Y="360" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="tengu" X="300" Y="360" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="blue_dragon" X="360" Y="360" Width="60" Height="60"></Visual>
@@ -144,8 +143,9 @@
 	<Visual ParentTexture="lok_people.png" Name="serpent" X="720" Y="360" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="goose" X="780" Y="360" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="yasnaki_ma" X="840" Y="360" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="lok_people.png" Name="hobgoblin_female" X="840" Y="360" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="lok_people.png" Name="drow_mage_female" X="900" Y="360" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="hobgoblin_female" X="900" Y="360" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="drow_mage_female" X="960" Y="360" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="drow_female" X="960" Y="360" Width="60" Height="60"></Visual> <!-- identical to above -->
   <!-- Row 8 -->
 	<Visual ParentTexture="lok_people.png" Name="male_fighter_pc_red" X="0" Y="420" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="male_fighter_pc_purple" X="60" Y="420" Width="60" Height="60"></Visual>
@@ -159,10 +159,13 @@
 	<Visual ParentTexture="lok_people.png" Name="female_fighter_pc_red" X="540" Y="420" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="kobold_female_merchant" X="600" Y="420" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="kobold_female" X="600" Y="420" Width="60" Height="60"></Visual> <!-- identical to above -->
-	<Visual ParentTexture="lok_people.png" Name="kobold_princess" X="660" Y="420" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="kobold_thief_female" X="600" Y="420" Width="60" Height="60"></Visual> <!-- identical to above -->
+  <Visual ParentTexture="lok_people.png" Name="kobold_princess" X="660" Y="420" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="kobold_male_merchant" X="720" Y="420" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="kobold_thief" X="720" Y="420" Width="60" Height="60"></Visual> <!-- identical to above -->
 	<Visual ParentTexture="lok_people.png" Name="kobold_prophet" X="780" Y="420" Width="60" Height="60"></Visual>
-	<Visual ParentTexture="lok_people.png" Name="axe_glacier_blue_dragon" X="840" Y="420" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="blue_dragon2" X="840" Y="420" Width="60" Height="60"></Visual>
+	<Visual ParentTexture="lok_people.png" Name="axe_glacier_blue_dragon" X="840" Y="420" Width="60" Height="60"></Visual> <!-- identical to above -->
   <Visual ParentTexture="lok_people.png" Name="orc_shaman" X="900" Y="420" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="troglodyte_female" X="960" Y="420" Width="60" Height="60"></Visual>
   <!-- Row 9 -->
@@ -199,10 +202,11 @@
 	<Visual ParentTexture="lok_people.png" Name="mummy" X="600" Y="540" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="large_spider" X="660" Y="540" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="troll_guard" X="720" Y="540" Width="60" Height="60"></Visual>
-	<Visual ParentTexture="lok_people.png" Name="christmas_red_dragon" X="780" Y="540" Width="60" Height="60"></Visual>
+	<Visual ParentTexture="lok_people.png" Name="xmas_red_dragon" X="780" Y="540" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="male_xmas_elf" X="840" Y="540" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="centaur_female" X="900" Y="540" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="gnome_rogue" X="960" Y="540" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="gnome_thief" X="960" Y="540" Width="60" Height="60"></Visual> <!-- identical to above -->
   <!-- Row 11 -->
 	<Visual ParentTexture="lok_people.png" Name="male_knight_pc_red" X="0" Y="600" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="male_knight_pc_gray" X="60" Y="600" Width="60" Height="60"></Visual>
@@ -292,7 +296,6 @@
 	<Visual ParentTexture="lok_people.png" Name="male_thaumaturge_pc_gray" X="540" Y="840" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="drow" X="600" Y="840" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="drow_priestess" X="660" Y="840" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="lok_people.png" Name="drow_female" X="660" Y="840" Width="60" Height="60"></Visual> <!-- identical to above -->
   <Visual ParentTexture="lok_people.png" Name="drow_scout" X="720" Y="840" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="grey_elf" X="780" Y="840" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="grey_elf_female" X="780" Y="840" Width="60" Height="60"></Visual> <!-- identical to above -->
@@ -410,12 +413,25 @@
   <Visual ParentTexture="lok_people.png" Name="lamassu" X="120" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="alligator" X="180" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="pixie" X="240" Y="1200" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="lok_people.png" Name="pixie_female" X="240" Y="1200" Width="60" Height="60"></Visual> <!-- identical to above -->
   <Visual ParentTexture="lok_people.png" Name="bugbear" X="300" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="bugbear_female" X="360" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="lizardman" X="420" Y="1200" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="gojira" X="480" Y="1200" Width="60" Height="60"></Visual>
-
+  <Visual ParentTexture="lok_people.png" Name="giantkin" X="540" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="giant_mystic" X="600" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="giant_shaman" X="600" Y="1200" Width="60" Height="60"></Visual> <!-- identical to above -->
+  <Visual ParentTexture="lok_people.png" Name="giant_wizard" X="660" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="giant_mage" X="660" Y="1200" Width="60" Height="60"></Visual> <!-- identical to above -->
+  <Visual ParentTexture="lok_people.png" Name="lizardman_seer" X="720" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="lindwyrm" X="780" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="ettin" X="840" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="orc_mugger" X="900" Y="1200" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="orc_thief" X="900" Y="1200" Width="60" Height="60"></Visual> <!-- identical to above -->
+  <Visual ParentTexture="lok_people.png" Name="yaun-ti_female" X="960" Y="1200" Width="60" Height="60"></Visual>
+  <!-- Row 22 -->
+  <Visual ParentTexture="lok_people.png" Name="unused_beast27" X="0" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="rift_glacier_lightning_drake" X="60" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="illithid_elder" X="120" Y="1260" Width="60" Height="60"></Visual>
   <!-- Added temporary ranger visuals -->
   <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_gray" X="900" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_green" X="900" Y="1140" Width="60" Height="60"></Visual>

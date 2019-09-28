@@ -37,6 +37,8 @@ namespace Yuusha.gui
         bool m_slideOffScreen = true;
         Map.Direction m_slideDirection = Map.Direction.None;
         AchievementType m_achievementType = AchievementType.None;
+        //float m_scaleSize = .25f;
+        //float m_scaleIncrement = .1f;
 
         public DateTime TimeAdded
         {
@@ -203,6 +205,17 @@ namespace Yuusha.gui
 
         }
 
+        /// <summary>
+        /// Currently only being used for skill level ups.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="font"></param>
+        /// <param name="visualKey"></param>
+        /// <param name="tintColor"></param>
+        /// <param name="textColor"></param>
+        /// <param name="soundFile"></param>
+        /// <param name="slideOffScreen"></param>
+        /// <param name="slideDirection"></param>
         public static void CreateAchievementLabel(string text, string font, string visualKey, Color tintColor, Color textColor, string soundFile, bool slideOffScreen, Map.Direction slideDirection)
         {
             int x = Client.Width / 2;
@@ -222,15 +235,18 @@ namespace Yuusha.gui
                 m_soundPlayed = soundFile == "" || soundFile == null,
                 m_slideOffScreen = slideOffScreen,
                 m_slideDirection = slideDirection,
-                EnlargenTextRectangle = true,
+                EnlargenTextRectangle = false,
                 TextShadow = true,
                 TextShadowDirection = Map.Direction.Northwest,
                 TextShadowDistance = 5,
                 TextShadowAlpha = 130,
                 m_dropShadow = true,
                 m_shadowDirection = Map.Direction.Northwest,
-                m_shadowDistance = 5
-            };
+                m_shadowDistance = 5,
+                m_achievementType = AchievementType.SkillUp,
+                //m_scaleSize = .2f,
+                //m_scaleIncrement = .3f
+        };
 
             //if (scaleFont)
             //{
@@ -249,7 +265,7 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
-            if(m_soundFile != null && m_soundFile != "" && !m_soundPlayed)
+            if(m_soundFile != null && !string.IsNullOrEmpty(m_soundFile) && !m_soundPlayed)
             {
                 Audio.AudioManager.PlaySoundEffect(m_soundFile);
                 m_soundPlayed = true;
@@ -302,6 +318,11 @@ namespace Yuusha.gui
                         //    }
                         //    else if (TextManager.ScalingFontList.Count < m_scaleFontIndex + 1)
                         //        m_scaleFont = false;
+                        //}
+
+                        //if(m_achievementType == AchievementType.SkillUp)
+                        //{
+                        //    m_scaleSize += m_scaleIncrement;
                         //}
 
                         Position = new Point(Position.X - m_enlargenRate, Position.Y - m_enlargenRate);
@@ -371,5 +392,59 @@ namespace Yuusha.gui
                 Utils.LogException(e);
             }
         }
+
+        //public override void Draw(GameTime gameTime)
+        //{
+        //    if (!IsVisible)
+        //        return;
+
+        //    if (m_achievementType == AchievementType.SkillUp)
+        //    {
+        //        // Draw a rotating sprite around the outside of the window.
+        //        VisualInfo vi = GuiManager.Visuals[m_visualKey.Key];
+        //        Color color = new Color(m_tintColor.R, m_tintColor.G, m_tintColor.B, VisualAlpha);
+
+        //        if (Character.CurrentCharacter != null)
+        //            color = TextManager.GetAlignmentColor(Character.CurrentCharacter.Alignment);
+
+        //        Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], new Vector2(Position.X + Width / 2, Position.Y + Height / 2),
+        //                vi.Rectangle, color, 0f, new Vector2(vi.Width / 2, vi.Height / 2), m_scaleSize, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1);
+
+        //        Color textColor = new Color(m_textColor, TextAlpha);
+
+        //        if (m_disabled)
+        //            textColor = new Color(ColorDisabledStandard, TextAlpha);
+
+        //        if (BitmapFont.ActiveFonts.ContainsKey(Font))
+        //        {
+        //            // override BitmapFont sprite batch
+        //            BitmapFont.ActiveFonts[Font].SpriteBatchOverride(Client.SpriteBatch);
+        //            // set font alignment
+        //            BitmapFont.ActiveFonts[Font].Alignment = TextAlignment;
+        //            // draw string
+        //            Rectangle rect = new Rectangle(m_textRectangle.X + XTextOffset, m_textRectangle.Y + YTextOffset, m_textRectangle.Width, m_textRectangle.Height);
+        //            // change color of text if mouse over text color is not null
+        //            if (!string.IsNullOrEmpty(m_text) && m_text.Length > 0)
+        //            {
+        //                // draw shadow
+        //                if (TextShadow)
+        //                {
+        //                    Rectangle shadowRect = new Rectangle(rect.X + GetXShadow(TextShadowDirection, TextShadowDistance), rect.Y + GetYShadow(TextShadowDirection, TextShadowDistance), rect.Width, rect.Height);
+        //                    Color shadowColor = new Color(Color.Black, TextShadowAlpha);
+        //                    BitmapFont.ActiveFonts[Font].TextBox(shadowRect, shadowColor, m_text);
+        //                }
+
+        //                if (!m_disabled && m_hasTextOverColor && m_controlState == Enums.EControlState.Over)
+        //                    BitmapFont.ActiveFonts[Font].TextBox(rect, new Color(m_textOverColor, TextAlpha), m_text);
+        //                else
+        //                    BitmapFont.ActiveFonts[Font].TextBox(rect, textColor, m_text);
+        //            }
+        //        }
+        //        else Utils.LogOnce("BitmapFont.ActiveFonts does not contain the Font [ " + Font + " ] for Label [ " + m_name + " ] of Sheet [ " + GuiManager.CurrentSheet.Name + " ]");
+
+        //        if (Border != null) Border.Draw(gameTime);
+        //    }
+        //    else base.Draw(gameTime);
+        //}
     }
 }

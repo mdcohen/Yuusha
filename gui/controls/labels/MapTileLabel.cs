@@ -199,8 +199,13 @@ namespace Yuusha.gui
 
             Cell moveToCell = GameHUD.Cells[Convert.ToInt32(Name.Replace("Tile", ""))];
 
+            GameHUD.MovementClickedCell = moveToCell;
+
             if (moveToCell == null || (!moveToCell.IsVisible && !Client.ClientSettings.AllowDoubleClickMovementToNonVisibleCells) || moveToCell.MovementWeight() >= 10000)
+            {
+                GameHUD.MovementClickedCell = null;
                 return "";
+            }
 
             if(!moveToCell.IsVisible && Client.ClientSettings.AllowDoubleClickMovementToNonVisibleCells)
             {
@@ -209,15 +214,16 @@ namespace Yuusha.gui
                     moveToCell.xCord = Character.CurrentCharacter.Cell.xCord + Cell.CellCoordinates[index].Item1;
                     moveToCell.yCord = Character.CurrentCharacter.Cell.yCord + Cell.CellCoordinates[index].Item2;
                 }
-                else return "";
-            }
+                else
+                {
+                    GameHUD.MovementClickedCell = null;
+                    return "";
+                }
+            }            
 
             XYCoordinate currXY = new XYCoordinate(Character.CurrentCharacter.X, Character.CurrentCharacter.Y);
-            //if(GameHUD.MovementChoices.Count > 0)
-            //{
-
-            //}
             XYCoordinate destXY = new XYCoordinate(moveToCell.xCord, moveToCell.yCord);
+
             string directionsToSend = "";
             bool destinationReached = false;
             int count = 0; // safety net for the while loop
@@ -275,8 +281,6 @@ namespace Yuusha.gui
                 string direction = "";
                 int weight = 10000;
 
-                //List<Tuple<int, string>> DirectionsList = new List<Tuple<int, string>>();
-
                 for (int i = 0; i < tup.Count; i++)
                 {
                     direction = "";
@@ -316,6 +320,8 @@ namespace Yuusha.gui
 
                 count++;
             }
+
+            GameHUD.MovementClickedCell = null;
 
             return directionsToSend.TrimEnd();
         }

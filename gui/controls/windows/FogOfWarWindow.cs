@@ -128,7 +128,7 @@ namespace Yuusha.gui
         {
             if (m_alwaysBackground)
             {
-                if(GuiManager.DraggedControl != this)
+                //if(GuiManager.DraggedControl != this)
                     ZDepth = 1000; // always in the back
             }
 
@@ -230,7 +230,7 @@ namespace Yuusha.gui
                 SpinelTileDefinition currentTile;
                 foreach (SpinelTileLabel sptLabel in SpinelLabels)
                 {
-                    SpinelLabels[count].FogOfWarDetail.Map = Character.CurrentCharacter.m_mapID;
+                    SpinelLabels[count].FogOfWarDetail.Map = Character.CurrentCharacter.MapID;
                     SpinelLabels[count].FogOfWarDetail.XCord = x;
                     SpinelLabels[count].FogOfWarDetail.YCord = y;
                     SpinelLabels[count].FogOfWarDetail.ZCord = Character.CurrentCharacter.Z;
@@ -297,7 +297,7 @@ namespace Yuusha.gui
                 IOKTileDefinition currentTile;
                 foreach (SpinelTileLabel sptLabel in SpinelLabels)
                 {
-                    SpinelLabels[count].FogOfWarDetail.Map = Character.CurrentCharacter.m_mapID;
+                    SpinelLabels[count].FogOfWarDetail.Map = Character.CurrentCharacter.MapID;
                     SpinelLabels[count].FogOfWarDetail.XCord = x;
                     SpinelLabels[count].FogOfWarDetail.YCord = y;
                     SpinelLabels[count].FogOfWarDetail.ZCord = Character.CurrentCharacter.Z;

@@ -170,30 +170,6 @@
 		AnchorRight="true"
 		CursorOnDrag="Dragging">
   </Control>
-  <!-- TextVitalsWindowTitle
-  <Control
-    Type="WindowTitle"
-    Name="TextVitalsWindowTitle"
-    Owner="VitalsWindow"
-    Font="courier12"
-    VisualKey="WhiteSpace"
-    TintColor="MediumSeaGreen"
-    Text=""
-    TextColor="Black"
-    TextAlignment="Center"
-    Height="3"
-    VisualAlpha="100">
-  </Control> -->
-  <!-- TextVitalsWindowBorder
-  <Control
-		Type="SquareBorder"
-		Name="TextVitalsWindowBorder"
-		Owner="VitalsWindow"
-		Width="1"
-		VisualKey="WhiteSpace"
-		TintColor="DimGray"
-    VisualAlpha="100">
-  </Control> -->
 
   <!-- Hits Percentage Bar-->
   <Control
@@ -209,8 +185,8 @@
 	IsVisible="true"
   VisualKey="WhiteSpace"
   TintColor="Red"
-  VisualAlpha="130"
-	Font="changaone16"
+  VisualAlpha="50"
+	Font="changaone14"
 	TextAlignment="Left"
 	AnchorBottom="true"
 	AnchorRight="true"
@@ -241,6 +217,25 @@
     VisualAlpha="235"
 		Font="changaone16"
 		TextAlignment="Left"
+		AnchorBottom="true"
+		AnchorRight="true">
+    </Control>
+  <Control
+		Type="Label"
+		Text=""
+		Name="HitsPercentageBarLabelForeLabel"
+    Owner="HitsPercentageBarLabel"
+		X="0"
+		Y="5"
+		Width="250"
+	  Height="23"
+		TextColor="White"
+		IsVisible="true"
+    VisualKey="VitalsLabelBorder"
+    TintColor="White"
+    VisualAlpha="255"
+		Font="changaone14"
+		TextAlignment="Center"
 		AnchorBottom="true"
 		AnchorRight="true">
     </Control>
@@ -298,50 +293,69 @@
 
   <!-- Stamina Percentage Bar-->
   <Control
-	Type="PercentageBarLabel"
-	Text=""
-	Name="StaminaPercentageBarLabel"
-  Owner="VitalsWindow"
-	X="0"
-	Y="30"
-	Width="250"
-	Height="23"
-	TextColor="White"
-	IsVisible="true"
-  VisualKey="WhiteSpace"
-  TintColor="ForestGreen"
-  VisualAlpha="130"
-	Font="changaone16"
-	TextAlignment="Left"
-	AnchorBottom="true"
-	AnchorRight="true"
-  Segmented="false">
+	  Type="PercentageBarLabel"
+	  Text=""
+	  Name="StaminaPercentageBarLabel"
+    Owner="VitalsWindow"
+	  X="0"
+	  Y="30"
+	  Width="250"
+	  Height="23"
+	  TextColor="White"
+	  IsVisible="true"
+    VisualKey="WhiteSpace"
+    TintColor="ForestGreen"
+    VisualAlpha="50"
+	  Font="changaone16"
+	  TextAlignment="Left"
+	  AnchorBottom="true"
+	  AnchorRight="true"
+    Segmented="false">
   </Control>
   <Control
-	Type="SquareBorder"
-	Name="StaminaPercentageBarLabelBorder"
-	Owner="StaminaPercentageBarLabel"
-	Width="1"
-	VisualKey="WhiteSpace"
-	TintColor="ForestGreen"
-  VisualAlpha="255">
+	  Type="SquareBorder"
+	  Name="StaminaPercentageBarLabelBorder"
+	  Owner="StaminaPercentageBarLabel"
+	  Width="1"
+	  VisualKey="WhiteSpace"
+	  TintColor="ForestGreen"
+    VisualAlpha="255">
   </Control>
   <Control
-		Type="Label"
-		Text=""
-		Name="StaminaPercentageBarLabelMidLabel"
+	  Type="Label"
+	  Text=""
+	  Name="StaminaPercentageBarLabelMidLabel"
     Owner="StaminaPercentageBarLabel"
-		X="0"
-		Y="30"
-		Width="60"
-		Height="23"
-		TextColor="White"
-		IsVisible="true"
+	  X="0"
+	  Y="30"
+	  Width="60"
+	  Height="23"
+	  TextColor="White"
+	  IsVisible="true"
     VisualKey="WhiteSpace"
     TintColor="ForestGreen"
     VisualAlpha="235"
-		Font="changaone16"
-		TextAlignment="Left"
+	  Font="changaone16"
+	  TextAlignment="Left"
+	  AnchorBottom="true"
+	  AnchorRight="true">
+  </Control>
+    <Control
+		Type="Label"
+		Text=""
+		Name="StaminaPercentageBarLabelForeLabel"
+    Owner="StaminaPercentageBarLabel"
+		X="0"
+		Y="30"
+		Width="250"
+	  Height="23"
+		TextColor="White"
+		IsVisible="true"
+    VisualKey="VitalsLabelBorder"
+    TintColor="White"
+    VisualAlpha="255"
+		Font="changaone14"
+		TextAlignment="Center"
 		AnchorBottom="true"
 		AnchorRight="true">
     </Control>
@@ -411,7 +425,7 @@
     IsVisible="true"
     VisualKey="WhiteSpace"
     TintColor="RoyalBlue"
-    VisualAlpha="130"
+    VisualAlpha="50"
     Font="changaone16"
     TextAlignment="Left"
     AnchorBottom="true"
@@ -445,6 +459,25 @@
 	  TextAlignment="Left"
 	  AnchorBottom="true"
 	  AnchorRight="true">
+    </Control>
+    <Control
+   Type="Label"
+   Text=""
+   Name="MagicPtsPercentageBarLabelForeLabel"
+   Owner="MagicPtsPercentageBarLabel"
+   X="0"
+   Y="55"
+   Width="250"
+   Height="23"
+   TextColor="White"
+   IsVisible="true"
+   VisualKey="VitalsLabelBorder"
+   TintColor="White"
+   VisualAlpha="255"
+   Font="changaone14"
+   TextAlignment="Center"
+   AnchorBottom="true"
+   AnchorRight="true">
     </Control>
 	<!-- Magic Points -->
 	<Control
@@ -547,7 +580,7 @@
 		AnchorRight="true">
     </Control>
   </Stats>
-
+  
   <Hands>
     <!-- Right Hand
   <Control

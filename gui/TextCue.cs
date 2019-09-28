@@ -156,6 +156,8 @@ namespace Yuusha.gui
 
                 switch(Tag)
                 {
+                    case TextCueTag.ZName:
+                    case TextCueTag.MapName:
                     case TextCueTag.XPGain:
                         alphaMinus++;
                         break;
@@ -175,7 +177,7 @@ namespace Yuusha.gui
                 {
                     m_alpha -= alphaMinus;
 
-                    if(m_alpha <= 0)
+                    if (m_alpha <= 0)
                         cueList.Remove(this);
                 }
 
@@ -193,6 +195,9 @@ namespace Yuusha.gui
                 }
             }
 
+            if (!m_fadeIn && m_alpha <= 10 || m_lifeCycle > 0 && gameTime.TotalGameTime - TimeSpan.FromMilliseconds(m_lifeCycle) > m_lifeStart)
+                cueList.Remove(this);
+
             if (cueList.Contains(this))
             {
                 m_color = new Color(m_color.R, m_color.G, m_color.B, m_alpha);
@@ -200,8 +205,7 @@ namespace Yuusha.gui
                 if (m_backgroundColor != null && m_backgroundColor != Color.Transparent)
                     m_backgroundColor = new Color(m_backgroundColor.R, m_backgroundColor.G, m_backgroundColor.B, m_alpha);
             }
-            else GuiManager.TextCues.Remove(this);
-           
+            else GuiManager.TextCues.Remove(this);           
         }
 
         public void Draw(GameTime gameTime)
@@ -258,11 +262,11 @@ namespace Yuusha.gui
                 case Map.Direction.East:
                     return 0;
                 case Map.Direction.North:
-                    return -(m_shadowDistance);
+                    return -m_shadowDistance;
                 case Map.Direction.Northeast:
-                    return -(m_shadowDistance);
+                    return -m_shadowDistance;
                 case Map.Direction.Northwest:
-                    return -(m_shadowDistance);
+                    return -m_shadowDistance;
                 case Map.Direction.South:
                     return m_shadowDistance;
                 case Map.Direction.Southeast:
@@ -342,9 +346,9 @@ namespace Yuusha.gui
         {
             MouseCursor cursor;
 
-            if (GuiManager.CurrentSheet.CursorOverride != "")
-                cursor = GuiManager.Cursors[GuiManager.CurrentSheet.CursorOverride];
-            else cursor = GuiManager.Cursors[GuiManager.CurrentSheet.Cursor];
+            if (!string.IsNullOrEmpty(GuiManager.GenericSheet.CursorOverride))
+                cursor = GuiManager.Cursors[GuiManager.GenericSheet.CursorOverride];
+            else cursor = GuiManager.Cursors[GuiManager.GenericSheet.Cursor];
 
             if (cursor != null)
                 cursor.TextCues.Clear();
@@ -707,18 +711,19 @@ namespace Yuusha.gui
 
             GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.MapName);
 
-            string font = TextManager.GetDisplayFont();
+            Color tintColor = Color.GhostWhite;
+            string font = TextManager.GetDisplayFont(out tintColor);
 
-            int x = Client.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
-            int y = Client.Height / 2;
+            int x = Client.Width / 2 - BitmapFont.ActiveFonts[font].MeasureString(text) / 2;
+            int y = Client.Height / 2 - (BitmapFont.ActiveFonts[font].LineHeight / 2 * 3);
 
-            if (GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()]["MapDisplayWindow"] is Window mapWindow)
+            if (GameHUD.FadeToBlackTuple == null && GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()]["MapDisplayWindow"] is Window mapWindow)
             {
                 x = mapWindow.Position.X + mapWindow.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
-                y = mapWindow.Position.Y - BitmapFont.ActiveFonts[font].LineHeight * 2;
+                y = mapWindow.Position.Y - 10 - BitmapFont.ActiveFonts[font].LineHeight * 2;
             }
 
-            TextCue textCue = new TextCue(text, x, y, 0, Color.GhostWhite, Color.Transparent, 200, font, 3500, false, 2, Map.Direction.Southwest, false, true, true, TextCueTag.ZName);
+            TextCue textCue = new TextCue(text, x, y, 0, Color.GhostWhite, Color.Transparent, 200, font, 3500, false, 2, Map.Direction.Southwest, false, true, true, TextCueTag.MapName);
 
             if (!GuiManager.ContainsTextCue(textCue))
                 GuiManager.TextCues.Add(textCue);
@@ -726,23 +731,28 @@ namespace Yuusha.gui
 
         public static void AddZNameTextCue(string text)
         {
+            if (string.IsNullOrEmpty(text)) return;
+
             if (GuiManager.TextCues.Exists(tc => tc.Text == text))
                 return;
 
             GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.ZName);
 
-            string font = TextManager.GetDisplayFont();
+            Color tintColor = Color.GhostWhite;
+            string font = TextManager.GetDisplayFont(out tintColor);
 
+            // Center screen.
             int x = Client.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
             int y = Client.Height / 2 - BitmapFont.ActiveFonts[font].LineHeight / 2;
 
-            if(GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()]["MapDisplayWindow"] is Window mapWindow)
+            // If map display window is found and not faded to black.
+            if(GameHUD.FadeToBlackTuple == null && GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()]["MapDisplayWindow"] is Window mapWindow)
             {
                 x = mapWindow.Position.X + mapWindow.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
                 y = mapWindow.Position.Y - 10 - BitmapFont.ActiveFonts[font].LineHeight;
             }
 
-            TextCue textCue = new TextCue(text, x, y, 0, Color.GhostWhite, Color.Transparent, 200, font, 3500, false, 2, Map.Direction.Southwest, false, true, true, TextCueTag.ZName);
+            TextCue textCue = new TextCue(text, x, y, 0, tintColor, Color.Transparent, 200, font, 3500, false, 2, Map.Direction.Southwest, false, true, true, TextCueTag.ZName);
 
             if (!GuiManager.ContainsTextCue(textCue))
                 GuiManager.TextCues.Add(textCue);

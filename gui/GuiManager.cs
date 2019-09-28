@@ -18,6 +18,7 @@ namespace Yuusha.gui
         public static bool AwaitMouseButtonRelease = false; // Mouse handling ceases until the mouse button is released
         public static List<Keys> AwaitKeyRelease = new List<Keys>();
         public static bool DisplayedLoginTip = false;
+        public static bool GUIPositionsSaveError = false; // save file is in use, keep trying to save
 
         #region Private Data
         static Dictionary<string, Texture2D> m_textures; // master textures
@@ -892,10 +893,7 @@ namespace Yuusha.gui
                     }
                     #endregion
 
-                    Control spellbookButton = GetControl("VerticalAutoHidingSpellbookButton");
-                    Control spellringButton = GetControl("VerticalAutoHidingSpellringButton");
-
-                    if (spellbookButton != null && spellringButton != null)
+                    if (GetControl("VerticalAutoHidingSpellbookButton") is Control spellbookButton && GetControl("VerticalAutoHidingSpellringButton") is Control spellringButton)
                     {
                         if (Character.CurrentCharacter.HasSpellbook || Character.CurrentCharacter.knightRing)
                         { 
@@ -950,6 +948,11 @@ namespace Yuusha.gui
             catch(Exception e)
             {
                 Utils.LogException(e);
+            }
+
+            if(GUIPositionsSaveError && Character.GUIPositionSettings != null)
+            {
+                Character.GUIPositionSettings.Save();
             }
         }
 
@@ -1184,7 +1187,7 @@ namespace Yuusha.gui
         {
             if(Character.CurrentCharacter != null && Character.GUIPositionSettings != null && m_draggedControl is Window w)
             {
-                Character.GUIPositionSettings.UpdateGUIPosition(m_draggedControl);
+                Character.GUIPositionSettings.UpdateSavedGUIPosition(m_draggedControl);
             }
 
             m_draggedControl = null;
@@ -1216,19 +1219,32 @@ namespace Yuusha.gui
             return TextCues.Exists(tc2 => tc.Text == tc2.Text);
         }
 
-        public static void CloseAllGridBoxes()
+        public static bool CloseAllGridBoxes()
         {
+            bool result = false;
+
             foreach (GridBoxWindow.GridBoxPurpose purpose in Enum.GetValues(typeof(GridBoxWindow.GridBoxPurpose)))
             {
                 if (GenericSheet[purpose + "GridBoxWindow"] is GridBoxWindow box && box.IsVisible)
+                {
                     box.OnClose();
+                    result = true;
+                }
             }
 
             if (GenericSheet["CharacterStatsWindow"] is Window window && window.IsVisible)
+            {
                 window.OnClose();
+                result = true;
+            }
 
             if (GenericSheet["RingsWindow"] is Window ringsWindow && ringsWindow.IsVisible)
+            {
                 ringsWindow.OnClose();
+                result = true;
+            }
+
+            return result;
         }
     }
 }

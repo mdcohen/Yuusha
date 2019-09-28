@@ -1,6 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Yuusha
 {
@@ -8,6 +7,19 @@ namespace Yuusha
     {
         public enum ClimateType { None, Temperate, Subtropical, Tropical, Desert, Tundra, Frozen, Subterranean }
         public enum Direction { None, North, South, East, West, Northeast, Southeast, Northwest, Southwest }
+
+        public static System.Collections.Generic.Dictionary<Direction, Point> DirectionCoordinates = new System.Collections.Generic.Dictionary<Direction, Point>()
+        {
+            {Direction.None, new Point(0, 0) },
+            {Direction.North, new Point(0, -1) },
+            {Direction.South, new Point(0, 1) },
+            {Direction.East, new Point(1, 0) },
+            {Direction.West, new Point(-1, 0) },
+            {Direction.Northeast, new Point(1, -1) },
+            {Direction.Southeast, new Point(1, 1) },
+            {Direction.Northwest, new Point(-1, -1) },
+            {Direction.Southwest, new Point(-1, 1) },
+        };
 
         #region Private Data
         private short m_landID; // the land ID of the land object this map belongs to
@@ -219,6 +231,31 @@ namespace Yuusha
             {
                 Utils.LogException(e);
                 return Direction.None;
+            }
+        }
+
+        public static Direction GetOppositeDirection(Direction direction)
+        {
+            switch(direction)
+            {
+                case Direction.North:
+                    return Direction.South;
+                case Direction.South:
+                    return Direction.North;
+                case Direction.East:
+                    return Direction.West;
+                case Direction.West:
+                    return Direction.East;
+                case Direction.Northeast:
+                    return Direction.Southwest;
+                case Direction.Southeast:
+                    return Direction.Northwest;
+                case Direction.Northwest:
+                    return Direction.Southeast;
+                case Direction.Southwest:
+                    return Direction.Northeast;
+                default:
+                    return Direction.None;
             }
         }
     }

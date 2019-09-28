@@ -20,7 +20,7 @@ namespace Yuusha.Audio
         public const string AMB_ISLANDFOREST = "Island-Forest";
         public const string AMB_WAVESSMALL = "Waves-Small";
         public const string AMB_DARKEMPTINESSDRONE = "Dark-Emptiness-Drone";
-        public const string AMB_EERIEECHOES = "Eerie-Echos";
+        public const string AMB_EERIEECHOES = "Eerie-Echoes";
         public const string AMB_CREEPYDRONE = "Creepy-Drone";
         public const string AMB_JUNGLENIGHT = "Jungle-Night";
 
@@ -28,6 +28,7 @@ namespace Yuusha.Audio
         public const string SONG_BIRTHOFACHAMPION = "Birth_of_a_Champion";
         public const string SONG_NOTHINGMATTERSEVERYTHINGDIES = "Nothing_Matters_Everything_Dies";
         public const string SONG_PANDEMONIUM = "Pandemonium";
+        public const string SONG_SERENITY = "Serenity";
 
         public enum SoundDirection { None, South, North, West, East, Southwest, Northwest, Southeast, Northeast }
 
@@ -67,16 +68,16 @@ namespace Yuusha.Audio
                 ambience.Update(gameTime);
 
             // Game, CurrentCharacter is not dead.
-            if (Client.GameState.ToString().EndsWith("Game") && Character.CurrentCharacter != null && !Character.CurrentCharacter.IsDead)
+            if (Client.InGame && Character.CurrentCharacter != null && !Character.CurrentCharacter.IsDead)
             {
-                switch (Character.CurrentCharacter.m_mapID)
+                switch (Character.CurrentCharacter.MapID)
                 {
                     case (int)World.MapID.Annwn:
                         #region Annwn
                         if (Character.CurrentCharacter.Z >= 0)
                             PlayAmbience(AMB_FORESTCALM, true, true, HardSetMediaPlayerVolume);
                         else if (Character.CurrentCharacter.Z == -20)
-                            PlayAmbience(SONG_PANDEMONIUM, false, true, HardSetMediaPlayerVolume); // Annwn Town
+                            PlayAmbience(SONG_SERENITY, false, true, HardSetMediaPlayerVolume); // Annwn Town
                         else if (Character.CurrentCharacter.Z < -20)
                             PlayAmbience(AMB_DUNGEONAMBIENCE, true, true, HardSetMediaPlayerVolume);
                         else MediaPlayer.Pause();
@@ -172,7 +173,7 @@ namespace Yuusha.Audio
                         #region Torii
                         if (Character.CurrentCharacter.Z >= 0)
                         {
-                            PlayAmbience(SONG_NOTHINGMATTERSEVERYTHINGDIES, true, true, HardSetMediaPlayerVolume);
+                            PlayAmbience(SONG_NOTHINGMATTERSEVERYTHINGDIES, false, true, HardSetMediaPlayerVolume);
                         }
                         else PlayAmbience(AMB_CAVEAMBIENCE, false, true, HardSetMediaPlayerVolume);
                         break;

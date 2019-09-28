@@ -41,7 +41,8 @@ namespace Yuusha
             { "Bless", "hotbuttonicon_274" }, { "Blessing of the Faithful", "hotbuttonicon_274" },
             { "Blind", "hotbuttonicon_483" }, { "Bonfire", "hotbuttonicon_156" }, { "Breathe Water", "hotbuttonicon_249" },
             // C
-            { "Chaos Portal", "hotbuttonicon_432" }, { "Charm Animal", "hotbuttonicon_259" }, { "Close Or Open Door", "hotbuttonicon_396" }, { "Command Undead", "hotbuttonicon_70" },
+            { "Chaos Portal", "hotbuttonicon_432" }, { "Charm Animal", "hotbuttonicon_259" }, { "Close Or Open Door", "hotbuttonicon_396" },
+            { "Cognoscere", "hotbuttonicon_178" }, { "Command Undead", "hotbuttonicon_70" },
             { "Concussion", "hotbuttonicon_157" }, { "Contagion", "hotbuttonicon_169" }, { "Create Illusion", "hotbuttonicon_3" }, { "Create Portal", "hotbuttonicon_306" },
             { "Create Snake", "hotbuttonicon_215" }, { "Create Web", "hotbuttonicon_386" }, { "Cure", "hotbuttonicon_468" },
             { "Curse", "hotbuttonicon_186" }, { "Cynosure", "hotbuttonicon_297" }, 
@@ -51,7 +52,7 @@ namespace Yuusha
             // E
             { "Ensnare", "hotbuttonicon_225" },
             // F
-            { "Fear", "hotbuttonicon_433" }, { "Feather Fall", "hotbuttonicon_402" }, { "Ferocity", "hotbuttonicon_158" }, { "Find Secret Door", "hotbuttonicon_372" },
+            { "Faerie Fire", "hotbuttonicon_24" },{ "Fear", "hotbuttonicon_433" }, { "Feather Fall", "hotbuttonicon_402" }, { "Ferocity", "hotbuttonicon_158" }, { "Find Secret Door", "hotbuttonicon_372" },
             { "Fireball", "hotbuttonicon_130" }, { "Firebolt", "hotbuttonicon_103" }, { "Firestorm", "hotbuttonicon_68" }, {"Firewall", "hotbuttonicon_100" },
             { "Flame Shield", "hotbuttonicon_59" },
             // G
@@ -59,11 +60,11 @@ namespace Yuusha
             // H
             { "Halt Undead", "hotbuttonicon_201" }, { "Heal Servant", "hotbuttonicon_477" }, { "Hide Door", "hotbuttonicon_388" }, { "Hide in Shadows", "hotbuttonicon_393" }, {"Hunter's Mark", "hotbuttonicon_234"},
             // I
-            { "Icespear", "hotbuttonicon_362" }, { "Icestorm", "hotbuttonicon_342" }, { "Identify", "hotbuttonicon_261" }, { "Image", "hotbuttonicon_273" },
+            { "Iceshard", "hotbuttonicon_398" }, { "Icespear", "hotbuttonicon_362" }, { "Icestorm", "hotbuttonicon_342" }, { "Identify", "hotbuttonicon_261" }, { "Image", "hotbuttonicon_273" },
             // J
             // K
             // L
-            { "Lagniappe", "hotbuttonicon_484" }, { "Lifeleech", "hotbuttonicon_314" }, { "Light", "hotbuttonicon_279" }, { "Lightning Bolt", "hotbuttonicon_345" }, { "Lightning Storm", "hotbuttonicon_327" },
+            { "Lagniappe", "hotbuttonicon_484" }, { "Lifeleech", "hotbuttonicon_314" }, { "Light", "hotbuttonicon_343" }, { "Lightning Bolt", "hotbuttonicon_345" }, { "Lightning Storm", "hotbuttonicon_327" },
             { "Locate Entity", "hotbuttonicon_23" }, { "Locust Swarm", "hotbuttonicon_195" },
             // M
             { "Magic Missile", "hotbuttonicon_486" }, { "Make Recall", "recallring" }, { "Mark of Vitality", "hotbuttonicon_464" },
@@ -85,14 +86,15 @@ namespace Yuusha
             { "Resist Lightning", "hotbuttonicon_417" }, { "Resist Zonk", "hotbuttonicon_321" },
             // S
             { "Savagery", "hotbuttonicon_28" },{ "Shelter", "hotbuttonicon_174" }, { "Shield", "hotbuttonicon_211" }, { "Speed", "hotbuttonicon_305" },
-            { "Summon Hellhound", "hotbuttonicon_16" }, { "Summon Lamassu", "hotbuttonicon_407" }, { "Summon Lammasu", "hotbuttonicon_407" }, // 7/8/2019 misspelled in server logic
+            { "Summon Hellhound", "hotbuttonicon_16" }, { "Summon Humanoid", "hotbuttonicon_235" }, { "Summon Lamassu", "hotbuttonicon_407" }, { "Summon Lammasu", "hotbuttonicon_407" }, // 7/8/2019 misspelled in server logic
             { "Summon Nature's Ally", "hotbuttonicon_218" }, { "Summon Phantasm", "hotbuttonicon_280" }, { "Stoneskin", "hotbuttonicon_227" },
             { "Strength", "hotbuttonicon_146" }, { "Stun", "hotbuttonicon_217" },
             // T
-            { "Temporary Charisma", "hotbuttonicon_413" }, { "Temporary Constitution", "hotbuttonicon_413" }, { "Temporary Dexterity", "hotbuttonicon_413" }, { "Temporary Intelligence", "hotbuttonicon_413" },
+            { "Tempest", "hotbuttonicon_356" }, { "Temporary Charisma", "hotbuttonicon_413" }, { "Temporary Constitution", "hotbuttonicon_413" }, { "Temporary Dexterity", "hotbuttonicon_413" }, { "Temporary Intelligence", "hotbuttonicon_413" },
             { "Temporary Strength", "hotbuttonicon_146" }, { "Temporary Wisdom", "hotbuttonicon_413" }, {"The Withering", "hotbuttonicon_22" },
             { "Thunderwave", "hotbuttonicon_494" }, {"Transmute", "hotbuttonicon_163" }, { "Trochilidae", "hotbuttonicon_221" }, { "Turn Undead", "hotbuttonicon_476" },
             // U NONE
+            { "Umbral Form", "hotbuttonicon_418" },
             // V
             { "Venom", "hotbuttonicon_41" },
             // W
@@ -117,14 +119,16 @@ namespace Yuusha
             {"Find Secret Door", Tuple.Create("sptile_opendoor1", Color.White, 245) },
             {"Find Secret Rockwall", Tuple.Create("sptile_secret_rockwall", Color.White, 245) },
             {"Fire", Tuple.Create("sptile_fire", Color.White, 200) },
+            {"Fire Storm", Tuple.Create("hotbuttonicon_68", Color.White, 255) },
             {"Fog", Tuple.Create("hotbuttonicon_423", Color.White, 255) },
             {"Hide Door", Tuple.Create("sptile_wall3", Color.White, 255) },
             {"Ice", Tuple.Create("hotbuttonicon_342", Color.White, 150) },
-            {"Light", Tuple.Create("hotbuttonicon_279", Color.White, 120) },
+            {"Light", Tuple.Create("hotbuttonicon_343", Color.White, 120) },
             {"Lightning Storm", Tuple.Create("hotbuttonicon_327", Color.White, 150) },
             {"Locust Swarm", Tuple.Create("hotbuttonicon_195", Color.White, 200) },
-            {"Poison Cloud", Tuple.Create("hotbuttonicon_423", Color.Green, 150) },
+            {"Poison Cloud", Tuple.Create("hotbuttonicon_423", Color.Green, 175) },
             {"Ornic Flame", Tuple.Create("sptile_fire", Color.MediumPurple, 190) },
+            {"Tempest", Tuple.Create("hotbuttonicon_356", Color.White, 150) },
             {"Thunderwave", Tuple.Create("hotbuttonicon_494", Color.White, 100) },
             {"Turn Undead", Tuple.Create("hotbuttonicon_476", Color.White, 100) },
             {"Unknown", Tuple.Create("unknown", Color.White, 150) },
@@ -135,7 +139,8 @@ namespace Yuusha
             {"Whirlwind", Tuple.Create("hotbuttonicon_365", Color.Yellow, 125) },
         };
 
-        public static List<string> NegativeEffects = new List<string>() { "Acid", "Contagion", "Cynosure", "Drudgery", "Fear", "Poison", "The Withering", "Venom" };
+        public static List<string> NegativeEffects = new List<string>()
+        { "Acid", "Contagion", "Cynosure", "Drudgery", "Faerie Fire", "Fear", "Poison", "The Withering", "Venom" };
 
         public static List<string> ShortTermPositiveEffects = new List<string>() { "Balm" };
 

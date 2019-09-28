@@ -83,7 +83,7 @@ namespace Yuusha.gui
             GuiManager.GenericSheet.AddControl(iconLabelBorder);
 
             Label SpellringFillerLabel = new Label("SpellringFillerLabel", spellring.Name, new Rectangle(-80, -80, 212, 212),
-                    "", Color.Black, true, false, spellring.Font, new VisualKey("SmokeCircle"), Color.White, 0, 255, BitmapFont.TextAlignment.Center,
+                    "", Color.Black, true, false, spellring.Font, new VisualKey(SpellWarmingWindow.SpellRotatingVisualKey), Color.White, 0, 255, BitmapFont.TextAlignment.Center,
                     0, 0, "", "", new List<Enums.EAnchorType>(), "");
             spellring.FillerLabel = SpellringFillerLabel;
             GuiManager.GenericSheet.AddControl(SpellringFillerLabel);

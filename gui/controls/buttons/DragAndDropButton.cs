@@ -555,6 +555,7 @@ namespace Yuusha.gui
             Position = new Point(m_originalPosition.X, m_originalPosition.Y);
             GuiManager.Cursors[GuiManager.GenericSheet.Cursor].DraggedControl = null;
             m_draggingToDrop = false;
+            GuiManager.MouseOverDropAcceptingControl = null; // if this isn't here a simple drag and drop will go to last accepting control...
         }
 
         public string GetNItemName(DragAndDropButton draggedButton)

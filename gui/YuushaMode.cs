@@ -74,7 +74,8 @@ namespace Yuusha.gui
                                 {
                                     if (chr.Name == f[0] || (f[0] == "You say" && cellCount == 24))
                                     {
-                                        if (GuiManager.GetControl("Tile" + cellCount) is SpinelTileLabel lbl)
+                                        // IsVisible added because the control may be temporarily hidden.
+                                        if (GuiManager.GetControl("Tile" + cellCount) is SpinelTileLabel lbl && lbl.IsVisible)
                                         {
                                             int x = lbl.Position.X + 10;
                                             int y = lbl.Position.Y - 20;
@@ -100,9 +101,18 @@ namespace Yuusha.gui
                                             foreach (Tuple<ScrollableTextBox, DateTime> tuple in new List<Tuple<ScrollableTextBox, DateTime>>(GameHUD.ConversationBubbles))
                                             {
                                                 int whileLoopCount = 0;
-                                                while (whileLoopCount < 140 && new Rectangle(tuple.Item1.Position.X, tuple.Item1.Position.Y, tuple.Item1.Width, tuple.Item1.Height).Intersects(new Rectangle(scr.Position.X, scr.Position.Y, scr.Width, scr.Height)))
+                                                Rectangle existingRect = new Rectangle(tuple.Item1.Position.X, tuple.Item1.Position.Y, tuple.Item1.Width, tuple.Item1.Height);
+                                                Rectangle scrRect = new Rectangle(scr.Position.X, scr.Position.Y, scr.Width, scr.Height);
+
+                                                while (whileLoopCount < 20 && scrRect.Intersects(existingRect))
                                                 {
-                                                    scr.Position = new Point(scr.Position.X - 5, scr.Position.Y - 5);
+                                                    if (existingRect.X == scrRect.X)
+                                                        scr.Position = new Point(scrRect.X, existingRect.Y + existingRect.Height + 2);
+                                                    else if (existingRect.X > scrRect.X)
+                                                        scr.Position = new Point(existingRect.X - scrRect.Width - 2, scrRect.Y);
+                                                    else if (existingRect.X < scrRect.X)
+                                                        scr.Position = new Point(existingRect.X + existingRect.Width + 2, scrRect.Y);
+
                                                     whileLoopCount++;
                                                 }
                                             }
@@ -349,8 +359,6 @@ namespace Yuusha.gui
 
                     if (pre != null && Character.CurrentCharacter.CurrentRoundsPlayed > 1)
                     {
-                        // Level check is done in TextManager.CheckTriggers.
-
                         if (chr.HitsFull != pre.HitsFull)
                         {
                             if (chr.HitsFull > pre.HitsFull)
@@ -462,16 +470,10 @@ namespace Yuusha.gui
                     }                    
                 }
 
-                // Overrides to focus on input text box.
-                // Spellbook window, Options window and private messages have focus priority.
-
-                if (!GuiManager.GenericSheet["SpellbookWindow"].IsVisible && !GuiManager.GenericSheet["OptionsWindow"].IsVisible && (GuiManager.ControlWithFocus == null || !GuiManager.ControlWithFocus.Name.Contains("PrivateMessage")))
-                    sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = true;
-
                 if (!Client.HasFocus)
                 {
-                    if (sheet[Globals.GAMEINPUTTEXTBOX] != null)
-                        sheet[Globals.GAMEINPUTTEXTBOX].HasFocus = false;
+                    if (sheet[Globals.GAMEINPUTTEXTBOX] is Control c)
+                        c.HasFocus = false;
 
                     GuiManager.ActiveTextBox = null;
                     GuiManager.ControlWithFocus = null;
@@ -509,6 +511,7 @@ namespace Yuusha.gui
 
         public static void NewGameRound()
         {
+            SpellWarmingWindow.CreateNewRoundCountdownWindow();
             m_usedLetters = string.Empty;
             GameHUD.Cells.Clear();
             GameHUD.CharactersInView.Clear();
@@ -637,7 +640,7 @@ namespace Yuusha.gui
 
                 if (critterInfo[4].Length > 0)
                 {
-                    crit.RightHand.ID = Convert.ToInt32(critterInfo[4]);
+                    crit.RightHand.CatalogID = Convert.ToInt32(critterInfo[4]);
                     crit.RightHand.Name = critterInfo[5];
                     crit.RightHand.VisualKey = critterInfo[6];
                 }
@@ -647,7 +650,7 @@ namespace Yuusha.gui
                 }
                 if (critterInfo[7].Length > 0)
                 {
-                    crit.LeftHand.ID = Convert.ToInt32(critterInfo[7]);
+                    crit.LeftHand.CatalogID = Convert.ToInt32(critterInfo[7]);
                     crit.LeftHand.Name = critterInfo[8];
                     crit.LeftHand.VisualKey = critterInfo[9];
                 }
@@ -678,7 +681,7 @@ namespace Yuusha.gui
                 string[] itemInfo = inData.Split(Protocol.VSPLIT.ToCharArray());
                 Item item = new Item
                 {
-                    ID = Convert.ToInt32(itemInfo[0]),
+                    CatalogID = Convert.ToInt32(itemInfo[0]),
                     WorldItemID = Convert.ToInt32(itemInfo[1]),
                     Name = itemInfo[2],
                     VisualKey = itemInfo[3]

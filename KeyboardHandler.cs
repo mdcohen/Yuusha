@@ -18,10 +18,13 @@ namespace Yuusha
 
         static bool IsClientKeyboardHandled()
         {
-            KeyboardState ks = gui.GuiManager.KeyboardState;
+            KeyboardState ks = GuiManager.KeyboardState;
 
-            //if (Client.GameState != Enums.eGameState.Splash)
-            //{
+            if (GuiManager.GenericSheet["LogoutOptionWindow"] is Window logoutOptionWindow && logoutOptionWindow.IsVisible)
+            {
+                return true;
+            }
+
             // ALT + Enter
             // toggle full screen if sheet allows full screen
             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter) && Utility.Settings.StaticSettings.FullScreenToggleEnabled)
@@ -113,6 +116,13 @@ namespace Yuusha
                 return true;
             }
 
+            // ALT + Q
+            // primary testing purpose
+            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
+            {
+                return true;
+            }
+
             // ALT + R
             // reload the current sheet
             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.R))
@@ -198,11 +208,47 @@ namespace Yuusha
 
                     if (!bFound)
                     {
-                        //gui.TextCue.AddClientInfoTextCue(k.ToString());
+                        if (GuiManager.GenericSheet["LogoutOptionWindow"] is Window logoutOptionWindow && logoutOptionWindow.IsVisible)
+                        {
+                            if (Client.InGame && ks.IsKeyDown(Keys.Q))
+                            {
+                                Events.RegisterEvent(Events.EventName.Send_Command, "quit");
+                            }
+                            else if (ks.IsKeyDown(Keys.L))
+                            {
+                                if (Client.InGame)
+                                    Events.RegisterEvent(Events.EventName.Send_Command, "quit");
+
+                                Events.RegisterEvent(Events.EventName.Logout);
+                            }
+                            else if (ks.IsKeyDown(Keys.X))
+                            {
+                                if (Client.InGame)
+                                    Events.RegisterEvent(Events.EventName.Send_Command, "quit");
+
+                                Events.RegisterEvent(Events.EventName.Logout);
+
+                                Program.Client.Exit();
+                            }
+                            else if (ks.IsKeyDown(Keys.R))
+                            {
+                                logoutOptionWindow.OnClose();
+                                GuiManager.Dispose(logoutOptionWindow);
+                            }
+
+                            return true;
+                        }
 
                         #region Login Game State
                         if (Client.GameState == Enums.EGameState.Login)
                         {
+                            if (ks.IsKeyDown(Keys.Escape) && IO.LoginState == Enums.ELoginState.Disconnected)
+                            {
+                                //GameHUD.DisplayLogoutOptionScreen();
+                                Program.Client.Exit();
+                                return true;
+                            }
+
                             #region ALT + I  Vertical Hot Button Window
                             //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.I))
                             //{
@@ -218,11 +264,10 @@ namespace Yuusha
                             //    result = true;
                             //}
                             #endregion
-                            
+
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.F))
                             {
                                 TextCue.AddFPSTextCue(GameHUD.UpdateCumulativeMovingAverageFPS((float)(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds)).ToString("0.00"));
-                                //TextCue.AddFPSTextCue(Math.Round(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds, 1).ToString());
                                 result = true;
                             }
 
@@ -267,14 +312,6 @@ namespace Yuusha
                             //gui.effects.Particle particle = new gui.effects.Particle()
                             //}
 
-                            #region ALT + O  Options Window
-                            //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.O))
-                            //{
-                            //    Events.RegisterEvent(Events.EventName.Toggle_OptionsWindow);
-                            //    result = true;
-                            //}
-                            #endregion
-
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
                             {
                                 //Utils.LogCharacterFields();
@@ -289,6 +326,9 @@ namespace Yuusha
                                 //SpellRingWindow.CreateSpellRingWindow();
                                 //SpellWarmingWindow.CreateSpellWarmingWindow("Icespear");
 
+                                //AchievementLabel.CreateAchievementLabel("Mistress of Earth and Sky", TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.Count - 1], GameHUD.GameIconsDictionary["magic"], Color.Indigo, Color.PaleGreen, "", true, Map.Direction.Southwest);
+
+
                                 //if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window characterStatsWindow)
                                 //{
                                 //    characterStatsWindow.IsVisible = !characterStatsWindow.IsVisible;
@@ -297,34 +337,34 @@ namespace Yuusha
                                 //        Utils.LogCharacterFields();
                                 //}
                                 //result = true;
+                                //GameHUD.LightningFlash();
+                                //GameHUD.CrumbleScreen(Map.Direction.South, 30, false, true);
+                                //GameHUD.SynchronouslySlideScreen(Map.Direction.East, 15, true, true);
+                                result = true;
                             }
+
+                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.B))
+                            //{
+                            //GameHUD.ReturnScreen = true;
+                            //GameHUD.ReturnCrumbledScreen(false);
+                            //GameHUD.ReturnSlidScreen = true;
+                            //result = true;
+                            //}
+
+                            #region ALT + O  Options Window
+                            //if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.O))
+                            //{
+                            //    Events.RegisterEvent(Events.EventName.Toggle_OptionsWindow);
+                            //    result = true;
+                            //}
+                            #endregion
                             #endregion
 
                             #region ALT + N  News Window
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.N))
                             {
-                                if (gui.GuiManager.GenericSheet["NewsWindow"] is gui.MessageWindow newsWindow)
+                                if (GuiManager.GenericSheet["NewsWindow"] is gui.MessageWindow newsWindow)
                                 {
-                                    //if (!newsWindow.IsVisible)
-                                    //{
-                                    //    (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).Clear();
-
-                                    //    try
-                                    //    {
-                                    //        for (int a = 0; a < World.News.Count; a++)
-                                    //        {
-                                    //            string[] nz = World.News[a].Split(Protocol.ISPLIT.ToCharArray());
-                                    //            foreach (string line in nz)
-                                    //            {
-                                    //                (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine(line.Trim(), Enums.ETextType.Default);
-                                    //            }
-                                    //        }
-                                    //    }
-                                    //    catch (System.IO.FileNotFoundException)
-                                    //    {
-                                    //        (newsWindow["NewsScrollableTextBox"] as gui.ScrollableTextBox).AddLine("Failed to display news.", Enums.ETextType.Default);
-                                    //    }
-                                    //}
                                     newsWindow.IsVisible = !newsWindow.IsVisible;
                                     result = true;
                                 }
@@ -332,7 +372,7 @@ namespace Yuusha
                             #endregion
 
                             #region Tilde Saves a Screenshot
-                            if (ks.IsKeyDown(Keys.OemTilde))
+                            if (ks.IsKeyDown(Keys.PrintScreen))
                             {
                                 Utils.SaveScreenshot();
                             }
@@ -341,7 +381,7 @@ namespace Yuusha
                             #region ALT + Enter  Full Screen Toggle
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter) && Utility.Settings.StaticSettings.FullScreenToggleEnabled)
                             {
-                                Program.Client.ToggleFullScreen();
+                                Events.RegisterEvent(Events.EventName.Toggle_FullScreen);
                                 result = true;
                             }
                             #endregion
@@ -349,15 +389,15 @@ namespace Yuusha
                             #region ALT + R  Reload Current GUI Sheet
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.R))
                             {
-                                Program.Client.GUIManager.LoadSheet(gui.GuiManager.GenericSheet.FilePath);
-                                Program.Client.GUIManager.LoadSheet(gui.GuiManager.CurrentSheet.FilePath);
+                                Program.Client.GUIManager.LoadSheet(GuiManager.GenericSheet.FilePath);
+                                Program.Client.GUIManager.LoadSheet(GuiManager.CurrentSheet.FilePath);
                                 if (Client.IsFullScreen)
                                 {
                                     GuiManager.GenericSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
                                     GuiManager.CurrentSheet.OnClientResize(Client.PrevClientBounds, Client.NowClientBounds);
                                 }
 
-                                gui.TextCue.AddClientInfoTextCue("Reloaded " + GuiManager.CurrentSheet.Description + " and Generic Sheet.", TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 0, 2000, false, true, false);
+                                TextCue.AddClientInfoTextCue("Reloaded " + GuiManager.CurrentSheet.Description + " and Generic Sheet.", TextCue.TextCueTag.None, Color.LimeGreen, Color.Transparent, 0, 2000, false, true, false);
 
                                 result = true;
                             }
@@ -406,7 +446,7 @@ namespace Yuusha
 
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter))
                             {
-                                Program.Client.ToggleFullScreen();
+                                Events.RegisterEvent(Events.EventName.Toggle_FullScreen);
                                 result = true;
                             }
 
@@ -449,7 +489,7 @@ namespace Yuusha
                             }
 
                             #region Tilde Saves a Screenshot
-                            if (ks.IsKeyDown(Keys.OemTilde))
+                            if (ks.IsKeyDown(Keys.PrintScreen))
                             {
                                 Utils.SaveScreenshot();
                                 result = true;
@@ -472,19 +512,6 @@ namespace Yuusha
                                 result = true;
                             }
 
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
-                            {
-                                //Utils.LogCharacterFields();
-                                //Utils.LogCharacterEffects();
-                                //    //foreach (Spell spell in World.SpellsList)
-                                //    //    Utils.Log(spell.Name);
-                                //    //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
-                                //    //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
-                                //IO.Send(Protocol.REQUEST_CHARACTER_STATS);
-                                //    SpellBookWindow.CreateSpellBookWindow();
-                                result = true;
-                            }
-
                             if (ks.IsKeyDown(Keys.LeftAlt) && ks.IsKeyDown(Keys.F))
                             {
                                 TextCue.AddFPSTextCue(Math.Round(1 / Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds, 1).ToString());
@@ -494,13 +521,10 @@ namespace Yuusha
                             // Escape closes gridboxwindows if there is no target. Otherwise, target is cleared first.
                             if (ks.IsKeyDown(Keys.Escape))
                             {
-                                if (Client.GameState == Enums.EGameState.Splash)
+                                if (!result && GuiManager.GenericSheet["LogoutOptionWindow"] is Window loWindow)
                                 {
-                                    Client.GameState = Enums.EGameState.Login;
-                                    Events.ResetLoginGUI();
-                                    //Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
-                                    //gui.TextCue.AddClientInfoTextCue("GameState: " + Client.GameState.ToString());
-                                    //result = true;
+                                    loWindow.OnClose();
+                                    result = true;
                                 }
 
                                 // Close DropDownMenu
@@ -524,7 +548,7 @@ namespace Yuusha
                                 }
 
                                 // Clear pathing choices on SpinelTileLabels.
-                                if(!result && (Client.GameState == Enums.EGameState.SpinelGame || Client.GameState == Enums.EGameState.YuushaGame) && GameHUD.MovementChoices.Count > 0)
+                                if (!result && (Client.GameState == Enums.EGameState.SpinelGame || Client.GameState == Enums.EGameState.YuushaGame) && GameHUD.MovementChoices.Count > 0)
                                 {
                                     foreach (Cell cell in GameHUD.MovementChoices)
                                         if (GuiManager.CurrentSheet["Tile" + GameHUD.Cells.IndexOf(cell)] is SpinelTileLabel spLabel) spLabel.PathingVisual = "";
@@ -533,13 +557,13 @@ namespace Yuusha
                                     result = true;
                                 }
 
-                                if (!result && GuiManager.GetControl("SpellbookWindow") is SpellBookWindow w && w.IsVisible)
+                                if (!result && GuiManager.GetControl("SpellbookWindow") is SpellBookWindow spellbookWindow && spellbookWindow.IsVisible)
                                 {
-                                    w.OnClose();
+                                    spellbookWindow.OnClose();
                                     result = true;
                                 }
 
-                                if(!result && Client.GameState.ToString().EndsWith("Game") && GameHUD.CurrentTarget != null)
+                                if (!result && Client.InGame && GameHUD.CurrentTarget != null)
                                 {
                                     Events.RegisterEvent(Events.EventName.Target_Cleared);
                                     result = true;
@@ -547,15 +571,14 @@ namespace Yuusha
 
                                 if (!result)
                                 {
-                                    GuiManager.CloseAllGridBoxes();
-                                    result = true;
+                                    result = GuiManager.CloseAllGridBoxes();
                                 }
 
-                                //else if (!Client.GameState.ToString().EndsWith("Game"))
-                                //{
-                                //    GuiManager.CloseAllGridBoxes();
-                                //    result = true;
-                                //}
+                                if(!result && (!(GuiManager.GenericSheet["LogoutOptionWindow"] is Window w) || !w.IsVisible))
+                                {
+                                    GameHUD.DisplayLogoutOptionScreen();
+                                    result = true;
+                                }
                             }
 
                             if (ks.IsKeyDown(Keys.Tab) || (GuiManager.ControlWithFocus is TextBox && ks.IsKeyDown(Keys.Enter) && ks.GetPressedKeys().Length == 1))
@@ -573,11 +596,9 @@ namespace Yuusha
                             #region ALT + Enter  Full Screen Toggle
                             if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Enter) && Utility.Settings.StaticSettings.FullScreenToggleEnabled)
                             {
-                                if (Client.GameState == Enums.EGameState.HotButtonEditMode) return true;
-
                                 if (GuiManager.CurrentSheet.AllowFullScreen)
                                 {
-                                    Program.Client.ToggleFullScreen();
+                                    Events.RegisterEvent(Events.EventName.Toggle_FullScreen);
                                     result = true;
                                 }
                                 else TextCue.AddClientInfoTextCue("Fullscreen disabled in " + Client.GameState + ".");
@@ -699,11 +720,12 @@ namespace Yuusha
 
                                 result = true;
 
-                                if (Client.GameState.ToString().EndsWith("Game"))
+                                if (Client.InGame)
                                     IO.Send("redraw");
 
                                 Character.LoadSettings();
                                 GenericSheet.LoadMacros();
+                                Character.GUIPositionSettings.OnLoad();
                             }
                             #endregion
 
@@ -776,7 +798,7 @@ namespace Yuusha
                             }
 
                             #region Tilde Saves a Screenshot
-                            if (ks.IsKeyDown(Keys.OemTilde))
+                            if (ks.IsKeyDown(Keys.PrintScreen))
                             {
                                 Utils.SaveScreenshot();
                                 result = true;
