@@ -312,43 +312,45 @@ namespace Yuusha
                             //gui.effects.Particle particle = new gui.effects.Particle()
                             //}
 
-                            if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
-                            {
-                                //Utils.LogCharacterFields();
-                                //Utils.LogCharacterEffects();
-                                //foreach (Spell spell in World.SpellsList)
-                                //    Utils.Log(spell.Name);
-                                //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
-                                //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
-                                //IO.Send(Protocol.REQUEST_CHARACTER_STATS);
+                            //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.Q))
+                            //{
+                            //    //Utils.LogCharacterFields();
+                            //    //Utils.LogCharacterEffects();
+                            //    //foreach (Spell spell in World.SpellsList)
+                            //    //    Utils.Log(spell.Name);
+                            //    //IO.Send(Protocol.REQUEST_CHARACTER_EFFECTS);
+                            //    //TextCue.AddZNameTextCue("Haunt of the Ghost Paladin");
+                            //    //IO.Send(Protocol.REQUEST_CHARACTER_STATS);
 
-                                //SpellBookWindow.CreateSpellBookWindow();
-                                //SpellRingWindow.CreateSpellRingWindow();
-                                //SpellWarmingWindow.CreateSpellWarmingWindow("Icespear");
+                            //    //SpellBookWindow.CreateSpellBookWindow();
+                            //    //SpellRingWindow.CreateSpellRingWindow();
+                            //    //SpellWarmingWindow.CreateSpellWarmingWindow("Icespear");
 
-                                //AchievementLabel.CreateAchievementLabel("Mistress of Earth and Sky", TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.Count - 1], GameHUD.GameIconsDictionary["magic"], Color.Indigo, Color.PaleGreen, "", true, Map.Direction.Southwest);
+                            //    //AchievementLabel.CreateAchievementLabel("Mistress of Earth and Sky", TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.Count - 1], GameHUD.GameIconsDictionary["magic"], Color.Indigo, Color.PaleGreen, "", true, Map.Direction.Southwest);
 
 
-                                //if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window characterStatsWindow)
-                                //{
-                                //    characterStatsWindow.IsVisible = !characterStatsWindow.IsVisible;
-                                //    characterStatsWindow.ZDepth = 1;
-                                //    if(Character.CurrentCharacter != null)
-                                //        Utils.LogCharacterFields();
-                                //}
-                                //result = true;
-                                //GameHUD.LightningFlash();
-                                //GameHUD.CrumbleScreen(Map.Direction.South, 30, false, true);
-                                //GameHUD.SynchronouslySlideScreen(Map.Direction.East, 15, true, true);
-                                result = true;
-                            }
+                            //    //if (GuiManager.GenericSheet["CharacterStatsWindow"] is Window characterStatsWindow)
+                            //    //{
+                            //    //    characterStatsWindow.IsVisible = !characterStatsWindow.IsVisible;
+                            //    //    characterStatsWindow.ZDepth = 1;
+                            //    //    if(Character.CurrentCharacter != null)
+                            //    //        Utils.LogCharacterFields();
+                            //    //}
+                            //    //result = true;
+                            //    //GameHUD.LightningFlash();
+                            //    //GameHUD.CrumbleScreen(Map.Direction.South, 30, false, true);
+                            //    //GameHUD.SynchronouslySlideScreen(Map.Direction.East, 15, true, true);
+                            //    //GameHUD.SplitSlideScreen(true, 20, true);
+                            //    result = true;
+                            //}
 
                             //if (IsAltKeyDown(ks) && ks.IsKeyDown(Keys.B))
                             //{
-                            //GameHUD.ReturnScreen = true;
-                            //GameHUD.ReturnCrumbledScreen(false);
-                            //GameHUD.ReturnSlidScreen = true;
-                            //result = true;
+                            //    //GameHUD.ReturnScreen = true;
+                            //    //GameHUD.ReturnCrumbledScreen(false);
+                            //    //GameHUD.ReturnSlidScreen = true;
+                            //    //GameHUD.ReturnSplitSlidScreen = true;
+                            //    result = true;
                             //}
 
                             #region ALT + O  Options Window
@@ -371,7 +373,7 @@ namespace Yuusha
                             }
                             #endregion
 
-                            #region Tilde Saves a Screenshot
+                            #region PrintScreen Saves a Screenshot
                             if (ks.IsKeyDown(Keys.PrintScreen))
                             {
                                 Utils.SaveScreenshot();
@@ -535,7 +537,7 @@ namespace Yuusha
                                 }
 
                                 // Close spellbook. Close all GridBoxWindows. (target should always be cleared if GAMEINPUTTEXTBOX has focus)
-                                if (!result && GuiManager.Cursors[GuiManager.GenericSheet.Cursor] is gui.MouseCursor cursor && cursor.DraggedControl != null)
+                                if (GuiManager.Cursors[GuiManager.GenericSheet.Cursor] is gui.MouseCursor cursor && cursor.DraggedControl != null)
                                 {
                                     if (cursor.DraggedControl is DragAndDropButton dadButton)
                                         dadButton.StopDragging();
@@ -567,6 +569,23 @@ namespace Yuusha
                                 {
                                     Events.RegisterEvent(Events.EventName.Target_Cleared);
                                     result = true;
+                                }
+
+                                if (!Client.InGame && GuiManager.CurrentSheet[Globals.CONFINPUTTEXTBOX] is TextBox confInputTbx)
+                                {
+                                    if (confInputTbx.Text.Length > 0)
+                                    {
+                                        confInputTbx.Clear();
+                                        result = true;
+                                    }
+                                }
+                                else if(Client.InGame && GuiManager.CurrentSheet[Globals.GAMEINPUTTEXTBOX] is TextBox gameInputTbx)
+                                {
+                                    if (gameInputTbx.Text.Length > 0)
+                                    {
+                                        gameInputTbx.Clear();
+                                        result = true;
+                                    }
                                 }
 
                                 if (!result)

@@ -343,7 +343,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="irongreatsword" X="1920" Y="2640" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="lightshiningsteelgreatsword" X="1980" Y="2640" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="unusuallylightshiningsteelgreatsword" X="1980" Y="2640" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="swordoflight" X="1980" Y="2640" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="swordoflight" X="2100" Y="2640" Width="60" Height="60"></Visual>
   <!-- Katanas *** Needs update-->
   <Visual ParentTexture="yuusha_items.png" Name="katana" X="1860" Y="2220" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="ivorykatana" X="1980" Y="2220" Width="60" Height="60"></Visual>

@@ -102,7 +102,7 @@ namespace Yuusha
         /// <param name="file">Name of the file we're looking for.</param>
         /// <returns>The path of the file.</returns>
         /// <remarks>If the file cannot be found, an exception will be thrown.</remarks>
-        public static string GetMediaFile( string file )
+        public static string GetMediaFile(string file)
         {
             // Find out the executing assembly information
             System.Reflection.Assembly executingAssembly = System.Reflection.Assembly.GetExecutingAssembly();
@@ -110,13 +110,13 @@ namespace Yuusha
             string exeFolder = Path.GetDirectoryName( executingAssembly.Location );
 
             // Search all the folders in searchFolders
-            if ( SearchFolders( file, exeFolder, exeName, out string filePath ) )
+            if (SearchFolders(file, exeFolder, exeName, out string filePath))
             {
                 return filePath;
             }
 
             // Search all the folders in searchFolders with media\ appended to the end
-            if ( SearchFolders( m_mediaFolder + file, exeFolder, exeName, out filePath ) )
+            if ( SearchFolders(m_mediaFolder + file, exeFolder, exeName, out filePath))
             {
                 return filePath;
             }

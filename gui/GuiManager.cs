@@ -24,11 +24,12 @@ namespace Yuusha.gui
         static Dictionary<string, Texture2D> m_textures; // master textures
         static Dictionary<string, Sheet> m_sheets; // gui sheets
         static Dictionary<string, VisualInfo> m_visuals; // visual information for each texture piece
+        static Dictionary<string, AnimatedVisualInfo> m_animatedVisuals;
         static Dictionary<string, MouseCursor> m_cursors; // cursors
         static Control m_controlWithFocus = null;
         static Control m_draggedControl = null;
-        static string m_activeTextBox = "";
-        static string m_openComboBox = "";
+        //static string m_activeTextBox = "";
+        //static string m_openComboBox = "";
         static GenericSheet m_genericSheet = null; // generic sheet
         static List<TextCue> m_textCues = new List<TextCue>();
         static List<Window> m_minimizeTrayList = new List<Window>();
@@ -46,6 +47,10 @@ namespace Yuusha.gui
         public static Dictionary<string, Sheet> Sheets
         {
             get { return m_sheets; }
+        }
+        public static Dictionary<string, AnimatedVisualInfo> AnimatedVisuals
+        {
+            get { return m_animatedVisuals; }
         }
         public static Dictionary<string, VisualInfo> Visuals
         {
@@ -115,6 +120,7 @@ namespace Yuusha.gui
             m_textures = new Dictionary<string, Texture2D>();
             m_sheets = new Dictionary<string, Sheet>();
             m_visuals = new Dictionary<string, VisualInfo>();
+            m_animatedVisuals = new Dictionary<string, AnimatedVisualInfo>();
             m_cursors = new Dictionary<string, MouseCursor>();
         } 
         #endregion
@@ -287,11 +293,75 @@ namespace Yuusha.gui
                                     Utils.Log("Visuals dictionary already contains Key [ " + vi.Name + " ] from Visual XML File [ " + xmlFile + " ]");
                                 else
                                 {
-                                    //Utils.LogOnceToFile("AutoVisual Created: Key [ " + vi.Name + " ] from Visual XML File [ " + xmlFile + " ]", "AutoVisuals");
                                     Visuals.Add(vi.Name, vi);
                                 }
                             }
                         } 
+                        #endregion
+                    }
+                    else if (reader.Name == "AnimatedVisual")
+                    {
+                        #region AnimatedVisual
+                        string parentTexture = "";
+                        string startName = "";
+                        int counter = 0;
+                        int numColumns = 0;
+                        int numRows = 0;
+                        int width = 0;
+                        int height = 0;
+                        string animationName = "";
+                        int frames = 0;
+                        int framesPerSecond = 0;
+
+                        for (int i = 0; i < reader.AttributeCount; i++)
+                        {
+                            reader.MoveToAttribute(i);
+                            if (reader.Name == "ParentTexture")
+                                parentTexture = reader.Value;
+                            else if (reader.Name == "StartName")
+                                startName = reader.Value;
+                            else if (reader.Name == "StartCounter")
+                                counter = reader.ReadContentAsInt();
+                            else if (reader.Name == "Columns")
+                                numColumns = reader.ReadContentAsInt();
+                            else if (reader.Name == "Rows")
+                                numRows = reader.ReadContentAsInt();
+                            else if (reader.Name == "Width")
+                                width = reader.ReadContentAsInt();
+                            else if (reader.Name == "Height")
+                                height = reader.ReadContentAsInt();
+                            else if (reader.Name == "AnimationName")
+                                animationName = reader.Value;
+                            else if (reader.Name == "FramesPerSecond")
+                                framesPerSecond = reader.ReadContentAsInt();
+                        }
+
+                        List<AnimatedVisualInfo> animatedVisuals = new List<AnimatedVisualInfo>();
+                        for (int rows = 0, y = 0; rows < numRows; rows++, y += height)
+                        {
+                            for (int cols = 0, x = 0; cols < numColumns; cols++, x += width)
+                            {
+                                VisualInfo vi = new VisualInfo(parentTexture, startName + counter.ToString(), x, y, width, height);
+                                counter++;
+                                if (Visuals.ContainsKey(vi.Name))
+                                    Utils.Log("Visuals dictionary already contains Key [ " + vi.Name + " ] from Visual XML File [ " + xmlFile + " ]");
+                                else
+                                {
+                                    Visuals.Add(vi.Name, vi);
+                                }
+
+                                if (counter == frames)
+                                    break;
+                            }
+
+                            if (counter == frames)
+                                break;
+                        }
+
+                        AnimatedVisualInfo avi = new AnimatedVisualInfo(animationName, startName, counter, framesPerSecond);
+                        if (!AnimatedVisuals.ContainsKey(animationName))
+                            AnimatedVisuals.Add(animationName, avi);
+                        else Utils.Log("Animated Visuals dictionary already contains Key [ " + animationName + " ] from AnimatedVisualInfo XML File [ " + xmlFile + " ]");
                         #endregion
                     }
                     else if (reader.Name == "Cursor")

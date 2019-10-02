@@ -123,6 +123,7 @@ namespace Yuusha.gui
                         soundFile = "GUISounds/sword_draw";
                         stopSize = 256;
                         font = Client.ClientSettings.DefaultHUDNumbersFont;
+                        slideDirection = Map.Direction.Southeast;
                         break;
                     case AchievementType.Vitals_ManaGain:
                         tintColor = Color.RoyalBlue;
@@ -131,6 +132,7 @@ namespace Yuusha.gui
                         soundFile = "GUISounds/sword_draw";
                         stopSize = 256;
                         font = Client.ClientSettings.DefaultHUDNumbersFont;
+                        slideDirection = Map.Direction.Southeast;
                         break;
                     case AchievementType.Vitals_StaminaGain:
                         tintColor = Color.ForestGreen;
@@ -139,6 +141,7 @@ namespace Yuusha.gui
                         soundFile = "GUISounds/sword_draw";
                         stopSize = 256;
                         font = Client.ClientSettings.DefaultHUDNumbersFont;
+                        slideDirection = Map.Direction.Southeast;
                         break;
                     case AchievementType.LevelUp:
                         tintColor = Color.White;
@@ -149,6 +152,7 @@ namespace Yuusha.gui
                         slideOffScreen = false;
                         font = "lobster156";
                         enlargenRate = 10;
+                        slideDirection = Map.Direction.North;
                         break;
                     case AchievementType.NewTalent:
                     case AchievementType.NewSpell:

@@ -634,6 +634,7 @@ namespace Yuusha.gui
                                 continue;
                             }
 
+                            spLabel.AnimatedVisuals.Clear();
                             spLabel.Text = "";// currTile.DisplayGraphic;
                             spLabel.TextColor = Color.White;// currTile.ForeColor;
                             spLabel.TintColor = currentTile.BackTint;

@@ -432,6 +432,12 @@
   <Visual ParentTexture="lok_people.png" Name="unused_beast27" X="0" Y="1260" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="rift_glacier_lightning_drake" X="60" Y="1260" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="illithid_elder" X="120" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="nalfeshnee" X="180" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="nalfeshnee_female" X="180" Y="1260" Width="60" Height="60"></Visual> <!-- identical to above -->
+  <Visual ParentTexture="lok_people.png" Name="iron_lich" X="240" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="iron_lich2" X="300" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="wandering_lightning_drake" X="360" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="unused_drake" X="420" Y="1260" Width="60" Height="60"></Visual>
   <!-- Added temporary ranger visuals -->
   <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_gray" X="900" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_green" X="900" Y="1140" Width="60" Height="60"></Visual>

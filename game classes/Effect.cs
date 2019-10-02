@@ -89,6 +89,7 @@ namespace Yuusha
             { "Summon Hellhound", "hotbuttonicon_16" }, { "Summon Humanoid", "hotbuttonicon_235" }, { "Summon Lamassu", "hotbuttonicon_407" }, { "Summon Lammasu", "hotbuttonicon_407" }, // 7/8/2019 misspelled in server logic
             { "Summon Nature's Ally", "hotbuttonicon_218" }, { "Summon Phantasm", "hotbuttonicon_280" }, { "Stoneskin", "hotbuttonicon_227" },
             { "Strength", "hotbuttonicon_146" }, { "Stun", "hotbuttonicon_217" },
+            { "Silence", "hotbuttonicon_490" }, // same as Power Word: Silence
             // T
             { "Tempest", "hotbuttonicon_356" }, { "Temporary Charisma", "hotbuttonicon_413" }, { "Temporary Constitution", "hotbuttonicon_413" }, { "Temporary Dexterity", "hotbuttonicon_413" }, { "Temporary Intelligence", "hotbuttonicon_413" },
             { "Temporary Strength", "hotbuttonicon_146" }, { "Temporary Wisdom", "hotbuttonicon_413" }, {"The Withering", "hotbuttonicon_22" },
@@ -103,44 +104,56 @@ namespace Yuusha
         };
 
         /// <summary>
-        /// Cell effects. Non animated. Tuple.Item1 = visualKey, Item2 = TintColor, Item3 = visualAlpha
+        /// Cell effects. Non animated. Tuple.Item1 = visualKey or animation name, Item2 = TintColor, Item3 = visualAlpha, animatedVisual
         /// </summary>
-        public static Dictionary<string, Tuple<string, Color, int>> CellEffectsDictionary = new Dictionary<string, Tuple<string, Color, int>>()
+        public static Dictionary<string, Tuple<string, Color, int, bool>> CellEffectsDictionary = new Dictionary<string, Tuple<string, Color, int, bool>>()
         {
-            {"Acid", Tuple.Create("hotbuttonicon_247", Color.White, 150) }, //
-            {"Blizzard", Tuple.Create("hotbuttonicon_354", Color.White, 230) }, //
-            {"Darkness", Tuple.Create("hotbuttonicon_423", Color.Black, 25) },
-            {"Dragon's Breath Acid", Tuple.Create("hotbuttonicon_239", Color.Green, 230) },
-            {"Dragon's Breath Fire", Tuple.Create("hotbuttonicon_139", Color.White, 230) },
-            {"Dragon's Breath Ice", Tuple.Create("hotbuttonicon_298", Color.White, 230) }, //
-            {"Dragon's Breath Poison", Tuple.Create("hotbuttonicon_238", Color.White, 230) },
-            {"Dragon's Breath Storm", Tuple.Create("hotbuttonicon_296", Color.White, 230) }, //
-            {"Dragon's Breath Wind", Tuple.Create("hotbuttonicon_365", Color.White, 230) }, //
-            {"Find Secret Door", Tuple.Create("sptile_opendoor1", Color.White, 245) },
-            {"Find Secret Rockwall", Tuple.Create("sptile_secret_rockwall", Color.White, 245) },
-            {"Fire", Tuple.Create("sptile_fire", Color.White, 200) },
-            {"Fire Storm", Tuple.Create("hotbuttonicon_68", Color.White, 255) },
-            {"Fog", Tuple.Create("hotbuttonicon_423", Color.White, 255) },
-            {"Hide Door", Tuple.Create("sptile_wall3", Color.White, 255) },
-            {"Ice", Tuple.Create("hotbuttonicon_342", Color.White, 150) },
-            {"Light", Tuple.Create("hotbuttonicon_343", Color.White, 120) },
-            {"Lightning Storm", Tuple.Create("hotbuttonicon_327", Color.White, 150) },
-            {"Locust Swarm", Tuple.Create("hotbuttonicon_195", Color.White, 200) },
-            {"Poison Cloud", Tuple.Create("hotbuttonicon_423", Color.Green, 175) },
-            {"Ornic Flame", Tuple.Create("sptile_fire", Color.MediumPurple, 190) },
-            {"Tempest", Tuple.Create("hotbuttonicon_356", Color.White, 150) },
-            {"Thunderwave", Tuple.Create("hotbuttonicon_494", Color.White, 100) },
-            {"Turn Undead", Tuple.Create("hotbuttonicon_476", Color.White, 100) },
-            {"Unknown", Tuple.Create("unknown", Color.White, 150) },
-            {"Unlocked Horizontal Door", Tuple.Create("sptile_opendoor1", Color.White, 255) },
-            {"Unlocked Vertical Door", Tuple.Create("sptile_opendoor1", Color.White, 255) },
-            {"Web", Tuple.Create("hotbuttonicon_386", Color.White, 125) },
-            {"Wall of Fog", Tuple.Create("hotbuttonicon_423", Color.White, 255) },
-            {"Whirlwind", Tuple.Create("hotbuttonicon_365", Color.Yellow, 125) },
+            {"Acid", Tuple.Create("hotbuttonicon_247", Color.White, 150, false) }, //
+            {"Blizzard", Tuple.Create("hotbuttonicon_354", Color.White, 230, false) }, //
+            {"Darkness", Tuple.Create("hotbuttonicon_423", Color.Black, 25, false) },
+            {"Dragon's Breath Acid", Tuple.Create("hotbuttonicon_239", Color.Green, 230, false) },
+            {"Dragon's Breath Fire", Tuple.Create("hotbuttonicon_139", Color.White, 230, false) },
+            {"Dragon's Breath Ice", Tuple.Create("hotbuttonicon_298", Color.White, 230, false) }, //
+            {"Dragon's Breath Poison", Tuple.Create("hotbuttonicon_238", Color.White, 230, false) },
+            {"Dragon's Breath Storm", Tuple.Create("hotbuttonicon_296", Color.White, 230, false) }, //
+            {"Dragon's Breath Wind", Tuple.Create("hotbuttonicon_365", Color.White, 230, false) }, //
+            {"Find Secret Door", Tuple.Create("sptile_opendoor1", Color.White, 245, false) },
+            {"Find Secret Rockwall", Tuple.Create("sptile_secret_rockwall", Color.White, 245, false) },
+            {"Fire", Tuple.Create("CartoonFlames", Color.White, 200, true) }, // animation
+            //{"Fire", Tuple.Create("SimpleFlames", Color.White, 255, true) }, // animation
+            //{"Fire", Tuple.Create("sptile_fire", Color.White, 200, false) },
+            {"Fire Storm", Tuple.Create("hotbuttonicon_68", Color.White, 255, false) },
+            {"Fog", Tuple.Create("hotbuttonicon_423", Color.White, 255, false) },
+            {"Hide Door", Tuple.Create("sptile_wall3", Color.White, 255, false) },
+            {"Ice", Tuple.Create("IcestormAnimation", Color.White, 255, true) }, // animation
+            {"Light", Tuple.Create("hotbuttonicon_343", Color.White, 120, false) },
+            {"Lightning Storm", Tuple.Create("hotbuttonicon_327", Color.White, 150, false) },
+            //{"Locust Swarm", Tuple.Create("ThickSmoke", Color.White, 255, true) }, // animation
+            {"Locust Swarm", Tuple.Create("hotbuttonicon_195", Color.White, 200, false) },
+            {"Poison Cloud", Tuple.Create("WhirlwindAnimation", Color.Green, 200, true) }, // animation
+            {"Ornic Flame", Tuple.Create("SimpleFlames", Color.BlueViolet, 255, true) }, // animation
+            {"Tempest", Tuple.Create("hotbuttonicon_356", Color.White, 150, false) },
+            {"Thunderwave", Tuple.Create("hotbuttonicon_494", Color.White, 100, false) },
+            {"Turn Undead", Tuple.Create("hotbuttonicon_476", Color.White, 100, false) },
+            {"Unknown", Tuple.Create("unknown", Color.White, 150, false) },
+            {"Unlocked Horizontal Door", Tuple.Create("sptile_opendoor1", Color.White, 255, false) },
+            {"Unlocked Vertical Door", Tuple.Create("sptile_opendoor1", Color.White, 255, false) },
+            {"Web", Tuple.Create("hotbuttonicon_386", Color.White, 125, false) },
+            {"Wall of Fog", Tuple.Create("hotbuttonicon_423", Color.White, 255, false) },
+            {"Whirlwind", Tuple.Create("WhirlwindAnimation", Color.Khaki, 210, true) }, // animation
         };
 
-        public static List<string> NegativeEffects = new List<string>()
-        { "Acid", "Contagion", "Cynosure", "Drudgery", "Faerie Fire", "Fear", "Poison", "The Withering", "Venom" };
+        public static List<string> RandomStartFrameAnimation = new List<string>
+        {"Fire", "Ornic Flame" };
+
+        public static List<string> AddAnimatedSmokePost = new List<string>
+        { "Fire" };
+
+        public static List<string> AddAnimatedSmokePrior = new List<string>
+        { "Ornic Flame", "Whirlwind" };
+
+        public static List<string> NegativeEffects = new List<string>
+        { "Acid", "Contagion", "Cynosure", "Drudgery", "Faerie Fire", "Fear", "Poison", "Silence", "The Withering", "Venom" };
 
         public static List<string> ShortTermPositiveEffects = new List<string>() { "Balm" };
 
@@ -149,7 +162,7 @@ namespace Yuusha
         /// </summary>
         public static Dictionary<string, Color> IconsTintDictionary = new Dictionary<string, Color>()
         {
-            
+            { "Stoneskin", Color.DarkMagenta }
         };
 
         public Effect(string info)

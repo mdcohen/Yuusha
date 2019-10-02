@@ -43,8 +43,8 @@ namespace Yuusha
         GuiManager m_guiManager;
         readonly GameHUD m_gameHUD;
         readonly Audio.AudioManager m_audioManager;
-        //bool m_firstFullScreen;
-        //bool m_noDraw;
+        bool m_firstFullScreen;
+        bool m_noDraw;
         #endregion
 
         #region Public Properties
@@ -163,8 +163,8 @@ namespace Yuusha
             Disposed += Client_Disposed;
 
             Content.RootDirectory = "Content";
-            //m_firstFullScreen = true;
-            //m_noDraw = false;
+            m_firstFullScreen = true;
+            m_noDraw = false;
 
             Window.ClientSizeChanged += Window_ClientSizeChanged;
         }
@@ -332,8 +332,8 @@ namespace Yuusha
         {
             m_graphics.GraphicsDevice.Clear(m_deviceClearColor);
 
-            //if (m_noDraw)
-            //    return;
+            if (m_noDraw)
+                return;
 
             //if (m_splashScreen.SplashActive)
             //    m_splashScreen.Draw(gameTime);
@@ -402,8 +402,8 @@ namespace Yuusha
 
                 m_isFullScreen = false;
 
-                try { Window.IsBorderless = true; }
-                catch (NotImplementedException) { }
+                //try { Window.IsBorderless = true; }
+                //catch (NotImplementedException) { }
             }
             else
             {
@@ -419,8 +419,8 @@ namespace Yuusha
 
                 m_isFullScreen = true;
 
-                try { Window.IsBorderless = false; }
-                catch (NotImplementedException) { }
+                //try { Window.IsBorderless = false; }
+                //catch (NotImplementedException) { }
             }
 
             m_graphics.ToggleFullScreen();
@@ -435,14 +435,14 @@ namespace Yuusha
             OnClientResize();
 
             // to correct issue with top 20 pixels inaccessible after first full screen toggle
-            //if (m_graphics.IsFullScreen && m_firstFullScreen)
-            //{
-            //    m_noDraw = true;
-            //    m_firstFullScreen = false;
-            //    ToggleFullScreen();
-            //    ToggleFullScreen();
-            //    m_noDraw = false;
-            //}
+            if (m_graphics.IsFullScreen && m_firstFullScreen)
+            {
+                m_noDraw = true;
+                m_firstFullScreen = false;
+                ToggleFullScreen();
+                ToggleFullScreen();
+                m_noDraw = false;
+            }
         }
 
         public static void OnClientResize()

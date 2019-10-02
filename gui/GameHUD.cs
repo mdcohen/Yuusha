@@ -91,9 +91,17 @@ namespace Yuusha.gui
 
         private static Window SlideScreenWindow;
         private static Window SlideScreenGenericWindow;
+
+        private static Window SplitSlideScreenWindow1;
+        //private static Window SplitSlideScreenGenericWindow1;
+        private static Window SplitSlideScreenWindow2;
+        //private static Window SplitSlideScreenGenericWindow2;
+
+        private static bool SplitSlideScreenVertically;
         private static Map.Direction SlideDirection = Map.Direction.None;
         private static int SlideSpeed = 15;
         public static bool ReturnSlidScreen = false;
+        public static bool ReturnSplitSlidScreen = false;
 
         const int MAP_GRID_MINIMUM = 30;
         const int MAP_GRID_MAXIMUM = 100;
@@ -243,6 +251,52 @@ namespace Yuusha.gui
 
                 if (SlideScreenWindow == null && SlideScreenGenericWindow == null)
                     ReturnSlidScreen = false;
+            }
+
+            if(!ReturnSplitSlidScreen)
+            {
+                if (SplitSlideScreenWindow1 != null)
+                {
+                    Point pt = SplitSlideScreenVertically ? Map.DirectionCoordinates[Map.Direction.North] : Map.DirectionCoordinates[Map.Direction.West];
+                    Rectangle client = new Rectangle(0, 0, Client.Width, Client.Height);
+
+                    if (new Rectangle(SplitSlideScreenWindow1.Position.X, SplitSlideScreenWindow1.Position.Y, SplitSlideScreenWindow1.Width, SplitSlideScreenWindow1.Height).Intersects(client))
+                        SplitSlideScreenWindow1.ForcePosition(new Point(SplitSlideScreenWindow1.Position.X + (SlideSpeed * pt.X), SplitSlideScreenWindow1.Position.Y + (SlideSpeed * pt.Y)), false);
+                }
+
+                if (SplitSlideScreenWindow2 != null)
+                {
+                    Point pt = SplitSlideScreenVertically ? Map.DirectionCoordinates[Map.Direction.South] : Map.DirectionCoordinates[Map.Direction.East];
+                    Rectangle client = new Rectangle(0, 0, Client.Width, Client.Height);
+
+                    if (new Rectangle(SplitSlideScreenWindow2.Position.X, SplitSlideScreenWindow2.Position.Y, SplitSlideScreenWindow2.Width, SplitSlideScreenWindow2.Height).Intersects(client))
+                        SplitSlideScreenWindow2.ForcePosition(new Point(SplitSlideScreenWindow2.Position.X + (SlideSpeed * pt.X), SplitSlideScreenWindow2.Position.Y + (SlideSpeed * pt.Y)), false);
+                }
+            }
+            else
+            {
+                if (SplitSlideScreenWindow1 != null && SplitSlideScreenWindow1.Position != new Point(0, 0))
+                {
+                    Point pt = SplitSlideScreenVertically ? Map.DirectionCoordinates[Map.Direction.South] : Map.DirectionCoordinates[Map.Direction.East];
+
+                    SplitSlideScreenWindow1.ForcePosition(new Point(SplitSlideScreenWindow1.Position.X + (SlideSpeed * pt.X), SplitSlideScreenWindow1.Position.Y + (SlideSpeed * pt.Y)), false);
+
+                    if (SplitSlideScreenWindow1.Position == new Point(0, 0))
+                        SplitSlideScreenWindow1 = null;
+                }
+
+                if (SplitSlideScreenWindow2 != null && SplitSlideScreenWindow2.Position != new Point(0, 0))
+                {
+                        Point pt = SplitSlideScreenVertically ? Map.DirectionCoordinates[Map.Direction.North] : Map.DirectionCoordinates[Map.Direction.West];
+
+                        SplitSlideScreenWindow2.ForcePosition(new Point(SplitSlideScreenWindow2.Position.X + (SlideSpeed * pt.X), SplitSlideScreenWindow2.Position.Y + (SlideSpeed * pt.Y)), false);
+
+                    if (SplitSlideScreenWindow2.Position == new Point(0, 0))
+                        SplitSlideScreenWindow2 = null;
+                }
+
+                if (SplitSlideScreenWindow1 == null && SplitSlideScreenWindow2 == null)
+                    ReturnSplitSlidScreen = false;
             }
 
             // Crumbling controls.
@@ -401,7 +455,57 @@ namespace Yuusha.gui
                     AddSynchronizedShakingControl(Tuple.Create(c, c.Position, DateTime.Now, TimeSpan.FromMilliseconds(milliseconds)));
                 }
             }
-        }        
+        }
+
+        public static void SplitSlideScreen(bool vertically, int slideSpeed, bool includeGenericSheet)
+        {
+            ReleaseAllDraggedControls();
+            SlideSpeed = slideSpeed;
+            SplitSlideScreenVertically = vertically;
+
+            SplitSlideScreenWindow1 = new Window("SplitSlideScreenWindow1", "", new Rectangle(0, 0, Client.Width, Client.Height), true, true, false, GuiManager.CurrentSheet.Font,
+                new VisualKey("WhiteSpace"), Color.Black, 0, false, Map.Direction.None, 0, new List<Enums.EAnchorType>(), "");
+            SplitSlideScreenWindow2 = new Window("SplitSlideScreenWindow2", "", new Rectangle(0, 0, Client.Width, Client.Height), true, true, false, GuiManager.CurrentSheet.Font,
+                new VisualKey("WhiteSpace"), Color.Black, 0, false, Map.Direction.None, 0, new List<Enums.EAnchorType>(), "");
+
+            foreach (Control c in GuiManager.CurrentSheet.Controls)
+            {
+                if (c is Background)
+                    continue;
+
+                if(!vertically) // going horizontal
+                {
+                    if(c.Position.X <= Client.Width / 2)
+                        GuiManager.CurrentSheet.AttachControlToWindow(c, SplitSlideScreenWindow1);
+                    else GuiManager.CurrentSheet.AttachControlToWindow(c, SplitSlideScreenWindow2);
+                }
+                else
+                {
+                    if (c.Position.Y <= Client.Height / 2)
+                        GuiManager.CurrentSheet.AttachControlToWindow(c, SplitSlideScreenWindow1);
+                    else GuiManager.CurrentSheet.AttachControlToWindow(c, SplitSlideScreenWindow2);
+                }
+            }
+
+            if (includeGenericSheet)
+            {
+                foreach (Control c in GuiManager.GenericSheet.Controls)
+                {
+                    if (!vertically)
+                    {
+                        if (c.Position.X <= Client.Width / 2)
+                            GuiManager.GenericSheet.AttachControlToWindow(c, SplitSlideScreenWindow1);
+                        else GuiManager.GenericSheet.AttachControlToWindow(c, SplitSlideScreenWindow2);
+                    }
+                    else
+                    {
+                        if (c.Position.Y <= Client.Height / 2)
+                            GuiManager.GenericSheet.AttachControlToWindow(c, SplitSlideScreenWindow1);
+                        else GuiManager.GenericSheet.AttachControlToWindow(c, SplitSlideScreenWindow2);
+                    }
+                }
+            }
+        }
 
         public static void SynchronouslySlideScreen(Map.Direction direction, int slideSpeed, bool includeBackground, bool includeGenericSheet)
         {
@@ -431,7 +535,8 @@ namespace Yuusha.gui
                 }
             }
         }
-        public static void AddSlidingControl(Tuple<Control, Point, Map.Direction, int> tuple)
+
+        public static void AddCrumblingControl(Tuple<Control, Point, Map.Direction, int> tuple)
         {
             foreach (Tuple<Control, Point, Map.Direction, int> t in CrumblingControls)
             {
@@ -441,7 +546,6 @@ namespace Yuusha.gui
 
             CrumblingControls.Add(tuple);
         }
-
         public static void CrumbleScreen(Map.Direction direction, int crumbleSpeed, bool includeBackground, bool includeGenericSheet)
         {
             ReleaseAllDraggedControls();
@@ -451,14 +555,14 @@ namespace Yuusha.gui
                 if (c is Background && !includeBackground)
                     continue;
 
-                AddSlidingControl(Tuple.Create(c, c.Position, direction, crumbleSpeed));
+                AddCrumblingControl(Tuple.Create(c, c.Position, direction, crumbleSpeed));
             }
 
             if (includeGenericSheet)
             {
                 foreach (Control c in GuiManager.GenericSheet.Controls)
                 {
-                    AddSlidingControl(Tuple.Create(c, c.Position, direction, crumbleSpeed));
+                    AddCrumblingControl(Tuple.Create(c, c.Position, direction, crumbleSpeed));
                 }
             }
         }
@@ -1033,8 +1137,8 @@ namespace Yuusha.gui
                 {
                     Tuple.Create("Race", "Race"), // Age                    
                     Tuple.Create("Gender", "Gender"), // Deity
-                    Tuple.Create("Profession", "Profession"), // Specialty
-                    Tuple.Create("Experience", "Experience"),
+                    Tuple.Create("Prof", "Profession"), // Specialty
+                    Tuple.Create("Exp", "Experience"),
                     Tuple.Create("BLANK", "BLANK"),
                     Tuple.Create("Health","Hits"),
                     Tuple.Create("Health Adj", "HitsAdjustment"),
@@ -1060,7 +1164,7 @@ namespace Yuusha.gui
                 {
                     Tuple.Create("Age", "AgeDescription"),
                     Tuple.Create("Alignment", "Alignment"),
-                    Tuple.Create("Specialty", "ClassFullName"),
+                    Tuple.Create("Spec", "ClassFullName"),
                     Tuple.Create("Level", "Level"),
                     Tuple.Create("BLANK", "BLANK"),
                     Tuple.Create("Health Max", "HitsMax"),

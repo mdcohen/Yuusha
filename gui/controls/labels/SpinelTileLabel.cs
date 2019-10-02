@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -57,6 +58,8 @@ namespace Yuusha.gui
             get { return m_pathingVisual.Key; }
             set { m_pathingVisual.Key = value; }
         }
+        public List<Tuple<string, AnimatedVisual>> AnimatedVisuals
+        { get; set; }
         #endregion
 
         #region Constructor
@@ -99,12 +102,23 @@ namespace Yuusha.gui
             CreatureText = "";
 
             FogOfWarDetail = new FogOfWarWindow.FogOfWarDetail(0, 0, 0, 0, "");
+
+            AnimatedVisuals = new List<Tuple<string, AnimatedVisual>>();
         } 
         #endregion
 
         public override void Update(GameTime gameTime)
         {
             m_textRectangle = m_rectangle; // TODO:
+
+            if (AnimatedVisuals.Count > 0)
+            {
+                foreach (Tuple<string, AnimatedVisual> animation in AnimatedVisuals)
+                {
+                    animation.Item2.SetPosition(Position);
+                    animation.Item2.Update(gameTime);
+                }
+            }
 
             base.Update(gameTime);
         }
@@ -181,7 +195,7 @@ namespace Yuusha.gui
                     VisualKey vk = new VisualKey("unknown");
                     Color tintColor = new Color(Color.White, 200);
 
-                    if (Effect.CellEffectsDictionary.ContainsKey(m_effectNames[a]))
+                    if (Effect.CellEffectsDictionary.ContainsKey(m_effectNames[a]) && !Effect.CellEffectsDictionary[m_effectNames[a]].Item4)
                     {
                         if (GuiManager.Visuals.ContainsKey(Effect.CellEffectsDictionary[m_effectNames[a]].Item1))
                             vk = new VisualKey(Effect.CellEffectsDictionary[m_effectNames[a]].Item1);
@@ -202,6 +216,12 @@ namespace Yuusha.gui
                         Client.SpriteBatch.Draw(GuiManager.Textures[vi.ParentTexture], m_rectangle, sourceRect, new Color(ColorDisabledStandard.R, ColorDisabledStandard.G, ColorDisabledStandard.B, tintColor.A));
                     }
                 }
+            }
+
+            if(AnimatedVisuals.Count > 0)
+            {
+                foreach (Tuple<string, AnimatedVisual> animation in AnimatedVisuals)
+                    animation.Item2.Draw(gameTime);
             }
 
             // Draw critters.

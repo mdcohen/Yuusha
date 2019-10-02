@@ -84,7 +84,7 @@
 		Type="TextBox"
 		Name="ConfInputTextBox"
 		X="10"
-		Y="735"
+		Y="740"
 		Width="1004"
 		Height="25"
 		XTextOffset="0"

@@ -18,7 +18,9 @@
   <File Name="xml\visuals\yuusha_items.xml"></File>
   <!-- Yuusha Game Icons -->
   <File Name="xml\visuals\yuusha_icons.xml"></File>
-  <!-- Spell Icons -->
+  <!-- Sprites Animation -->
+  <File Name="xml\visuals\sprites_animation.xml"></File>
+  <!-- Hotbutton Icons -->
   <File Name="xml\visuals\hotbutton_icons.xml"></File>-->
   <!-- IOK Tile Definitions -->
 	<File Name="xml\definitions\ioktiledefs.xml"></File>

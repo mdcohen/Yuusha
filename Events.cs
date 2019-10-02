@@ -253,25 +253,26 @@ namespace Yuusha
                                     }
                                     catch { }
 
-                                    if(GameHUD.CharactersInView.ContainsKey(id))
+                                    // critter that died is in view, check if it's in a group
+                                    if(GameHUD.CharactersInView.ContainsKey(id) && !int.TryParse(GameHUD.CharactersInView[id].Name[0].ToString(), out int groupAmount))
                                     {
                                         GameHUD.CharactersInView[id].Cell.Remove(GameHUD.CharactersInView[id]);
                                         GameHUD.CharactersInView.Remove(id);
-                                    }
 
-                                    switch (Client.GameDisplayMode)
-                                    {
-                                        case Enums.EGameDisplayMode.IOK:
-                                            IOKMode.BuildCritterList();
-                                            break;
-                                        case Enums.EGameDisplayMode.Spinel:
-                                            SpinelMode.BuildCritterList();
-                                            break;
-                                        case Enums.EGameDisplayMode.Yuusha:
-                                            //YuushaMode.BuildMap();
-                                            YuushaMode.BuildCritterList();
-                                            break;
+                                        switch (Client.GameDisplayMode)
+                                        {
+                                            case Enums.EGameDisplayMode.IOK:
+                                                IOKMode.BuildCritterList();
+                                                break;
+                                            case Enums.EGameDisplayMode.Spinel:
+                                                SpinelMode.BuildCritterList();
+                                                break;
+                                            case Enums.EGameDisplayMode.Yuusha:
+                                                YuushaMode.BuildCritterList();
+                                                break;
+                                        }
                                     }
+                                    // else if contains key(id) and the integer was parsed, reduce the integer by 1 quickly before next update
                                 }
                             }
                         }
@@ -1593,6 +1594,7 @@ namespace Yuusha
                     case EventName.Toggle_FullScreen: // user called toggle full screen event
                         Program.Client.ToggleFullScreen();
                         Client.ClientSettings.FullScreenPreferred = Client.IsFullScreen;
+                        //YuushaMode.ClearAnimatedVisuals();
                         break;
                     case EventName.Toggle_HorizontalHotbar: // ALT + K
                         if(GuiManager.GenericSheet["HorizontalHotButtonWindow"]  is Window horizontalHotbar)

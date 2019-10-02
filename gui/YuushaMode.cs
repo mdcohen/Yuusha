@@ -483,12 +483,18 @@ namespace Yuusha.gui
                 {
                     int level = Globals.GetExpLevel(chr.Experience);
                     if (level != chr.Level)
+                    {
                         expBar.Percentage = 100;
+                    }
                     else
                     {
                         long expNeededForLevelUp = Globals.GetExperienceRequiredForLevel(level + 1) - Globals.GetExperienceRequiredForLevel(level);
-                        long expIntoLevel = chr.Experience - expNeededForLevelUp;
-                        expBar.Percentage = (double)expIntoLevel / expNeededForLevelUp * 100;
+                        //Utils.LogOnce("expNeededForLevelUp = (" + Globals.GetExperienceRequiredForLevel(level + 1) + " - " + Globals.GetExperienceRequiredForLevel(level) + ") " + expNeededForLevelUp);
+                        //long expIntoLevel = chr.Experience - expNeededForLevelUp;
+                        long expIntoLevel = Globals.GetExperienceRequiredForLevel(level + 1) - chr.Experience;
+                        //Utils.LogOnce("expIntoLevel = (" + Globals.GetExperienceRequiredForLevel(level + 1) + " - " + chr.Experience + ") " + expIntoLevel);
+                        //Utils.LogOnce(".Percentage = " + (100 - (double)expIntoLevel / expNeededForLevelUp * 100));
+                        expBar.Percentage = 100 - ((double)expIntoLevel / expNeededForLevelUp * 100);                        
                     }
 
                     try
@@ -511,7 +517,9 @@ namespace Yuusha.gui
 
         public static void NewGameRound()
         {
-            SpellWarmingWindow.CreateNewRoundCountdownWindow();
+            if(Client.GameState == Enums.EGameState.YuushaGame)
+                SpellWarmingWindow.CreateNewRoundCountdownWindow();
+
             m_usedLetters = string.Empty;
             GameHUD.Cells.Clear();
             GameHUD.CharactersInView.Clear();
@@ -876,7 +884,6 @@ namespace Yuusha.gui
                     {
                         cell = GameHUD.Cells[count];
 
-                        //spLabel = GuiManager.GetControl("Tile" + count.ToString()) as SpinelTileLabel;
                         spLabel = GuiManager.GetControl(Enums.EGameState.YuushaGame.ToString(), "Tile" + count.ToString()) as SpinelTileLabel;
 
                         if (spLabel == null)
@@ -911,18 +918,60 @@ namespace Yuusha.gui
                                 currTile = m_tilesDict["  "];
                             }
 
-                            if(cell.Effects.Count > 0)
+                            if (cell.Effects.Count > 0)
                             {
-                                foreach(Effect effect in cell.Effects)
+                                foreach (Effect effect in cell.Effects)
                                 {
                                     // make a decision here if you want to draw effects multiple times -- probably not, also effect amount!!
-                                    if(Effect.CellEffectsDictionary.ContainsKey(TextManager.FormatEnumString(effect.Name))
+                                    if (Effect.CellEffectsDictionary.ContainsKey(TextManager.FormatEnumString(effect.Name))
                                         && !spLabel.EffectNames.Contains(TextManager.FormatEnumString(effect.Name)))
                                     {
-                                        spLabel.EffectNames.Add(TextManager.FormatEnumString(effect.Name));
+                                        // Add effect name to EffectNames if this is not an animation.
+                                        if (!Effect.CellEffectsDictionary[TextManager.FormatEnumString(effect.Name)].Item4)
+                                            spLabel.EffectNames.Add(TextManager.FormatEnumString(effect.Name));
+                                        // Else take care of handling an animated effect.
+                                        else if (GuiManager.AnimatedVisuals.ContainsKey(Effect.CellEffectsDictionary[TextManager.FormatEnumString(effect.Name)].Item1))
+                                        {
+                                            //TODO: Create classes for each animated effect? 10/2/2019
+                                            Tuple<string, Color, int, bool> effectTuple = Effect.CellEffectsDictionary[TextManager.FormatEnumString(effect.Name)];
+                                            if (!spLabel.AnimatedVisuals.Exists(a => a.Item2.AnimationInfo.AnimationName == Effect.CellEffectsDictionary[TextManager.FormatEnumString(effect.Name)].Item1))
+                                            {
+                                                if (Effect.AddAnimatedSmokePrior.Contains(TextManager.FormatEnumString(effect.Name)))
+                                                {
+                                                    var priorSmoke = new AnimatedVisual(GuiManager.AnimatedVisuals["BillowingSmoke"], new Point(spLabel.Position.X, spLabel.Position.Y), spLabel.Width, spLabel.Height, Color.White, 150, true)
+                                                    {
+                                                        YOffset = -6
+                                                    };
+                                                    spLabel.AnimatedVisuals.Add(Tuple.Create("BillowingSmoke", priorSmoke));
+                                                }
+
+                                                bool randomStartFrame = Effect.RandomStartFrameAnimation.Contains(TextManager.FormatEnumString(effect.Name));
+                                                var vis = new AnimatedVisual(GuiManager.AnimatedVisuals[effectTuple.Item1], new Point(spLabel.Position.X, spLabel.Position.Y), spLabel.Width, spLabel.Height, effectTuple.Item2, effectTuple.Item3, randomStartFrame);
+                                                spLabel.AnimatedVisuals.Add(Tuple.Create(effect.Name, vis));
+
+                                                if (Effect.AddAnimatedSmokePost.Contains(TextManager.FormatEnumString(effect.Name)))
+                                                {
+                                                    vis = new AnimatedVisual(GuiManager.AnimatedVisuals["BillowingSmoke"], new Point(spLabel.Position.X, spLabel.Position.Y), spLabel.Width, spLabel.Height, Color.White, 150, true)
+                                                    {
+                                                        YOffset = -6
+                                                    };
+                                                    spLabel.AnimatedVisuals.Add(Tuple.Create("BillowingSmoke", vis));
+                                                }
+                                            }
+                                        }
                                     }
-                                    else if(!Effect.IgnoreCellEffectsAbsence.Contains(TextManager.FormatEnumString(effect.Name)))
+                                    else if (!Effect.IgnoreCellEffectsAbsence.Contains(TextManager.FormatEnumString(effect.Name)))
                                         Utils.LogOnce("CellEffectsDictionary does not contain a key for effect: " + TextManager.FormatEnumString(effect.Name));
+                                }
+                            }
+                            else spLabel.AnimatedVisuals.Clear();
+
+                            if(spLabel.AnimatedVisuals.Count > 0)
+                            {
+                                foreach(Tuple<string, AnimatedVisual> t in new List<Tuple<string, AnimatedVisual>>(spLabel.AnimatedVisuals))
+                                {
+                                    if (!cell.Effects.Exists(e => e.Name == t.Item1) && t.Item1 != "BillowingSmoke")
+                                        spLabel.AnimatedVisuals.Remove(t);
                                 }
                             }
 
@@ -1024,6 +1073,7 @@ namespace Yuusha.gui
                                 continue;
                             }
 
+                            spLabel.AnimatedVisuals.Clear();
                             spLabel.Text = "";// currTile.DisplayGraphic;
                             spLabel.TextColor = Color.White;// currTile.ForeColor;
                             spLabel.TintColor = currTile.BackTint;

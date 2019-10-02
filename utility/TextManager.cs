@@ -103,10 +103,12 @@ namespace Yuusha
 
             // Combat: self
             {"Your pet ", Color.Thistle },
-            {"Swing hits with ", Color.PeachPuff },
-            {"Kick hits with ", Color.PeachPuff },
-            {"Jumpkick hits with ", Color.PeachPuff },
-            {"Shot hits with ", Color.PeachPuff },
+            {" hits for ", Color.PeachPuff },
+            //{" hits with ", Color.PeachPuff },
+            //{"Swing hits with ", Color.PeachPuff },
+            //{"Kick hits with ", Color.PeachPuff },
+            //{"Jumpkick hits with ", Color.PeachPuff },
+            //{"Shot hits with ", Color.PeachPuff },
             {"You have scored a critical hit", Color.Peru },
 
             // Combat: others

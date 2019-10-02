@@ -78,7 +78,7 @@ namespace Yuusha
                     c++;
                     b = 0;
                 }
-                experienceCurve = Globals.EXP_LEVEL_20 * c;
+                experienceCurve = EXP_LEVEL_20 * c;
                 b++;
 
                 if (exp >= low && exp < high)

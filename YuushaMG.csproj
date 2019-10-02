@@ -115,6 +115,8 @@
     <Compile Include="game classes\Spell.cs" />
     <Compile Include="game classes\Talent.cs" />
     <Compile Include="game classes\World.cs" />
+    <Compile Include="gui\AnimatedVisual.cs" />
+    <Compile Include="gui\AnimatedVisualInfo.cs" />
     <Compile Include="gui\controls\specialized\Apeture.cs" />
     <Compile Include="gui\controls\specialized\Background.cs" />
     <Compile Include="gui\controls\borders\Border.cs" />
@@ -556,6 +558,12 @@
     <Content Include="media\textures\elvish_city.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="media\textures\fire2_animated.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\textures\fire_animated.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\textures\gold_dragon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -566,6 +574,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\hotbutton_icons.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\textures\icestorm_animated.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\inventory_male.png">
@@ -592,6 +603,15 @@
     <Content Include="media\textures\scroll.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="media\textures\smoke2_animated.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\textures\smoke3_animated.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\textures\smoke_animated.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\textures\spellbook.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -611,6 +631,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\ui_helpers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\textures\whirlwind_animated.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\worldmap.png">
@@ -703,7 +726,7 @@
     <Content Include="media\xml\visuals\lok_tiles.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\xml\visuals\spell_icons.xml">
+    <Content Include="media\xml\visuals\sprites_animation.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\xml\visuals\spinel_tiles.xml">
