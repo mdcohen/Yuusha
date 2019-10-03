@@ -520,7 +520,7 @@ namespace Yuusha
                     {
                         List<Talent> prevTalents = null;
 
-                        if (Client.InGame && GameHUD.InitialSpellbookUpdated.Contains(CurrentCharacter.UniqueID))
+                        if (Client.InGame && GameHUD.InitialTalentbookUpdated.Contains(CurrentCharacter.UniqueID))
                             prevTalents = new List<Talent>(CurrentCharacter.Talents);
 
                         CurrentCharacter.Talents.Clear();
@@ -544,7 +544,7 @@ namespace Yuusha
                             }
                         }
 
-                        if (prevTalents != null && Client.InGame && CurrentCharacter.Spells.Count > prevTalents.Count &&
+                        if (prevTalents != null && Client.InGame && CurrentCharacter.Talents.Count > prevTalents.Count &&
                             GameHUD.InitialTalentbookUpdated.Contains(CurrentCharacter.UniqueID))
                         {
                             Events.RegisterEvent(Events.EventName.New_Talent, prevTalents);
@@ -565,7 +565,9 @@ namespace Yuusha
                         if (CurrentCharacter != null && CurrentCharacter.Talents != null &&
                             CurrentCharacter.Talents.FindIndex(talent => talent.Name == talentUseArray[0]) is int index && index > -1)
                         {
-                            CurrentCharacter.Talents[index].LastUse = Convert.ToDateTime(talentUseArray[1]);
+                            // Next update UTC is used so below can be uncommented
+                            //CurrentCharacter.Talents[index].LastUse = Convert.ToDateTime(talentUseArray[1]);
+                            CurrentCharacter.Talents[index].LastUse = DateTime.Now;// Convert.ToDateTime(talentUseArray[1]);
                         }
                     }
                     break;
@@ -1164,10 +1166,20 @@ namespace Yuusha
 
         public static bool HasEffect(string effectName)
         {
-            if (GuiManager.GetControl("EffectsWindow") is Window w)
+            if (GuiManager.GetControl("EffectsWindow") is Window effectsWindow)
             {
-                foreach (Label label in w.Controls)
-                    if (label.PopUpText.StartsWith(effectName)) return true;
+                foreach (Control label in effectsWindow.Controls)
+                {
+                    if (label.PopUpText.StartsWith(TextManager.FormatEnumString(effectName))) return true;
+                }
+            }
+
+            if (GuiManager.GetControl("WornEffectsWindow") is Window wornEffectsWindow)
+            {
+                foreach (Control label in wornEffectsWindow.Controls)
+                {
+                    if (label.PopUpText.StartsWith(TextManager.FormatEnumString(effectName))) return true;
+                }
             }
 
             return false;
@@ -1324,6 +1336,33 @@ namespace Yuusha
                 }
             }
             locationName = "";
+            return false;
+        }
+
+        public bool IsNextToCounter(out Cell counterCell)
+        {
+            for (int ypos = -1; ypos <= 1; ypos += 1)
+            {
+                for (int xpos = -1; xpos <= 1; xpos += 1)
+                {
+                    Cell curCell = Cell.GetCell(X + xpos, Y + ypos, CurrentCharacter.Z);
+                    if (curCell != null)
+                    {
+                        if (curCell.CellGraphic == Cell.GRAPHIC_COUNTER_PLACEABLE)
+                        {
+                            counterCell = curCell;
+                            return true;
+                        }
+                        else if (curCell.CellGraphic == Cell.GRAPHIC_ALTAR_PLACEABLE)
+                        {
+                            counterCell = curCell;
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            counterCell = null;
             return false;
         }
 

@@ -926,10 +926,19 @@ namespace Yuusha
                         break;
                     case EventName.New_Talent:
                         List<Talent> prevTalentsList = (List<Talent>)args[0];
+                        int newTalents = 0;
                         foreach (Talent talent in Character.CurrentCharacter.Talents)
                         {
                             if (!prevTalentsList.Contains(talent))
+                            {
                                 AchievementLabel.CreateAchievementLabel(" New Talent: " + talent.Name + " ", AchievementLabel.AchievementType.NewTalent);
+                                newTalents++;
+                            }
+                        }
+                        if(newTalents > 0 && GuiManager.GenericSheet["TalentsWindow"] is TalentsWindow talentsWindow)
+                        {
+                            talentsWindow.OnClose();
+                            TalentsWindow.CreateTalentsWindow();
                         }
                         break;
                     case EventName.PopUp_CommonCommands:
@@ -1664,19 +1673,19 @@ namespace Yuusha
                             break;
                         }
 
-                        if (GuiManager.GenericSheet["TalentsWindow"] is TalentsWindow talentsWindow)
+                        if (GuiManager.GenericSheet["TalentsWindow"] is TalentsWindow tWindow)
                         {
-                            talentsWindow.IsVisible = !talentsWindow.IsVisible;
-                            if(talentsWindow.IsVisible)
+                            tWindow.IsVisible = !tWindow.IsVisible;
+                            if(tWindow.IsVisible)
                                 RegisterEvent(EventName.Request_Talents);
                         }
                         else
                         {
                             TalentsWindow.CreateTalentsWindow();
                             RegisterEvent(EventName.Request_Talents);
-                            if (GuiManager.GenericSheet["TalentsWindow"] is TalentsWindow tWindow)
+                            if (GuiManager.GenericSheet["TalentsWindow"] is TalentsWindow t2Window)
                             {
-                                tWindow.IsVisible = !tWindow.IsVisible;
+                                t2Window.IsVisible = !t2Window.IsVisible;
                             }
                         }
                         break;
@@ -2480,7 +2489,7 @@ namespace Yuusha
                         //    ResetLoginGUI();
                         break;
                     case Enums.EGameState.Menu:
-                        if (Client.ClientSettings.FullScreenPreferred && !Client.IsFullScreen) Program.Client.ToggleFullScreen();
+                        //if (Client.ClientSettings.FullScreenPreferred && !Client.IsFullScreen) Program.Client.ToggleFullScreen();
                         break;
                 }
             }

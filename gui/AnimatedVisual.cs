@@ -61,6 +61,8 @@ namespace Yuusha.gui
 
         public void Update(GameTime gameTime)
         {
+            if (!IsPlaying || IsPaused) return;
+
             float animationTimeFrame = 1f / (float)FramesPerSecond;
             float gameFrameTime = (float)Program.Client.ClientGameTime.ElapsedGameTime.TotalSeconds;
             m_timeUntilNextFrame -= gameFrameTime;
@@ -70,7 +72,12 @@ namespace Yuusha.gui
                 m_currentFrame++;
 
                 if (m_currentFrame == m_totalFrames)
+                {
                     m_currentFrame = 0;
+
+                    if(!IsLooping)
+                        IsPlaying = false;
+                }
 
                 m_timeUntilNextFrame += animationTimeFrame;
             }

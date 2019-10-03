@@ -159,7 +159,7 @@ namespace Yuusha.gui
                         tintColor = TextManager.GetAlignmentColor(false, Character.CurrentCharacter.Alignment);
                         textColor = TextManager.GetAlignmentColor(true, Character.CurrentCharacter.Alignment);
                         visualKey = "WhiteSpace";
-                        soundFile = "GUISounds/new_spell"; // TODO: different sound 8/28/2019
+                        soundFile = "GUISounds/new_spell";
                         font = TextManager.ScalingTextFontList[TextManager.ScalingTextFontList.Count - 1];
                         stopSize = BitmapFont.ActiveFonts[font].MeasureString(text);
                         slideOffScreen = false;

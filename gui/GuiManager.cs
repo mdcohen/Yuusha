@@ -965,7 +965,7 @@ namespace Yuusha.gui
 
                     if (GetControl("VerticalAutoHidingSpellbookButton") is Control spellbookButton && GetControl("VerticalAutoHidingSpellringButton") is Control spellringButton)
                     {
-                        if (Character.CurrentCharacter.HasSpellbook || Character.CurrentCharacter.knightRing)
+                        if (Character.CurrentCharacter.HasSpellbook || Character.CurrentCharacter.knightRing || Character.HasEffect("Knight Ring") || Character.HasEffect("Sacred Ring"))
                         { 
                             if (Character.CurrentCharacter.HasSpellbook)
                             {

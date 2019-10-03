@@ -36,7 +36,6 @@ namespace Yuusha
         private static Rectangle m_nowClientBounds;
         private static Point m_prevClientPosition;
         private static TimeSpan m_lastPing;
-       //private static TimeSpan m_totalGameTime;
 
         GraphicsDeviceManager m_graphics;
         readonly ContentManager m_contentManager;
@@ -235,19 +234,21 @@ namespace Yuusha
             // load settings
             m_userSettings = UserSettings.Load();
             m_clientSettings = ClientSettings.Load();
-            Character.LoadSettings(); // loads default values
+            Character.LoadSettings();
+
             m_gameState = Enums.EGameState.Login;
-            //m_gameState = Enums.EGameState.Splash;
             m_preferredWindowWidth = 1024;
             m_preferredWindowHeight = 768;
-            //m_isFullScreen = true;
+
             //m_isFullScreen = UserSettings.FullScreen;
 
             Events.RegisterEvent(Events.EventName.Set_Login_State, Enums.ELoginState.Disconnected);
             Events.RegisterEvent(Events.EventName.Set_Game_State, Enums.EGameState.Login);
         
-            // set initial title
             Title = string.Format("{0} (v{1})", StaticSettings.ClientName, StaticSettings.ClientVersion);
+
+            //m_graphics.SynchronizeWithVerticalRetrace = true;
+            //m_graphics.GraphicsProfile = GraphicsProfile.HiDef;
 
             //if (ClientSettings.StartupInFullScreen)
             //{
@@ -335,10 +336,12 @@ namespace Yuusha
             if (m_noDraw)
                 return;
 
-            //if (m_splashScreen.SplashActive)
-            //    m_splashScreen.Draw(gameTime);
-            //else
+            //m_graphics.GraphicsProfile = GraphicsProfile.Reach;
+
             m_guiManager.Draw(gameTime);
+
+            //m_graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            // draw effects like bloom
 
             base.Draw(gameTime);
         }
@@ -391,7 +394,7 @@ namespace Yuusha
             }
 
             PresentationParameters presentation = m_graphics.GraphicsDevice.PresentationParameters;
-            //presentation.HardwareModeSwitch = true;
+            presentation.HardwareModeSwitch = true;
 
             m_prevClientBounds = Window.ClientBounds;
 

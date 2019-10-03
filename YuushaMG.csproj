@@ -546,6 +546,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="media\textures\animated\explosion_animated.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\textures\animated\fireball2_animated.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\textures\animated\fireball_animated.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="media\textures\animated\portal_animated.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="media\textures\damage_fog_skulls.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -558,10 +570,10 @@
     <Content Include="media\textures\elvish_city.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\fire2_animated.png">
+    <Content Include="media\textures\animated\fire2_animated.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\fire_animated.png">
+    <Content Include="media\textures\animated\fire_animated.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\gold_dragon.png">
@@ -576,7 +588,7 @@
     <Content Include="media\textures\hotbutton_icons.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\icestorm_animated.png">
+    <Content Include="media\textures\animated\icestorm_animated.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\inventory_male.png">
@@ -603,13 +615,13 @@
     <Content Include="media\textures\scroll.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\smoke2_animated.png">
+    <Content Include="media\textures\animated\smoke2_animated.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\smoke3_animated.png">
+    <Content Include="media\textures\animated\smoke3_animated.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\smoke_animated.png">
+    <Content Include="media\textures\animated\smoke_animated.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\spellbook.png">
@@ -633,7 +645,7 @@
     <Content Include="media\textures\ui_helpers.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\textures\whirlwind_animated.png">
+    <Content Include="media\textures\animated\whirlwind_animated.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="media\textures\worldmap.png">

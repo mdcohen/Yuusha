@@ -132,6 +132,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="rainbowtourmaline" X="780" Y="1680" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="polishedagate" X="900" Y="1680" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="silveralabasterankh" X="870" Y="1494" Width="40" Height="39"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="alabasterankh" X="870" Y="1494" Width="40" Height="39"></Visual> <!-- duplicate of above -->
   <Visual ParentTexture="yuusha_items.png" Name="dazzlinggreentsavorite" X="660" Y="1680" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="brilliantpurplesapphire" X="1800" Y="0" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="flawlessblackpearl" X="960" Y="1680" Width="60" Height="60"></Visual>

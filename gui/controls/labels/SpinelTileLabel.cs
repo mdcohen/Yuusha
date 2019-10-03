@@ -58,7 +58,9 @@ namespace Yuusha.gui
             get { return m_pathingVisual.Key; }
             set { m_pathingVisual.Key = value; }
         }
-        public List<Tuple<string, AnimatedVisual>> AnimatedVisuals
+        public List<Tuple<string, AnimatedVisual>> EffectAnimatedVisuals
+        { get; set; }
+        public List<AnimatedVisual> GraphicAnimatedVisuals
         { get; set; }
         #endregion
 
@@ -103,7 +105,8 @@ namespace Yuusha.gui
 
             FogOfWarDetail = new FogOfWarWindow.FogOfWarDetail(0, 0, 0, 0, "");
 
-            AnimatedVisuals = new List<Tuple<string, AnimatedVisual>>();
+            EffectAnimatedVisuals = new List<Tuple<string, AnimatedVisual>>();
+            GraphicAnimatedVisuals = new List<AnimatedVisual>();
         } 
         #endregion
 
@@ -111,13 +114,16 @@ namespace Yuusha.gui
         {
             m_textRectangle = m_rectangle; // TODO:
 
-            if (AnimatedVisuals.Count > 0)
+            foreach (AnimatedVisual animation in GraphicAnimatedVisuals)
             {
-                foreach (Tuple<string, AnimatedVisual> animation in AnimatedVisuals)
-                {
-                    animation.Item2.SetPosition(Position);
-                    animation.Item2.Update(gameTime);
-                }
+                animation.SetPosition(Position);
+                animation.Update(gameTime);
+            }
+
+            foreach (Tuple<string, AnimatedVisual> animation in EffectAnimatedVisuals)
+            {
+                animation.Item2.SetPosition(Position);
+                animation.Item2.Update(gameTime);
             }
 
             base.Update(gameTime);
@@ -187,8 +193,11 @@ namespace Yuusha.gui
                 }
             }
 
+            foreach (AnimatedVisual animation in GraphicAnimatedVisuals)
+                animation.Draw(gameTime);
+
             // Draw effects.
-            if(m_effectNames.Count > 0)
+            if (m_effectNames.Count > 0)
             {
                 for (int a = 0; a < m_effectNames.Count; a++)
                 {
@@ -218,11 +227,8 @@ namespace Yuusha.gui
                 }
             }
 
-            if(AnimatedVisuals.Count > 0)
-            {
-                foreach (Tuple<string, AnimatedVisual> animation in AnimatedVisuals)
-                    animation.Item2.Draw(gameTime);
-            }
+            foreach (Tuple<string, AnimatedVisual> animation in EffectAnimatedVisuals)
+                animation.Item2.Draw(gameTime);
 
             // Draw critters.
             if (m_critterVisuals.Count > 0)

@@ -7,6 +7,8 @@ namespace Yuusha.gui
     public class TalentsWindow : Window
     {
         private int TalentsCount = 0;
+        private Window m_activatedTalentsWindow;
+        private Window m_passiveTalentsWindow;
 
         public TalentsWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled, string font,
             VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
@@ -64,9 +66,12 @@ namespace Yuusha.gui
             GuiManager.GenericSheet.AddControl(wBorder);
 
             talentsWindow.CreateTalentHotButtons();
+
+            talentsWindow.m_activatedTalentsWindow = activatedTalentsWindow;
+            talentsWindow.m_passiveTalentsWindow = passiveTalentsWindow;
         }
 
-        private void CreateTalentHotButtons()
+        public void CreateTalentHotButtons()
         {
             try
             {
@@ -169,55 +174,55 @@ namespace Yuusha.gui
         {
             base.Update(gameTime);
 
+            if (!Client.InGame) return;
+
             try
             {
                 if (Character.CurrentCharacter != null && Character.CurrentCharacter.Talents != null)
                 {
                     foreach (Talent t in Character.CurrentCharacter.Talents)
                     {
-                        if (t.IsPassive)
+                        if (t.IsPassive && m_passiveTalentsWindow != null)
                         {
-                            if (Controls.FindIndex(c => c.Text == t.Name) is int index && index > -1)
+                            if (m_passiveTalentsWindow.Controls.FindIndex(c => c.Text == t.Name) is int index && index > -1)
                             {
                                 if (t.IsEnabled)
                                 {
-                                    Controls[index].TintColor = Color.White;
+                                    m_passiveTalentsWindow.Controls[index].TintColor = Color.White;
                                 }
                                 else
                                 {
-                                    Controls[index].TintColor = Color.DimGray;
+                                    m_passiveTalentsWindow.Controls[index].TintColor = Color.DimGray;
                                 }
                             }
 
                         }
-                        else // display if active talents are available
+                        else if(m_activatedTalentsWindow != null)
                         {
-                            if (t.DownTime != null) // temporary until server updated 9/24/2019
+                            if (m_activatedTalentsWindow.Controls.FindIndex(c => c.Text == t.Name) is int index && index > -1)
                             {
-                                if (Controls.FindIndex(c => c.Text == t.Name) is int index && index > -1)
+                                if (DateTime.Now - t.LastUse < t.DownTime) // not available
                                 {
-                                    if (DateTime.Now - t.LastUse < t.DownTime) // not available
+                                    m_activatedTalentsWindow.Controls[index].TintColor = Color.LightGray;
+                                    if (m_activatedTalentsWindow.Controls.FindIndex(c => c.Name == m_activatedTalentsWindow.Controls[index].Name + "PercentageBar") is int pctIndex && pctIndex > -1)
                                     {
-                                        Controls[index].TintColor = Color.LightGray;
-                                        if(Controls.FindIndex(c => c.Name == Controls[index].Name + "PercentageBar") is int pctIndex && pctIndex > -1)
+                                        if (m_activatedTalentsWindow.Controls[pctIndex] is PercentageBarLabel pctLabel)
                                         {
-                                            if (Controls[pctIndex] is PercentageBarLabel pctLabel)
-                                            {
-                                                TimeSpan timeRemaining = DateTime.Now - t.LastUse;
-                                                pctLabel.Percentage = timeRemaining.TotalMilliseconds / t.DownTime.TotalMilliseconds * 100;
-                                                pctLabel.IsVisible = true;
-                                            }
+                                            // After next server update change this to DateTime.UtcNow
+                                            TimeSpan timeRemaining = DateTime.Now - t.LastUse;
+                                            pctLabel.Percentage = timeRemaining.TotalMilliseconds / t.DownTime.TotalMilliseconds * 100;
+                                            pctLabel.IsVisible = true;
                                         }
                                     }
-                                    else
+                                }
+                                else
+                                {
+                                    m_activatedTalentsWindow.Controls[index].TintColor = Color.White;
+                                    if (m_activatedTalentsWindow.Controls.FindIndex(c => c.Name == m_activatedTalentsWindow.Controls[index].Name + "PercentageBar") is int pctIndex && pctIndex > -1)
                                     {
-                                        Controls[index].TintColor = Color.White;
-                                        if (Controls.FindIndex(c => c.Name == Controls[index].Name + "PercentageBar") is int pctIndex && pctIndex > -1)
+                                        if (m_activatedTalentsWindow.Controls[pctIndex] is PercentageBarLabel pctLabel)
                                         {
-                                            if(Controls[pctIndex] is PercentageBarLabel pctLabel)
-                                            {
-                                                pctLabel.IsVisible = false;
-                                            }
+                                            pctLabel.IsVisible = false;
                                         }
                                     }
                                 }

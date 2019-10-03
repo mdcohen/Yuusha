@@ -399,6 +399,11 @@ namespace Yuusha.gui
             {
                 case GridBoxPurpose.Altar:
                 case GridBoxPurpose.Counter:
+                    if(Character.CurrentCharacter.IsNextToCounter(out Cell examinedCounter))
+                    {
+                        Cell.SendCellItemsRequest(examinedCounter);
+                    }
+                    break;
                 case GridBoxPurpose.Ground:
                     Cell.SendCellItemsRequest(GameHUD.ExaminedCell);
                     break;

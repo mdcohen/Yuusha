@@ -1,8 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <VisualsIndex>
+  <AnimatedVisual AnimationName="ExplosionAnimation" ParentTexture="explosion_animated.png" StartName="explosionanimation_" Columns="5" Rows="3" Width="96" Height="96" FramesPerSecond="10"></AnimatedVisual>
+  <AnimatedVisual AnimationName="FireballAnimation" ParentTexture="fireball_animated.png" StartName="fireballanimation_" Columns="9" Rows="9" Width="100" Height="100" FramesPerSecond="35"></AnimatedVisual>
+  <AnimatedVisual AnimationName="Fireball2Animation" ParentTexture="fireball2_animated.png" StartName="fireball2animation_" Columns="8" Rows="5" Width="128" Height="128" FramesPerSecond="30"></AnimatedVisual>
   <AnimatedVisual AnimationName="SimpleFlames" ParentTexture="fire_animated.png" StartName="simpleflames_" Columns="8" Rows="4" Width="64" Height="128" FramesPerSecond="16"></AnimatedVisual>
-  <AnimatedVisual AnimationName="IcestormAnimation" ParentTexture="icestorm_animated.png" StartName="icestormanimation_" Columns="5" Rows="6" Width="192" Height="192" FramesPerSecond="15"></AnimatedVisual>
   <AnimatedVisual AnimationName="CartoonFlames" ParentTexture="fire2_animated.png" StartName="cartoonflames_" Columns="8" Rows="8" Width="128" Height="128" FramesPerSecond="20"></AnimatedVisual>
+  <AnimatedVisual AnimationName="IcestormAnimation" ParentTexture="icestorm_animated.png" StartName="icestormanimation_" Columns="5" Rows="6" Width="192" Height="192" FramesPerSecond="15"></AnimatedVisual>
+  <AnimatedVisual AnimationName="PortalAnimation" ParentTexture="portal_animated.png" StartName="portalanimation_" Columns="4" Rows="4" Width="181" Height="204" FramesPerSecond="8"></AnimatedVisual>
   <AnimatedVisual AnimationName="SimpleSmoke" ParentTexture="smoke_animated.png" StartName="simplesmoke_" Columns="6" Rows="5" Width="256" Height="256" FramesPerSecond="8"></AnimatedVisual>
   <AnimatedVisual AnimationName="ThickSmoke" ParentTexture="smoke2_animated.png" StartName="thicksmoke_" Columns="5" Rows="3" Width="256" Height="256" FramesPerSecond="8"></AnimatedVisual>
   <AnimatedVisual AnimationName="BillowingSmoke" ParentTexture="smoke3_animated.png" StartName="billowingsmoke_" Columns="8" Rows="8" Width="125" Height="125" FramesPerSecond="15"></AnimatedVisual>

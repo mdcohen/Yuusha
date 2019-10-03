@@ -33,6 +33,9 @@ namespace Yuusha
         /// </summary>
         public static Dictionary<string, string> IconsDictionary = new Dictionary<string, string>()
         {
+            // temporary until it's renamed Sacred Ring in server update
+            { "Knight Ring", "hotbuttonicon_465" },
+
             // A
             { "Acid", "hotbuttonicon_266" }, { "Acid Orb", "hotbuttonicon_197" }, { "Acid Rain", "hotbuttonicon_247" }, { "Animal Affinity", "hotbuttonicon_463" },
             { "Animate Dead", "hotbuttonicon_410" }, { "Ataraxia", "hotbuttonicon_390" },
@@ -85,7 +88,7 @@ namespace Yuusha
             { "Resist Blindness", "hotbuttonicon_147" }, { "Resist Fear", "hotbuttonicon_448" }, { "Resistance from Blind and Fear", "hotbuttonicon_472" },
             { "Resist Lightning", "hotbuttonicon_417" }, { "Resist Zonk", "hotbuttonicon_321" },
             // S
-            { "Savagery", "hotbuttonicon_28" },{ "Shelter", "hotbuttonicon_174" }, { "Shield", "hotbuttonicon_211" }, { "Speed", "hotbuttonicon_305" },
+            { "Sacred Ring", "hotbuttonicon_465" }, { "Savagery", "hotbuttonicon_28" },{ "Shelter", "hotbuttonicon_174" }, { "Shield", "hotbuttonicon_211" }, { "Speed", "hotbuttonicon_305" },
             { "Summon Hellhound", "hotbuttonicon_16" }, { "Summon Humanoid", "hotbuttonicon_235" }, { "Summon Lamassu", "hotbuttonicon_407" }, { "Summon Lammasu", "hotbuttonicon_407" }, // 7/8/2019 misspelled in server logic
             { "Summon Nature's Ally", "hotbuttonicon_218" }, { "Summon Phantasm", "hotbuttonicon_280" }, { "Stoneskin", "hotbuttonicon_227" },
             { "Strength", "hotbuttonicon_146" }, { "Stun", "hotbuttonicon_217" },
@@ -110,6 +113,7 @@ namespace Yuusha
         {
             {"Acid", Tuple.Create("hotbuttonicon_247", Color.White, 150, false) }, //
             {"Blizzard", Tuple.Create("hotbuttonicon_354", Color.White, 230, false) }, //
+            {"Concussion", Tuple.Create("ExplosionAnimation", Color.White, 255, true) }, // animation
             {"Darkness", Tuple.Create("hotbuttonicon_423", Color.Black, 25, false) },
             {"Dragon's Breath Acid", Tuple.Create("hotbuttonicon_239", Color.Green, 230, false) },
             {"Dragon's Breath Fire", Tuple.Create("hotbuttonicon_139", Color.White, 230, false) },
@@ -122,6 +126,7 @@ namespace Yuusha
             {"Fire", Tuple.Create("CartoonFlames", Color.White, 200, true) }, // animation
             //{"Fire", Tuple.Create("SimpleFlames", Color.White, 255, true) }, // animation
             //{"Fire", Tuple.Create("sptile_fire", Color.White, 200, false) },
+            {"Fireball", Tuple.Create("Fireball2Animation", Color.White, 250, true) }, // animation
             {"Fire Storm", Tuple.Create("hotbuttonicon_68", Color.White, 255, false) },
             {"Fog", Tuple.Create("hotbuttonicon_423", Color.White, 255, false) },
             {"Hide Door", Tuple.Create("sptile_wall3", Color.White, 255, false) },
@@ -143,6 +148,10 @@ namespace Yuusha
             {"Whirlwind", Tuple.Create("WhirlwindAnimation", Color.Khaki, 210, true) }, // animation
         };
 
+        #region Animations
+        public static List<string> NonLoopingAnimations = new List<string>
+        { "Concussion", "Fireball" };
+
         public static List<string> RandomStartFrameAnimation = new List<string>
         {"Fire", "Ornic Flame" };
 
@@ -150,7 +159,8 @@ namespace Yuusha
         { "Fire" };
 
         public static List<string> AddAnimatedSmokePrior = new List<string>
-        { "Ornic Flame", "Whirlwind" };
+        { "Ornic Flame", "Whirlwind" }; 
+        #endregion
 
         public static List<string> NegativeEffects = new List<string>
         { "Acid", "Contagion", "Cynosure", "Drudgery", "Faerie Fire", "Fear", "Poison", "Silence", "The Withering", "Venom" };

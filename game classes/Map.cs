@@ -177,9 +177,9 @@ namespace Yuusha
                     return Direction.None; // same cell
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Utils.LogException(e);
+                //Utils.LogException(e);
                 return Direction.None;
             }
         }

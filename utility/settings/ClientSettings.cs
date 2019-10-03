@@ -74,7 +74,7 @@ namespace Yuusha.Utility.Settings
         public Color Color_Gui_ChaoticEvil_Fore = Color.Silver;
         public Color Color_Gui_ChaoticEvil_Back = Color.DarkRed;
         public Color Color_Gui_Neutral_Fore = Color.White;
-        public Color Color_Gui_Neutral_Back = Color.DarkGreen;
+        public Color Color_Gui_Neutral_Back = Color.ForestGreen;
         public Color Color_Gui_Lawful_Fore = Color.White;
         public Color Color_Gui_Lawful_Back = Color.Black;
         public Color Color_Gui_Amoral_Fore = Color.White;

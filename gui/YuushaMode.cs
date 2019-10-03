@@ -934,28 +934,34 @@ namespace Yuusha.gui
                                         {
                                             //TODO: Create classes for each animated effect? 10/2/2019
                                             Tuple<string, Color, int, bool> effectTuple = Effect.CellEffectsDictionary[TextManager.FormatEnumString(effect.Name)];
-                                            if (!spLabel.AnimatedVisuals.Exists(a => a.Item2.AnimationInfo.AnimationName == Effect.CellEffectsDictionary[TextManager.FormatEnumString(effect.Name)].Item1))
+                                            if (!spLabel.EffectAnimatedVisuals.Exists(a => a.Item2.AnimationInfo.AnimationName == Effect.CellEffectsDictionary[TextManager.FormatEnumString(effect.Name)].Item1))
                                             {
+                                                // Prior smoke.
                                                 if (Effect.AddAnimatedSmokePrior.Contains(TextManager.FormatEnumString(effect.Name)))
                                                 {
                                                     var priorSmoke = new AnimatedVisual(GuiManager.AnimatedVisuals["BillowingSmoke"], new Point(spLabel.Position.X, spLabel.Position.Y), spLabel.Width, spLabel.Height, Color.White, 150, true)
                                                     {
                                                         YOffset = -6
                                                     };
-                                                    spLabel.AnimatedVisuals.Add(Tuple.Create("BillowingSmoke", priorSmoke));
+                                                    spLabel.EffectAnimatedVisuals.Add(Tuple.Create("BillowingSmoke", priorSmoke));
                                                 }
 
+                                                // Main animation.
                                                 bool randomStartFrame = Effect.RandomStartFrameAnimation.Contains(TextManager.FormatEnumString(effect.Name));
-                                                var vis = new AnimatedVisual(GuiManager.AnimatedVisuals[effectTuple.Item1], new Point(spLabel.Position.X, spLabel.Position.Y), spLabel.Width, spLabel.Height, effectTuple.Item2, effectTuple.Item3, randomStartFrame);
-                                                spLabel.AnimatedVisuals.Add(Tuple.Create(effect.Name, vis));
+                                                var vis = new AnimatedVisual(GuiManager.AnimatedVisuals[effectTuple.Item1], new Point(spLabel.Position.X, spLabel.Position.Y), spLabel.Width, spLabel.Height, effectTuple.Item2, effectTuple.Item3, randomStartFrame)
+                                                {
+                                                    IsLooping = !Effect.NonLoopingAnimations.Contains(TextManager.FormatEnumString(effect.Name))
+                                                };
+                                                spLabel.EffectAnimatedVisuals.Add(Tuple.Create(effect.Name, vis));
 
+                                                // Post smoke.
                                                 if (Effect.AddAnimatedSmokePost.Contains(TextManager.FormatEnumString(effect.Name)))
                                                 {
                                                     vis = new AnimatedVisual(GuiManager.AnimatedVisuals["BillowingSmoke"], new Point(spLabel.Position.X, spLabel.Position.Y), spLabel.Width, spLabel.Height, Color.White, 150, true)
                                                     {
                                                         YOffset = -6
                                                     };
-                                                    spLabel.AnimatedVisuals.Add(Tuple.Create("BillowingSmoke", vis));
+                                                    spLabel.EffectAnimatedVisuals.Add(Tuple.Create("BillowingSmoke", vis));
                                                 }
                                             }
                                         }
@@ -964,14 +970,14 @@ namespace Yuusha.gui
                                         Utils.LogOnce("CellEffectsDictionary does not contain a key for effect: " + TextManager.FormatEnumString(effect.Name));
                                 }
                             }
-                            else spLabel.AnimatedVisuals.Clear();
+                            else spLabel.EffectAnimatedVisuals.Clear();
 
-                            if(spLabel.AnimatedVisuals.Count > 0)
+                            if(spLabel.EffectAnimatedVisuals.Count > 0)
                             {
-                                foreach(Tuple<string, AnimatedVisual> t in new List<Tuple<string, AnimatedVisual>>(spLabel.AnimatedVisuals))
+                                foreach(Tuple<string, AnimatedVisual> t in new List<Tuple<string, AnimatedVisual>>(spLabel.EffectAnimatedVisuals))
                                 {
                                     if (!cell.Effects.Exists(e => e.Name == t.Item1) && t.Item1 != "BillowingSmoke")
-                                        spLabel.AnimatedVisuals.Remove(t);
+                                        spLabel.EffectAnimatedVisuals.Remove(t);
                                 }
                             }
 
@@ -994,7 +1000,21 @@ namespace Yuusha.gui
                             spLabel.ForeAlpha = currTile.ForeAlpha;
 
                             if (cell.IsPortal)
+                            {
                                 spLabel.VisualKey = m_tilesDict["pp"].ForeVisual.Key;
+                                if (!spLabel.GraphicAnimatedVisuals.Exists(t => t.AnimationInfo.AnimationName == "PortalAnimation"))
+                                {
+                                    var vis = new AnimatedVisual(GuiManager.AnimatedVisuals["PortalAnimation"], new Point(spLabel.Position.X, spLabel.Position.Y), spLabel.Width, spLabel.Height, Color.White, 210, true)
+                                    {
+                                        YOffset = 4
+                                    };
+                                    spLabel.GraphicAnimatedVisuals.Add(vis);
+                                }
+                            }
+                            else
+                            {
+                                spLabel.GraphicAnimatedVisuals.RemoveAll(a => a.AnimationInfo.AnimationName == "PortalAnimation");
+                            }
 
                             if (cell.Characters != null && cell.Characters.Count > 0)
                             {
@@ -1048,8 +1068,7 @@ namespace Yuusha.gui
                             {
                                 if(cell.Items.Count <= 7)
                                 {
-                                    spLabel.LootVisual = "LootPileSmall";
-                                    
+                                    spLabel.LootVisual = "LootPileSmall";                                    
                                 }
                                 else
                                 {
@@ -1073,7 +1092,8 @@ namespace Yuusha.gui
                                 continue;
                             }
 
-                            spLabel.AnimatedVisuals.Clear();
+                            spLabel.GraphicAnimatedVisuals.Clear();
+                            spLabel.EffectAnimatedVisuals.Clear();
                             spLabel.Text = "";// currTile.DisplayGraphic;
                             spLabel.TextColor = Color.White;// currTile.ForeColor;
                             spLabel.TintColor = currTile.BackTint;

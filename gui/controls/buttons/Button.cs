@@ -115,12 +115,10 @@ namespace Yuusha.gui
             if (m_disabled || !m_visible)
                 return;
 
-            if (Owner != "" && GuiManager.GetControl(Owner) is Control c)
-                if (c.IsDisabled || !c.IsVisible)
-                    return;
-
-            if (m_owner != "")
-                if (!GuiManager.GetControl(m_owner).IsVisible) return;
+            if (!string.IsNullOrEmpty(m_owner) && GuiManager.GetControl(m_owner) is Control c)
+            {
+                if (c.IsDisabled || !c.IsVisible) return;  // or IsBeneathControl?
+            }
 
             if (m_visuals.ContainsKey(Enums.EControlState.Down))
                 m_visualKey = m_visuals[Enums.EControlState.Down];
@@ -135,7 +133,7 @@ namespace Yuusha.gui
             {
                 try
                 {
-                    Events.RegisterEvent((Events.EventName)System.Enum.Parse(typeof(Events.EventName), m_onMouseDown, true), this);
+                    Events.RegisterEvent((Events.EventName)Enum.Parse(typeof(Events.EventName), m_onMouseDown, true), this);
                     m_onMouseDownSent = true;
                 }
                 catch(Exception e)
@@ -170,11 +168,11 @@ namespace Yuusha.gui
         protected override bool OnKeyDown(KeyboardState ks)
         {
             // Enter key acts as a button press.
-            if (HasFocus && ks.IsKeyDown(Keys.Enter) && !IsBeneathControl(GuiManager.MouseState) && !MouseInvisible)
-            {
-                OnMouseDown(GuiManager.MouseState);
-                return true;
-            }
+            //if (HasFocus && ks.IsKeyDown(Keys.Enter) && !IsBeneathControl(GuiManager.MouseState) && !MouseInvisible)
+            //{
+            //    OnMouseDown(GuiManager.MouseState);
+            //    return true;
+            //}
 
             return base.OnKeyDown(ks);
         }

@@ -90,7 +90,7 @@ namespace Yuusha
         {
             // Gains
             {"You have risen from ", Color.Orchid},
-            {"You have earned enough experience for your next level! Type REST ", Color.PaleGoldenrod },
+            {"You have earned enough experience for your next level!", Color.PaleGoldenrod },
             {"You are now a level ", Color.Goldenrod },
             {"You have gained ", Color.Plum},
 

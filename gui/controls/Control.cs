@@ -514,7 +514,9 @@ namespace Yuusha.gui
             if ((!(this is TextBox) && (Contains(ms.Position) || HasFocus)) || ((this is TextBox) && Contains(ms.Position)))
             {
                 // there was a change in scroll wheel values since last MouseHandler
-                if ((this is ScrollableTextBox || this is FogOfWarWindow || this is SpinelTileLabel) && GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue)
+                if ((this is ScrollableTextBox || this is FogOfWarWindow || this is SpinelTileLabel) &&
+                    GuiManager.CurrentSheet.PreviousScrollWheelValue != ms.ScrollWheelValue &&
+                    !IsBeneathControl(ms))
                 {
                     OnZDelta(ms);
                 }
@@ -591,7 +593,7 @@ namespace Yuusha.gui
                 {
                     if ((!GuiManager.IsDragging || GuiManager.DraggedControl == this) && !GuiManager.AwaitMouseButtonRelease)
                     {
-                        if (!IsBeneathControl(ms) && !MouseInvisible)
+                        if (!IsBeneathControl(ms) && !MouseInvisible && IsVisible && !IsDisabled)
                         {
                             ControlState = Enums.EControlState.Down;
                             OnMouseDown(ms);

@@ -1036,10 +1036,12 @@ namespace Yuusha.gui
                                 if (oldWindowRect2.Width != m_controls[j].Width || oldWindowRect2.Height != m_controls[j].Height)
                                     m_controls[k].OnClientResize(prev, now, true);
                             }
-                            catch(ArgumentOutOfRangeException aoorE)
+                            catch(ArgumentOutOfRangeException)
                             {
+#if DEBUG
                                 Utils.LogException(aoorE);
                                 Utils.Log("INDEX: k=" + k + " j=" + j);
+#endif
                                 continue;
                             }
                             catch(Exception e)

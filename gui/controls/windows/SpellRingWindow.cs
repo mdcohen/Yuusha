@@ -93,7 +93,7 @@ namespace Yuusha.gui
 
         public override void Update(GameTime gameTime)
         {
-            if (Character.CurrentCharacter == null || !Character.CurrentCharacter.knightRing)
+            if (Character.CurrentCharacter == null || !Character.CurrentCharacter.knightRing && !Character.HasEffect("Knight Ring") && !Character.HasEffect("Sacred Ring"))
                 IsVisible = false;
 
             base.Update(gameTime);
@@ -108,7 +108,7 @@ namespace Yuusha.gui
 
             if (MouseEnteredRing)
             {
-                m_fillerLabelScale = 1.0f;
+                m_fillerLabelScale = .7f;
 
                 foreach (Control c in Controls)
                 {
@@ -126,14 +126,16 @@ namespace Yuusha.gui
             if (Contains(GuiManager.MouseState.Position))
                 HideIcons = false;
 
-            if (GuiManager.DraggedControl == this && (GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt) || GuiManager.KeyboardState.IsKeyDown(Keys.RightAlt)))
+            if (GuiManager.DraggedControl == this || (GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt) || GuiManager.KeyboardState.IsKeyDown(Keys.RightAlt)))
+            {
                 HideIcons = true;
+            }
 
             foreach (Control c in Controls)
                 if(c is HotButton) c.IsVisible = !HideIcons;
 
             if (HideIcons)
-                m_fillerLabelScale = .4f;
+                m_fillerLabelScale = .3f;
         }
 
         public override void Draw(GameTime gameTime)

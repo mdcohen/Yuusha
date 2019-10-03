@@ -121,13 +121,11 @@ namespace Yuusha.gui
                                         string location = gridBox.GridBoxPurposeType.ToString().ToLower();
                                         dropDownMenuItemTextList.Add(Tuple.Create("look", "look at " + GetNItemName(this) + " on " + location, GridBoxWindow.GridBoxPurpose.None));
                                         int itemsCount = gridBox.GetItemsCount(RepresentedItem.Name);
-                                        if (gridBox.GridBoxPurposeType == GridBoxWindow.GridBoxPurpose.Ground && Character.CurrentCharacter.HasFreeHand)
-                                            dropDownMenuItemTextList.Add(Tuple.Create("take", "take " + GetNItemName(this), GridBoxWindow.GridBoxPurpose.Ground));
-                                        //else if (itemsCount == 1)
-                                        //{
-                                        //    dropDownMenuItemTextList.Add(Tuple.Create("sack", "scoop " + RepresentedItem.Name + location == "ground" ? "" : " from " + location, GridBoxWindow.GridBoxPurpose.Sack));
-                                        //    dropDownMenuItemTextList.Add(Tuple.Create("pouch", "pscoop " + RepresentedItem.Name + location == "ground" ? "" : " from " + location, GridBoxWindow.GridBoxPurpose.Pouch));
-                                        //}
+                                        if (Character.CurrentCharacter.HasFreeHand)
+                                        {
+                                            Enum.TryParse(location, true, out GridBoxWindow.GridBoxPurpose parsedLocation);
+                                            dropDownMenuItemTextList.Add(Tuple.Create("take", "take " + GetNItemName(this) + (gridBox.GridBoxPurposeType != GridBoxWindow.GridBoxPurpose.Ground ? " from " + location : ""), parsedLocation));
+                                        }
                                         if (RepresentedItem.Name != "corpse" && !RepresentedItem.Name.StartsWith("coin") && Character.CurrentCharacter.HasFreeHand)
                                             dropDownMenuItemTextList.Add(Tuple.Create("sack", "take " + GetNItemName(this) + " from " + location + ";put " + RepresentedItem.Name + " in sack", GridBoxWindow.GridBoxPurpose.Sack));
                                         else if (RepresentedItem.Name.StartsWith("coin"))
