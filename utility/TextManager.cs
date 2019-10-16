@@ -12,10 +12,10 @@ namespace Yuusha
         public static string PORTAL_CHANT = "ashtug ninda anghizidda arrflug";
         public const string AUTO_SEND_TEXT = "^";
 
-        public static List<string> MinorErrors = new List<string>()
-        {
-            "cannot quit here"
-        };
+        //public static List<string> MinorErrors = new List<string>()
+        //{
+        //    "cannot quit here"
+        //};
 
         /// <summary>
         /// Entire list of available display fonts.
@@ -580,6 +580,6 @@ namespace Yuusha
             }
 
             return GetDisplayFont(out Color tintColor);
-        }
+        }        
     }
 }

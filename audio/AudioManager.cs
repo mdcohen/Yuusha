@@ -23,12 +23,14 @@ namespace Yuusha.Audio
         public const string AMB_EERIEECHOES = "Eerie-Echoes";
         public const string AMB_CREEPYDRONE = "Creepy-Drone";
         public const string AMB_JUNGLENIGHT = "Jungle-Night";
+        public const string AMB_TROPICALTHUNDER = "Tropical-Thunder";
 
         public const string SONG_HEROICKINDDOM = "Heroic_Kingdom";
         public const string SONG_BIRTHOFACHAMPION = "Birth_of_a_Champion";
         public const string SONG_NOTHINGMATTERSEVERYTHINGDIES = "Nothing_Matters_Everything_Dies";
         public const string SONG_PANDEMONIUM = "Pandemonium";
         public const string SONG_SERENITY = "Serenity";
+        public const string SONG_AMBIENTSOFASIA = "Ambients_of_Asia";
 
         public enum SoundDirection { None, South, North, West, East, Southwest, Northwest, Southeast, Northeast }
 
@@ -169,12 +171,19 @@ namespace Yuusha.Audio
                         MediaPlayer.Pause();
                         //PlayAmbience(AMB_WINDMODERATE, true, true, HardSetMediaPlayerVolume);
                         break;
+                    case (int)World.MapID.Shukumei:
+                        if (Math.Abs(Character.CurrentCharacter.Z) == 350) // -350 and 350
+                            PlayAmbience(AMB_TROPICALTHUNDER, true, true, HardSetMediaPlayerVolume);
+                        else if (Character.CurrentCharacter.Z == 50 || Character.CurrentCharacter.Z == 100)
+                            PlayAmbience(SONG_AMBIENTSOFASIA, false, true, HardSetMediaPlayerVolume);
+                        else if (Character.CurrentCharacter.Z == 20 || Character.CurrentCharacter.Z == 400)
+                            PlayAmbience(AMB_CAVEAMBIENCE, true, true, HardSetMediaPlayerVolume);
+                        else MediaPlayer.Pause();
+                        break;
                     case (int)World.MapID.Torii:
                         #region Torii
                         if (Character.CurrentCharacter.Z >= 0)
-                        {
                             PlayAmbience(SONG_NOTHINGMATTERSEVERYTHINGDIES, false, true, HardSetMediaPlayerVolume);
-                        }
                         else PlayAmbience(AMB_CAVEAMBIENCE, false, true, HardSetMediaPlayerVolume);
                         break;
                     #endregion

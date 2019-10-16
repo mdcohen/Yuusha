@@ -19,13 +19,15 @@ namespace Yuusha
             {"Gage", "talent_gage" },
             {"Leg Sweep", "talent_legsweep" },
             {"Memorize", "talent_memorize" },
-            {"Peek", "talent_peek" },
+            {"Snoop", "talent_snoop" },
             {"Pick Locks", "talent_picklocks" },
             {"Rapid Kicks", "talent_rapidkicks" },
             {"Riposte", "talent_riposte" },
             {"Roundhouse Kick", "talent_roundhousekick" },
             {"Shield Bash", "talent_shieldbash" },
             {"Steal", "talent_steal" },
+
+            {"Peek", "talent_snoop" }, // temporary until server update 10/14/2019
         };
 
         /// <summary>
@@ -118,7 +120,7 @@ namespace Yuusha
             }
 
             IsEnabled = true; // always default from server
-            LastUse = DateTime.Now;
+            LastUse = DateTime.UtcNow;
         }
 
         public static List<string> TalentsRequiringTargets = new List<string>()

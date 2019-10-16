@@ -46,7 +46,7 @@ namespace Yuusha.gui
             {"talent_gage", "yuushaicon_32" },
             {"talent_legsweep", "yuushaicon_33" },
             {"talent_memorize", "yuushaicon_34" },
-            {"talent_peek", "yuushaicon_35" },
+            {"talent_snoop", "yuushaicon_35" },
             {"talent_picklocks", "yuushaicon_36" },
             {"talent_rapidkicks", "yuushaicon_37" },
             {"talent_riposte", "yuushaicon_38" },
@@ -414,14 +414,14 @@ namespace Yuusha.gui
         {
             ReleaseAllDraggedControls();
 
-            foreach (Control c in GuiManager.CurrentSheet.Controls)
+            foreach (Control c in new List<Control>(GuiManager.CurrentSheet.Controls))
             {
                 AddRandomlyShakingControl(Tuple.Create(c, c.Position, DateTime.Now, TimeSpan.FromMilliseconds(milliseconds), amount));
             }
 
             if (includeGenericSheet)
             {
-                foreach (Control c in GuiManager.GenericSheet.Controls)
+                foreach (Control c in new List<Control>(GuiManager.GenericSheet.Controls))
                 {
                     AddRandomlyShakingControl(Tuple.Create(c, c.Position, DateTime.Now, TimeSpan.FromMilliseconds(milliseconds), amount));
                 }
@@ -1802,6 +1802,24 @@ namespace Yuusha.gui
                 }
 
                 ChangingMapDisplaySize = false;
+            }
+        }
+
+        public static void DisplayCastSpell(int spellID)
+        {
+            Spell spell = World.GetSpellByID(spellID);
+
+            if (spell != null)
+            {
+                switch (spell.Name)
+                {
+                    case "Summon Hellhound":
+                    case "Summon Nature's Ally":
+                    case "Summon Humanoid":
+                    case "Summon Phantasm":
+                        SpellEffectLabel.CreateSpellEffectLabel(spell.Name);
+                        break;
+                }
             }
         }
     }

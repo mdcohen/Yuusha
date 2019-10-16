@@ -94,5 +94,13 @@ Thieves are limited in their choice of weapons by the fact that large weapons, l
 The most common form of wizardry is altering the surrounding terrain through illusions, such as creating a door where none was before, or materializing an inferno or ice storm. Wizards advance primarily by killing chaotic and evil creatures with spells, since only rarely will a capable Wizard risk attacking a creature with a weapon.
 Wizardry is a difficult discipline to learn, but is very powerful once the character attains a high level. Wizards generally maintain combat skill levels adequate to defend themselves in between magic spells, and all weapons categories are open to them. However, metal armor cannot be worn, as it will disable a Wizard’s capacity for casting spells.">
     </Profession>
+    <Profession
+      Name="Druid"
+      Description="Druids gain divine magic from being at one with nature. They have long played a pivotal role in the world and many scholars believe druidic magic was the first to be discovered and subsequently harnessed by the elves in an age when reality was much more enigmatic.">
+    </Profession>
+    <Profession
+      Name="Ranger"
+      Description="The foremost role of a ranger is to protect the land and guard those who preserve it. Rangers are thus usually associated with the wisdom of nature. Rangers tend to be wise, hardy, cunning, and perceptive in addition to being skilled woodsmen. Most are skilled in woodcraft, stealth, wilderness survival, beast-mastery, herbalism, tracking, and, of course, nature or druidic magic. Rangers spend a great deal of time outdoors and their preferred weapon styles lean towards practical-utility: archery, blades including knives, staves, axes and spears.">
+    </Profession>
   </ProfessionsIndex>
 </Lore>

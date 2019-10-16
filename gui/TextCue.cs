@@ -9,7 +9,7 @@ namespace Yuusha.gui
     public class TextCue : GameComponent
     {
         public enum TextCueTag { None, PromptState, WarmedSpell, XPGain, XPLoss, HealthGain, HealthLoss, StaminaGain, StaminaLoss,
-            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS, SkillUp, Target, MouseCursor }
+            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS, SkillUp, Target, MouseCursor, SkillXPGain, SkillXPLoss }
 
         #region Private Data
         private string m_text;
@@ -81,7 +81,11 @@ namespace Yuusha.gui
             m_lifeCycle = lifeCycle;
             m_dropShadow = dropShadow;
             m_shadowDistance = shadowDistance;
+            if (m_dropShadow && m_shadowDistance <= 0)
+                Utils.LogOnce("TextCueTag: " + tag + " should draw a shadow but shadow distance is " + m_shadowDistance + ".");
             m_shadowDirection = shadowDirection;
+            if (m_dropShadow && m_shadowDirection == Map.Direction.None)
+                Utils.LogOnce("TextCueTag: " + tag + " should draw a shadow but shadow direction is " + m_shadowDirection + ".");
             m_centered = centered;
             m_fadeIn = fadeIn;
             m_fadeOut = fadeOut;
@@ -106,6 +110,11 @@ namespace Yuusha.gui
 
             switch (Tag)
             {
+                case TextCueTag.SkillXPGain:
+                case TextCueTag.SkillXPLoss:
+                    X -= 1;
+                    Y -= 1;
+                    break;
                 case TextCueTag.XPGain:
                 case TextCueTag.XPLoss:
                     X += 1;
@@ -156,8 +165,12 @@ namespace Yuusha.gui
 
                 switch(Tag)
                 {
+                    //case TextCueTag.SkillXPLoss:
+                    //    alphaMinus += 2;
+                    //    break;
+                    //case TextCueTag.SkillXPGain:
                     case TextCueTag.ZName:
-                    case TextCueTag.MapName:
+                    case TextCueTag.MapName:                    
                     case TextCueTag.XPGain:
                         alphaMinus++;
                         break;
@@ -406,7 +419,7 @@ namespace Yuusha.gui
                     break;
             }
 
-            TextCue tc = new TextCue(text, x, y, 255, foreColor, backgroundColor, 255, font, lifeCycle, true, 2, Map.Direction.None, centered, false, false, TextCueTag.None);
+            TextCue tc = new TextCue(text, x, y, 255, foreColor, backgroundColor, 255, font, lifeCycle, true, 3, Map.Direction.Northwest, centered, false, false, TextCueTag.None);
 
             //if (fadeIn) tc.m_alpha = 40;
 
@@ -444,7 +457,7 @@ namespace Yuusha.gui
             }
 
             TextCue tc = new TextCue(text, x, y, !fadeIn ? (byte)255 : (byte)40, color, backgroundColor, backgroundAlpha, GuiManager.CurrentSheet.Font, lifeCycle,
-                true, 2, Map.Direction.None, centered, fadeIn, fadeOut, tag);
+                true, 3, Map.Direction.Northwest, centered, fadeIn, fadeOut, tag);
 
             if (fadeIn) tc.m_alpha = 40;
 
@@ -503,7 +516,7 @@ namespace Yuusha.gui
             int y = Client.Height / 2 - BitmapFont.ActiveFonts[font].LineHeight / 2;
             
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Yellow, Color.Black, 0, font, 4500, true, 2, Map.Direction.None, false, false, true, TextCueTag.CharGen);
+            TextCue tc = new TextCue(text, x, y, 255, Color.Yellow, Color.Black, 0, font, 4500, true, 3, Map.Direction.Northwest, false, false, true, TextCueTag.CharGen);
 
             // only one text cure allowed?? this should be changed
             GuiManager.TextCues.Clear();
@@ -530,7 +543,7 @@ namespace Yuusha.gui
             int y = Client.Height / 2 - BitmapFont.ActiveFonts[font].LineHeight / 2;
 
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Tomato, Color.Black, 0, font, 4500, true, 2, Map.Direction.None, false, false, false, TextCueTag.CharGen);
+            TextCue tc = new TextCue(text, x, y, 255, Color.Tomato, Color.Black, 0, font, 4500, true, 3, Map.Direction.Northwest, false, false, false, TextCueTag.CharGen);
 
             // only one text cure allowed?? this should be changed
             GuiManager.TextCues.Clear();
@@ -572,6 +585,37 @@ namespace Yuusha.gui
             AddClientInfoTextCue(promptText, TextCueTag.PromptState, cueColor, backgroundColor, 255, 5000, false, false, true);
         }
 
+        public static void AddSkillXPGainTextCue(string text)
+        {
+            int measureStringHalved = BitmapFont.ActiveFonts["changaone16"].MeasureString(text) / 2;
+            int lineHeightHalved = BitmapFont.ActiveFonts["changaone16"].LineHeight / 2;
+            int x = Client.Width / 2 - measureStringHalved - 200;
+            int y = Client.Height / 2 - lineHeightHalved;
+
+            //TextManager.GetAlignmentColor(Character.CurrentCharacter.Alignment)
+            //Client.ClientSettings.DefaultHUDNumbersFont
+
+            TextCue tc = new TextCue(text, x, y, 255, Color.MediumSlateBlue, Color.Transparent, 0, "changaone16", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.SkillXPGain);
+
+            //if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
+                GuiManager.TextCues.Add(tc);
+        }
+
+        public static void AddSkillXPLossTextCue(string text)
+        {
+            int measureStringHalved = BitmapFont.ActiveFonts["changaone16"].MeasureString(text) / 2;
+            int lineHeightHalved = BitmapFont.ActiveFonts["changaone16"].LineHeight / 2;
+            int x = Client.Width / 2 - measureStringHalved - 200;
+            int y = Client.Height / 2 - lineHeightHalved;
+
+            //Client.ClientSettings.DefaultHUDNumbersFont
+
+            TextCue tc = new TextCue(text, x, y, 255, Color.Firebrick, Color.Transparent, 0, "changaone16", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.SkillXPLoss);
+
+            //if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
+                GuiManager.TextCues.Add(tc);
+        }
+
         public static void AddXPGainTextCue(string text)
         {
             int measureStringHalved = BitmapFont.ActiveFonts[Client.ClientSettings.DefaultHUDNumbersFont].MeasureString(text) / 2;
@@ -579,7 +623,7 @@ namespace Yuusha.gui
             int x = Client.Width / 2 - measureStringHalved;
             int y = Client.Height / 2 - lineHeightHalved - 100;
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Lime, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 4500, false, 0, Map.Direction.None, false, false, false, TextCueTag.XPGain);
+            TextCue tc = new TextCue(text, x, y, 255, Color.Lime, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 4500, true, 3, Map.Direction.Northwest, false, false, false, TextCueTag.XPGain);
 
             if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -592,7 +636,7 @@ namespace Yuusha.gui
             int x = Client.Width / 2 - measureStringHalved;
             int y = Client.Height / 2 - lineHeightHalved - 100;
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.Red, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.XPLoss);
+            TextCue tc = new TextCue(text, x, y, 255, Color.Red, Color.Transparent, 0, Client.ClientSettings.DefaultHUDNumbersFont, 3500, true, 3, Map.Direction.Northwest, false, false, true, TextCueTag.XPLoss);
 
             if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -777,35 +821,6 @@ namespace Yuusha.gui
             GuiManager.TextCues.Add(textCue);
         }
 
-        public static void AddSkillUpTextCue(string text)
-        {
-            if (GuiManager.TextCues.Exists(tc => tc.Text == text))
-                return;
-
-            //GuiManager.TextCues.RemoveAll(tc => tc.Tag == TextCueTag.SkillUp);
-
-            string font = TextManager.GetDisplayFont(TextCueTag.SkillUp);
-
-            int x = Client.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
-            int y = Client.Height / 2 - BitmapFont.ActiveFonts[font].LineHeight / 2;
-
-            if (GuiManager.Sheets[Enums.EGameState.YuushaGame.ToString()]["MapDisplayWindow"] is Window mapWindow)
-            {
-                x = mapWindow.Position.X + mapWindow.Width / 2 - (BitmapFont.ActiveFonts[font].MeasureString(text) / 2);
-                y = mapWindow.Position.Y - 10 - BitmapFont.ActiveFonts[font].LineHeight;
-            }
-
-            // another skill up text cue exists, place this one above it -- hopefully only one other skill up exists
-            if(GuiManager.TextCues.Exists(c => c.Tag == TextCueTag.SkillUp))
-            {
-                y -= 5 - BitmapFont.ActiveFonts[font].LineHeight;
-            }
-
-            TextCue textCue = new TextCue(text, x, y, 255, Color.GhostWhite, Color.Transparent, 200, font, 3500, false, 2, Map.Direction.Southwest, false, false, true, TextCueTag.SkillUp);
-
-            GuiManager.TextCues.Add(textCue);
-        }
-
         public void OnClientResize(Rectangle prev, Rectangle now)
         {
             X += now.Width - prev.Width;
@@ -823,7 +838,8 @@ namespace Yuusha.gui
 
             BitmapFont bmf = BitmapFont.ActiveFonts[Font];
             Rectangle ourRect = new Rectangle(X, Y, bmf.MeasureString(Text), bmf.LineHeight);
-            foreach (TextCue tc in GuiManager.TextCues)
+
+            foreach (TextCue tc in new List<TextCue>(GuiManager.TextCues))
             {
                 if (tc != this && !OverlappingIgnored.Contains(tc.Tag))
                 {

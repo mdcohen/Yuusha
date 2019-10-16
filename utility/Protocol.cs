@@ -104,6 +104,10 @@ namespace Yuusha
         public static string CHARACTER_SERVERSETTINGS_END = (char)27 + "C31" + (char)27;
         public static string CHARACTER_TALENT_USE = (char)27 + "C32" + (char)27;
         public static string CHARACTER_TALENT_USE_END = (char)27 + "C33" + (char)27;
+        public static string CHARACTER_SKILLRISK = (char)27 + "C34" + (char)27;
+        public static string CHARACTER_SKILLRISK_END = (char)27 + "C35" + (char)27;
+        public static string CHARACTER_SKILLEXPCHANGE = (char)27 + "C36" + (char)27;
+        public static string CHARACTER_SKILLEXPCHANGE_END = (char)27 + "C37" + (char)27;
         #endregion
 
         #region Main Menu, News, Detect Protocol/Client

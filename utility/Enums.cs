@@ -93,6 +93,8 @@ namespace Yuusha
             Macros,
             Resists,
             Protections,
+            SkillRisk,
+            SkillExpChange,
         }
 
         public enum EGameDisplayMode

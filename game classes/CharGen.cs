@@ -65,20 +65,22 @@ namespace Yuusha
 
         public static readonly Dictionary<string, string> CommandsToSend = new Dictionary<string, string>()
         {
-            {"Barbarian", "b" },
-            {"Illyria", "i" },
-            {"Mu", "m" },
-            {"Lemuria", "l" },
-            {"Leng", "lg" },
-            {"Draznia", "d" },
-            {"Hovath", "h" },
-            {"Mnar", "mn" },
-            {"Fighter", "fi" },
-            {"Thaumaturge", "th" },
-            {"Wizard", "wi" },
-            {"Martial Artist", "ma" },
-            {"Thief", "tf" },
-            {"Sorcerer", "sr" }
+            { "Barbarian", "b" },
+            { "Illyria", "i" },
+            { "Mu", "m" },
+            { "Lemuria", "l" },
+            { "Leng", "lg" },
+            { "Draznia", "d" },
+            { "Hovath", "h" },
+            { "Mnar", "mn" },
+            { "Fighter", "fi" },
+            { "Thaumaturge", "th" },
+            { "Wizard", "wi" },
+            { "Martial Artist", "ma" },
+            { "Thief", "tf" },
+            { "Sorcerer", "sr" },
+            { "Ranger", "ra" },
+            { "Druid", "dr" },
         };
 
         public static void ResetCharGen()
@@ -502,6 +504,12 @@ namespace Yuusha
                             break;
                         case "sr":
                             SelectedProfession = "Sorcerer";
+                            break;
+                        case "dr":
+                            SelectedProfession = "Druid";
+                            break;
+                        case "ra":
+                            SelectedProfession = "Ranger";
                             break;
                     }
                     break;

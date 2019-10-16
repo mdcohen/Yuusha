@@ -129,7 +129,10 @@ namespace Yuusha.gui
                 m_zDepth = value;
                 ZDepthDateTime = DateTime.Now;
                 if (GuiManager.GetControl(Owner) is Window w)
+                {
+                    if (value <= 1) w.ZDepth = value;
                     w.SortControls();
+                }
             }
         }
 

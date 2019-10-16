@@ -57,9 +57,7 @@ namespace Yuusha.gui
         {
             // Window exists, if this is called then another hint is desired.
             if (GuiManager.GenericSheet["SageAdviceTipWindow"] is MessageWindow existingWindow)
-            {
                 existingWindow.OnClose();
-            }
 
             MessageWindow w = new MessageWindow("SageAdviceTipWindow", "", new Rectangle(Client.Width / 2 - 150, 50, 300, 250), false, false, false,
                 GuiManager.GenericSheet.Font, new VisualKey("WhiteSpace"), Color.Black, 180, true, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "Dragging");
@@ -77,12 +75,13 @@ namespace Yuusha.gui
                 false, w.Font, new VisualKey("WhiteSpace"), Color.Black, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Center, new List<Enums.EAnchorType>(), true);
 
             w.TipTextBox = s;
-            s.AddLine(advice, Enums.ETextType.SageAdvice);
 
             GuiManager.GenericSheet.AddControl(w);
             GuiManager.GenericSheet.AddControl(wTitle);
             GuiManager.GenericSheet.AddControl(border);
             GuiManager.GenericSheet.AddControl(s);
+
+            s.AddLine(advice, Enums.ETextType.SageAdvice);
 
             w.AdjustHeight();
             Audio.AudioManager.PlaySoundEffect("GUISounds/sageadvice_cymbal");

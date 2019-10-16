@@ -47,7 +47,7 @@ namespace Yuusha
             { "Chaos Portal", "hotbuttonicon_432" }, { "Charm Animal", "hotbuttonicon_259" }, { "Close Or Open Door", "hotbuttonicon_396" },
             { "Cognoscere", "hotbuttonicon_178" }, { "Command Undead", "hotbuttonicon_70" },
             { "Concussion", "hotbuttonicon_157" }, { "Contagion", "hotbuttonicon_169" }, { "Create Illusion", "hotbuttonicon_3" }, { "Create Portal", "hotbuttonicon_306" },
-            { "Create Snake", "hotbuttonicon_215" }, { "Create Web", "hotbuttonicon_386" }, { "Cure", "hotbuttonicon_468" },
+            { "Create Lava", "hotbuttonicon_26" }, { "Create Snake", "hotbuttonicon_215" }, { "Create Web", "hotbuttonicon_386" }, { "Cure", "hotbuttonicon_468" },
             { "Curse", "hotbuttonicon_186" }, { "Cynosure", "hotbuttonicon_297" }, 
             // D
             { "Darkness", "hotbuttonicon_424" }, { "Death", "hotbuttonicon_266" }, { "Detect Undead", "hotbuttonicon_14" }, { "Disintegrate", "hotbuttonicon_206" },
@@ -65,6 +65,7 @@ namespace Yuusha
             // I
             { "Iceshard", "hotbuttonicon_398" }, { "Icespear", "hotbuttonicon_362" }, { "Icestorm", "hotbuttonicon_342" }, { "Identify", "hotbuttonicon_261" }, { "Image", "hotbuttonicon_273" },
             // J
+            { "Juvenis", "hotbuttonicon_177" },
             // K
             // L
             { "Lagniappe", "hotbuttonicon_484" }, { "Lifeleech", "hotbuttonicon_314" }, { "Light", "hotbuttonicon_343" }, { "Lightning Bolt", "hotbuttonicon_345" }, { "Lightning Storm", "hotbuttonicon_327" },
@@ -90,7 +91,7 @@ namespace Yuusha
             // S
             { "Sacred Ring", "hotbuttonicon_465" }, { "Savagery", "hotbuttonicon_28" },{ "Shelter", "hotbuttonicon_174" }, { "Shield", "hotbuttonicon_211" }, { "Speed", "hotbuttonicon_305" },
             { "Summon Hellhound", "hotbuttonicon_16" }, { "Summon Humanoid", "hotbuttonicon_235" }, { "Summon Lamassu", "hotbuttonicon_407" }, { "Summon Lammasu", "hotbuttonicon_407" }, // 7/8/2019 misspelled in server logic
-            { "Summon Nature's Ally", "hotbuttonicon_218" }, { "Summon Phantasm", "hotbuttonicon_280" }, { "Stoneskin", "hotbuttonicon_227" },
+            { "Summon Nature's Ally", "hotbuttonicon_176" }, { "Summon Phantasm", "hotbuttonicon_280" }, { "Stoneskin", "hotbuttonicon_227" },
             { "Strength", "hotbuttonicon_146" }, { "Stun", "hotbuttonicon_217" },
             { "Silence", "hotbuttonicon_490" }, // same as Power Word: Silence
             // T
@@ -131,6 +132,7 @@ namespace Yuusha
             {"Fog", Tuple.Create("hotbuttonicon_423", Color.White, 255, false) },
             {"Hide Door", Tuple.Create("sptile_wall3", Color.White, 255, false) },
             {"Ice", Tuple.Create("IcestormAnimation", Color.White, 255, true) }, // animation
+            {"Lava", Tuple.Create("hotbuttonicon_26", Color.White, 255, false) },
             {"Light", Tuple.Create("hotbuttonicon_343", Color.White, 120, false) },
             {"Lightning Storm", Tuple.Create("hotbuttonicon_327", Color.White, 150, false) },
             //{"Locust Swarm", Tuple.Create("ThickSmoke", Color.White, 255, true) }, // animation

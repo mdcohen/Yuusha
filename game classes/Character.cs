@@ -174,7 +174,9 @@ namespace Yuusha
                         m_currentCharacter.RoundsPlayed = Convert.ToInt64(pcStats[42]);
                         m_currentCharacter.NumKills = Convert.ToInt64(pcStats[43]);
                         m_currentCharacter.NumDeaths = Convert.ToInt64(pcStats[44]);
-                        m_currentCharacter.BankGold = Convert.ToInt64(pcStats[45]);
+                        //string.Format("{0:C0}", pcStats[45]);
+                        // there is a server side bug with decimal places in bank gold 10/14/2019
+                        m_currentCharacter.BankGold = Convert.ToInt64(string.Format("{0:C0}", pcStats[45]));
                         m_currentCharacter.Strength = Convert.ToInt32(pcStats[46]);
                         m_currentCharacter.Dexterity = Convert.ToInt32(pcStats[47]);
                         m_currentCharacter.Intelligence = Convert.ToInt32(pcStats[48]);
@@ -567,7 +569,7 @@ namespace Yuusha
                         {
                             // Next update UTC is used so below can be uncommented
                             //CurrentCharacter.Talents[index].LastUse = Convert.ToDateTime(talentUseArray[1]);
-                            CurrentCharacter.Talents[index].LastUse = DateTime.Now;// Convert.ToDateTime(talentUseArray[1]);
+                            CurrentCharacter.Talents[index].LastUse = DateTime.UtcNow;// Convert.ToDateTime(talentUseArray[1]);
                         }
                     }
                     break;
@@ -634,6 +636,36 @@ namespace Yuusha
                     break;
                 case Enums.EPlayerUpdate.Protections:
                     m_currentCharacter.ProtectionsData = info;
+                    break;
+                case Enums.EPlayerUpdate.SkillRisk:
+                    m_currentCharacter.SkillRisk = Convert.ToDouble(info);
+                    SpellWarmingWindow.CreateCombatSkillRiskWindow();
+                    break;
+                case Enums.EPlayerUpdate.SkillExpChange:
+                    if(Client.GameState == Enums.EGameState.YuushaGame && Utility.Settings.StaticSettings.DisplaySkillAmountChanges)
+                    {
+                        try
+                        {
+                            string[] expInfo = info.Split(Protocol.VSPLIT.ToCharArray());
+                            long skillXPChange = Convert.ToInt64(expInfo[1]);
+                            // set local skill experience here...
+                            if(skillXPChange > 0)
+                            {
+                                //string.Format("+{0:n0}", skillXPChange)
+                                TextCue.AddSkillXPGainTextCue(TextManager.FormatEnumString(expInfo[0]) + string.Format(" +{0:n0}", skillXPChange));
+                            }
+                            else if(skillXPChange < 0)
+                            {
+                                TextCue.AddSkillXPLossTextCue(TextManager.FormatEnumString(expInfo[0]) + string.Format(" -{0:n0}", skillXPChange));
+                            }
+                            // experience change is expInfo[0]
+                            //m_currentCharacter.Experience = Convert.ToInt64(expInfo[1]);
+                        }
+                        catch (Exception e)
+                        {
+                            Utils.LogException(e);
+                        }
+                    }
                     break;
             }
         }
@@ -930,6 +962,7 @@ namespace Yuusha
         {
             get; set;
         }
+        public double SkillRisk { get; set; }
         public long NumKills
         {
             get { return m_numKills; }

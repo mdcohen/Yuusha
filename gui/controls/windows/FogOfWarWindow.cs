@@ -165,7 +165,10 @@ namespace Yuusha.gui
                 if (LatestUpdateFromCell == null || Character.CurrentCharacter.Cell != LatestUpdateFromCell)
                 {
                     if (!GameHUD.ChangingMapDisplaySize)
+                    {
+                        LatestUpdateFromCell = Character.CurrentCharacter.Cell;
                         CallUponTheFog();
+                    }
 
                     //m_fogCallingTask = new System.Threading.Tasks.Task(CallUponTheFog);
                     //m_fogCallingTask.Start();
@@ -173,33 +176,33 @@ namespace Yuusha.gui
             }
         }
 
-        //public override void Draw(GameTime gameTime)
+        //public void DrawFogOfWar(GameTime gameTime)
         //{
         //    if (!IsVisible) return;
 
-        //    base.Draw(gameTime);
+        //    //base.Draw(gameTime);
 
         //    if (m_fogCallingTask != null && m_fogCallingTask.IsCompleted)
         //        RenderMap();
 
         //    try
         //    {
-        //        if (!m_savedMap && m_mapRender2D != null)
-        //        {
-        //            string fileName = "map_" +
-        //            DateTime.Now.Month + DateTime.Now.Day + DateTime.Now.Year + DateTime.Now.Hour + DateTime.Now.Minute +
-        //            DateTime.Now.Second + DateTime.Now.Millisecond + ".png";
-        //            try
-        //            {
-        //                //map.SaveAsPng(new System.IO.FileStream(Utils.StartupPath + Utils.LogsFolder + fileName, System.IO.FileMode.CreateNew), Width, Height);
-        //                m_mapRender2D.SaveAsPng(new System.IO.FileStream(Utils.StartupPath + Utils.LogsFolder + fileName, System.IO.FileMode.CreateNew), Width, Height);
-        //            }
-        //            catch (Exception e)
-        //            {
-        //                Utils.LogException(e);
-        //            }
-        //            m_savedMap = true;
-        //        }
+        //        //if (!m_savedMap && m_mapRender2D != null)
+        //        //{
+        //        //    string fileName = "map_" +
+        //        //    DateTime.Now.Month + DateTime.Now.Day + DateTime.Now.Year + DateTime.Now.Hour + DateTime.Now.Minute +
+        //        //    DateTime.Now.Second + DateTime.Now.Millisecond + ".png";
+        //        //    try
+        //        //    {
+        //        //        //map.SaveAsPng(new System.IO.FileStream(Utils.StartupPath + Utils.LogsFolder + fileName, System.IO.FileMode.CreateNew), Width, Height);
+        //        //        m_mapRender2D.SaveAsPng(new System.IO.FileStream(Utils.StartupPath + Utils.LogsFolder + fileName, System.IO.FileMode.CreateNew), Width, Height);
+        //        //    }
+        //        //    catch (Exception e)
+        //        //    {
+        //        //        Utils.LogException(e);
+        //        //    }
+        //        //    m_savedMap = true;
+        //        //}
 
         //        if (m_mapRender2D != null && !m_mapRender2D.IsDisposed)
         //        {
@@ -217,7 +220,7 @@ namespace Yuusha.gui
         {
             if (Character.CurrentCharacter == null || m_updatingGrid) return;
 
-            LatestUpdateFromCell = Character.CurrentCharacter.Cell;// Cell.GetCell(Character.CurrentCharacter.X, Character.CurrentCharacter.Y, Character.CurrentCharacter.Z);
+            //LatestUpdateFromCell = Character.CurrentCharacter.Cell;
 
             int x = Character.CurrentCharacter.X - m_xMod; // at position 0,0 (Control[0] 
             int y = Character.CurrentCharacter.Y - m_yMod; // at position 0,0
@@ -377,15 +380,15 @@ namespace Yuusha.gui
         //{
         //    try
         //    {
-        //        GraphicsDevice device = Program.Client.GraphicsDevice;
+        //        //GraphicsDevice device = Program.Client.GraphicsDevice;
 
-        //        m_mapRender2D = new RenderTarget2D(device,
-        //            Width, Height, true, SurfaceFormat.Color, DepthFormat.Depth24);
+        //        if(m_mapRender2D == null)
+        //            m_mapRender2D = new RenderTarget2D(Program.Client.GraphicsDevice, Width, Height, true, SurfaceFormat.Color, DepthFormat.Depth24);
 
-        //        device.SetRenderTarget(m_mapRender2D);
+        //        Program.Client.GraphicsDevice.SetRenderTarget(m_mapRender2D);
 
-        //        Client.SpriteBatch.End();
-        //        Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+        //        //Client.SpriteBatch.End();
+        //        //Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
         //        foreach (Control c in Controls)
         //        {
@@ -397,9 +400,9 @@ namespace Yuusha.gui
         //            }
         //        }
 
-        //        Client.SpriteBatch.End();
-        //        Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-        //        device.SetRenderTarget(null);
+        //        //Client.SpriteBatch.End();
+        //        //Client.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+        //        Program.Client.GraphicsDevice.SetRenderTarget(null);
         //    }
         //    catch (Exception e)
         //    {

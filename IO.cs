@@ -750,11 +750,6 @@ namespace Yuusha
                                 return true;
                             }
                             #endregion
-                            else if (inData.IndexOf(Protocol.CHARACTER_SPELLCAST_END) != -1)
-                            {
-                                Events.RegisterEvent(Events.EventName.Cast_Spell, Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_SPELLCAST, Protocol.CHARACTER_SPELLCAST_END));
-                                return true;
-                            }
                             #region GAME_POINTER_UPDATE
                             else if (inData.IndexOf(Protocol.GAME_POINTER_UPDATE) != -1)
                             {
@@ -840,6 +835,13 @@ namespace Yuusha
                             else if (inData.IndexOf(Protocol.CHARACTER_EXPERIENCE_END) != -1)
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_EXPERIENCE, Protocol.CHARACTER_EXPERIENCE_END), Enums.EPlayerUpdate.Experience);
+                                return true;
+                            }
+                            #endregion
+                            #region CHARACTER_SKILLEXPCHANGED_END
+                            else if (inData.IndexOf(Protocol.CHARACTER_SKILLEXPCHANGE_END) != -1)
+                            {
+                                Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_SKILLEXPCHANGE, Protocol.CHARACTER_SKILLEXPCHANGE_END), Enums.EPlayerUpdate.SkillExpChange);
                                 return true;
                             }
                             #endregion
@@ -969,6 +971,11 @@ namespace Yuusha
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_TALENT_USE, Protocol.CHARACTER_TALENT_USE_END), Enums.EPlayerUpdate.TalentUse);
                                 return true;
                             }
+                            else if (inData.IndexOf(Protocol.CHARACTER_SKILLRISK_END) != -1)
+                            {
+                                Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_SKILLRISK, Protocol.CHARACTER_SKILLRISK_END), Enums.EPlayerUpdate.SkillRisk);
+                                return true;
+                            }
                             #endregion
                             #region CHARACTER_EFFECTS_END
                             else if (inData.IndexOf(Protocol.CHARACTER_EFFECTS_END) != -1)
@@ -998,6 +1005,13 @@ namespace Yuusha
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_PROTECTIONS, Protocol.CHARACTER_PROTECTIONS_END), Enums.EPlayerUpdate.Protections);
                                 gui.GameHUD.UpdateFurtherStatDetailsWindow();
+                                return true;
+                            }
+                            #endregion
+                            #region CHARACTER_SPELLCAST_END
+                            else if (inData.IndexOf(Protocol.CHARACTER_SPELLCAST_END) != -1)
+                            {
+                                Events.RegisterEvent(Events.EventName.Cast_Spell, Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_SPELLCAST, Protocol.CHARACTER_SPELLCAST_END));
                                 return true;
                             }
                             #endregion

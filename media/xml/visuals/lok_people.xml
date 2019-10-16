@@ -38,7 +38,7 @@
 	<Visual ParentTexture="lok_people.png" Name="panda" X="780" Y="60" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="doom_orc" X="840" Y="60" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="bulette" X="900" Y="60" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="lok_people.png" Name="merrow_female" X="900" Y="60" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="merrow_female" X="960" Y="60" Width="60" Height="60"></Visual>
   <!-- Row 3 -->
 	<Visual ParentTexture="lok_people.png" Name="goblin" X="0" Y="120" Width="60" Height="60"></Visual>
 	<Visual ParentTexture="lok_people.png" Name="male_fighter_npc" X="60" Y="120" Width="60" Height="60"></Visual>
@@ -438,6 +438,12 @@
   <Visual ParentTexture="lok_people.png" Name="iron_lich2" X="300" Y="1260" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="wandering_lightning_drake" X="360" Y="1260" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="unused_drake" X="420" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="oni_mage" X="480" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="lion" X="540" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="fire_elemental" X="600" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="vrock" X="660" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="vrock_seer" X="720" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="vrock_anathema" X="780" Y="1260" Width="60" Height="60"></Visual>
   <!-- Added temporary ranger visuals -->
   <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_gray" X="900" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_green" X="900" Y="1140" Width="60" Height="60"></Visual>
@@ -550,7 +556,6 @@
   <Visual ParentTexture="lok_people.png" Name="oni" X="780" Y="0" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="snakeman" X="480" Y="300" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="apparition" X="300" Y="240" Width="60" Height="60"></Visual>
-  <Visual ParentTexture="lok_people.png" Name="fire_elemental" X="540" Y="300" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="red_serpent" X="720" Y="360" Width="60" Height="60"></Visual>
   
   <!-- NPCs with color visuals -->

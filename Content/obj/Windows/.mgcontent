@@ -5,6 +5,7 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/A_Death_Song.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Ambients_of_Asia.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Birth_of_a_Champion.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Cave-Ambience.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Creepy-Drone.mp3</File>
@@ -18,6 +19,7 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Jungle-Night.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Nothing_Matters_Everything_Dies.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Serenity.mp3</File>
+    <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Tropical-Thunder.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Waves-Small.mp3</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Wind-Moderate.wav</File>
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/click_short.wav</File>
@@ -346,6 +348,8 @@
     <File>C:/Users/mikec/Desktop/YuushaMG/Content/KSNDint3.WAV</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -233,6 +233,10 @@ namespace Yuusha
                                 warmedSpellWindow.OnClose();
                             }
                         }
+                        if(args != null && args.Length >= 1 && int.TryParse((string)args[0], out int displaySpellID))
+                        {
+                            GameHUD.DisplayCastSpell(displaySpellID);
+                        }
                         break;
                     case EventName.Character_Death:
                         #region Character Death
@@ -1224,7 +1228,7 @@ namespace Yuusha
                                 if (CharGen.FirstCharacter)
                                     TextCue.AddClientInfoTextCue("There are currently no characters on your account. Please create one.", Color.Tomato, Color.Black, 3500);
 
-                                TextCue.AddCharGenInfoTextCue("Welcome to the character generator.", "rocksalt22");
+                                TextCue.AddCharGenInfoTextCue("Welcome to the character generator.", "medievalsharp32");
 
                                 RegisterEvent(EventName.Set_CharGen_State, Enums.ECharGenState.ChooseGender);
 

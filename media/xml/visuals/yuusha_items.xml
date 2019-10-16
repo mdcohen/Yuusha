@@ -373,6 +373,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="roughwoodenspikedclub" X="1920" Y="2460" Width="60" Height="60"></Visual>
   <!-- Rapiers *** Needs update-->
   <Visual ParentTexture="yuusha_items.png" Name="rapier" X="1860" Y="2280" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="shiningsteelemeraldrapier" X="2160" Y="2280" Width="60" Height="60"></Visual>
   <!-- Scythes -->
   <Visual ParentTexture="yuusha_items.png" Name="blackscythe" X="1980" Y="2400" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="greenscythe" X="2040" Y="2400" Width="60" Height="60"></Visual> <!-- not in database 9/15/2019-->
@@ -385,10 +386,16 @@
   <!-- Shortbows -->
   <Visual ParentTexture="yuusha_items.png" Name="shortbow" X="1860" Y="1980" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="runedshortbow" X="1860" Y="2040" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="yttrilinfusedshortbow" X="2040" Y="1980" Width="60" Height="60"></Visual>
   <!-- Shortsword -->
   <Visual ParentTexture="yuusha_items.png" Name="shortsword" X="1860" Y="2520" Width="60" Height="60"></Visual>
   <!-- Shuriken -->
   <Visual ParentTexture="yuusha_items.png" Name="steelshuriken" X="2040" Y="2700" Width="60" Height="60"></Visual>
+  <!-- Sickles -->
+  <Visual ParentTexture="yuusha_items.png" Name="tarnishedsickle" X="2100" Y="2700" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="sharpenedsickle" X="2160" Y="2700" Width="60" Height="60"></Visual>
+  <!-- Slings -->
+  <Visual ParentTexture="yuusha_items.png" Name="simplesling" X="1980" Y="2040" Width="60" Height="60"></Visual>
   <!-- Spears -->
   <Visual ParentTexture="yuusha_items.png" Name="woodenspear" X="1980" Y="2280" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="doublemithrilbladedspear" X="2040" Y="2280" Width="60" Height="60"></Visual>
@@ -404,6 +411,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="overlordstaff" X="2220" Y="2580" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="chaoticironrod" X="1980" Y="2520" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="diamondencrustedstaff" X="2040" Y="2520" Width="60" Height="60"></Visual> <!-- unused -->
+  <Visual ParentTexture="yuusha_items.png" Name="yttrilinfusedstaff" X="2100" Y="2520" Width="60" Height="60"></Visual>
   <!-- Threestaves *** Needs update-->
   <Visual ParentTexture="yuusha_items.png" Name="threestaff" X="1860" Y="2400" Width="60" Height="60"></Visual>
   <!-- Two Handed -->

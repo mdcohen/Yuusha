@@ -75,6 +75,7 @@ namespace Yuusha.gui
                 new Rectangle(x, y, size, size), text, Color.White, true, false, "changaone16", new VisualKey(Effect.IconsDictionary[effectName]), tintColor,
                 255, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "")
             {
+                IsFading = true,
                 IsShrinking = false // still fades out
             };
 

@@ -1,5 +1,6 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/A_Death_Song.mp3","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/A_Death_Song.xnb","SongProcessor","SongContent",452148,130,0.3759869
+"C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Ambients_of_Asia.mp3","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Ambients_of_Asia.xnb","SongProcessor","SongContent",2263583,134,1.056215
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Birth_of_a_Champion.mp3","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Birth_of_a_Champion.xnb","SongProcessor","SongContent",5601768,137,1.122407
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Cave-Ambience.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Cave-Ambience.xnb","SongProcessor","SongContent",14668018,131,0.5204705
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Creepy-Drone.mp3","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Creepy-Drone.xnb","SongProcessor","SongContent",385920,130,0.3531557
@@ -13,6 +14,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Jungle-Night.mp3","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Jungle-Night.xnb","SongProcessor","SongContent",1407744,130,0.5164837
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Nothing_Matters_Everything_Dies.mp3","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Nothing_Matters_Everything_Dies.xnb","SongProcessor","SongContent",4613311,149,1.435506
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Serenity.mp3","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Serenity.xnb","SongProcessor","SongContent",4350118,126,1.01253
+"C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Tropical-Thunder.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Tropical-Thunder.xnb","SongProcessor","SongContent",35140862,134,1.106108
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Waves-Small.mp3","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Waves-Small.xnb","SongProcessor","SongContent",2228180,129,0.7117031
 "C:/Users/mikec/Desktop/YuushaMG/Content/Ambience/Wind-Moderate.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/Ambience/Wind-Moderate.xnb","SongProcessor","SongContent",5504860,131,0.3709331
 "C:/Users/mikec/Desktop/YuushaMG/Content/GUISounds/click_short.wav","C:/Users/mikec/Desktop/YuushaMG/Content/bin/Windows/Content/GUISounds/click_short.xnb","SoundEffectProcessor","SoundEffectContent",44492,44553,0.2058285

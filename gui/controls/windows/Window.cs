@@ -1039,7 +1039,7 @@ namespace Yuusha.gui
                             catch(ArgumentOutOfRangeException)
                             {
 #if DEBUG
-                                Utils.LogException(aoorE);
+                                //Utils.LogException(aoorE);
                                 Utils.Log("INDEX: k=" + k + " j=" + j);
 #endif
                                 continue;

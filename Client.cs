@@ -165,6 +165,7 @@ namespace Yuusha
             m_firstFullScreen = true;
             m_noDraw = false;
 
+            Window.AllowUserResizing = true;
             Window.ClientSizeChanged += Window_ClientSizeChanged;
         }
 
@@ -175,6 +176,16 @@ namespace Yuusha
 
         private void Window_ClientSizeChanged(object sender, EventArgs e)
         {
+            //m_prevClientBounds = new Rectangle(Window.Position.X, Window.Position.Y, PreferredWindowWidth, PreferredWindowHeight);
+            //m_preferredWindowHeight = Window.ClientBounds.Height;
+            //m_preferredWindowWidth = Window.ClientBounds.Width;
+            //m_height = Window.ClientBounds.Height;
+            //m_width = Window.ClientBounds.Width;
+            //m_graphics.PreferredBackBufferHeight = m_preferredWindowHeight;
+            //m_graphics.PreferredBackBufferWidth = m_preferredWindowWidth;
+            //m_graphics.ApplyChanges();
+
+            //OnClientResize();
             if (Window.ClientBounds.Height < PreferredWindowHeight || Window.ClientBounds.Width < PreferredWindowWidth)
                 m_hasFocus = false;
             else m_hasFocus = true;
@@ -288,9 +299,6 @@ namespace Yuusha
         protected override void Update(GameTime gameTime)
         {
             ClientGameTime = gameTime;
-
-            // update game time
-            //m_totalGameTime = gameTime.TotalGameTime;
 
             if ((m_preferredWindowWidth != m_graphics.PreferredBackBufferWidth ||
                 m_preferredWindowHeight != m_graphics.PreferredBackBufferHeight) && !m_graphics.IsFullScreen)

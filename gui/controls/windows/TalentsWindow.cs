@@ -201,15 +201,14 @@ namespace Yuusha.gui
                         {
                             if (m_activatedTalentsWindow.Controls.FindIndex(c => c.Text == t.Name) is int index && index > -1)
                             {
-                                if (DateTime.Now - t.LastUse < t.DownTime) // not available
+                                if (DateTime.UtcNow - t.LastUse < t.DownTime) // not available
                                 {
                                     m_activatedTalentsWindow.Controls[index].TintColor = Color.LightGray;
                                     if (m_activatedTalentsWindow.Controls.FindIndex(c => c.Name == m_activatedTalentsWindow.Controls[index].Name + "PercentageBar") is int pctIndex && pctIndex > -1)
                                     {
                                         if (m_activatedTalentsWindow.Controls[pctIndex] is PercentageBarLabel pctLabel)
                                         {
-                                            // After next server update change this to DateTime.UtcNow
-                                            TimeSpan timeRemaining = DateTime.Now - t.LastUse;
+                                            TimeSpan timeRemaining = DateTime.UtcNow - t.LastUse;
                                             pctLabel.Percentage = timeRemaining.TotalMilliseconds / t.DownTime.TotalMilliseconds * 100;
                                             pctLabel.IsVisible = true;
                                         }

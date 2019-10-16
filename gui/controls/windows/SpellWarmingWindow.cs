@@ -20,6 +20,7 @@ namespace Yuusha.gui
         private float m_rotationSpeed = .008f;
         private float m_rotationSpeedIncrement = .00008f;
         public static string SpellRotatingVisualKey = "SpellWarmingCircle";
+        private double m_subtractionRate = .05; // .05 magically worked for 3 second rounds... this could be calculated another way
 
         public Label SpellIconLabel
         { get; set; }
@@ -71,6 +72,52 @@ namespace Yuusha.gui
             w.PercentageBar = newRoundCountdownPercentageBarLabel;
 
             GuiManager.CurrentSheet.AddControl(newRoundCountdownPercentageBarLabel);
+            w.m_timeCreated = DateTime.Now;
+        }
+
+        public static void CreateCombatSkillRiskWindow()
+        {
+            if (GuiManager.CurrentSheet["CombatSkillRiskWindow"] is SpellWarmingWindow existingWindow)
+                existingWindow.OnClose();
+
+            int x = Client.Width - 200;
+            int y = 200;
+            int width = 200;
+            int height = 10;
+
+            if (GuiManager.GetControl("CritterListWindow") is Window critterListWindow)
+            {
+                width = critterListWindow.Width;
+                x = critterListWindow.Position.X;
+                y = critterListWindow.Position.Y - height;
+            }
+
+            SpellWarmingWindow w = new SpellWarmingWindow("CombatSkillRiskWindow", "", new Rectangle(x, y, width, height), true, true, false,
+                "lemon12", new VisualKey("WhiteSpace"), Color.DimGray, 0, false, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "Dragging")
+            {
+                m_fadeInSpeed = 100,
+                m_fadeOutSpeed = 50,
+                m_drawRotatingCircle = false,
+                m_subtractionRate = .08 // how fast skill risk appears to decay
+            };
+            GuiManager.CurrentSheet.AddControl(w);
+
+            PercentageBarLabel skillRiskPercentageBarLabel = new PercentageBarLabel("SkillRiskPercentageBarLabel", w.Name,
+                new Rectangle(0, 0, width, height), "", Color.White, true, false, w.Font, new VisualKey("WhiteSpace"), Color.PowderBlue,
+                40, 0, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "Combat Skill Risk", false)
+            {
+                Segmented = true,
+                Percentage = Character.CurrentCharacter.SkillRisk * 1000,
+                //Orientation = Enums.EAnchorType.Top
+            };
+
+            skillRiskPercentageBarLabel.MidLabel = new Label(skillRiskPercentageBarLabel.Name + "MidLabel", skillRiskPercentageBarLabel.Name,
+                new Rectangle(skillRiskPercentageBarLabel.Position.X, skillRiskPercentageBarLabel.Height, 0, height), "", Color.White,
+                true, false, skillRiskPercentageBarLabel.Font, new VisualKey("WhiteSpace"), Color.PowderBlue, 255, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new List<Enums.EAnchorType>(), "");
+            w.PercentageBar = skillRiskPercentageBarLabel;
+            w.SpellWarmed = true;
+
+            GuiManager.CurrentSheet.AddControl(skillRiskPercentageBarLabel);
             w.m_timeCreated = DateTime.Now;
         }
 
@@ -266,18 +313,30 @@ namespace Yuusha.gui
                 }
             }
 
+            if (Name == "CombatSkillRiskWindow")
+            {
+                ZDepth = 1;
+
+                if (GuiManager.GetControl("CritterListWindow") is Window critterListWindow)
+                {
+                    Width = critterListWindow.Width;
+                    Position = new Point(critterListWindow.Position.X, critterListWindow.Position.Y - (PercentageBar != null ? PercentageBar.Height : 5));
+                }
+            }
+
             if (Name.EndsWith("StatusWindow") || Name.Equals("SpellWarmingWindow"))
                 ZDepth = 1;
 
-            if (Character.CurrentCharacter != null && (int)Character.CurrentCharacter.Alignment <= 2)
-                m_circleRotation += m_rotationSpeed;
-            else m_circleRotation -= m_rotationSpeed;
-
-            m_rotationSpeed += m_rotationSpeedIncrement;
-
-            if(m_drawRotatingCircle)
+            if (m_drawRotatingCircle)
             {
-                if(m_scalingOut)
+                if (Character.CurrentCharacter != null && (int)Character.CurrentCharacter.Alignment <= 2)
+                    m_circleRotation += m_rotationSpeed;
+                else m_circleRotation -= m_rotationSpeed;
+
+                m_rotationSpeed += m_rotationSpeedIncrement;
+
+
+                if (m_scalingOut)
                 {
                     m_drawScale += m_scalingSpeed;
                     if (m_drawScale > 1f)
@@ -288,7 +347,7 @@ namespace Yuusha.gui
                     m_drawScale -= m_scalingSpeed;
                     if (m_drawScale < .05f)
                         m_scalingOut = true;
-                }                
+                }
             }
 
             if (SpellIconLabel != null)
@@ -333,7 +392,7 @@ namespace Yuusha.gui
             {
                 if (PercentageBar != null)
                 {
-                    PercentageBar.Percentage -= .05;
+                    PercentageBar.Percentage -= m_subtractionRate;
                     if (PercentageBar.Percentage <= 0)
                     {
                         PercentageBar.IsVisible = false;

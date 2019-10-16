@@ -885,7 +885,7 @@ namespace Yuusha.gui
             #endregion
 
             // Iterate through controls of this sheet. Currently only checks Windows that are visible and have a tab order.
-            foreach (Control c in Controls)
+            foreach (Control c in new List<Control>(Controls))
             {
                 if (c is Window && c.IsVisible && (c as Window).CurrentTabOrder > -1)
                 {

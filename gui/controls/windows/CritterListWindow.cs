@@ -5,10 +5,13 @@ namespace Yuusha.gui
 {
     public class CritterListWindow : Window
     {
+        
+
         public CritterListWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled, string font,
             VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
             List<Enums.EAnchorType> anchors, string cursorOverride) : base(name, owner, rectangle, visible, locked, disabled, font, visualKey, tintColor, visualAlpha, dropShadow, shadowDirection, shadowDistance, anchors, cursorOverride)
         {
+
         }
 
         public override void Update(GameTime gameTime)
