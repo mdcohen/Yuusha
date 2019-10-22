@@ -444,6 +444,7 @@
   <Visual ParentTexture="lok_people.png" Name="vrock" X="660" Y="1260" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="vrock_seer" X="720" Y="1260" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="vrock_anathema" X="780" Y="1260" Width="60" Height="60"></Visual>
+  <Visual ParentTexture="lok_people.png" Name="giant_female" X="840" Y="1260" Width="60" Height="60"></Visual>
   <!-- Added temporary ranger visuals -->
   <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_gray" X="900" Y="1140" Width="60" Height="60"></Visual>
   <Visual ParentTexture="lok_people.png" Name="male_ranger_pc_green" X="900" Y="1140" Width="60" Height="60"></Visual>

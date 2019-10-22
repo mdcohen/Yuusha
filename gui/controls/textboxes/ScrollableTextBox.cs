@@ -194,19 +194,36 @@ namespace Yuusha.gui
                         for (int a = m_formattedLines.Count - (ViewportLines) - m_scrollbar.ScrollValue, b = 1; b <= ViewportLines;
                             a++, b++)
                         {
-                            m_visibleLines.Add(m_formattedLines[a]);
-                            m_visibleTextTypes.Add(m_formattedTextTypes[a]);
-                            m_visibleTextColors.Add(m_formattedTextColors[a]);
+                            try
+                            {
+                                m_visibleLines.Add(m_formattedLines[a]);
+                                m_visibleTextTypes.Add(m_formattedTextTypes[a]);
+                                m_visibleTextColors.Add(m_formattedTextColors[a]);
+                            }
+                            catch { continue; }
                         }
                     }
                     else
                     {
+
                         for (int a = 0; a < m_formattedLines.Count; a++)
-                            m_visibleLines.Add(m_formattedLines[a]);
+                            try
+                            {
+                                m_visibleLines.Add(m_formattedLines[a]);
+                            }
+                            catch { continue; }
                         for (int a = 0; a < m_formattedTextTypes.Count; a++)
-                            m_visibleTextTypes.Add(m_formattedTextTypes[a]);
+                            try
+                            {
+                                m_visibleTextTypes.Add(m_formattedTextTypes[a]);
+                            }
+                            catch { continue; }
                         for (int a = 0; a < m_formattedTextColors.Count; a++)
-                            m_visibleTextColors.Add(m_formattedTextColors[a]);
+                            try
+                            {
+                                m_visibleTextColors.Add(m_formattedTextColors[a]);
+                            }
+                            catch { continue; }
                     }       
                 }
             }

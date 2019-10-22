@@ -95,15 +95,28 @@ namespace Yuusha.gui
         public void Update(GameTime gameTime, List<TextCue> cueList)
         {
             int loopCount = 0;
-            while (IsOverlapping() && loopCount < 50)
+            while (IsOverlapping() && loopCount < 10)
             {
-                if (X > Client.Width / 2)
-                    X -= BitmapFont.ActiveFonts[Font].MeasureString(Text);
-                else X += BitmapFont.ActiveFonts[Font].MeasureString(Text);
+                if (!OverlappingOppositeMovement.Contains(m_tag))
+                {
+                    if (X > Client.Width / 2)
+                        X -= BitmapFont.ActiveFonts[Font].MeasureString(Text) / 4;
+                    else X += BitmapFont.ActiveFonts[Font].MeasureString(Text) / 4;
 
-                if (Y > Client.Height / 2)
-                    Y -= BitmapFont.ActiveFonts[Font].LineHeight + 5;
-                else Y += BitmapFont.ActiveFonts[Font].LineHeight + 5;
+                    if (Y > Client.Height / 2)
+                        Y -= BitmapFont.ActiveFonts[Font].LineHeight + 2;
+                    else Y += BitmapFont.ActiveFonts[Font].LineHeight + 2;
+                }
+                else
+                {
+                    if (X > Client.Width / 2)
+                        X += BitmapFont.ActiveFonts[Font].MeasureString(Text) / 4;
+                    else X -= BitmapFont.ActiveFonts[Font].MeasureString(Text) / 4;
+
+                    if (Y > Client.Height / 2)
+                        Y += BitmapFont.ActiveFonts[Font].LineHeight + 2;
+                    else Y -= BitmapFont.ActiveFonts[Font].LineHeight + 2;
+                }
 
                 loopCount++;
             }
@@ -829,7 +842,12 @@ namespace Yuusha.gui
 
         private static List<TextCueTag> OverlappingIgnored = new List<TextCueTag>()
         {
-            TextCueTag.MouseCursor, TextCueTag.ZName, TextCueTag.Target, TextCueTag.PromptState, TextCueTag.MapName
+            TextCueTag.MouseCursor, TextCueTag.ZName, TextCueTag.Target, TextCueTag.PromptState, TextCueTag.MapName,// TextCueTag.SkillXPGain, TextCueTag.SkillXPLoss
+        };
+
+        private static List<TextCueTag> OverlappingOppositeMovement = new List<TextCueTag>()
+        {
+            TextCueTag.SkillXPGain, TextCueTag.SkillXPLoss,
         };
 
         private bool IsOverlapping()
