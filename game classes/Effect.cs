@@ -79,7 +79,7 @@ namespace Yuusha
             { "Obfuscation", "hotbuttonicon_358" },
             // P
             { "Peek", "hotbuttonicon_251" }, {"Poison", "hotbuttonicon_192" }, {"Poison Cloud", "hotbuttonicon_238" }, { "Power Word: Silence", "hotbuttonicon_490" },
-            { "Protection from Acid", "hotbuttonicon_201" }, { "Protection from Cold", "hotbuttonicon_309" }, { "Protection from Fire", "hotbuttonicon_119" },
+            { "Protection from Acid", "hotbuttonicon_224" }, { "Protection from Cold", "hotbuttonicon_309" }, { "Protection from Fire", "hotbuttonicon_119" },
             { "Protection from Fire and Ice", "hotbuttonicon_135" }, { "Protection from Hellspawn", "hotbuttonicon_93" }, { "Protection from Poison", "hotbuttonicon_199" }, { "Protection from Stun and Death", "hotbuttonicon_471" },
             { "Protection from Undead", "hotbuttonicon_492" },
             // Q NONE
@@ -90,7 +90,7 @@ namespace Yuusha
             { "Resist Lightning", "hotbuttonicon_417" }, { "Resist Zonk", "hotbuttonicon_321" },
             // S
             { "Sacred Ring", "hotbuttonicon_465" }, { "Savagery", "hotbuttonicon_28" },{ "Shelter", "hotbuttonicon_174" }, { "Shield", "hotbuttonicon_211" }, { "Speed", "hotbuttonicon_305" },
-            { "Summon Hellhound", "hotbuttonicon_16" }, { "Summon Humanoid", "hotbuttonicon_235" }, { "Summon Lamassu", "hotbuttonicon_407" }, { "Summon Lammasu", "hotbuttonicon_407" }, // 7/8/2019 misspelled in server logic
+            { "Summon Demon", "hotbuttonicon_32" }, { "Summon Hellhound", "hotbuttonicon_16" }, { "Summon Humanoid", "hotbuttonicon_235" }, { "Summon Lamassu", "hotbuttonicon_407" }, { "Summon Lammasu", "hotbuttonicon_407" }, // 7/8/2019 misspelled in server logic
             { "Summon Nature's Ally", "hotbuttonicon_176" }, { "Summon Phantasm", "hotbuttonicon_280" }, { "Stoneskin", "hotbuttonicon_227" },
             { "Strength", "hotbuttonicon_146" }, { "Stun", "hotbuttonicon_217" },
             { "Silence", "hotbuttonicon_490" }, // same as Power Word: Silence

@@ -121,7 +121,7 @@
   <Visual ParentTexture="yuusha_items.png" Name="largeyellowpearl" X="901" Y="1622" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="tinyquartzsword" X="1140" Y="1620" Width="60" Height="60"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="bloodredruby" X="826" Y="133" Width="46" Height="42"></Visual>
-  <Visual ParentTexture="yuusha_items.png" Name="polishedstarruby" X="792" Y="101" Width="46" Height="42"></Visual>
+  <Visual ParentTexture="yuusha_items.png" Name="polishedstarruby" X="793" Y="101" Width="45" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="fieryruby" X="862" Y="199" Width="45" Height="41"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="smallbluesapphire" X="790" Y="200" Width="51" Height="39"></Visual>
   <Visual ParentTexture="yuusha_items.png" Name="hugeflawlesssapphire" X="830" Y="100" Width="41" Height="39"></Visual>
