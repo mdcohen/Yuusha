@@ -67,7 +67,7 @@ namespace Yuusha
 
         public static string GetCharacterFogOfWarFileName(string name)
         {
-            name = GetCharacterFileName(name);
+            name = GetCharacterFileName(name);//.Replace(".xml", ".json");
             return "FoW-" + name;
         }
 

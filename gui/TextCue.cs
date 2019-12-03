@@ -30,6 +30,7 @@ namespace Yuusha.gui
         private bool m_fadeIn;
         private bool m_fadeOut;
         private TextCueTag m_tag;
+        //private GameTime m_timeCreated;
         #endregion
 
         #region Public Properties
@@ -65,6 +66,8 @@ namespace Yuusha.gui
         { get { return m_lifeStarted; } }
         public TimeSpan LifeStart
         { get { return m_lifeStart; } }
+        //public GameTime TimeCreated
+        //{ get { return m_timeCreated; } }
         #endregion
 
         public TextCue(string text, int x, int y, byte alpha, Color color, Color backgroundColor, byte backgroundAlpha, string font, double lifeCycle,
@@ -90,6 +93,7 @@ namespace Yuusha.gui
             m_fadeIn = fadeIn;
             m_fadeOut = fadeOut;
             m_tag = tag;
+            //m_timeCreated = Program.Client.ClientGameTime;
         }
 
         public void Update(GameTime gameTime, List<TextCue> cueList)
@@ -608,7 +612,7 @@ namespace Yuusha.gui
             //TextManager.GetAlignmentColor(Character.CurrentCharacter.Alignment)
             //Client.ClientSettings.DefaultHUDNumbersFont
 
-            TextCue tc = new TextCue(text, x, y, 255, Color.MediumSlateBlue, Color.Transparent, 0, "changaone16", 3500, false, 0, Map.Direction.None, false, false, true, TextCueTag.SkillXPGain);
+            TextCue tc = new TextCue(text, x, y, 255, Color.MediumSlateBlue, Color.Transparent, 0, "changaone16", 2500, false, 0, Map.Direction.None, false, false, true, TextCueTag.SkillXPGain);
 
             //if (!GuiManager.ContainsVitalsUpdateTextCue(tc))
                 GuiManager.TextCues.Add(tc);

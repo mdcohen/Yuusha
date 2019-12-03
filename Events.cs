@@ -286,7 +286,7 @@ namespace Yuusha
                     case EventName.Character_Map_Changed:
                         if(GameHUD.FadeToBlackTuple == null && (int)args[0] != (int)World.MapID.Eridu)
                         {
-                            GameHUD.GoBlack(1900, 3, true);
+                            GameHUD.GoBlack(1750, 3, true);
                         }
                         break;
                     case EventName.Character_Moved:

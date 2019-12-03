@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.IO;
 using FogOfWarDetail = Yuusha.gui.FogOfWarWindow.FogOfWarDetail;
+using Newtonsoft.Json;
 
 namespace Yuusha.Utility.Settings
 {
@@ -57,9 +58,14 @@ namespace Yuusha.Utility.Settings
 
                 Stream stream = File.Create(dirName + fileName);
 
+                //StreamWriter writer = new StreamWriter(stream);
+                //JsonSerializer s = new JsonSerializer();
+                //s.Serialize(writer, typeof(FogOfWarSettings));
+
                 XmlSerializer serializer = new XmlSerializer(typeof(FogOfWarSettings));
                 serializer.Serialize(stream, this);
                 stream.Close();
+                //writer.Close();
             }
             catch (Exception e)
             {
@@ -87,9 +93,15 @@ namespace Yuusha.Utility.Settings
                 }
 
                 Stream stream = File.OpenRead(dirName + fileName);
+
+                //StreamReader reader = File.OpenText(dirName + fileName);
+                //JsonSerializer s = new JsonSerializer();
+                //FogOfWarSettings settings = (FogOfWarSettings)s.Deserialize(reader, typeof(FogOfWarSettings));
+
                 XmlSerializer serializer = new XmlSerializer(typeof(FogOfWarSettings));
                 FogOfWarSettings settings = (FogOfWarSettings)serializer.Deserialize(stream);
                 stream.Close();
+                //reader.Close();
                 return settings;
             }
             catch (Exception e)
