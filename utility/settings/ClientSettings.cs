@@ -91,7 +91,11 @@ namespace Yuusha.Utility.Settings
         public int MapTileBorderSize = 1;
         public Color MapTileBorderColor = Color.Goldenrod;
         public int DefaultWindowTitleHeight = 21;
-        public string DefaultWindowTitleFont = "lemon12";
+
+        public Color MouseInteractionFontColor = Color.Yellow;
+        public Color MouseInteractionBackColor = Color.Black;
+        public byte MouseInteractionBackColorAlpha = 50;
+        public string MouseInteractionFont = "lemon14";
 
         public Color DefaultMouseCursorTextCueColor = Color.PapayaWhip;
 

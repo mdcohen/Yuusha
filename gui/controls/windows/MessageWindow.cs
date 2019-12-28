@@ -8,8 +8,14 @@ namespace Yuusha.gui
     /// </summary>
     public class MessageWindow : Window
     {
-        public ScrollableTextBox TipTextBox
+        public ScrollableTextBox MessageTextBox
         { get; private set; }
+
+        /// <summary>
+        /// Window has two buttons, one is affirmative, the other is close or negative.
+        /// </summary>
+        public bool IsOKCancelMessageWindow
+        { get; private set; } = false;
 
         public MessageWindow(string name, string owner, Rectangle rectangle, bool visible, bool locked, bool disabled, string font,
             VisualKey visualKey, Color tintColor, byte visualAlpha, bool dropShadow, Map.Direction shadowDirection, int shadowDistance,
@@ -38,7 +44,7 @@ namespace Yuusha.gui
             ScrollableTextBox s = new ScrollableTextBox(w.Name + "ScrollableTextBox", w.Name, new Rectangle(3, 20, 296, 228), "", Color.White, true,
                 false, w.Font, new VisualKey("WhiteSpace"), Color.Black, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>(), true);
 
-            w.TipTextBox = s;
+            w.MessageTextBox = s;
 
             GuiManager.GenericSheet.AddControl(w);
             GuiManager.GenericSheet.AddControl(wTitle);
@@ -74,7 +80,7 @@ namespace Yuusha.gui
             ScrollableTextBox s = new ScrollableTextBox(w.Name + "ScrollableTextBox", w.Name, new Rectangle(3, 20, 296, 228), "", Color.White, true,
                 false, w.Font, new VisualKey("WhiteSpace"), Color.Black, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Center, new List<Enums.EAnchorType>(), true);
 
-            w.TipTextBox = s;
+            w.MessageTextBox = s;
 
             GuiManager.GenericSheet.AddControl(w);
             GuiManager.GenericSheet.AddControl(wTitle);
@@ -111,7 +117,7 @@ namespace Yuusha.gui
             ScrollableTextBox s = new ScrollableTextBox(w.Name + "ScrollableTextBox", w.Name, new Rectangle(3, 22, w.Width - 3 - border.Width, 228), "", Color.White, true,
                 false, w.Font, new VisualKey("WhiteSpace"), Color.Black, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0, BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>(), true);
 
-            w.TipTextBox = s;
+            w.MessageTextBox = s;
 
             try
             {
@@ -152,11 +158,11 @@ namespace Yuusha.gui
 
         private void AdjustHeight()
         {
-            int height = BitmapFont.ActiveFonts[TipTextBox.Font].LineHeight * TipTextBox.FormattedLinesCount;
+            int height = BitmapFont.ActiveFonts[MessageTextBox.Font].LineHeight * MessageTextBox.FormattedLinesCount;
 
-            TipTextBox.Height = height;
+            MessageTextBox.Height = height;
 
-            Height = WindowTitle.Height + WindowBorder.Height + TipTextBox.Height + 4;
+            Height = WindowTitle.Height + WindowBorder.Height + MessageTextBox.Height + 4;
         }
     }
 }

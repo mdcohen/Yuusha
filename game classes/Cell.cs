@@ -525,6 +525,56 @@ namespace Yuusha
             return false;
         }
 
+        /// <summary>
+        /// Is some sort of doorway to interact with.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsDoorWay()
+        {
+            switch (DisplayGraphic)
+            {
+                case GRAPHIC_CLOSED_DOOR_HORIZONTAL:
+                case GRAPHIC_CLOSED_DOOR_VERTICAL:
+                case GRAPHIC_OPEN_DOOR_HORIZONTAL:
+                case GRAPHIC_OPEN_DOOR_VERTICAL:
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Is a closed door.
+        /// </summary>
+        /// <returns>True if a closed door, otherwise not a closed door.</returns>
+        public bool IsClosedDoor()
+        {
+            switch (DisplayGraphic)
+            {
+                case GRAPHIC_CLOSED_DOOR_HORIZONTAL:
+                case GRAPHIC_CLOSED_DOOR_VERTICAL:
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Is an open door.
+        /// </summary>
+        /// <returns>True if an open door, otherwise not an open door.</returns>
+        public bool IsOpenDoor()
+        {
+            switch (DisplayGraphic)
+            {
+                case GRAPHIC_OPEN_DOOR_HORIZONTAL:
+                case GRAPHIC_OPEN_DOOR_VERTICAL:
+                    return true;
+            }
+
+            return false;
+        }
+
         public static bool operator == (Cell c1, Cell c2)
         {
             try

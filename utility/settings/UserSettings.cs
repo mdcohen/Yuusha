@@ -25,6 +25,8 @@ namespace Yuusha.Utility.Settings
         public bool TextSoundCues = false; // play sounds when specific text is detected
         public bool DisplayDamageFog = true;
 
+        public bool AgreedEULA = false; // saved server side when someone agrees to EULA then logs in
+
         //public Dictionary<string, Color> DisplayTextColors = new Dictionary<string, Color>();
 
         /// <summary>

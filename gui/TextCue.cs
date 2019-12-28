@@ -9,7 +9,7 @@ namespace Yuusha.gui
     public class TextCue : GameComponent
     {
         public enum TextCueTag { None, PromptState, WarmedSpell, XPGain, XPLoss, HealthGain, HealthLoss, StaminaGain, StaminaLoss,
-            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS, SkillUp, Target, MouseCursor, SkillXPGain, SkillXPLoss }
+            ManaGain, ManaLoss, MapName, ZName, CharGen, FPS, SkillUp, Target, MouseCursor, MouseCursorInteraction, SkillXPGain, SkillXPLoss }
 
         #region Private Data
         private string m_text;
@@ -372,6 +372,39 @@ namespace Yuusha.gui
             }
         }
 
+        public static void AddMouseCursorInteractionTextCue(string text)
+        {
+            if (GuiManager.TextCues.Exists(c => c.Text == text))
+                return;
+
+            AddMouseCursorInteractionTextCue(text, Client.ClientSettings.MouseInteractionFontColor, Client.ClientSettings.MouseInteractionBackColor, Client.ClientSettings.MouseInteractionBackColorAlpha, Client.ClientSettings.MouseInteractionFont);
+        }
+
+        public static void AddMouseCursorInteractionTextCue(string text, Color foreColor, Color backColor, byte backColorAlpha, string font)
+        {
+            if (GuiManager.TextCues.Exists(c => c.Text == text && c.m_color == foreColor && c.Font == font))
+                return;
+
+            MouseState ms = GuiManager.MouseState;
+
+            // TODO: Add option here to display at MouseCursor or elsewhere on the display
+
+            MouseCursor cursor;
+
+            if (GuiManager.CurrentSheet.CursorOverride != "")
+                cursor = GuiManager.Cursors[GuiManager.CurrentSheet.CursorOverride];
+            else cursor = GuiManager.Cursors[GuiManager.CurrentSheet.Cursor];
+
+            if (cursor != null)
+            {
+                TextCue tc = new TextCue(text, ms.X, ms.Y - BitmapFont.ActiveFonts[font].LineHeight, 255, foreColor, backColor, backColorAlpha, font, 500, false, 2, Map.Direction.Southeast, false, false, false, TextCueTag.MouseCursorInteraction);
+
+                cursor.TextCues.Clear();
+
+                cursor.TextCues.Add(tc);
+            }
+        }
+
         public static void ClearMouseCursorTextCue()
         {
             MouseCursor cursor;
@@ -482,9 +515,10 @@ namespace Yuusha.gui
             //if (GuiManager.TextCues.Count >= 50)
             //    GuiManager.TextCues.RemoveAt(0);
 
-            // only one text cure allowed?? this should be changed
-            if (!centered)
-                GuiManager.TextCues.Clear();
+            // only one text cue allowed?? this should be changed
+            // REMEMBER THIS (type in REMEMBER THIS to find)
+            //if (!centered)
+            //    GuiManager.TextCues.Clear();
 
             if(!GuiManager.ContainsTextCue(tc))
                 GuiManager.TextCues.Add(tc);
@@ -846,7 +880,7 @@ namespace Yuusha.gui
 
         private static List<TextCueTag> OverlappingIgnored = new List<TextCueTag>()
         {
-            TextCueTag.MouseCursor, TextCueTag.ZName, TextCueTag.Target, TextCueTag.PromptState, TextCueTag.MapName,// TextCueTag.SkillXPGain, TextCueTag.SkillXPLoss
+            TextCueTag.MouseCursor, TextCueTag.MouseCursorInteraction, TextCueTag.ZName, TextCueTag.Target, TextCueTag.PromptState, TextCueTag.MapName,// TextCueTag.SkillXPGain, TextCueTag.SkillXPLoss
         };
 
         private static List<TextCueTag> OverlappingOppositeMovement = new List<TextCueTag>()

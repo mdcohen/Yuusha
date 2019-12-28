@@ -36,7 +36,11 @@ namespace Yuusha.gui
         public static void CreateNewRoundCountdownWindow()
         {
             if (GuiManager.CurrentSheet["NewRoundCountdownWindow"] is SpellWarmingWindow existingWindow)
-                existingWindow.OnClose();
+            {
+                existingWindow.ResetWindow();
+                return;
+                //existingWindow.OnClose();
+            }
 
             int x = Client.Width - 200;
             int y = 200;
@@ -78,7 +82,11 @@ namespace Yuusha.gui
         public static void CreateCombatSkillRiskWindow()
         {
             if (GuiManager.CurrentSheet["CombatSkillRiskWindow"] is SpellWarmingWindow existingWindow)
+            {
+                //existingWindow.ResetWindow();
+                //return;
                 existingWindow.OnClose();
+            }
 
             int x = Client.Width - 200;
             int y = 200;
@@ -124,7 +132,11 @@ namespace Yuusha.gui
         public static void CreateNegativeStatusWindow(string spellName)
         {
             if (GuiManager.CurrentSheet[spellName + "NegativeStatusWindow"] is SpellWarmingWindow existingWindow)
-                existingWindow.OnClose();
+            {
+                existingWindow.ResetWindow();
+                return;
+                //existingWindow.OnClose();
+            }
 
             int x = Client.Width - 200;
             int y = 200;
@@ -187,7 +199,11 @@ namespace Yuusha.gui
         public static void CreatePositiveStatusWindow(string spellName)
         {
             if (GuiManager.CurrentSheet[spellName + "PositiveStatusWindow"] is SpellWarmingWindow existingWindow)
-                existingWindow.OnClose();
+            {
+                existingWindow.ResetWindow();
+                return;
+                //existingWindow.OnClose();
+            }
 
             int x = Client.Width - 200;
             int y = 200;
@@ -248,7 +264,9 @@ namespace Yuusha.gui
         public static void CreateSpellWarmingWindow(string spellName)
         {
             if (GuiManager.SpellWarmingWindow is SpellWarmingWindow existingWindow)
+            {
                 existingWindow.OnClose();
+            }
 
             int x = Client.Width - 200;
             int y = 200;
@@ -381,9 +399,12 @@ namespace Yuusha.gui
                     if (PercentageBar.Percentage >= 100)
                     {
                         PercentageBar.IsVisible = false;
+
                         SpellWarmed = true;
+
                         if (SpellIconLabel != null)
                             SpellIconLabel.VisualAlpha = 255;
+
                         m_timeWarmed = DateTime.Now;
                     }
                 }
@@ -396,10 +417,6 @@ namespace Yuusha.gui
                     if (PercentageBar.Percentage <= 0)
                     {
                         PercentageBar.IsVisible = false;
-                        //SpellWarmed = true;
-                        //if (SpellIconLabel != null)
-                        //    SpellIconLabel.VisualAlpha = 255;
-                        //m_timeWarmed = DateTime.Now;
                     }
                 }
             }
@@ -436,6 +453,29 @@ namespace Yuusha.gui
                 GuiManager.SpellWarmingWindow = null;
 
             GuiManager.RemoveControl(this);
+        }
+
+        /// <summary>
+        /// Resets percentage to zero instead of creating a new Window.
+        /// </summary>
+        private void ResetWindow()
+        {
+            if (GuiManager.GetControl(Name) == null) return;
+
+            if (PercentageBar != null)
+            {
+                PercentageBar.Percentage = 0;
+                PercentageBar.IsVisible = true;
+
+                if (PercentageBar.MidLabel != null)
+                    PercentageBar.MidLabel.IsVisible = true;
+
+                if (PercentageBar.ForeLabel != null)
+                    PercentageBar.ForeLabel.IsVisible = true;
+            }
+
+            SpellWarmed = false;
+            m_timeCreated = DateTime.Now;
         }
     }
 }

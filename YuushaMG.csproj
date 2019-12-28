@@ -117,6 +117,7 @@
     <Compile Include="game classes\World.cs" />
     <Compile Include="gui\AnimatedVisual.cs" />
     <Compile Include="gui\AnimatedVisualInfo.cs" />
+    <Compile Include="gui\controls\labels\QuickBurstLabel.cs" />
     <Compile Include="gui\controls\specialized\Apeture.cs" />
     <Compile Include="gui\controls\specialized\Background.cs" />
     <Compile Include="gui\controls\borders\Border.cs" />
