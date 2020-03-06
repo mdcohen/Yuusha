@@ -148,12 +148,12 @@ namespace Yuusha.gui
             {
                 if (!Name.StartsWith("Tile") || GameHUD.Cells.Count < Convert.ToInt32(Name.Replace("Tile", "")) + 1)
                     return;
-                else if (Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_DOWNSTAIRS)
+                else if (Client.ClientSettings.DisplayMovementMouseInteraction && Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_DOWNSTAIRS)
                 {
                     TextCue.AddMouseCursorInteractionTextCue("Down");
                     return;
                 }
-                else if (Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_UPSTAIRS)
+                else if (Client.ClientSettings.DisplayMovementMouseInteraction && Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_UPSTAIRS)
                 {
                     TextCue.AddMouseCursorInteractionTextCue("Up");
                     return;
@@ -163,7 +163,7 @@ namespace Yuusha.gui
                     TextCue.AddMouseCursorInteractionTextCue(TextManager.PORTAL_CHANT);
                     return;
                 }
-                else if (Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_PIT)
+                else if (Client.ClientSettings.DisplayMovementMouseInteraction && Name.EndsWith("24") && Character.CurrentCharacter.Cell.DisplayGraphic == Cell.GRAPHIC_PIT)
                 {
                     TextCue.AddMouseCursorInteractionTextCue("Climb Down");
                     return;
@@ -180,18 +180,18 @@ namespace Yuusha.gui
                 //    IO.Send("climb up");
                 //    return;
                 //}
-                else if (CellsTouchingMe.Contains(Name.Replace("Tile", "")) && GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))] is Cell doorCell && doorCell.IsDoorWay())
+                else if (Client.ClientSettings.DisplayNonMovementMouseInteraction && CellsTouchingMe.Contains(Name.Replace("Tile", "")) && GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))] is Cell doorCell && doorCell.IsDoorWay())
                 {
                     string doorCommand = doorCell.IsOpenDoor() ? "Close" : "Open";
 
                     TextCue.AddMouseCursorInteractionTextCue(doorCommand + " Door " + TextManager.FirstCharToUpper(Map.GetDirection(GameHUD.Cells[24], GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))]).ToString()));
                 }
-                else if (CellsTouchingMe.Contains(Name.Replace("Tile", "")) && GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))].IsSearchable())
+                else if (Client.ClientSettings.DisplayNonMovementMouseInteraction && CellsTouchingMe.Contains(Name.Replace("Tile", "")) && GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))].IsSearchable())
                 {
                     TextCue.AddMouseCursorInteractionTextCue("Search " + TextManager.FirstCharToUpper(Map.GetDirection(GameHUD.Cells[24], GameHUD.Cells[int.Parse(Name.Replace("Tile", ""))]).ToString()));
                 }
                 // Work on searching for secret doors / rock passageways
-                else if (GetMovementDirections() is string directionsToSend && !string.IsNullOrEmpty(directionsToSend))
+                else if (Client.ClientSettings.DisplayMovementMouseInteraction && GetMovementDirections() is string directionsToSend && !string.IsNullOrEmpty(directionsToSend))
                 {
                     TextCue.AddMouseCursorInteractionTextCue("Move " + directionsToSend.ToUpper());
                 }

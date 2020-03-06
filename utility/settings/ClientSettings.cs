@@ -92,6 +92,9 @@ namespace Yuusha.Utility.Settings
         public Color MapTileBorderColor = Color.Goldenrod;
         public int DefaultWindowTitleHeight = 21;
 
+        // mouse interaction
+        public bool DisplayMovementMouseInteraction = false;
+        public bool DisplayNonMovementMouseInteraction = false;
         public Color MouseInteractionFontColor = Color.Yellow;
         public Color MouseInteractionBackColor = Color.Black;
         public byte MouseInteractionBackColorAlpha = 50;
