@@ -83,8 +83,6 @@ namespace Yuusha.Utility.Settings
         public Color Color_Gui_Loot_Fore = Color.Gold;
         #endregion
 
-        //public bool FogOfWar = true;
-
         public Color MovementFootstepsColor = Color.WhiteSmoke;
         public Color TargetBorderColor = Color.WhiteSmoke;
         public int TargetBorderSize = 1;
