@@ -17,9 +17,9 @@ namespace Yuusha.Utility.Settings
         public bool SoundEffects = true; // master setting for sound
         public bool BackgroundAmbience = true; // currently ambience and music since they are both controlled by MediaPlayer
         public bool FullScreen = false;
-        public string DefaultGameDisplayMode = "Yuusha";
+        public string DefaultGameDisplayMode = "Yuusha"; // default game display mode is "Normal" -- other display modes are "IOK" and "Spinel"
         public bool AutoDisplayNews = true;
-        public bool NewRoundNotification = true;
+        public bool NewRoundNotification = true; // 3/12/2020 not currently implemented
         public bool HideMouseCursor = true; // hide mouse cursor when not in use for x seconds
         public bool TextColorFiltering = true; // for scrollable text boxes, display specified colors when text matches filters
         public bool TextSoundCues = false; // play sounds when specific text is detected

@@ -326,7 +326,10 @@ namespace Yuusha.gui
                 ZDepth = 1;
                 if (GuiManager.GetControl("MapDisplayWindow") is Window mapWindow)
                 {
+                    //TextCue.AddClientInfoTextCue("Current Width: " + Width);
                     Width = mapWindow.Width;
+                    //TextCue.AddClientInfoTextCue("MapWindow Width: " + mapWindow.Width);
+                    //TextCue.AddClientInfoTextCue("New Width: " + Width);
                     Position = new Point(mapWindow.Position.X, mapWindow.Position.Y - (PercentageBar != null ? PercentageBar.Height : 5));
                 }
             }
@@ -418,6 +421,24 @@ namespace Yuusha.gui
                     {
                         PercentageBar.IsVisible = false;
                     }
+                }
+            }
+
+            // Adjust percent bar position and width.
+            if (PercentageBar != null)
+            {
+                PercentageBar.Width = Width;
+                PercentageBar.Position = new Point(Position.X, Position.Y - PercentageBar.Height);
+                if (PercentageBar.MidLabel != null)
+                {
+                    PercentageBar.MidLabel.Width = PercentageBar.Width;
+                    PercentageBar.MidLabel.Position = new Point(Position.X, Position.Y - PercentageBar.Height);
+                }
+
+                if (PercentageBar.ForeLabel != null)
+                {
+                    PercentageBar.ForeLabel.Width = PercentageBar.Width;
+                    PercentageBar.ForeLabel.Position = new Point(Position.X, Position.Y - PercentageBar.Height);
                 }
             }
 

@@ -60,9 +60,6 @@ namespace Yuusha.gui
                     Font, new VisualKey(""), Color.White, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>(), "");
             ForeLabel = new Label(Name + "ForeLabel", Name, new Rectangle(Position.X, Position.Y, Width, Height), "", Color.White, true, false,
                     Font, new VisualKey(""), Color.White, 0, 255, BitmapFont.TextAlignment.Center, 0, 0, "", "", new System.Collections.Generic.List<Enums.EAnchorType>(), "");
-
-            //m_originalHeight = Height;
-            //m_originalWidth = Width;
         }
 
         public override void Update(GameTime gameTime)
