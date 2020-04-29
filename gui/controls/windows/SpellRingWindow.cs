@@ -22,13 +22,13 @@ namespace Yuusha.gui
 
         public static void CreateSpellRingWindow()
         {
-            if (GuiManager.GenericSheet["SpellringWindow"] is SpellRingWindow w)
+            if (GuiManager.GenericSheet["SpellringWindow"] is SpellRingWindow)
             {
                 return;
             }
 
             SpellRingWindow spellring = new SpellRingWindow("SpellringWindow", "", new Rectangle(160, 200, 60, 60), false, false, false, GuiManager.GenericSheet.Font,
-                new VisualKey("knightsringtransparent"), Color.White, 255, false, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Center }, "Dragging")
+                new VisualKey("knightsringtransparent"), Color.White, 255, false, Map.Direction.Northwest, 5, new List<Enums.EAnchorType>() { Enums.EAnchorType.Left, Enums.EAnchorType.Top }, "Dragging")
             {
                 PopUpText = "" // "Symbol of the Order"
             };
@@ -96,8 +96,6 @@ namespace Yuusha.gui
             if (Character.CurrentCharacter == null || !Character.CurrentCharacter.knightRing && !Character.HasEffect("Knight Ring") && !Character.HasEffect("Sacred Ring"))
                 IsVisible = false;
 
-            base.Update(gameTime);
-
             ZDepth = 1;
 
             if (m_fillerLabelRotateClockwise)
@@ -126,6 +124,12 @@ namespace Yuusha.gui
             if (Contains(GuiManager.MouseState.Position))
                 HideIcons = false;
 
+            if (!GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt) && !GuiManager.KeyboardState.IsKeyDown(Keys.RightAlt))
+            {
+                if (GuiManager.DraggedControl == this)
+                    GuiManager.StopDragging();
+            }
+
             if (GuiManager.DraggedControl == this || (GuiManager.KeyboardState.IsKeyDown(Keys.LeftAlt) || GuiManager.KeyboardState.IsKeyDown(Keys.RightAlt)))
             {
                 HideIcons = true;
@@ -136,6 +140,8 @@ namespace Yuusha.gui
 
             if (HideIcons)
                 m_fillerLabelScale = .3f;
+
+            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -166,6 +172,19 @@ namespace Yuusha.gui
 
             if (GuiManager.DraggedControl == this)
                 GuiManager.StopDragging();
+        }
+
+        protected override void OnMouseDown(MouseState ms)
+        {
+            foreach (Control c in Controls)
+            {
+                if (c is HotButton hb && c.IsVisible && !c.IsDisabled && c.Contains(GuiManager.MouseState.Position))
+                {
+                    hb.ForceClick();
+                }
+            }
+
+            base.OnMouseDown(ms);
         }
 
         public void SetRingProfession(Character.ClassType profession)

@@ -1016,7 +1016,7 @@ namespace Yuusha
                             }
                             #endregion
                             #region CHARACTER_SKILLS_END
-                            else if (inData.IndexOf(Protocol.CHARACTER_SKILLS_END) != -1)
+                            else if (inData.IndexOf(Protocol.CHARACTER_SKILLS_END) != -1) // also includes Trades
                             {
                                 Character.GatherCharacterData(Protocol.GetProtoInfoFromString(inData, Protocol.CHARACTER_SKILLS, Protocol.CHARACTER_SKILLS_END), Enums.EPlayerUpdate.Skills);
                                 gui.GameHUD.UpdateSkillDetailsWindow();

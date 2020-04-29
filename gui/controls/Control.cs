@@ -987,5 +987,13 @@ namespace Yuusha.gui
 
             return false;
         }
+
+        /// <summary>
+        /// Perform OnMouseDown regardless of whether this Control IsVisible or IsDisabled.
+        /// </summary>
+        public virtual void ForceClick()
+        {
+            OnMouseDown(GuiManager.MouseState);
+        }
     }
 }

@@ -29,4 +29,15 @@ Don't forget to correctly label the Name of the texture and use the Name in the 
   <Texture Name="inventory_male.png" Path="textures\inventory_male.png"></Texture>
   <Texture Name="inventory_female.png" Path="textures\inventory_female.png"></Texture>
   <Texture Name="spellbook.png" Path="textures\spellbook.png"></Texture>
+  <Texture Name="explosion_animated.png" Path="textures\animated\explosion_animated.png"></Texture>
+  <Texture Name="fire_animated.png" Path="textures\animated\fire_animated.png"></Texture> 
+  <Texture Name="fire2_animated.png" Path="textures\animated\fire2_animated.png"></Texture>
+  <Texture Name="fireball_animated.png" Path="textures\animated\fireball_animated.png"></Texture>
+  <Texture Name="fireball2_animated.png" Path="textures\animated\fireball2_animated.png"></Texture>
+  <Texture Name="icestorm_animated.png" Path="textures\animated\icestorm_animated.png"></Texture>
+  <Texture Name="portal_animated.png" Path="textures\animated\portal_animated.png"></Texture>
+  <Texture Name="smoke_animated.png" Path="textures\animated\smoke_animated.png"></Texture>
+  <Texture Name="smoke2_animated.png" Path="textures\animated\smoke2_animated.png"></Texture>
+  <Texture Name="smoke3_animated.png" Path="textures\animated\smoke3_animated.png"></Texture>
+  <Texture Name="whirlwind_animated.png" Path="textures\animated\whirlwind_animated.png"></Texture>
 </TextureIndex>

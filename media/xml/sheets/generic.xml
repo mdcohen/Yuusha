@@ -152,90 +152,84 @@ available in any game state. -->
       Font="courier12"
       VisualKey="WhiteSpace"
       TintColor="DarkSlateGray"
+      DropShadow="false">
+    </Control>
+    
+    <Control
+      Type="Window"
+      Name="SecondTabOptionsWindow"
+      Owner="OptionsWindow"
+      X="2"
+      Y="50"
+      Width="498"
+      Height="548"
+      IsVisible="false"
+      IsLocked="true"
+      Font="courier12"
+      VisualKey="WhiteSpace"
+      TintColor="DarkSlateGray"
+      DropShadow="false">
+    </Control>
+
+    <Control
+      Type="Window"
+      Name="ThirdTabOptionsWindow"
+      Owner="OptionsWindow"
+      X="2"
+      Y="50"
+      Width="498"
+      Height="548"
+      IsVisible="false"
+      IsLocked="true"
+      Font="courier12"
+      VisualKey="WhiteSpace"
+      TintColor="DarkSlateGray"
+      DropShadow="false">
+    </Control>
+
+    <Control
+      Type="Window"
+      Name="FourthTabOptionsWindow"
+      Owner="OptionsWindow"
+      X="2"
+      Y="50"
+      Width="498"
+      Height="548"
+      IsVisible="false"
+      IsLocked="true"
+      Font="courier12"
+      VisualKey="WhiteSpace"
+      TintColor="DarkSlateGray"
       DropShadow="false"
       ShadowDistance="0"
       ShadowDirection="Northwest">
     </Control>
-    
-    <Control
-    Type="Window"
-    Name="SecondTabOptionsWindow"
-    Owner="OptionsWindow"
-    X="2"
-    Y="50"
-    Width="498"
-    Height="548"
-    IsVisible="false"
-    IsLocked="true"
-    Font="courier12"
-    VisualKey="WhiteSpace"
-    TintColor="DarkSlateGray"
-    DropShadow="false"
-    ShadowDistance="0"
-    ShadowDirection="Northwest">
-    </Control>
 
     <Control
-    Type="Window"
-    Name="ThirdTabOptionsWindow"
-    Owner="OptionsWindow"
-    X="2"
-    Y="50"
-    Width="498"
-    Height="548"
-    IsVisible="false"
-    IsLocked="true"
-    Font="courier12"
-    VisualKey="WhiteSpace"
-    TintColor="DarkSlateGray"
-    DropShadow="false"
-    ShadowDistance="0"
-    ShadowDirection="Northwest">
-    </Control>
-
-    <Control
-    Type="Window"
-    Name="FourthTabOptionsWindow"
-    Owner="OptionsWindow"
-    X="2"
-    Y="50"
-    Width="498"
-    Height="548"
-    IsVisible="false"
-    IsLocked="true"
-    Font="courier12"
-    VisualKey="WhiteSpace"
-    TintColor="DarkSlateGray"
-    DropShadow="false"
-    ShadowDistance="0"
-    ShadowDirection="Northwest">
-    </Control>
-
-    <Control
-        Type="Button"
-        Text="Save"
-        Name="OptionsSaveButton"
-        Owner="OptionsWindow"
-        X="416"
-        Y="27"
-        Width="77"
-        Height="22"
-        XTextOffset="0"
-        YTextOffset="0"
-        TextColor="White"
-        IsVisible="true"
-        IsDisabled="false"
-        Font="lemon12"
-        VisualKey="RoundedButton"
-        VisualKeyDown=""
-        VisualKeyOver=""
-        VisualKeyDisabled=""
-        TintColor="DarkMagenta"
-        TintOverColor="MediumOrchid"
-        VisualAlpha="255"
-        OnMouseDown="Save_Character_Settings"
-        TextAlignment="Center"
-        TextOverColor="Chartreuse">
+      Type="Button"
+      Text="Save"
+      Name="OptionsSaveButton"
+      Owner="OptionsWindow"
+      X="416"
+      Y="27"
+      Width="77"
+      Height="22"
+      XTextOffset="0"
+      YTextOffset="0"
+      TextColor="White"
+      IsVisible="true"
+      IsDisabled="false"
+      Font="lemon12"
+      VisualKey="RoundedButton"
+      VisualKeyDown=""
+      VisualKeyOver=""
+      VisualKeyDisabled=""
+      TintColor="DarkMagenta"
+      TintOverColor="MediumOrchid"
+      VisualAlpha="255"
+      OnMouseDown="Save_Character_Settings"
+      TextAlignment="Center"
+      TextOverColor="Chartreuse">
     </Control>
     
     <FirstTabOptionsWindow>
@@ -3572,6 +3566,27 @@ available in any game state. -->
   </Control>
 
   <Control
+    Type="TabControlButton"
+    Text="Trades"
+    Name="TradesDetailsWindowTabControlButton"
+    Owner="CharacterStatsWindow"
+    X="684"
+    Y="25"
+    YTextOffset="0"
+    Width="80"
+    Height="21"
+    VisualKey="WhiteSpace"
+    VisualAlpha="150"
+    TintColor="Gray"
+    TextColor="White"
+    IsVisible="true"
+    Font="lemon10"
+    TextAlignment="Center"
+    TextOverColor="PaleGreen"
+    TabControlledWindow="TradesDetailsWindow">
+  </Control>
+
+  <Control
       Type="Window"
       Owner="CharacterStatsWindow"
       Name="StatDetailsWindow"
@@ -3587,8 +3602,7 @@ available in any game state. -->
       TintColor="DarkMagenta"
       DropShadow="false"
       ShadowDistance="5"
-      ShadowDirection="Northwest"
-      CursorOnDrag="Dragging">
+      ShadowDirection="Northwest">
   </Control>
 
   <Control
@@ -3607,8 +3621,7 @@ available in any game state. -->
       TintColor="DarkMagenta"
       DropShadow="false"
       ShadowDistance="5"
-      ShadowDirection="Northwest"
-      CursorOnDrag="Dragging">
+      ShadowDirection="Northwest">
   </Control>
 
   <Control
@@ -3627,8 +3640,26 @@ available in any game state. -->
       TintColor="DarkMagenta"
       DropShadow="false"
       ShadowDistance="5"
-      ShadowDirection="Northwest"
-      CursorOnDrag="Dragging">
+      ShadowDirection="Northwest">
+  </Control>
+
+  <Control
+      Type="Window"
+      Owner="CharacterStatsWindow"
+      Name="TradesDetailsWindow"
+      X="358"
+      Y="47"
+      Width="409"
+      Height="382"
+      IsVisible="false"
+      IsLocked="true"
+      Font="courier12"
+      VisualKey="WhiteSpace"
+      VisualAlpha="45"
+      TintColor="DarkMagenta"
+      DropShadow="false"
+      ShadowDistance="5"
+      ShadowDirection="Northwest">
   </Control>
   
   <InventoryWindow>
@@ -3646,10 +3677,7 @@ available in any game state. -->
       VisualKey="Inventory_Male"
       VisualAlpha="255"
       TintColor="GhostWhite"
-      DropShadow="false"
-      ShadowDistance="5"
-      ShadowDirection="Northwest"
-      CursorOnDrag="Dragging">
+      DropShadow="false">
     </Control>
     <!-- InventoryWindowTitle
     <Control

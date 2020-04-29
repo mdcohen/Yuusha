@@ -1615,13 +1615,13 @@
       Height="40"
       VisualKey="SackIcon"
       TintColor="MediumOrchid"
-      TextColor="Black"
+      TextColor="Crimson"
       TintOverColor="PaleGreen"
       TextVisible="false"
       IsVisible="true"
       Font="courier12"
       TextAlignment="Left"
-      TextOverColor="SlateGray"
+      TextOverColor="Crimson"
       OnMouseDown="request_sack"
       PopUpText="Sack">
     </Control>
@@ -1636,20 +1636,20 @@
       Height="40"
       VisualKey="PouchIcon"
       TintColor="MediumOrchid"
-      TextColor="Black"
+      TextColor="Crimson"
       TintOverColor="PaleGreen"
       TextVisible="false"
       IsVisible="true"
       Font="courier12"
       TextAlignment="Left"
-      TextOverColor="SlateGray"
+      TextOverColor="Crimson"
       OnMouseDown="request_pouch"
       PopUpText="Pouch">
     </Control>
     <Control
       Type="Button"
       Text=""
-      Name="HorizontalAutoHidingBeltButton"
+      Name="BeltHorizontalAutoHidingButton"
       Owner="HorizontalGameAutoHidingWindow"
       X="82"
       Y="0"
@@ -1657,20 +1657,20 @@
       Height="40"
       VisualKey="BeltIcon"
       TintColor="MediumOrchid"
-      TextColor="Black"
+      TextColor="Crimson"
       TintOverColor="PaleGreen"
       TextVisible="false"
       IsVisible="true"
       Font="courier12"
       TextAlignment="Left"
-      TextOverColor="SlateGray"
+      TextOverColor="Crimson"
       OnMouseDown="request_belt"
       PopUpText="Belt">
     </Control>
     <Control
       Type="Button"
       Text=""
-      Name="HorizontalAutoHidingRingsButton"
+      Name="RingsHorizontalAutoHidingButton"
       Owner="HorizontalGameAutoHidingWindow"
       X="123"
       Y="0"
@@ -1678,20 +1678,20 @@
       Height="40"
       VisualKey="RingsIcon"
       TintColor="MediumOrchid"
-      TextColor="Black"
+      TextColor="Crimson"
       TintOverColor="PaleGreen"
       TextVisible="false"
       IsVisible="true"
       Font="courier12"
       TextAlignment="Left"
-      TextOverColor="SlateGray"
+      TextOverColor="Crimson"
       OnMouseDown="request_rings"
       PopUpText="Rings">
     </Control>
     <Control
       Type="Button"
       Text=""
-      Name="HorizontalAutoHidingInventoryButton"
+      Name="InventoryHorizontalAutoHidingButton"
       Owner="HorizontalGameAutoHidingWindow"
       X="164"
       Y="0"
@@ -1699,20 +1699,20 @@
       Height="40"
       VisualKey="InventoryIcon"
       TintColor="MediumOrchid"
-      TextColor="Black"
+      TextColor="Crimson"
       TintOverColor="PaleGreen"
       TextVisible="false"
       IsVisible="true"
       Font="courier12"
       TextAlignment="Left"
-      TextOverColor="SlateGray"
+      TextOverColor="Crimson"
       OnMouseDown="request_inventory"
       PopUpText="Inventory">
     </Control>
     <Control
       Type="Button"
       Text=""
-      Name="HorizontalAutoHidingLockerButton"
+      Name="LockerHorizontalAutoHidingButton"
       Owner="HorizontalGameAutoHidingWindow"
       X="205"
       Y="0"
@@ -1720,17 +1720,16 @@
       Height="40"
       VisualKey="LockerIcon"
       TintColor="MediumOrchid"
-      TextColor="Black"
+      TextColor="Crimson"
       TintOverColor="PaleGreen"
       TextVisible="false"
       IsVisible="true"
       Font="courier12"
       TextAlignment="Left"
-      TextOverColor="SlateGray"
+      TextOverColor="Crimson"
       OnMouseDown="request_locker"
       PopUpText="Locker">
     </Control>
-
   </HorizontalGameAutoHidingWindow>
 
   <VerticalGameAutoHidingWindow>
@@ -1804,13 +1803,13 @@
     <Control
       Type="Button"
       Text=""
-      Name="VerticalAutoHidingMapButton"
+      Name="VerticalAutoHidingTalentsButton"
       Owner="VerticalGameAutoHidingWindow"
       X="0"
       Y="22"
       Width="20"
       Height="20"
-      VisualKey="MapIcon"
+      VisualKey="TalentsIcon"
       TintColor="MediumOrchid"
       TextColor="Black"
       TintOverColor="PaleGreen"
@@ -1819,8 +1818,8 @@
       Font="courier12"
       TextAlignment="Left"
       TextOverColor="SlateGray"
-      OnMouseDown="toggle_map"
-      PopUpText="Map">
+      OnMouseDown="toggle_talents"
+      PopUpText="Talents">
     </Control>
     <Control
       Type="Button"

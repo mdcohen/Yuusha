@@ -17,14 +17,26 @@
   <!-- IOK Mode Map Text -->
 	<Font Path="media\fonts\monospace\courier\courier28.xml"></Font>
   <!-- Introduction to new Z Plane -->
-  <Font Path="media\fonts\dancingscript22.xml"></Font>  
+  <Font Path="media\fonts\astlochbold36.xml"></Font>
+  <Font Path="media\fonts\butcherman32.xml"></Font>
+  <Font Path="media\fonts\cevicheone32.xml"></Font>
+  <Font Path="media\fonts\cinzeldecorative22.xml"></Font>
+  <Font Path="media\fonts\cinzeldecorative32.xml"></Font>
+  <Font Path="media\fonts\dancingscript22.xml"></Font>
+  <Font Path="media\fonts\frederickathegreat32.xml"></Font>
+  <Font Path="media\fonts\griffy32.xml"></Font>
   <Font Path="media\fonts\lobster22.xml"></Font>
   <Font Path="media\fonts\lobster156.xml"></Font>
+  <Font Path="media\fonts\medievalsharp32.xml"></Font>
+  <Font Path="media\fonts\merienda32.xml"></Font>
   <Font Path="media\fonts\mogra22.xml"></Font>
-  <Font Path="media\fonts\shojumaru22.xml"></Font>
-  <Font Path="media\fonts\simonetta22.xml"></Font>
+  <Font Path="media\fonts\nosifer32.xml"></Font>
+  <Font Path="media\fonts\raviprakash32.xml"></Font>
+  <Font Path="media\fonts\rocksalt32.xml"></Font>
+  <Font Path="media\fonts\shojumaru32.xml"></Font>
+  <Font Path="media\fonts\tradewinds32.xml"></Font>
   <Font Path="media\fonts\uncialantiqua22.xml"></Font>
-  <Font Path="media\fonts\rocksalt22.xml"></Font>
+  <Font Path="media\fonts\uncialantiqua32.xml"></Font>
   <!-- Lemon -->
   <Font Path="media\fonts\lemon\lemon8.xml"></Font>
   <Font Path="media\fonts\lemon\lemon9.xml"></Font>

@@ -90,7 +90,7 @@ namespace Yuusha.gui
 
         protected override void OnMouseDown(MouseState ms)
         {
-            if (IsDisabled) return;
+            if (IsDisabled || !IsVisible) return;
 
             if (GuiManager.DraggedControl != null && GuiManager.DraggedControl.Name == Owner)
                 return;

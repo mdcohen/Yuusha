@@ -18,7 +18,9 @@
   <File Name="xml\visuals\yuusha_items.xml"></File>
   <!-- Yuusha Game Icons -->
   <File Name="xml\visuals\yuusha_icons.xml"></File>
-  <!-- Spell Icons -->
+  <!-- Sprites Animation -->
+  <File Name="xml\visuals\sprites_animation.xml"></File>
+  <!-- Hotbutton Icons -->
   <File Name="xml\visuals\hotbutton_icons.xml"></File>-->
   <!-- IOK Tile Definitions -->
 	<File Name="xml\definitions\ioktiledefs.xml"></File>
@@ -38,16 +40,12 @@
 	<File Name="xml\sheets\conference.xml"></File>
 	<!-- Game GUI (Yuusha) -->
 	<File Name="xml\sheets\yuushagame.xml"></File>
-	<!-- Game GUI (Legends of Kesmai Mode) -->
-	<File Name="xml\sheets\lokgame.xml"></File>
 	<!-- Game GUI (Island of Kesmai Mode) -->
 	<File Name="xml\sheets\iokgame.xml"></File>
 	<!-- Game GUI (Spinel Mode) -->
 	<File Name="xml\sheets\spinelgame.xml"></File>
 	<!-- Generic GUI (GUI pieces for all client modes)-->
 	<File Name="xml\sheets\generic.xml"></File>
-	<!-- LOK Map Editor GUI (NOT CURRENTLY USED 2/11/2017 MC)-->
-	<File Name="xml\sheets\lokmapeditor.xml"></File>
   <!-- Hotbutton Mode GUI -->
   <File Name="xml\sheets\hotbuttoneditmode.xml"></File>
   <!-- Lore -->

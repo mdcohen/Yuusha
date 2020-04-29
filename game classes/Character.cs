@@ -656,7 +656,7 @@ namespace Yuusha
                             }
                             else if(skillXPChange < 0)
                             {
-                                TextCue.AddSkillXPLossTextCue(TextManager.FormatEnumString(expInfo[0]) + string.Format(" -{0:n0}", skillXPChange));
+                                TextCue.AddSkillXPLossTextCue(TextManager.FormatEnumString(expInfo[0]) + string.Format(" {0:n0}", skillXPChange));
                             }
                             // experience change is expInfo[0]
                             //m_currentCharacter.Experience = Convert.ToInt64(expInfo[1]);

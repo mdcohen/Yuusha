@@ -1350,15 +1350,77 @@ namespace Yuusha.gui
 
                         Colorize = false,
                     };
+
                     skillsSTB.AddLine("Skills", Enums.ETextType.Default);
                     skillsSTB.AddLine("", Enums.ETextType.Default);
+
                     foreach (string line in skills)
                     {
+                        if(line.StartsWith("Alchemy"))
+                        {
+                            UpdateTradesDetailsWindow();
+                            break;
+                        }
+
                         string[] skillInfo = line.Split(Protocol.ISPLIT.ToCharArray());
                         string withColon = TextManager.FormatEnumString(skillInfo[0]) + ":";
                         skillsSTB.AddLine(withColon.PadRight(20) + skillInfo[2] + " (" + skillInfo[1] + ")", Enums.ETextType.Default);
                     }
+
                     GuiManager.GenericSheet.AddControl(skillsSTB);
+                }
+
+                w.IsVisible = wasVisible;
+            }
+        }
+
+        public static void UpdateTradesDetailsWindow()
+        {
+            if (GuiManager.GetControl("TradesDetailsWindow") is Window w)
+            {
+                bool wasVisible = w.IsVisible;
+                w.IsVisible = false;
+                bool beginTrades = false;
+
+                foreach (Control c in new List<Control>(w.Controls))
+                {
+                    GuiManager.RemoveControl(c);
+                }
+
+                w.Controls.Clear(); // just in case
+
+                if (!string.IsNullOrEmpty(Character.CurrentCharacter.SkillsData))
+                {
+                    string[] skills = Character.CurrentCharacter.SkillsData.Split(Protocol.VSPLIT.ToCharArray());
+
+                    ScrollableTextBox tradesSTB = new ScrollableTextBox("TradesScrollableTextBox", w.Name,
+                                                   new Rectangle(2, 2, 405, (skills.Length + 2) * BitmapFont.ActiveFonts[w.Font].LineHeight), "", Color.White, true, false, w.Font,
+                                                   new VisualKey("WhiteSpace"), Color.DarkMagenta, 0, 255, new VisualKey(""), new VisualKey(""), new VisualKey(""), 0, 0,
+                                                   BitmapFont.TextAlignment.Left, new List<Enums.EAnchorType>() { }, true)
+                    {
+
+                        Colorize = false,
+                    };
+
+                    tradesSTB.AddLine("Trades", Enums.ETextType.Default);
+                    tradesSTB.AddLine("", Enums.ETextType.Default);
+
+                    foreach (string line in skills)
+                    {
+                        if (line.StartsWith("Alchemy"))
+                        {
+                            beginTrades = true;
+                        }
+
+                        if (!beginTrades)
+                            continue;
+
+                        string[] tradeInfo = line.Split(Protocol.ISPLIT.ToCharArray());
+                        string withColon = TextManager.FormatEnumString(tradeInfo[0]) + ":";
+                        tradesSTB.AddLine(withColon.PadRight(20) + tradeInfo[2] + " (" + tradeInfo[1] + ")", Enums.ETextType.Default);
+                    }
+
+                    GuiManager.GenericSheet.AddControl(tradesSTB);
                 }
 
                 w.IsVisible = wasVisible;
